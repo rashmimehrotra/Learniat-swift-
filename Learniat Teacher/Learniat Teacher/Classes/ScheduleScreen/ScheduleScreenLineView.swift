@@ -13,7 +13,7 @@ class ScheduleScreenLineView: UIView
         
         super.init(frame:frame)
         
-        self.backgroundColor = UIColor(red: 153/255.0, green: 153/255.0, blue: 153/255.0, alpha: 1)
+        self.backgroundColor = UIColor(red: 153/255.0, green: 153/255.0, blue: 153/255.0, alpha: 0.6)
     }
     
 //    required init?(coder aDecoder: NSCoder) {

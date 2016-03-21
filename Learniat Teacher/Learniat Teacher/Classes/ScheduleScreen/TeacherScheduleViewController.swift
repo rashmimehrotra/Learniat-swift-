@@ -9,9 +9,12 @@
 import Foundation
 import UIKit
 
-let oneHourDiff :CGFloat = 120.0
+let oneHourDiff :CGFloat = 90.0
 
-class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegate
+let halfHourMultipleRatio : CGFloat = (oneHourDiff / 2)/(30)
+
+
+class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegate,ScheduleScreenTileDelegate
 {
     var mTeacherImageView: UIImageView!
    
@@ -32,6 +35,17 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     
     var positionsArray:Dictionary<String,CGFloat> = Dictionary()
     
+    var mCurrentTimeLine :CurrentTimeLineView!
+    
+    var timer = NSTimer()
+    
+    var sessionIdDictonary:Dictionary<String,AnyObject> = Dictionary()
+    
+    let dateFormatter = NSDateFormatter()
+    
+    
+    var sessionAlertView    :UIAlertController!
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -44,11 +58,12 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         self.view.layoutIfNeeded()
 
         
-        
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
         mTopbarImageView = UIImageView(frame: CGRectMake(0, 0, self.view.frame.size.width, (self.view.frame.size.height)/12))
         mTopbarImageView.backgroundColor = topbarColor
         self.view.addSubview(mTopbarImageView)
+        mTopbarImageView.userInteractionEnabled = true
         
         mTeacherImageView = UIImageView(frame: CGRectMake(10, 15, mTopbarImageView.frame.size.height - 20 ,mTopbarImageView.frame.size.height - 20))
         mTeacherImageView.backgroundColor = lightGrayColor
@@ -134,6 +149,17 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
         
         addNumberOfLinesToScrollView()
+        
+        
+        let currentDate = NSDate()
+        mCurrentTimeLine = CurrentTimeLineView(frame: CGRectMake(30, 0 , self.view.frame.size.width-30, 10))
+        mScrollView.addSubview(mCurrentTimeLine)
+        mCurrentTimeLine.addToCurrentTimewithHours(getPositionWithHour(currentDate.hour(), withMinute: currentDate.minute()))
+        mScrollView.contentOffset = CGPointMake(0,mCurrentTimeLine.frame.origin.y-self.view.frame.size.height/3);
+        
+        
+        
+         timer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: "timerAction", userInfo: nil, repeats: true)
     }
     
     
@@ -145,19 +171,12 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         var hourValue = 1
         for index = 0; index <= 24; ++index
         {
-            let hourLineView = ScheduleScreenLineView()
-            hourLineView.frame = CGRectMake(40, positionY, self.view.frame.size.width-40, 1)
-            positionsArray[String("\(index)")] = positionY
-            mScrollView.addSubview(hourLineView)
-            
-            let hourlabel = UILabel(frame: CGRectMake(5, positionY-10,30,20))
-            
+            let hourlabel = UILabel(frame: CGRectMake(10, positionY-15,50,30))
             mScrollView.addSubview(hourlabel)
             hourlabel.textColor = standard_TextGrey
-            
             if index == 0
             {
-                hourlabel.text = "\(12) AM"
+                hourlabel.text = "\(12) am"
             }
             else if index == 12
             {
@@ -165,29 +184,37 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             }
             else if index < 12
             {
-                hourlabel.text = "\(index) AM"
+                hourlabel.text = "\(index) am"
             }
             else if index > 12
             {
-                hourlabel.text = "\(hourValue) PM"
+                hourlabel.text = "\(hourValue) pm"
                 hourValue = hourValue+1
             }
-            
-            
-            hourlabel.font = UIFont (name: "Roboto-Regular", size: 9)
+            hourlabel.font = UIFont (name: "Helvetica", size: 16)
             hourlabel.textAlignment = NSTextAlignment.Right
+            
+            
+            
+            let hourLineView = ScheduleScreenLineView()
+            hourLineView.frame = CGRectMake(70, positionY, self.view.frame.size.width-70, 1)
+            positionsArray[String("\(index)")] = positionY
+            mScrollView.addSubview(hourLineView)
+            
+            
             
             
             if index != 24
             {
                 let halfHourLineView =  DottedLine()
-                halfHourLineView.frame = CGRectMake(45, positionY + (oneHourDiff/2), self.view.frame.size.width-50, 2)
+                halfHourLineView.frame = CGRectMake(75, positionY + (oneHourDiff/2), self.view.frame.size.width-80, 2)
                 
                 mScrollView.addSubview(halfHourLineView)
                 halfHourLineView.drawDashedBorderAroundViewWithColor(UIColor(red: 153/255.0, green: 153/255.0, blue: 153/255.0, alpha: 1))
+                 positionY = positionY + oneHourDiff
             }
             
-            positionY = positionY + oneHourDiff
+           
         }
         
         mScrollView.contentSize = CGSizeMake(0, positionY + oneHourDiff / 2 )
@@ -199,8 +226,59 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         // Dispose of any resources that can be recreated.
     }
     
-    func onRefreshButton(sender: AnyObject) {
+    func onRefreshButton(sender: AnyObject)
+    {
+        SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
     }
+    
+    func timerAction()
+    {
+        let currentDate = NSDate()
+        
+        let currentHour = (currentDate.hour())
+        
+        
+        
+        
+        mCurrentTimeLine.addToCurrentTimewithHours(getPositionWithHour(currentHour, withMinute: currentDate.minute()))
+    }
+    
+    
+    
+    // MARK: - Returning Functions
+    
+    func getPositionWithHour(var hour : Int, withMinute minute:Int) -> CGFloat
+    {
+        //        hour = hour
+        var returningValue = CGFloat()
+        
+        if hour < 0
+        {
+            hour = 0
+        }
+        
+        
+        returningValue = positionsArray[(String("\(hour)"))]! + CGFloat(minute) * halfHourMultipleRatio
+        
+        return returningValue
+    }
+    
+    
+    
+    func getSizeOfCalendarEvernWithStarthour(startHour: Int, withstartMinute startMinute:Int, withEndHour endHour:Int, withEndMinute endMinute:Int) -> CGFloat
+    {
+        
+        let startPosition = getPositionWithHour(startHour, withMinute: startMinute)
+        
+        let endposition = getPositionWithHour(endHour, withMinute: endMinute)
+        
+        
+        let sizeOfEvent = endposition - startPosition
+        
+        
+        return sizeOfEvent
+    }
+
     
     
     // MARK: - Teacher datasource Error
@@ -215,10 +293,21 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     func didGetSchedulesWithDetials(details: AnyObject)
     {
 
+        
+        for var index = 0; index < sessionDetailsArray.count; index++
+        {
+            let dict = sessionDetailsArray.objectAtIndex(index)
+             let sessionid = dict.objectForKey(kSessionId) as! String
+            
+             if let scheduleTileView  = mScrollView.viewWithTag(Int(sessionid)!) as? ScheduleScreenTile
+             {
+                scheduleTileView.stopAllTimmers()
+                scheduleTileView.removeFromSuperview()
+            }
+        }
+        
+        
         sessionDetailsArray.removeAllObjects()
-        
-        
-        
         if let statusString = details.objectForKey("Status") as? String
         {
             if statusString == kSuccessString
@@ -246,8 +335,364 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
                 mScrollView.hidden = true
             }
         }
+        
+        
+       
+        
+        
+        
+        for var index = 0; index < sessionDetailsArray.count; index++
+        {
+            let dict = sessionDetailsArray.objectAtIndex(index)
+            
+            let startDate :String = (dict.objectForKey(kStartTime) as! String)
+            let endDate = (dict.objectForKey(kEndTime) as! String!)
+            let totalSize = getSizeOfCalendarEvernWithStarthour(startDate.hourValue(), withstartMinute: startDate.minuteValue(), withEndHour: endDate.hourValue(), withEndMinute: endDate.minuteValue())
+            let StartPositionOfTile = getPositionWithHour(startDate.hourValue(), withMinute: startDate.minuteValue())
+            
+            
+            let scheduleTileView = ScheduleScreenTile(frame: CGRectMake(75, StartPositionOfTile, self.view.frame.size.width-85, totalSize))
+            mScrollView.addSubview(scheduleTileView)
+            scheduleTileView.setdelegate(self)
+            
+            
+            let sessionid = dict.objectForKey(kSessionId) as! String
+           
+            sessionIdDictonary[sessionid] = dict
+            scheduleTileView.tag = Int(sessionid)!
+            scheduleTileView.setCurrentSessionDetails(dict)
+        }
+        
+        
+        
+        let currentDate = NSDate()
+        let currentHour = (currentDate.hour())
+        mCurrentTimeLine.addToCurrentTimewithHours(getPositionWithHour(currentHour, withMinute: currentDate.minute()))
+        UIView.animateWithDuration(0.5, animations: {
+            self.mScrollView.contentOffset = CGPointMake(0,self.mCurrentTimeLine.frame.origin.y - self.view.frame.size.height/3);
+        })
+       
+        
+        if sessionDetailsArray.count > 0
+        {
+            SSTeacherDataSource.sharedDataSource.getMyCurrentSessionOfTeacher(self)
+        }
+        
+        
     }
     
+    
+    func didGetMycurrentSessionWithDetials(details: AnyObject)
+    {
+        
+        if let currentSessionId = details.objectForKey("SessionId") as? String
+        {
+            
+            let currentDate = NSDate()
+            let isgreatervalue :Bool ;
+            
+            isgreatervalue = currentDate.isGreaterThanDate(dateFormatter.dateFromString(details.objectForKey("StartTime") as! String)!)
+            
+            let  isEqualValue = currentDate.isEqualToDate(dateFormatter.dateFromString(details.objectForKey("StartTime") as! String)!)
+            
+            if isgreatervalue == true || isEqualValue == true
+            {
+                updateOverDueSessionWithSessionId(currentSessionId)
+            }
+            else
+            {
+                updateNextSessionWithSessionId(currentSessionId)
+            }
+            
+        }
+        else if let nextSessionId = details.objectForKey("NextSessionId") as? String
+        {
+            updateNextSessionWithSessionId(nextSessionId)
+        }
+        
+    }
+    
+    
+    
+    func didGetSessionUpdatedWithDetials(details: AnyObject) {
+        
+        print(details)
+        
+        SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
+    }
+    
+    // MARK: - session checking Functions
+    
+    
+    func updateNextSessionWithSessionId(sessionId:String)
+    {
+        if let currentSessionDetails = sessionIdDictonary[sessionId]
+        {
+            
+            
+            
+            if let SessionState = currentSessionDetails.objectForKey("SessionState") as? String
+            {
+                
+                if SessionState == kScheduled || SessionState == kopened
+                {
+                    if let scheduleTileView  = mScrollView.viewWithTag(Int(sessionId)!) as? ScheduleScreenTile
+                    {
+                        scheduleTileView.nextSessionUpdatingWithdetails(currentSessionDetails)
+                    }
+                    
+                    
+                    
+                    
+                    let currentDate = NSDate()
+                    
+                    let differenceMinutes  = currentDate.minutesDiffernceBetweenDates(currentDate, endDate: dateFormatter.dateFromString(currentSessionDetails.objectForKey("StartTime") as! String)!)
+                    
+                    if differenceMinutes.second < 120
+                    {
+                        
+                        
+                        showScheduleScreenAlertWithDetails(currentSessionDetails, withMessage:"Your class is about to start in \n \(differenceMinutes.minutes) minutes \(secondsToMinutesSeconds(Double(differenceMinutes.second)).1) seconds")
+                    }
+                    
+                    
+                }
+            }
+            
+        }
+        
+    }
+    
+    func updateOverDueSessionWithSessionId(sessionId:String)
+    {
+        if let currentSessionDetails = sessionIdDictonary[sessionId]
+        {
+            
+            if let SessionState = currentSessionDetails.objectForKey("SessionState") as? String
+            {
+                
+                if SessionState == kScheduled || SessionState == kopened
+                {
+                    if let scheduleTileView  = mScrollView.viewWithTag(Int(sessionId)!) as? ScheduleScreenTile
+                    {
+                        scheduleTileView.OverDueSessionIsWithDetails(currentSessionDetails)
+                    }
+                    
+                    
+                    showScheduleScreenAlertWithDetails(currentSessionDetails, withMessage: "Your class is OVERDUE")
+                }
+                
+               
+            }
+            
+            
+            
+        }
+    }
+    
+    // MARK: - ScheduleScreen tile delegate functions
+    
+    
+    func delegateScheduleTileTouchedWithState(state: String, withCurrentTileDetails Details: AnyObject) {
+        
+    }
+    
+    func delegateRefreshSchedule()
+    {
+        SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
+        
+    }
+    
+    
+    
+    
+    // MARK: - Alert functions
+    
+    func showScheduleScreenAlertWithDetails(currentSessionDetails:AnyObject, withMessage message:String)
+    {
+        
+        
+        if let StudentsRegistered = currentSessionDetails.objectForKey("StudentsRegistered") as? String
+        {
+            if let PreAllocatedSeats = currentSessionDetails.objectForKey("PreAllocatedSeats") as? String
+            {
+                if let OccupiedSeats = currentSessionDetails.objectForKey("OccupiedSeats") as? String
+                {
+                    
+                    if Int(StudentsRegistered) > Int(PreAllocatedSeats)! + Int(OccupiedSeats)!
+                    {
+                        
+                       showAllocateSeatAlertWithSessionId(currentSessionDetails.objectForKey("SessionId") as! String , withMessage:message )
+                    }
+                    else if let SessionState = currentSessionDetails.objectForKey("SessionState") as? String
+                    {
+                        if SessionState == kScheduled
+                        {
+                            showOpenClassAlertWithSessionId(currentSessionDetails.objectForKey("SessionId") as! String , withMessage: message)
+                        }
+                        if SessionState == kopened
+                        {
+                            showBeginClassAlertWithSessionId(currentSessionDetails.objectForKey("SessionId") as! String , withMessage: message)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    func showAllocateSeatAlertWithSessionId(SessionId:String, withMessage message:String)
+    {
+       
+        if sessionAlertView != nil
+        {
+            if sessionAlertView.isBeingPresented()
+            {
+                sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
+            }
+        }
+        
+        
+        sessionAlertView = UIAlertController(title: "AllocateSeat", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        sessionAlertView.addAction(UIAlertAction(title: "Allocate seats", style: .Default, handler: { action in
+            
+        }))
+        
+        sessionAlertView.addAction(UIAlertAction(title: "Cancel Class", style: .Default, handler: { action in
+            
+            SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SessionId, WithStatusvalue: kCanClled, WithDelegate: self)
+            
+        }))
+        
+        sessionAlertView.addAction(UIAlertAction(title: "Extendtime", style: .Default, handler: { action in
+            
+        }))
+        
+        sessionAlertView.addAction(UIAlertAction(title: "Dismiss", style: .Cancel, handler: { action in
+            
+            
+                if let scheduleTileView  = self.mScrollView.viewWithTag(Int(SessionId)!) as? ScheduleScreenTile
+                {
+                    scheduleTileView.alertDismissed()
+                }
+            
+        }))
+        
+        self.presentViewController(sessionAlertView, animated: true, completion: nil)
+    }
+    
+    
+    
+    
+    func showOpenClassAlertWithSessionId(SessionId:String, withMessage message:String)
+    {
+        if sessionAlertView != nil
+        {
+            if sessionAlertView.isBeingPresented()
+            {
+                sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
+            }
+        }
 
+        
+        sessionAlertView = UIAlertController(title: "OpenClass", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        sessionAlertView.addAction(UIAlertAction(title: "Open Class", style: .Default, handler: { action in
+             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SessionId, WithStatusvalue: kopened, WithDelegate: self)
+            
+        }))
+        
+        sessionAlertView.addAction(UIAlertAction(title: "Cancel Class", style: .Default, handler: { action in
+            
+             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SessionId, WithStatusvalue: kCanClled, WithDelegate: self)
+            
+        }))
+        
+        sessionAlertView.addAction(UIAlertAction(title: "Extendtime", style: .Default, handler: { action in
+            
+        }))
+        
+        sessionAlertView.addAction(UIAlertAction(title: "Dismiss", style: .Cancel, handler: { action in
+            
+            
+            if let scheduleTileView  = self.mScrollView.viewWithTag(Int(SessionId)!) as? ScheduleScreenTile
+            {
+                scheduleTileView.alertDismissed()
+            }
+
+            
+        }))
+        
+        self.presentViewController(sessionAlertView, animated: true, completion: nil)
+    }
+    
+    func showBeginClassAlertWithSessionId(SessionId:String, withMessage message:String)
+    {
+        if sessionAlertView != nil
+        {
+            if sessionAlertView.isBeingPresented()
+            {
+                sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
+            }
+        }
+
+        
+        sessionAlertView = UIAlertController(title: "BeginClass", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        sessionAlertView.addAction(UIAlertAction(title: "Begin Class", style: .Default, handler: { action in
+            
+             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SessionId, WithStatusvalue: kLive, WithDelegate: self)
+            
+        }))
+        
+        sessionAlertView.addAction(UIAlertAction(title: "Cancel Class", style: .Default, handler: { action in
+            
+             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SessionId, WithStatusvalue: kCanClled, WithDelegate: self)
+            
+        }))
+        
+        sessionAlertView.addAction(UIAlertAction(title: "Extendtime", style: .Default, handler: { action in
+            
+        }))
+        
+        sessionAlertView.addAction(UIAlertAction(title: "Dismiss", style: .Cancel, handler: { action in
+            
+            if let scheduleTileView  = self.mScrollView.viewWithTag(Int(SessionId)!) as? ScheduleScreenTile
+            {
+                scheduleTileView.alertDismissed()
+            }
+
+        }))
+        
+        self.presentViewController(sessionAlertView, animated: true, completion: nil)
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+     // MARK: - Extra functions
+    
+    func secondsToMinutesSeconds (seconds : Double) -> (Double, Double)
+    {
+        let (_,  minf) = modf (seconds / 3600)
+        let (min, secf) = modf (60 * minf)
+        return ( min, 60 * secf)
+    }
     
 }

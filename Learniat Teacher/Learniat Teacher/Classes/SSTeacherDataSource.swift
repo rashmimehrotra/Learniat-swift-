@@ -35,6 +35,10 @@ let kServiceUserLogin               =   "UserLogin"
 
 let kServiceGetSchedules            =   "GetMyTodaysSessions"
 
+let kServiceGetMyCurrentSession     =   "GetMyCurrentSession"
+
+let kServiceUpdateSessionState      =   "UpdateSessionState"
+
 
 
 @objc protocol SSTeacherDataSourceDelegate
@@ -47,6 +51,9 @@ let kServiceGetSchedules            =   "GetMyTodaysSessions"
     
     optional func didGetSchedulesWithDetials(details:AnyObject)
     
+    optional func didGetMycurrentSessionWithDetials(details:AnyObject)
+    
+    optional func didGetSessionUpdatedWithDetials(details:AnyObject)
     
     
 }
@@ -128,12 +135,36 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     }
     
     
+    func getMyCurrentSessionOfTeacher(Delegate:SSTeacherDataSourceDelegate)
+    {
+        setdelegate(Delegate)
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>GetMyCurrentSession</Service><UserId>%@</UserId></Action></Sunstone>",URLPrefix,currentUserId)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceGetMyCurrentSession, withDelegate: self, withRequestType: eHTTPGetRequest)
+    }
+    
+    
+    func updateSessionStateWithSessionId(sessionId:String,WithStatusvalue Status:String, WithDelegate Delegate:SSTeacherDataSourceDelegate)
+    {
+        setdelegate(Delegate)
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>UpdateSessionState</Service><SessionId>%@</SessionId><StatusId>%@</StatusId></Action></Sunstone>",URLPrefix,sessionId,Status)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceUpdateSessionState, withDelegate: self, withRequestType: eHTTPGetRequest)
+    }
+
+    
+    
     // MARK: - API Delegate Functions
     func delegateDidGetServiceResponseWithDetails( dict: NSMutableDictionary!, WIthServiceName serviceName: String!)
     {
         
         let refinedDetails = dict.objectForKey(kSunstone)!.objectForKey(kSSAction)!
-        print(refinedDetails)
         if serviceName == kServiceGetMyState
         {
             if delegate().respondsToSelector(Selector("didGetUserStateWithDetails:"))
@@ -156,6 +187,20 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
                 delegate().didGetSchedulesWithDetials!(refinedDetails)
             }
         }
+        else if serviceName == kServiceGetMyCurrentSession
+        {
+            if delegate().respondsToSelector(Selector("didGetMycurrentSessionWithDetials:"))
+            {
+                delegate().didGetMycurrentSessionWithDetials!(refinedDetails)
+            }
+        }
+        else if serviceName == kServiceUpdateSessionState
+        {
+            if delegate().respondsToSelector(Selector("didGetSessionUpdatedWithDetials:"))
+            {
+                delegate().didGetSessionUpdatedWithDetials!(refinedDetails)
+            }
+        }
     
     }
     func delegateServiceErrorMessage(message: String!, withServiceName ServiceName: String!, withErrorCode code: String!) {
@@ -166,14 +211,8 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
             delegate().didgetErrorMessage!(message,WithServiceName: ServiceName)
         }
         
+        print("Error in API \(ServiceName)")
+        
     }
-    
-    
-//    func delegateDidGetServiceErrorMessage(message: String!, withServiewName serviceName: String!, withRetryController manager: APIManager!)
-//    {
-//        
-//        print(message)
-//    }
-    
     
 }

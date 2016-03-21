@@ -17,16 +17,16 @@ class CurrentTimeLineView: UIView
         self.backgroundColor = UIColor.clearColor()
         
         let lineview =  UIImageView()
-        lineview.frame = CGRectMake(5, 2, self.frame.size.width, 1)
+        lineview.frame = CGRectMake(5, 4, self.frame.size.width,2)
         self.addSubview(lineview)
-        lineview.backgroundColor = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 0/255.0, alpha: 1)
+        lineview.backgroundColor = standard_Green
 
         
         let circleView = UIImageView()
-        circleView.frame = CGRectMake(0,0,5,5)
+        circleView.frame = CGRectMake(0,0,10,10)
         self.addSubview(circleView)
         circleView.layer.cornerRadius =  circleView.frame.size.width/2
-        circleView.backgroundColor = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 0/255.0, alpha: 1)
+        circleView.backgroundColor = standard_Green
         
         
         

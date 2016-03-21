@@ -24,15 +24,26 @@ let kRoomName       = "RoomName"
 
 let kSessionId      = "SessionId"
 
-let kScheduled      =  "Scheduled"
+let kScheduledString      =  "Scheduled"
 
-let kopened         =  "Opened"
+let kopenedString         =  "Opened"
 
-let kLive           =  "Live"
+let kLiveString           =  "Live"
 
-let kCanClled       =  "Cancelled"
+let kCanClledString       =  "Cancelled"
 
-let kEnded          =  "Ended"
+let kEndedString          =  "Ended"
+
+
+let kScheduled      =  "4"
+
+let kopened         =  "2"
+
+let kLive           =  "1"
+
+let kCanClled       =  "6"
+
+let kEnded          =  "5"
 
 
 
@@ -80,6 +91,27 @@ let standard_TextGrey   : UIColor = UIColor(red: 170/255.0, green:170/255.0, blu
 let standard_Button     : UIColor = UIColor(red: 0/255.0, green:174/255.0, blue:239/255.0, alpha: 1)
 
 let lightGrayColor      : UIColor = UIColor.lightGrayColor()
+
+
+
+
+let scheduledColor : UIColor = UIColor(red: 246/255.0, green:246/255.0, blue:246/255.0, alpha: 1)
+let scheduledBorderColor : UIColor = UIColor(red: 153/255.0, green:153/255.0, blue:153/255.0, alpha: 1)
+
+let OpenedColor : UIColor = UIColor(red: 229.0/255.0, green:243.0/255.0, blue:231.0/255.0, alpha: 1)
+let OpenedBorderColor : UIColor = UIColor(red: 76/255.0, green:217/255.0, blue:100/255.0, alpha: 1)
+
+
+
+let CancelledBorderColor : UIColor = UIColor(red: 255/255.0, green:59/255.0, blue:48/255.0, alpha: 1)
+
+
+
+let LiveColor : UIColor = UIColor(red: 0/255.0, green:204/255.0, blue:0/255.0, alpha: 1)
+
+let EndedColor : UIColor = UIColor(red:238.0/255.0, green:238.0/255.0, blue:238.0/255.0, alpha: 1)
+
+
 
 enum folderType
 {
@@ -324,7 +356,22 @@ class UIVerticalAlignLabel: UILabel {
         case VerticalAlignmentBottom = 2
     }
     
+    enum horizontalAlignment : Int {
+        case Left = 0
+        case Middle = 1
+        case Right = 2
+    }
+
+    
     var verticalAlignment : VerticalAlignment = .VerticalAlignmentTop {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
+    
+    var _horizontalAlignment : horizontalAlignment = .Middle
+        {
         didSet {
             setNeedsDisplay()
         }
@@ -344,15 +391,24 @@ class UIVerticalAlignLabel: UILabel {
     
     
     override func textRectForBounds(bounds: CGRect, limitedToNumberOfLines: Int) -> CGRect {
+        
         let rect = super.textRectForBounds(bounds, limitedToNumberOfLines: limitedToNumberOfLines)
         
-        switch(verticalAlignment) {
+        switch(verticalAlignment)
+        {
         case .VerticalAlignmentTop:
+            
+            
             return CGRectMake(bounds.origin.x, bounds.origin.y, rect.size.width, rect.size.height)
+            
+        
         case .VerticalAlignmentMiddle:
+            
             return CGRectMake(bounds.origin.x, bounds.origin.y + (bounds.size.height - rect.size.height) / 2, rect.size.width, rect.size.height)
+       
         case .VerticalAlignmentBottom:
             return CGRectMake(bounds.origin.x, bounds.origin.y + (bounds.size.height - rect.size.height), rect.size.width, rect.size.height)
+      
         default:
             return bounds
         }
@@ -360,6 +416,214 @@ class UIVerticalAlignLabel: UILabel {
     
     override func drawTextInRect(rect: CGRect) {
         let r = self.textRectForBounds(rect, limitedToNumberOfLines: self.numberOfLines)
+        
+        
         super.drawTextInRect(r)
     }
+    
+    
+}
+
+// MARK: - View Extension
+extension UIView {
+    
+    func addDashedBorder() {
+        let _border = CAShapeLayer();
+        _border.path = UIBezierPath(roundedRect: self.bounds, cornerRadius:3).CGPath;
+        _border.frame = self.bounds;
+        _border.strokeColor = UIColor(red: 153.0/255.0, green: 153.0/255.0, blue: 153.0/255.0, alpha: 1).CGColor;
+        _border.fillColor = nil;
+        _border.lineDashPattern = [5, 10];
+        self.layer.addSublayer(_border)
+    }
+    
+    
+    
+    
+    func addToCurrentTimewithHours(position: CGFloat)
+    {
+        UIView.animateWithDuration(0.5, animations:
+            {
+            self.frame = CGRectMake(self.frame.origin.x, position - 2.5, self.frame.size.width, self.frame.size.height)
+        })
+
+        
+        
+    }
+    
+    func addShadowToView()
+    {
+        self.layer.shadowColor = UIColor.blackColor().CGColor
+        self.layer.shadowOpacity = 0.4
+        self.layer.shadowOffset = CGSizeZero
+        self.layer.shadowRadius = 10
+    }
+}
+
+// MARK: - date Extension
+extension NSDate
+{
+    func hour() -> Int
+    {
+        //Get Hour
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components(.Hour, fromDate: self)
+        let hour = components.hour
+        
+        //Return Hour
+        return hour
+    }
+    
+    
+    func minute() -> Int
+    {
+        //Get Minute
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components(.Minute, fromDate: self)
+        let minute = components.minute
+        
+        //Return Minute
+        return minute
+    }
+    
+    func toShortTimeString() -> String
+    {
+        //Get Short Time String
+        let formatter = NSDateFormatter()
+        formatter.timeStyle = .ShortStyle
+        let timeString = formatter.stringFromDate(self)
+        
+        //Return Short Time String
+        return timeString
+    }
+    func totalMinutes () -> Int{
+        
+        return (hour()*60)
+    }
+    
+    
+    func dateDiff()
+    {
+        let currentDate = NSDate()
+        
+        //Test Extensions in Log
+        NSLog("(Current Hour = \(currentDate.hour())) (Current Minute = \(currentDate.minute())) (Current Short Time String = \(currentDate.toShortTimeString()))")
+    }
+    
+    func daysBetweenDate(startDate: NSDate, endDate: NSDate) -> Int
+    {
+        let calendar = NSCalendar.currentCalendar()
+        
+        let components = calendar.components([.Day], fromDate: startDate, toDate: endDate, options: [])
+        
+        return components.day
+    }
+    
+    
+    func minutesDiffernceBetweenDates(startDate: NSDate, endDate: NSDate) -> (minutes:Int, second:Int)
+    {
+        let calendar = NSCalendar.currentCalendar()
+        
+        let minutesComponents = calendar.components([.Minute], fromDate: startDate, toDate: endDate, options: [])
+        
+        let secondComponents = calendar.components([.Second], fromDate: startDate, toDate: endDate, options: [])
+        
+        return (minutesComponents.minute ,secondComponents.second)
+    }
+    
+    
+    func isGreaterThanDate(dateToCompare: NSDate) -> Bool {
+        //Declare Variables
+        var isGreater = false
+        
+        //Compare Values
+        if self.compare(dateToCompare) == NSComparisonResult.OrderedDescending {
+            isGreater = true
+        }
+        
+        //Return Result
+        return isGreater
+    }
+    
+    func isLessThanDate(dateToCompare: NSDate) -> Bool {
+        //Declare Variables
+        var isLess = false
+        
+        //Compare Values
+        if self.compare(dateToCompare) == NSComparisonResult.OrderedAscending {
+            isLess = true
+        }
+        
+        //Return Result
+        return isLess
+    }
+    
+    func equalToDate(dateToCompare: NSDate) -> Bool {
+        //Declare Variables
+        var isEqualTo = false
+        
+        //Compare Values
+        if self.compare(dateToCompare) == NSComparisonResult.OrderedSame {
+            isEqualTo = true
+        }
+        
+        //Return Result
+        return isEqualTo
+    }
+    
+}
+extension String
+{
+    
+    
+    
+    
+    func hourValue() -> Int
+    {
+        let mainString :NSArray = self.componentsSeparatedByString(" ")
+        
+        let timeString = mainString.lastObject!
+        
+        
+        let hourValue :String = (timeString.componentsSeparatedByString(":") as NSArray).firstObject! as! String
+        
+        return Int(hourValue)!
+        
+    }
+    
+    func minuteValue()->Int
+    {
+        let mainString :NSArray = self.componentsSeparatedByString(" ")
+        
+        let timeString = mainString.lastObject!
+        
+        
+        let hourValue :String = (timeString.componentsSeparatedByString(":") as NSArray).objectAtIndex(1) as! String
+        
+        return Int(hourValue)!
+    }
+    
+    func secondValue()->Int
+    {
+        let mainString :NSArray = self.componentsSeparatedByString(" ")
+        
+        let timeString = mainString.lastObject!
+        
+        
+        let hourValue :String = (timeString.componentsSeparatedByString(":") as NSArray).lastObject! as! String
+        
+        return Int(hourValue)!
+    }
+    
+    func stringFromTimeInterval(interval: NSTimeInterval) -> (hour: Int, minutes: Int, seconds: Int , fullString: String) {
+        let interval = Int(interval)
+        let seconds = interval % 60
+        let minutes = (interval / 60) % 60
+        let hours = (interval / 3600)
+        
+        
+        return ( hours, minutes, seconds,String(format: "%02d:%02d:%02d", hours, minutes, seconds))
+    }
+    
+    
 }
