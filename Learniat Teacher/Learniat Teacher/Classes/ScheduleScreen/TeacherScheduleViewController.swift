@@ -24,7 +24,6 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     
     var mRefreshButton: UIButton!
     
-    
     var mNoSessionLabel: UILabel!
     
     var mNoSessionSubLabel:UILabel!
@@ -43,8 +42,10 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     
     let dateFormatter = NSDateFormatter()
     
-    
     var sessionAlertView    :UIAlertController!
+    
+    
+    var activityIndicator       = UIActivityIndicatorView()
     
     override func viewDidLoad()
     {
@@ -80,10 +81,6 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             mTeacherImageView.downloadImage(checkedUrl, withFolderType: folderType.ProFilePics)
         }
 
-        
-        
-        
-        
         mTeacherName = UILabel(frame: CGRectMake(mTeacherImageView.frame.origin.x + mTeacherImageView.frame.size.width + 10, 10, 200, 30))
         mTeacherName.font = UIFont(name:"HelveticaNeue-Medium", size: 20)
         mTeacherName.text = SSTeacherDataSource.sharedDataSource.currentUserName.capitalizedString
@@ -111,12 +108,25 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
         
         
+        
+        
+        
+        
+        
         mRefreshButton = UIButton(frame: CGRectMake(mTopbarImageView.frame.size.width - mTopbarImageView.frame.size.height, 0,mTopbarImageView.frame.size.height,mTopbarImageView.frame.size.height ))
         mRefreshButton.setImage(UIImage(named: "refresh.png"), forState: .Normal)
         mTopbarImageView.addSubview(mRefreshButton)
         mRefreshButton.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
         mRefreshButton.addTarget(self, action: "onRefreshButton:", forControlEvents: UIControlEvents.TouchUpInside)
         
+        
+        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle:  .WhiteLarge)
+        activityIndicator.frame = CGRectMake(mRefreshButton.frame.origin.x - 60, 0, mTopbarImageView.frame.size.height, mTopbarImageView.frame.size.height)
+        mTopbarImageView.addSubview(activityIndicator)
+        
+        
+        
+
        
         
         mNoSessionLabel = UILabel(frame: CGRectMake(10, (self.view.frame.size.height - 40)/2, self.view.frame.size.width - 20,40))
@@ -144,7 +154,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         mScrollView.hidden = true
         
         SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
-        
+        activityIndicator.startAnimating()
         
         
         
@@ -229,6 +239,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     func onRefreshButton(sender: AnyObject)
     {
         SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
+         activityIndicator.startAnimating()
     }
     
     func timerAction()
@@ -376,6 +387,11 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         if sessionDetailsArray.count > 0
         {
             SSTeacherDataSource.sharedDataSource.getMyCurrentSessionOfTeacher(self)
+            
+        }
+        else
+        {
+            activityIndicator.stopAnimating()
         }
         
         
@@ -410,6 +426,8 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             updateNextSessionWithSessionId(nextSessionId)
         }
         
+         activityIndicator.stopAnimating()
+        
     }
     
     
@@ -419,6 +437,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         print(details)
         
         SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
+         activityIndicator.startAnimating()
     }
     
     // MARK: - session checking Functions
@@ -500,6 +519,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     func delegateRefreshSchedule()
     {
         SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
+         activityIndicator.startAnimating()
         
     }
     

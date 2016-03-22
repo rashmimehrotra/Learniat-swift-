@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSourceDelegate
+class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSourceDelegate,SSTeacherMessageHandlerDelegate
 {
 
     
@@ -224,18 +224,17 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSou
                {
                     SSTeacherDataSource.sharedDataSource.currentUserId = currentUserid
                     NSUserDefaults.standardUserDefaults().setObject(currentUserid, forKey: kUserId)
+                    SSTeacherMessageHandler.sharedMessageHandler.connectWithUserId(currentUserid, andWithPassword: mPassword.text!, withDelegate: self)
+                
+                
+                
                 }
                 if let currentSchoolId = details.objectForKey("SchoolId") as? String
                 {
                     SSTeacherDataSource.sharedDataSource.currentSchoolId = currentSchoolId
                 }
                 
-                SSTeacherDataSource.sharedDataSource.currentUserName = mUserName.text!
-                SSTeacherDataSource.sharedDataSource.currentPassword = mPassword.text!
-                NSUserDefaults.standardUserDefaults().setObject(mUserName.text!, forKey: kUserName)
-                NSUserDefaults.standardUserDefaults().setObject(mPassword.text!, forKey: kPassword)
-                
-                performSegueWithIdentifier("LoginSuccessSegue", sender: nil)
+               
                 
                
             }
@@ -281,6 +280,31 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSou
         loginButtonPressed(false)
         
     }
+    
+    
+     // MARK: - Teacher message handler Delegate
+    
+    func smhDidRecieveStreamConnectionsState(state: Bool)
+    {
+        
+        
+    }
+    
+    func smhDidReciveAuthenticationState(state: Bool, WithName userName: String)
+    {
+        SSTeacherDataSource.sharedDataSource.currentUserName = mUserName.text!
+        SSTeacherDataSource.sharedDataSource.currentPassword = mPassword.text!
+        NSUserDefaults.standardUserDefaults().setObject(mUserName.text!, forKey: kUserName)
+        NSUserDefaults.standardUserDefaults().setObject(mPassword.text!, forKey: kPassword)
+        
+        performSegueWithIdentifier("LoginSuccessSegue", sender: nil)
+        
+    }
+    
+    
+    
+    
+    
     
 }
 
