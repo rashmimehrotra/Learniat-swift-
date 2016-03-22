@@ -9,7 +9,8 @@
 #ifndef Swift_Bridging_Header_h
 #define Swift_Bridging_Header_h
 #import "APIManager.h"
-#import "DottedLine.h"
 #import "MessageManager.h"
 #import "SSMessage.h"
+#import "DottedLine.h"
+#import "CustomAlertView.h"
 #endif /* Swift_Bridging_Header_h */

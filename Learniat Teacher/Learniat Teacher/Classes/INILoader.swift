@@ -9,6 +9,13 @@
 import Foundation
 import UIKit
 
+let helveticaRegular      = "HelveticaNeue"
+
+let helveticaMedium       = "HelveticaNeue-Medium"
+
+let helveticaBold         = "HelveticaNeue-Bold"
+
+
 let kClassName      = "ClassName"
 
 let kEndTime        = "EndTime"
@@ -86,11 +93,16 @@ let standard_Green      : UIColor = UIColor(red: 76/255.0, green:217/255.0, blue
 
 let standard_Red        : UIColor = UIColor(red: 255/255.0, green:59/255.0, blue:48/255.0, alpha: 1)
 
-let standard_TextGrey   : UIColor = UIColor(red: 170/255.0, green:170/255.0, blue:170/255.0, alpha: 1)
+let standard_TextGrey   : UIColor = UIColor(red: 170/255.0, green:170/255.0, blue:170/255.0, alpha: 1) //AAAAAA
 
 let standard_Button     : UIColor = UIColor(red: 0/255.0, green:174/255.0, blue:239/255.0, alpha: 1)
 
 let lightGrayColor      : UIColor = UIColor.lightGrayColor()
+
+let lightGrayTopBar     : UIColor = UIColor(red: 238/255.0, green:238/255.0, blue:238/255.0, alpha: 1) //EEEEEE
+
+let LineGrayColor       : UIColor = UIColor(red: 153/255.0, green: 153/255.0, blue: 153/255.0, alpha: 0.6) //999999
+
 
 
 
@@ -520,7 +532,7 @@ extension NSDate
     }
     
     
-    func minutesDiffernceBetweenDates(startDate: NSDate, endDate: NSDate) -> (minutes:Int, second:Int)
+    func minutesAndSecondsDiffernceBetweenDates(startDate: NSDate, endDate: NSDate) -> (minutes:Int, second:Int)
     {
         let calendar = NSCalendar.currentCalendar()
         
@@ -530,6 +542,20 @@ extension NSDate
         
         return (minutesComponents.minute ,secondComponents.second)
     }
+    
+    
+    func minutesDiffernceBetweenDates(startDate: NSDate, endDate: NSDate) -> (Int)
+    {
+        let calendar = NSCalendar.currentCalendar()
+        
+        let minutesComponents = calendar.components([.Minute], fromDate: startDate, toDate: endDate, options: [])
+        
+        
+        return (minutesComponents.minute )
+    }
+    
+    
+    
     
     
     func isGreaterThanDate(dateToCompare: NSDate) -> Bool {

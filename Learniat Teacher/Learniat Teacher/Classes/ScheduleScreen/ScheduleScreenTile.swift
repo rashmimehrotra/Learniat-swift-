@@ -189,7 +189,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
                 self.layer.borderWidth = 1
                 mClassName.textColor = UIColor.blackColor()
                 
-                setClassNameWithFont("HelveticaNeue-Medium")
+                setClassNameWithFont(helveticaMedium)
                 circleImage.backgroundColor = scheduledBorderColor
                 
                 break
@@ -200,7 +200,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
                 self.layer.borderWidth = 1
                 mClassName.textColor = UIColor.blackColor()
                 
-                setClassNameWithFont("HelveticaNeue")
+                setClassNameWithFont(helveticaRegular)
                 circleImage.backgroundColor = OpenedBorderColor
                 
                 
@@ -210,7 +210,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
                 self.backgroundColor = LiveColor
                 mClassName.textColor = UIColor.whiteColor()
                 
-                setClassNameWithFont("HelveticaNeue")
+                setClassNameWithFont(helveticaRegular)
                 circleImage.backgroundColor = UIColor.whiteColor()
                 
                 
@@ -221,7 +221,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
                 let LiveLabel = UILabel(frame: CGRectMake(0,0,circleImage.frame.size.width,circleImage.frame.size.height))
                 circleImage.addSubview(LiveLabel)
                 LiveLabel.text = "Live"
-                LiveLabel.font = UIFont(name:"HelveticaNeue", size: 9)
+                LiveLabel.font = UIFont(name:helveticaRegular, size: 9)
                 LiveLabel.textColor = LiveColor
                 LiveLabel.textAlignment = .Center
 
@@ -234,7 +234,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
                 self.layer.borderWidth = 1
                 mClassName.textColor = standard_TextGrey
                 cancelledImageView.hidden = false
-                setClassNameWithFont("HelveticaNeue")
+                setClassNameWithFont(helveticaRegular)
                 circleImage.backgroundColor = CancelledBorderColor
 
                 break
@@ -242,7 +242,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
             case kEnded:
                 self.backgroundColor = EndedColor
                 mClassName.textColor = standard_TextGrey
-                setClassNameWithFont("HelveticaNeue")
+                setClassNameWithFont(helveticaRegular)
 
                 circleImage.hidden = true
                 
@@ -350,13 +350,13 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
             
             mSeatingLabel.frame =  CGRectMake(self.frame.size.width - (self.frame.size.width/3.5), 4, self.frame.size.width/3.5, (self.frame.size.height/1.2))
             
-            mSeatingLabel.font = UIFont(name: "HelveticaNeue-Bold", size: (self.frame.size.height/2))
+            mSeatingLabel.font = UIFont(name: helveticaBold, size: (self.frame.size.height/2))
             
             mSeatingAlertImageView.frame = CGRectMake(mSeatingLabel.frame.origin.x - 30, 4, 20, 20)
             
             
             mDifferenceTimeLabel.frame = CGRectMake(mClassName.frame.origin.x  + mClassName.frame.size.width + 20, 4, self.frame.size.width/3 , (self.frame.size.height/1.2))
-             mDifferenceTimeLabel.font = UIFont(name: "HelveticaNeue", size: (self.frame.size.height/2))
+             mDifferenceTimeLabel.font = UIFont(name: helveticaRegular, size: (self.frame.size.height/2))
             
             
         }
@@ -370,14 +370,14 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
             
             
             mSeatingLabel.frame =  CGRectMake(self.frame.size.width - (self.frame.size.width/3.5), 10, self.frame.size.width/3.5, (self.frame.size.height/1.2))
-            mSeatingLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
+            mSeatingLabel.font = UIFont(name: helveticaBold, size: 18)
             
             
             mSeatingAlertImageView.frame = CGRectMake(mSeatingLabel.frame.origin.x - 30, 13, 20, 20)
             
             
             mDifferenceTimeLabel.frame = CGRectMake(mClassName.frame.origin.x  + mClassName.frame.size.width + 20, 10, self.frame.size.width/4 , (self.frame.size.height/1.2))
-            mDifferenceTimeLabel.font = UIFont(name: "HelveticaNeue", size: 18)
+            mDifferenceTimeLabel.font = UIFont(name: helveticaRegular, size: 18)
 
             
 
@@ -442,7 +442,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         nextSessionTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "updateNextSession", userInfo: nil, repeats: true)
         
         
-         let differenceMinutes  = currentDate.minutesDiffernceBetweenDates(currentDate, endDate: dateFormatter.dateFromString(sessionDetails.objectForKey("StartTime") as! String)!)
+         let differenceMinutes  = currentDate.minutesAndSecondsDiffernceBetweenDates(currentDate, endDate: dateFormatter.dateFromString(sessionDetails.objectForKey("StartTime") as! String)!)
         
         if differenceMinutes.second < alertTimeConditionValue
         {
@@ -468,7 +468,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         
         
         
-        let differenceMinutes  = currentDate.minutesDiffernceBetweenDates(currentDate, endDate: dateFormatter.dateFromString(sessionDetails.objectForKey("StartTime") as! String)!)
+        let differenceMinutes  = currentDate.minutesAndSecondsDiffernceBetweenDates(currentDate, endDate: dateFormatter.dateFromString(sessionDetails.objectForKey("StartTime") as! String)!)
         
         
         if differenceMinutes.second <= 0

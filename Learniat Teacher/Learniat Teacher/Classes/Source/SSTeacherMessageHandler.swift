@@ -56,14 +56,16 @@ let kModelAnswerDetails             = "179"
 
 import Foundation
 
-@objc protocol SSTeacherMessageHandlerDelegate
+@objc protocol SSTeacherMessagehandlerDelegate
 {
     optional func smhDidRecieveStreamConnectionsState(state:Bool)
     
     optional  func smhDidReciveAuthenticationState(state:Bool, WithName userName:String)
     
-//    // MARK: - ScheduleScreen Delegates
-//    
+    optional  func smhStreamReconnectingWithDelay(delay:Int32)
+    
+    // MARK: - ScheduleScreen Delegates
+    
 //    optional func smhDidGetTimeExtendedMessageWithDetails(details:AnyObject)
 //    
 //    optional func smhDidGetSessionEndMessageWithDetails(details:AnyObject)
@@ -117,12 +119,11 @@ import Foundation
     
 }
 
-public class SSTeacherMessageHandler:NSObject,SSTeacherMessageHandlerDelegate,MessageManagerDelegate {
+public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,MessageManagerDelegate {
     
     var _delgate: AnyObject!
     var currentUserName:String!
    
-    var joinedRoomsArray :NSMutableArray = NSMutableArray()
     
    public  static let sharedMessageHandler = SSTeacherMessageHandler()
     
@@ -178,7 +179,7 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessageHandlerDelegate,Me
     
     //MARK: - Login
     /*- this function is called to connect to XMPP Server -*/
-    func connectWithUserId(userID:String, andWithPassword password:String, withDelegate delegate:SSTeacherMessageHandlerDelegate)
+    func connectWithUserId(userID:String, andWithPassword password:String, withDelegate delegate:SSTeacherMessagehandlerDelegate)
     {
         guard userID.characters.count>0 || password.characters.count>0  else
         {
@@ -244,22 +245,26 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessageHandlerDelegate,Me
     }
     
     
+    public func didReconnectingWithDelaytime(delayTime: Int32) {
+        if delegate().respondsToSelector(Selector("smhStreamReconnectingWithDelay:"))
+        {
+            delegate().smhStreamReconnectingWithDelay!(delayTime)
+        }
+    }
+    
+    
     //MARK: Create and join Room
     
     func createRoomWithRoomName(roomName: String!, withHistory history:String!)
     {
         MessageManager.sharedMessageHandler().setdelegate(self)
-        MessageManager.sharedMessageHandler().setUpRoom(roomName, withAdminPrivilage: false, withHistoryValue: history)
+        MessageManager.sharedMessageHandler().setUpRoom(roomName, withAdminPrivilage: true, withHistoryValue: history)
     }
     
     
     
     public func didCreatedOrJoinedRoomWithCreatedRoomName(_roomName: String!)
     {
-        
-        
-//        MessageManager.sharedMessageHandler().editRoomPrevilageWithUser(("496@\(kBaseXMPPURL)"))
-        
         
         
     }
@@ -269,16 +274,49 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessageHandlerDelegate,Me
     func didGetUserJoinedToRoomORLeaveRoomWithName(_userName: String!, withPresence presence: String!)
     {
         
-        if joinedRoomsArray.containsObject(_userName)
-        {
-            joinedRoomsArray.addObject(_userName);
-        }
+       
     }
     
     
+    func checkAndRemoveJoinedRoomsArrayWithRoomid(roomId:String)
+    {
+        MessageManager.sharedMessageHandler().removeIfRoomPresentWithRoomId(roomId)
+    }
     
     //MARK: Send  Message
-    
+    func sendExtendedTimetoRoom(var roomId:String, withClassName className:String, withStartTime StartTime:String, withDelayTime timeDelay:String)
+    {
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
+        {
+            
+            
+            roomId = "room_\(roomId)@conference.\(kBaseXMPPURL)";
+            
+            let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
+            let msgType             = kMTimeExtended
+            
+            
+              let messageBody = ["timedelay":timeDelay ,
+                                "ClassName":className,
+                                "stratTime":StartTime]
+            
+            
+            
+            let details:NSMutableDictionary = ["From":userId,
+                "To":roomId,
+                "Type":msgType,
+                "Body":messageBody];
+            
+            
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendGroupMessageWithBody(xmlBody)
+        }
+    }
     
     
     //MARK: Recieve Message
@@ -292,9 +330,6 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessageHandlerDelegate,Me
         {
             return
         }
-        
-        
-        
     }
 }
 

@@ -9,13 +9,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Learniat Teacher/Classes/ScheduleScreen/ScheduleScreenTile.swift"
-            timestampString = "480251346.983728"
+            filePath = "Learniat Teacher/Classes/ScheduleScreen/TeacherScheduleViewController.swift"
+            timestampString = "480344227.340481"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "493"
             endingLineNumber = "493"
-            landmarkName = "updateNextSession()"
+            landmarkName = "didGetSessionExtendedDetials(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Learniat Teacher/Classes/Source/SSTeacherDataSource.swift"
+            timestampString = "480339133.182065"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "189"
+            endingLineNumber = "189"
+            landmarkName = "extendSessionWithSessionId(_:withTime:WithDelegate:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,92 +42,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Learniat Teacher/Classes/ScheduleScreen/TeacherScheduleViewController.swift"
-            timestampString = "480314813.344863"
+            timestampString = "480344227.340481"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "438"
-            endingLineNumber = "438"
-            landmarkName = "didGetSessionUpdatedWithDetials(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Learniat Teacher/Classes/ScheduleScreen/TeacherScheduleViewController.swift"
-            timestampString = "480314813.344863"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "668"
-            endingLineNumber = "668"
-            landmarkName = "showBeginClassAlertWithSessionId(_:withMessage:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Learniat Teacher/Classes/ScheduleScreen/TeacherScheduleViewController.swift"
-            timestampString = "480314813.344863"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "489"
-            endingLineNumber = "489"
-            landmarkName = "updateOverDueSessionWithSessionId(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Learniat Teacher/Classes/ScheduleScreen/TeacherScheduleViewController.swift"
-            timestampString = "480314813.344863"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "451"
-            endingLineNumber = "451"
-            landmarkName = "updateNextSessionWithSessionId(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Learniat Teacher/Classes/ScheduleScreen/TeacherScheduleViewController.swift"
-            timestampString = "480314813.344863"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "501"
-            endingLineNumber = "501"
-            landmarkName = "updateOverDueSessionWithSessionId(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Learniat Teacher/Classes/ScheduleScreen/TeacherScheduleViewController.swift"
-            timestampString = "480314813.344863"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "534"
-            endingLineNumber = "534"
-            landmarkName = "showScheduleScreenAlertWithDetails(_:withMessage:)"
+            startingLineNumber = "884"
+            endingLineNumber = "884"
+            landmarkName = "showExtendTimeAlertForSessionDetaisl(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

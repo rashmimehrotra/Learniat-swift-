@@ -39,6 +39,10 @@ let kServiceGetMyCurrentSession     =   "GetMyCurrentSession"
 
 let kServiceUpdateSessionState      =   "UpdateSessionState"
 
+let kServiceExtendTime              =   "ExtendSessionTime"
+
+let kServiceGetScheduleSummary      =   "ScheduleSessionSummary"
+
 
 
 @objc protocol SSTeacherDataSourceDelegate
@@ -54,6 +58,10 @@ let kServiceUpdateSessionState      =   "UpdateSessionState"
     optional func didGetMycurrentSessionWithDetials(details:AnyObject)
     
     optional func didGetSessionUpdatedWithDetials(details:AnyObject)
+    
+    optional func didGetSessionSummaryDetials(details:AnyObject)
+    
+    optional func didGetSessionExtendedDetials(details:AnyObject)
     
     
 }
@@ -157,7 +165,30 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         manager.downloadDataURL(urlString, withServiceName: kServiceUpdateSessionState, withDelegate: self, withRequestType: eHTTPGetRequest)
     }
+    
+    
+    func getScheduleSummaryWithSessionId(sessionId:String, WithDelegate Delegate:SSTeacherDataSourceDelegate)
+    {
+        setdelegate(Delegate)
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>ClassSessionSummary</Service><SessionId>%@</SessionId></Action></Sunstone>",URLPrefix,sessionId)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceGetScheduleSummary, withDelegate: self, withRequestType: eHTTPGetRequest)
+    }
 
+    
+    func extendSessionWithSessionId(sessionId:String, withTime Time:String, WithDelegate Delegate:SSTeacherDataSourceDelegate)
+    {
+        setdelegate(Delegate)
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>ExtendSessionTime</Service><SessionId>%@</SessionId><MinutesExtended>%@</MinutesExtended></Action></Sunstone>",URLPrefix,sessionId,Time)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceExtendTime, withDelegate: self, withRequestType: eHTTPGetRequest)
+    }
     
     
     // MARK: - API Delegate Functions
@@ -194,11 +225,25 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
                 delegate().didGetMycurrentSessionWithDetials!(refinedDetails)
             }
         }
+        else if serviceName == kServiceGetScheduleSummary
+        {
+            if delegate().respondsToSelector(Selector("didGetSessionSummaryDetials:"))
+            {
+                delegate().didGetSessionSummaryDetials!(refinedDetails)
+            }
+        }
         else if serviceName == kServiceUpdateSessionState
         {
             if delegate().respondsToSelector(Selector("didGetSessionUpdatedWithDetials:"))
             {
                 delegate().didGetSessionUpdatedWithDetials!(refinedDetails)
+            }
+        }
+        else if serviceName == kServiceExtendTime
+        {
+            if delegate().respondsToSelector(Selector("didGetSessionExtendedDetials:"))
+            {
+                delegate().didGetSessionExtendedDetials!(refinedDetails)
             }
         }
     

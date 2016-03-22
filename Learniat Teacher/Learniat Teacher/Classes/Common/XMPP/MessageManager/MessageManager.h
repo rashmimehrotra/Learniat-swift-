@@ -77,7 +77,6 @@
 @property (nonatomic, readonly) XMPPReconnect *xmppReconnect;
 
 
-
 /**
  Setting of delegate
  @param delegate class delegate
@@ -181,6 +180,8 @@
 
 - (void) editRoomPrevilageWithUser:(NSString*)user;
 
+- (void) removeIfRoomPresentWithRoomId:(NSString*)roomId;
+
 @end
 
 
@@ -230,6 +231,11 @@
 
 
 @optional - (void) didGetUserJoinedToRoomORLeaveRoomWithName:(NSString*)_userName WithPresence:(NSString*)presence;
+
+
+@optional - (void) didReconnectingWithDelaytime:(int)delayTime;
+
+
 @end
 
 

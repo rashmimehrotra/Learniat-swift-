@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSourceDelegate,SSTeacherMessageHandlerDelegate
+class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSourceDelegate,SSTeacherMessagehandlerDelegate
 {
 
     
@@ -63,7 +63,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSou
         mSignUpButton.layer.masksToBounds = true
         mSignUpButton.layer.cornerRadius = 5
         mSignUpButton.setTitle("Sign Up", forState: .Normal)
-        mSignUpButton.titleLabel?.font = UIFont(name:"HelveticaNeue-Medium", size: 20)
+        mSignUpButton.titleLabel?.font = UIFont(name:helveticaMedium, size: 20)
         mSignUpButton.addTarget(self, action: "onSignUpButton:", forControlEvents: UIControlEvents.TouchUpInside)
         
         
@@ -76,7 +76,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSou
         mLoginButton.layer.masksToBounds = true
         mLoginButton.layer.cornerRadius = 5
         mLoginButton.setTitle("Login", forState: .Normal)
-        mLoginButton.titleLabel?.font = UIFont(name:"HelveticaNeue-Medium", size: 20)
+        mLoginButton.titleLabel?.font = UIFont(name:helveticaMedium, size: 20)
         mLoginButton.addTarget(self, action: "onLoginButton:", forControlEvents: UIControlEvents.TouchUpInside)
         
         mActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
@@ -225,18 +225,11 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSou
                     SSTeacherDataSource.sharedDataSource.currentUserId = currentUserid
                     NSUserDefaults.standardUserDefaults().setObject(currentUserid, forKey: kUserId)
                     SSTeacherMessageHandler.sharedMessageHandler.connectWithUserId(currentUserid, andWithPassword: mPassword.text!, withDelegate: self)
-                
-                
-                
                 }
                 if let currentSchoolId = details.objectForKey("SchoolId") as? String
                 {
                     SSTeacherDataSource.sharedDataSource.currentSchoolId = currentSchoolId
                 }
-                
-               
-                
-               
             }
             else
             {
@@ -281,28 +274,34 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSou
         
     }
     
-    
-     // MARK: - Teacher message handler Delegate
-    
     func smhDidRecieveStreamConnectionsState(state: Bool)
     {
-        
+        if state == false
+        {
+            self.view.makeToast("Stream disconnected ", duration: 2.0, position: .Bottom)
+            loginButtonPressed(false)
+
+        }
         
     }
     
     func smhDidReciveAuthenticationState(state: Bool, WithName userName: String)
     {
-        SSTeacherDataSource.sharedDataSource.currentUserName = mUserName.text!
-        SSTeacherDataSource.sharedDataSource.currentPassword = mPassword.text!
-        NSUserDefaults.standardUserDefaults().setObject(mUserName.text!, forKey: kUserName)
-        NSUserDefaults.standardUserDefaults().setObject(mPassword.text!, forKey: kPassword)
-        
-        performSegueWithIdentifier("LoginSuccessSegue", sender: nil)
-        
+        if state == true
+        {
+            SSTeacherDataSource.sharedDataSource.currentUserName = mUserName.text!
+            SSTeacherDataSource.sharedDataSource.currentPassword = mPassword.text!
+            NSUserDefaults.standardUserDefaults().setObject(mUserName.text!, forKey: kUserName)
+            NSUserDefaults.standardUserDefaults().setObject(mPassword.text!, forKey: kPassword)
+            
+            performSegueWithIdentifier("LoginSuccessSegue", sender: nil)
+        }
+       else
+        {
+            self.view.makeToast("User id or password is incorrect, please try again. ", duration: 2.0, position: .Bottom)
+            loginButtonPressed(false)
+        }
     }
-    
-    
-    
     
     
     

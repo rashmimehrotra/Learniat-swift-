@@ -23,8 +23,8 @@ static MessageManager *sharedMessageHandler = nil;
 @synthesize xmppStream;
 @synthesize xmppRoster;
 @synthesize xmppRosterStorage;
-@synthesize xmppRoom;
-@synthesize xmppReconnect;
+@synthesize xmppRoom,xmppReconnect;
+
 
 #pragma mark - self class Delegate
 - (void) setdelegate:(id)delegate
@@ -79,9 +79,13 @@ static MessageManager *sharedMessageHandler = nil;
 	[xmppStream addDelegate:self delegateQueue:dispatch_get_main_queue()];
     
     
+    
     xmppReconnect = [[XMPPReconnect alloc] init];
-    [xmppReconnect activate:xmppStream];
+    [xmppReconnect activate:self.xmppStream];
     [xmppReconnect addDelegate:self delegateQueue:dispatch_get_main_queue()];
+    xmppReconnect.reconnectTimerInterval = 20 ;
+    xmppReconnect.reconnectDelay = 20 ;
+    
 	
 }
 
@@ -244,14 +248,28 @@ static MessageManager *sharedMessageHandler = nil;
     [xmppStream disconnect];
 }
 
+#pragma mark ---Delegate of reconnect
+/**
+ This fuction is called when XMPP trying to reconnect
+ */
 
 - (void)xmppReconnect:(XMPPReconnect *)sender didDetectAccidentalDisconnect:(SCNetworkReachabilityFlags)connectionFlags
 {
     NSLog(@"didDetectAccidentalDisconnect:%u",connectionFlags);
+    
+    if([[self delegate] respondsToSelector:@selector(didReconnectingWithDelaytime:)])
+    {
+        [[self delegate] didReconnectingWithDelaytime:xmppReconnect.reconnectDelay];
+    }
+    
 }
 - (BOOL)xmppReconnect:(XMPPReconnect *)sender shouldAttemptAutoReconnect:(SCNetworkReachabilityFlags)reachabilityFlags
 {
-    NSLog(@"shouldAttemptAutoReconnect:%u",reachabilityFlags);
+    NSLog(@"shouldAttemptAutoReconnect:%u %f %f",reachabilityFlags,sender.reconnectTimerInterval,xmppReconnect.reconnectDelay);
+    
+    xmppReconnect.reconnectDelay = 20;
+    xmppReconnect.reconnectTimerInterval = 20;
+    
     return YES;
 }
 
@@ -268,8 +286,6 @@ static MessageManager *sharedMessageHandler = nil;
         [[self delegate]didGetStreamState:NO];
     }
 }
-
-
 
 
 #pragma mark - setting presence
@@ -557,7 +573,6 @@ static MessageManager *sharedMessageHandler = nil;
 - (void) setUpRoom:(NSString *)ChatRoomJID WithAdminPrivilage:(BOOL)admin withHistoryValue:(NSString*)value
 {
     
-    NSLog(@"%@",ChatRoomJID);;
     NSXMLElement*privilage= [NSXMLElement elementWithName:@"x" xmlns:XMPPMUCNamespace];
     if (admin)
     {
@@ -688,6 +703,14 @@ static MessageManager *sharedMessageHandler = nil;
 //    {
 //        [joinedRoomsArray removeObject:sender.roomJID.bare];
 //    }
+}
+
+- (void) removeIfRoomPresentWithRoomId:(NSString*)roomId
+{
+    if([joinedRoomsArray containsObject:[NSString stringWithFormat:@"%@@conference.%@",roomId,kBaseXMPPURL]])
+    {
+        [joinedRoomsArray removeObject:[NSString stringWithFormat:@"%@@conference.%@",roomId,kBaseXMPPURL]];
+    }
 }
 
 - (void)xmppRoom:(XMPPRoom *)sender occupantDidUpdate:(XMPPJID *)occupantJID withPresence:(XMPPPresence *)presence
