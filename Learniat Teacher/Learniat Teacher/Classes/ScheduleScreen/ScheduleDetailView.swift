@@ -7,18 +7,39 @@
 //
 
 import Foundation
-class ScheduleDetailView: UIView
+
+
+@objc protocol ScheduleDetailViewDelegate
 {
     
+    optional func delegateAllocateSeatPressedWithDetails(details: AnyObject)
     
+    optional func delegateEditSeatPressedWithDetails(details: AnyObject)
+    
+    optional func delegateConfigureGridPressedWithDetails(details: AnyObject)
+    
+    optional func delegateCancelClassPressedWithDetails(details: AnyObject)
+    
+    optional func delegateOpenClassPressedWithDetails(details: AnyObject)
+    
+    optional func delegateBeginClassPressedWithDetails(details: AnyObject)
+    
+     optional func delegateResetButtonPressedWithDetails(details: AnyObject)
+    
+}
+
+
+
+class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
+{
+    
+    var _delgate: AnyObject!
     
     var mClassnameLabel = UILabel()
-    
     
     var mTimelabel = UILabel()
     
     var mRoomNameLabel = UILabel()
-    
     
     var loadingView = UIView()
     
@@ -32,11 +53,29 @@ class ScheduleDetailView: UIView
     
     var questionConfiguredLabel     = UILabel()
     
-    var sessionDetails    :AnyObject!
+    var scheduleSummaryDetails      :AnyObject!
+    
+    var currentSessionDetails       :AnyObject!
     
     var overDueTimer                    = NSTimer()
     
     var nextSessionTimer                = NSTimer()
+    
+    
+    var openClassButton                 = UIButton()
+    
+    var beginClassButton                = UIButton()
+    
+    
+    var editSeatButton                  = UIButton()
+    
+    var allocateSeatButton              = UIButton()
+    
+    var configureGrid                   = UIButton()
+
+    var cancelClassButton               = UIButton()
+    
+    var resetButton                     = UIButton()
     
     
     override init(frame: CGRect) {
@@ -48,6 +87,15 @@ class ScheduleDetailView: UIView
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setdelegate(delegate:AnyObject)
+    {
+        _delgate = delegate;
+    }
+    
+    func   delegate()->AnyObject
+    {
+        return _delgate;
+    }
     
     
     
@@ -69,7 +117,10 @@ class ScheduleDetailView: UIView
         doneButton.setTitle("Done", forState: .Normal)
         doneButton.setTitleColor(standard_Button, forState: .Normal)
         doneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
-         doneButton.addTarget(self, action: "onDoneButton", forControlEvents: UIControlEvents.TouchUpInside)
+        doneButton.addTarget(self, action: "onDoneButton", forControlEvents: UIControlEvents.TouchUpInside)
+        doneButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
+        
+        
         
         mClassnameLabel.frame = CGRectMake(10, topBar.frame.origin.y + topBar.frame.size.height + 10, self.frame.size.width/2 - 20, 30)
         self.addSubview(mClassnameLabel)
@@ -87,21 +138,19 @@ class ScheduleDetailView: UIView
         mRoomNameLabel.lineBreakMode = .ByTruncatingMiddle
         mRoomNameLabel.textColor = standard_TextGrey
         
-        
         mTimelabel.frame = CGRectMake(self.frame.size.width - (self.frame.size.width/2 - 10), topBar.frame.origin.y + topBar.frame.size.height + 10, self.frame.size.width/2 - 20, 30)
         self.addSubview(mTimelabel)
         mTimelabel.textAlignment = .Right
         mTimelabel.font = UIFont(name: helveticaMedium, size: 18)
         mTimelabel.text = "Starts: 00:00:45"
         
-        loadingView = UIView(frame: CGRectMake(0 ,topBar.frame.origin.y + topBar.frame.size.height, self.frame.size.width,self.frame.size.height - topBar.frame.origin.y + topBar.frame.size.height ))
+        loadingView = UIView(frame: CGRectMake(0 ,mRoomNameLabel.frame.origin.y + mRoomNameLabel.frame.size.height, self.frame.size.width,self.frame.size.height - (mRoomNameLabel.frame.origin.y + mRoomNameLabel.frame.size.height)))
         self.addSubview(loadingView)
         loadingView.hidden = true
         
         
-        let LineView = UIView(frame: CGRectMake(0 ,mRoomNameLabel.frame.origin.y + mRoomNameLabel.frame.size.height + 10, self.frame.size.width,1 ))
+        let LineView = UIView(frame: CGRectMake(0 ,10, self.frame.size.width,1 ))
         LineView.backgroundColor = LineGrayColor
-        
         loadingView.addSubview(LineView)
         
        let mSeatsConfigured = UILabel(frame: CGRectMake(10, LineView.frame.origin.y + LineView.frame.size.height , self.frame.size.width/2 - 20, 40))
@@ -170,6 +219,20 @@ class ScheduleDetailView: UIView
         preallocatedSeatslabel.text = "16 of 24"
         
         
+        
+        
+        resetButton = UIButton(frame: CGRectMake(preallocatedSeatslabel.frame.origin.x - (self.frame.size.width/4), mPreAllocatedSeats.frame.origin.y, self.frame.size.width/4 ,  mPreAllocatedSeats.frame.size.height))
+        loadingView.addSubview(resetButton)
+        resetButton.setTitle("Reset", forState: .Normal)
+        resetButton.setTitleColor(standard_Button, forState: .Normal)
+        resetButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        resetButton.addTarget(self, action: "onReset", forControlEvents: UIControlEvents.TouchUpInside)
+        resetButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
+        
+        
+        
+        
+        
         let LineView4 = UIView(frame: CGRectMake(0 ,mPreAllocatedSeats.frame.origin.y + mPreAllocatedSeats.frame.size.height, self.frame.size.width,1 ))
         LineView4.backgroundColor = LineGrayColor
         
@@ -215,50 +278,243 @@ class ScheduleDetailView: UIView
         
         let LineView6 = UIView(frame: CGRectMake(0 ,mQuestionConfigured.frame.origin.y + mQuestionConfigured.frame.size.height, self.frame.size.width,1 ))
         LineView6.backgroundColor = LineGrayColor
-        
         loadingView.addSubview(LineView6)
+        
+        
+        
+        editSeatButton.frame = CGRectMake(10, loadingView.frame.size.height - 60 , loadingView.frame.size.width/4 ,loadingView.frame.size.width/12)
+        editSeatButton.setTitle("Edit seats", forState: .Normal)
+        editSeatButton.setTitleColor(standard_Button, forState: .Normal)
+        loadingView.addSubview(editSeatButton)
+        editSeatButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 18)
+        editSeatButton.hidden = true
+//        editSeatButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
+        editSeatButton.addTarget(self, action: "onEditSeats", forControlEvents: UIControlEvents.TouchUpInside)
+        editSeatButton.layer.cornerRadius = 5
+        editSeatButton.layer.borderWidth = 1
+        editSeatButton.layer.borderColor = standard_Button.CGColor
+
+        
+        
+        
+        allocateSeatButton.frame = CGRectMake(10, editSeatButton.frame.origin.y , editSeatButton.frame.size.width ,editSeatButton.frame.size.height)
+        allocateSeatButton.setTitle("Allocate seats", forState: .Normal)
+        allocateSeatButton.layer.cornerRadius = 5
+        allocateSeatButton.layer.borderWidth = 1
+        allocateSeatButton.layer.borderColor = standard_Red.CGColor
+        allocateSeatButton.setTitleColor(standard_Red, forState: .Normal)
+        loadingView.addSubview(allocateSeatButton)
+        allocateSeatButton.hidden = true
+        allocateSeatButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 18)
+        allocateSeatButton.addTarget(self, action: "onAllocateSeats", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        
+        
+        configureGrid.frame = CGRectMake(10, editSeatButton.frame.origin.y , editSeatButton.frame.size.width ,editSeatButton.frame.size.height)
+        configureGrid.setTitle("Configure grid", forState: .Normal)
+        configureGrid.setTitleColor(standard_Button, forState: .Normal)
+        loadingView.addSubview(configureGrid)
+        configureGrid.hidden = true
+        configureGrid.titleLabel?.font = UIFont(name: helveticaRegular, size: 18)
+        configureGrid.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
+        configureGrid.addTarget(self, action: "onConfigureGrid", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        
+        
+        cancelClassButton.frame = CGRectMake(30 + editSeatButton.frame.size.width, editSeatButton.frame.origin.y , editSeatButton.frame.size.width ,editSeatButton.frame.size.height)
+        cancelClassButton.setTitle("Cancel class", forState: .Normal)
+        cancelClassButton.setTitleColor(standard_Button, forState: .Normal)
+        loadingView.addSubview(cancelClassButton)
+        cancelClassButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 18)
+        cancelClassButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
+        cancelClassButton.addTarget(self, action: "onCancelClass", forControlEvents: UIControlEvents.TouchUpInside)
+
+        
+        
+        
+        
+        openClassButton.frame = CGRectMake(self.frame.size.width - (editSeatButton.frame.size.width + 10), editSeatButton.frame.origin.y , editSeatButton.frame.size.width ,editSeatButton.frame.size.height)
+        openClassButton.setTitle("Open class", forState: .Normal)
+        openClassButton.layer.cornerRadius = 5
+        openClassButton.layer.borderWidth = 1
+        openClassButton.layer.borderColor = standard_Button.CGColor
+        openClassButton.setTitleColor(standard_Button, forState: .Normal)
+        loadingView.addSubview(openClassButton)
+        openClassButton.hidden = true
+        openClassButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 18)
+        openClassButton.addTarget(self, action: "onOpenClass", forControlEvents: UIControlEvents.TouchUpInside)
+        
+       
+        
+        
+        
+        
+        beginClassButton.frame = CGRectMake(self.frame.size.width - (editSeatButton.frame.size.width + 10), editSeatButton.frame.origin.y , editSeatButton.frame.size.width ,editSeatButton.frame.size.height)
+        beginClassButton.setTitle("Begin class", forState: .Normal)
+        beginClassButton.layer.cornerRadius = 5
+        beginClassButton.layer.borderWidth = 1
+        beginClassButton.layer.borderColor = standard_Button.CGColor
+        beginClassButton.setTitleColor(standard_Button, forState: .Normal)
+        loadingView.addSubview(beginClassButton)
+        beginClassButton.hidden = true
+        beginClassButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 18)
+        beginClassButton.addTarget(self, action: "onBeginClass", forControlEvents: UIControlEvents.TouchUpInside)
+        
     }
     
     
     
     
-    func setClassname(classname:String)
+    func setClassname(classname:String, withSessionDetails details: AnyObject)
     {
+        currentSessionDetails = details
         mClassnameLabel.text = classname
         loadingView.hidden = true
         
         overDueTimer.invalidate()
-        
         nextSessionTimer.invalidate()
+        
+         if let sessionId = details.objectForKey("SessionId") as? String
+         {
+            SSTeacherDataSource.sharedDataSource.getScheduleSummaryWithSessionId(sessionId, WithDelegate: self)
+        }
+        
+        
     }
+    
+    // MARK: - Teacher datasource delegate functions
+    func didGetSessionSummaryDetials(details: AnyObject)
+    {
+        setcurrentViewDetails(details)
+    }
+
+    func didGetSeatsRestWithDetials(details: AnyObject) {
+        
+        if let sessionId = currentSessionDetails.objectForKey("SessionId") as? String
+        {
+            SSTeacherDataSource.sharedDataSource.getScheduleSummaryWithSessionId(sessionId, WithDelegate: self)
+        }
+    }
+    
+    
+    // MARK: - data setting functions
     
     func setcurrentViewDetails(details:AnyObject)
     {
         print(details)
         
         
-         sessionDetails = details
+        scheduleSummaryDetails = details
         
         
         loadingView.hidden = false
         
-        if let SeatsConfigured = details.objectForKey("SeatsConfigured") as? String
-        {
-            seatsConfiguredLabel.text = SeatsConfigured
-        }
+        
         
         if let StudentsRegistered = details.objectForKey("StudentsRegistered") as? String
         {
             studentsRegistedlabel.text = StudentsRegistered
             
+          
+            
             
             if let PreAllocatedSeats = details.objectForKey("PreAllocatedSeats") as? String
             {
+                
+                if Int(PreAllocatedSeats)! > 0
+                {
+                    resetButton.enabled = true
+                    resetButton.setTitleColor(standard_Button, forState: .Normal)
+
+                }
+                else
+                {
+                    resetButton.enabled = false
+                    resetButton.setTitleColor(standard_TextGrey, forState: .Normal)
+                }
+                
+                
+                
                 if let OccupiedSeats = details.objectForKey("OccupiedSeats") as? String
                 {
                     let totalSesats = Int(PreAllocatedSeats)! + Int(OccupiedSeats)!
                     
                     preallocatedSeatslabel.text = "\(totalSesats) of \(StudentsRegistered)"
+                    
+                    
+                    if let SeatsConfigured = details.objectForKey("SeatsConfigured") as? String
+                    {
+                        seatsConfiguredLabel.text = SeatsConfigured
+                        
+                        
+                        if Int(StudentsRegistered) > Int(SeatsConfigured)!
+                        {
+                            allocateSeatButton.hidden = true
+                            editSeatButton.hidden = true
+                            configureGrid.hidden = false
+                        }
+                        else  if Int(StudentsRegistered) > Int(PreAllocatedSeats)! + Int(OccupiedSeats)!
+                        {
+                            allocateSeatButton.hidden = false
+                            editSeatButton.hidden = true
+                            configureGrid.hidden = true
+                            
+                            if let SessionState = details.objectForKey("SessionState") as? String
+                            {
+                                if SessionState == kScheduled
+                                {
+                                    openClassButton.hidden = false
+                                    openClassButton.enabled = false
+                                    openClassButton.setTitleColor(standard_TextGrey, forState: .Normal)
+                                    openClassButton.layer.borderColor = standard_TextGrey.CGColor
+                                    
+                                    beginClassButton.hidden = true
+                                }
+                                else
+                                {
+                                    openClassButton.hidden = true
+                                    beginClassButton.hidden = false
+                                    beginClassButton.enabled = false
+                                    beginClassButton.setTitleColor(standard_TextGrey, forState: .Normal)
+                                    beginClassButton.layer.borderColor = standard_TextGrey.CGColor
+
+                                }
+                            }
+                            
+                            
+                        }
+                        else
+                        {
+                            allocateSeatButton.hidden = true
+                            editSeatButton.hidden = false
+                            configureGrid.hidden = true
+                            
+                            if let SessionState = details.objectForKey("SessionState") as? String
+                            {
+                                if SessionState == kScheduled
+                                {
+                                    openClassButton.hidden = false
+                                    openClassButton.enabled = true
+                                    openClassButton.setTitleColor(standard_Button, forState: .Normal)
+                                    openClassButton.layer.borderColor = standard_Button.CGColor
+
+                                    
+                                    beginClassButton.hidden = true
+                                    
+                                }
+                                else
+                                {
+                                    openClassButton.hidden = true
+                                    beginClassButton.hidden = false
+                                    beginClassButton.enabled = true
+                                    beginClassButton.setTitleColor(standard_Button, forState: .Normal)
+                                    beginClassButton.layer.borderColor = standard_Button.CGColor
+                                }
+                            }
+
+                        }
+                    }
+                    
                 }
             }
         }
@@ -272,13 +528,6 @@ class ScheduleDetailView: UIView
         {
             questionConfiguredLabel.text = QuestionsConfigured
         }
-
-        
-        
-        
-        
-        
-        
         
         
         
@@ -323,15 +572,9 @@ class ScheduleDetailView: UIView
         
     }
     
-    func onDoneButton()
-    {
-        self.hidden = true
-        
-        overDueTimer.invalidate()
-        nextSessionTimer.invalidate()
-    }
     
     
+    // MARK: - current view updating functions
     func updateOverdueSession()
     {
         let dateFormatter = NSDateFormatter()
@@ -339,7 +582,7 @@ class ScheduleDetailView: UIView
         
         var _string :String = ""
         let currentDate = NSDate()
-        _string = _string.stringFromTimeInterval(currentDate.timeIntervalSinceDate(dateFormatter.dateFromString((sessionDetails.objectForKey("StartTime") as! String))!)).fullString
+        _string = _string.stringFromTimeInterval(currentDate.timeIntervalSinceDate(dateFormatter.dateFromString((scheduleSummaryDetails.objectForKey("StartTime") as! String))!)).fullString
         
         mTimelabel.text = "Overdue: \(_string)"
     }
@@ -352,10 +595,94 @@ class ScheduleDetailView: UIView
         
         var _string :String = ""
         let currentDate = NSDate()
-        _string = _string.stringFromTimeInterval(dateFormatter.dateFromString((sessionDetails.objectForKey("StartTime") as! String))!.timeIntervalSinceDate(currentDate)).fullString
+        _string = _string.stringFromTimeInterval(dateFormatter.dateFromString((scheduleSummaryDetails.objectForKey("StartTime") as! String))!.timeIntervalSinceDate(currentDate)).fullString
         
-        mTimelabel.text = "Starts in about: \(_string)"
+        mTimelabel.text = "Starts: \(_string)"
         
     }
     
+    // MARK: - buttons functions
+    func onDoneButton()
+    {
+        UIView.animateWithDuration(0.5, animations: {
+            self.frame = CGRectMake(self.frame.size.width + self.frame.size.width, self.frame.origin.y, self.frame.size.width, self.frame.size.height)
+            }, completion: { finished in
+                self.hidden = true
+        })
+        
+        overDueTimer.invalidate()
+        nextSessionTimer.invalidate()
+    }
+    
+    func onEditSeats()
+    {
+        if delegate().respondsToSelector(Selector("delegateEditSeatPressedWithDetails:"))
+        {
+            delegate().delegateEditSeatPressedWithDetails!(currentSessionDetails)
+        }
+    }
+    
+    
+    func onAllocateSeats()
+    {
+        if delegate().respondsToSelector(Selector("delegateAllocateSeatPressedWithDetails:"))
+        {
+            delegate().delegateAllocateSeatPressedWithDetails!(currentSessionDetails)
+        }
+
+    }
+    
+    
+    func onConfigureGrid()
+    {
+        if delegate().respondsToSelector(Selector("delegateConfigureGridPressedWithDetails:"))
+        {
+            delegate().delegateConfigureGridPressedWithDetails!(currentSessionDetails)
+        }
+    }
+    
+    func onCancelClass()
+    {
+        if delegate().respondsToSelector(Selector("delegateCancelClassPressedWithDetails:"))
+        {
+            delegate().delegateCancelClassPressedWithDetails!(currentSessionDetails)
+        }
+    }
+    
+    func onOpenClass()
+    {
+        if delegate().respondsToSelector(Selector("delegateOpenClassPressedWithDetails:"))
+        {
+            delegate().delegateOpenClassPressedWithDetails!(currentSessionDetails)
+        }
+    }
+    
+    func onBeginClass()
+    {
+        if delegate().respondsToSelector(Selector("delegateBeginClassPressedWithDetails:"))
+        {
+            delegate().delegateBeginClassPressedWithDetails!(currentSessionDetails)
+        }
+    }
+    
+    
+    func onReset()
+    {
+        
+        if let sessionId = currentSessionDetails.objectForKey("SessionId") as? String
+        {
+            resetButton.enabled = false
+            resetButton.setTitleColor(standard_TextGrey, forState: .Normal)
+            
+             SSTeacherDataSource.sharedDataSource.resetPreallocatedSeatsOfSession(sessionId, WithDelegate: self)
+            
+        }
+        
+       
+        
+        if delegate().respondsToSelector(Selector("delegateResetButtonPressedWithDetails:"))
+        {
+            delegate().delegateResetButtonPressedWithDetails!(currentSessionDetails)
+        }
+    }
 }

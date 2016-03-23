@@ -13,4 +13,5 @@
 #import "SSMessage.h"
 #import "DottedLine.h"
 #import "CustomAlertView.h"
+#import "LBorderView.h"
 #endif /* Swift_Bridging_Header_h */

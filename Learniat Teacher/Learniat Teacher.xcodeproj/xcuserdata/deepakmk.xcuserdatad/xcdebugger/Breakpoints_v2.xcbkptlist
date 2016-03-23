@@ -6,16 +6,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Learniat Teacher/Classes/ScheduleScreen/TeacherScheduleViewController.swift"
-            timestampString = "480344227.340481"
+            filePath = "Learniat Teacher/Classes/SeatsViewController/AutoSeatAllocate.swift"
+            timestampString = "480428730.529675"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "493"
-            endingLineNumber = "493"
-            landmarkName = "didGetSessionExtendedDetials(_:)"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
+            landmarkName = "arrangeSeatsWithGridDetails()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,28 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Learniat Teacher/Classes/Source/SSTeacherDataSource.swift"
-            timestampString = "480339133.182065"
+            timestampString = "480427857.559182"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
-            landmarkName = "extendSessionWithSessionId(_:withTime:WithDelegate:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Learniat Teacher/Classes/ScheduleScreen/TeacherScheduleViewController.swift"
-            timestampString = "480344227.340481"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "884"
-            endingLineNumber = "884"
-            landmarkName = "showExtendTimeAlertForSessionDetaisl(_:)"
+            startingLineNumber = "268"
+            endingLineNumber = "268"
+            landmarkName = "SaveSeatAssignmentWithStudentsList(_:withSeatsIdList:withSessionId:withDelegate:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

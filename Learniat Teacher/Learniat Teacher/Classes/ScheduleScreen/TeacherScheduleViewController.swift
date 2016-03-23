@@ -14,7 +14,7 @@ let oneHourDiff :CGFloat = 90.0
 let halfHourMultipleRatio : CGFloat = (oneHourDiff / 2)/(30)
 
 
-class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegate,ScheduleScreenTileDelegate,SSTeacherMessagehandlerDelegate,CustomAlertViewDelegate
+class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegate,ScheduleScreenTileDelegate,SSTeacherMessagehandlerDelegate,CustomAlertViewDelegate,ScheduleDetailViewDelegate
 {
     var mTeacherImageView: UIImageView!
    
@@ -469,12 +469,6 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
     }
     
-    func didGetSessionSummaryDetials(details: AnyObject)
-    {
-        
-        mScheduleDetailView.setcurrentViewDetails(details)
-    }
-    
     func didGetSessionUpdatedWithDetials(details: AnyObject)
     {
         
@@ -580,27 +574,59 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     func delegateScheduleTileTouchedWithState(state: String, withCurrentTileDetails Details: AnyObject)
     {
         
-        
-        
-        
-        if let sessionId = Details.objectForKey("SessionId") as? String
-        {
-            SSTeacherDataSource.sharedDataSource.getScheduleSummaryWithSessionId(sessionId, WithDelegate: self)
-            
-            
-            if mScheduleDetailView == nil
+       if let SessionState = Details.objectForKey("SessionState") as? String
+       {
+            if SessionState == kScheduled || SessionState == kopened
             {
-                mScheduleDetailView = ScheduleDetailView(frame: CGRectMake(self.view.frame.size.width - (self.view.frame.size.width / 2.2), mScrollView.frame.origin.y ,self.view.frame.size.width / 2.2 , mScrollView.frame.size.height))
-                self.view.addSubview(mScheduleDetailView)
-                mScheduleDetailView.addAllSubView()
-                self.view.bringSubviewToFront(mScheduleDetailView)
-                mScheduleDetailView.backgroundColor = UIColor.whiteColor()
+                if let sessionId = Details.objectForKey("SessionId") as? String
+                {
+                    if mScheduleDetailView == nil
+                    {
+                        mScheduleDetailView = ScheduleDetailView(frame: CGRectMake(self.view.frame.size.width, mScrollView.frame.origin.y ,self.view.frame.size.width / 2 , mScrollView.frame.size.height))
+                        self.view.addSubview(mScheduleDetailView)
+                        mScheduleDetailView.addAllSubView()
+                        mScheduleDetailView.setdelegate(self)
+                        self.view.bringSubviewToFront(mScheduleDetailView)
+                        mScheduleDetailView.backgroundColor = UIColor.whiteColor()
+                        mScheduleDetailView.layer.shadowColor = standard_TextGrey.CGColor;
+                        mScheduleDetailView.layer.shadowOffset = CGSizeMake(-10,0);
+                        mScheduleDetailView.layer.shadowOpacity = 0.1;
+                        mScheduleDetailView.layer.shadowRadius = 1.0;
+                        
+                    }
+                    
+                    
+                    
+                    
+                    mScheduleDetailView.hidden = false
+                    
+                    UIView.animateWithDuration(0.5, animations: {
+                        self.mScheduleDetailView.frame = CGRectMake(self.view.frame.size.width - (self.view.frame.size.width / 2), self.mScrollView.frame.origin.y ,self.view.frame.size.width / 2 , self.mScrollView.frame.size.height)
+                        }, completion: { finished in
+                            
+                    })
+                    
+                    mScheduleDetailView.setClassname((Details.objectForKey("ClassName") as! String),withSessionDetails: Details)
+                    
+                    
+                }
             }
-            
-            mScheduleDetailView.hidden = false
-             mScheduleDetailView.setClassname((Details.objectForKey("ClassName") as! String))
-            
-            
+            else  if SessionState == kCanClled
+            {
+                self.view.makeToast("This class was cancelled.", duration: 0.5, position: .Bottom)
+                
+            }
+            else  if SessionState == kEnded
+            {
+                self.view.makeToast("This class has already ended.", duration: 0.5, position: .Bottom)
+            }
+            else if SessionState == kLive
+            {
+                if mScheduleDetailView != nil
+                {
+                    mScheduleDetailView.onDoneButton()
+                }
+            }
         }
         
     }
@@ -668,6 +694,13 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
         sessionAlertView = UIAlertController(title: "AllocateSeat", message: message, preferredStyle: UIAlertControllerStyle.Alert)
         sessionAlertView.addAction(UIAlertAction(title: "Allocate seats", style: .Default, handler: { action in
+            
+            if let currentSessionDetails = self.sessionIdDictonary[SessionId]
+            {
+                self.allocateSeatsWithDetails(currentSessionDetails)
+            }
+            
+            
             
         }))
         
@@ -962,5 +995,104 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         }
         
     }
+    
+    // MARK: - schedule details view  delegate Functions
+    func delegateAllocateSeatPressedWithDetails(details: AnyObject)
+    {
+        self.allocateSeatsWithDetails(details)
+
+    }
+    func delegateEditSeatPressedWithDetails(details: AnyObject)
+    {
+        self.allocateSeatsWithDetails(details)
+    }
+    func delegateConfigureGridPressedWithDetails(details: AnyObject)
+    {
+        
+    }
+    func delegateCancelClassPressedWithDetails(details: AnyObject)
+    {
+        
+        if sessionAlertView != nil
+        {
+            if sessionAlertView.isBeingPresented()
+            {
+                sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
+            }
+        }
+        
+        
+        sessionAlertView = UIAlertController(title: "Cancel class", message: "Do you really want to Cancel this class? \n You cannot reverse this action!", preferredStyle: UIAlertControllerStyle.Alert)
+        sessionAlertView.addAction(UIAlertAction(title: "Cancel class", style: .Default, handler: { action in
+            
+        
+            if let sessionid = details.objectForKey(kSessionId) as? String
+            {
+                SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(sessionid, WithStatusvalue: kCanClled, WithDelegate: self)
+                
+                self.mScheduleDetailView.onDoneButton()
+            }
+
+            
+        }))
+        
+        sessionAlertView.addAction(UIAlertAction(title: "Dismiss", style: .Default, handler: { action in
+            
+            if let sessionid = details.objectForKey(kSessionId) as? String
+            {
+                if let scheduleTileView  = self.mScrollView.viewWithTag(Int(sessionid)!) as? ScheduleScreenTile
+                {
+                    scheduleTileView.alertDismissed()
+                }
+            }
+            
+            
+            
+        }))
+        
+        
+        self.presentViewController(sessionAlertView, animated: true, completion: nil)
+        
+        
+        
+    }
+    func delegateOpenClassPressedWithDetails(details: AnyObject)
+    {
+        if let sessionid = details.objectForKey(kSessionId) as? String
+        {
+            SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(sessionid, WithStatusvalue: kopened, WithDelegate: self)
+            
+            self.mScheduleDetailView.onDoneButton()
+        }
+    }
+    func delegateBeginClassPressedWithDetails(details: AnyObject)
+    {
+        if let sessionid = details.objectForKey(kSessionId) as? String
+        {
+            SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(sessionid, WithStatusvalue: kLive, WithDelegate: self)
+            self.mScheduleDetailView.onDoneButton()
+        }
+    }
+    
+    func delegateResetButtonPressedWithDetails(details: AnyObject) {
+        onRefreshButton(details)
+        self.mScheduleDetailView.onDoneButton()
+    }
+    
+    // MARK: - Change screen Functions
+    
+    
+    func allocateSeatsWithDetails(details:AnyObject)
+    {
+        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let preallotController : PreallocateSeatViewController = storyboard.instantiateViewControllerWithIdentifier("PreallocateSeatViewController") as! PreallocateSeatViewController
+        
+        preallotController.setCurrentSessionDetails(details)
+        self.presentViewController(preallotController, animated: true, completion: nil)
+    }
+    
+    
+    
+    
     
 }

@@ -30,7 +30,7 @@
         <!--Teacher Schedule View Controller-->
         <scene sceneID="O5g-XY-nUd">
             <objects>
-                <viewController id="lVq-Ss-Cre" customClass="TeacherScheduleViewController" customModule="Learniat_Teacher" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TeacherScheduleViewController" id="lVq-Ss-Cre" customClass="TeacherScheduleViewController" customModule="Learniat_Teacher" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GzY-2h-add"/>
                         <viewControllerLayoutGuide type="bottom" id="wzt-PU-T5m"/>
@@ -46,5 +46,47 @@
             </objects>
             <point key="canvasLocation" x="1046" y="301"/>
         </scene>
+        <!--Auto Seat Allocate-->
+        <scene sceneID="GXu-8L-HXp">
+            <objects>
+                <viewController storyboardIdentifier="AutoSeatAllocate" id="Px4-HR-JS3" customClass="AutoSeatAllocate" customModule="Learniat_Teacher" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CiJ-6f-kJc"/>
+                        <viewControllerLayoutGuide type="bottom" id="jFU-xT-cx6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Hb3-Jz-9Y2">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="lVq-Ss-Cre" kind="show" identifier="AutoAllocateToSchedule" id="u8c-SC-wfC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vHz-OV-1Fl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2495" y="301"/>
+        </scene>
+        <!--Preallocate Seat View Controller-->
+        <scene sceneID="JBW-xV-aO1">
+            <objects>
+                <viewController storyboardIdentifier="PreallocateSeatViewController" id="nKZ-jZ-CtW" customClass="PreallocateSeatViewController" customModule="Learniat_Teacher" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="JFR-52-uZg"/>
+                        <viewControllerLayoutGuide type="bottom" id="HQX-im-bI6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Qze-U7-bdE">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jjj-qX-a83" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1826" y="301"/>
+        </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="u8c-SC-wfC"/>
+    </inferredMetricsTieBreakers>
 </document>

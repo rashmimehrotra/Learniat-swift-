@@ -43,6 +43,17 @@ let kServiceExtendTime              =   "ExtendSessionTime"
 
 let kServiceGetScheduleSummary      =   "ScheduleSessionSummary"
 
+let kServiceResetSeatAssignment		=   "ResetSeatAssignment"
+
+let kServiceGetGridDesign           =   "GetGridDesign"
+
+let kGetStudentsSessionInfo         =   "GetStudentsSessionInfo"
+
+let kServiceGetSeatAssignment       =   "GetSeatAssignment"
+
+let kServiceSeatAssignment          =   "StudentSeatAssignment"
+
+
 
 
 @objc protocol SSTeacherDataSourceDelegate
@@ -62,6 +73,16 @@ let kServiceGetScheduleSummary      =   "ScheduleSessionSummary"
     optional func didGetSessionSummaryDetials(details:AnyObject)
     
     optional func didGetSessionExtendedDetials(details:AnyObject)
+    
+    optional func didGetSeatsRestWithDetials(details:AnyObject)
+    
+    optional func didGetGridDesignWithDetails(details:AnyObject)
+    
+    optional func didGetSeatAssignmentWithDetails(details:AnyObject)
+    
+    optional func didGetStudentsInfoWithDetails(details:AnyObject)
+    
+    optional func didGetSeatAssignmentSavedWithDetails(details:AnyObject)
     
     
 }
@@ -190,6 +211,65 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         manager.downloadDataURL(urlString, withServiceName: kServiceExtendTime, withDelegate: self, withRequestType: eHTTPGetRequest)
     }
     
+    func resetPreallocatedSeatsOfSession(sessionId:String, WithDelegate Delegate:SSTeacherDataSourceDelegate)
+    {
+        setdelegate(Delegate)
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>ResetSeatAssignment</Service><SessionId>%@</SessionId></Action></Sunstone>",URLPrefix,sessionId)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceResetSeatAssignment, withDelegate: self, withRequestType: eHTTPGetRequest)
+    }
+    
+    func getGridDesignDetails(roomId :String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        setdelegate(delegate)
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>RetrieveGridDesign</Service><RoomId>%@</RoomId></Action></Sunstone>",URLPrefix,roomId)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceGetGridDesign, withDelegate: self, withRequestType: eHTTPGetRequest)
+        
+    }
+    
+    
+    
+    
+    func getSeatAssignmentofSession(sessionId:String,  withDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        setdelegate(delegate)
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>RetrieveSeatAssignments</Service><SessionId>%@</SessionId></Action></Sunstone>",URLPrefix,sessionId)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceGetSeatAssignment, withDelegate: self, withRequestType: eHTTPGetRequest)
+    }
+    
+    func getStudentsInfoWithSessionId(sessionId:String,  withDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        setdelegate(delegate)
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>GetStudentsSessionInfo</Service><SessionId>%@</SessionId></Action></Sunstone>",URLPrefix,sessionId)
+        
+        manager.downloadDataURL(urlString, withServiceName: kGetStudentsSessionInfo, withDelegate: self, withRequestType: eHTTPGetRequest)
+    }
+    
+    func SaveSeatAssignmentWithStudentsList(studentsList:String, withSeatsIdList seatIdList:String, withSessionId sessionId:String, withDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        setdelegate(delegate)
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>StudentSeatAssignment</Service><SessionId>%@</SessionId><StudentIdList>%@</StudentIdList><SeatIdList>%@</SeatIdList><StatusId>9</StatusId></Action></Sunstone>",URLPrefix,sessionId,studentsList,seatIdList)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceSeatAssignment, withDelegate: self, withRequestType: eHTTPGetRequest)
+    }
+    
     
     // MARK: - API Delegate Functions
     func delegateDidGetServiceResponseWithDetails( dict: NSMutableDictionary!, WIthServiceName serviceName: String!)
@@ -246,8 +326,51 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
                 delegate().didGetSessionExtendedDetials!(refinedDetails)
             }
         }
+        else if serviceName == kServiceResetSeatAssignment
+        {
+            if delegate().respondsToSelector(Selector("didGetSeatsRestWithDetials:"))
+            {
+                delegate().didGetSeatsRestWithDetials!(refinedDetails)
+            }
+        }
+        
+        else if serviceName == kServiceGetGridDesign
+        {
+            if delegate().respondsToSelector(Selector("didGetGridDesignWithDetails:"))
+            {
+                delegate().didGetGridDesignWithDetails!(refinedDetails)
+            }
+        }
+            
+        else if serviceName == kServiceGetSeatAssignment
+        {
+            if delegate().respondsToSelector(Selector("didGetSeatAssignmentWithDetails:"))
+            {
+                delegate().didGetSeatAssignmentWithDetails!(refinedDetails)
+            }
+        }
+        else if serviceName == kGetStudentsSessionInfo
+        {
+            if delegate().respondsToSelector(Selector("didGetStudentsInfoWithDetails:"))
+            {
+                delegate().didGetStudentsInfoWithDetails!(refinedDetails)
+            }
+        }
+        else if serviceName == kServiceSeatAssignment
+        {
+            if delegate().respondsToSelector(Selector("didGetSeatAssignmentSavedWithDetails:"))
+            {
+                delegate().didGetSeatAssignmentSavedWithDetails!(refinedDetails)
+            }
+        }
     
     }
+    
+    
+    
+    
+    
+    
     func delegateServiceErrorMessage(message: String!, withServiceName ServiceName: String!, withErrorCode code: String!) {
     
         
