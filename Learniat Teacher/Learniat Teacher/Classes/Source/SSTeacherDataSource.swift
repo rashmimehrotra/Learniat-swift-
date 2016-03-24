@@ -53,6 +53,8 @@ let kServiceGetSeatAssignment       =   "GetSeatAssignment"
 
 let kServiceSeatAssignment          =   "StudentSeatAssignment"
 
+let kServiceGetAllNodes				=   "GetAllNodes"
+
 
 
 
@@ -83,6 +85,8 @@ let kServiceSeatAssignment          =   "StudentSeatAssignment"
     optional func didGetStudentsInfoWithDetails(details:AnyObject)
     
     optional func didGetSeatAssignmentSavedWithDetails(details:AnyObject)
+    
+    optional func didGetAllNodesWithDetails(details:AnyObject)
     
     
 }
@@ -271,6 +275,18 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     }
     
     
+    func getAllNodesWithClassId(classId:String, withSubjectId subjectId:String, withTopicId topicId:String,withType type:String, withDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        setdelegate(delegate)
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>GetAllNodes</Service><ClassId>%@</ClassId><SubjectId>%@</SubjectId><TopicId>%@</TopicId><Type>%@</Type></Action></Sunstone>",URLPrefix,classId,subjectId,topicId,type)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceGetAllNodes, withDelegate: self, withRequestType: eHTTPGetRequest)
+    }
+    
+    
     // MARK: - API Delegate Functions
     func delegateDidGetServiceResponseWithDetails( dict: NSMutableDictionary!, WIthServiceName serviceName: String!)
     {
@@ -361,6 +377,13 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
             if delegate().respondsToSelector(Selector("didGetSeatAssignmentSavedWithDetails:"))
             {
                 delegate().didGetSeatAssignmentSavedWithDetails!(refinedDetails)
+            }
+        }
+        else if serviceName == kServiceGetAllNodes
+        {
+            if delegate().respondsToSelector(Selector("didGetAllNodesWithDetails:"))
+            {
+                delegate().didGetAllNodesWithDetails!(refinedDetails)
             }
         }
     

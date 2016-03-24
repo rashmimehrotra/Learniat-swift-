@@ -401,7 +401,6 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
     
     func setcurrentViewDetails(details:AnyObject)
     {
-        print(details)
         
         
         scheduleSummaryDetails = details

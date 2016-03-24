@@ -55,6 +55,10 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     
     var delayTime:Float = 0
     
+    var liveSessionDetails          : AnyObject!
+    
+    var sessionUpdatedLive          :Bool = false
+    
     
     var mScheduleDetailView  : ScheduleDetailView!
     
@@ -83,11 +87,11 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
         
         
-        mTeacherImageView = UIImageView(frame: CGRectMake(10, 15, mTopbarImageView.frame.size.height - 20 ,mTopbarImageView.frame.size.height - 20))
+        mTeacherImageView = UIImageView(frame: CGRectMake(15, 15, mTopbarImageView.frame.size.height - 20 ,mTopbarImageView.frame.size.height - 20))
         mTeacherImageView.backgroundColor = lightGrayColor
         mTopbarImageView.addSubview(mTeacherImageView)
         mTeacherImageView.layer.masksToBounds = true
-        mTeacherImageView.layer.cornerRadius = 3
+        mTeacherImageView.layer.cornerRadius = 5
         
         
         let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_UserProfileImageURL) as! String
@@ -97,12 +101,12 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             mTeacherImageView.contentMode = .ScaleAspectFit
             mTeacherImageView.downloadImage(checkedUrl, withFolderType: folderType.ProFilePics)
         }
-
         
         
         
         
-        mTeacherName = UILabel(frame: CGRectMake(mTeacherImageView.frame.origin.x + mTeacherImageView.frame.size.width + 10, 10, 200, 30))
+        
+        mTeacherName = UILabel(frame: CGRectMake(mTeacherImageView.frame.origin.x + mTeacherImageView.frame.size.width + 10, mTeacherImageView.frame.origin.y, 200, 20))
         mTeacherName.font = UIFont(name:helveticaMedium, size: 20)
         mTeacherName.text = SSTeacherDataSource.sharedDataSource.currentUserName.capitalizedString
         mTopbarImageView.addSubview(mTeacherName)
@@ -115,7 +119,6 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         mTeacher.text = "Teacher"
         mTopbarImageView.addSubview(mTeacher)
         mTeacher.textColor = UIColor.whiteColor()
-        
         
         
         
@@ -323,6 +326,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     func didGetSchedulesWithDetials(details: AnyObject)
     {
 
+        sessionUpdatedLive = false
         
         if mScheduleDetailView != nil
         {
@@ -442,20 +446,32 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         if let currentSessionId = details.objectForKey("SessionId") as? String
         {
             
-            let currentDate = NSDate()
-            let isgreatervalue :Bool ;
-            
-            isgreatervalue = currentDate.isGreaterThanDate(dateFormatter.dateFromString(details.objectForKey("StartTime") as! String)!)
-            
-            let  isEqualValue = currentDate.isEqualToDate(dateFormatter.dateFromString(details.objectForKey("StartTime") as! String)!)
-            
-            if isgreatervalue == true || isEqualValue == true
+            if let SessionState = details.objectForKey("SessionState") as? String
             {
-                updateOverDueSessionWithSessionId(currentSessionId)
-            }
-            else
-            {
-                updateNextSessionWithSessionId(currentSessionId)
+                if SessionState == kScheduled || SessionState == kopened
+                {
+                    
+                    
+                    let currentDate = NSDate()
+                    let isgreatervalue :Bool ;
+                    
+                    isgreatervalue = currentDate.isGreaterThanDate(dateFormatter.dateFromString(details.objectForKey("StartTime") as! String)!)
+                    
+                    let  isEqualValue = currentDate.isEqualToDate(dateFormatter.dateFromString(details.objectForKey("StartTime") as! String)!)
+                    
+                    if isgreatervalue == true || isEqualValue == true
+                    {
+                        updateOverDueSessionWithSessionId(currentSessionId)
+                    }
+                    else
+                    {
+                        updateNextSessionWithSessionId(currentSessionId)
+                    }
+                }
+                else if let nextSessionId = details.objectForKey("NextSessionId") as? String
+                {
+                    updateNextSessionWithSessionId(nextSessionId)
+                }
             }
             
         }
@@ -472,15 +488,25 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     func didGetSessionUpdatedWithDetials(details: AnyObject)
     {
         
-        print(details)
+            if sessionUpdatedLive == false
+            {
+                SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
+        }
+        else
+            {
+                if liveSessionDetails != nil
+                {
+                    beginClassWithDetails(liveSessionDetails)
+                }
+                
+                
+        }
         
-        SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
         activityIndicator.hidden = false
         activityIndicator.startAnimating()
     }
     
     func didGetSessionExtendedDetials(details: AnyObject) {
-        print(details)
         
         
         SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
@@ -578,7 +604,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
        {
             if SessionState == kScheduled || SessionState == kopened
             {
-                if let sessionId = Details.objectForKey("SessionId") as? String
+                if let _ = Details.objectForKey("SessionId") as? String
                 {
                     if mScheduleDetailView == nil
                     {
@@ -626,6 +652,11 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
                 {
                     mScheduleDetailView.onDoneButton()
                 }
+                
+                liveSessionDetails = Details
+                
+                beginClassWithDetails(liveSessionDetails)
+                
             }
         }
         
@@ -806,11 +837,15 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         sessionAlertView = UIAlertController(title: "BeginClass", message: message, preferredStyle: UIAlertControllerStyle.Alert)
         sessionAlertView.addAction(UIAlertAction(title: "Begin Class", style: .Default, handler: { action in
             
+            
+            self.sessionUpdatedLive = true
              SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SessionId, WithStatusvalue: kLive, WithDelegate: self)
             
             if let currentSessionDetails = self.sessionIdDictonary[SessionId]
             {
                 self.sendTimeExtendMessageWithDetails(currentSessionDetails, withMessage: "Class has begun")
+                
+                self.liveSessionDetails = currentSessionDetails
             }
             
         }))
@@ -968,8 +1003,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         if buttonIndex == 1
         {
              let currentDate = NSDate()
-            print(extendTimeSessiondetails)
-            
+
             let differenceMinutes  = currentDate.minutesDiffernceBetweenDates(dateFormatter.dateFromString(extendTimeSessiondetails.objectForKey("StartTime") as! String)!, endDate: currentDate)
             
             delayTime = delayTime + Float(differenceMinutes)
@@ -1069,6 +1103,9 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     {
         if let sessionid = details.objectForKey(kSessionId) as? String
         {
+             self.sessionUpdatedLive = true
+            self.liveSessionDetails = details
+            
             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(sessionid, WithStatusvalue: kLive, WithDelegate: self)
             self.mScheduleDetailView.onDoneButton()
         }
@@ -1081,7 +1118,6 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     
     // MARK: - Change screen Functions
     
-    
     func allocateSeatsWithDetails(details:AnyObject)
     {
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -1091,8 +1127,25 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         self.presentViewController(preallotController, animated: true, completion: nil)
     }
     
-    
-    
-    
+    func beginClassWithDetails(details:AnyObject)
+    {
+        
+        for var index = 0; index < sessionDetailsArray.count; index++
+        {
+            let dict = sessionDetailsArray.objectAtIndex(index)
+            let sessionid = dict.objectForKey(kSessionId) as! String
+            
+            if let scheduleTileView  = mScrollView.viewWithTag(Int(sessionid)!) as? ScheduleScreenTile
+            {
+                scheduleTileView.stopAllTimmers()
+            }
+        }
+       
+        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let preallotController : SSTeacherClassView = storyboard.instantiateViewControllerWithIdentifier("SSTeacherClassView") as! SSTeacherClassView
+        
+        preallotController.setSessionDetails(details)
+        self.presentViewController(preallotController, animated: true, completion: nil)
+    }
     
 }

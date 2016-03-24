@@ -9,6 +9,12 @@
 import Foundation
 import UIKit
 
+
+let onlyMainTopics        = "Only MainTopics"
+let onlySubTopics         = "Only SubTopics"
+let onlyQuestions         = "Only Questions"
+
+
 let helveticaRegular      = "HelveticaNeue"
 
 let helveticaMedium       = "HelveticaNeue-Medium"
@@ -97,12 +103,17 @@ let standard_TextGrey   : UIColor = UIColor(red: 170/255.0, green:170/255.0, blu
 
 let standard_Button     : UIColor = UIColor(red: 0/255.0, green:174/255.0, blue:239/255.0, alpha: 1)
 
+let standard_Button_Disabled     : UIColor = UIColor.lightGrayColor()
+
 let lightGrayColor      : UIColor = UIColor.lightGrayColor()
 
 let lightGrayTopBar     : UIColor = UIColor(red: 238/255.0, green:238/255.0, blue:238/255.0, alpha: 1) //EEEEEE
 
-let LineGrayColor       : UIColor = UIColor(red: 153/255.0, green: 153/255.0, blue: 153/255.0, alpha: 0.6) //999999
+let LineGrayColor       : UIColor = UIColor(red: 153/255.0, green: 153/255.0, blue: 153/255.0, alpha: 0.3) //999999
 
+let blackTextColor      : UIColor = UIColor(red: 51/255.0, green: 51/255.0, blue: 51/255.0, alpha: 1)   //333333
+
+let topicsLineColor     : UIColor = UIColor(red: 236.0/255.0, green: 233.0/255.0, blue: 233.0/255.0, alpha: 1)   //333333
 
 
 

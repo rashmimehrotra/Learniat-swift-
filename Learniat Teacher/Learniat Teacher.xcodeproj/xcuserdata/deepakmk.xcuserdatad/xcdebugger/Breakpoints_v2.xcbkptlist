@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Learniat Teacher/Classes/Source/SSTeacherDataSource.swift"
-            timestampString = "480427857.559182"
+            filePath = "Learniat Teacher/Classes/ScheduleScreen/TeacherScheduleViewController.swift"
+            timestampString = "480491341.353548"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "268"
-            endingLineNumber = "268"
-            landmarkName = "SaveSeatAssignmentWithStudentsList(_:withSeatsIdList:withSessionId:withDelegate:)"
+            startingLineNumber = "491"
+            endingLineNumber = "491"
+            landmarkName = "didGetSessionUpdatedWithDetials(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

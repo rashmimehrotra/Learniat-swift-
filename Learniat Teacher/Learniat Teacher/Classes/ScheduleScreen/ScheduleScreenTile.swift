@@ -214,16 +214,35 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
                 circleImage.backgroundColor = UIColor.whiteColor()
                 
                 
-                circleImage.frame = CGRectMake(10, 8, 24, 24)
-                circleImage.layer.cornerRadius = circleImage.frame.size.width/2
-                circleImage.layer.masksToBounds = true
+                if self.frame.size.height > 40
+                {
+                    circleImage.frame = CGRectMake(10, 8, 24, 24)
+                    circleImage.layer.cornerRadius = circleImage.frame.size.width/2
+                    circleImage.layer.masksToBounds = true
+                    
+                    let LiveLabel = UILabel(frame: CGRectMake(0,0,circleImage.frame.size.width,circleImage.frame.size.height))
+                    circleImage.addSubview(LiveLabel)
+                    LiveLabel.text = "Live"
+                    LiveLabel.font = UIFont(name:helveticaRegular, size: 9)
+                    LiveLabel.textColor = LiveColor
+                    LiveLabel.textAlignment = .Center
+                }
                 
-                let LiveLabel = UILabel(frame: CGRectMake(0,0,circleImage.frame.size.width,circleImage.frame.size.height))
-                circleImage.addSubview(LiveLabel)
-                LiveLabel.text = "Live"
-                LiveLabel.font = UIFont(name:helveticaRegular, size: 9)
-                LiveLabel.textColor = LiveColor
-                LiveLabel.textAlignment = .Center
+                else
+                {
+                    circleImage.frame = CGRectMake(10, 2, self.frame.size.height - 4,self.frame.size.height - 4)
+                    circleImage.layer.cornerRadius = circleImage.frame.size.width/2
+                    circleImage.layer.masksToBounds = true
+                    
+                    let LiveLabel = UILabel(frame: CGRectMake(0,0,circleImage.frame.size.width,circleImage.frame.size.height))
+                    circleImage.addSubview(LiveLabel)
+                    LiveLabel.text = "Live"
+                    LiveLabel.font = UIFont(name:helveticaRegular, size: 9)
+                    LiveLabel.textColor = LiveColor
+                    LiveLabel.textAlignment = .Center
+                }
+                
+               
 
                 
                 break
@@ -249,8 +268,8 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
                 break
                 
                 
-            default:
-                print("Not the letter A")
+            default: break
+                
         }
     }
     
