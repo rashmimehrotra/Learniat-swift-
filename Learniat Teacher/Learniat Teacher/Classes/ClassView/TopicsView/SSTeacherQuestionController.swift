@@ -8,7 +8,20 @@
 
 import Foundation
 
-class SSTeacherQuestionController: UIViewController,SSTeacherDataSourceDelegate
+
+@objc protocol SSTeacherQuestionControllerDelegate
+{
+    
+    
+    optional func delegateQuestionSentWithQuestionDetails(questionDetails:AnyObject)
+    
+    
+}
+
+
+
+
+class SSTeacherQuestionController: UIViewController,QuestionCellDelegate,SSTeacherDataSourceDelegate
 {
     var _delgate: AnyObject!
     
@@ -26,6 +39,8 @@ class SSTeacherQuestionController: UIViewController,SSTeacherDataSourceDelegate
      var currentMainTopicID                 = ""
     
     var currentMainTopicName                = ""
+    
+    var isCurrentSubtopicStarted :Bool           = false
     
     var questionsDetailsDictonary:Dictionary<String, NSMutableArray> = Dictionary()
     
@@ -118,13 +133,15 @@ class SSTeacherQuestionController: UIViewController,SSTeacherDataSourceDelegate
     
     
     
-    func getQuestionsDetailsWithsubTopicId(subTopicId:String, withSubTopicName subTopicName:String, withMainTopicId mainTopicId:String, withMainTopicName mainTopicName:String)
+    func getQuestionsDetailsWithsubTopicId(subTopicId:String, withSubTopicName subTopicName:String, withMainTopicId mainTopicId:String, withMainTopicName mainTopicName:String, withSubtopicStarted isStarted:Bool)
     {
         
         currentMainTopicID = mainTopicId
         currentMainTopicName = mainTopicName
         
         currentSubTopicId = subTopicId
+        
+        isCurrentSubtopicStarted = isStarted
         
         mSubTopicName.text = subTopicName
         if let currentMainTopicDetails = questionsDetailsDictonary[currentSubTopicId]
@@ -187,8 +204,6 @@ class SSTeacherQuestionController: UIViewController,SSTeacherDataSourceDelegate
                 
             }
         }
-        
-        
     }
     
     
@@ -196,7 +211,6 @@ class SSTeacherQuestionController: UIViewController,SSTeacherDataSourceDelegate
     
     func didGetAllNodesWithDetails(details: AnyObject) {
         
-        print(details)
         
         if let statusString = details.objectForKey("Status") as? String
         {
@@ -242,19 +256,7 @@ class SSTeacherQuestionController: UIViewController,SSTeacherDataSourceDelegate
         }
         
         
-        var height :CGFloat = CGFloat((mMaintopicsDetails.count * 60) + 44)
-        
-        
-        if height > 700
-        {
-            height = 700
-        }
-        
-
-        
-        self.preferredContentSize = CGSize(width: 600, height: height)
-        
-        mTopicsContainerView.frame = CGRectMake(0, 44, mTopicsContainerView.frame.size.width, height - 44)
+      var height :CGFloat = 44
         
         var positionY :CGFloat = 0
         
@@ -267,10 +269,38 @@ class SSTeacherQuestionController: UIViewController,SSTeacherDataSourceDelegate
             topicCell.setdelegate(self)
          
             topicCell.frame =   CGRectMake(0  , positionY, mTopicsContainerView.frame.size.width, topicCell.getCurrentCellHeightWithDetails(currentTopicDetails, WIthCountValue: index + 1))
-                        
+            
+            
+            if isCurrentSubtopicStarted == true
+            {
+                topicCell.mSendButton.hidden = false
+            }
+            else
+            {
+                topicCell.mSendButton.hidden = true
+            }
+            
+            
             mTopicsContainerView.addSubview(topicCell)
+            height = height + topicCell.frame.size.height
+            
             positionY = positionY + topicCell.frame.size.height
         }
+        
+        
+        
+        
+        
+        if height > 700
+        {
+            height = 700
+        }
+        
+        
+        
+        self.preferredContentSize = CGSize(width: 600, height: height)
+        
+        mTopicsContainerView.frame = CGRectMake(0, 44, mTopicsContainerView.frame.size.width, height - 44)
         
         mTopicsContainerView.contentSize = CGSizeMake(0, positionY + 20)
         
@@ -286,6 +316,17 @@ class SSTeacherQuestionController: UIViewController,SSTeacherDataSourceDelegate
 //        }
     }
     
+    // MARK: - Question delegate functions
+    
+    
+    func delegateSendQuestionDetails(questionDetails: AnyObject) {
+        
+        if delegate().respondsToSelector(Selector("delegateQuestionSentWithQuestionDetails:"))
+        {
+            delegate().delegateQuestionSentWithQuestionDetails!(questionDetails)
+            
+        }
+    }
     
     
     

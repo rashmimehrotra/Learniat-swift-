@@ -55,6 +55,10 @@ let kServiceSeatAssignment          =   "StudentSeatAssignment"
 
 let kServiceGetAllNodes				=   "GetAllNodes"
 
+let kServiceStartTopic              =   "SetCurrentTopic"
+
+let kServiceBroadcastQuestion		=   "BroadcastQuestion"
+
 
 
 
@@ -88,6 +92,10 @@ let kServiceGetAllNodes				=   "GetAllNodes"
     
     optional func didGetAllNodesWithDetails(details:AnyObject)
     
+    optional func didGetSubtopicStartedWithDetails(details:AnyObject)
+    
+    optional func didGetQuestionSentWithDetails(details:AnyObject)
+    
     
 }
 
@@ -111,6 +119,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     var currentPassword     :String     = String()
     
+    var currentLiveSessionId        = ""
     
     
     // MARK: - Delegate Functions
@@ -287,6 +296,34 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     }
     
     
+   
+    func startSubTopicWithTopicID(topicId:String,withStudentId studentId:String,withSessionID sessionid:String, withDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        setdelegate(delegate)
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>SetCurrentTopic</Service><TopicId>%@</TopicId><SessionId>%@</SessionId><StudentId>%@</StudentId></Action></Sunstone>",URLPrefix,topicId,sessionid,studentId)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceStartTopic, withDelegate: self, withRequestType: eHTTPGetRequest)
+    }
+    
+    
+    
+    
+    func broadcastQuestionWithQuestionId(questionId:String,withSessionID sessionID:String, withDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        setdelegate(delegate)
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>BroadcastQuestion</Service><QuestionId>%@</QuestionId><SessionId>%@</SessionId></Action></Sunstone>",URLPrefix,questionId,sessionID)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceBroadcastQuestion, withDelegate: self, withRequestType: eHTTPGetRequest)
+    }
+
+    
+    
     // MARK: - API Delegate Functions
     func delegateDidGetServiceResponseWithDetails( dict: NSMutableDictionary!, WIthServiceName serviceName: String!)
     {
@@ -384,6 +421,20 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
             if delegate().respondsToSelector(Selector("didGetAllNodesWithDetails:"))
             {
                 delegate().didGetAllNodesWithDetails!(refinedDetails)
+            }
+        }
+        else if serviceName == kServiceStartTopic
+        {
+            if delegate().respondsToSelector(Selector("didGetSubtopicStartedWithDetails:"))
+            {
+                delegate().didGetSubtopicStartedWithDetails!(refinedDetails)
+            }
+        }
+        else if serviceName == kServiceBroadcastQuestion
+        {
+            if delegate().respondsToSelector(Selector("didGetQuestionSentWithDetails:"))
+            {
+                delegate().didGetQuestionSentWithDetails!(refinedDetails)
             }
         }
     

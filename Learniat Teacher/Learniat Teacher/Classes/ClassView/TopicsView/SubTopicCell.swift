@@ -16,6 +16,8 @@ import Foundation
     
     optional func delegateQuestionButtonPressedWithID(subTopicId:String, withSubTopicName subTopicName:String)
     
+    optional func delegateSubTopicCellStartedWithId(subTopicId:String, witStatedState isStarted:Bool,withSubTopicName subTopicName:String)
+    
 }
 
 class SubTopicCell: UIView{
@@ -37,6 +39,10 @@ class SubTopicCell: UIView{
     
     
     var _delgate: AnyObject!
+    
+    var cumulativeTimer                    = NSTimer()
+    
+    var currentSubTopicDetails :AnyObject!
     
     
     
@@ -85,8 +91,7 @@ class SubTopicCell: UIView{
         startButton.setTitleColor(standard_Green, forState: .Normal)
         startButton.setTitle("Start", forState: .Normal)
         startButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
-        startButton.addTarget(self, action: "onSubtopicButton", forControlEvents: UIControlEvents.TouchUpInside)
-        startButton.enabled = false
+        startButton.addTarget(self, action: "onStartButton", forControlEvents: UIControlEvents.TouchUpInside)
         
         
         
@@ -118,6 +123,8 @@ class SubTopicCell: UIView{
     
     func setMainTopicDetails(currentTopicDetails:AnyObject)
     {
+        
+        currentSubTopicDetails = currentTopicDetails
         
         if let topicId = currentTopicDetails.objectForKey("Id")as? String
         {
@@ -205,13 +212,80 @@ class SubTopicCell: UIView{
     {
         if delegate().respondsToSelector(Selector("delegateQuestionButtonPressedWithID:withSubTopicName:"))
         {
-            
-            delegate().delegateQuestionButtonPressedWithID!(mSubTopicId, withSubTopicName: m_SubTopicLabel.text!)
-            
+            if let topicName = currentSubTopicDetails.objectForKey("Name")as? String
+            {
+                delegate().delegateQuestionButtonPressedWithID!(mSubTopicId, withSubTopicName: topicName)
+            }
             
         }
-    
-        
     }
+    
+    func onStartButton()
+    {
+        if let topicName = currentSubTopicDetails.objectForKey("Name")as? String
+        {
+            if delegate().respondsToSelector(Selector("delegateSubTopicCellStartedWithId:witStatedState:withSubTopicName:"))
+            {
+                
+                if startButton.titleLabel?.text == "Start" || startButton.titleLabel?.text == "Resume"
+                {
+                    delegate().delegateSubTopicCellStartedWithId!(mSubTopicId, witStatedState: true ,withSubTopicName:topicName )
+                    startButton.setTitle("Stop", forState: .Normal)
+                    startButton.setTitleColor(standard_Red, forState: .Normal)
+                    cumulativeTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "udpateCumulativeTime", userInfo: nil, repeats: true)
+                    
+                }
+                else
+                {
+                    delegate().delegateSubTopicCellStartedWithId!(mSubTopicId, witStatedState: false ,withSubTopicName:topicName)
+                    startButton.setTitle("Resume", forState: .Normal)
+                    startButton.setTitleColor(standard_Green, forState: .Normal)
+                    cumulativeTimer.invalidate()
+                }
+                
+            }
+        }
+    }
+    
+    
+    func udpateCumulativeTime()
+    {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss"
+        
+        var _string :String = ""
+        var currentDate = NSDate()
+        
+        
+        if let CumulativeTime = currentSubTopicDetails.objectForKey("CumulativeTime")as? String
+        {
+             currentDate = currentDate.addSeconds(1, withDate: dateFormatter.dateFromString(CumulativeTime)!)
+             _string = dateFormatter.stringFromDate(currentDate)
+             currentSubTopicDetails.setObject(_string, forKey: "CumulativeTime")
+            
+        }
+        
+       
+        
+        
+       
+       
+        if let topicName = currentSubTopicDetails.objectForKey("Name")as? String
+        {
+            if let CumulativeTime = currentSubTopicDetails.objectForKey("CumulativeTime")as? String
+            {
+                m_SubTopicLabel.text = "\(topicName)(\(CumulativeTime))".capitalizedString
+            }
+            else
+            {
+                m_SubTopicLabel.text = "\(topicName)".capitalizedString
+            }
+        }
+        
+       
+        
+        print(_string)
+    }
+    
     
 }

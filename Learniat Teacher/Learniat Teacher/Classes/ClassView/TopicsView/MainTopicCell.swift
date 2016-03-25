@@ -106,7 +106,6 @@ class MainTopicCell: UIView{
         
         currentTopicDetails = topicDetails
         
-        print(currentTopicDetails)
         
         if let topicId = currentTopicDetails.objectForKey("Id")as? String
         {
@@ -183,8 +182,11 @@ class MainTopicCell: UIView{
     {
         if delegate().respondsToSelector(Selector("delegateSubtopicButtonPressedWithID:withmainTopicname:"))
         {
-            
-           delegate().delegateSubtopicButtonPressedWithID!(mMainTopicId , withmainTopicname:m_MainTopicLabel.text!)
+            if let topicName = currentTopicDetails.objectForKey("Name")as? String
+            {
+                 delegate().delegateSubtopicButtonPressedWithID!(mMainTopicId , withmainTopicname:topicName)
+            }
+          
             
             
         }

@@ -64,6 +64,10 @@ import Foundation
     
     optional  func smhStreamReconnectingWithDelay(delay:Int32)
     
+    optional  func smhDidcreateRoomWithRoomName(roomName:String)
+    
+    
+    
     // MARK: - ScheduleScreen Delegates
     
 //    optional func smhDidGetTimeExtendedMessageWithDetails(details:AnyObject)
@@ -265,7 +269,10 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
     
     public func didCreatedOrJoinedRoomWithCreatedRoomName(_roomName: String!)
     {
-        
+        if delegate().respondsToSelector(Selector("smhDidcreateRoomWithRoomName:"))
+        {
+            delegate().smhDidcreateRoomWithRoomName!(_roomName)
+        }
         
     }
     
@@ -299,6 +306,71 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
               let messageBody = ["timedelay":timeDelay ,
                                 "ClassName":className,
                                 "stratTime":StartTime]
+            
+            
+            
+            let details:NSMutableDictionary = ["From":userId,
+                "To":roomId,
+                "Type":msgType,
+                "Body":messageBody];
+            
+            
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendGroupMessageWithBody(xmlBody)
+        }
+    }
+    
+    
+    func sendAllowVotingToRoom(var roomId :String , withValue votingState:String, withSubTopicName subTopicName:String , withSubtopicID subTopicId:String)
+    {
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
+        {
+            
+            
+            roomId = "room_\(roomId)@conference.\(kBaseXMPPURL)";
+            
+            let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
+            let msgType             = kMAllowVoiting
+            
+            
+            let messageBody = ["VotingValue":votingState,"SubTopicName":subTopicName, "SubTopicId":subTopicId]
+            
+            
+            
+            let details:NSMutableDictionary = ["From":userId,
+                "To":roomId,
+                "Type":msgType,
+                "Body":messageBody];
+            
+            
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendGroupMessageWithBody(xmlBody)
+        }
+    }
+    
+    func sendQuestionWithName(var roomId :String , withQuestionLogId QuestionLogId:String, withQuestionType QuestionType:String)
+    {
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
+        {
+            
+            
+            roomId = "room_\(roomId)@conference.\(kBaseXMPPURL)";
+            
+            let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
+            let msgType             = kTeacherQnASubmitted
+            
+            
+            let messageBody = ["QuestionLogId":QuestionLogId, "QuestionType":QuestionType]
             
             
             

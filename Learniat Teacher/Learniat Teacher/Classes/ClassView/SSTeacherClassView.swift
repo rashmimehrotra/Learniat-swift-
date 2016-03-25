@@ -7,7 +7,7 @@
 //
 
 import Foundation
-class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeachermainTopicControllerDelegate,SSTeacherSubTopicControllerDelegate
+class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeachermainTopicControllerDelegate,SSTeacherSubTopicControllerDelegate,SSTeacherDataSourceDelegate,SSTeacherQuestionControllerDelegate,SSTeacherMessagehandlerDelegate
 {
     var mTeacherImageView: UIImageView!
     
@@ -19,18 +19,29 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     
     var currentSessionDetails           :AnyObject!
     
-    
+    var currentSessionId               = ""
     
     var mSubTopicsNamelabel                  = UILabel()
     
     var mQuestionNamelabel                   = UILabel()
     
+    var currentQuestionDetails              :AnyObject!
     
     let mainTopicsController        =  SSTeachermainTopicController()
     
     let subTopicsController         =  SSTeacherSubTopicController()
     
     let questionController          =  SSTeacherQuestionController()
+    
+    var startedSubTopicID           = ""
+    
+    var startedMainTopicID          = ""
+    
+    var startedMainTopicName        = ""
+    
+    var currentQuestionLogId        = ""
+    
+    var isQuestionSent              :Bool = false
     
     
     var classViewPopOverController  :UIPopoverController!
@@ -57,9 +68,11 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         self.view.addSubview(mTopbarImageView)
         mTopbarImageView.userInteractionEnabled = true
         
-        
-        
-        
+        if let sessionId = (currentSessionDetails.objectForKey(kSessionId)) as? String
+        {
+            currentSessionId = sessionId
+            SSTeacherDataSource.sharedDataSource.currentLiveSessionId = sessionId
+        }
         
         mTeacherImageView = UIImageView(frame: CGRectMake(15, 20, 40 ,40))
         mTeacherImageView.backgroundColor = lightGrayColor
@@ -179,12 +192,12 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     func onTopicsButton(sender:UIButton)
     {
         
-        
-        
+     if startedSubTopicID == ""
+     {
         mainTopicsController.setdelegate(self)
         mainTopicsController.preferredContentSize = CGSizeMake(600, 44)
         mainTopicsController.getTopicsDetails()
-
+        
         classViewPopOverController = UIPopoverController(contentViewController: mainTopicsController)
         
         classViewPopOverController.popoverContentSize = CGSizeMake(540, 680);
@@ -195,6 +208,25 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
             y: mTopicButton.frame.origin.y + mTopicButton.frame.size.height,
             width: 1,
             height: 1), inView: self.view, permittedArrowDirections: .Up, animated: true)
+        }
+        else
+     {
+        subTopicsController.setdelegate(self)
+        subTopicsController.preferredContentSize = CGSizeMake(600, 44)
+        subTopicsController.getSubtopicsDetailsWithMainTopicId(startedMainTopicID, withMainTopicName: startedMainTopicName, withStartedSubtopicID: startedSubTopicID)
+        classViewPopOverController = UIPopoverController(contentViewController: subTopicsController)
+        
+        classViewPopOverController.popoverContentSize = CGSizeMake(540, 680);
+        classViewPopOverController.delegate = self;
+        
+        classViewPopOverController.presentPopoverFromRect(CGRect(
+            x: mTopicButton.frame.origin.x + mTopicButton.frame.size.width / 2 ,
+            y: mTopicButton.frame.origin.y + mTopicButton.frame.size.height,
+            width: 1,
+            height: 1), inView: self.view, permittedArrowDirections: .Up, animated: true)
+        }
+        
+        
         
     }
     
@@ -202,20 +234,52 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
      // MARK: - datasource delegate functions
     
     
+    func didGetSubtopicStartedWithDetails(details: AnyObject)
+    {
+        print(details)
+    }
     
-    // MARK: - SubTopics delegate functions
-    
-    func delegateShowSubTopicWithMainTopicId(mainTopicID: String, WithMainTopicName mainTopicName: String) {
-        subTopicsController.setdelegate(self)
-        subTopicsController.preferredContentSize = CGSizeMake(600, 44)
-        subTopicsController.getSubtopicsDetailsWithMainTopicId(mainTopicID, withMainTopicName: mainTopicName)
-        if (classViewPopOverController.popoverVisible == true)
+    func didGetQuestionSentWithDetails(details: AnyObject) {
+        print(details)
+        
+        
+        if let QuestionLogId = details.objectForKey("QuestionLogId") as? String
         {
-            classViewPopOverController.contentViewController = subTopicsController
+            
+            isQuestionSent = false
+            
+            currentQuestionLogId = QuestionLogId
+            
+            SSTeacherMessageHandler.sharedMessageHandler.createRoomWithRoomName("question_\(SSTeacherDataSource.sharedDataSource.currentUserId)_\(currentQuestionLogId)", withHistory: "0")
         }
     }
     
-    func delegateSubTopicBackButtonPressed() {
+    // MARK: - MainTopic delegate functions
+    
+    func delegateShowSubTopicWithMainTopicId(mainTopicID: String, WithMainTopicName mainTopicName: String)
+    {
+        subTopicsController.setdelegate(self)
+        subTopicsController.preferredContentSize = CGSizeMake(600, 44)
+        subTopicsController.getSubtopicsDetailsWithMainTopicId(mainTopicID, withMainTopicName: mainTopicName,withStartedSubtopicID: startedSubTopicID)
+        if (classViewPopOverController.popoverVisible == true)
+        {
+            classViewPopOverController.contentViewController = subTopicsController
+            if startedSubTopicID == ""
+            {
+                mSubTopicsNamelabel.text = mainTopicName
+                startedMainTopicID = mainTopicID
+                startedMainTopicName = mainTopicName
+                
+            }
+            
+        }
+    }
+    
+     // MARK: - subTopic delegate functions
+    
+    
+    func delegateSubTopicBackButtonPressed()
+    {
         mainTopicsController.setdelegate(self)
         mainTopicsController.preferredContentSize = CGSizeMake(600, 44)
         mainTopicsController.getTopicsDetails()
@@ -225,18 +289,97 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         }
     }
     
+    func delegateSubtopicStateChanedWithID(subTopicId: String, withState state: Bool, withSubtopicName subTopicName: String, withmainTopicName mainTopicName: String) {
+        
+        if state == true
+        {
+            startedSubTopicID = subTopicId
+            
+            
+            if let sessionId = (currentSessionDetails.objectForKey(kSessionId)) as? String
+            {
+                SSTeacherDataSource.sharedDataSource.startSubTopicWithTopicID(subTopicId, withStudentId: "", withSessionID: sessionId, withDelegate: self)
+            }
+
+            
+            SSTeacherMessageHandler.sharedMessageHandler.sendAllowVotingToRoom(currentSessionId, withValue: "TRUE", withSubTopicName: subTopicName, withSubtopicID: subTopicId)
+            
+             mSubTopicsNamelabel.text = "\(mainTopicName) / \(subTopicName)"
+            
+            
+        }
+        else
+        {
+            startedSubTopicID = ""
+            SSTeacherMessageHandler.sharedMessageHandler.sendAllowVotingToRoom(currentSessionId, withValue: "FALSE", withSubTopicName: subTopicName, withSubtopicID: subTopicId)
+            
+             mSubTopicsNamelabel.text = "\(mainTopicName)"
+        }
+    }
+    
+    
     func delegateQuestionButtonPressedWithSubtopicId(subtopicId: String, withSubTopicName subTopicName: String, withMainTopicId mainTopicId: String, withMainTopicName mainTopicName: String) {
         
         questionController.setdelegate(self)
         questionController.preferredContentSize = CGSizeMake(600, 44)
-        questionController.getQuestionsDetailsWithsubTopicId(subtopicId, withSubTopicName: subTopicName, withMainTopicId: mainTopicId, withMainTopicName: mainTopicName)
         
+        if startedSubTopicID == subtopicId
+        {
+              questionController.getQuestionsDetailsWithsubTopicId(subtopicId, withSubTopicName: subTopicName, withMainTopicId: mainTopicId, withMainTopicName: mainTopicName, withSubtopicStarted: true)
+        }
+        else
+        {
+            questionController.getQuestionsDetailsWithsubTopicId(subtopicId, withSubTopicName: subTopicName, withMainTopicId: mainTopicId, withMainTopicName: mainTopicName, withSubtopicStarted: false)
+        }
+      
         if (classViewPopOverController.popoverVisible == true)
         {
             classViewPopOverController.contentViewController = questionController
+            
+            if startedSubTopicID == ""
+            {
+                mSubTopicsNamelabel.text = "\(mainTopicName) / \(subTopicName)"
+            }
+        }
+    }
+    
+     // MARK: - Question delegate functions
+    
+    func delegateQuestionSentWithQuestionDetails(questionDetails: AnyObject) {
+        
+        currentQuestionDetails = questionDetails
+        
+        if let QuestionID = (currentQuestionDetails.objectForKey("Id")) as? String
+        {
+            SSTeacherDataSource.sharedDataSource.broadcastQuestionWithQuestionId(QuestionID, withSessionID: currentSessionId, withDelegate: self)
+            
+            classViewPopOverController.dismissPopoverAnimated(true)
+            
         }
     }
     
     
     
+    
+     // MARK: - message handler delegate
+    
+    func smhDidcreateRoomWithRoomName(roomName: String)
+    {
+        
+        if let Type = currentQuestionDetails.objectForKey("Type") as? String
+        {
+           SSTeacherMessageHandler.sharedMessageHandler.sendQuestionWithName(currentSessionId, withQuestionLogId: currentQuestionLogId, withQuestionType: Type)
+        }
+       
+    }
+    
+    
+    
+    func popoverControllerDidDismissPopover(popoverController: UIPopoverController)
+    {
+        if startedSubTopicID == ""
+         {
+            mSubTopicsNamelabel.text = "No topic selected"
+        }
+    }
 }

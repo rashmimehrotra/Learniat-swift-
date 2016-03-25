@@ -99,6 +99,8 @@ let standard_Green      : UIColor = UIColor(red: 76/255.0, green:217/255.0, blue
 
 let standard_Red        : UIColor = UIColor(red: 255/255.0, green:59/255.0, blue:48/255.0, alpha: 1)
 
+let standard_Yellow     : UIColor = UIColor(red: 255.0/255.0, green: 204.0/255.0, blue: 0/255.0, alpha: 1)  
+
 let standard_TextGrey   : UIColor = UIColor(red: 170/255.0, green:170/255.0, blue:170/255.0, alpha: 1) //AAAAAA
 
 let standard_Button     : UIColor = UIColor(red: 0/255.0, green:174/255.0, blue:239/255.0, alpha: 1)
@@ -113,7 +115,8 @@ let LineGrayColor       : UIColor = UIColor(red: 153/255.0, green: 153/255.0, bl
 
 let blackTextColor      : UIColor = UIColor(red: 51/255.0, green: 51/255.0, blue: 51/255.0, alpha: 1)   //333333
 
-let topicsLineColor     : UIColor = UIColor(red: 236.0/255.0, green: 233.0/255.0, blue: 233.0/255.0, alpha: 1)   //333333
+let topicsLineColor     : UIColor = UIColor(red: 236.0/255.0, green: 233.0/255.0, blue: 233.0/255.0, alpha: 1)   
+
 
 
 
@@ -606,6 +609,20 @@ extension NSDate
         
         //Return Result
         return isEqualTo
+    }
+    
+    
+    func addSeconds(seconds: Int , withDate _toDate:NSDate) -> NSDate!
+    {
+        let comps = NSDateComponents()
+        
+        comps.second = seconds
+        
+        let cal = NSCalendar.currentCalendar()
+        
+        let r = cal.dateByAddingComponents(comps, toDate: _toDate, options: [])
+
+        return r
     }
     
 }

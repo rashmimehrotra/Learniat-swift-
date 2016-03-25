@@ -17,6 +17,8 @@ import UIKit
     
     optional func delegateSubTopicBackButtonPressed()
     
+    optional func delegateSubtopicStateChanedWithID(subTopicId:String, withState state:Bool, withSubtopicName subTopicName:String, withmainTopicName mainTopicName:String)
+    
     
     optional func delegateQuestionButtonPressedWithSubtopicId(subtopicId:String, withSubTopicName subTopicName:String, withMainTopicId mainTopicId:String, withMainTopicName mainTopicName:String)
     
@@ -37,6 +39,10 @@ class SSTeacherSubTopicController: UIViewController,SSTeacherDataSourceDelegate,
     var  mTopicName  = UILabel()
 
     var currentMainTopicId                  = ""
+    
+    var startedSubtopicID                   = ""
+    
+    
     
     var subtopicsDetailsDictonary:Dictionary<String, NSMutableArray> = Dictionary()
     
@@ -62,6 +68,36 @@ class SSTeacherSubTopicController: UIViewController,SSTeacherDataSourceDelegate,
         
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        
+        
+        print("dissappear")
+        
+        
+        
+//        if (subtopicsDetailsDictonary[currentMainTopicId] != nil)
+//        {
+//            subtopicsDetailsDictonary.removeValueForKey(currentMainTopicId)
+//        }
+//        
+//        let subtopicArray = NSMutableArray()
+//        
+//        let subViews = mTopicsContainerView.subviews.flatMap{ $0 as? SubTopicCell }
+//        
+//        for subview in subViews
+//        {
+//            if subview.isKindOfClass(SubTopicCell)
+//            {
+//               subtopicArray.addObject(subview.currentSubTopicDetails)
+//                subview.cumulativeTimer.invalidate()
+//            }
+//        }
+//        
+//         subtopicsDetailsDictonary[currentMainTopicId] = subtopicArray
+        
+        
+
+    }
     
     func setPreferredSize(size:CGSize, withSessionDetails details:AnyObject)
     {
@@ -129,12 +165,12 @@ class SSTeacherSubTopicController: UIViewController,SSTeacherDataSourceDelegate,
     
     
     
-    func getSubtopicsDetailsWithMainTopicId(mainTopicId:String, withMainTopicName mainTopicname:String)
+    func getSubtopicsDetailsWithMainTopicId(mainTopicId:String, withMainTopicName mainTopicname:String, withStartedSubtopicID _startedSubtopicID:String)
     {
         
         
         currentMainTopicId = mainTopicId
-        
+        startedSubtopicID = _startedSubtopicID
         mTopicName.text = mainTopicname
         if let currentMainTopicDetails = subtopicsDetailsDictonary[currentMainTopicId]
         {
@@ -205,7 +241,6 @@ class SSTeacherSubTopicController: UIViewController,SSTeacherDataSourceDelegate,
     
     func didGetAllNodesWithDetails(details: AnyObject) {
         
-        print(details)
         
         if let statusString = details.objectForKey("Status") as? String
         {
@@ -228,7 +263,7 @@ class SSTeacherSubTopicController: UIViewController,SSTeacherDataSourceDelegate,
                 subtopicsDetailsDictonary[currentMainTopicId] = mMaintopicsDetails
                 
                 
-                print(subtopicsDetailsDictonary)
+                
                 
                 addTopicsWithDetailsArray(mMaintopicsDetails)
             }
@@ -278,7 +313,24 @@ class SSTeacherSubTopicController: UIViewController,SSTeacherDataSourceDelegate,
             let currentTopicDetails = mMaintopicsDetails.objectAtIndex(index)
             
             
+            
             let topicCell = SubTopicCell(frame: CGRectMake(0  , positionY, mTopicsContainerView.frame.size.width, 60))
+            
+            if let id = currentTopicDetails.objectForKey("Id") as? String
+            {
+                if id == startedSubtopicID
+                {
+                    topicCell.startButton.setTitle("Stop", forState: .Normal)
+                    topicCell.startButton.setTitleColor(standard_Red, forState: .Normal)
+                }
+                else
+                {
+                    topicCell.startButton.setTitle("Start", forState: .Normal)
+                    topicCell.startButton.setTitleColor(standard_Green, forState: .Normal)
+                }
+            }
+            
+            
             topicCell.setdelegate(self)
             topicCell.setMainTopicDetails(currentTopicDetails)
             
@@ -300,6 +352,9 @@ class SSTeacherSubTopicController: UIViewController,SSTeacherDataSourceDelegate,
         }
     }
     
+    
+     // MARK: - SubTopics delegate functions
+    
     func delegateQuestionButtonPressedWithID(subTopicId: String, withSubTopicName subTopicName: String) {
         
         if delegate().respondsToSelector(Selector("delegateQuestionButtonPressedWithSubtopicId:withSubTopicName:withMainTopicId:withMainTopicName:"))
@@ -308,6 +363,14 @@ class SSTeacherSubTopicController: UIViewController,SSTeacherDataSourceDelegate,
             delegate().delegateQuestionButtonPressedWithSubtopicId!(subTopicId, withSubTopicName: subTopicName, withMainTopicId: currentMainTopicId, withMainTopicName: mTopicName.text!)
         }
         
+    }
+    
+    func delegateSubTopicCellStartedWithId(subTopicId:String, witStatedState isStarted:Bool,withSubTopicName subTopicName:String)
+    {
+        if delegate().respondsToSelector(Selector("delegateSubtopicStateChanedWithID:withState:withSubtopicName:withmainTopicName:"))
+        {
+            delegate().delegateSubtopicStateChanedWithID!(subTopicId, withState: isStarted,withSubtopicName:subTopicName,withmainTopicName: mTopicName.text!)
+        }
         
     }
 
