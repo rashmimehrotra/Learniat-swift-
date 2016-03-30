@@ -68,58 +68,8 @@ import Foundation
     
     
     
-    // MARK: - ScheduleScreen Delegates
     
-//    optional func smhDidGetTimeExtendedMessageWithDetails(details:AnyObject)
-//    
-//    optional func smhDidGetSessionEndMessageWithDetails(details:AnyObject)
-//   
-//    optional func smhDidGetSeatingChangedWithDetails(details:AnyObject)
-//    
-//    optional func smhDidGetTopicStateMessageWithDetails(details:AnyObject)
-//    
-//    optional func smhDidGetTopicAndQuestionMessageWithDetails(details:AnyObject)
-//    
-//    optional func smhdidRecieveLiveClassRoomInvitationWithRoomName(roomName :String)
-//    
-//    optional func smhdidReceiveQuestionSentMessage(dict: AnyObject)
-//    
-//    optional func smhdidReceiveQuestionClearMessage()
-//    
-//    optional func smhdidReceiveQuestionFreezMessage()
-//    
-//    optional func smhdidReceiveGraphWithDetails(dict: AnyObject)
-//    
-//    optional func smhdidReceiveAnswerEvaluatingMessage()
-//    
-//    optional func smhdidGetAnswerFeedBackFromTeacherWithDetials(details : AnyObject)
-//    
-//    optional func smhdidGetQueryFeedBackFromTeacherWithDetials(details : AnyObject)
-//    
-//    optional func smhdidRecieveQueryOpenedForVotingWithDetails()
-//    
-//    optional func smhdidRecieveQueryVolunteeringEnded()
-//    
-//    optional func smhdidRecieveStudentAnsweringMessagewithQueryId(details:AnyObject)
-//    
-//    optional func smhdidRecieveGivemeAnswermessagewithQueryId(details:AnyObject)
-//    
-//    optional func smhdidRecieveQueryReviewmessage()
-//    
-//    optional func smhdidRecieveTeacherReplayForVolnteer(details:AnyObject)
-//    
-//    optional func smhdidRecieveQueryCloseVotingMessageFromTeacher()
-//    
-//    optional func smhDidGetPollStartedMessageFormTeacherWithDetails(details:AnyObject)
-//    
-//    optional func smhDidGetPollEndedMessageFromteacher()
-//    
-//    optional func smhdidRecieveCollabarationQuestionMessageFromTeacherWithCategory(category:AnyObject)
-//    
-//    optional func smhdidRecieveCollabarationClosedMessage()
-//    
-//    optional func smhdidRecieveModelAnswerMessageWithDetials(details:AnyObject)
-    
+    optional  func smhDidgetStudentBentchStateWithStudentId(studentId:String, withState state:String)
     
 }
 
@@ -290,6 +240,12 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
         MessageManager.sharedMessageHandler().removeIfRoomPresentWithRoomId(roomId)
     }
     
+    
+    func sendInviteToRoomWithUserName(userName:String)
+    {
+      
+    }
+    
     //MARK: Send  Message
     func sendExtendedTimetoRoom(var roomId:String, withClassName className:String, withStartTime StartTime:String, withDelayTime timeDelay:String)
     {
@@ -358,19 +314,46 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
         }
     }
     
-    func sendQuestionWithName(var roomId :String , withQuestionLogId QuestionLogId:String, withQuestionType QuestionType:String)
+    func sendLiveClassRoomName( roomId :String , withQuestionLogId studentId:String, withQuestionType QuestionType:String)
     {
         if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
         {
+            let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
+            let msgType             = kLiveClassRoomName
             
             
-            roomId = "room_\(roomId)@conference.\(kBaseXMPPURL)";
+            let messageBody = ["CreatedRoomName":roomId, "QuestionType":QuestionType]
+            
+            
+            
+            let details:NSMutableDictionary = ["From":userId,
+                "To":studentId,
+                "Type":msgType,
+                "Body":messageBody];
+            
+            
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendMessageTo("\(studentId)@\(kBaseXMPPURL)", withContents: xmlBody)
+        }
+    }
+    
+    
+    func sendQuestionWithRoomName(roomId :String , withQuestionLogId QuestionLogId:String, withQuestionType QuestionType:String)
+    {
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
+        {
             
             let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
             let msgType             = kTeacherQnASubmitted
             
             
-            let messageBody = ["QuestionLogId":QuestionLogId, "QuestionType":QuestionType]
+            let messageBody = ["QuestionLogId":QuestionLogId,
+                                "QuestionType":QuestionType]
             
             
             
@@ -390,6 +373,32 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
         }
     }
     
+    func sendClearQuestionMessageWithRoomId(var roomId :String)
+    {
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
+        {
+            
+            
+            roomId = "room_\(roomId)@conference.\(kBaseXMPPURL)";
+            
+            let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
+            let msgType             = kTeacherQnADone
+            
+            
+            let details:NSMutableDictionary = ["From":userId,
+                "To":roomId,
+                "Type":msgType];
+            
+            
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendGroupMessageWithBody(xmlBody)
+        }
+    }
     
     //MARK: Recieve Message
     public func didReceiveMessageWithBody(body: String!)
@@ -401,6 +410,29 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
         if message.messageType() == nil
         {
             return
+        }
+        
+        
+        
+        switch ( message.messageType())
+        {
+        case kStudentSentBenchState:
+            
+            
+            if let studentId = message.messageFrom()
+            {
+                if let studentState = message.messageBody().objectForKey("BenchState") as? String
+                {
+                    if delegate().respondsToSelector(Selector("smhDidgetStudentBentchStateWithStudentId:withState:"))
+                    {
+                         delegate().smhDidgetStudentBentchStateWithStudentId!(studentId, withState: studentState)
+                    }
+                }
+            }
+            break
+        default:
+            break
+            
         }
     }
 }

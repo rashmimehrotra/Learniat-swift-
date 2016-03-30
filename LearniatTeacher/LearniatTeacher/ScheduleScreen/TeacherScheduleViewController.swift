@@ -6,6 +6,10 @@
 //  Copyright © 2016 Mindshift. All rights reserved.
 //
 
+
+
+
+
 import Foundation
 import UIKit
 
@@ -62,6 +66,8 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     
     var mScheduleDetailView  : ScheduleDetailView!
     
+     private var foregroundNotification: NSObjectProtocol!
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -73,6 +79,22 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         self.view.setNeedsLayout()
         self.view.layoutIfNeeded()
 
+        
+        
+        foregroundNotification = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationWillEnterForegroundNotification, object: nil, queue: NSOperationQueue.mainQueue()) {
+            [unowned self] notification in
+            
+            if self.sessionAlertView != nil
+            {
+                if self.sessionAlertView.isBeingPresented()
+                {
+                    self.sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
+                }
+            }
+            
+             SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
+        }
+        
         
         SSTeacherMessageHandler.sharedMessageHandler.setdelegate(self)
         
@@ -137,7 +159,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         mTopbarImageView.addSubview(mRefreshButton)
         mRefreshButton.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
         mRefreshButton.addTarget(self, action: "onRefreshButton:", forControlEvents: UIControlEvents.TouchUpInside)
-        
+        mRefreshButton.hidden = false
         
         
         activityIndicator.frame = CGRectMake(mRefreshButton.frame.origin.x - 60,  0,mTopbarImageView.frame.size.height,mTopbarImageView.frame.size.height)
@@ -188,7 +210,12 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
          timer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: "timerAction", userInfo: nil, repeats: true)
     }
-    
+   
+    deinit {
+        // make sure to remove the observer when this view controller is dismissed/deallocated
+        
+        NSNotificationCenter.defaultCenter().removeObserver(foregroundNotification)
+    }
     
     
     func addNumberOfLinesToScrollView()
@@ -332,6 +359,15 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         {
             mScheduleDetailView.onDoneButton()
         }
+        
+        if self.sessionAlertView != nil
+        {
+            if self.sessionAlertView.isBeingPresented()
+            {
+                self.sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
+            }
+        }
+        
         
         for var index = 0; index < sessionDetailsArray.count; index++
         {
@@ -496,6 +532,11 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             {
                 if liveSessionDetails != nil
                 {
+                    
+                    let currentDate = NSDate()
+                    
+                    liveSessionDetails.setObject(dateFormatter.stringFromDate(currentDate), forKey: "StartTime")
+                    
                     beginClassWithDetails(liveSessionDetails)
                 }
                 
@@ -739,6 +780,12 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             
             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SessionId, WithStatusvalue: kCanClled, WithDelegate: self)
             
+            if let currentSessionDetails = self.sessionIdDictonary[SessionId]
+            {
+                self.sendTimeExtendMessageWithDetails(currentSessionDetails, withMessage: "Class has been cancelled")
+            }
+            
+            
            
             
             
@@ -843,7 +890,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             
             if let currentSessionDetails = self.sessionIdDictonary[SessionId]
             {
-                self.sendTimeExtendMessageWithDetails(currentSessionDetails, withMessage: "Class has begun")
+               
                 
                 self.liveSessionDetails = currentSessionDetails
             }
@@ -1063,6 +1110,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             if let sessionid = details.objectForKey(kSessionId) as? String
             {
                 SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(sessionid, WithStatusvalue: kCanClled, WithDelegate: self)
+                self.sendTimeExtendMessageWithDetails(details, withMessage: "Class has been cancelled")
                 
                 self.mScheduleDetailView.onDoneButton()
             }
@@ -1144,7 +1192,11 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let preallotController : SSTeacherClassView = storyboard.instantiateViewControllerWithIdentifier("SSTeacherClassView") as! SSTeacherClassView
         
-        preallotController.setSessionDetails(details)
+         preallotController.setSessionDetails(details)
+        
+        
+         self.sendTimeExtendMessageWithDetails(details, withMessage: "Class has begun")
+       
         self.presentViewController(preallotController, animated: true, completion: nil)
     }
     

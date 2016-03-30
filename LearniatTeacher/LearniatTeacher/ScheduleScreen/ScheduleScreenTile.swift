@@ -440,6 +440,27 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         _string = _string.stringFromTimeInterval(currentDate.timeIntervalSinceDate(dateFormatter.dateFromString((sessionDetails.objectForKey("StartTime") as! String))!)).fullString
         
         mDifferenceTimeLabel.text = "Overdue: \(_string)"
+        
+        
+        
+        
+        if let endTime = sessionDetails.objectForKey("EndTime") as? String
+        {
+            let isGreater = currentDate.isGreaterThanDate((dateFormatter.dateFromString(endTime)!))
+            
+            let isEqual = currentDate.isEqualToDate((dateFormatter.dateFromString(endTime)!))
+           
+            if isGreater == true || isEqual == true
+            {
+                if delegate().respondsToSelector(Selector("delegateRefreshSchedule"))
+                {
+                    delegate().delegateRefreshSchedule!()
+                }
+            }
+            
+           
+        }
+        
     }
     
     

@@ -16,12 +16,20 @@ import Foundation
     optional func delegateQuestionSentWithQuestionDetails(questionDetails:AnyObject)
     
     
+    optional func delegateQuestionBackButtonPressed(mainTopicId:String, withMainTopicName mainTopicName:String)
+    
+    optional func delegateDoneButtonPressed()
+    
+    
+    
+    
+    
 }
 
 
 
 
-class SSTeacherQuestionController: UIViewController,QuestionCellDelegate,SSTeacherDataSourceDelegate
+class SSTeacherQuestionController: UIViewController,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIPopoverControllerDelegate
 {
     var _delgate: AnyObject!
     
@@ -44,6 +52,7 @@ class SSTeacherQuestionController: UIViewController,QuestionCellDelegate,SSTeach
     
     var questionsDetailsDictonary:Dictionary<String, NSMutableArray> = Dictionary()
     
+    var touchLocation :CGPoint!
     
     func setdelegate(delegate:AnyObject)
     {
@@ -97,7 +106,7 @@ class SSTeacherQuestionController: UIViewController,QuestionCellDelegate,SSTeach
         
         let  mDoneButton = UIButton(frame: CGRectMake(mTopbarImageView.frame.size.width - 210,  0, 200 ,mTopbarImageView.frame.size.height))
         mTopbarImageView.addSubview(mDoneButton)
-        mDoneButton.addTarget(self, action: "onScheduleScreenPopupPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+        mDoneButton.addTarget(self, action: "onDoneButton", forControlEvents: UIControlEvents.TouchUpInside)
         mDoneButton.setTitleColor(standard_Button, forState: .Normal)
         mDoneButton.setTitle("Done", forState: .Normal)
         mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
@@ -128,6 +137,17 @@ class SSTeacherQuestionController: UIViewController,QuestionCellDelegate,SSTeach
         mActivityIndicator.hidesWhenStopped = true
         mActivityIndicator.hidden = true
         
+        
+    }
+    
+    
+    
+    func clearQuestionTopicId(subTopicId:String)
+    {
+        if (questionsDetailsDictonary[subTopicId] != nil)
+        {
+            questionsDetailsDictonary.removeValueForKey(subTopicId)
+        }
         
     }
     
@@ -233,7 +253,6 @@ class SSTeacherQuestionController: UIViewController,QuestionCellDelegate,SSTeach
                 questionsDetailsDictonary[currentSubTopicId] = mMaintopicsDetails
                 
                 
-                print(questionsDetailsDictonary)
                 
                 addTopicsWithDetailsArray(mMaintopicsDetails)
             }
@@ -308,12 +327,20 @@ class SSTeacherQuestionController: UIViewController,QuestionCellDelegate,SSTeach
     }
     
     
+    func onDoneButton()
+    {
+        if delegate().respondsToSelector(Selector("delegateDoneButtonPressed"))
+        {
+            delegate().delegateDoneButtonPressed!()
+        }
+    }
+    
     func onBackButton()
     {
-//        if delegate().respondsToSelector(Selector("delegateSubTopicBackButtonPressed"))
-//        {
-//            delegate().delegateSubTopicBackButtonPressed!()
-//        }
+        if delegate().respondsToSelector(Selector("delegateQuestionBackButtonPressed:withMainTopicName:"))
+        {
+            delegate().delegateQuestionBackButtonPressed!(currentMainTopicID, withMainTopicName: currentMainTopicName)
+        }
     }
     
     // MARK: - Question delegate functions
@@ -328,7 +355,60 @@ class SSTeacherQuestionController: UIViewController,QuestionCellDelegate,SSTeach
         }
     }
     
-    
-    
+    func delegateOnInfoButtonWithDetails(questionDetails: AnyObject, withButton infoButton: UIButton) {
+        
+        
+        
+        let buttonPosition :CGPoint = infoButton.convertPoint(CGPointZero, toView: self.view)
+       
+        
+        if let questionType = questionDetails.objectForKey("Type") as? String
+        {
+            if questionType == "Overlay Scribble"
+            {
+                let questionInfoController = ScribbleQuestionInfoScreen()
+                questionInfoController.setdelegate(self)
+                print(questionDetails)
+                
+                questionInfoController.setScribbleInfoDetails(questionDetails)
+                
+                
+                questionInfoController.preferredContentSize = CGSizeMake(400,317)
+                
+                let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                
+                classViewPopOverController.popoverContentSize = CGSizeMake(400,317);
+                classViewPopOverController.delegate = self;
+                
+                classViewPopOverController.presentPopoverFromRect(CGRect(
+                    x:buttonPosition.x ,
+                    y:buttonPosition.y + infoButton.frame.size.height / 2,
+                    width: 1,
+                    height: 1), inView: self.view, permittedArrowDirections: .Right, animated: true)
+            }
+            else if questionType == "Multiple Response" || questionType == "Multiple Choice"  
+            {
+                let questionInfoController = SingleResponceOption()
+                questionInfoController.setdelegate(self)
+                print(questionDetails)
+                
+                questionInfoController.setQuestionDetails(questionDetails)
+                
+                
+                questionInfoController.preferredContentSize = CGSizeMake(400,317)
+                
+                let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                
+                classViewPopOverController.popoverContentSize = CGSizeMake(400,317);
+                classViewPopOverController.delegate = self;
+                
+                classViewPopOverController.presentPopoverFromRect(CGRect(
+                    x:buttonPosition.x ,
+                    y:buttonPosition.y + infoButton.frame.size.height / 2,
+                    width: 1,
+                    height: 1), inView: self.view, permittedArrowDirections: .Right, animated: true)
+            }
+        }
+    }
     
 }

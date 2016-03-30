@@ -232,7 +232,7 @@ class SubTopicCell: UIView{
                     delegate().delegateSubTopicCellStartedWithId!(mSubTopicId, witStatedState: true ,withSubTopicName:topicName )
                     startButton.setTitle("Stop", forState: .Normal)
                     startButton.setTitleColor(standard_Red, forState: .Normal)
-                    cumulativeTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "udpateCumulativeTime", userInfo: nil, repeats: true)
+                    subTopicStatred()
                     
                 }
                 else
@@ -240,13 +240,22 @@ class SubTopicCell: UIView{
                     delegate().delegateSubTopicCellStartedWithId!(mSubTopicId, witStatedState: false ,withSubTopicName:topicName)
                     startButton.setTitle("Resume", forState: .Normal)
                     startButton.setTitleColor(standard_Green, forState: .Normal)
-                    cumulativeTimer.invalidate()
+                    subTopicStopped()
                 }
                 
             }
         }
     }
     
+    func subTopicStatred()
+    {
+        cumulativeTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "udpateCumulativeTime", userInfo: nil, repeats: true)
+    }
+    
+    func subTopicStopped()
+    {
+        cumulativeTimer.invalidate()
+    }
     
     func udpateCumulativeTime()
     {
@@ -266,10 +275,6 @@ class SubTopicCell: UIView{
         }
         
        
-        
-        
-       
-       
         if let topicName = currentSubTopicDetails.objectForKey("Name")as? String
         {
             if let CumulativeTime = currentSubTopicDetails.objectForKey("CumulativeTime")as? String
@@ -281,10 +286,6 @@ class SubTopicCell: UIView{
                 m_SubTopicLabel.text = "\(topicName)".capitalizedString
             }
         }
-        
-       
-        
-        print(_string)
     }
     
     

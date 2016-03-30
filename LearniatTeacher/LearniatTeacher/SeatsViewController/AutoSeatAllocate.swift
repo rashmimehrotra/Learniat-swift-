@@ -153,27 +153,23 @@ class AutoSeatAllocate: UIViewController,SSTeacherDataSourceDelegate
         
         var  barWidthvalue  :CGFloat = mGridContainerView.frame.size.width / CGFloat(columnValue)
         
-        let barWidthSpace :CGFloat = barWidthvalue * 0.05
+        let barWidthSpace :CGFloat = barWidthvalue * 0.03
         
-        barWidthvalue = barWidthvalue * 0.95
+        barWidthvalue = barWidthvalue * 0.97
         
         var barHeight   :CGFloat = mGridContainerView.frame.size.height / CGFloat(rowValue)
         
-        let barHeightSpace:CGFloat = barHeight * 0.05
+        let barHeightSpace:CGFloat = barHeight * 0.03
         
-        barHeight = barHeight * 0.95
+        barHeight = barHeight * 0.97
         
         
         var postionY :CGFloat = barHeightSpace / 2
         
         var totalSeatvalue  = rowValue * columnValue
         
-        
-        var indexValue = 0
-        
         for var columnIndex = 0; columnIndex < rowValue ; columnIndex++
         {
-            
             var positionX :CGFloat = barWidthSpace / 2
             for var rowIndex = 0; rowIndex < columnValue ; rowIndex++
             {
@@ -185,11 +181,9 @@ class AutoSeatAllocate: UIViewController,SSTeacherDataSourceDelegate
                 {
                     let seatView = AutoSeatSubView(frame: CGRectMake(positionX, postionY, barWidthvalue, barHeight))
                     mGridContainerView.addSubview(seatView)
-                    seatView.tag = totalSeatvalue
+                    seatView.tag  = totalSeatvalue
                     availabletags.append(totalSeatvalue)
                     seatView.backgroundColor = UIColor.clearColor()
-                    seatView.setSeatIdValue(seatsIdArray[indexValue])
-                    indexValue = indexValue + 1
                 }
                 
                 positionX = positionX + barWidthvalue + barWidthSpace
@@ -199,7 +193,7 @@ class AutoSeatAllocate: UIViewController,SSTeacherDataSourceDelegate
             postionY = postionY + barHeight + barHeightSpace
             
         }
-        
+
         availabletags = availabletags.reverse()
         
         if let sessionid = currentSessionDetails.objectForKey(kSessionId) as? String
@@ -228,10 +222,7 @@ class AutoSeatAllocate: UIViewController,SSTeacherDataSourceDelegate
                 }
             }
         }
-        
-        
-        
-        
+       
         for var index = 0 ; index < StudentsArray.count ; index++
         {
             let studentsDict = StudentsArray.objectAtIndex(index)
@@ -245,6 +236,8 @@ class AutoSeatAllocate: UIViewController,SSTeacherDataSourceDelegate
                     {
                         if let Name = studentsDict.objectForKey("Name") as? String
                         {
+                            
+                            studentImageView.setSeatIdValue(seatsIdArray[index])
                             studentImageView.setStudentImageWithID(StudentId, WithStudentname: Name)
                         }
                     }

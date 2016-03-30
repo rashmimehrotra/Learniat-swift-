@@ -57,8 +57,11 @@ let kServiceGetAllNodes				=   "GetAllNodes"
 
 let kServiceStartTopic              =   "SetCurrentTopic"
 
+let kServiceStopTopic               =   "StopTopic"
+
 let kServiceBroadcastQuestion		=   "BroadcastQuestion"
 
+let kServiceClearQuestion           =   "ClearQuestion"
 
 
 
@@ -95,6 +98,8 @@ let kServiceBroadcastQuestion		=   "BroadcastQuestion"
     optional func didGetSubtopicStartedWithDetails(details:AnyObject)
     
     optional func didGetQuestionSentWithDetails(details:AnyObject)
+    
+    optional func didGetQuestionClearedWithDetails(details:AnyObject)
     
     
 }
@@ -308,6 +313,17 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         manager.downloadDataURL(urlString, withServiceName: kServiceStartTopic, withDelegate: self, withRequestType: eHTTPGetRequest)
     }
     
+    func stopSubTopicWithTopicID(topicId:String,withSessionID sessionid:String, withDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        setdelegate(delegate)
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>StopTopic</Service><TopicId>%@</TopicId><SessionId>%@</SessionId></Action></Sunstone>",URLPrefix,topicId,sessionid)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceStopTopic, withDelegate: self, withRequestType: eHTTPGetRequest)
+    }
+    
     
     
     
@@ -322,6 +338,16 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         manager.downloadDataURL(urlString, withServiceName: kServiceBroadcastQuestion, withDelegate: self, withRequestType: eHTTPGetRequest)
     }
 
+    func clearQuestionWithQuestionogId(questionLogId:String, withDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        setdelegate(delegate)
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>ClearQuestion</Service><QuestionId>%@</QuestionId></Action></Sunstone>",URLPrefix,questionLogId)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceClearQuestion, withDelegate: self, withRequestType: eHTTPGetRequest)
+    }
     
     
     // MARK: - API Delegate Functions
@@ -435,6 +461,13 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
             if delegate().respondsToSelector(Selector("didGetQuestionSentWithDetails:"))
             {
                 delegate().didGetQuestionSentWithDetails!(refinedDetails)
+            }
+        }
+        else if serviceName == kServiceClearQuestion
+        {
+            if delegate().respondsToSelector(Selector("didGetQuestionClearedWithDetails:"))
+            {
+                delegate().didGetQuestionClearedWithDetails!(refinedDetails)
             }
         }
     

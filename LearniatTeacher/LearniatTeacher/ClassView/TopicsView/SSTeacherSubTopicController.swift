@@ -22,6 +22,13 @@ import UIKit
     
     optional func delegateQuestionButtonPressedWithSubtopicId(subtopicId:String, withSubTopicName subTopicName:String, withMainTopicId mainTopicId:String, withMainTopicName mainTopicName:String)
     
+    
+    optional func delegateSubtopicHiddenWithCumulativeTime(cumulativeTime:String)
+    
+    optional func delegateStopCumulativeTimmer()
+    
+     optional func delegateDoneButtonPressed()
+    
 }
 
 
@@ -41,6 +48,8 @@ class SSTeacherSubTopicController: UIViewController,SSTeacherDataSourceDelegate,
     var currentMainTopicId                  = ""
     
     var startedSubtopicID                   = ""
+    
+     var currentCumulativeTime              = ""
     
     
     
@@ -71,29 +80,41 @@ class SSTeacherSubTopicController: UIViewController,SSTeacherDataSourceDelegate,
     override func viewWillDisappear(animated: Bool) {
         
         
-        print("dissappear")
         
         
         
-//        if (subtopicsDetailsDictonary[currentMainTopicId] != nil)
-//        {
-//            subtopicsDetailsDictonary.removeValueForKey(currentMainTopicId)
-//        }
-//        
-//        let subtopicArray = NSMutableArray()
-//        
-//        let subViews = mTopicsContainerView.subviews.flatMap{ $0 as? SubTopicCell }
-//        
-//        for subview in subViews
-//        {
-//            if subview.isKindOfClass(SubTopicCell)
-//            {
-//               subtopicArray.addObject(subview.currentSubTopicDetails)
-//                subview.cumulativeTimer.invalidate()
-//            }
-//        }
-//        
-//         subtopicsDetailsDictonary[currentMainTopicId] = subtopicArray
+        
+        if (subtopicsDetailsDictonary[currentMainTopicId] != nil)
+        {
+            subtopicsDetailsDictonary.removeValueForKey(currentMainTopicId)
+        }
+        
+        
+        
+
+        let subtopicArray = NSMutableArray()
+        
+        let subViews = mTopicsContainerView.subviews.flatMap{ $0 as? SubTopicCell }
+        
+        for subview in subViews
+        {
+            if subview.isKindOfClass(SubTopicCell)
+            {
+               subtopicArray.addObject(subview.currentSubTopicDetails)
+                
+                if subview.startButton.titleLabel?.text == "Stop"
+                {
+                    delegate().delegateSubtopicHiddenWithCumulativeTime!((subview.currentSubTopicDetails.objectForKey("CumulativeTime")as? String)!)
+                    
+                }
+                subview.subTopicStopped()
+                subview.removeFromSuperview()
+            }
+        }
+        
+         subtopicsDetailsDictonary[currentMainTopicId] = subtopicArray
+        
+        
         
         
 
@@ -129,7 +150,7 @@ class SSTeacherSubTopicController: UIViewController,SSTeacherDataSourceDelegate,
         
         let  mDoneButton = UIButton(frame: CGRectMake(mTopbarImageView.frame.size.width - 210,  0, 200 ,mTopbarImageView.frame.size.height))
         mTopbarImageView.addSubview(mDoneButton)
-        mDoneButton.addTarget(self, action: "onScheduleScreenPopupPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+        mDoneButton.addTarget(self, action: "onDoneButton", forControlEvents: UIControlEvents.TouchUpInside)
         mDoneButton.setTitleColor(standard_Button, forState: .Normal)
         mDoneButton.setTitle("Done", forState: .Normal)
         mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
@@ -165,13 +186,29 @@ class SSTeacherSubTopicController: UIViewController,SSTeacherDataSourceDelegate,
     
     
     
-    func getSubtopicsDetailsWithMainTopicId(mainTopicId:String, withMainTopicName mainTopicname:String, withStartedSubtopicID _startedSubtopicID:String)
+    func clearSubTopicDetailsWithMainTopicId(mainTopicId:String)
+    {
+        if (subtopicsDetailsDictonary[mainTopicId] != nil)
+        {
+            subtopicsDetailsDictonary.removeValueForKey(mainTopicId)
+        }
+        
+    }
+    
+    
+    func getSubtopicsDetailsWithMainTopicId(mainTopicId:String, withMainTopicName mainTopicname:String, withStartedSubtopicID _startedSubtopicID:String, withCumulativeTime cumulativeTime: String)
     {
         
-        
+        currentCumulativeTime = cumulativeTime
         currentMainTopicId = mainTopicId
         startedSubtopicID = _startedSubtopicID
         mTopicName.text = mainTopicname
+        
+        
+        
+        
+        
+        
         if let currentMainTopicDetails = subtopicsDetailsDictonary[currentMainTopicId]
         {
             
@@ -289,7 +326,29 @@ class SSTeacherSubTopicController: UIViewController,SSTeacherDataSourceDelegate,
         }
         
         
-        var height :CGFloat = CGFloat((mMaintopicsDetails.count * 60) + 44)
+        
+        
+        
+        
+        
+        let topicsArray = NSMutableArray()
+        for var index = 0; index < mMaintopicsDetails.count ; index++
+        {
+            
+            
+            let currentTopicDetails = mMaintopicsDetails.objectAtIndex(index)
+            if let Tagged = currentTopicDetails.objectForKey("Tagged") as? String
+            {
+                if Tagged == "1"
+                {
+                    topicsArray.addObject(currentTopicDetails)
+                }
+            }
+        }
+        
+        
+        
+        var height :CGFloat = CGFloat((topicsArray.count * 60) + 44)
         
         
         if height > 700
@@ -308,34 +367,49 @@ class SSTeacherSubTopicController: UIViewController,SSTeacherDataSourceDelegate,
         
         var positionY :CGFloat = 0
         
-        for var index = 0; index < mMaintopicsDetails.count ; index++
+        for var index = 0; index < topicsArray.count ; index++
         {
-            let currentTopicDetails = mMaintopicsDetails.objectAtIndex(index)
+            let currentTopicDetails = topicsArray.objectAtIndex(index)
             
-            
-            
-            let topicCell = SubTopicCell(frame: CGRectMake(0  , positionY, mTopicsContainerView.frame.size.width, 60))
-            
-            if let id = currentTopicDetails.objectForKey("Id") as? String
+            if let Tagged = currentTopicDetails.objectForKey("Tagged") as? String
             {
-                if id == startedSubtopicID
+                if Tagged == "1"
                 {
-                    topicCell.startButton.setTitle("Stop", forState: .Normal)
-                    topicCell.startButton.setTitleColor(standard_Red, forState: .Normal)
-                }
-                else
-                {
-                    topicCell.startButton.setTitle("Start", forState: .Normal)
-                    topicCell.startButton.setTitleColor(standard_Green, forState: .Normal)
+                    let topicCell = SubTopicCell(frame: CGRectMake(0  , positionY, mTopicsContainerView.frame.size.width, 60))
+                    
+                    if let id = currentTopicDetails.objectForKey("Id") as? String
+                    {
+                        if id == startedSubtopicID
+                        {
+                            topicCell.startButton.setTitle("Stop", forState: .Normal)
+                            topicCell.startButton.setTitleColor(standard_Red, forState: .Normal)
+                            topicCell.subTopicStatred()
+                            delegate().delegateStopCumulativeTimmer!()
+                            
+                            
+                            if currentCumulativeTime != ""
+                            {
+                                currentTopicDetails.setObject(currentCumulativeTime, forKey: "CumulativeTime")
+                            }
+                        }
+                        else
+                        {
+                            topicCell.startButton.setTitle("Start", forState: .Normal)
+                            topicCell.startButton.setTitleColor(standard_Green, forState: .Normal)
+                            topicCell.subTopicStopped()
+                        }
+                    }
+                    
+                    topicCell.setdelegate(self)
+                    topicCell.setMainTopicDetails(currentTopicDetails)
+                    
+                    mTopicsContainerView.addSubview(topicCell)
+                    positionY = positionY + topicCell.frame.size.height
+                    
                 }
             }
             
             
-            topicCell.setdelegate(self)
-            topicCell.setMainTopicDetails(currentTopicDetails)
-            
-            mTopicsContainerView.addSubview(topicCell)
-            positionY = positionY + topicCell.frame.size.height
         }
         
         mTopicsContainerView.contentSize = CGSizeMake(0, positionY + 20)
@@ -363,6 +437,35 @@ class SSTeacherSubTopicController: UIViewController,SSTeacherDataSourceDelegate,
             delegate().delegateQuestionButtonPressedWithSubtopicId!(subTopicId, withSubTopicName: subTopicName, withMainTopicId: currentMainTopicId, withMainTopicName: mTopicName.text!)
         }
         
+        
+
+        let subViews = mTopicsContainerView.subviews.flatMap{ $0 as? SubTopicCell }
+        
+        for subview in subViews
+        {
+            if subview.isKindOfClass(SubTopicCell)
+            {
+                if subview.startButton.titleLabel?.text == "Stop"
+                {
+                    delegate().delegateSubtopicHiddenWithCumulativeTime!((subview.currentSubTopicDetails.objectForKey("CumulativeTime")as? String)!)
+                    
+                }
+                subview.subTopicStopped()
+                subview.removeFromSuperview()
+            }
+        }
+
+        
+        
+    }
+    
+    
+    func onDoneButton()
+    {
+        if delegate().respondsToSelector(Selector("delegateDoneButtonPressed"))
+        {
+            delegate().delegateDoneButtonPressed!()
+        }
     }
     
     func delegateSubTopicCellStartedWithId(subTopicId:String, witStatedState isStarted:Bool,withSubTopicName subTopicName:String)

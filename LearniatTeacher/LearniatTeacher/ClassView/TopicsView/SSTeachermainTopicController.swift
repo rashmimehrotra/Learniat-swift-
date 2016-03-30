@@ -14,6 +14,8 @@ import Foundation
     
     optional func delegateShowSubTopicWithMainTopicId(mainTopicID:String, WithMainTopicName mainTopicName:String)
     
+    optional func delegateDoneButtonPressed()
+    
 }
 
 
@@ -92,7 +94,7 @@ class SSTeachermainTopicController: UIViewController, SSTeacherDataSourceDelegat
         
         let  mDoneButton = UIButton(frame: CGRectMake(mTopbarImageView.frame.size.width - 210,  0, 200 ,mTopbarImageView.frame.size.height))
         mTopbarImageView.addSubview(mDoneButton)
-        mDoneButton.addTarget(self, action: "onScheduleScreenPopupPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+        mDoneButton.addTarget(self, action: "onDoneButton", forControlEvents: UIControlEvents.TouchUpInside)
         mDoneButton.setTitleColor(standard_Button, forState: .Normal)
         mDoneButton.setTitle("Done", forState: .Normal)
         mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
@@ -203,7 +205,25 @@ class SSTeachermainTopicController: UIViewController, SSTeacherDataSourceDelegat
         }
         
         
-        var height :CGFloat = CGFloat((mMaintopicsDetails.count * 60) + 44)
+       
+        
+        let topicsArray = NSMutableArray()
+        for var index = 0; index < mMaintopicsDetails.count ; index++
+        {
+            
+            
+            let currentTopicDetails = mMaintopicsDetails.objectAtIndex(index)
+            
+            if let Tagged = currentTopicDetails.objectForKey("Tagged") as? String
+            {
+                if Tagged == "1"
+                {
+                   topicsArray.addObject(currentTopicDetails)
+                }
+            }
+        }
+        
+        var height :CGFloat = CGFloat((topicsArray.count * 60) + 44)
         
         
         if height > 700
@@ -211,24 +231,21 @@ class SSTeachermainTopicController: UIViewController, SSTeacherDataSourceDelegat
             height = 700
         }
         
-       
-            self.preferredContentSize = CGSize(width: 600, height: height)
-            
-            
+        
+        self.preferredContentSize = CGSize(width: 600, height: height)
+        
+        
         
         mTopicsContainerView.frame = CGRectMake(0, 44, mTopicsContainerView.frame.size.width, height - 44)
         
         var positionY :CGFloat = 0
         
-        for var index = 0; index < mMaintopicsDetails.count ; index++
+        for var index = 0; index < topicsArray.count ; index++
         {
-            let currentTopicDetails = mMaintopicsDetails.objectAtIndex(index)
-            
-            
+            let currentTopicDetails = topicsArray.objectAtIndex(index)
             let topicCell = MainTopicCell(frame: CGRectMake(0  , positionY, mTopicsContainerView.frame.size.width, 60))
             topicCell.setdelegate(self)
             topicCell.setMainTopicDetails(currentTopicDetails)
-            
             mTopicsContainerView.addSubview(topicCell)
             positionY = positionY + topicCell.frame.size.height
         }
@@ -238,6 +255,14 @@ class SSTeachermainTopicController: UIViewController, SSTeacherDataSourceDelegat
         mActivityIndicator.stopAnimating()
     }
     
+    
+    func onDoneButton()
+    {
+        if delegate().respondsToSelector(Selector("delegateDoneButtonPressed"))
+        {
+            delegate().delegateDoneButtonPressed!()
+        }
+    }
     
     
     func delegateSubtopicButtonPressedWithID(mainTopicId: String, withmainTopicname mainTopicName: String) {

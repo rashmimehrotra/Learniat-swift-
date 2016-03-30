@@ -180,7 +180,11 @@
 
 - (void) editRoomPrevilageWithUser:(NSString*)user;
 
+
 - (void) removeIfRoomPresentWithRoomId:(NSString*)roomId;
+
+
+- (void) sendInviteToRoomwithUserId:(NSString*)userId;
 
 @end
 

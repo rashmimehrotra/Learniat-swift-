@@ -15,6 +15,8 @@ import Foundation
     
     optional func delegateSubtopicButtonPressedWithID(mainTopicId:String, withmainTopicname mainTopicName:String)
     
+    
+    
 }
 
 
@@ -75,6 +77,9 @@ class MainTopicCell: UIView{
         self.addSubview(m_MainTopicLabel)
         m_MainTopicLabel.textColor = blackTextColor
         m_MainTopicLabel.textAlignment = .Left
+        m_MainTopicLabel.lineBreakMode = .ByTruncatingMiddle
+        
+        
 
         mSubTopicButton.frame = CGRectMake(self.frame.size.width - 260 , 0 ,250 ,self.frame.size.height)
         self.addSubview(mSubTopicButton)
@@ -126,7 +131,7 @@ class MainTopicCell: UIView{
         }
         
         
-        if let SubTopicCount = currentTopicDetails.objectForKey("SubTopicCount") as? String
+        if let SubTopicCount = currentTopicDetails.objectForKey("TaggedSubTopicCount") as? String
         {
             if Int(SubTopicCount) <= 0
             {

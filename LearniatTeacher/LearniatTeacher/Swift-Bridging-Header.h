@@ -14,4 +14,6 @@
 #import "DottedLine.h"
 #import "CustomAlertView.h"
 #import "LBorderView.h"
+#import "FXLabel.h"
+#import "CustomProgressImageView.h"
 #endif /* Swift_Bridging_Header_h */

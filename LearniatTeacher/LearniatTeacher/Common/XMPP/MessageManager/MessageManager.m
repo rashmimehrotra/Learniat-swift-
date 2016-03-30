@@ -721,6 +721,11 @@ static MessageManager *sharedMessageHandler = nil;
     }
 }
 
+- (void) sendInviteToRoomwithUserId:(NSString*)userId
+{
+    [xmppRoom inviteUser:[XMPPJID jidWithString:userId] withMessage:@"Greetings!"];
+}
+
 
 - (void) requestAllMesssage
 {

@@ -7,7 +7,46 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		53676AE71CA63B2000CADE4D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53676AE61CA63B2000CADE4D /* ViewController.swift */; };
+		531044971CA64296007AE9D5 /* Alert_Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 531044841CA64296007AE9D5 /* Alert_Icon.png */; };
+		531044981CA64296007AE9D5 /* Blue_Alert.png in Resources */ = {isa = PBXBuildFile; fileRef = 531044851CA64296007AE9D5 /* Blue_Alert.png */; };
+		531044991CA64296007AE9D5 /* CalendarBubbleRed.png in Resources */ = {isa = PBXBuildFile; fileRef = 531044861CA64296007AE9D5 /* CalendarBubbleRed.png */; };
+		5310449A1CA64296007AE9D5 /* infoButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 531044871CA64296007AE9D5 /* infoButton.png */; };
+		5310449B1CA64296007AE9D5 /* Minshift_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 531044881CA64296007AE9D5 /* Minshift_logo.png */; };
+		5310449C1CA64296007AE9D5 /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = 531044891CA64296007AE9D5 /* refresh.png */; };
+		5310449D1CA64296007AE9D5 /* 00.png in Resources */ = {isa = PBXBuildFile; fileRef = 5310448B1CA64296007AE9D5 /* 00.png */; };
+		5310449E1CA64296007AE9D5 /* 10.png in Resources */ = {isa = PBXBuildFile; fileRef = 5310448C1CA64296007AE9D5 /* 10.png */; };
+		5310449F1CA64296007AE9D5 /* 100.png in Resources */ = {isa = PBXBuildFile; fileRef = 5310448D1CA64296007AE9D5 /* 100.png */; };
+		531044A01CA64296007AE9D5 /* 20.png in Resources */ = {isa = PBXBuildFile; fileRef = 5310448E1CA64296007AE9D5 /* 20.png */; };
+		531044A11CA64296007AE9D5 /* 30.png in Resources */ = {isa = PBXBuildFile; fileRef = 5310448F1CA64296007AE9D5 /* 30.png */; };
+		531044A21CA64296007AE9D5 /* 40.png in Resources */ = {isa = PBXBuildFile; fileRef = 531044901CA64296007AE9D5 /* 40.png */; };
+		531044A31CA64296007AE9D5 /* 50.png in Resources */ = {isa = PBXBuildFile; fileRef = 531044911CA64296007AE9D5 /* 50.png */; };
+		531044A41CA64296007AE9D5 /* 60.png in Resources */ = {isa = PBXBuildFile; fileRef = 531044921CA64296007AE9D5 /* 60.png */; };
+		531044A51CA64296007AE9D5 /* 70.png in Resources */ = {isa = PBXBuildFile; fileRef = 531044931CA64296007AE9D5 /* 70.png */; };
+		531044A61CA64296007AE9D5 /* 80.png in Resources */ = {isa = PBXBuildFile; fileRef = 531044941CA64296007AE9D5 /* 80.png */; };
+		531044A71CA64296007AE9D5 /* 90.png in Resources */ = {isa = PBXBuildFile; fileRef = 531044951CA64296007AE9D5 /* 90.png */; };
+		531044A81CA64296007AE9D5 /* Teacher _app_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 531044961CA64296007AE9D5 /* Teacher _app_icon.png */; };
+		531044AA1CA665E2007AE9D5 /* StundentDeskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531044A91CA665E2007AE9D5 /* StundentDeskView.swift */; };
+		531044AC1CA66C89007AE9D5 /* lowParticipartion.png in Resources */ = {isa = PBXBuildFile; fileRef = 531044AB1CA66C89007AE9D5 /* lowParticipartion.png */; };
+		531044AF1CA66D6F007AE9D5 /* FXLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 531044AE1CA66D6F007AE9D5 /* FXLabel.m */; };
+		531044C21CA6A4F7007AE9D5 /* SSTeacherLiveQuestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531044C11CA6A4F7007AE9D5 /* SSTeacherLiveQuestionController.swift */; };
+		532607761CA90779002FF684 /* ScribbleQuestionInfoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532607751CA90779002FF684 /* ScribbleQuestionInfoScreen.swift */; };
+		5326078B1CA90AEC002FF684 /* indicator1.png in Resources */ = {isa = PBXBuildFile; fileRef = 532607791CA90AEC002FF684 /* indicator1.png */; };
+		5326078C1CA90AEC002FF684 /* indicator10.png in Resources */ = {isa = PBXBuildFile; fileRef = 5326077A1CA90AEC002FF684 /* indicator10.png */; };
+		5326078D1CA90AEC002FF684 /* indicator11.png in Resources */ = {isa = PBXBuildFile; fileRef = 5326077B1CA90AEC002FF684 /* indicator11.png */; };
+		5326078E1CA90AEC002FF684 /* indicator12.png in Resources */ = {isa = PBXBuildFile; fileRef = 5326077C1CA90AEC002FF684 /* indicator12.png */; };
+		5326078F1CA90AEC002FF684 /* indicator2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5326077D1CA90AEC002FF684 /* indicator2.png */; };
+		532607901CA90AEC002FF684 /* indicator3.png in Resources */ = {isa = PBXBuildFile; fileRef = 5326077E1CA90AEC002FF684 /* indicator3.png */; };
+		532607911CA90AEC002FF684 /* indicator4.png in Resources */ = {isa = PBXBuildFile; fileRef = 5326077F1CA90AEC002FF684 /* indicator4.png */; };
+		532607921CA90AEC002FF684 /* indicator5.png in Resources */ = {isa = PBXBuildFile; fileRef = 532607801CA90AEC002FF684 /* indicator5.png */; };
+		532607931CA90AEC002FF684 /* indicator6.png in Resources */ = {isa = PBXBuildFile; fileRef = 532607811CA90AEC002FF684 /* indicator6.png */; };
+		532607941CA90AEC002FF684 /* indicator7.png in Resources */ = {isa = PBXBuildFile; fileRef = 532607821CA90AEC002FF684 /* indicator7.png */; };
+		532607951CA90AEC002FF684 /* indicator8.png in Resources */ = {isa = PBXBuildFile; fileRef = 532607831CA90AEC002FF684 /* indicator8.png */; };
+		532607961CA90AEC002FF684 /* indicator9.png in Resources */ = {isa = PBXBuildFile; fileRef = 532607841CA90AEC002FF684 /* indicator9.png */; };
+		532607971CA90AEC002FF684 /* CustomProgressImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 532607861CA90AEC002FF684 /* CustomProgressImageView.m */; };
+		532607981CA90AEC002FF684 /* ICDMaterialActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 532607881CA90AEC002FF684 /* ICDMaterialActivityIndicatorView.m */; };
+		532607991CA90AEC002FF684 /* UIDownloadBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5326078A1CA90AEC002FF684 /* UIDownloadBar.m */; };
+		5326079B1CA91788002FF684 /* SingleResponceOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5326079A1CA91788002FF684 /* SingleResponceOption.swift */; };
+		5326079D1CA917EC002FF684 /* SingleResponceOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5326079C1CA917EC002FF684 /* SingleResponceOptionCell.swift */; };
 		53676AEA1CA63B2100CADE4D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53676AE81CA63B2100CADE4D /* Main.storyboard */; };
 		53676AEC1CA63B2100CADE4D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53676AEB1CA63B2100CADE4D /* Assets.xcassets */; };
 		53676AEF1CA63B2200CADE4D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53676AED1CA63B2200CADE4D /* LaunchScreen.storyboard */; };
@@ -197,8 +236,51 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		531044841CA64296007AE9D5 /* Alert_Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Alert_Icon.png; sourceTree = "<group>"; };
+		531044851CA64296007AE9D5 /* Blue_Alert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Blue_Alert.png; sourceTree = "<group>"; };
+		531044861CA64296007AE9D5 /* CalendarBubbleRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CalendarBubbleRed.png; sourceTree = "<group>"; };
+		531044871CA64296007AE9D5 /* infoButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = infoButton.png; sourceTree = "<group>"; };
+		531044881CA64296007AE9D5 /* Minshift_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Minshift_logo.png; sourceTree = "<group>"; };
+		531044891CA64296007AE9D5 /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh.png; sourceTree = "<group>"; };
+		5310448B1CA64296007AE9D5 /* 00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 00.png; sourceTree = "<group>"; };
+		5310448C1CA64296007AE9D5 /* 10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 10.png; sourceTree = "<group>"; };
+		5310448D1CA64296007AE9D5 /* 100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 100.png; sourceTree = "<group>"; };
+		5310448E1CA64296007AE9D5 /* 20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 20.png; sourceTree = "<group>"; };
+		5310448F1CA64296007AE9D5 /* 30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 30.png; sourceTree = "<group>"; };
+		531044901CA64296007AE9D5 /* 40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 40.png; sourceTree = "<group>"; };
+		531044911CA64296007AE9D5 /* 50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 50.png; sourceTree = "<group>"; };
+		531044921CA64296007AE9D5 /* 60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 60.png; sourceTree = "<group>"; };
+		531044931CA64296007AE9D5 /* 70.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 70.png; sourceTree = "<group>"; };
+		531044941CA64296007AE9D5 /* 80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 80.png; sourceTree = "<group>"; };
+		531044951CA64296007AE9D5 /* 90.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 90.png; sourceTree = "<group>"; };
+		531044961CA64296007AE9D5 /* Teacher _app_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Teacher _app_icon.png"; sourceTree = "<group>"; };
+		531044A91CA665E2007AE9D5 /* StundentDeskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StundentDeskView.swift; sourceTree = "<group>"; };
+		531044AB1CA66C89007AE9D5 /* lowParticipartion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lowParticipartion.png; sourceTree = "<group>"; };
+		531044AD1CA66D6F007AE9D5 /* FXLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXLabel.h; sourceTree = "<group>"; };
+		531044AE1CA66D6F007AE9D5 /* FXLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXLabel.m; sourceTree = "<group>"; };
+		531044C11CA6A4F7007AE9D5 /* SSTeacherLiveQuestionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSTeacherLiveQuestionController.swift; sourceTree = "<group>"; };
+		532607751CA90779002FF684 /* ScribbleQuestionInfoScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScribbleQuestionInfoScreen.swift; sourceTree = "<group>"; };
+		532607791CA90AEC002FF684 /* indicator1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator1.png; sourceTree = "<group>"; };
+		5326077A1CA90AEC002FF684 /* indicator10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator10.png; sourceTree = "<group>"; };
+		5326077B1CA90AEC002FF684 /* indicator11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator11.png; sourceTree = "<group>"; };
+		5326077C1CA90AEC002FF684 /* indicator12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator12.png; sourceTree = "<group>"; };
+		5326077D1CA90AEC002FF684 /* indicator2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator2.png; sourceTree = "<group>"; };
+		5326077E1CA90AEC002FF684 /* indicator3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator3.png; sourceTree = "<group>"; };
+		5326077F1CA90AEC002FF684 /* indicator4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator4.png; sourceTree = "<group>"; };
+		532607801CA90AEC002FF684 /* indicator5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator5.png; sourceTree = "<group>"; };
+		532607811CA90AEC002FF684 /* indicator6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator6.png; sourceTree = "<group>"; };
+		532607821CA90AEC002FF684 /* indicator7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator7.png; sourceTree = "<group>"; };
+		532607831CA90AEC002FF684 /* indicator8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator8.png; sourceTree = "<group>"; };
+		532607841CA90AEC002FF684 /* indicator9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator9.png; sourceTree = "<group>"; };
+		532607851CA90AEC002FF684 /* CustomProgressImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomProgressImageView.h; sourceTree = "<group>"; };
+		532607861CA90AEC002FF684 /* CustomProgressImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomProgressImageView.m; sourceTree = "<group>"; };
+		532607871CA90AEC002FF684 /* ICDMaterialActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICDMaterialActivityIndicatorView.h; sourceTree = "<group>"; };
+		532607881CA90AEC002FF684 /* ICDMaterialActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICDMaterialActivityIndicatorView.m; sourceTree = "<group>"; };
+		532607891CA90AEC002FF684 /* UIDownloadBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDownloadBar.h; sourceTree = "<group>"; };
+		5326078A1CA90AEC002FF684 /* UIDownloadBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIDownloadBar.m; sourceTree = "<group>"; };
+		5326079A1CA91788002FF684 /* SingleResponceOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleResponceOption.swift; sourceTree = "<group>"; };
+		5326079C1CA917EC002FF684 /* SingleResponceOptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleResponceOptionCell.swift; sourceTree = "<group>"; };
 		53676AE11CA63B2000CADE4D /* LearniatTeacher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearniatTeacher.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		53676AE61CA63B2000CADE4D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		53676AE91CA63B2100CADE4D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		53676AEB1CA63B2100CADE4D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		53676AEE1CA63B2200CADE4D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -573,6 +655,83 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		531044831CA64296007AE9D5 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				531044AB1CA66C89007AE9D5 /* lowParticipartion.png */,
+				531044841CA64296007AE9D5 /* Alert_Icon.png */,
+				531044851CA64296007AE9D5 /* Blue_Alert.png */,
+				531044861CA64296007AE9D5 /* CalendarBubbleRed.png */,
+				531044871CA64296007AE9D5 /* infoButton.png */,
+				531044881CA64296007AE9D5 /* Minshift_logo.png */,
+				531044891CA64296007AE9D5 /* refresh.png */,
+				5310448A1CA64296007AE9D5 /* Speedometer */,
+				531044961CA64296007AE9D5 /* Teacher _app_icon.png */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		5310448A1CA64296007AE9D5 /* Speedometer */ = {
+			isa = PBXGroup;
+			children = (
+				5310448B1CA64296007AE9D5 /* 00.png */,
+				5310448C1CA64296007AE9D5 /* 10.png */,
+				5310448D1CA64296007AE9D5 /* 100.png */,
+				5310448E1CA64296007AE9D5 /* 20.png */,
+				5310448F1CA64296007AE9D5 /* 30.png */,
+				531044901CA64296007AE9D5 /* 40.png */,
+				531044911CA64296007AE9D5 /* 50.png */,
+				531044921CA64296007AE9D5 /* 60.png */,
+				531044931CA64296007AE9D5 /* 70.png */,
+				531044941CA64296007AE9D5 /* 80.png */,
+				531044951CA64296007AE9D5 /* 90.png */,
+			);
+			path = Speedometer;
+			sourceTree = "<group>";
+		};
+		532607741CA90760002FF684 /* QuestionInfoScreen */ = {
+			isa = PBXGroup;
+			children = (
+				532607751CA90779002FF684 /* ScribbleQuestionInfoScreen.swift */,
+				5326079A1CA91788002FF684 /* SingleResponceOption.swift */,
+				5326079C1CA917EC002FF684 /* SingleResponceOptionCell.swift */,
+			);
+			path = QuestionInfoScreen;
+			sourceTree = "<group>";
+		};
+		532607771CA90AEC002FF684 /* customImageView */ = {
+			isa = PBXGroup;
+			children = (
+				532607781CA90AEC002FF684 /* AnimationIMage */,
+				532607851CA90AEC002FF684 /* CustomProgressImageView.h */,
+				532607861CA90AEC002FF684 /* CustomProgressImageView.m */,
+				532607871CA90AEC002FF684 /* ICDMaterialActivityIndicatorView.h */,
+				532607881CA90AEC002FF684 /* ICDMaterialActivityIndicatorView.m */,
+				532607891CA90AEC002FF684 /* UIDownloadBar.h */,
+				5326078A1CA90AEC002FF684 /* UIDownloadBar.m */,
+			);
+			path = customImageView;
+			sourceTree = "<group>";
+		};
+		532607781CA90AEC002FF684 /* AnimationIMage */ = {
+			isa = PBXGroup;
+			children = (
+				532607791CA90AEC002FF684 /* indicator1.png */,
+				5326077A1CA90AEC002FF684 /* indicator10.png */,
+				5326077B1CA90AEC002FF684 /* indicator11.png */,
+				5326077C1CA90AEC002FF684 /* indicator12.png */,
+				5326077D1CA90AEC002FF684 /* indicator2.png */,
+				5326077E1CA90AEC002FF684 /* indicator3.png */,
+				5326077F1CA90AEC002FF684 /* indicator4.png */,
+				532607801CA90AEC002FF684 /* indicator5.png */,
+				532607811CA90AEC002FF684 /* indicator6.png */,
+				532607821CA90AEC002FF684 /* indicator7.png */,
+				532607831CA90AEC002FF684 /* indicator8.png */,
+				532607841CA90AEC002FF684 /* indicator9.png */,
+			);
+			path = AnimationIMage;
+			sourceTree = "<group>";
+		};
 		53676AD81CA63B2000CADE4D = {
 			isa = PBXGroup;
 			children = (
@@ -610,7 +769,7 @@
 				53676C871CA63B7F00CADE4D /* ScheduleScreen */,
 				53676C8D1CA63B7F00CADE4D /* SeatsViewController */,
 				53676C921CA63B7F00CADE4D /* Source */,
-				53676AE61CA63B2000CADE4D /* ViewController.swift */,
+				531044831CA64296007AE9D5 /* Resource */,
 				53676AE81CA63B2100CADE4D /* Main.storyboard */,
 				53676AEB1CA63B2100CADE4D /* Assets.xcassets */,
 				53676AED1CA63B2200CADE4D /* LaunchScreen.storyboard */,
@@ -623,6 +782,9 @@
 		53676AF71CA63B7F00CADE4D /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				532607771CA90AEC002FF684 /* customImageView */,
+				531044AD1CA66D6F007AE9D5 /* FXLabel.h */,
+				531044AE1CA66D6F007AE9D5 /* FXLabel.m */,
 				53676AF81CA63B7F00CADE4D /* API+XMPParser+Internet */,
 				53676B0E1CA63B7F00CADE4D /* CustomAlertView.h */,
 				53676B0F1CA63B7F00CADE4D /* CustomAlertView.m */,
@@ -1588,10 +1750,10 @@
 		53676C8D1CA63B7F00CADE4D /* SeatsViewController */ = {
 			isa = PBXGroup;
 			children = (
+				53676C911CA63B7F00CADE4D /* PreallocateSeatViewController.swift */,
+				53676C901CA63B7F00CADE4D /* PrealloatSeatSubView.swift */,
 				53676C8E1CA63B7F00CADE4D /* AutoSeatAllocate.swift */,
 				53676C8F1CA63B7F00CADE4D /* AutoSeatSubView.swift */,
-				53676C901CA63B7F00CADE4D /* PrealloatSeatSubView.swift */,
-				53676C911CA63B7F00CADE4D /* PreallocateSeatViewController.swift */,
 			);
 			path = SeatsViewController;
 			sourceTree = "<group>";
@@ -1609,6 +1771,7 @@
 			isa = PBXGroup;
 			children = (
 				53676D511CA63D7A00CADE4D /* SSTeacherClassView.swift */,
+				531044A91CA665E2007AE9D5 /* StundentDeskView.swift */,
 				53676D521CA63D7A00CADE4D /* TopicsView */,
 			);
 			path = ClassView;
@@ -1617,12 +1780,14 @@
 		53676D521CA63D7A00CADE4D /* TopicsView */ = {
 			isa = PBXGroup;
 			children = (
-				53676D531CA63D7A00CADE4D /* MainTopicCell.swift */,
-				53676D541CA63D7A00CADE4D /* QuestionCell.swift */,
 				53676D551CA63D7A00CADE4D /* SSTeachermainTopicController.swift */,
-				53676D561CA63D7A00CADE4D /* SSTeacherQuestionController.swift */,
+				53676D531CA63D7A00CADE4D /* MainTopicCell.swift */,
 				53676D571CA63D7A00CADE4D /* SSTeacherSubTopicController.swift */,
 				53676D581CA63D7A00CADE4D /* SubTopicCell.swift */,
+				53676D561CA63D7A00CADE4D /* SSTeacherQuestionController.swift */,
+				53676D541CA63D7A00CADE4D /* QuestionCell.swift */,
+				531044C11CA6A4F7007AE9D5 /* SSTeacherLiveQuestionController.swift */,
+				532607741CA90760002FF684 /* QuestionInfoScreen */,
 			);
 			path = TopicsView;
 			sourceTree = "<group>";
@@ -1685,12 +1850,43 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				531044981CA64296007AE9D5 /* Blue_Alert.png in Resources */,
+				5310449B1CA64296007AE9D5 /* Minshift_logo.png in Resources */,
+				5310449F1CA64296007AE9D5 /* 100.png in Resources */,
 				53676AEF1CA63B2200CADE4D /* LaunchScreen.storyboard in Resources */,
+				5310449C1CA64296007AE9D5 /* refresh.png in Resources */,
+				5326078D1CA90AEC002FF684 /* indicator11.png in Resources */,
+				531044A21CA64296007AE9D5 /* 40.png in Resources */,
 				53676C9B1CA63B7F00CADE4D /* noInternetIcon.png in Resources */,
+				5326078E1CA90AEC002FF684 /* indicator12.png in Resources */,
 				53676C981CA63B7F00CADE4D /* NoInternet.xib in Resources */,
+				531044A51CA64296007AE9D5 /* 70.png in Resources */,
+				531044A61CA64296007AE9D5 /* 80.png in Resources */,
+				532607931CA90AEC002FF684 /* indicator6.png in Resources */,
+				532607911CA90AEC002FF684 /* indicator4.png in Resources */,
+				532607951CA90AEC002FF684 /* indicator8.png in Resources */,
+				531044991CA64296007AE9D5 /* CalendarBubbleRed.png in Resources */,
+				531044A41CA64296007AE9D5 /* 60.png in Resources */,
+				531044AC1CA66C89007AE9D5 /* lowParticipartion.png in Resources */,
+				531044A11CA64296007AE9D5 /* 30.png in Resources */,
+				5326078F1CA90AEC002FF684 /* indicator2.png in Resources */,
+				5310449A1CA64296007AE9D5 /* infoButton.png in Resources */,
+				532607961CA90AEC002FF684 /* indicator9.png in Resources */,
+				531044A01CA64296007AE9D5 /* 20.png in Resources */,
+				531044A71CA64296007AE9D5 /* 90.png in Resources */,
+				532607941CA90AEC002FF684 /* indicator7.png in Resources */,
+				532607921CA90AEC002FF684 /* indicator5.png in Resources */,
 				53676AEC1CA63B2100CADE4D /* Assets.xcassets in Resources */,
+				532607901CA90AEC002FF684 /* indicator3.png in Resources */,
 				53676AEA1CA63B2100CADE4D /* Main.storyboard in Resources */,
+				5310449E1CA64296007AE9D5 /* 10.png in Resources */,
+				5310449D1CA64296007AE9D5 /* 00.png in Resources */,
+				5326078C1CA90AEC002FF684 /* indicator10.png in Resources */,
+				531044971CA64296007AE9D5 /* Alert_Icon.png in Resources */,
 				53676D271CA63B7F00CADE4D /* README.txt in Resources */,
+				5326078B1CA90AEC002FF684 /* indicator1.png in Resources */,
+				531044A81CA64296007AE9D5 /* Teacher _app_icon.png in Resources */,
+				531044A31CA64296007AE9D5 /* 50.png in Resources */,
 				53676C9C1CA63B7F00CADE4D /* Wrong.png in Resources */,
 				53676D2C1CA63B7F00CADE4D /* build-libidn.sh in Resources */,
 			);
@@ -1708,6 +1904,7 @@
 				53676CDD1CA63B7F00CADE4D /* XMPPvCardTempCoreDataStorageObject.m in Sources */,
 				53676CE01CA63B7F00CADE4D /* XMPPvCardTempAdrTypes.m in Sources */,
 				53676CB91CA63B7F00CADE4D /* XMPPProcessOne.m in Sources */,
+				532607991CA90AEC002FF684 /* UIDownloadBar.m in Sources */,
 				53676CA21CA63B7F00CADE4D /* Toast.swift in Sources */,
 				53676CD11CA63B7F00CADE4D /* XMPPRoomMessageHybridCoreDataStorageObject.m in Sources */,
 				53676D381CA63B7F00CADE4D /* PreallocateSeatViewController.swift in Sources */,
@@ -1718,6 +1915,7 @@
 				53676D0B1CA63B7F00CADE4D /* NSXMLElement+XEP_0203.m in Sources */,
 				53676D141CA63B7F00CADE4D /* NSXMLElement+XEP_0335.m in Sources */,
 				53676D251CA63B7F00CADE4D /* DDDispatchQueueLogFormatter.m in Sources */,
+				531044AA1CA665E2007AE9D5 /* StundentDeskView.swift in Sources */,
 				53676CEA1CA63B7F00CADE4D /* TURNSocket.m in Sources */,
 				53676D5A1CA63D7A00CADE4D /* MainTopicCell.swift in Sources */,
 				53676D591CA63D7A00CADE4D /* SSTeacherClassView.swift in Sources */,
@@ -1765,10 +1963,12 @@
 				53676CCA1CA63B7F00CADE4D /* XMPPPrivacy.m in Sources */,
 				53676C951CA63B7F00CADE4D /* AppDelegate.swift in Sources */,
 				53676CCC1CA63B7F00CADE4D /* XMPPRoomCoreDataStorage.m in Sources */,
+				532607761CA90779002FF684 /* ScribbleQuestionInfoScreen.swift in Sources */,
 				53676C9A1CA63B7F00CADE4D /* Reachability.m in Sources */,
 				53676D131CA63B7F00CADE4D /* XMPPMessage+XEP_0333.m in Sources */,
 				53676D051CA63B7F00CADE4D /* XMPPStreamManagementStanzas.m in Sources */,
 				53676CBC1CA63B7F00CADE4D /* XMPPResourceCoreDataStorageObject.m in Sources */,
+				5326079B1CA91788002FF684 /* SingleResponceOption.swift in Sources */,
 				53676CDF1CA63B7F00CADE4D /* XMPPvCardTempAdr.m in Sources */,
 				53676CFB1CA63B7F00CADE4D /* XMPPMessageArchiving_Message_CoreDataObject.m in Sources */,
 				53676D2B1CA63B7F00CADE4D /* DDXMLNode.m in Sources */,
@@ -1787,24 +1987,27 @@
 				53676D101CA63B7F00CADE4D /* XMPPMessageCarbons.m in Sources */,
 				53676D341CA63B7F00CADE4D /* TeacherScheduleViewController.swift in Sources */,
 				53676CD21CA63B7F00CADE4D /* XMPPRoomOccupantHybridMemoryStorageObject.m in Sources */,
+				532607971CA90AEC002FF684 /* CustomProgressImageView.m in Sources */,
 				53676D2E1CA63B7F00CADE4D /* INILoader.swift in Sources */,
 				53676D001CA63B7F00CADE4D /* XMPPPresence+XEP_0172.m in Sources */,
 				53676CC41CA63B7F00CADE4D /* XMPPSystemInputActivityMonitor.m in Sources */,
 				53676D121CA63B7F00CADE4D /* XMPPMessage+XEP_0308.m in Sources */,
-				53676AE71CA63B2000CADE4D /* ViewController.swift in Sources */,
 				53676CE71CA63B7F00CADE4D /* XMPPResultSet.m in Sources */,
 				53676D201CA63B7F00CADE4D /* DDASLLogger.m in Sources */,
 				53676CFC1CA63B7F00CADE4D /* XMPPMessageArchivingCoreDataStorage.m in Sources */,
 				53676CB61CA63B7F00CADE4D /* XMPPBandwidthMonitor.m in Sources */,
 				53676CF01CA63B7F00CADE4D /* XMPPMessage+XEP_0085.m in Sources */,
 				53676D1A1CA63B7F00CADE4D /* XMPPIDTracker.m in Sources */,
+				5326079D1CA917EC002FF684 /* SingleResponceOptionCell.swift in Sources */,
 				53676CE11CA63B7F00CADE4D /* XMPPvCardTempBase.m in Sources */,
 				53676CEB1CA63B7F00CADE4D /* XMPPIQ+XEP_0066.m in Sources */,
 				53676D031CA63B7F00CADE4D /* XMPPBlocking.m in Sources */,
 				53676CAF1CA63B7F00CADE4D /* XMPPIQ.m in Sources */,
 				53676CA51CA63B7F00CADE4D /* XMPPDeprecatedPlainAuthentication.m in Sources */,
+				532607981CA90AEC002FF684 /* ICDMaterialActivityIndicatorView.m in Sources */,
 				53676CAD1CA63B7F00CADE4D /* NSXMLElement+XMPP.m in Sources */,
 				53676CE51CA63B7F00CADE4D /* XMPPvCardTempTel.m in Sources */,
+				531044C21CA6A4F7007AE9D5 /* SSTeacherLiveQuestionController.swift in Sources */,
 				53676CFE1CA63B7F00CADE4D /* XMPPvCardAvatarModule.m in Sources */,
 				53676D291CA63B7F00CADE4D /* DDXMLDocument.m in Sources */,
 				53676C9D1CA63B7F00CADE4D /* NSData+Base64.m in Sources */,
@@ -1859,6 +2062,7 @@
 				53676CB21CA63B7F00CADE4D /* XMPPModule.m in Sources */,
 				53676CA11CA63B7F00CADE4D /* LBorderView.m in Sources */,
 				53676CCE1CA63B7F00CADE4D /* XMPPRoomOccupantCoreDataStorageObject.m in Sources */,
+				531044AF1CA66D6F007AE9D5 /* FXLabel.m in Sources */,
 				53676D211CA63B7F00CADE4D /* DDFileLogger.m in Sources */,
 				53676CA91CA63B7F00CADE4D /* XMPPXFacebookPlatformAuthentication.m in Sources */,
 				53676CDB1CA63B7F00CADE4D /* XMPPvCardCoreDataStorage.m in Sources */,
@@ -1986,6 +2190,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = LearniatTeacher/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2006,6 +2211,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = LearniatTeacher/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2038,6 +2244,7 @@
 				53676AF51CA63B2300CADE4D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

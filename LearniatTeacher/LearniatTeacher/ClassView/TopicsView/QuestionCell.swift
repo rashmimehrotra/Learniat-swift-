@@ -14,6 +14,7 @@ import Foundation
     
     optional func delegateSendQuestionDetails(questionDetails:AnyObject)
     
+    optional func delegateOnInfoButtonWithDetails(questionDetails:AnyObject, withButton infoButton:UIButton)
     
 }
 
@@ -87,7 +88,7 @@ class QuestionCell: UIView
         
         
         self.addSubview(mInfoButtonButton)
-//        mInfoButtonButton.addTarget(self, action: "onInfo", forControlEvents: UIControlEvents.TouchUpInside)
+        mInfoButtonButton.addTarget(self, action: "onInfoButton", forControlEvents: UIControlEvents.TouchUpInside)
         mInfoButtonButton.setImage(UIImage(named: "infoButton.png"), forState: .Normal)
         mInfoButtonButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
 
@@ -105,7 +106,6 @@ class QuestionCell: UIView
         
         
 
-        print(details)
         
         
         currentQuestionDetails = details
@@ -238,12 +238,7 @@ class QuestionCell: UIView
             }
             
         }
-        
-        
-        
-        
-        
-        mInfoButtonButton.hidden = false
+       
         
         mIndexValuesLabel.frame = CGRectMake(mQuestionNameLabel.frame.origin.x, mQuestionNameLabel.frame.origin.y + mQuestionNameLabel.frame.size.height + 25, self.frame.size.width / 5 , self.frame.size.width / 20)
         
@@ -280,6 +275,16 @@ class QuestionCell: UIView
         {
             delegate().delegateSendQuestionDetails!(currentQuestionDetails)
              
+            
+        }
+    }
+    
+    func onInfoButton()
+    {
+        if delegate().respondsToSelector(Selector("delegateOnInfoButtonWithDetails:withButton:"))
+        {
+            delegate().delegateOnInfoButtonWithDetails!(currentQuestionDetails, withButton: mInfoButtonButton)
+            
             
         }
     }
