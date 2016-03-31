@@ -29,6 +29,8 @@ class SSTeachermainTopicController: UIViewController, SSTeacherDataSourceDelegat
     
     var mMaintopicsDetails          = NSMutableArray()
     
+    var startedmainTopicId           = ""
+    
     var mActivityIndicator  = UIActivityIndicatorView(activityIndicatorStyle:.Gray)
     
     var  mTopicName  = UILabel()
@@ -119,8 +121,9 @@ class SSTeachermainTopicController: UIViewController, SSTeacherDataSourceDelegat
     
     
     
-    func getTopicsDetails()
+    func getTopicsDetailswithStartedMaintopicId(topicId:String)
     {
+        startedmainTopicId = topicId
         
         if mMaintopicsDetails.count > 0
         {
@@ -246,6 +249,16 @@ class SSTeachermainTopicController: UIViewController, SSTeacherDataSourceDelegat
             let topicCell = MainTopicCell(frame: CGRectMake(0  , positionY, mTopicsContainerView.frame.size.width, 60))
             topicCell.setdelegate(self)
             topicCell.setMainTopicDetails(currentTopicDetails)
+           
+            if startedmainTopicId == currentTopicDetails.objectForKey("Id")as! String
+            {
+                topicCell.m_MainTopicLabel.textColor = standard_Green
+            }
+            else
+            {
+                topicCell.m_MainTopicLabel.textColor = blackTextColor
+            }
+            
             mTopicsContainerView.addSubview(topicCell)
             positionY = positionY + topicCell.frame.size.height
         }

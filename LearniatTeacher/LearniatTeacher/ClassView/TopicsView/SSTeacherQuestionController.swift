@@ -148,7 +148,6 @@ class SSTeacherQuestionController: UIViewController,QuestionCellDelegate,SSTeach
         {
             questionsDetailsDictonary.removeValueForKey(subTopicId)
         }
-        
     }
     
     
@@ -389,6 +388,28 @@ class SSTeacherQuestionController: UIViewController,QuestionCellDelegate,SSTeach
             else if questionType == "Multiple Response" || questionType == "Multiple Choice"  
             {
                 let questionInfoController = SingleResponceOption()
+                questionInfoController.setdelegate(self)
+                print(questionDetails)
+                
+                questionInfoController.setQuestionDetails(questionDetails)
+                
+                
+                questionInfoController.preferredContentSize = CGSizeMake(400,317)
+                
+                let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                
+                classViewPopOverController.popoverContentSize = CGSizeMake(400,317);
+                classViewPopOverController.delegate = self;
+                
+                classViewPopOverController.presentPopoverFromRect(CGRect(
+                    x:buttonPosition.x ,
+                    y:buttonPosition.y + infoButton.frame.size.height / 2,
+                    width: 1,
+                    height: 1), inView: self.view, permittedArrowDirections: .Right, animated: true)
+            }
+            else if questionType == "Match Columns"
+            {
+                let questionInfoController = MatchColumnOption()
                 questionInfoController.setdelegate(self)
                 print(questionDetails)
                 

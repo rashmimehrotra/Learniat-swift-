@@ -127,6 +127,11 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     var currentLiveSessionId        = ""
     
     
+    var subTopicDetailsDictonary            = NSMutableDictionary()
+    
+    var questionsDictonary                  = NSMutableDictionary()
+    
+    
     // MARK: - Delegate Functions
     
     func setdelegate(delegate:AnyObject)
@@ -138,6 +143,21 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     {
         return _delgate;
     }
+    
+    
+    
+    
+    func setSubTopicDictonaryWithDict(details:NSMutableArray,withKey key:String)
+    {
+        subTopicDetailsDictonary.setObject(details, forKey: key)
+    }
+    
+    func setQuestionDictonaryWithDict(details:NSMutableArray,withKey key:String)
+    {
+        questionsDictonary.setObject(details, forKey: key)
+    }
+    
+    
     
     // MARK: - API Functions
     

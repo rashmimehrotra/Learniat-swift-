@@ -30,15 +30,17 @@ class SingleResponceOptionCell: UIView
         self.addSubview(_OptionsLabel)
         _OptionsLabel.lineBreakMode = .ByTruncatingMiddle
         
-        _OptionsLabel.font = UIFont(name: helveticaRegular, size: 17)
+        _OptionsLabel.font = UIFont(name: helveticaRegular, size: 20)
        
         _OptionsLabel.numberOfLines = 10;
         _OptionsLabel.textColor  = blackTextColor
+       
         
         
         
         _optionValueImageView.frame = CGRectMake(20, (self.frame.size.height-25)/2, 20, 20);
         self.addSubview(_optionValueImageView);
+        _optionValueImageView.contentMode = .ScaleAspectFit
         
     }
 
@@ -62,7 +64,11 @@ class SingleResponceOptionCell: UIView
         {
             if IsAnswer == "1"
             {
-                
+                _optionValueImageView.image = UIImage(named: "Check.png")
+            }
+            else
+            {
+                 _optionValueImageView.image = UIImage(named: "X.png")
             }
         }
         
@@ -70,8 +76,15 @@ class SingleResponceOptionCell: UIView
         
         let  height = heightForView(_OptionsLabel.text!, font: _OptionsLabel.font, width: _OptionsLabel.frame.size.width)
        
-        return height
+        return height + 40
     }
+    
+    func changeFrameWithSize()
+    {
+         _OptionsLabel.frame = CGRectMake(50, 20, 330, self.frame.size.height - 40);
+        _optionValueImageView.frame = CGRectMake(20, (self.frame.size.height - 20)/2, 20, 20);
+    }
+    
     
     
     func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat

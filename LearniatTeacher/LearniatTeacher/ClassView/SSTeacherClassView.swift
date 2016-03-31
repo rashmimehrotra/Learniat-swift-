@@ -506,7 +506,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         {
             mainTopicsController.setdelegate(self)
             mainTopicsController.preferredContentSize = CGSizeMake(600, 44)
-            mainTopicsController.getTopicsDetails()
+            mainTopicsController.getTopicsDetailswithStartedMaintopicId("")
             
             classViewPopOverController = UIPopoverController(contentViewController: mainTopicsController)
             
@@ -539,12 +539,14 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         else
         {
            
+            
+           
+            
+            
             subTopicsController.setdelegate(self)
             subTopicsController.preferredContentSize = CGSizeMake(600, 44)
-           
+              subTopicsController.getSubtopicsDetailsWithMainTopicId(startedMainTopicID, withMainTopicName: startedMainTopicName, withStartedSubtopicID: startedSubTopicID, withCumulativeTime: currentCumulativeTime)
             classViewPopOverController = UIPopoverController(contentViewController: subTopicsController)
-            
-            subTopicsController.getSubtopicsDetailsWithMainTopicId(startedMainTopicID, withMainTopicName: startedMainTopicName, withStartedSubtopicID: startedSubTopicID, withCumulativeTime: currentCumulativeTime)
             
             classViewPopOverController.popoverContentSize = CGSizeMake(540, 680);
             classViewPopOverController.delegate = self;
@@ -554,9 +556,29 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
                 y: mTopicButton.frame.origin.y + mTopicButton.frame.size.height,
                 width: 1,
                 height: 1), inView: self.view, permittedArrowDirections: .Up, animated: true)
-            
             cumulativeTimer.invalidate()
         }
+        
+        
+        if classViewPopOverController.popoverVisible == false
+        {
+            
+            mainTopicsController.setdelegate(self)
+            mainTopicsController.preferredContentSize = CGSizeMake(600, 44)
+            mainTopicsController.getTopicsDetailswithStartedMaintopicId(startedMainTopicID)
+            
+            classViewPopOverController = UIPopoverController(contentViewController: mainTopicsController)
+            
+            classViewPopOverController.popoverContentSize = CGSizeMake(540, 680);
+            classViewPopOverController.delegate = self;
+            
+            classViewPopOverController.presentPopoverFromRect(CGRect(
+                x: mTopicButton.frame.origin.x + mTopicButton.frame.size.width / 2 ,
+                y: mTopicButton.frame.origin.y + mTopicButton.frame.size.height,
+                width: 1,
+                height: 1), inView: self.view, permittedArrowDirections: .Up, animated: true)
+        }
+        
         
         
         
@@ -597,7 +619,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
       
         if (classViewPopOverController.popoverVisible == true)
         {
-              mainTopicsController.getTopicsDetails()
+              mainTopicsController.getTopicsDetailswithStartedMaintopicId(startedMainTopicID)
             classViewPopOverController.contentViewController = mainTopicsController
         }
     }
@@ -752,7 +774,15 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
          questionController.clearQuestionTopicId(startedSubTopicID)
         subTopicsController.setdelegate(self)
         subTopicsController.preferredContentSize = CGSizeMake(600, 44)
-      subTopicsController.clearSubTopicDetailsWithMainTopicId(mainTopicId)
+//      subTopicsController.clearSubTopicDetailsWithMainTopicId(mainTopicId)
+        
+        if (SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.objectForKey(mainTopicId) != nil)
+        {
+            SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.removeObjectForKey(mainTopicId)
+        }
+        
+        
+        
         if (classViewPopOverController.popoverVisible == true)
         {
             subTopicsController.getSubtopicsDetailsWithMainTopicId(mainTopicId, withMainTopicName: mainTopicName,withStartedSubtopicID: startedSubTopicID, withCumulativeTime: currentCumulativeTime)
@@ -844,5 +874,13 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
          {
             mSubTopicsNamelabel.text = "No topic selected"
         }
+    }
+    
+    
+    
+    
+    func popoverControllerShouldDismissPopover(popoverController: UIPopoverController) -> Bool {
+       
+        return true
     }
 }

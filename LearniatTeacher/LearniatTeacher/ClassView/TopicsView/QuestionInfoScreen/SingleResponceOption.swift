@@ -17,6 +17,7 @@ class SingleResponceOption : UIViewController
     
     let optionScrollView = UIScrollView()
     
+    var headerlabel = UILabel()
     
     func setdelegate(delegate:AnyObject)
     {
@@ -49,7 +50,7 @@ class SingleResponceOption : UIViewController
         headerView.addSubview(seperatorView);
         
         
-        let headerlabel = UILabel(frame: CGRectMake(10, 0, 200, 50))
+         headerlabel.frame = CGRectMake(20, 0, 200, 50)
         
         if let questionType = cureentQuestionDetails.objectForKey("Type") as? String
         {
@@ -57,7 +58,7 @@ class SingleResponceOption : UIViewController
         }
         else
         {
-            headerlabel.text = "Overlay Scribble"
+            headerlabel.text = "Multiple Response"
         }
         
         
@@ -81,7 +82,7 @@ class SingleResponceOption : UIViewController
         optionScrollView.frame = CGRectMake(0, headerView.frame.size.height, headerView.frame.size.width, 10 )
         
         
-        
+        addOPtionsCells()
     }
     
     
@@ -104,36 +105,72 @@ class SingleResponceOption : UIViewController
         
         var optionArray = NSMutableArray()
         
-        let classCheckingVariable = cureentQuestionDetails.objectForKey("Options")!.objectForKey("Option")!
-        
-        if classCheckingVariable.isKindOfClass(NSMutableArray)
+         var height :CGFloat = 44
+        var postionYValue:CGFloat = 0
+        if let options = cureentQuestionDetails.objectForKey("Options")
         {
-            optionArray = classCheckingVariable as! NSMutableArray
+           if let classCheckingVariable = options.objectForKey("Option")
+            {
+                    if classCheckingVariable.isKindOfClass(NSMutableArray)
+                    {
+                        optionArray = classCheckingVariable as! NSMutableArray
+                    }
+                    else
+                    {
+                        optionArray.addObject(cureentQuestionDetails.objectForKey("Options")!.objectForKey("Option")!)
+                        
+                    }
+                    
+                
+                   
+                    
+                    
+                    for var indexValu = 0 ;indexValu < optionArray.count; indexValu++
+                    {
+                        let optionDict = optionArray.objectAtIndex(indexValu)
+                        
+                        let optionsCell = SingleResponceOptionCell(frame: CGRectMake(0  , postionYValue, optionScrollView.frame.size.width, 50))
+                        
+                        optionsCell.frame = CGRectMake(0  , postionYValue, optionScrollView.frame.size.width, optionsCell.getHeightWithDetails(optionDict))
+                        
+                        optionsCell.changeFrameWithSize()
+                        
+                        optionScrollView.addSubview(optionsCell)
+                        
+                        postionYValue = postionYValue + optionsCell.frame.size.height
+                        height = height + optionsCell.frame.size.height
+                        
+                    }
+  
+            }
+           else
+           {
+            headerlabel.text = "No options"
+            }
         }
         else
         {
-            optionArray.addObject(cureentQuestionDetails.objectForKey("Options")!.objectForKey("Option")!)
-            
+            headerlabel.text = "No options"
         }
         
         
         
         
         
-        var postionYValue:CGFloat = 0
         
-        for var indexValu = 0 ;indexValu < optionArray.count; indexValu++
+        if height > 700
         {
-            let optionDict = optionArray.objectAtIndex(indexValu)
-            
-            let optionsCell = SingleResponceOptionCell(frame: CGRectMake(0  , postionYValue, optionScrollView.frame.size.width, 50))
-            optionsCell.getHeightWithDetails(optionDict)
-            optionScrollView.addSubview(optionsCell)
-            postionYValue = postionYValue + optionsCell.frame.size.height
-            
-            
+            height = 700
         }
         
+        
+        
+        self.preferredContentSize = CGSize(width: 400, height: height  )
+        
+        optionScrollView.frame = CGRectMake(0, 50, optionScrollView.frame.size.width, height - 50)
+        
+        optionScrollView.contentSize = CGSizeMake(0, postionYValue)
+
     }
     
     

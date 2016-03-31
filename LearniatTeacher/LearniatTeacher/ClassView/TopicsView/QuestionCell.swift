@@ -56,7 +56,7 @@ class QuestionCell: UIView
         
        
 
-        mQuestionNameLabel.frame = CGRectMake(10 , 10 , self.frame.size.width - 50 , self.frame.size.height)
+        mQuestionNameLabel.frame = CGRectMake(10 , 10 , self.frame.size.width - 60 , self.frame.size.height)
         mQuestionNameLabel.font = UIFont(name:helveticaMedium, size: 18)
         self.addSubview(mQuestionNameLabel)
         mQuestionNameLabel.textColor = blackTextColor

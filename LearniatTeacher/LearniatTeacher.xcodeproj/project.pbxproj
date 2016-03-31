@@ -233,6 +233,11 @@
 		53676D5D1CA63D7A00CADE4D /* SSTeacherQuestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53676D561CA63D7A00CADE4D /* SSTeacherQuestionController.swift */; };
 		53676D5E1CA63D7A00CADE4D /* SSTeacherSubTopicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53676D571CA63D7A00CADE4D /* SSTeacherSubTopicController.swift */; };
 		53676D5F1CA63D7A00CADE4D /* SubTopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53676D581CA63D7A00CADE4D /* SubTopicCell.swift */; };
+		5377E4371CAB8F1400A11E59 /* Check.png in Resources */ = {isa = PBXBuildFile; fileRef = 5377E4351CAB8F1400A11E59 /* Check.png */; };
+		5377E4381CAB8F1400A11E59 /* X.png in Resources */ = {isa = PBXBuildFile; fileRef = 5377E4361CAB8F1400A11E59 /* X.png */; };
+		5377E43A1CAB951800A11E59 /* MatchColumnOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5377E4391CAB951800A11E59 /* MatchColumnOption.swift */; };
+		5377E43C1CAB9B6600A11E59 /* MatchColumnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5377E43B1CAB9B6600A11E59 /* MatchColumnCell.swift */; };
+		5377E4401CABB9D500A11E59 /* SubtopicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5377E43F1CABB9D500A11E59 /* SubtopicController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -631,6 +636,11 @@
 		53676D561CA63D7A00CADE4D /* SSTeacherQuestionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSTeacherQuestionController.swift; sourceTree = "<group>"; };
 		53676D571CA63D7A00CADE4D /* SSTeacherSubTopicController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSTeacherSubTopicController.swift; sourceTree = "<group>"; };
 		53676D581CA63D7A00CADE4D /* SubTopicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubTopicCell.swift; sourceTree = "<group>"; };
+		5377E4351CAB8F1400A11E59 /* Check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Check.png; sourceTree = "<group>"; };
+		5377E4361CAB8F1400A11E59 /* X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = X.png; sourceTree = "<group>"; };
+		5377E4391CAB951800A11E59 /* MatchColumnOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchColumnOption.swift; sourceTree = "<group>"; };
+		5377E43B1CAB9B6600A11E59 /* MatchColumnCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchColumnCell.swift; sourceTree = "<group>"; };
+		5377E43F1CABB9D500A11E59 /* SubtopicController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubtopicController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -658,6 +668,8 @@
 		531044831CA64296007AE9D5 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				5377E4351CAB8F1400A11E59 /* Check.png */,
+				5377E4361CAB8F1400A11E59 /* X.png */,
 				531044AB1CA66C89007AE9D5 /* lowParticipartion.png */,
 				531044841CA64296007AE9D5 /* Alert_Icon.png */,
 				531044851CA64296007AE9D5 /* Blue_Alert.png */,
@@ -695,6 +707,8 @@
 				532607751CA90779002FF684 /* ScribbleQuestionInfoScreen.swift */,
 				5326079A1CA91788002FF684 /* SingleResponceOption.swift */,
 				5326079C1CA917EC002FF684 /* SingleResponceOptionCell.swift */,
+				5377E4391CAB951800A11E59 /* MatchColumnOption.swift */,
+				5377E43B1CAB9B6600A11E59 /* MatchColumnCell.swift */,
 			);
 			path = QuestionInfoScreen;
 			sourceTree = "<group>";
@@ -1782,6 +1796,7 @@
 			children = (
 				53676D551CA63D7A00CADE4D /* SSTeachermainTopicController.swift */,
 				53676D531CA63D7A00CADE4D /* MainTopicCell.swift */,
+				5377E43F1CABB9D500A11E59 /* SubtopicController.swift */,
 				53676D571CA63D7A00CADE4D /* SSTeacherSubTopicController.swift */,
 				53676D581CA63D7A00CADE4D /* SubTopicCell.swift */,
 				53676D561CA63D7A00CADE4D /* SSTeacherQuestionController.swift */,
@@ -1868,6 +1883,8 @@
 				531044991CA64296007AE9D5 /* CalendarBubbleRed.png in Resources */,
 				531044A41CA64296007AE9D5 /* 60.png in Resources */,
 				531044AC1CA66C89007AE9D5 /* lowParticipartion.png in Resources */,
+				5377E4381CAB8F1400A11E59 /* X.png in Resources */,
+				5377E4371CAB8F1400A11E59 /* Check.png in Resources */,
 				531044A11CA64296007AE9D5 /* 30.png in Resources */,
 				5326078F1CA90AEC002FF684 /* indicator2.png in Resources */,
 				5310449A1CA64296007AE9D5 /* infoButton.png in Resources */,
@@ -1922,6 +1939,7 @@
 				53676CEC1CA63B7F00CADE4D /* XMPPMessage+XEP_0066.m in Sources */,
 				53676CD71CA63B7F00CADE4D /* XMPPMUC.m in Sources */,
 				53676D0F1CA63B7F00CADE4D /* XMPPMessage+XEP_0280.m in Sources */,
+				5377E43C1CAB9B6600A11E59 /* MatchColumnCell.swift in Sources */,
 				53676CD51CA63B7F00CADE4D /* XMPPRoomOccupantMemoryStorageObject.m in Sources */,
 				53676D5F1CA63D7A00CADE4D /* SubTopicCell.swift in Sources */,
 				53676CD01CA63B7F00CADE4D /* XMPPRoomHybridStorage.m in Sources */,
@@ -1998,6 +2016,7 @@
 				53676CB61CA63B7F00CADE4D /* XMPPBandwidthMonitor.m in Sources */,
 				53676CF01CA63B7F00CADE4D /* XMPPMessage+XEP_0085.m in Sources */,
 				53676D1A1CA63B7F00CADE4D /* XMPPIDTracker.m in Sources */,
+				5377E4401CABB9D500A11E59 /* SubtopicController.swift in Sources */,
 				5326079D1CA917EC002FF684 /* SingleResponceOptionCell.swift in Sources */,
 				53676CE11CA63B7F00CADE4D /* XMPPvCardTempBase.m in Sources */,
 				53676CEB1CA63B7F00CADE4D /* XMPPIQ+XEP_0066.m in Sources */,
@@ -2067,6 +2086,7 @@
 				53676CA91CA63B7F00CADE4D /* XMPPXFacebookPlatformAuthentication.m in Sources */,
 				53676CDB1CA63B7F00CADE4D /* XMPPvCardCoreDataStorage.m in Sources */,
 				53676D1E1CA63B7F00CADE4D /* GCDAsyncSocket.m in Sources */,
+				5377E43A1CAB951800A11E59 /* MatchColumnOption.swift in Sources */,
 				53676CA71CA63B7F00CADE4D /* XMPPPlainAuthentication.m in Sources */,
 				53676CE21CA63B7F00CADE4D /* XMPPvCardTempEmail.m in Sources */,
 				53676C9F1CA63B7F00CADE4D /* CustomAlertView.m in Sources */,
