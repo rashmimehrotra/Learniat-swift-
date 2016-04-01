@@ -17,7 +17,19 @@ let StudentFree                 =  "Free"
 let StudentSignedout            = "Signedout"
 let StudentPreAllocated         = "PreAllocated"
 
-class StundentDeskView: UIView
+
+
+@objc protocol StundentDeskViewDelegate
+{
+    
+    
+    optional func delegateStudentCellPressedWithViewAnswerOptions(answerOptions:NSMutableArray, withStudentId studentId:String)
+    
+    
+    
+}
+
+class StundentDeskView: UIView,SSTeacherDataSourceDelegate
 {
     
     
@@ -47,6 +59,32 @@ class StundentDeskView: UIView
     var mProgressView = UIProgressView()
  
     var StudentState = StudentSignedout
+    
+    var mQuestionStateImage = UIImageView()
+    
+    var mDoubtImageview = UIImageView()
+    
+    var _currentQuestionDetials :AnyObject!
+    
+    var studentFinalAnswerOptions = NSMutableArray()
+    
+    var answerContainerView = StudentAnswerOptionsView()
+    
+    var answerRecieved = false
+    
+    
+    var _delgate: AnyObject!
+    
+    func setdelegate(delegate:AnyObject)
+    {
+        _delgate = delegate;
+    }
+    
+    func   delegate()->AnyObject
+    {
+        return _delgate;
+    }
+    
     
     
     override init(frame: CGRect)
@@ -78,7 +116,7 @@ class StundentDeskView: UIView
         refrenceDeskImageView.backgroundColor = UIColor.clearColor()
         cellWith = refrenceDeskImageView.frame.size.width
         cellHeight = cellWith / 2
-        
+        refrenceDeskImageView.userInteractionEnabled = true
         
         
         
@@ -108,6 +146,9 @@ class StundentDeskView: UIView
         
         mDeskFrame = answerDeskImageView.frame
         
+        answerContainerView.frame = mDeskFrame
+        refrenceDeskImageView.addSubview(answerContainerView)
+        answerContainerView.backgroundColor = UIColor.clearColor()
         
         mStudentName.frame = CGRectMake(answerDeskImageView.frame.origin.x,answerDeskImageView.frame.size.height+answerDeskImageView.frame.origin.y, answerDeskImageView.frame.size.width, refrenceDeskImageView.frame.size.height-(answerDeskImageView.frame.origin.y+answerDeskImageView.frame.size.height));
         mStudentName.textAlignment = .Center;
@@ -148,6 +189,34 @@ class StundentDeskView: UIView
         mProgressView.transform = transform;
         mProgressView.layer.cornerRadius = mProgressView.frame.size.height/2;
         mProgressView.layer.masksToBounds = true;
+        
+        
+        
+        
+        let questionStateView = UIView(frame:CGRectMake(refrenceDeskImageView.frame.size.width-cellHeight/1.9, (refrenceDeskImageView.frame.size.width/3.5)/8, cellHeight/3,cellHeight/3));
+        refrenceDeskImageView.addSubview(questionStateView)
+        questionStateView.backgroundColor = UIColor.clearColor()
+        
+        
+        mQuestionStateImage.frame = CGRectMake(0, 0, questionStateView.frame.size.height,questionStateView.frame.size.height)
+        questionStateView.addSubview(mQuestionStateImage);
+        mQuestionStateImage.backgroundColor = UIColor.whiteColor()
+        mQuestionStateImage.hidden = true
+        
+        
+        mDoubtImageview.frame =  CGRectMake(0, 0, questionStateView.frame.size.height,questionStateView.frame.size.height);
+        questionStateView.addSubview(mDoubtImageview)
+        mDoubtImageview.backgroundColor = UIColor.clearColor()
+       mDoubtImageview.hidden = true
+        mDoubtImageview.image  = UIImage(named:"Query.png");
+        
+        
+        
+        let  mDoneButton = UIButton()
+        mDoneButton.frame = mDeskFrame
+        refrenceDeskImageView.addSubview(mDoneButton)
+        mDoneButton.addTarget(self, action: "onDeskPressed", forControlEvents: UIControlEvents.TouchUpInside)
+        
         
     }
     
@@ -195,7 +264,7 @@ class StundentDeskView: UIView
     {
         
         StudentState = state;
-        
+        mStudentImage.hidden = false
         
         switch (state)
         {
@@ -205,6 +274,7 @@ class StundentDeskView: UIView
                 answerDeskImageView.borderType = BorderTypeDashed;
                 answerDeskImageView.borderWidth = 1;
                 answerDeskImageView.borderColor = standard_Red
+                mStudentImage.hidden = true
                 
                 break;
          
@@ -255,4 +325,38 @@ class StundentDeskView: UIView
                 break
         }
     }
+    
+    // MARK: - Student Answers functions
+    
+    func studentSentAnswerWithAnswerString(answerString:String, withQuestionDetails details:AnyObject)
+    {
+        _currentQuestionDetials = details
+        SSTeacherDataSource.sharedDataSource.getStudentsAswerWithAnswerId(answerString, withDelegate: self)
+    }
+    
+    func didGetStudentsAnswerWithDetails(details: AnyObject)
+    {
+        mQuestionStateImage.hidden = true
+        mMiddleStudentName.hidden = true
+        mStudentName.hidden = false
+        answerContainerView.addOptionsWithAnswerDetails(details, withQuestionDetails: _currentQuestionDetials)
+        answerRecieved = true
+    }
+    
+    func onDeskPressed()
+    {
+        
+        if answerRecieved == true
+        {
+            if delegate().respondsToSelector(Selector("delegateStudentCellPressedWithViewAnswerOptions:withStudentId:"))
+            {
+                delegate().delegateStudentCellPressedWithViewAnswerOptions!(answerContainerView._studentFinalAnswerOptions,  withStudentId:(currentStudentsDict.objectForKey("StudentId") as? String)!)
+                
+            }
+        }
+        
+    }
+
 }
+
+

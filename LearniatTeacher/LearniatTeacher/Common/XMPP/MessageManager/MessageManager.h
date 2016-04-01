@@ -171,7 +171,7 @@
 /**
  This method is used to send message to group
  */
-- (BOOL)sendGroupMessageWithBody:(NSString*)_body;
+- (BOOL)sendGroupMessageWithBody:(NSString*)_body withRoomId:(NSString*)roomId;
 
 
 

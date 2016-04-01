@@ -238,6 +238,10 @@
 		5377E43A1CAB951800A11E59 /* MatchColumnOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5377E4391CAB951800A11E59 /* MatchColumnOption.swift */; };
 		5377E43C1CAB9B6600A11E59 /* MatchColumnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5377E43B1CAB9B6600A11E59 /* MatchColumnCell.swift */; };
 		5377E4401CABB9D500A11E59 /* SubtopicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5377E43F1CABB9D500A11E59 /* SubtopicController.swift */; };
+		53E5BBAA1CAE3B7D00358ED8 /* Query.png in Resources */ = {isa = PBXBuildFile; fileRef = 53E5BBA71CAE3B7D00358ED8 /* Query.png */; };
+		53E5BBAB1CAE3B7D00358ED8 /* StudentThinking.png in Resources */ = {isa = PBXBuildFile; fileRef = 53E5BBA81CAE3B7D00358ED8 /* StudentThinking.png */; };
+		53E5BBAC1CAE3B7D00358ED8 /* StudentWriting.png in Resources */ = {isa = PBXBuildFile; fileRef = 53E5BBA91CAE3B7D00358ED8 /* StudentWriting.png */; };
+		53E5BBAE1CAE80F400358ED8 /* StudentAnswerOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E5BBAD1CAE80F400358ED8 /* StudentAnswerOptionsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -641,6 +645,10 @@
 		5377E4391CAB951800A11E59 /* MatchColumnOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchColumnOption.swift; sourceTree = "<group>"; };
 		5377E43B1CAB9B6600A11E59 /* MatchColumnCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchColumnCell.swift; sourceTree = "<group>"; };
 		5377E43F1CABB9D500A11E59 /* SubtopicController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubtopicController.swift; sourceTree = "<group>"; };
+		53E5BBA71CAE3B7D00358ED8 /* Query.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Query.png; sourceTree = "<group>"; };
+		53E5BBA81CAE3B7D00358ED8 /* StudentThinking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StudentThinking.png; sourceTree = "<group>"; };
+		53E5BBA91CAE3B7D00358ED8 /* StudentWriting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StudentWriting.png; sourceTree = "<group>"; };
+		53E5BBAD1CAE80F400358ED8 /* StudentAnswerOptionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerOptionsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -668,6 +676,9 @@
 		531044831CA64296007AE9D5 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				53E5BBA71CAE3B7D00358ED8 /* Query.png */,
+				53E5BBA81CAE3B7D00358ED8 /* StudentThinking.png */,
+				53E5BBA91CAE3B7D00358ED8 /* StudentWriting.png */,
 				5377E4351CAB8F1400A11E59 /* Check.png */,
 				5377E4361CAB8F1400A11E59 /* X.png */,
 				531044AB1CA66C89007AE9D5 /* lowParticipartion.png */,
@@ -1786,6 +1797,7 @@
 			children = (
 				53676D511CA63D7A00CADE4D /* SSTeacherClassView.swift */,
 				531044A91CA665E2007AE9D5 /* StundentDeskView.swift */,
+				53E5BBAD1CAE80F400358ED8 /* StudentAnswerOptionsView.swift */,
 				53676D521CA63D7A00CADE4D /* TopicsView */,
 			);
 			path = ClassView;
@@ -1881,6 +1893,7 @@
 				532607911CA90AEC002FF684 /* indicator4.png in Resources */,
 				532607951CA90AEC002FF684 /* indicator8.png in Resources */,
 				531044991CA64296007AE9D5 /* CalendarBubbleRed.png in Resources */,
+				53E5BBAC1CAE3B7D00358ED8 /* StudentWriting.png in Resources */,
 				531044A41CA64296007AE9D5 /* 60.png in Resources */,
 				531044AC1CA66C89007AE9D5 /* lowParticipartion.png in Resources */,
 				5377E4381CAB8F1400A11E59 /* X.png in Resources */,
@@ -1889,11 +1902,13 @@
 				5326078F1CA90AEC002FF684 /* indicator2.png in Resources */,
 				5310449A1CA64296007AE9D5 /* infoButton.png in Resources */,
 				532607961CA90AEC002FF684 /* indicator9.png in Resources */,
+				53E5BBAA1CAE3B7D00358ED8 /* Query.png in Resources */,
 				531044A01CA64296007AE9D5 /* 20.png in Resources */,
 				531044A71CA64296007AE9D5 /* 90.png in Resources */,
 				532607941CA90AEC002FF684 /* indicator7.png in Resources */,
 				532607921CA90AEC002FF684 /* indicator5.png in Resources */,
 				53676AEC1CA63B2100CADE4D /* Assets.xcassets in Resources */,
+				53E5BBAB1CAE3B7D00358ED8 /* StudentThinking.png in Resources */,
 				532607901CA90AEC002FF684 /* indicator3.png in Resources */,
 				53676AEA1CA63B2100CADE4D /* Main.storyboard in Resources */,
 				5310449E1CA64296007AE9D5 /* 10.png in Resources */,
@@ -1941,6 +1956,7 @@
 				53676D0F1CA63B7F00CADE4D /* XMPPMessage+XEP_0280.m in Sources */,
 				5377E43C1CAB9B6600A11E59 /* MatchColumnCell.swift in Sources */,
 				53676CD51CA63B7F00CADE4D /* XMPPRoomOccupantMemoryStorageObject.m in Sources */,
+				53E5BBAE1CAE80F400358ED8 /* StudentAnswerOptionsView.swift in Sources */,
 				53676D5F1CA63D7A00CADE4D /* SubTopicCell.swift in Sources */,
 				53676CD01CA63B7F00CADE4D /* XMPPRoomHybridStorage.m in Sources */,
 				53676D151CA63B7F00CADE4D /* SSMessage.m in Sources */,

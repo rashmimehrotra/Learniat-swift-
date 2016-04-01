@@ -808,10 +808,26 @@ static MessageManager *sharedMessageHandler = nil;
 }
 
 
-- (BOOL)sendGroupMessageWithBody:(NSString*)_body
+- (BOOL)sendGroupMessageWithBody:(NSString*)_body withRoomId:(NSString*)roomId
 {
 
-    [xmppRoom sendMessageWithBody:_body];
+    if([_body length]> 0)
+    {
+        
+        NSXMLElement *body = [NSXMLElement elementWithName:@"body"];
+        [body setStringValue:_body];
+        
+        NSXMLElement *message = [NSXMLElement elementWithName:@"message"];
+        [message addAttributeWithName:@"to" stringValue:roomId];
+        [message addAttributeWithName:@"type" stringValue:@"groupchat"];
+        [message addChild:body];
+        
+        [self.xmppStream sendElement:message];
+    }
+    
+    
+    
+//    [xmppRoom sendMessageWithBody:_body];
     return YES;
 }
 

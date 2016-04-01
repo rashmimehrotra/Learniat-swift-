@@ -25,7 +25,7 @@ let kStudentOccupied         = 10
 
 
 import Foundation
-class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeachermainTopicControllerDelegate,SSTeacherSubTopicControllerDelegate,SSTeacherDataSourceDelegate,SSTeacherQuestionControllerDelegate,SSTeacherMessagehandlerDelegate,SSTeacherLiveQuestionControllerDelegate
+class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeachermainTopicControllerDelegate,SSTeacherSubTopicControllerDelegate,SSTeacherDataSourceDelegate,SSTeacherQuestionControllerDelegate,SSTeacherMessagehandlerDelegate,SSTeacherLiveQuestionControllerDelegate,StundentDeskViewDelegate
 {
    
     
@@ -119,6 +119,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         self.view.addSubview(mGridContainerView)
         mGridContainerView.backgroundColor = whiteBackgroundColor
         mGridContainerView.hidden = true
+        mGridContainerView.userInteractionEnabled = true
         
         
 
@@ -240,12 +241,12 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
             
         }
         
-        if var StartTime = currentSessionDetails.objectForKey("StartTime") as? String
+        if var  StartTime = currentSessionDetails.objectForKey("StartTime") as? String
         {
             
             var _string :String = ""
             let currentDate = NSDate()
-            
+           
             let isGreater = dateFormatter.dateFromString(StartTime)?.isGreaterThanDate(currentDate)
             
             if isGreater == true
@@ -277,6 +278,15 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
             mActivityIndicatore.hidden = false
         }
         
+        
+        SSTeacherMessageHandler.sharedMessageHandler.createRoomWithRoomName("question_\(currentSessionId)", withHistory: "0")
+        
+        
+    }
+    
+    
+    func onScheduleScreenPopupPressed(sender:UIButton)
+    {
         
     }
     
@@ -319,6 +329,8 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     
     func didGetSubtopicStartedWithDetails(details: AnyObject)
     {
+        
+        print(details)
     }
     
     func didGetQuestionSentWithDetails(details: AnyObject) {
@@ -331,20 +343,20 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
             
             currentQuestionLogId = QuestionLogId
             
-            SSTeacherMessageHandler.sharedMessageHandler.createRoomWithRoomName("question_\(SSTeacherDataSource.sharedDataSource.currentUserId)_\(QuestionLogId)", withHistory: "0")
+            
+            if let Type = currentQuestionDetails.objectForKey("Type") as? String
+            {
+                SSTeacherMessageHandler.sharedMessageHandler.sendQuestionWithRoomName("question_\(currentSessionId)", withQuestionLogId: currentQuestionLogId, withQuestionType: Type)
+                
+                
+            }
+            
+            
+            
+            
         }
     }
     
-    
-    
-    
-    
-    func onScheduleScreenPopupPressed(sender:UIButton)
-    {
-        
-    }
-    
-
     
     
 // MARK: - seatAssignment functions
@@ -354,8 +366,8 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     {
         var columnValue         = 1
         var rowValue            = 1
-        var seatsIdArray        = [String]()
-        var seatsLableArray     = [String]()
+//        var seatsIdArray        = [String]()
+//        var seatsLableArray     = [String]()
         var seatsRemovedArray   = [String]()
         
         
@@ -369,15 +381,15 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
             rowValue = Int(Rows)!
         }
         
-        if let SeatIdList = details.objectForKey("SeatIdList") as? String
-        {
-            seatsIdArray =  SeatIdList.componentsSeparatedByString(",")
-        }
-        
-        if let SeatLabelList = details.objectForKey("SeatLabelList") as? String
-        {
-            seatsLableArray =  SeatLabelList.componentsSeparatedByString(",")
-        }
+//        if let SeatIdList = details.objectForKey("SeatIdList") as? String
+//        {
+//            seatsIdArray =  SeatIdList.componentsSeparatedByString(",")
+//        }
+//        
+//        if let SeatLabelList = details.objectForKey("SeatLabelList") as? String
+//        {
+//            seatsLableArray =  SeatLabelList.componentsSeparatedByString(",")
+//        }
         
         if let SeatsRemoved = details.objectForKey("SeatsRemoved") as? String
         {
@@ -427,6 +439,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
                 else
                 {
                     let seatView = StundentDeskView(frame: CGRectMake(positionX, postionY, barWidthvalue, barHeight))
+                    seatView.setdelegate(self)
                     mGridContainerView.addSubview(seatView)
                     seatView.tag  = totalSeatvalue
                     seatView.backgroundColor = UIColor.clearColor()
@@ -681,9 +694,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         var currentDate = NSDate()
         currentDate = currentDate.addSeconds(1, withDate: dateFormatter.dateFromString(currentCumulativeTime)!)
         currentCumulativeTime = dateFormatter.stringFromDate(currentDate)
-        
-        print(currentCumulativeTime)
-        
     }
     
     
@@ -801,7 +811,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         
         
         mQuestionNamelabel.text = "No active question"
-        SSTeacherMessageHandler.sharedMessageHandler.sendClearQuestionMessageWithRoomId("question_\(SSTeacherDataSource.sharedDataSource.currentUserId)_\(currentQuestionLogId)")
+        SSTeacherMessageHandler.sharedMessageHandler.sendClearQuestionMessageWithRoomId("question_\(currentSessionId)")
     }
     
     func delegateDoneButtonPressed()
@@ -815,26 +825,26 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     func smhDidcreateRoomWithRoomName(roomName: String)
     {
        
-        if currentQuestionDetails == nil
-        {
-            return
-        }
-        if let Type = currentQuestionDetails.objectForKey("Type") as? String
-        {
-            
-            
-            for var indexValue = 0 ; indexValue < StudentsDetailsArray.count ; indexValue++
-            {
-                let studentsDict = StudentsDetailsArray.objectAtIndex(indexValue)
-                
-                if let StudentId = studentsDict.objectForKey("StudentId") as? String
-                {
-                    SSTeacherMessageHandler.sharedMessageHandler.sendLiveClassRoomName(roomName, withQuestionLogId: StudentId, withQuestionType: Type)
-                }
-            }
-           
-            SSTeacherMessageHandler.sharedMessageHandler.sendQuestionWithRoomName(roomName, withQuestionLogId: currentQuestionLogId, withQuestionType: Type)
-        }
+//        if currentQuestionDetails == nil
+//        {
+//            return
+//        }
+//        if let Type = currentQuestionDetails.objectForKey("Type") as? String
+//        {
+//            
+//            
+//            for var indexValue = 0 ; indexValue < StudentsDetailsArray.count ; indexValue++
+//            {
+//                let studentsDict = StudentsDetailsArray.objectAtIndex(indexValue)
+//                
+//                if let StudentId = studentsDict.objectForKey("StudentId") as? String
+//                {
+//                    SSTeacherMessageHandler.sharedMessageHandler.sendLiveClassRoomName(roomName, withQuestionLogId: StudentId, withQuestionType: Type)
+//                }
+//            }
+//           
+//           
+//        }
        
     }
     
@@ -846,6 +856,12 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
             if Int(state) == kStudentLive
             {
                 studentDeskView.setStudentCurrentState(StudentLive)
+               
+                if startedSubTopicID != ""
+                {
+                    SSTeacherMessageHandler.sharedMessageHandler.sendAllowVotingToStudents(studentId, withValue: "TRUE", withSubTopicName: mSubTopicsNamelabel.text!, withSubtopicID: startedSubTopicID)
+                }
+                
             }
             else if Int(state) == kStudentSignedOut
             {
@@ -864,6 +880,85 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
                 studentDeskView.setStudentCurrentState(StudentFree)
             }
         }
+    }
+    
+    
+    func smhDidgetStudentQuestionAccepetedMessageWithStudentId(StudentId: String) {
+        
+        
+        if let studentDeskView  = mGridContainerView.viewWithTag(Int(StudentId)!) as? StundentDeskView
+        {
+           
+            if let questionType = currentQuestionDetails.objectForKey("Type") as? String
+            {
+                
+                if (questionType  == "Overlay Scribble"  || questionType == "Fresh Scribble" || questionType  == "Text")
+                {
+                    studentDeskView.mQuestionStateImage.image = UIImage(named:"StudentWriting.png");
+                }
+                else
+                {
+                     studentDeskView.mQuestionStateImage.image = UIImage(named:"StudentThinking.png");
+                    
+                }
+                
+                studentDeskView.mQuestionStateImage.hidden = false
+            }
+        }
+        
+    }
+    
+    
+    func smhDidgetStudentAnswerMessageWithStudentId(StudentId: String, withAnswerString answerStrin: String)
+    {
+        if let studentDeskView  = mGridContainerView.viewWithTag(Int(StudentId)!) as? StundentDeskView
+        {
+            if currentQuestionDetails != nil
+             {
+                studentDeskView.studentSentAnswerWithAnswerString(answerStrin,withQuestionDetails: currentQuestionDetails)
+            }
+            
+            
+        }
+        
+    }
+    
+    // MARK: - DeskView delegate functions
+    
+    func delegateStudentCellPressedWithViewAnswerOptions(answerOptions: NSMutableArray, withStudentId studentId: String) {
+        
+        
+        if let studentDeskView  = mGridContainerView.viewWithTag(Int(studentId)!) as? StundentDeskView
+        {
+            let buttonPosition :CGPoint = studentDeskView.convertPoint(CGPointZero, toView: self.view)
+            
+            let questionInfoController = SingleResponceOption()
+            questionInfoController.setdelegate(self)
+            
+            
+            
+            
+            questionInfoController.setQuestionDetails(currentQuestionDetails)
+            
+            print(currentQuestionDetails)
+            
+            questionInfoController.preferredContentSize = CGSizeMake(400,317)
+            
+            let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+            
+            classViewPopOverController.popoverContentSize = CGSizeMake(400,317);
+            classViewPopOverController.delegate = self;
+            
+            classViewPopOverController.presentPopoverFromRect(CGRect(
+                x:buttonPosition.x ,
+                y:buttonPosition.y + studentDeskView.frame.size.height / 2,
+                width: 1,
+                height: 1), inView: self.view, permittedArrowDirections: .Any, animated: true)
+            
+        }
+        
+        
+        
     }
     
     

@@ -63,6 +63,7 @@ let kServiceBroadcastQuestion		=   "BroadcastQuestion"
 
 let kServiceClearQuestion           =   "ClearQuestion"
 
+let kServiceRetrieveStudentAnswer    =   "RetrieveStudentAnswer"
 
 
 @objc protocol SSTeacherDataSourceDelegate
@@ -100,6 +101,8 @@ let kServiceClearQuestion           =   "ClearQuestion"
     optional func didGetQuestionSentWithDetails(details:AnyObject)
     
     optional func didGetQuestionClearedWithDetails(details:AnyObject)
+    
+    optional func didGetStudentsAnswerWithDetails(details:AnyObject)
     
     
 }
@@ -369,6 +372,17 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         manager.downloadDataURL(urlString, withServiceName: kServiceClearQuestion, withDelegate: self, withRequestType: eHTTPGetRequest)
     }
     
+    func getStudentsAswerWithAnswerId(answerId:String, withDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        setdelegate(delegate)
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>RetrieveStudentAnswer</Service><AssessmentAnswerId>%@</AssessmentAnswerId></Action></Sunstone>",URLPrefix,answerId)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceRetrieveStudentAnswer, withDelegate: self, withRequestType: eHTTPGetRequest)
+    }
+    
     
     // MARK: - API Delegate Functions
     func delegateDidGetServiceResponseWithDetails( dict: NSMutableDictionary!, WIthServiceName serviceName: String!)
@@ -488,6 +502,13 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
             if delegate().respondsToSelector(Selector("didGetQuestionClearedWithDetails:"))
             {
                 delegate().didGetQuestionClearedWithDetails!(refinedDetails)
+            }
+        }
+        else if serviceName == kServiceRetrieveStudentAnswer
+        {
+            if delegate().respondsToSelector(Selector("didGetStudentsAnswerWithDetails:"))
+            {
+                delegate().didGetStudentsAnswerWithDetails!(refinedDetails)
             }
         }
     

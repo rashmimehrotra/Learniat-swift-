@@ -1144,6 +1144,8 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         {
             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(sessionid, WithStatusvalue: kopened, WithDelegate: self)
             
+            self.sendTimeExtendMessageWithDetails(details, withMessage: "Class has been opened")
+            
             self.mScheduleDetailView.onDoneButton()
         }
     }

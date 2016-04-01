@@ -62,13 +62,19 @@ class SingleResponceOptionCell: UIView
         
         if let IsAnswer = details.objectForKey("IsAnswer") as? String
         {
-            if IsAnswer == "1"
+            if IsAnswer == "1" || IsAnswer == KCorretValue
             {
                 _optionValueImageView.image = UIImage(named: "Check.png")
+                _optionValueImageView.backgroundColor = UIColor.clearColor()
+            }
+            else if IsAnswer == "0" || IsAnswer == kWrongvalue
+            {
+                 _optionValueImageView.image = UIImage(named: "X.png")
+                _optionValueImageView.backgroundColor = UIColor.clearColor()
             }
             else
             {
-                 _optionValueImageView.image = UIImage(named: "X.png")
+                _optionValueImageView.backgroundColor = topicsLineColor
             }
         }
         

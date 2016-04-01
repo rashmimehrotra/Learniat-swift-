@@ -15,6 +15,10 @@ let onlySubTopics         = "Only SubTopics"
 let onlyQuestions         = "Only Questions"
 
 
+let KCorretValue            = "4"
+let kWrongvalue             = "5"
+let kMissedValue            = "6"
+
 let helveticaRegular      = "HelveticaNeue"
 
 let helveticaMedium       = "HelveticaNeue-Medium"
