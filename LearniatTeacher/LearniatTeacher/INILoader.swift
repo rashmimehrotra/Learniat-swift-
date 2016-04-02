@@ -14,6 +14,14 @@ let onlyMainTopics        = "Only MainTopics"
 let onlySubTopics         = "Only SubTopics"
 let onlyQuestions         = "Only Questions"
 
+let kOverlayScribble      = "Overlay Scribble"
+let kFreshScribble        = "Fresh Scribble"
+let kText                 = "Text"
+let kMCQ                  = "Multiple Choice"
+let kMRQ                  = "Multiple Response"
+let kMatchColumn          = "Match Columns"
+
+
 
 let KCorretValue            = "4"
 let kWrongvalue             = "5"
@@ -439,8 +447,6 @@ class UIVerticalAlignLabel: UILabel {
         case .VerticalAlignmentBottom:
             return CGRectMake(bounds.origin.x, bounds.origin.y + (bounds.size.height - rect.size.height), rect.size.width, rect.size.height)
       
-        default:
-            return bounds
         }
     }
     

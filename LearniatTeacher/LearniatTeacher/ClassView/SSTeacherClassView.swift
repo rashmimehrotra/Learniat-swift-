@@ -25,7 +25,7 @@ let kStudentOccupied         = 10
 
 
 import Foundation
-class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeachermainTopicControllerDelegate,SSTeacherSubTopicControllerDelegate,SSTeacherDataSourceDelegate,SSTeacherQuestionControllerDelegate,SSTeacherMessagehandlerDelegate,SSTeacherLiveQuestionControllerDelegate,StundentDeskViewDelegate
+class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeachermainTopicControllerDelegate,SSTeacherSubTopicControllerDelegate,SSTeacherDataSourceDelegate,SSTeacherQuestionControllerDelegate,SSTeacherMessagehandlerDelegate,SSTeacherLiveQuestionControllerDelegate,StundentDeskViewDelegate,SSTeacherSubmissionViewDelegate
 {
    
     
@@ -177,7 +177,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         mSubmissionView.backgroundColor = whiteBackgroundColor
         mSubmissionView.hidden = true
         mSubmissionView.userInteractionEnabled = true
-        
+        mSubmissionView.setdelegate(self)
         
         mQueryView.frame = CGRectMake(0, mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , self.view.frame.size.width , self.view.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + mBottombarImageView.frame.size.height ))
         self.view.addSubview(mQueryView)
@@ -445,24 +445,26 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
             {
                 SSTeacherMessageHandler.sharedMessageHandler.sendQuestionWithRoomName("question_\(currentSessionId)", withQuestionLogId: currentQuestionLogId, withQuestionType: Type)
                 
-                
-                
-                
-                
                 if let questionType = currentQuestionDetails.objectForKey("Type") as? String
                 {
                     
-                    if (questionType  == "Overlay Scribble"  || questionType == "Fresh Scribble" || questionType  == "Text")
+                    if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
                     {
                        
                     }
-                    else
+                    else if (questionType == kText)
                     {
-                        mSubmissionView.addGraphViewWithQuestionDetails(currentQuestionDetails)
                         
                     }
-                    
-                    
+                    else if (questionType == kMatchColumn)
+                    {
+                        
+                    }
+                    else
+                    {
+                        mSubmissionView.addQuestionWithDetails(currentQuestionDetails)
+                        
+                    }
                 }
             }
         }
@@ -966,12 +968,15 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         {
             if Int(state) == kStudentLive
             {
-                studentDeskView.setStudentCurrentState(StudentLive)
+                
                
-                if startedSubTopicID != ""
+                if startedSubTopicID != "" && studentDeskView.StudentState != StudentLiveBackground
                 {
                     SSTeacherMessageHandler.sharedMessageHandler.sendAllowVotingToStudents(studentId, withValue: "TRUE", withSubTopicName: mSubTopicsNamelabel.text!, withSubtopicID: startedSubTopicID)
                 }
+                
+                studentDeskView.setStudentCurrentState(StudentLive)
+                
                 
             }
             else if Int(state) == kStudentSignedOut
@@ -1036,6 +1041,12 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     
     // MARK: - DeskView delegate functions
     
+    func delegateStudentAnswerDownloadedWithDetails(details: AnyObject) {
+
+        mSubmissionView.studentAnswerRecievedWIthDetails(details)
+    }
+    
+    
     func delegateStudentCellPressedWithViewAnswerOptions(answerOptions: NSMutableArray, withStudentId studentId: String) {
         
         
@@ -1051,7 +1062,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
             
             questionInfoController.setQuestionDetails(currentQuestionDetails)
             
-            print(currentQuestionDetails)
             
             questionInfoController.preferredContentSize = CGSizeMake(400,317)
             
@@ -1073,6 +1083,41 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     }
     
     
+    // MARK: - Submission view delegate  functions
+    func delegateGetaggregateWithOptionId(optionId: String, withView barButton: BarView) {
+        
+        let buttonPosition :CGPoint = barButton.convertPoint(CGPointZero, toView: self.view)
+        
+        
+        
+        let questionInfoController = SSTeacherAggregatePopOverController()
+        questionInfoController.setdelegate(self)
+        
+        
+        
+        
+        questionInfoController.AggregateDrillDownWithOptionId(optionId, withQuestionDetails: currentQuestionDetails, withQuestionLogId: currentQuestionLogId)
+
+        questionInfoController.preferredContentSize = CGSizeMake(400,100)
+        
+        let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+        
+        classViewPopOverController.popoverContentSize = CGSizeMake(400,100);
+        classViewPopOverController.delegate = self;
+        
+        classViewPopOverController.presentPopoverFromRect(CGRect(
+            x:buttonPosition.x ,
+            y:buttonPosition.y + barButton.frame.size.height / 2,
+            width: 1,
+            height: 1), inView: self.view, permittedArrowDirections:.Left, animated: true)
+
+        
+        
+    }
+    
+    
+    
+    
     // MARK: - Extra functions
     func popoverControllerDidDismissPopover(popoverController: UIPopoverController)
     {
@@ -1082,7 +1127,13 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         }
     }
     
-    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        if let _ = touches.first
+        {
+            
+        }
+        super.touchesBegan(touches, withEvent:event)
+    }
     
     
     func popoverControllerShouldDismissPopover(popoverController: UIPopoverController) -> Bool {

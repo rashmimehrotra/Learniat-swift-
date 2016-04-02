@@ -189,14 +189,14 @@ class QuestionCell: UIView
         
         if let questionType = details.objectForKey("Type")as? NSString
         {
-            if(questionType.isEqualToString("Text"))
+            if(questionType.isEqualToString(kText))
             {
                 
                 mQuestionTypeLabel.text = "TEXT";
                 mInfoButtonButton.hidden = true
                 
             }
-            else if(questionType.isEqualToString("Overlay Scribble"))
+            else if(questionType.isEqualToString(kOverlayScribble))
             {
             
                 mQuestionTypeLabel.text = "SCRIBBLE";
@@ -204,7 +204,7 @@ class QuestionCell: UIView
             
             
             }
-            else if(questionType.isEqualToString("Fresh Scribble"))
+            else if(questionType.isEqualToString(kFreshScribble))
             {
             
                 mQuestionTypeLabel.text = "FRESH SCRIBBLE";
@@ -213,7 +213,7 @@ class QuestionCell: UIView
             
             }
            
-            else if(questionType.isEqualToString("Multiple Response"))
+            else if(questionType.isEqualToString(kMRQ))
             {
             
                 mQuestionTypeLabel.text = "MULTIPLE RESPONSE";
@@ -221,7 +221,7 @@ class QuestionCell: UIView
             
             
             }
-            else if(questionType.isEqualToString("Multiple Choice"))
+            else if(questionType.isEqualToString(kMCQ))
             {
             
                 mQuestionTypeLabel.text = "SINGLE RESPONSE";

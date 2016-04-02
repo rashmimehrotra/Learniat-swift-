@@ -26,7 +26,7 @@ let StudentPreAllocated         = "PreAllocated"
     optional func delegateStudentCellPressedWithViewAnswerOptions(answerOptions:NSMutableArray, withStudentId studentId:String)
     
     
-    
+    optional func delegateStudentAnswerDownloadedWithDetails(details:AnyObject)
 }
 
 class StundentDeskView: UIView,SSTeacherDataSourceDelegate
@@ -341,6 +341,13 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         mStudentName.hidden = false
         answerContainerView.addOptionsWithAnswerDetails(details, withQuestionDetails: _currentQuestionDetials)
         answerRecieved = true
+        
+        if delegate().respondsToSelector(Selector("delegateStudentAnswerDownloadedWithDetails:"))
+        {
+            delegate().delegateStudentAnswerDownloadedWithDetails!(details)
+            
+        }
+        
     }
     
     func onDeskPressed()

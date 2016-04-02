@@ -47,6 +47,8 @@
 		532607991CA90AEC002FF684 /* UIDownloadBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5326078A1CA90AEC002FF684 /* UIDownloadBar.m */; };
 		5326079B1CA91788002FF684 /* SingleResponceOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5326079A1CA91788002FF684 /* SingleResponceOption.swift */; };
 		5326079D1CA917EC002FF684 /* SingleResponceOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5326079C1CA917EC002FF684 /* SingleResponceOptionCell.swift */; };
+		533233331CAFD2CE00971EC7 /* SubmissionMRQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533233321CAFD2CE00971EC7 /* SubmissionMRQView.swift */; };
+		533233481CAFE09C00971EC7 /* SSTeacherAggregatePopOverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533233471CAFE09C00971EC7 /* SSTeacherAggregatePopOverController.swift */; };
 		53676AEA1CA63B2100CADE4D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53676AE81CA63B2100CADE4D /* Main.storyboard */; };
 		53676AEC1CA63B2100CADE4D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53676AEB1CA63B2100CADE4D /* Assets.xcassets */; };
 		53676AEF1CA63B2200CADE4D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53676AED1CA63B2200CADE4D /* LaunchScreen.storyboard */; };
@@ -293,6 +295,8 @@
 		5326078A1CA90AEC002FF684 /* UIDownloadBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIDownloadBar.m; sourceTree = "<group>"; };
 		5326079A1CA91788002FF684 /* SingleResponceOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleResponceOption.swift; sourceTree = "<group>"; };
 		5326079C1CA917EC002FF684 /* SingleResponceOptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleResponceOptionCell.swift; sourceTree = "<group>"; };
+		533233321CAFD2CE00971EC7 /* SubmissionMRQView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionMRQView.swift; sourceTree = "<group>"; };
+		533233471CAFE09C00971EC7 /* SSTeacherAggregatePopOverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSTeacherAggregatePopOverController.swift; sourceTree = "<group>"; };
 		53676AE11CA63B2000CADE4D /* LearniatTeacher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearniatTeacher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53676AE91CA63B2100CADE4D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		53676AEB1CA63B2100CADE4D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -763,6 +767,14 @@
 				532607841CA90AEC002FF684 /* indicator9.png */,
 			);
 			path = AnimationIMage;
+			sourceTree = "<group>";
+		};
+		533233461CAFE05900971EC7 /* AgregateDrillDown */ = {
+			isa = PBXGroup;
+			children = (
+				533233471CAFE09C00971EC7 /* SSTeacherAggregatePopOverController.swift */,
+			);
+			path = AgregateDrillDown;
 			sourceTree = "<group>";
 		};
 		53676AD81CA63B2000CADE4D = {
@@ -1841,6 +1853,8 @@
 			isa = PBXGroup;
 			children = (
 				53FC04361CAF8C4200D7B941 /* SSTeacherSubmissionView.swift */,
+				533233321CAFD2CE00971EC7 /* SubmissionMRQView.swift */,
+				533233461CAFE05900971EC7 /* AgregateDrillDown */,
 				53FC04401CAFAE1700D7B941 /* GraphView */,
 			);
 			path = SubmissionView;
@@ -2020,6 +2034,7 @@
 				53676D391CA63B7F00CADE4D /* SSTeacherDataSource.swift in Sources */,
 				53676D231CA63B7F00CADE4D /* DDTTYLogger.m in Sources */,
 				53676CB71CA63B7F00CADE4D /* XMPPCoreDataStorage.m in Sources */,
+				533233331CAFD2CE00971EC7 /* SubmissionMRQView.swift in Sources */,
 				53676CF41CA63B7F00CADE4D /* XMPPCapabilities.xcdatamodel in Sources */,
 				53676CAC1CA63B7F00CADE4D /* NSNumber+XMPP.m in Sources */,
 				53676CA41CA63B7F00CADE4D /* XMPPDeprecatedDigestAuthentication.m in Sources */,
@@ -2050,6 +2065,7 @@
 				53676CC71CA63B7F00CADE4D /* XMPPJabberRPCModule.m in Sources */,
 				53676D321CA63B7F00CADE4D /* ScheduleScreenLineView.swift in Sources */,
 				53676CF71CA63B7F00CADE4D /* XMPPCapsResourceCoreDataStorageObject.m in Sources */,
+				533233481CAFE09C00971EC7 /* SSTeacherAggregatePopOverController.swift in Sources */,
 				53676D221CA63B7F00CADE4D /* DDLog.m in Sources */,
 				53676D171CA63B7F00CADE4D /* DDList.m in Sources */,
 				53676D371CA63B7F00CADE4D /* PrealloatSeatSubView.swift in Sources */,

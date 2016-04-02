@@ -6,7 +6,11 @@
 //  Copyright © 2016 mindShiftApps. All rights reserved.
 //
 import Foundation
-class BarView: UIView
+
+
+
+
+class BarView: UIButton
 {
     
     
@@ -14,13 +18,14 @@ class BarView: UIView
     
     var barView = UIImageView()
     
+
     
     override init(frame: CGRect)
     {
         
         super.init(frame:frame)
         
-        barView.frame = CGRectMake(self.frame.size.width - (self.frame.size.width * 0.8), 0, (self.frame.size.width * 0.8), self.frame.size.height)
+        barView.frame = CGRectMake((self.frame.size.width - (self.frame.size.width * 0.7)) / 2, 0, (self.frame.size.width * 0.7), self.frame.size.height)
         self.addSubview(barView)
         
     }
@@ -36,6 +41,11 @@ class BarView: UIView
     func setBarColor(color:UIColor)
     {
         barView.backgroundColor = color
+    }
+    
+    func changeFrameWithHeight(height:CGFloat)
+    {
+        barView.frame = CGRectMake(barView.frame.origin.x ,0 , barView.frame.size.width ,height)
     }
     
     func increasePresentValue()

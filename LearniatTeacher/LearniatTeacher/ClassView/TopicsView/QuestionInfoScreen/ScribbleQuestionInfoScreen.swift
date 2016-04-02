@@ -46,7 +46,7 @@ class ScribbleQuestionInfoScreen : UIViewController
         
         
         let headerlabel = UILabel(frame: CGRectMake(10, 0, 200, 50))
-        headerlabel.text = "Overlay Scribble"
+        headerlabel.text = kOverlayScribble
         headerView.addSubview(headerlabel)
         headerlabel.textAlignment = .Left;
         headerlabel.font = UIFont(name: helveticaRegular, size: 20)

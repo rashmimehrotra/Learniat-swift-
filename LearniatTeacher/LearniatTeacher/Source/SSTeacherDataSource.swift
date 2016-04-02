@@ -65,6 +65,8 @@ let kServiceClearQuestion           =   "ClearQuestion"
 
 let kServiceRetrieveStudentAnswer    =   "RetrieveStudentAnswer"
 
+let kServiceAgregateDrillDown        =    "RetrieveAggregateDrillDown"
+
 
 @objc protocol SSTeacherDataSourceDelegate
 {
@@ -103,6 +105,8 @@ let kServiceRetrieveStudentAnswer    =   "RetrieveStudentAnswer"
     optional func didGetQuestionClearedWithDetails(details:AnyObject)
     
     optional func didGetStudentsAnswerWithDetails(details:AnyObject)
+    
+    optional func didGetAgregateDrillDownWithDetails(details:AnyObject)
     
     
 }
@@ -383,6 +387,16 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         manager.downloadDataURL(urlString, withServiceName: kServiceRetrieveStudentAnswer, withDelegate: self, withRequestType: eHTTPGetRequest)
     }
     
+    func getAgregateDrilDownWithOptionId(OptionId:String,WithQuestionLogId QuestionLogId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        setdelegate(delegate)
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>RetrieveAggregateDrillDown</Service><QuestionLogId>%@</QuestionLogId><OptionId>%@</OptionId></Action></Sunstone>",URLPrefix,QuestionLogId,OptionId)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceAgregateDrillDown, withDelegate: self, withRequestType: eHTTPGetRequest)
+    }
     
     // MARK: - API Delegate Functions
     func delegateDidGetServiceResponseWithDetails( dict: NSMutableDictionary!, WIthServiceName serviceName: String!)
@@ -509,6 +523,13 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
             if delegate().respondsToSelector(Selector("didGetStudentsAnswerWithDetails:"))
             {
                 delegate().didGetStudentsAnswerWithDetails!(refinedDetails)
+            }
+        }
+        else if serviceName == kServiceAgregateDrillDown
+        {
+            if delegate().respondsToSelector(Selector("didGetAgregateDrillDownWithDetails:"))
+            {
+                delegate().didGetAgregateDrillDownWithDetails!(refinedDetails)
             }
         }
     

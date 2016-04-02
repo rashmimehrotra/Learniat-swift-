@@ -7,17 +7,28 @@
 //
 
 import Foundation
-class SSTeacherSubmissionView: UIView
+
+@objc protocol SSTeacherSubmissionViewDelegate
+{
+    
+    optional func delegateGetaggregateWithOptionId(optionId: String, withView barButton: BarView)
+    
+    
+}
+
+class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate
 {
     var _delgate: AnyObject!
     
-    var studentGraphView = StudentAnswerGraphView()
+    var mMRQSubmissionView : SubmissionMRQView!
     
+   
     
     override init(frame: CGRect)
     {
         
         super.init(frame:frame)
+       
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -36,52 +47,41 @@ class SSTeacherSubmissionView: UIView
     }
     
     
-    func addGraphViewWithQuestionDetails(_currentQuestionDetials:AnyObject)
+    func addQuestionWithDetails(details:AnyObject)
     {
-        
-        
-        var optionArray = NSMutableArray()
-        
-        if let options = _currentQuestionDetials.objectForKey("Options")
+        if mMRQSubmissionView == nil
         {
-            if let classCheckingVariable = options.objectForKey("Option")
-            {
-                if classCheckingVariable.isKindOfClass(NSMutableArray)
-                {
-                    optionArray = classCheckingVariable as! NSMutableArray
-                }
-                else
-                {
-                    optionArray.addObject(_currentQuestionDetials.objectForKey("Options")!.objectForKey("Option")!)
-                    
-                }
-            }
+            mMRQSubmissionView = SubmissionMRQView()
+            mMRQSubmissionView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)
+            self.addSubview(mMRQSubmissionView)
+            mMRQSubmissionView.setdelegate(self)
         }
-        
-
-        
-        
-        studentGraphView.frame  = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)
-        self.addSubview(studentGraphView)
-        
-        if let questionName = (_currentQuestionDetials.objectForKey("Name")) as? String
+        mMRQSubmissionView.addGraphViewforWithQuestionDetails(details)
+    }
+    
+    
+    func studentAnswerRecievedWIthDetails(details:AnyObject)
+    {
+        if mMRQSubmissionView !=  nil
         {
-             studentGraphView.loadViewWithOPtions(optionArray, withQuestion: questionName)
+            mMRQSubmissionView.didgetStudentsAnswerWithDetails(details)
         }
-        else
-        {
-             studentGraphView.loadViewWithOPtions(optionArray, withQuestion: "")
-        }
-        
-        
-       
-        
         
     }
     
     
     
     
+     // MARK: - MRQ GraphView delegate
+    
+    func delegateOptionTouchedWithId(optionId: String, withView barButton: BarView) {
+        
+        if delegate().respondsToSelector(Selector("delegateGetaggregateWithOptionId:withView:"))
+        {
+            delegate().delegateGetaggregateWithOptionId!(optionId,withView:barButton)
+        }
+        
+    }
     
     
     

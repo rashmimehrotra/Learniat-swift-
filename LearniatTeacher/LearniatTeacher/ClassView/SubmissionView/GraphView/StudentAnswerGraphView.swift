@@ -12,9 +12,17 @@ let kbartag = 200
 let kLabeltag = 400
 
 
+
+@objc protocol StudentAnswerGraphViewDelegate
+{
+    
+    optional func delegateBarTouchedWithId(optionId: String, withView barButton:BarView)
+    
+    
+}
+
 class StudentAnswerGraphView: UIView
 {
-    var _delgate: AnyObject!
     
     var questionNamelabel = UILabel()
     
@@ -27,18 +35,9 @@ class StudentAnswerGraphView: UIView
     
     var differenceheight      :CGFloat = 10
     
-    override init(frame: CGRect)
-    {
-        
-        super.init(frame:frame)
-        
-        
-    }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
+    var _delgate: AnyObject!
     
     func setdelegate(delegate:AnyObject)
     {
@@ -50,9 +49,10 @@ class StudentAnswerGraphView: UIView
         return _delgate;
     }
     
-    
-    func loadViewWithOPtions(optionsArray:NSMutableArray, withQuestion questionName:String)
+    override init(frame: CGRect)
     {
+        
+        super.init(frame:frame)
         
         questionNamelabel.frame =  CGRectMake(10,10,self.frame.size.width,40)
         self.addSubview(questionNamelabel)
@@ -60,12 +60,45 @@ class StudentAnswerGraphView: UIView
         questionNamelabel.textColor = blackTextColor
         questionNamelabel.textAlignment = .Center
         
+        lineContainerView.frame  = CGRectMake(0, questionNamelabel.frame.size.height + questionNamelabel.frame.origin.y + 20 , self.frame.size.width, self.frame.size.height - (questionNamelabel.frame.size.height + questionNamelabel.frame.origin.y + 100))
+        self.addSubview(lineContainerView)
+
+        
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    func loadViewWithOPtions(optionsArray:NSMutableArray, withQuestion questionName:String)
+    {
+        
+        
         questionNamelabel.text = questionName
         
         
-        lineContainerView.frame  = CGRectMake(0, questionNamelabel.frame.size.height + questionNamelabel.frame.origin.y + 20 , self.frame.size.width, self.frame.size.height - (questionNamelabel.frame.size.height + questionNamelabel.frame.origin.y + 100))
-        self.addSubview(lineContainerView)
+        var subViews = lineContainerView.subviews
         
+        for subview in subViews
+        {
+             subview.removeFromSuperview()
+        }
+        
+        
+         subViews = self.subviews
+        
+        for subview in subViews
+        {
+            if subview.isKindOfClass(FXLabel) || subview.isKindOfClass(BarView)
+            {
+                 subview.removeFromSuperview()
+            }
+           
+        }
+        
+       
         
         differenceheight = (lineContainerView.frame.size.height) / CGFloat(10)
         
@@ -143,9 +176,9 @@ class StudentAnswerGraphView: UIView
             optionsLabel.backgroundColor = UIColor.clearColor()
             
 
-            let barView = BarView(frame: CGRectMake(positionX ,lineContainerView.frame.size.height - differenceheight  , width ,differenceheight))
+            let barView = BarView(frame: CGRectMake(positionX ,lineContainerView.frame.size.height, width ,0))
             lineContainerView.addSubview(barView)
-            
+            barView.addTarget(self, action: "onBarButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
             if let optionId = optionDict.objectForKey("OptionId") as? String
             {
                 barView.tag = Int(optionId)!
@@ -163,11 +196,45 @@ class StudentAnswerGraphView: UIView
                  barView.setBarColor(UIColor.lightGrayColor())
                 }
             }
-            
+            else
+            {
+                barView.setBarColor(UIColor.lightGrayColor())
+            }
             positionX = positionX + width + widthSpace
 
         }
         
     }
+    
+    
+    func increaseBarValueWithOPtionID(optionId:String)
+    {
+        if let answerBar  = self.viewWithTag(Int(optionId)!) as? BarView
+        {
+            answerBar.increasePresentValue()
+            
+            var presentValue:CGFloat = CGFloat(answerBar.presentValue)
+            
+            
+            
+            presentValue = presentValue * differenceheight
+            
+             answerBar.frame = CGRectMake(answerBar.frame.origin.x ,lineContainerView.frame.size.height - presentValue  , answerBar.frame.size.width ,presentValue)
+            answerBar.changeFrameWithHeight(presentValue)
+        }
+    }
+    
+    
+    func onBarButtonPressed(sender:AnyObject)
+    {
+        if let currentButton = sender as? BarView
+        {
+            if delegate().respondsToSelector(Selector("delegateBarTouchedWithId:withView:"))
+            {
+                delegate().delegateBarTouchedWithId!("\(currentButton.tag)", withView:currentButton)
+            }
+        }
+    }
+    
     
 }
