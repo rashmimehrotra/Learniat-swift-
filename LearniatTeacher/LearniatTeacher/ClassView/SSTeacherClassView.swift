@@ -80,9 +80,21 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     
     var  mTopicButton:UIButton!
     
-    var mGridContainerView           :UIView                = UIView()
+    var mClassView                      = UIView()
+    
+    var mSubmissionView                 = SSTeacherSubmissionView()
+    
+    var mQueryView                      = SSTeacherQueryView()
     
     var StudentsDetailsArray                = NSMutableArray()
+    
+    var mClassViewButton                    = UIButton()
+    
+    var mQuestionViewButton                 = UIButton()
+    
+    var mQueryViewButton                    = UIButton()
+    
+    var tabPlaceHolderImage                 = UIImageView()
     
     
     var mActivityIndicatore          :UIActivityIndicatorView = UIActivityIndicatorView()
@@ -114,12 +126,65 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         mBottombarImageView.userInteractionEnabled = true
         
         
+        mBottombarImageView.addSubview(tabPlaceHolderImage)
+        tabPlaceHolderImage.backgroundColor = UIColor(red: 39/255.0, green:68/255.0, blue:98/255.0, alpha: 1)
+        tabPlaceHolderImage.layer.cornerRadius = 5
+        tabPlaceHolderImage.layer.masksToBounds = true
         
-        mGridContainerView.frame = CGRectMake(0, mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , self.view.frame.size.width , self.view.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + mBottombarImageView.frame.size.height ))
-        self.view.addSubview(mGridContainerView)
-        mGridContainerView.backgroundColor = whiteBackgroundColor
-        mGridContainerView.hidden = true
-        mGridContainerView.userInteractionEnabled = true
+        
+        mQuestionViewButton.frame  = CGRectMake((mBottombarImageView.frame.size.width - 150)/2  , 0, 150, mBottombarImageView.frame.size.height)
+        mBottombarImageView.addSubview(mQuestionViewButton)
+        mQuestionViewButton.addTarget(self, action: "onQuestionsView", forControlEvents: UIControlEvents.TouchUpInside)
+        mQuestionViewButton.backgroundColor = UIColor.clearColor()
+        mQuestionViewButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        mQuestionViewButton.setTitle("Submission", forState: .Normal)
+        mQuestionViewButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
+        
+        
+        
+        
+        
+        mClassViewButton.frame  = CGRectMake(mQuestionViewButton.frame.origin.x - (mQuestionViewButton.frame.size.width + 10)  , 0, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height)
+        mBottombarImageView.addSubview(mClassViewButton)
+        mClassViewButton.addTarget(self, action: "onClassView", forControlEvents: UIControlEvents.TouchUpInside)
+        mClassViewButton.backgroundColor = UIColor.clearColor()
+        mClassViewButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        mClassViewButton.setTitle("Class view", forState: .Normal)
+        mClassViewButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
+        
+        tabPlaceHolderImage.frame = CGRectMake(mClassViewButton.frame.origin.x  , 5, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height - 10 )
+       
+        mQueryViewButton.frame  = CGRectMake(mQuestionViewButton.frame.origin.x + (mQuestionViewButton.frame.size.width + 10)  , 0, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height)
+        mBottombarImageView.addSubview(mQueryViewButton)
+        mQueryViewButton.addTarget(self, action: "onQueryView", forControlEvents: UIControlEvents.TouchUpInside)
+        mQueryViewButton.backgroundColor = UIColor.clearColor()
+        mQueryViewButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        mQueryViewButton.setTitle("Query", forState: .Normal)
+        mQueryViewButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
+        
+        
+        mClassView.frame = CGRectMake(0, mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , self.view.frame.size.width , self.view.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + mBottombarImageView.frame.size.height ))
+        self.view.addSubview(mClassView)
+        mClassView.backgroundColor = whiteBackgroundColor
+        mClassView.hidden = true
+        mClassView.userInteractionEnabled = true
+        
+        
+        
+        
+        mSubmissionView.frame = CGRectMake(0, mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , self.view.frame.size.width , self.view.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + mBottombarImageView.frame.size.height ))
+        self.view.addSubview(mSubmissionView)
+        mSubmissionView.backgroundColor = whiteBackgroundColor
+        mSubmissionView.hidden = true
+        mSubmissionView.userInteractionEnabled = true
+        
+        
+        mQueryView.frame = CGRectMake(0, mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , self.view.frame.size.width , self.view.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + mBottombarImageView.frame.size.height ))
+        self.view.addSubview(mQueryView)
+        mQueryView.backgroundColor = whiteBackgroundColor
+        mQueryView.hidden = true
+        mQueryView.userInteractionEnabled = true
+
         
         
 
@@ -306,6 +371,38 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         }
     }
     
+
+    // MARK: - Buttons Functions
+    
+    func onClassView()
+    {
+         tabPlaceHolderImage.frame = CGRectMake(mClassViewButton.frame.origin.x  , 5, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height - 10 )
+        
+        
+        mClassView.hidden      = false
+        mSubmissionView.hidden = true
+        mQueryView.hidden      = true
+    }
+    
+    func onQuestionsView()
+    {
+         tabPlaceHolderImage.frame = CGRectMake(mQuestionViewButton.frame.origin.x  , 5, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height - 10 )
+        
+        mClassView.hidden      = true
+        mSubmissionView.hidden = false
+        mQueryView.hidden      = true
+
+    }
+    
+    func onQueryView()
+    {
+         tabPlaceHolderImage.frame = CGRectMake(mQueryViewButton.frame.origin.x  , 5, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height - 10 )
+      
+        mClassView.hidden      = true
+        mSubmissionView.hidden = true
+        mQueryView.hidden      = false
+    }
+    
     
     
     
@@ -349,11 +446,25 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
                 SSTeacherMessageHandler.sharedMessageHandler.sendQuestionWithRoomName("question_\(currentSessionId)", withQuestionLogId: currentQuestionLogId, withQuestionType: Type)
                 
                 
+                
+                
+                
+                if let questionType = currentQuestionDetails.objectForKey("Type") as? String
+                {
+                    
+                    if (questionType  == "Overlay Scribble"  || questionType == "Fresh Scribble" || questionType  == "Text")
+                    {
+                       
+                    }
+                    else
+                    {
+                        mSubmissionView.addGraphViewWithQuestionDetails(currentQuestionDetails)
+                        
+                    }
+                    
+                    
+                }
             }
-            
-            
-            
-            
         }
     }
     
@@ -397,13 +508,13 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         }
         
         
-        var  barWidthvalue  :CGFloat = mGridContainerView.frame.size.width / CGFloat(columnValue)
+        var  barWidthvalue  :CGFloat = mClassView.frame.size.width / CGFloat(columnValue)
         
         let barWidthSpace :CGFloat = barWidthvalue * 0.03
         
         barWidthvalue = barWidthvalue * 0.97
         
-        var barHeight   :CGFloat = mGridContainerView.frame.size.height / CGFloat(rowValue)
+        var barHeight   :CGFloat = mClassView.frame.size.height / CGFloat(rowValue)
         
         let barHeightSpace:CGFloat = barHeight * 0.03
         
@@ -417,7 +528,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         for var columnIndex = 0; columnIndex < rowValue ; columnIndex++
         {
             
-            let backGroundImageView = UIImageView(frame:  CGRectMake(0, postionY - barHeightSpace, mGridContainerView.frame.size.width, barHeight + barHeightSpace) )
+            let backGroundImageView = UIImageView(frame:  CGRectMake(0, postionY - barHeightSpace, mClassView.frame.size.width, barHeight + barHeightSpace) )
             if (columnIndex%2==0)
             {
                 backGroundImageView.backgroundColor = UIColor.whiteColor()
@@ -427,7 +538,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
             {
                 backGroundImageView.backgroundColor = UIColor(red: 249/255.0, green:249/255.0, blue:249/255.0, alpha: 1)
             }
-            mGridContainerView.addSubview(backGroundImageView)
+            mClassView.addSubview(backGroundImageView)
             
             var positionX :CGFloat = barWidthSpace / 2
             for var rowIndex = 0; rowIndex < columnValue ; rowIndex++
@@ -440,7 +551,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
                 {
                     let seatView = StundentDeskView(frame: CGRectMake(positionX, postionY, barWidthvalue, barHeight))
                     seatView.setdelegate(self)
-                    mGridContainerView.addSubview(seatView)
+                    mClassView.addSubview(seatView)
                     seatView.tag  = totalSeatvalue
                     seatView.backgroundColor = UIColor.clearColor()
                 }
@@ -490,7 +601,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
             {
                 seatlabel = seatlabel.stringByReplacingOccurrencesOfString("A", withString: "")
                 
-               if let studentDeskView  = mGridContainerView.viewWithTag(Int(seatlabel)!) as? StundentDeskView
+               if let studentDeskView  = mClassView.viewWithTag(Int(seatlabel)!) as? StundentDeskView
                {
                     studentDeskView.setStudentsDetails(studentsDict)
                     if let StudentId = studentsDict.objectForKey("StudentId") as? String
@@ -504,7 +615,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         }
         
         
-        mGridContainerView.hidden = false
+        mClassView.hidden = false
         mActivityIndicatore.stopAnimating()
         mActivityIndicatore.hidden = true
 
@@ -851,7 +962,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     
     func smhDidgetStudentBentchStateWithStudentId(studentId: String, withState state: String) {
         
-        if let studentDeskView  = mGridContainerView.viewWithTag(Int(studentId)!) as? StundentDeskView
+        if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView
         {
             if Int(state) == kStudentLive
             {
@@ -886,7 +997,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     func smhDidgetStudentQuestionAccepetedMessageWithStudentId(StudentId: String) {
         
         
-        if let studentDeskView  = mGridContainerView.viewWithTag(Int(StudentId)!) as? StundentDeskView
+        if let studentDeskView  = mClassView.viewWithTag(Int(StudentId)!) as? StundentDeskView
         {
            
             if let questionType = currentQuestionDetails.objectForKey("Type") as? String
@@ -911,7 +1022,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     
     func smhDidgetStudentAnswerMessageWithStudentId(StudentId: String, withAnswerString answerStrin: String)
     {
-        if let studentDeskView  = mGridContainerView.viewWithTag(Int(StudentId)!) as? StundentDeskView
+        if let studentDeskView  = mClassView.viewWithTag(Int(StudentId)!) as? StundentDeskView
         {
             if currentQuestionDetails != nil
              {
@@ -928,7 +1039,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     func delegateStudentCellPressedWithViewAnswerOptions(answerOptions: NSMutableArray, withStudentId studentId: String) {
         
         
-        if let studentDeskView  = mGridContainerView.viewWithTag(Int(studentId)!) as? StundentDeskView
+        if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView
         {
             let buttonPosition :CGPoint = studentDeskView.convertPoint(CGPointZero, toView: self.view)
             

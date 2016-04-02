@@ -242,6 +242,10 @@
 		53E5BBAB1CAE3B7D00358ED8 /* StudentThinking.png in Resources */ = {isa = PBXBuildFile; fileRef = 53E5BBA81CAE3B7D00358ED8 /* StudentThinking.png */; };
 		53E5BBAC1CAE3B7D00358ED8 /* StudentWriting.png in Resources */ = {isa = PBXBuildFile; fileRef = 53E5BBA91CAE3B7D00358ED8 /* StudentWriting.png */; };
 		53E5BBAE1CAE80F400358ED8 /* StudentAnswerOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E5BBAD1CAE80F400358ED8 /* StudentAnswerOptionsView.swift */; };
+		53FC04371CAF8C4200D7B941 /* SSTeacherSubmissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FC04361CAF8C4200D7B941 /* SSTeacherSubmissionView.swift */; };
+		53FC04391CAF8CBC00D7B941 /* SSTeacherQueryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FC04381CAF8CBC00D7B941 /* SSTeacherQueryView.swift */; };
+		53FC04421CAFAE1700D7B941 /* StudentAnswerGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FC04411CAFAE1700D7B941 /* StudentAnswerGraphView.swift */; };
+		53FC04441CAFAE2100D7B941 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FC04431CAFAE2100D7B941 /* BarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -649,6 +653,10 @@
 		53E5BBA81CAE3B7D00358ED8 /* StudentThinking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StudentThinking.png; sourceTree = "<group>"; };
 		53E5BBA91CAE3B7D00358ED8 /* StudentWriting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StudentWriting.png; sourceTree = "<group>"; };
 		53E5BBAD1CAE80F400358ED8 /* StudentAnswerOptionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerOptionsView.swift; sourceTree = "<group>"; };
+		53FC04361CAF8C4200D7B941 /* SSTeacherSubmissionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSTeacherSubmissionView.swift; sourceTree = "<group>"; };
+		53FC04381CAF8CBC00D7B941 /* SSTeacherQueryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSTeacherQueryView.swift; sourceTree = "<group>"; };
+		53FC04411CAFAE1700D7B941 /* StudentAnswerGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerGraphView.swift; sourceTree = "<group>"; };
+		53FC04431CAFAE2100D7B941 /* BarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1798,6 +1806,8 @@
 				53676D511CA63D7A00CADE4D /* SSTeacherClassView.swift */,
 				531044A91CA665E2007AE9D5 /* StundentDeskView.swift */,
 				53E5BBAD1CAE80F400358ED8 /* StudentAnswerOptionsView.swift */,
+				53FC04341CAF8C2E00D7B941 /* QueryView */,
+				53FC04351CAF8C2E00D7B941 /* SubmissionView */,
 				53676D521CA63D7A00CADE4D /* TopicsView */,
 			);
 			path = ClassView;
@@ -1817,6 +1827,32 @@
 				532607741CA90760002FF684 /* QuestionInfoScreen */,
 			);
 			path = TopicsView;
+			sourceTree = "<group>";
+		};
+		53FC04341CAF8C2E00D7B941 /* QueryView */ = {
+			isa = PBXGroup;
+			children = (
+				53FC04381CAF8CBC00D7B941 /* SSTeacherQueryView.swift */,
+			);
+			path = QueryView;
+			sourceTree = "<group>";
+		};
+		53FC04351CAF8C2E00D7B941 /* SubmissionView */ = {
+			isa = PBXGroup;
+			children = (
+				53FC04361CAF8C4200D7B941 /* SSTeacherSubmissionView.swift */,
+				53FC04401CAFAE1700D7B941 /* GraphView */,
+			);
+			path = SubmissionView;
+			sourceTree = "<group>";
+		};
+		53FC04401CAFAE1700D7B941 /* GraphView */ = {
+			isa = PBXGroup;
+			children = (
+				53FC04411CAFAE1700D7B941 /* StudentAnswerGraphView.swift */,
+				53FC04431CAFAE2100D7B941 /* BarView.swift */,
+			);
+			path = GraphView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1931,6 +1967,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53FC04441CAFAE2100D7B941 /* BarView.swift in Sources */,
 				53676CAE1CA63B7F00CADE4D /* XMPPElement.m in Sources */,
 				53676D3A1CA63B7F00CADE4D /* SSTeacherMessageHandler.swift in Sources */,
 				53676CDD1CA63B7F00CADE4D /* XMPPvCardTempCoreDataStorageObject.m in Sources */,
@@ -2024,6 +2061,7 @@
 				532607971CA90AEC002FF684 /* CustomProgressImageView.m in Sources */,
 				53676D2E1CA63B7F00CADE4D /* INILoader.swift in Sources */,
 				53676D001CA63B7F00CADE4D /* XMPPPresence+XEP_0172.m in Sources */,
+				53FC04371CAF8C4200D7B941 /* SSTeacherSubmissionView.swift in Sources */,
 				53676CC41CA63B7F00CADE4D /* XMPPSystemInputActivityMonitor.m in Sources */,
 				53676D121CA63B7F00CADE4D /* XMPPMessage+XEP_0308.m in Sources */,
 				53676CE71CA63B7F00CADE4D /* XMPPResultSet.m in Sources */,
@@ -2043,6 +2081,7 @@
 				53676CAD1CA63B7F00CADE4D /* NSXMLElement+XMPP.m in Sources */,
 				53676CE51CA63B7F00CADE4D /* XMPPvCardTempTel.m in Sources */,
 				531044C21CA6A4F7007AE9D5 /* SSTeacherLiveQuestionController.swift in Sources */,
+				53FC04421CAFAE1700D7B941 /* StudentAnswerGraphView.swift in Sources */,
 				53676CFE1CA63B7F00CADE4D /* XMPPvCardAvatarModule.m in Sources */,
 				53676D291CA63B7F00CADE4D /* DDXMLDocument.m in Sources */,
 				53676C9D1CA63B7F00CADE4D /* NSData+Base64.m in Sources */,
@@ -2076,6 +2115,7 @@
 				53676CF61CA63B7F00CADE4D /* XMPPCapsCoreDataStorageObject.m in Sources */,
 				53676CA61CA63B7F00CADE4D /* XMPPDigestMD5Authentication.m in Sources */,
 				53676D1B1CA63B7F00CADE4D /* XMPPSRVResolver.m in Sources */,
+				53FC04391CAF8CBC00D7B941 /* SSTeacherQueryView.swift in Sources */,
 				53676CBA1CA63B7F00CADE4D /* XMPPReconnect.m in Sources */,
 				53676CE81CA63B7F00CADE4D /* XMPPIQ+XEP_0060.m in Sources */,
 				53676D0D1CA63B7F00CADE4D /* XMPPAttentionModule.m in Sources */,
