@@ -16,4 +16,5 @@
 #import "LBorderView.h"
 #import "FXLabel.h"
 #import "CustomProgressImageView.h"
+#import "YLProgressBar.h"
 #endif /* Swift_Bridging_Header_h */

@@ -12,6 +12,7 @@ class SSTeacherAggregatePopOverController: UIViewController, SSTeacherDataSource
     
     var activityIndicator  = UIActivityIndicatorView(activityIndicatorStyle:.Gray)
     
+    var mMrqAgregateView : MRQAggregateView!
     
     
     var _delgate: AnyObject!
@@ -59,6 +60,21 @@ class SSTeacherAggregatePopOverController: UIViewController, SSTeacherDataSource
         print(details)
         
         activityIndicator.stopAnimating()
+        
+        if mMrqAgregateView == nil
+        {
+            mMrqAgregateView = MRQAggregateView(frame: CGRectMake(0, 0,400,70))
+            self.view.addSubview(mMrqAgregateView)
+        }
+        
+        
+        
+        
+        self.preferredContentSize = CGSize(width: 400, height: mMrqAgregateView.showAggregateWithDetails(details))
+        
+        
+       
+        
     }
     
 }

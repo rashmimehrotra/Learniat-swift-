@@ -96,6 +96,8 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     
     var tabPlaceHolderImage                 = UIImageView()
     
+    var currentStudentsDict                 = NSMutableDictionary()
+    
     
     var mActivityIndicatore          :UIActivityIndicatorView = UIActivityIndicatorView()
     
@@ -178,6 +180,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         mSubmissionView.hidden = true
         mSubmissionView.userInteractionEnabled = true
         mSubmissionView.setdelegate(self)
+        mSubmissionView.loadViewWithDetails()
         
         mQueryView.frame = CGRectMake(0, mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , self.view.frame.size.width , self.view.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + mBottombarImageView.frame.size.height ))
         self.view.addSubview(mQueryView)
@@ -923,8 +926,27 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         }
         
         
+        for var indexValue = 0 ; indexValue < StudentsDetailsArray.count ; indexValue++
+        {
+            let studentsDict = StudentsDetailsArray.objectAtIndex(indexValue)
+           
+            if let StudentId = studentsDict.objectForKey("StudentId") as? String{
+                
+                if let studentDeskView  = mClassView.viewWithTag(Int(StudentId)!) as? StundentDeskView
+                {
+                    
+                }
+            }
+            
+           
+        }
+        
+
+        
+        
         mQuestionNamelabel.text = "No active question"
         SSTeacherMessageHandler.sharedMessageHandler.sendClearQuestionMessageWithRoomId("question_\(currentSessionId)")
+        mSubmissionView.questionClearedByTeacher()
     }
     
     func delegateDoneButtonPressed()
@@ -1074,7 +1096,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
                 x:buttonPosition.x ,
                 y:buttonPosition.y + studentDeskView.frame.size.height / 2,
                 width: 1,
-                height: 1), inView: self.view, permittedArrowDirections: .Any, animated: true)
+                height: 1), inView: self.view, permittedArrowDirections: .Right, animated: true)
             
         }
         
@@ -1106,10 +1128,10 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         classViewPopOverController.delegate = self;
         
         classViewPopOverController.presentPopoverFromRect(CGRect(
-            x:buttonPosition.x ,
+            x:buttonPosition.x + barButton.frame.size.width / 2,
             y:buttonPosition.y + barButton.frame.size.height / 2,
             width: 1,
-            height: 1), inView: self.view, permittedArrowDirections:.Left, animated: true)
+            height: 1), inView: self.view, permittedArrowDirections:.Any, animated: true)
 
         
         

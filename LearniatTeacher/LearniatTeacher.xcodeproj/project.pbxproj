@@ -240,6 +240,9 @@
 		5377E43A1CAB951800A11E59 /* MatchColumnOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5377E4391CAB951800A11E59 /* MatchColumnOption.swift */; };
 		5377E43C1CAB9B6600A11E59 /* MatchColumnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5377E43B1CAB9B6600A11E59 /* MatchColumnCell.swift */; };
 		5377E4401CABB9D500A11E59 /* SubtopicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5377E43F1CABB9D500A11E59 /* SubtopicController.swift */; };
+		53CA5A221CB230BB008C42B0 /* MRQAggregateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CA5A211CB230BB008C42B0 /* MRQAggregateView.swift */; };
+		53CA5A241CB2337D008C42B0 /* AggregateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CA5A231CB2337D008C42B0 /* AggregateCell.swift */; };
+		53CA5A281CB23568008C42B0 /* YLProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 53CA5A271CB23568008C42B0 /* YLProgressBar.m */; };
 		53E5BBAA1CAE3B7D00358ED8 /* Query.png in Resources */ = {isa = PBXBuildFile; fileRef = 53E5BBA71CAE3B7D00358ED8 /* Query.png */; };
 		53E5BBAB1CAE3B7D00358ED8 /* StudentThinking.png in Resources */ = {isa = PBXBuildFile; fileRef = 53E5BBA81CAE3B7D00358ED8 /* StudentThinking.png */; };
 		53E5BBAC1CAE3B7D00358ED8 /* StudentWriting.png in Resources */ = {isa = PBXBuildFile; fileRef = 53E5BBA91CAE3B7D00358ED8 /* StudentWriting.png */; };
@@ -653,6 +656,10 @@
 		5377E4391CAB951800A11E59 /* MatchColumnOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchColumnOption.swift; sourceTree = "<group>"; };
 		5377E43B1CAB9B6600A11E59 /* MatchColumnCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchColumnCell.swift; sourceTree = "<group>"; };
 		5377E43F1CABB9D500A11E59 /* SubtopicController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubtopicController.swift; sourceTree = "<group>"; };
+		53CA5A211CB230BB008C42B0 /* MRQAggregateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MRQAggregateView.swift; sourceTree = "<group>"; };
+		53CA5A231CB2337D008C42B0 /* AggregateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AggregateCell.swift; sourceTree = "<group>"; };
+		53CA5A261CB23568008C42B0 /* YLProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLProgressBar.h; sourceTree = "<group>"; };
+		53CA5A271CB23568008C42B0 /* YLProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLProgressBar.m; sourceTree = "<group>"; };
 		53E5BBA71CAE3B7D00358ED8 /* Query.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Query.png; sourceTree = "<group>"; };
 		53E5BBA81CAE3B7D00358ED8 /* StudentThinking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StudentThinking.png; sourceTree = "<group>"; };
 		53E5BBA91CAE3B7D00358ED8 /* StudentWriting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StudentWriting.png; sourceTree = "<group>"; };
@@ -773,6 +780,8 @@
 			isa = PBXGroup;
 			children = (
 				533233471CAFE09C00971EC7 /* SSTeacherAggregatePopOverController.swift */,
+				53CA5A211CB230BB008C42B0 /* MRQAggregateView.swift */,
+				53CA5A231CB2337D008C42B0 /* AggregateCell.swift */,
 			);
 			path = AgregateDrillDown;
 			sourceTree = "<group>";
@@ -827,6 +836,7 @@
 		53676AF71CA63B7F00CADE4D /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				53CA5A251CB23568008C42B0 /* YLProgressBar */,
 				532607771CA90AEC002FF684 /* customImageView */,
 				531044AD1CA66D6F007AE9D5 /* FXLabel.h */,
 				531044AE1CA66D6F007AE9D5 /* FXLabel.m */,
@@ -1841,6 +1851,15 @@
 			path = TopicsView;
 			sourceTree = "<group>";
 		};
+		53CA5A251CB23568008C42B0 /* YLProgressBar */ = {
+			isa = PBXGroup;
+			children = (
+				53CA5A261CB23568008C42B0 /* YLProgressBar.h */,
+				53CA5A271CB23568008C42B0 /* YLProgressBar.m */,
+			);
+			path = YLProgressBar;
+			sourceTree = "<group>";
+		};
 		53FC04341CAF8C2E00D7B941 /* QueryView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1994,6 +2013,7 @@
 				53676CF11CA63B7F00CADE4D /* XMPPSoftwareVersion.m in Sources */,
 				53676D111CA63B7F00CADE4D /* NSXMLElement+XEP_0297.m in Sources */,
 				53676CD81CA63B7F00CADE4D /* XMPPRoom.m in Sources */,
+				53CA5A241CB2337D008C42B0 /* AggregateCell.swift in Sources */,
 				53676D2F1CA63B7F00CADE4D /* LoginViewController.swift in Sources */,
 				53676D0B1CA63B7F00CADE4D /* NSXMLElement+XEP_0203.m in Sources */,
 				53676D141CA63B7F00CADE4D /* NSXMLElement+XEP_0335.m in Sources */,
@@ -2047,6 +2067,7 @@
 				53676D301CA63B7F00CADE4D /* CurrentTimeLineView.swift in Sources */,
 				53676CB01CA63B7F00CADE4D /* XMPPJID.m in Sources */,
 				53676CCA1CA63B7F00CADE4D /* XMPPPrivacy.m in Sources */,
+				53CA5A221CB230BB008C42B0 /* MRQAggregateView.swift in Sources */,
 				53676C951CA63B7F00CADE4D /* AppDelegate.swift in Sources */,
 				53676CCC1CA63B7F00CADE4D /* XMPPRoomCoreDataStorage.m in Sources */,
 				532607761CA90779002FF684 /* ScribbleQuestionInfoScreen.swift in Sources */,
@@ -2085,6 +2106,7 @@
 				53676CFC1CA63B7F00CADE4D /* XMPPMessageArchivingCoreDataStorage.m in Sources */,
 				53676CB61CA63B7F00CADE4D /* XMPPBandwidthMonitor.m in Sources */,
 				53676CF01CA63B7F00CADE4D /* XMPPMessage+XEP_0085.m in Sources */,
+				53CA5A281CB23568008C42B0 /* YLProgressBar.m in Sources */,
 				53676D1A1CA63B7F00CADE4D /* XMPPIDTracker.m in Sources */,
 				5377E4401CABB9D500A11E59 /* SubtopicController.swift in Sources */,
 				5326079D1CA917EC002FF684 /* SingleResponceOptionCell.swift in Sources */,

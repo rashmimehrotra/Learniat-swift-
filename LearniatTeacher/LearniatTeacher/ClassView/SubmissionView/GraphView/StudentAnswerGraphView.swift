@@ -219,7 +219,15 @@ class StudentAnswerGraphView: UIView
             
             presentValue = presentValue * differenceheight
             
-             answerBar.frame = CGRectMake(answerBar.frame.origin.x ,lineContainerView.frame.size.height - presentValue  , answerBar.frame.size.width ,presentValue)
+            
+             answerBar.frame = CGRectMake(answerBar.frame.origin.x ,self.lineContainerView.frame.size.height - presentValue  , answerBar.frame.size.width ,presentValue)
+            
+//            UIView.animateWithDuration(0.5, animations: {
+//                
+//            })
+
+            
+           
             answerBar.changeFrameWithHeight(presentValue)
         }
     }

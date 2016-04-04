@@ -22,17 +22,37 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate
     
     var mMRQSubmissionView : SubmissionMRQView!
     
+    var noSubmissionLabel = UILabel()
    
     
     override init(frame: CGRect)
     {
         
         super.init(frame:frame)
+        
+        
        
     }
     
+    
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+        
+        
+    }
+    
+    
+    
+    func loadViewWithDetails()
+    {
+        noSubmissionLabel.frame = CGRectMake(0, (self.frame.size.height - 300)/2, self.frame.size.width, 300)
+        self.addSubview(noSubmissionLabel)
+        noSubmissionLabel.text = "There are no submission Yet"
+        noSubmissionLabel.textColor = blackTextColor
+        noSubmissionLabel.hidden = false
+        noSubmissionLabel.textAlignment = .Center
+        noSubmissionLabel.font =  UIFont(name: helveticaMedium, size: 35);
     }
     
     
@@ -57,6 +77,9 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate
             mMRQSubmissionView.setdelegate(self)
         }
         mMRQSubmissionView.addGraphViewforWithQuestionDetails(details)
+        noSubmissionLabel.hidden = true
+        mMRQSubmissionView.hidden = false
+        
     }
     
     
@@ -69,6 +92,11 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate
         
     }
     
+    func questionClearedByTeacher()
+    {
+        noSubmissionLabel.hidden = false
+        mMRQSubmissionView.hidden = true
+    }
     
     
     
