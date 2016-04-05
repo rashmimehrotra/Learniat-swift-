@@ -15,19 +15,21 @@ class SingleResponceOption : UIViewController
     
     var cureentQuestionDetails :AnyObject!
     
+    var mAnswerOptions           = NSMutableArray()
+    
     let optionScrollView = UIScrollView()
     
     var headerlabel = UILabel()
     
-    func setdelegate(delegate:AnyObject)
-    {
-        _delgate = delegate;
-    }
-    
-    func   delegate()->AnyObject
-    {
-        return _delgate;
-    }
+//    func setdelegate(delegate:AnyObject)
+//    {
+//        _delgate = delegate;
+//    }
+//    
+//    func   delegate()->AnyObject
+//    {
+//        return _delgate;
+//    }
     
     
     override func viewDidLoad()
@@ -95,8 +97,16 @@ class SingleResponceOption : UIViewController
     
     func setQuestionDetails(details:AnyObject)
     {
+        mAnswerOptions.removeAllObjects()
         cureentQuestionDetails = details
     }
+    
+    func setQuestionDetails(details:AnyObject, withAnswerOptions answerOptions:NSMutableArray)
+    {
+        cureentQuestionDetails = details
+        mAnswerOptions = answerOptions
+    }
+
     
     
     func addOPtionsCells()
@@ -134,6 +144,9 @@ class SingleResponceOption : UIViewController
                         optionsCell.frame = CGRectMake(0  , postionYValue, optionScrollView.frame.size.width, optionsCell.getHeightWithDetails(optionDict))
                         
                         optionsCell.changeFrameWithSize()
+                        
+                        optionsCell.checkValueOfOPtion(optionDict, withanswerOptionsArray: mAnswerOptions)
+                        
                         
                         optionScrollView.addSubview(optionsCell)
                         

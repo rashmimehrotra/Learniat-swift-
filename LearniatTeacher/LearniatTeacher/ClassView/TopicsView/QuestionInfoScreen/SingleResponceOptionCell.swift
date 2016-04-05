@@ -93,6 +93,48 @@ class SingleResponceOptionCell: UIView
     
     
     
+    
+    
+    func checkValueOfOPtion(questiondetails:AnyObject, withanswerOptionsArray mAnswerOptions:NSMutableArray)
+    {
+        
+        if mAnswerOptions.count > 0
+        {
+            _optionValueImageView.backgroundColor = topicsLineColor
+            _optionValueImageView.image =  nil
+            
+            if let questionOptionText = questiondetails.objectForKey("OptionText") as? String
+            {
+                for (var answerIndex = 0; answerIndex < mAnswerOptions.count; answerIndex++)
+                {
+                    if let answerOptionText = mAnswerOptions.objectAtIndex(answerIndex) as? String
+                    {
+                        if answerOptionText == questionOptionText
+                        {
+                            if let IsAnswer = questiondetails.objectForKey("IsAnswer") as? String
+                            {
+                                
+                                if IsAnswer == "1"
+                                {
+                                    _optionValueImageView.image = UIImage(named: "Check.png")
+                                    _optionValueImageView.backgroundColor = UIColor.clearColor()
+                                }
+                                else if IsAnswer == "0"
+                                {
+                                    _optionValueImageView.image = UIImage(named: "X.png")
+                                    _optionValueImageView.backgroundColor = UIColor.clearColor()
+                                }
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        }
+       
+       
+    }
+    
     func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat
     {
         let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max))

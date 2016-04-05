@@ -388,9 +388,8 @@ class SSTeacherQuestionController: UIViewController,QuestionCellDelegate,SSTeach
             else if questionType == "Multiple Response" || questionType == "Multiple Choice"  
             {
                 let questionInfoController = SingleResponceOption()
-                questionInfoController.setdelegate(self)
-                print(questionDetails)
                 
+
                 questionInfoController.setQuestionDetails(questionDetails)
                 
                 

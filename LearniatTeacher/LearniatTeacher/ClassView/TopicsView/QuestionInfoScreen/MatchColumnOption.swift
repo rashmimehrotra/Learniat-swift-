@@ -19,6 +19,9 @@ class MatchColumnOption : UIViewController
     
     let headerlabel = UILabel()
     
+    
+    var studentAnswerArray = NSMutableArray()
+    
     func setdelegate(delegate:AnyObject)
     {
         _delgate = delegate;
@@ -59,7 +62,7 @@ class MatchColumnOption : UIViewController
         
         
         
-        let  mDoneButton = UIButton(frame: CGRectMake(headerView.frame.size.width - 210, 0, 200, 50))
+        let  mDoneButton = UIButton(frame: CGRectMake(headerView.frame.size.width - 220, 0, 200, 50))
         mDoneButton.addTarget(self, action: "onDoneButton", forControlEvents: UIControlEvents.TouchUpInside)
         mDoneButton.setTitleColor(standard_Button, forState: .Normal)
         mDoneButton.setTitle("Done", forState: .Normal)
@@ -86,9 +89,20 @@ class MatchColumnOption : UIViewController
     func setQuestionDetails(details:AnyObject)
     {
         cureentQuestionDetails = details
+        studentAnswerArray.removeAllObjects()
         
     }
     
+    
+    func setQuestionDetails(details:AnyObject, withStudentsAnswer RightSideArray:NSMutableArray)
+    {
+        
+        cureentQuestionDetails = details
+        
+        studentAnswerArray = RightSideArray
+        
+        
+    }
     
     func addOPtionsCells()
     {
@@ -132,19 +146,14 @@ class MatchColumnOption : UIViewController
                 else if Column == "2"
                 {
                     RightSideArray.addObject(optionDict)
+                 
                 }
                 
             }
         }
         
         
-        
-        
-        
-        
-        
-        
-        
+       
 
         var postionYValue:CGFloat = 0
         var height :CGFloat = 44
@@ -167,6 +176,28 @@ class MatchColumnOption : UIViewController
                 optionsCell.changeFrameWithSize()
                 
                 optionScrollView.addSubview(optionsCell)
+                
+                if studentAnswerArray.count > 0
+                {
+                    let StudentsAnswerDict = studentAnswerArray.objectAtIndex(index)
+                    
+                    if let OldSequence = StudentsAnswerDict.objectForKey("OldSequence") as? String
+                    {
+                        if let Sequence = StudentsAnswerDict.objectForKey("Sequence") as? String
+                        {
+                            
+                            
+                            if OldSequence == Sequence
+                            {
+                                optionsCell._optionValueImageView.image = UIImage(named: "Check.png")
+                            }
+                            else
+                            {
+                                optionsCell._optionValueImageView.image = UIImage(named: "X.png")
+                            }
+                        }
+                    }
+                }
                 
                 postionYValue = postionYValue + optionsCell.frame.size.height
                 height = height + optionsCell.frame.size.height
@@ -193,6 +224,28 @@ class MatchColumnOption : UIViewController
                 
                 optionScrollView.addSubview(optionsCell)
                 
+                if studentAnswerArray.count > 0
+                {
+                    let StudentsAnswerDict = studentAnswerArray.objectAtIndex(index)
+                    
+                    if let OldSequence = StudentsAnswerDict.objectForKey("OldSequence") as? String
+                    {
+                        if let Sequence = StudentsAnswerDict.objectForKey("Sequence") as? String
+                        {
+                            
+                            
+                            if OldSequence == Sequence
+                            {
+                                optionsCell._optionValueImageView.image = UIImage(named: "Check.png")
+                            }
+                            else
+                            {
+                                optionsCell._optionValueImageView.image = UIImage(named: "X.png")
+                            }
+                        }
+                    }
+                }
+                
                 postionYValue = postionYValue + optionsCell.frame.size.height
                 height = height + optionsCell.frame.size.height
                 
@@ -217,6 +270,30 @@ class MatchColumnOption : UIViewController
                 optionsCell.changeFrameWithSize()
                 
                 optionScrollView.addSubview(optionsCell)
+                
+                
+                if studentAnswerArray.count > 0
+                {
+                    let StudentsAnswerDict = studentAnswerArray.objectAtIndex(index)
+                   
+                    if let OldSequence = StudentsAnswerDict.objectForKey("OldSequence") as? String
+                    {
+                        if let Sequence = StudentsAnswerDict.objectForKey("Sequence") as? String
+                        {
+                            
+                            
+                            if OldSequence == Sequence
+                            {
+                                optionsCell._optionValueImageView.image = UIImage(named: "Check.png")
+                            }
+                            else
+                            {
+                                optionsCell._optionValueImageView.image = UIImage(named: "X.png")
+                            }
+                        }
+                    }
+                }
+                
                 
                 postionYValue = postionYValue + optionsCell.frame.size.height
                 height = height + optionsCell.frame.size.height

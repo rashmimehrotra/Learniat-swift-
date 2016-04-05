@@ -67,7 +67,7 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate
     }
     
     
-    func addQuestionWithDetails(details:AnyObject)
+    func addMRQQuestionWithDetails(details:AnyObject)
     {
         if mMRQSubmissionView == nil
         {
@@ -82,6 +82,12 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate
         
     }
     
+    func addMTCQuestionWithDetails(details:AnyObject)
+    {
+        
+    }
+    
+    
     
     func studentAnswerRecievedWIthDetails(details:AnyObject)
     {
@@ -95,7 +101,11 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate
     func questionClearedByTeacher()
     {
         noSubmissionLabel.hidden = false
-        mMRQSubmissionView.hidden = true
+        if mMRQSubmissionView != nil
+        {
+            mMRQSubmissionView.hidden = true
+        }
+        
     }
     
     

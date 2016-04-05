@@ -14,7 +14,7 @@ class MatchColumnCell: UIView
     
     var rightOptionsLabel = UILabel()
     
-    var _optionValueImageView = UIImageView()
+    var _optionValueImageView : UIImageView!
     
     
     override init(frame: CGRect)
@@ -49,11 +49,11 @@ class MatchColumnCell: UIView
         
 
         
-        
+        _optionValueImageView = UIImageView()
         _optionValueImageView.frame = CGRectMake(240, (self.frame.size.height-25)/2, 20, 20);
         self.addSubview(_optionValueImageView);
         _optionValueImageView.contentMode = .ScaleAspectFit
-        _optionValueImageView.image = UIImage(named: "Check.png")
+        
         
     }
     
@@ -82,6 +82,8 @@ class MatchColumnCell: UIView
         }
 
         
+        _optionValueImageView.image = UIImage(named: "Check.png")
+        
         
         var height :CGFloat = 20
         
@@ -109,7 +111,10 @@ class MatchColumnCell: UIView
         rightOptionsLabel.frame = CGRectMake(self.frame.size.width - 230, 20, 220, self.frame.size.height -  40 );
     }
     
-    
+    func checkCorretAnswer(isAnswer:Bool)
+    {
+       
+    }
     
     func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat
     {

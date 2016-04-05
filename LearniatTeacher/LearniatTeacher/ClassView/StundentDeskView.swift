@@ -363,6 +363,20 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         }
         
     }
+    
+    func teacherClearedQuestion()
+    {
+        let subViews = answerContainerView.subviews
+        
+        for subview in subViews
+        {
+            subview.removeFromSuperview()
+        }
+        
+        mStudentName.hidden = true
+        mMiddleStudentName.hidden = false
+        
+    }
 
 }
 

@@ -57,11 +57,20 @@ class StudentAnswerOptionsView: UIView
         {
             if Type == "Multiple Choice"
             {
+                
                 addSingleResponseQuestionAnswerWithDetails(answerDetails,withQuestionOptionsArray: optionArray)
             }
             else if Type == "Multiple Response"
             {
+                
                 addMultipleResponseQuestionAnswerWithDetails(answerDetails,withQuestionOptionsArray: optionArray)
+            }
+            else if Type == "Match Columns"
+            {
+                print(questionDetails)
+                
+                addMatchColumnQuestionAnswerWithDetails(answerDetails)
+                
             }
         }
     }
@@ -82,8 +91,11 @@ class StudentAnswerOptionsView: UIView
             }
         }
         
-        let optionsDetails =  getOptionsValuesWithOptionsArray(studentAnsweOption, withQuestionOptions: questionOptions)
-        addCheckMarksForMultipleResponseWithOptionsDetails(optionsDetails)
+        
+        _studentFinalAnswerOptions = studentAnsweOption
+        
+//        let optionsDetails =  getOptionsValuesWithOptionsArray(studentAnsweOption, withQuestionOptions: questionOptions)
+       addCheckMarksForMultipleResponseWithOptionsDetails(questionOptions,withAnswerOptions: studentAnsweOption)
         
     }
     
@@ -119,13 +131,43 @@ class StudentAnswerOptionsView: UIView
             }
         }
         
-        
-        let optionsDetails =  getOptionsValuesWithOptionsArray(studentFinalAsnwer, withQuestionOptions: questionOptions)
-        addCheckMarksForMultipleResponseWithOptionsDetails(optionsDetails)
+        _studentFinalAnswerOptions = studentFinalAsnwer
+//        let optionsDetails =  getOptionsValuesWithOptionsArray(studentFinalAsnwer, withQuestionOptions: questionOptions)
+       addCheckMarksForMultipleResponseWithOptionsDetails(questionOptions,withAnswerOptions: studentFinalAsnwer)
         
         
         
     }
+    
+    
+    
+    func addMatchColumnQuestionAnswerWithDetails(answerOptions:AnyObject)
+    {
+        
+        var studentAnsweOptions = NSMutableArray()
+        if let options = answerOptions.objectForKey("Options")
+        {
+            if let classCheckingVariable = options.objectForKey("Option")
+            {
+                if classCheckingVariable.isKindOfClass(NSMutableArray)
+                {
+                    studentAnsweOptions = classCheckingVariable as! NSMutableArray
+                }
+                else
+                {
+                    studentAnsweOptions.addObject(answerOptions.objectForKey("Options")!.objectForKey("Option")!)
+                    
+                }
+            }
+        }
+        
+        
+        
+        
+        _studentFinalAnswerOptions = studentAnsweOptions
+        addCheckMarksForMatchCoulmnWithOptionsDetails(studentAnsweOptions)
+    }
+    
     
     
     func getOptionsValuesWithOptionsArray(answerOptions:NSMutableArray, withQuestionOptions questionOptions:NSMutableArray)-> NSMutableArray
@@ -187,7 +229,122 @@ class StudentAnswerOptionsView: UIView
     }
     
     
-    func addCheckMarksForMultipleResponseWithOptionsDetails(optionsDetails:NSMutableArray)
+    func addCheckMarksForMultipleResponseWithOptionsDetails(optionsDetails:NSMutableArray, withAnswerOptions answerOptions:NSMutableArray)
+    {
+        
+        
+        
+        let subViews = self.subviews.flatMap{ $0 as? UIImageView }
+        
+        for subview in subViews
+        {
+            if subview.isKindOfClass(UIImageView)
+            {
+                subview.removeFromSuperview()
+            }
+        }
+        
+        
+        if optionsDetails.count > 0
+        {
+            var  count :CGFloat = CGFloat(optionsDetails.count)
+            var numberOfRow :CGFloat = 1
+            var numberOfcolumn :CGFloat = 1
+            
+            
+            
+            if (count % 2 != 0)
+            {
+                
+                count = count+1;
+            }
+            
+            numberOfcolumn = count / 2;
+            numberOfRow = 2;
+            
+            
+            var barWidth = self.frame.size.width / numberOfcolumn
+            let widthSpace = (barWidth * 0.6)
+            barWidth = (barWidth * 0.4)
+            var width = widthSpace / 2
+            
+            var barHeight = self.frame.size.height / numberOfRow
+            
+            let heightSpace = (barHeight * 0.6)
+            barHeight = (barHeight * 0.4)
+            var height = heightSpace / 2
+            
+            var optionsArrayCount = 0
+            
+            
+            for (var i = 0; i < Int(numberOfRow); i++)
+            {
+                for (var j = 0; j < Int(numberOfcolumn); j++)
+                {
+                    let containerView =  UIImageView(frame:CGRectMake(width, height, barWidth, barHeight))
+                    self.addSubview(containerView);
+                    
+                    let optionsValueImage = UIImageView()
+                    
+                    if containerView.frame.size.width > containerView.frame.size.height
+                    {
+                        optionsValueImage.frame = CGRectMake((containerView.frame.size.width - containerView.frame.size.height)/2 , (containerView.frame.size.width - containerView.frame.size.height)/2, containerView.frame.size.height, containerView.frame.size.height)
+                    }
+                    else
+                    {
+                        optionsValueImage.frame = CGRectMake((containerView.frame.size.height - containerView.frame.size.width)/2 , (containerView.frame.size.height - containerView.frame.size.width)/2, containerView.frame.size.width, containerView.frame.size.width)
+                    }
+                    
+                    containerView.addSubview(optionsValueImage)
+                    
+                    optionsValueImage.contentMode = .ScaleAspectFit
+                    
+                    optionsValueImage.backgroundColor = topicsLineColor
+                    
+                    if optionsArrayCount < optionsDetails.count
+                    {
+                        let questionOptiondict = optionsDetails.objectAtIndex(optionsArrayCount)
+                        
+                        
+                        if let questionOptionText = questionOptiondict.objectForKey("OptionText") as? String
+                        {
+                            for (var answerIndex = 0; answerIndex < answerOptions.count; answerIndex++)
+                            {
+                                if let answerOptionText = answerOptions.objectAtIndex(answerIndex) as? String
+                                {
+                                    if answerOptionText == questionOptionText
+                                    {
+                                        if let IsAnswer = questionOptiondict.objectForKey("IsAnswer") as? String
+                                        {
+                                            if IsAnswer == "1"
+                                            {
+                                                optionsValueImage.image = UIImage(named: "Check.png")
+                                                optionsValueImage.backgroundColor = UIColor.clearColor()
+                                            }
+                                            else if IsAnswer == "0"
+                                            {
+                                                optionsValueImage.image = UIImage(named: "X.png")
+                                                optionsValueImage.backgroundColor = UIColor.clearColor()
+                                            }
+                                        }
+                                    }
+                                    
+                                }
+                            }
+                        }
+                        
+                        
+                        optionsArrayCount = optionsArrayCount + 1
+                    }
+                    width = width + widthSpace + barWidth;
+                }
+                width=widthSpace/2;
+                height=height+heightSpace+barHeight;
+            }
+        }
+    }
+    
+    func addCheckMarksForMatchCoulmnWithOptionsDetails(optionsDetails:NSMutableArray)
     {
         
         
@@ -263,17 +420,20 @@ class StudentAnswerOptionsView: UIView
                     {
                         let questionOptiondict = optionsDetails.objectAtIndex(optionsArrayCount)
                         
-                        if let IsAnswer = questionOptiondict.objectForKey("IsAnswer") as? String
+                        if let OldSequence = questionOptiondict.objectForKey("OldSequence") as? String
                         {
-                            if IsAnswer == KCorretValue
+                            if let Sequence = questionOptiondict.objectForKey("Sequence") as? String
                             {
-                                studentDesk.image = UIImage(named: "Check.png")
-                                studentDesk.backgroundColor = UIColor.clearColor()
-                            }
-                            else if IsAnswer == kWrongvalue
-                            {
-                                studentDesk.image = UIImage(named: "X.png")
-                                studentDesk.backgroundColor = UIColor.clearColor()
+                                if OldSequence == Sequence
+                                {
+                                    studentDesk.image = UIImage(named: "Check.png")
+                                    studentDesk.backgroundColor = UIColor.clearColor()
+                                }
+                                else
+                                {
+                                    studentDesk.image = UIImage(named: "X.png")
+                                    studentDesk.backgroundColor = UIColor.clearColor()
+                                }
                             }
                         }
                         optionsArrayCount = optionsArrayCount + 1
@@ -285,7 +445,6 @@ class StudentAnswerOptionsView: UIView
             }
         }
     }
-    
     
     
 }

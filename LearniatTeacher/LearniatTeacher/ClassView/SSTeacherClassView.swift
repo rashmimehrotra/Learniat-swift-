@@ -465,7 +465,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
                     }
                     else
                     {
-                        mSubmissionView.addQuestionWithDetails(currentQuestionDetails)
+                        mSubmissionView.addMRQQuestionWithDetails(currentQuestionDetails)
                         
                     }
                 }
@@ -934,7 +934,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
                 
                 if let studentDeskView  = mClassView.viewWithTag(Int(StudentId)!) as? StundentDeskView
                 {
-                    
+                    studentDeskView.teacherClearedQuestion()
                 }
             }
             
@@ -1053,7 +1053,9 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         {
             if currentQuestionDetails != nil
              {
+                print(currentQuestionDetails)
                 studentDeskView.studentSentAnswerWithAnswerString(answerStrin,withQuestionDetails: currentQuestionDetails)
+                
             }
             
             
@@ -1065,6 +1067,8 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     
     func delegateStudentAnswerDownloadedWithDetails(details: AnyObject) {
 
+        print(details)
+        
         mSubmissionView.studentAnswerRecievedWIthDetails(details)
     }
     
@@ -1075,28 +1079,70 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView
         {
             let buttonPosition :CGPoint = studentDeskView.convertPoint(CGPointZero, toView: self.view)
-            
-            let questionInfoController = SingleResponceOption()
-            questionInfoController.setdelegate(self)
-            
-            
-            
-            
-            questionInfoController.setQuestionDetails(currentQuestionDetails)
-            
-            
-            questionInfoController.preferredContentSize = CGSizeMake(400,317)
-            
-            let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
-            
-            classViewPopOverController.popoverContentSize = CGSizeMake(400,317);
-            classViewPopOverController.delegate = self;
-            
-            classViewPopOverController.presentPopoverFromRect(CGRect(
-                x:buttonPosition.x ,
-                y:buttonPosition.y + studentDeskView.frame.size.height / 2,
-                width: 1,
-                height: 1), inView: self.view, permittedArrowDirections: .Right, animated: true)
+           
+            if let questionType = currentQuestionDetails.objectForKey("Type") as? String
+            {
+                
+                if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
+                {
+                    
+                }
+                else if (questionType == kText)
+                {
+                    
+                }
+                else if (questionType == kMatchColumn)
+                {
+                    
+                    let questionInfoController = MatchColumnOption()
+                    questionInfoController.setdelegate(self)
+                    
+                    
+                    
+                    
+                    questionInfoController.setQuestionDetails(currentQuestionDetails, withStudentsAnswer:answerOptions)
+                    
+                    
+                    questionInfoController.preferredContentSize = CGSizeMake(400,317)
+                    
+                    let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                    
+                    classViewPopOverController.popoverContentSize = CGSizeMake(400,317);
+                    classViewPopOverController.delegate = self;
+                    
+                    classViewPopOverController.presentPopoverFromRect(CGRect(
+                        x:buttonPosition.x ,
+                        y:buttonPosition.y + studentDeskView.frame.size.height / 2,
+                        width: 1,
+                        height: 1), inView: self.view, permittedArrowDirections: .Right, animated: true)
+                }
+                else
+                {
+                    let questionInfoController = SingleResponceOption()
+//                    questionInfoController.setdelegate(self)
+                    
+                    
+                    
+                    
+                    questionInfoController.setQuestionDetails(currentQuestionDetails,withAnswerOptions: answerOptions)
+                    
+                    
+                    questionInfoController.preferredContentSize = CGSizeMake(400,317)
+                    
+                    let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                    
+                    classViewPopOverController.popoverContentSize = CGSizeMake(400,317);
+                    classViewPopOverController.delegate = self;
+                    
+                    classViewPopOverController.presentPopoverFromRect(CGRect(
+                        x:buttonPosition.x ,
+                        y:buttonPosition.y + studentDeskView.frame.size.height / 2,
+                        width: 1,
+                        height: 1), inView: self.view, permittedArrowDirections: .Right, animated: true)
+                    
+                    
+                }
+            }
             
         }
         
