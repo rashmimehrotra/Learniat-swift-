@@ -14,6 +14,9 @@ class SSTeacherAggregatePopOverController: UIViewController, SSTeacherDataSource
     
     var mMrqAgregateView : MRQAggregateView!
     
+    var mMtcAgregateView : MTCAggregateView!
+    
+    var cureentQuestionType  = ""
     
     var _delgate: AnyObject!
     func setdelegate(delegate:AnyObject)
@@ -34,7 +37,7 @@ class SSTeacherAggregatePopOverController: UIViewController, SSTeacherDataSource
         // Do any additional setup after loading the view, typically from a nib.
         self.view.backgroundColor = whiteBackgroundColor
         
-        activityIndicator.frame = CGRectMake(0, 0,100,100)
+        activityIndicator.frame = CGRectMake(150, 0,100,100)
         self.view.addSubview(activityIndicator)
         activityIndicator.hidden = false
         activityIndicator.startAnimating()
@@ -45,8 +48,9 @@ class SSTeacherAggregatePopOverController: UIViewController, SSTeacherDataSource
     }
     
     
-    func AggregateDrillDownWithOptionId(optionId:String, withQuestionDetails questionDetails:AnyObject, withQuestionLogId questionLogId:String)
+    func AggregateDrillDownWithOptionId(optionId:String, withQuestionDetails questionDetails:AnyObject, withQuestionLogId questionLogId:String, withQuestionTye type:String)
     {
+        cureentQuestionType = type
         SSTeacherDataSource.sharedDataSource.getAgregateDrilDownWithOptionId(optionId, WithQuestionLogId: questionLogId, WithDelegate: self)
     }
     
@@ -61,16 +65,41 @@ class SSTeacherAggregatePopOverController: UIViewController, SSTeacherDataSource
         
         activityIndicator.stopAnimating()
         
-        if mMrqAgregateView == nil
+        
+        if (cureentQuestionType  == kOverlayScribble  || cureentQuestionType == kFreshScribble)
         {
-            mMrqAgregateView = MRQAggregateView(frame: CGRectMake(0, 0,400,70))
-            self.view.addSubview(mMrqAgregateView)
+            
+        }
+        else if (cureentQuestionType == kText)
+        {
+            
+        }
+        else if (cureentQuestionType == kMatchColumn)
+        {
+            if mMtcAgregateView == nil
+            {
+                mMtcAgregateView = MTCAggregateView(frame: CGRectMake(0, 0,400,70))
+                self.view.addSubview(mMtcAgregateView)
+            }
+            self.preferredContentSize = CGSize(width: 400, height: mMtcAgregateView.showAggregateWithDetails(details))
+        }
+        else
+        {
+            if mMrqAgregateView == nil
+            {
+                mMrqAgregateView = MRQAggregateView(frame: CGRectMake(0, 0,400,70))
+                self.view.addSubview(mMrqAgregateView)
+            }
+            
+            
+            
+            
+            self.preferredContentSize = CGSize(width: 400, height: mMrqAgregateView.showAggregateWithDetails(details))
+            
         }
         
         
-        
-        
-        self.preferredContentSize = CGSize(width: 400, height: mMrqAgregateView.showAggregateWithDetails(details))
+       
         
         
        

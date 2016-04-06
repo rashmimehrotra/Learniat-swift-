@@ -10,7 +10,7 @@ import Foundation
 
 let kbartag = 200
 let kLabeltag = 400
-
+var kOptionIdIncrementer  = 1000
 
 
 @objc protocol StudentAnswerGraphViewDelegate
@@ -35,7 +35,7 @@ class StudentAnswerGraphView: UIView
     
     var differenceheight      :CGFloat = 10
     
-    
+    var optionIdDictoryWIthText     = NSMutableDictionary()
     
     var _delgate: AnyObject!
     
@@ -72,7 +72,7 @@ class StudentAnswerGraphView: UIView
     }
     
     
-    func loadViewWithOPtions(optionsArray:NSMutableArray, withQuestion questionName:String)
+    func loadMRQViewWithOPtions(optionsArray:NSMutableArray, withQuestion questionName:String)
     {
         
         
@@ -207,8 +207,156 @@ class StudentAnswerGraphView: UIView
     }
     
     
+    
+    
+    func loadMTCViewWithOPtions(optionsArray:NSMutableArray,WithRightSideOptionArray rightOPtionsArray:NSMutableArray, withQuestion questionName:String)
+    {
+        
+        
+        questionNamelabel.text = questionName
+        kOptionIdIncrementer = 1000
+        
+        var subViews = lineContainerView.subviews
+        
+        for subview in subViews
+        {
+            subview.removeFromSuperview()
+        }
+        
+        
+        subViews = self.subviews
+        
+        for subview in subViews
+        {
+            if subview.isKindOfClass(FXLabel) || subview.isKindOfClass(BarView)
+            {
+                subview.removeFromSuperview()
+            }
+            
+        }
+        
+        
+        
+        differenceheight = (lineContainerView.frame.size.height) / CGFloat(10)
+        
+        var labelCount = 0;
+        var height:CGFloat = 0;
+        for (var i = 10; i >= 0 ; i--)
+        {
+            if (i % 2 == 0)
+            {
+                
+                let lineView = UIImageView(frame:CGRectMake(100, height, 1000, 1))
+                lineView.backgroundColor = UIColor(red: 117/255.0, green: 117/255.0, blue: 117/255.0, alpha: 0.3)
+                lineContainerView.addSubview(lineView);
+                
+                
+                let lable = UILabel(frame:CGRectMake(60, height-25, 100, 50))
+                lable.text = "\(i)"
+                lineContainerView.addSubview(lable);
+                lable.textColor = blackTextColor
+                lable.tag  = kLabeltag + i
+                labelCount = labelCount + 1;
+            }
+            else
+            {
+                
+                let lineView = DottedLine(frame:CGRectMake(100, height, 1000, 1))
+                lineView.drawDashedBorderAroundViewWithColor(UIColor(red: 117/255.0, green: 117/255.0, blue: 117/255.0, alpha: 0.3))
+                lineContainerView.addSubview(lineView);
+                
+            }
+            height = height + differenceheight
+        }
+        
+        
+        let columns: Int        = optionsArray.count
+        
+        
+        var width = (lineContainerView.frame.size.width - 100) / CGFloat(columns)
+        
+        let widthSpace = width * 0.1
+        
+        width = width * 0.9
+        
+        var positionX = widthSpace / 2 + 100
+        
+        for var index = 0; index < optionsArray.count; index++
+        {
+            
+            let optionDict = optionsArray.objectAtIndex(index)
+            let rightOPtionDict = rightOPtionsArray.objectAtIndex(index)
+            
+            let optionsLabel = FXLabel(frame: CGRectMake(positionX , lineContainerView.frame.origin.y + lineContainerView.frame.size.height + 5, width ,self.frame.size.height - (lineContainerView.frame.origin.y + lineContainerView.frame.size.height + 10)));
+            self.addSubview(optionsLabel)
+            optionsLabel.lineBreakMode = .ByTruncatingMiddle;
+            optionsLabel.numberOfLines = 5;
+            optionsLabel.textAlignment = .Center;
+            optionsLabel.contentMode = .Top;
+            optionsLabel.textColor = blackTextColor
+            
+            var font = UIFont(name:helveticaRegular, size:16)
+            if (optionsArray.count > 4)
+            {
+                font = UIFont(name:helveticaRegular, size:14)
+            }
+            else
+            {
+                font = UIFont(name:helveticaRegular, size:18)
+            }
+            optionsLabel.font = font
+            
+            if let optiontext = optionDict.objectForKey("OptionText") as? String
+            {
+              
+                if let rOptiontext = rightOPtionDict.objectForKey("OptionText") as? String
+                {
+                    optionsLabel.text = "\(optiontext)->\(rOptiontext)"
+                }
+                else
+                {
+                    optionsLabel.text = optiontext
+                }
+                
+                
+                
+            }
+            optionsLabel.backgroundColor = UIColor.clearColor()
+            
+            
+            let barView = BarView(frame: CGRectMake(positionX ,lineContainerView.frame.size.height, width ,0))
+            lineContainerView.addSubview(barView)
+            barView.addTarget(self, action: "onBarButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+            if let optionId = optionDict.objectForKey("OptionId") as? String
+            {
+                barView.tag = Int(optionId)!
+                
+                if let rOptiontext = rightOPtionDict.objectForKey("OptionText") as? String
+                {
+                    optionIdDictoryWIthText.setObject(optionId, forKey: rOptiontext)
+                }
+                
+            }
+            else
+            {
+                barView.tag = kOptionIdIncrementer + index
+            }
+
+            barView.setBarColor(standard_Button)
+            positionX = positionX + width + widthSpace
+            
+        }
+        
+    }
+    
+    
+    
     func increaseBarValueWithOPtionID(optionId:String)
     {
+        
+      
+        
+        
         if let answerBar  = self.viewWithTag(Int(optionId)!) as? BarView
         {
             answerBar.increasePresentValue()
@@ -222,14 +370,36 @@ class StudentAnswerGraphView: UIView
             
              answerBar.frame = CGRectMake(answerBar.frame.origin.x ,self.lineContainerView.frame.size.height - presentValue  , answerBar.frame.size.width ,presentValue)
             
-//            UIView.animateWithDuration(0.5, animations: {
-//                
-//            })
-
-            
            
             answerBar.changeFrameWithHeight(presentValue)
         }
+    }
+    
+    
+    func increaseBarValueWithOptionText(optionText:String)
+    {
+        
+        if let optionId = optionIdDictoryWIthText.objectForKey(optionText) as? String
+        {
+            if let answerBar  = self.viewWithTag(Int(optionId)!) as? BarView
+            {
+                answerBar.increasePresentValue()
+                
+                var presentValue:CGFloat = CGFloat(answerBar.presentValue)
+                
+                
+                
+                presentValue = presentValue * differenceheight
+                
+                
+                answerBar.frame = CGRectMake(answerBar.frame.origin.x ,self.lineContainerView.frame.size.height - presentValue  , answerBar.frame.size.width ,presentValue)
+                
+                
+                answerBar.changeFrameWithHeight(presentValue)
+            }
+        }
+        
+        
     }
     
     

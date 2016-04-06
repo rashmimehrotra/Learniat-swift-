@@ -1,14 +1,14 @@
 //
-//  SubmissionMRQView.swift
+//  SubmissionMTCView.swift
 //  LearniatTeacher
 //
-//  Created by Deepak MK on 02/04/16.
+//  Created by Deepak MK on 06/04/16.
 //  Copyright © 2016 Mindshift. All rights reserved.
 //
 
 import Foundation
 
-@objc protocol SubmissionMRQViewDelegate
+@objc protocol SubmissionMTCViewDelegate
 {
     
     optional func delegateOptionTouchedWithId(optionId: String, withView barButton: BarView)
@@ -17,8 +17,8 @@ import Foundation
 }
 
 
-class SubmissionMRQView: UIView,StudentAnswerGraphViewDelegate
-{
+
+class SubmissionMTCView: UIView {
     var _delgate: AnyObject!
     
     
@@ -46,14 +46,9 @@ class SubmissionMRQView: UIView,StudentAnswerGraphViewDelegate
         
     }
     
-    
-    
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
     
     func addGraphViewforWithQuestionDetails(_currentQuestionDetials:AnyObject)
     {
@@ -76,6 +71,14 @@ class SubmissionMRQView: UIView,StudentAnswerGraphViewDelegate
             }
         }
         
+        
+        
+        
+        
+        
+        
+        
+        
         currentQuestionOptionsArray = optionArray
         
         if studentGraphView == nil
@@ -85,17 +88,82 @@ class SubmissionMRQView: UIView,StudentAnswerGraphViewDelegate
             studentGraphView.setdelegate(self)
         }
         
+        
+         print(optionArray)
+        
+        
+        
+        
+        
+        let leftSideArray = NSMutableArray()
+        
+        let RightSideArray = NSMutableArray()
+        
+        for var index = 0; index < optionArray.count ; index++
+        {
+            
+            let optionDict = optionArray.objectAtIndex(index)
+            
+            if let Column = optionDict.objectForKey("Column") as? String
+            {
+                if Column == "1"
+                {
+                    leftSideArray.addObject(optionDict)
+                }
+                else if Column == "2"
+                {
+                    RightSideArray.addObject(optionDict)
+                    
+                }
+                
+            }
+        }
+        
+        
+//        for var index = 0; index < leftSideArray.count ; index++
+//        {
+//            
+//            let leftSideOptionDict = leftSideArray.objectAtIndex(index)
+//            let rightSideOptionDict = RightSideArray.objectAtIndex(index)
+//            
+//            if var leftOptionText = (leftSideOptionDict.objectForKey("OptionText")) as? String
+//            {
+//                if let rightOptionText = (rightSideOptionDict.objectForKey("OptionText")) as? String
+//                {
+//                    leftOptionText = "\(leftOptionText)->\(rightOptionText)"
+//                    
+//                    leftSideOptionDict.setObject(leftOptionText, forKey: "OptionText")
+//                    
+//                    leftSideArray.replaceObjectAtIndex(index, withObject: leftSideOptionDict)
+//                    
+//                }
+//            }
+//            
+//            
+//            
+//            
+//            
+//        }
+        
+        
+        
         if let questionName = (_currentQuestionDetials.objectForKey("Name")) as? String
         {
-            studentGraphView.loadMRQViewWithOPtions(optionArray, withQuestion: questionName)
+            studentGraphView.loadMTCViewWithOPtions(leftSideArray,WithRightSideOptionArray: RightSideArray, withQuestion: questionName)
         }
         else
         {
-            studentGraphView.loadMRQViewWithOPtions(optionArray, withQuestion: "")
+            studentGraphView.loadMTCViewWithOPtions(leftSideArray,WithRightSideOptionArray: RightSideArray, withQuestion: "")
         }
+        
+        
+        
+        
+        
+        
+        
+        
     }
-    
-    
     func didgetStudentsAnswerWithDetails(details:AnyObject)
     {
         
@@ -118,77 +186,42 @@ class SubmissionMRQView: UIView,StudentAnswerGraphViewDelegate
         
         
         
-        let studentFinalAsnwer = NSMutableArray()
         for (var answerIndex = 0; answerIndex < studentAnsweOptions.count; answerIndex++)
         {
             let answerOptiondict = studentAnsweOptions.objectAtIndex(answerIndex)
             
-            if let answerOptionText = answerOptiondict.objectForKey("OptionText") as? String
-            {
-                studentFinalAsnwer.addObject(answerOptionText)
-                
-            }
-        }
-        
-        
-        
-        let optionIdValues = getOptionIdArrayWithGivenOPtions(studentFinalAsnwer)
-        
-        for (var index = 0; index < optionIdValues.count; index++)
-        {
-            if let optionId = optionIdValues.objectAtIndex(index) as? String
-            {
-                studentGraphView.increaseBarValueWithOPtionID(optionId)
-            }
-        }
-        
-        
-        
-    }
-    
-    
-    
-    
-    
-    func getOptionIdArrayWithGivenOPtions(answerOptionsArray:NSMutableArray) -> NSMutableArray
-    {
-        
-        let optionIdArray = NSMutableArray()
-        
-        
-        for (var answerIndex = 0; answerIndex < currentQuestionOptionsArray.count; answerIndex++)
-        {
-            let questionOptiondict = currentQuestionOptionsArray.objectAtIndex(answerIndex)
             
-            if let OptionText = questionOptiondict.objectForKey("OptionText") as? String
+            if let OldSequence = answerOptiondict.objectForKey("OldSequence") as? String
             {
-                
-                for (var index = 0; index < answerOptionsArray.count; index++)
+                if let Sequence = answerOptiondict.objectForKey("Sequence") as? String
                 {
-                    if let answerOption = answerOptionsArray.objectAtIndex(index) as? String
+                    if OldSequence == Sequence
                     {
-                        if OptionText == answerOption
-                        {
-                            if let optionId = questionOptiondict.objectForKey("OptionId") as? String
-                            {
-                                optionIdArray.addObject(optionId)
-                            }
-                            
-                            
-                            break
-                            
+                        if let rightOptionText = (answerOptiondict.objectForKey("OptionText")) as? String
+                         {
+                            studentGraphView.increaseBarValueWithOptionText(rightOptionText)
                         }
+                        
+                        
                     }
                 }
-                
-                
             }
+           
         }
         
-        return optionIdArray
+        //        let optionIdValues = getOptionIdArrayWithGivenOPtions(studentFinalAsnwer)
+//        
+//        for (var index = 0; index < optionIdValues.count; index++)
+//        {
+//            if let optionId = optionIdValues.objectAtIndex(index) as? String
+//            {
+//                studentGraphView.increaseBarValueWithOPtionID(optionId)
+//            }
+//        }
+        
+        
         
     }
-    
     // MARK: - GraphView delegate
     
     func delegateBarTouchedWithId(optionId: String, withView barButton: BarView) {
@@ -199,8 +232,6 @@ class SubmissionMRQView: UIView,StudentAnswerGraphViewDelegate
         }
         
     }
-    
-    
     
     
 }

@@ -12,6 +12,7 @@ class StudentAnswerOptionsView: UIView
     
     var _currentQuestionDetials :AnyObject!
     
+    
     var _studentFinalAnswerOptions = NSMutableArray()
     
     override init(frame: CGRect) {
@@ -25,6 +26,103 @@ class StudentAnswerOptionsView: UIView
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+        
+        
+    }
+    
+    
+    
+    func addScribbleWithDetiails(details:AnyObject, withOverlayImage overlayImage:String)
+    {
+        let subViews = self.subviews
+        
+        for subview in subViews
+        {
+           
+                subview.removeFromSuperview()
+            
+        }
+        
+    
+        
+        if overlayImage != ""
+        {
+            let overLayImage = UIImageView(frame: CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
+            self.addSubview(overLayImage)
+            
+            
+            let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_QuestionsImageUrl) as! String
+            
+            if let checkedUrl = NSURL(string: "\(urlString)/\(overlayImage)")
+            {
+                overLayImage.contentMode = .ScaleAspectFit
+                overLayImage.downloadImage(checkedUrl, withFolderType: folderType.questionImage,withResizeValue: self.frame.size)
+            }
+            
+        }
+        
+        
+        let studentAnswerImage = UIImageView(frame: CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
+        self.addSubview(studentAnswerImage)
+       
+        
+        if let Scribble = details.objectForKey("Scribble") as? String
+        {
+            let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_SCRIBBLE_IMAGE_URL) as! String
+            
+            if let checkedUrl = NSURL(string: "\(urlString)/\(Scribble)")
+            {
+                studentAnswerImage.contentMode = .ScaleAspectFit
+                studentAnswerImage.downloadImage(checkedUrl, withFolderType: folderType.StudentAnswer,withResizeValue: self.frame.size)
+            }
+        }
+        
+        
+        
+        
+       
+        
+        
+    }
+    
+    
+    
+    func addTextWithDetiails(details:AnyObject)
+    {
+        let subViews = self.subviews
+        
+        for subview in subViews
+        {
+            
+            subview.removeFromSuperview()
+            
+        }
+        
+        
+        
+        
+        
+        
+        let studentAnswertext = UILabel(frame: CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
+        self.addSubview(studentAnswertext)
+       
+        var fontHeight = studentAnswertext.frame.size.height/3;
+        
+        if (fontHeight > 16)
+        {
+            fontHeight = 16;
+        }
+
+        studentAnswertext.font = UIFont(name: helveticaRegular, size: fontHeight)
+        studentAnswertext.textColor = blackTextColor
+        studentAnswertext.lineBreakMode = .ByTruncatingMiddle
+        studentAnswertext.numberOfLines = 10
+        studentAnswertext.textAlignment = .Center
+        if let TextAnswer = details.objectForKey("TextAnswer") as? String
+        {
+           studentAnswertext.text = TextAnswer
+        }
+        
         
         
     }
@@ -234,15 +332,13 @@ class StudentAnswerOptionsView: UIView
         
         
         
-        let subViews = self.subviews.flatMap{ $0 as? UIImageView }
+        let subViews = self.subviews
         
         for subview in subViews
         {
-            if subview.isKindOfClass(UIImageView)
-            {
+           
                 subview.removeFromSuperview()
-            }
-        }
+                   }
         
         
         if optionsDetails.count > 0
@@ -349,14 +445,12 @@ class StudentAnswerOptionsView: UIView
         
         
         
-        let subViews = self.subviews.flatMap{ $0 as? UIImageView }
+        let subViews = self.subviews
         
         for subview in subViews
         {
-            if subview.isKindOfClass(UIImageView)
-            {
                 subview.removeFromSuperview()
-            }
+            
         }
         
         

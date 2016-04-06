@@ -22,7 +22,11 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate
     
     var mMRQSubmissionView : SubmissionMRQView!
     
+    var mMTCSubmissionView : SubmissionMTCView!
+    
     var noSubmissionLabel = UILabel()
+    
+    var mCurrentQuestionDetails:AnyObject!
    
     
     override init(frame: CGRect)
@@ -80,21 +84,67 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate
         noSubmissionLabel.hidden = true
         mMRQSubmissionView.hidden = false
         
+        mCurrentQuestionDetails = details
+        
     }
     
     func addMTCQuestionWithDetails(details:AnyObject)
     {
-        
+        if mMTCSubmissionView == nil
+        {
+            mMTCSubmissionView = SubmissionMTCView()
+            mMTCSubmissionView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)
+            self.addSubview(mMTCSubmissionView)
+            mMTCSubmissionView.setdelegate(self)
+        }
+        mMTCSubmissionView.addGraphViewforWithQuestionDetails(details)
+        noSubmissionLabel.hidden = true
+        mMTCSubmissionView.hidden = false
+         mCurrentQuestionDetails = details
     }
     
     
     
     func studentAnswerRecievedWIthDetails(details:AnyObject)
     {
-        if mMRQSubmissionView !=  nil
+        
+        
+        
+        
+        if let questionType = mCurrentQuestionDetails.objectForKey("Type") as? String
         {
-            mMRQSubmissionView.didgetStudentsAnswerWithDetails(details)
+            
+            if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
+            {
+                
+            }
+            else if (questionType == kText)
+            {
+                
+            }
+            else if (questionType == kMatchColumn)
+            {
+                if mMTCSubmissionView !=  nil
+                {
+                    mMTCSubmissionView.didgetStudentsAnswerWithDetails(details)
+                }
+            }
+            else
+            {
+                if mMRQSubmissionView !=  nil
+                {
+                    mMRQSubmissionView.didgetStudentsAnswerWithDetails(details)
+                }
+                
+            }
         }
+        
+        
+       
+        
+        
+        
+        
         
     }
     
@@ -104,6 +154,10 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate
         if mMRQSubmissionView != nil
         {
             mMRQSubmissionView.hidden = true
+        }
+        if mMTCSubmissionView != nil
+        {
+            mMTCSubmissionView.hidden = true
         }
         
     }

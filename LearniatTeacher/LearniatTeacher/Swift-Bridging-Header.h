@@ -17,4 +17,5 @@
 #import "FXLabel.h"
 #import "CustomProgressImageView.h"
 #import "YLProgressBar.h"
+#import "SSStarRatingView.h"
 #endif /* Swift_Bridging_Header_h */

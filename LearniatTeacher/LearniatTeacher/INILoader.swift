@@ -354,6 +354,7 @@ extension UIImageView
             pngPath = NSTemporaryDirectory().stringByAppendingString(kBadgesImage)
             break
         }
+        
         pngPath = pngPath.stringByAppendingString("/\(url.lastPathComponent ?? "")")
         var isDir :ObjCBool = false
         let exists :Bool = NSFileManager.defaultManager().fileExistsAtPath(pngPath, isDirectory: &isDir)
@@ -382,6 +383,79 @@ extension UIImageView
         
         
     }
+    
+    
+    func downloadImage(url: NSURL, withFolderType type:folderType, withResizeValue newSize:CGSize)
+    {
+        
+        
+        
+        
+        var pngPath = NSTemporaryDirectory().stringByAppendingString(kQuestionImage)
+        switch type
+        {
+        case .ProFilePics:
+            pngPath = NSTemporaryDirectory().stringByAppendingString(kProFIlePics)
+            break
+            
+        case .StudentAnswer:
+            pngPath = NSTemporaryDirectory().stringByAppendingString(kStudentAnswerImages)
+            break
+            
+        case .questionImage:
+            pngPath = NSTemporaryDirectory().stringByAppendingString(kQuestionImage)
+            break
+        case .badgesImages:
+            pngPath = NSTemporaryDirectory().stringByAppendingString(kBadgesImage)
+            break
+        }
+        pngPath = pngPath.stringByAppendingString("/\(url.lastPathComponent ?? "")")
+        var isDir :ObjCBool = false
+        let exists :Bool = NSFileManager.defaultManager().fileExistsAtPath(pngPath, isDirectory: &isDir)
+        if !exists
+        {
+            
+            getDataFromUrl(url) { (data, response, error)  in
+                dispatch_async(dispatch_get_main_queue())
+                    { () -> Void in
+                        guard let data = data where error == nil else { return }
+                        
+                        
+                       
+                        data.writeToFile(pngPath, atomically: true)
+                        
+                        self.image = self.resizeImage(UIImage(data: data)!, newSize: newSize)
+                        self.layer.masksToBounds = true
+                        
+                }
+            }
+        }
+        else
+        {
+            
+            self.image = self.resizeImage(UIImage(contentsOfFile: pngPath)!, newSize: newSize)
+            self.layer.masksToBounds = true
+        }
+        
+        
+        
+        
+    }
+    
+    func resizeImage(image: UIImage, newSize: CGSize) -> UIImage {
+        
+        UIGraphicsBeginImageContext(newSize)
+        
+        image.drawInRect(CGRectMake(0, 0, newSize.width, newSize.height))
+        
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        
+        return newImage
+    }
+
+    
 }
 
 // MARK: - UILabel Extension

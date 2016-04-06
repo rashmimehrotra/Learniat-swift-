@@ -26,7 +26,13 @@ let StudentPreAllocated         = "PreAllocated"
     optional func delegateStudentCellPressedWithViewAnswerOptions(answerOptions:NSMutableArray, withStudentId studentId:String)
     
     
+    optional func delegateStudentCellPressedWithViewSubjectiveAnswerDetails(details:AnyObject, withStudentId studentId:String)
+    
+    
     optional func delegateStudentAnswerDownloadedWithDetails(details:AnyObject)
+    
+    
+    
 }
 
 class StundentDeskView: UIView,SSTeacherDataSourceDelegate
@@ -71,6 +77,8 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     var answerContainerView = StudentAnswerOptionsView()
     
     var answerRecieved = false
+    
+    var _currentAnswerDetails :AnyObject!
     
     
     var _delgate: AnyObject!
@@ -339,7 +347,40 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         mQuestionStateImage.hidden = true
         mMiddleStudentName.hidden = true
         mStudentName.hidden = false
-        answerContainerView.addOptionsWithAnswerDetails(details, withQuestionDetails: _currentQuestionDetials)
+        _currentAnswerDetails = details
+        
+        if let questionType = _currentQuestionDetials.objectForKey("Type") as? String
+        {
+            
+            if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
+            {
+                
+                
+                if let ScribbleId = _currentQuestionDetials.objectForKey("Scribble") as? String{
+                    answerContainerView.addScribbleWithDetiails(details, withOverlayImage:ScribbleId)
+                }
+                else
+                {
+                    answerContainerView.addScribbleWithDetiails(details, withOverlayImage:"")
+                }
+                
+            }
+            else if (questionType == kText)
+            {
+                answerContainerView.addTextWithDetiails(details)
+            }
+            else if (questionType == kMatchColumn)
+            {
+                answerContainerView.addOptionsWithAnswerDetails(details, withQuestionDetails: _currentQuestionDetials)
+            }
+            else
+            {
+                answerContainerView.addOptionsWithAnswerDetails(details, withQuestionDetails: _currentQuestionDetials)
+                
+            }
+        }
+        
+        
         answerRecieved = true
         
         if delegate().respondsToSelector(Selector("delegateStudentAnswerDownloadedWithDetails:"))
@@ -355,9 +396,56 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         
         if answerRecieved == true
         {
-            if delegate().respondsToSelector(Selector("delegateStudentCellPressedWithViewAnswerOptions:withStudentId:"))
-            {
-                delegate().delegateStudentCellPressedWithViewAnswerOptions!(answerContainerView._studentFinalAnswerOptions,  withStudentId:(currentStudentsDict.objectForKey("StudentId") as? String)!)
+                            if let questionType = _currentQuestionDetials.objectForKey("Type") as? String
+                {
+                    
+                    if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
+                    {
+                        if delegate().respondsToSelector(Selector("delegateStudentCellPressedWithViewSubjectiveAnswerDetails:withStudentId:"))
+                        {
+                            
+                            delegate().delegateStudentCellPressedWithViewSubjectiveAnswerDetails!(_currentAnswerDetails,  withStudentId:(currentStudentsDict.objectForKey("StudentId") as? String)!)
+                            
+                        }
+                        
+                    }
+                    else if (questionType == kText)
+                    {
+                        
+                        if delegate().respondsToSelector(Selector("delegateStudentCellPressedWithViewSubjectiveAnswerDetails:withStudentId:"))
+                        {
+                            
+                             delegate().delegateStudentCellPressedWithViewSubjectiveAnswerDetails!(_currentAnswerDetails,  withStudentId:(currentStudentsDict.objectForKey("StudentId") as? String)!)
+                            
+                        }
+                        
+                        
+                      
+                    }
+                    else if (questionType == kMatchColumn)
+                    {
+                        if delegate().respondsToSelector(Selector("delegateStudentCellPressedWithViewAnswerOptions:withStudentId:"))
+                        {
+                            
+                            delegate().delegateStudentCellPressedWithViewAnswerOptions!(answerContainerView._studentFinalAnswerOptions,  withStudentId:(currentStudentsDict.objectForKey("StudentId") as? String)!)
+                            
+                        }
+                        
+                    }
+                    else
+                    {
+                        if delegate().respondsToSelector(Selector("delegateStudentCellPressedWithViewAnswerOptions:withStudentId:"))
+                        {
+                            
+                             delegate().delegateStudentCellPressedWithViewAnswerOptions!(answerContainerView._studentFinalAnswerOptions,  withStudentId:(currentStudentsDict.objectForKey("StudentId") as? String)!)
+
+                        }
+                        
+                        
+                    }
+                
+                
+               
                 
             }
         }

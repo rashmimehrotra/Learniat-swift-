@@ -461,7 +461,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
                     }
                     else if (questionType == kMatchColumn)
                     {
-                        
+                         mSubmissionView.addMTCQuestionWithDetails(currentQuestionDetails)
                     }
                     else
                     {
@@ -1069,7 +1069,31 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
 
         print(details)
         
-        mSubmissionView.studentAnswerRecievedWIthDetails(details)
+        
+        if let questionType = currentQuestionDetails.objectForKey("Type") as? String
+        {
+            
+            if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
+            {
+                
+            }
+            else if (questionType == kText)
+            {
+                
+            }
+            else if (questionType == kMatchColumn)
+            {
+                mSubmissionView.studentAnswerRecievedWIthDetails(details)
+            }
+            else
+            {
+              mSubmissionView.studentAnswerRecievedWIthDetails(details)
+                
+            }
+        }
+        
+        
+        
     }
     
     
@@ -1151,6 +1175,40 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     }
     
     
+    func delegateStudentCellPressedWithViewSubjectiveAnswerDetails(details: AnyObject, withStudentId studentId: String)
+    {
+        if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView
+        {
+            let buttonPosition :CGPoint = studentDeskView.convertPoint(CGPointZero, toView: self.view)
+            
+            if let questionType = currentQuestionDetails.objectForKey("Type") as? String
+            {
+                
+                if (questionType  == kOverlayScribble  || questionType == kFreshScribble || questionType == kText)
+                {
+                    let questionInfoController = StudentSubjectivePopover()
+                    questionInfoController.setdelegate(self)
+                    
+                   questionInfoController.setStudentAnswerDetails(details, withStudentDetials: studentDeskView.currentStudentsDict, withCurrentQuestionDict: currentQuestionDetails)
+                    
+                    let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                    
+                    classViewPopOverController.popoverContentSize = CGSizeMake(320,320);
+                    classViewPopOverController.delegate = self;
+                    
+                    classViewPopOverController.presentPopoverFromRect(CGRect(
+                        x:buttonPosition.x ,
+                        y:buttonPosition.y + studentDeskView.frame.size.height / 2,
+                        width: 1,
+                        height: 1), inView: self.view, permittedArrowDirections: .Right, animated: true)
+
+                }
+            }
+            
+        }
+    }
+    
+    
     // MARK: - Submission view delegate  functions
     func delegateGetaggregateWithOptionId(optionId: String, withView barButton: BarView) {
         
@@ -1162,9 +1220,14 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         questionInfoController.setdelegate(self)
         
         
+        if let questionType = currentQuestionDetails.objectForKey("Type") as? String
+        {
+            
+            questionInfoController.AggregateDrillDownWithOptionId(optionId, withQuestionDetails: currentQuestionDetails, withQuestionLogId: currentQuestionLogId,withQuestionTye:questionType )
+           
+        }
         
         
-        questionInfoController.AggregateDrillDownWithOptionId(optionId, withQuestionDetails: currentQuestionDetails, withQuestionLogId: currentQuestionLogId)
 
         questionInfoController.preferredContentSize = CGSizeMake(400,100)
         
