@@ -23,6 +23,11 @@ let kStudentPreAllocated     = 9
 let kStudentOccupied         = 10
 
 
+let kClassView              = "classView"
+let kSubmissionView         = "Submission"
+let kQueryView              = "Query"
+
+
 
 import Foundation
 class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeachermainTopicControllerDelegate,SSTeacherSubTopicControllerDelegate,SSTeacherDataSourceDelegate,SSTeacherQuestionControllerDelegate,SSTeacherMessagehandlerDelegate,SSTeacherLiveQuestionControllerDelegate,StundentDeskViewDelegate,SSTeacherSubmissionViewDelegate
@@ -98,8 +103,14 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     
     var currentStudentsDict                 = NSMutableDictionary()
     
+    var currentScreen                       = kClassView
     
-    var mActivityIndicatore          :UIActivityIndicatorView = UIActivityIndicatorView()
+    var mActivityIndicatore :UIActivityIndicatorView = UIActivityIndicatorView()
+    
+    var submissionNotificationLabel             = UILabel()
+    
+    
+    var newSubmissionRecieved               = NSMutableArray()
     
     override func viewDidLoad()
     {
@@ -142,6 +153,16 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         mQuestionViewButton.setTitle("Submission", forState: .Normal)
         mQuestionViewButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
         
+        submissionNotificationLabel.frame = CGRectMake(mQuestionViewButton.frame.origin.x + mQuestionViewButton.frame.size.width - 25 , mQuestionViewButton.frame.origin.y + 5 , 40, 30)
+        submissionNotificationLabel.backgroundColor = standard_Red
+        submissionNotificationLabel.textColor = UIColor.whiteColor()
+        mBottombarImageView.addSubview(submissionNotificationLabel)
+        submissionNotificationLabel.layer.cornerRadius = 11.0;
+        submissionNotificationLabel.layer.masksToBounds = true;
+        submissionNotificationLabel.text = "0"
+        submissionNotificationLabel.font = UIFont(name: helveticaBold, size: 20)
+        submissionNotificationLabel.textAlignment = .Center
+        
         
         
         
@@ -181,6 +202,14 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         mSubmissionView.userInteractionEnabled = true
         mSubmissionView.setdelegate(self)
         mSubmissionView.loadViewWithDetails()
+        
+        
+        
+        
+        
+        
+        
+        
         
         mQueryView.frame = CGRectMake(0, mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , self.view.frame.size.width , self.view.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + mBottombarImageView.frame.size.height ))
         self.view.addSubview(mQueryView)
@@ -380,7 +409,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     func onClassView()
     {
          tabPlaceHolderImage.frame = CGRectMake(mClassViewButton.frame.origin.x  , 5, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height - 10 )
-        
+        currentScreen  = kClassView
         
         mClassView.hidden      = false
         mSubmissionView.hidden = true
@@ -394,6 +423,17 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         mClassView.hidden      = true
         mSubmissionView.hidden = false
         mQueryView.hidden      = true
+        currentScreen  = kSubmissionView
+        
+        submissionNotificationLabel.hidden = true
+        
+        if newSubmissionRecieved.count > 0
+        {
+            SSTeacherMessageHandler.sharedMessageHandler.sendHandRaiseReceivedMessageToRoom(currentSessionId)
+            
+            newSubmissionRecieved.removeAllObjects()
+        }
+        
 
     }
     
@@ -404,6 +444,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         mClassView.hidden      = true
         mSubmissionView.hidden = true
         mQueryView.hidden      = false
+        currentScreen  = kQueryView
     }
     
     
@@ -422,6 +463,11 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     
     func didGetSeatAssignmentWithDetails(details: AnyObject)
     {
+        
+        
+    }
+    func didGetStudentsInfoWithDetails(details: AnyObject) {
+        print(details)
         
         arranageSeatsWithDetails(details)
     }
@@ -453,11 +499,11 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
                     
                     if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
                     {
-                       
+                       mSubmissionView.addScribbleQuestionWithDetails(currentQuestionDetails)
                     }
                     else if (questionType == kText)
                     {
-                        
+                         mSubmissionView.addScribbleQuestionWithDetails(currentQuestionDetails)
                     }
                     else if (questionType == kMatchColumn)
                     {
@@ -570,7 +616,8 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         }
         
         
-        SSTeacherDataSource.sharedDataSource.getSeatAssignmentofSession(currentSessionId, withDelegate: self)
+        SSTeacherDataSource.sharedDataSource.getStudentsInfoWithSessionId(currentSessionId, withDelegate: self)
+       
 
     }
     
@@ -768,6 +815,8 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
              mSubTopicsNamelabel.text = "\(mainTopicName) / \(subTopicName)"
             
             SSTeacherMessageHandler.sharedMessageHandler.sendAllowVotingToRoom(currentSessionId, withValue: "TRUE", withSubTopicName: mSubTopicsNamelabel.text!, withSubtopicID: subTopicId)
+            
+            
             
             
             
@@ -1065,31 +1114,44 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     
     // MARK: - DeskView delegate functions
     
-    func delegateStudentAnswerDownloadedWithDetails(details: AnyObject) {
-
+    func delegateStudentAnswerDownloadedWithDetails(details: AnyObject, withStudentDict studentDict: AnyObject)
+    {
+        
         print(details)
         
         
-        if let questionType = currentQuestionDetails.objectForKey("Type") as? String
+        if let _ = currentQuestionDetails.objectForKey("Type") as? String
         {
             
-            if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
+            if currentScreen != kSubmissionView
             {
+                newSubmissionRecieved.addObject(studentDict.objectForKey("StudentId") as! String)
                 
-            }
-            else if (questionType == kText)
-            {
+                submissionNotificationLabel.hidden = false
                 
+                submissionNotificationLabel.text = "\(newSubmissionRecieved.count)"
             }
-            else if (questionType == kMatchColumn)
-            {
-                mSubmissionView.studentAnswerRecievedWIthDetails(details)
-            }
-            else
-            {
-              mSubmissionView.studentAnswerRecievedWIthDetails(details)
-                
-            }
+            
+            
+            mSubmissionView.studentAnswerRecievedWIthDetails(details, withStudentDict: studentDict)
+
+            //            if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
+//            {
+//                mSubmissionView.studentAnswerRecievedWIthDetails(details, withStudentDict: studentDict)
+//            }
+//            else if (questionType == kText)
+//            {
+//                
+//            }
+//            else if (questionType == kMatchColumn)
+//            {
+//                mSubmissionView.studentAnswerRecievedWIthDetails(details, withStudentDict: studentDict)
+//            }
+//            else
+//            {
+//              
+//                
+//            }
         }
         
         
@@ -1201,7 +1263,26 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
                         y:buttonPosition.y + studentDeskView.frame.size.height / 2,
                         width: 1,
                         height: 1), inView: self.view, permittedArrowDirections: .Right, animated: true)
-
+                    
+                    
+                    
+                    if newSubmissionRecieved.containsObject(studentId)
+                    {
+                        newSubmissionRecieved.removeObject(studentId)
+                        
+                         SSTeacherMessageHandler.sharedMessageHandler.sendHandRaiseReceivedMessageToStudentWithId(studentId)
+                        
+                        if newSubmissionRecieved.count > 0
+                        {
+                            submissionNotificationLabel.hidden = false
+                            
+                            submissionNotificationLabel.text = "\(newSubmissionRecieved.count)"
+                        }
+                        else
+                        {
+                            submissionNotificationLabel.hidden = true
+                        }
+                    }
                 }
             }
             

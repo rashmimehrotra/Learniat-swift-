@@ -18,4 +18,5 @@
 #import "CustomProgressImageView.h"
 #import "YLProgressBar.h"
 #import "SSStarRatingView.h"
+#import "SmoothLineView.h"
 #endif /* Swift_Bridging_Header_h */

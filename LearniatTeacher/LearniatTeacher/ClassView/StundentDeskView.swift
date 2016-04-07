@@ -29,7 +29,7 @@ let StudentPreAllocated         = "PreAllocated"
     optional func delegateStudentCellPressedWithViewSubjectiveAnswerDetails(details:AnyObject, withStudentId studentId:String)
     
     
-    optional func delegateStudentAnswerDownloadedWithDetails(details:AnyObject)
+    optional func delegateStudentAnswerDownloadedWithDetails(details:AnyObject, withStudentDict studentDict:AnyObject)
     
     
     
@@ -119,7 +119,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
 
     
         
-        refrenceDeskImageView.frame = CGRectMake((self.frame.size.width-deskSize)/2, (self.frame.size.height-deskSize)/2,deskSize/1.1,self.frame.size.height)
+        refrenceDeskImageView.frame = CGRectMake((self.frame.size.width-(deskSize/1.1))/2, (self.frame.size.height-deskSize)/2,deskSize/1.1,self.frame.size.height)
         self.addSubview(refrenceDeskImageView)
         refrenceDeskImageView.backgroundColor = UIColor.clearColor()
         cellWith = refrenceDeskImageView.frame.size.width
@@ -238,7 +238,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     {
         currentStudentsDict = details
         
-        if let StudentName = currentStudentsDict.objectForKey("StudentName") as? String
+        if let StudentName = currentStudentsDict.objectForKey("Name") as? String
         {
             mMiddleStudentName.text = StudentName
             mStudentName.text       = StudentName
@@ -383,9 +383,9 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         
         answerRecieved = true
         
-        if delegate().respondsToSelector(Selector("delegateStudentAnswerDownloadedWithDetails:"))
+        if delegate().respondsToSelector(Selector("delegateStudentAnswerDownloadedWithDetails:withStudentDict:"))
         {
-            delegate().delegateStudentAnswerDownloadedWithDetails!(details)
+            delegate().delegateStudentAnswerDownloadedWithDetails!(details, withStudentDict:currentStudentsDict)
             
         }
         

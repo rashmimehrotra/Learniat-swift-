@@ -24,6 +24,8 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate
     
     var mMTCSubmissionView : SubmissionMTCView!
     
+    var mScribbleSubmissionView : SubmissionSubjectiveView!
+    
     var noSubmissionLabel = UILabel()
     
     var mCurrentQuestionDetails:AnyObject!
@@ -105,7 +107,22 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate
     
     
     
-    func studentAnswerRecievedWIthDetails(details:AnyObject)
+    func addScribbleQuestionWithDetails(details:AnyObject)
+    {
+        if mScribbleSubmissionView == nil
+        {
+            mScribbleSubmissionView = SubmissionSubjectiveView(frame: CGRectMake(0, 0, self.frame.size.width, self.frame.size.height))
+            self.addSubview(mScribbleSubmissionView)
+            mScribbleSubmissionView.setdelegate(self)
+        }
+        noSubmissionLabel.hidden = true
+        mScribbleSubmissionView.hidden = false
+        mCurrentQuestionDetails = details
+    }
+    
+    
+    
+    func studentAnswerRecievedWIthDetails(details:AnyObject, withStudentDict studentdict:AnyObject)
     {
         
         
@@ -116,11 +133,11 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate
             
             if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
             {
-                
+                mScribbleSubmissionView.setStudentAnswerWithAnswer(details, withStudentDict: studentdict, withQuestionDict:mCurrentQuestionDetails)
             }
             else if (questionType == kText)
             {
-                
+                mScribbleSubmissionView.setStudentAnswerWithAnswer(details, withStudentDict: studentdict, withQuestionDict:mCurrentQuestionDetails)
             }
             else if (questionType == kMatchColumn)
             {
