@@ -115,8 +115,8 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate
             self.addSubview(mScribbleSubmissionView)
             mScribbleSubmissionView.setdelegate(self)
         }
-        noSubmissionLabel.hidden = true
-        mScribbleSubmissionView.hidden = false
+        noSubmissionLabel.hidden = false
+        mScribbleSubmissionView.hidden = true
         mCurrentQuestionDetails = details
     }
     
@@ -126,7 +126,7 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate
     {
         
         
-        
+        noSubmissionLabel.hidden = true
         
         if let questionType = mCurrentQuestionDetails.objectForKey("Type") as? String
         {
@@ -134,10 +134,12 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate
             if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
             {
                 mScribbleSubmissionView.setStudentAnswerWithAnswer(details, withStudentDict: studentdict, withQuestionDict:mCurrentQuestionDetails)
+                mScribbleSubmissionView.hidden = false
             }
             else if (questionType == kText)
             {
                 mScribbleSubmissionView.setStudentAnswerWithAnswer(details, withStudentDict: studentdict, withQuestionDict:mCurrentQuestionDetails)
+                mScribbleSubmissionView.hidden = false
             }
             else if (questionType == kMatchColumn)
             {
@@ -175,6 +177,13 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate
         if mMTCSubmissionView != nil
         {
             mMTCSubmissionView.hidden = true
+        }
+        
+        if mScribbleSubmissionView != nil
+        {
+            mScribbleSubmissionView.hidden = true
+            mScribbleSubmissionView.questionCleared()
+            
         }
         
     }

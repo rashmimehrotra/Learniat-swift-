@@ -19,4 +19,5 @@
 #import "YLProgressBar.h"
 #import "SSStarRatingView.h"
 #import "SmoothLineView.h"
+#import "RatingsPopOverViewController.h"
 #endif /* Swift_Bridging_Header_h */

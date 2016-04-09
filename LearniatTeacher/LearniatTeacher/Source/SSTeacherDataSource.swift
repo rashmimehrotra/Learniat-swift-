@@ -63,9 +63,11 @@ let kServiceBroadcastQuestion		=   "BroadcastQuestion"
 
 let kServiceClearQuestion           =   "ClearQuestion"
 
-let kServiceRetrieveStudentAnswer    =   "RetrieveStudentAnswer"
+let kServiceRetrieveStudentAnswer   =   "RetrieveStudentAnswer"
 
-let kServiceAgregateDrillDown        =    "RetrieveAggregateDrillDown"
+let kServiceAgregateDrillDown       =   "RetrieveAggregateDrillDown"
+
+let kServiceSendFeedback            =   "SendFeedback"
 
 
 @objc protocol SSTeacherDataSourceDelegate
@@ -108,6 +110,7 @@ let kServiceAgregateDrillDown        =    "RetrieveAggregateDrillDown"
     
     optional func didGetAgregateDrillDownWithDetails(details:AnyObject)
     
+    optional func didGetFeedbackSentWithDetails(details:AnyObject)
     
 }
 
@@ -398,6 +401,85 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         manager.downloadDataURL(urlString, withServiceName: kServiceAgregateDrillDown, withDelegate: self, withRequestType: eHTTPGetRequest)
     }
     
+    
+    
+    
+    func sendFeedbackToStudentWithDetails(details:AnyObject, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        setdelegate(delegate)
+        
+        let manager = APIManager()
+        
+        var assessmentId = ""
+        
+        var imageUrl = ""
+        
+        var ratings = ""
+        
+        var badgeId = ""
+        
+        var textRating = ""
+        
+        var studentId = ""
+        
+        var modelAnswerFalg = "0"
+        
+        print(details)
+        
+        
+        
+        if let  AssessmentAnswerId = details.objectForKey("AssessmentAnswerId") as? String
+        {
+            assessmentId  = AssessmentAnswerId
+        }
+        
+        if let  BadgeId = details.objectForKey("BadgeId") as? String
+        {
+            badgeId  = BadgeId
+        }
+        
+        if let  _ModelAnswerFlag = details.objectForKey("ModelAnswerFlag") as? Bool
+        {
+            if _ModelAnswerFlag == true
+            {
+                modelAnswerFalg = "1"
+            }
+            else
+            {
+                modelAnswerFalg = "0"
+            }
+            
+        }
+
+        if let  Rating = details.objectForKey("Rating") as? String
+        {
+            ratings  = Rating
+        }
+        
+        if let  StudentId = details.objectForKey("StudentId") as? String
+        {
+            studentId  = StudentId
+        }
+        
+        if let  _imageUrl = details.objectForKey("imageUrl") as? String
+        {
+            imageUrl  = _imageUrl
+        }
+        
+        if let  _textRating = details.objectForKey("textRating") as? String
+        {
+            textRating  = _textRating
+        }
+        
+        
+        
+        
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>SendFeedback</Service><AssessmentAnswerIdList>%@</AssessmentAnswerIdList><TeacherId>%@</TeacherId><URL>%@</URL><Rating>%@</Rating><TextRating>%@</TextRating><BadgeId>%@</BadgeId><StudentId>%@</StudentId><ModelAnswerFlag>%@</ModelAnswerFlag></Action></Sunstone>",URLPrefix,assessmentId,currentUserId,imageUrl,ratings,textRating,badgeId,studentId,modelAnswerFalg)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceSendFeedback, withDelegate: self, withRequestType: eHTTPGetRequest)
+    }
+    
     // MARK: - API Delegate Functions
     func delegateDidGetServiceResponseWithDetails( dict: NSMutableDictionary!, WIthServiceName serviceName: String!)
     {
@@ -530,6 +612,13 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
             if delegate().respondsToSelector(Selector("didGetAgregateDrillDownWithDetails:"))
             {
                 delegate().didGetAgregateDrillDownWithDetails!(refinedDetails)
+            }
+        }
+        else if serviceName == kServiceSendFeedback
+        {
+            if delegate().respondsToSelector(Selector("didGetFeedbackSentWithDetails:"))
+            {
+                delegate().didGetFeedbackSentWithDetails!(refinedDetails)
             }
         }
     

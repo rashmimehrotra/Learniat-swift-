@@ -97,6 +97,10 @@ class SubjectiveLeftSideView: UIView,SubjectiveStudentContainerDelegate
         let subjectiveCell = SubjectiveStudentContainer(frame: CGRectMake(0 ,currentPositionY,mScrollView.frame.size.width,mScrollView.frame.size.width))
         subjectiveCell.setdelegate(self)
         subjectiveCell.setStudentAnswerDetails(studentAnswer, withStudentDetails: studentDict,withOverlay:overlay)
+        if let studentId = studentDict.objectForKey("StudentId") as? NSString
+        {
+            subjectiveCell.tag = studentId.integerValue
+        }
         
         mScrollView.addSubview(subjectiveCell)
         
@@ -105,6 +109,8 @@ class SubjectiveLeftSideView: UIView,SubjectiveStudentContainerDelegate
         
         currentPositionY = currentPositionY + subjectiveCell.frame.size.height + 10
         totlStudentsCount = totlStudentsCount + 1
+        refreshScrollView()
+        
     }
     
      // MARK: - SubjectiveStudentContainer Delegate
@@ -159,6 +165,68 @@ class SubjectiveLeftSideView: UIView,SubjectiveStudentContainerDelegate
     }
     
     
+    func clearedQuestion()
+    {
+        let subViews = mScrollView.subviews
+        currentPositionY = 10
+        selectedStudentsArray.removeAllObjects()
+         selectAllImageview.image = UIImage(named: "Unchecked.png")
+        for subview in subViews
+        {
+            subview.removeFromSuperview()
+        }
+    }
     
+    func feedbackSentToStudentsWithStudentsId(studentId:String)
+    {
+        if selectedStudentsArray.containsObject(studentId)
+        {
+            selectedStudentsArray.removeObject(studentId)
+        }
+        
+        if let studentDeskView  = mScrollView.viewWithTag(Int(studentId)!) as? SubjectiveStudentContainer
+        {
+            studentDeskView.removeFromSuperview()
+        }
+        
+        refreshScrollView()
+        
+
+    }
+    
+    
+    
+    func refreshScrollView()
+    {
+        
+        
+        currentPositionY = 10
+        
+        let subViews = mScrollView.subviews
+        for subjectiveCell in subViews
+        {
+            if subjectiveCell.isKindOfClass(SubjectiveStudentContainer)
+            {
+                subjectiveCell.frame = CGRectMake(subjectiveCell.frame.origin.x ,currentPositionY,mScrollView.frame.size.width,mScrollView.frame.size.width)
+                
+                currentPositionY = currentPositionY + subjectiveCell.frame.size.height + 10
+            }
+        }
+        
+        
+        if selectedStudentsArray.count <= 0
+        {
+            selectAllImageview.image = UIImage(named: "Unchecked.png")
+        }
+        else if totlStudentsCount > selectedStudentsArray.count
+        {
+            selectAllImageview.image = UIImage(named: "halfChecked.png")
+        }
+        else
+        {
+            selectAllImageview.image = UIImage(named: "Checked.png")
+        }
+        
+    }
     
 }

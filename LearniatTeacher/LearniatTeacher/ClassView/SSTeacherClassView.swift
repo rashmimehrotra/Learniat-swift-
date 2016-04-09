@@ -467,7 +467,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         
     }
     func didGetStudentsInfoWithDetails(details: AnyObject) {
-        print(details)
         
         arranageSeatsWithDetails(details)
     }
@@ -476,7 +475,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     func didGetSubtopicStartedWithDetails(details: AnyObject)
     {
         
-        print(details)
     }
     
     func didGetQuestionSentWithDetails(details: AnyObject) {
@@ -1102,7 +1100,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         {
             if currentQuestionDetails != nil
              {
-                print(currentQuestionDetails)
                 studentDeskView.studentSentAnswerWithAnswerString(answerStrin,withQuestionDetails: currentQuestionDetails)
                 
             }
@@ -1117,7 +1114,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     func delegateStudentAnswerDownloadedWithDetails(details: AnyObject, withStudentDict studentDict: AnyObject)
     {
         
-        print(details)
+        
         
         
         if let _ = currentQuestionDetails.objectForKey("Type") as? String

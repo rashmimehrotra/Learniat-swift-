@@ -335,6 +335,36 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
     }
     
     
+    
+    func sendFeedbackToStudentWitId( studentId :String , withassesmentAnswerId assesmentAnswerId:String)
+    {
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
+        {
+            let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
+            let msgType             = kSendFeedBack
+            
+            
+            let messageBody = ["AssesmentAnswerId":assesmentAnswerId]
+            
+            
+            
+            let details:NSMutableDictionary = ["From":userId,
+                "To":studentId,
+                "Type":msgType,
+                "Body":messageBody];
+            
+            
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendMessageTo("\(studentId)@\(kBaseXMPPURL)", withContents: xmlBody)
+        }
+    }
+    
+    
     //MARK: Group   Messages
     func sendExtendedTimetoRoom(var roomId:String, withClassName className:String, withStartTime StartTime:String, withDelayTime timeDelay:String)
     {
