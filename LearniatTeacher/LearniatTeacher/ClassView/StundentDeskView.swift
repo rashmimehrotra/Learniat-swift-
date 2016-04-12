@@ -78,8 +78,12 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     
     var answerRecieved = false
     
+    var mQueryTextLable              = UILabel()
+    
     var _currentAnswerDetails :AnyObject!
     
+    
+    var isQueryPresent              = false
     
     var _delgate: AnyObject!
     
@@ -154,9 +158,36 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         
         mDeskFrame = answerDeskImageView.frame
         
+        
+        
+        
         answerContainerView.frame = mDeskFrame
         refrenceDeskImageView.addSubview(answerContainerView)
         answerContainerView.backgroundColor = UIColor.clearColor()
+        
+        
+        
+        
+        
+        
+        mQueryTextLable = UILabel(frame: mDeskFrame)
+        refrenceDeskImageView.addSubview(mQueryTextLable)
+        
+        var fontHeight = mQueryTextLable.frame.size.height/3;
+        
+        if (fontHeight > 16)
+        {
+            fontHeight = 16;
+        }
+        
+        mQueryTextLable.font = UIFont(name: helveticaRegular, size: fontHeight)
+        mQueryTextLable.textColor = blackTextColor
+        mQueryTextLable.lineBreakMode = .ByTruncatingMiddle
+        mQueryTextLable.numberOfLines = 10
+        mQueryTextLable.textAlignment = .Center
+        mQueryTextLable.hidden = true
+        
+        
         
         mStudentName.frame = CGRectMake(answerDeskImageView.frame.origin.x,answerDeskImageView.frame.size.height+answerDeskImageView.frame.origin.y, answerDeskImageView.frame.size.width, refrenceDeskImageView.frame.size.height-(answerDeskImageView.frame.origin.y+answerDeskImageView.frame.size.height));
         mStudentName.textAlignment = .Center;
@@ -167,7 +198,8 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         mStudentName.textAlignment = .Center;
         mStudentName.contentMode = .Top;
         mStudentName.hidden = true
-        var fontHeight = mStudentName.frame.size.height/1.3;
+        
+        fontHeight = mStudentName.frame.size.height/1.3;
         if (fontHeight>16)
         {
             fontHeight = 16;
@@ -348,6 +380,17 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         mMiddleStudentName.hidden = true
         mStudentName.hidden = false
         _currentAnswerDetails = details
+        mQueryTextLable.hidden = true
+        
+        answerContainerView.hidden = false
+        
+        if isQueryPresent == true
+        {
+            mQuestionStateImage.hidden = false
+            mQuestionStateImage.image = UIImage(named: "Query.png")
+            mQueryTextLable.hidden = true
+            
+        }
         
         if let questionType = _currentQuestionDetials.objectForKey("Type") as? String
         {
@@ -461,8 +504,73 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
             subview.removeFromSuperview()
         }
         
-        mStudentName.hidden = true
-        mMiddleStudentName.hidden = false
+        answerRecieved = false
+        
+        if isQueryPresent == true
+        {
+            mQuestionStateImage.hidden = true
+            mQueryTextLable.hidden = false
+            
+            mStudentName.hidden = false
+            mMiddleStudentName.hidden = true
+
+        }
+        else
+        {
+            mStudentName.hidden = true
+            mMiddleStudentName.hidden = false
+
+        }
+        
+        answerContainerView.hidden = true
+               
+    }
+    
+    
+    
+    
+    
+    func setQueryDetails(queryDetails:AnyObject)
+    {
+         isQueryPresent = true
+        
+        if answerRecieved == true
+        {
+            mQuestionStateImage.hidden = false
+            mQueryTextLable.hidden = true
+           
+        }
+        else
+        {
+            mQuestionStateImage.hidden = true
+            mQueryTextLable.hidden = false
+            
+            mStudentName.hidden = false
+            mMiddleStudentName.hidden = true
+
+
+            
+        }
+        
+        if let QueryText = queryDetails.objectForKey("QueryText") as? String
+        {
+            mQueryTextLable.text = QueryText
+           
+        }
+        
+    }
+    
+    func queryDismissed()
+    {
+        mQuestionStateImage.hidden = true
+        mQueryTextLable.hidden = true
+        isQueryPresent = false
+        
+        if answerRecieved == false
+        {
+            mStudentName.hidden = true
+            mMiddleStudentName.hidden = false
+        }
         
     }
 

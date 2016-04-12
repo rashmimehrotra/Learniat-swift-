@@ -78,7 +78,6 @@ CGFloat RadiansToDegrees(CGFloat radians) {return radians * 180/M_PI;};
     newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    if(newImage == nil) ;
     
     
     return newImage ;

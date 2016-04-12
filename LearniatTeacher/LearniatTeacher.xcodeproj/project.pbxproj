@@ -321,6 +321,12 @@
 		5377E43A1CAB951800A11E59 /* MatchColumnOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5377E4391CAB951800A11E59 /* MatchColumnOption.swift */; };
 		5377E43C1CAB9B6600A11E59 /* MatchColumnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5377E43B1CAB9B6600A11E59 /* MatchColumnCell.swift */; };
 		5377E4401CABB9D500A11E59 /* SubtopicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5377E43F1CABB9D500A11E59 /* SubtopicController.swift */; };
+		53909C671CBB58FF00E8A1C0 /* QuerySubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53909C661CBB58FF00E8A1C0 /* QuerySubview.swift */; };
+		53909C6D1CBB73E500E8A1C0 /* Dismissed.png in Resources */ = {isa = PBXBuildFile; fileRef = 53909C691CBB73E500E8A1C0 /* Dismissed.png */; };
+		53909C6E1CBB73E500E8A1C0 /* Mute_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 53909C6A1CBB73E500E8A1C0 /* Mute_gray.png */; };
+		53909C6F1CBB73E500E8A1C0 /* Mute_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 53909C6B1CBB73E500E8A1C0 /* Mute_red.png */; };
+		53909C701CBB73E500E8A1C0 /* Thumbs_Up.png in Resources */ = {isa = PBXBuildFile; fileRef = 53909C6C1CBB73E500E8A1C0 /* Thumbs_Up.png */; };
+		53909C721CBBAA6F00E8A1C0 /* Query.png in Resources */ = {isa = PBXBuildFile; fileRef = 53909C711CBBAA6F00E8A1C0 /* Query.png */; };
 		539567221CB4C763009B0100 /* SubmissionMTCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539567211CB4C763009B0100 /* SubmissionMTCView.swift */; };
 		539567241CB4EA59009B0100 /* MTCAggregateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539567231CB4EA59009B0100 /* MTCAggregateView.swift */; };
 		539567261CB52082009B0100 /* StudentSubjectivePopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539567251CB52082009B0100 /* StudentSubjectivePopover.swift */; };
@@ -335,7 +341,6 @@
 		53CA5A221CB230BB008C42B0 /* MRQAggregateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CA5A211CB230BB008C42B0 /* MRQAggregateView.swift */; };
 		53CA5A241CB2337D008C42B0 /* AggregateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CA5A231CB2337D008C42B0 /* AggregateCell.swift */; };
 		53CA5A281CB23568008C42B0 /* YLProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 53CA5A271CB23568008C42B0 /* YLProgressBar.m */; };
-		53E5BBAA1CAE3B7D00358ED8 /* Query.png in Resources */ = {isa = PBXBuildFile; fileRef = 53E5BBA71CAE3B7D00358ED8 /* Query.png */; };
 		53E5BBAB1CAE3B7D00358ED8 /* StudentThinking.png in Resources */ = {isa = PBXBuildFile; fileRef = 53E5BBA81CAE3B7D00358ED8 /* StudentThinking.png */; };
 		53E5BBAC1CAE3B7D00358ED8 /* StudentWriting.png in Resources */ = {isa = PBXBuildFile; fileRef = 53E5BBA91CAE3B7D00358ED8 /* StudentWriting.png */; };
 		53E5BBAE1CAE80F400358ED8 /* StudentAnswerOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E5BBAD1CAE80F400358ED8 /* StudentAnswerOptionsView.swift */; };
@@ -832,6 +837,12 @@
 		5377E4391CAB951800A11E59 /* MatchColumnOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchColumnOption.swift; sourceTree = "<group>"; };
 		5377E43B1CAB9B6600A11E59 /* MatchColumnCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchColumnCell.swift; sourceTree = "<group>"; };
 		5377E43F1CABB9D500A11E59 /* SubtopicController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubtopicController.swift; sourceTree = "<group>"; };
+		53909C661CBB58FF00E8A1C0 /* QuerySubview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuerySubview.swift; sourceTree = "<group>"; };
+		53909C691CBB73E500E8A1C0 /* Dismissed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dismissed.png; sourceTree = "<group>"; };
+		53909C6A1CBB73E500E8A1C0 /* Mute_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mute_gray.png; sourceTree = "<group>"; };
+		53909C6B1CBB73E500E8A1C0 /* Mute_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mute_red.png; sourceTree = "<group>"; };
+		53909C6C1CBB73E500E8A1C0 /* Thumbs_Up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Thumbs_Up.png; sourceTree = "<group>"; };
+		53909C711CBBAA6F00E8A1C0 /* Query.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Query.png; sourceTree = "<group>"; };
 		539567211CB4C763009B0100 /* SubmissionMTCView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionMTCView.swift; sourceTree = "<group>"; };
 		539567231CB4EA59009B0100 /* MTCAggregateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTCAggregateView.swift; sourceTree = "<group>"; };
 		539567251CB52082009B0100 /* StudentSubjectivePopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentSubjectivePopover.swift; sourceTree = "<group>"; };
@@ -849,7 +860,6 @@
 		53CA5A231CB2337D008C42B0 /* AggregateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AggregateCell.swift; sourceTree = "<group>"; };
 		53CA5A261CB23568008C42B0 /* YLProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLProgressBar.h; sourceTree = "<group>"; };
 		53CA5A271CB23568008C42B0 /* YLProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLProgressBar.m; sourceTree = "<group>"; };
-		53E5BBA71CAE3B7D00358ED8 /* Query.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Query.png; sourceTree = "<group>"; };
 		53E5BBA81CAE3B7D00358ED8 /* StudentThinking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StudentThinking.png; sourceTree = "<group>"; };
 		53E5BBA91CAE3B7D00358ED8 /* StudentWriting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StudentWriting.png; sourceTree = "<group>"; };
 		53E5BBAD1CAE80F400358ED8 /* StudentAnswerOptionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerOptionsView.swift; sourceTree = "<group>"; };
@@ -884,6 +894,7 @@
 		531044831CA64296007AE9D5 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				53909C681CBB73E500E8A1C0 /* QueryScreen */,
 				53B590161CB8E02900A69FC1 /* Cb_Like_Disabled.png */,
 				53B590171CB8E02900A69FC1 /* Cb_Like_Enabled.png */,
 				53B590181CB8E02900A69FC1 /* Cb_Unlike_Disabled.png */,
@@ -893,7 +904,6 @@
 				537301CE1CB6771200E76753 /* ScribbleView */,
 				537301121CB636AA00E76753 /* desk.png */,
 				537301131CB636AA00E76753 /* desk@2x.png */,
-				53E5BBA71CAE3B7D00358ED8 /* Query.png */,
 				53E5BBA81CAE3B7D00358ED8 /* StudentThinking.png */,
 				53E5BBA91CAE3B7D00358ED8 /* StudentWriting.png */,
 				5377E4351CAB8F1400A11E59 /* Check.png */,
@@ -2162,6 +2172,18 @@
 			path = AnnotateView;
 			sourceTree = "<group>";
 		};
+		53909C681CBB73E500E8A1C0 /* QueryScreen */ = {
+			isa = PBXGroup;
+			children = (
+				53909C711CBBAA6F00E8A1C0 /* Query.png */,
+				53909C691CBB73E500E8A1C0 /* Dismissed.png */,
+				53909C6A1CBB73E500E8A1C0 /* Mute_gray.png */,
+				53909C6B1CBB73E500E8A1C0 /* Mute_red.png */,
+				53909C6C1CBB73E500E8A1C0 /* Thumbs_Up.png */,
+			);
+			path = QueryScreen;
+			sourceTree = "<group>";
+		};
 		539567271CB5281E009B0100 /* StarRatingsView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2184,6 +2206,7 @@
 			isa = PBXGroup;
 			children = (
 				53FC04381CAF8CBC00D7B941 /* SSTeacherQueryView.swift */,
+				53909C661CBB58FF00E8A1C0 /* QuerySubview.swift */,
 			);
 			path = QueryView;
 			sourceTree = "<group>";
@@ -2289,8 +2312,10 @@
 				5326078D1CA90AEC002FF684 /* indicator11.png in Resources */,
 				531044A21CA64296007AE9D5 /* 40.png in Resources */,
 				53676C9B1CA63B7F00CADE4D /* noInternetIcon.png in Resources */,
+				53909C6E1CBB73E500E8A1C0 /* Mute_gray.png in Resources */,
 				5326078E1CA90AEC002FF684 /* indicator12.png in Resources */,
 				53676C981CA63B7F00CADE4D /* NoInternet.xib in Resources */,
+				53909C721CBBAA6F00E8A1C0 /* Query.png in Resources */,
 				537302461CB6771200E76753 /* halfChecked.png in Resources */,
 				531044A51CA64296007AE9D5 /* 70.png in Resources */,
 				531044A61CA64296007AE9D5 /* 80.png in Resources */,
@@ -2323,12 +2348,14 @@
 				531044A41CA64296007AE9D5 /* 60.png in Resources */,
 				537302331CB6771200E76753 /* Tab_bar_Divider_AnnotateView@2x.png in Resources */,
 				531044AC1CA66C89007AE9D5 /* lowParticipartion.png in Resources */,
+				53909C6F1CBB73E500E8A1C0 /* Mute_red.png in Resources */,
 				537302361CB6771200E76753 /* Text_Unselected_AnnotateView.png in Resources */,
 				5377E4381CAB8F1400A11E59 /* X.png in Resources */,
 				537302321CB6771200E76753 /* Tab_bar_Divider_AnnotateView.png in Resources */,
 				537302481CB6771200E76753 /* Mark_Model_Not_Selected@2x.png in Resources */,
 				5373024C1CB6771200E76753 /* Marker_Selected@2x.png in Resources */,
 				5373024B1CB6771200E76753 /* Marker_Selected.png in Resources */,
+				53909C6D1CBB73E500E8A1C0 /* Dismissed.png in Resources */,
 				5373023A1CB6771200E76753 /* Top_bar_Divider_AnnotateView.png in Resources */,
 				5377E4371CAB8F1400A11E59 /* Check.png in Resources */,
 				5373022B1CB6771200E76753 /* Redo_Disabled_AnnotateView@2x.png in Resources */,
@@ -2349,8 +2376,8 @@
 				5310449A1CA64296007AE9D5 /* infoButton.png in Resources */,
 				5373023B1CB6771200E76753 /* Top_bar_Divider_AnnotateView@2x.png in Resources */,
 				532607961CA90AEC002FF684 /* indicator9.png in Resources */,
-				53E5BBAA1CAE3B7D00358ED8 /* Query.png in Resources */,
 				531044A01CA64296007AE9D5 /* 20.png in Resources */,
+				53909C701CBB73E500E8A1C0 /* Thumbs_Up.png in Resources */,
 				5373021F1CB6771200E76753 /* Eraser_Unselected_AnnotateView@2x.png in Resources */,
 				537302501CB6771200E76753 /* Rate_Type_Arrow_Icon@2x.png in Resources */,
 				5373021A1CB6771200E76753 /* Dark_Blue_Circle@2x.png in Resources */,
@@ -2476,6 +2503,7 @@
 				53676D301CA63B7F00CADE4D /* CurrentTimeLineView.swift in Sources */,
 				53676CB01CA63B7F00CADE4D /* XMPPJID.m in Sources */,
 				53676CCA1CA63B7F00CADE4D /* XMPPPrivacy.m in Sources */,
+				53909C671CBB58FF00E8A1C0 /* QuerySubview.swift in Sources */,
 				53CA5A221CB230BB008C42B0 /* MRQAggregateView.swift in Sources */,
 				537301071CB618D200E76753 /* SubmissionSubjectiveView.swift in Sources */,
 				53676C951CA63B7F00CADE4D /* AppDelegate.swift in Sources */,

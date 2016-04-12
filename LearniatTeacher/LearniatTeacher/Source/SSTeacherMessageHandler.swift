@@ -50,6 +50,7 @@ let kCollaborationPing              = "713"
 let kCollaborationOption            = "714"
 let kCloseCollaboration             = "715"
 let kModelAnswerDetails             = "179"
+let kMuteStudent                    = "712"
 
 
 
@@ -74,6 +75,9 @@ import Foundation
     optional  func smhDidgetStudentQuestionAccepetedMessageWithStudentId(StudentId: String)
     
     optional  func smhDidgetStudentAnswerMessageWithStudentId(StudentId: String, withAnswerString answerStrin:String)
+    
+    
+    optional func smhDidgetStudentQueryWithDetails(queryId:String)
     
 }
 
@@ -365,6 +369,65 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
     }
     
     
+    
+    
+    func sendQueryFeedbackToStudentWitId(studentId :String , withQueryId QueryId:String)
+    {
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
+        {
+            let userId    = SSTeacherDataSource.sharedDataSource.currentUserId
+            let msgType   = kReplyToQuery
+            
+            
+            let messageBody = ["QueryId":QueryId]
+            
+            
+            
+            let details:NSMutableDictionary = ["From":userId,
+                "To":studentId,
+                "Type":msgType,
+                "Body":messageBody];
+            
+            
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendMessageTo("\(studentId)@\(kBaseXMPPURL)", withContents: xmlBody)
+        }
+    }
+    
+    
+    func sendMuteMessageToStudentWithStudentId(studentId :String , withStatus Status:String)
+    {
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
+        {
+            let userId    = SSTeacherDataSource.sharedDataSource.currentUserId
+            let msgType   = kMuteStudent
+            
+            
+            let messageBody = ["MUTESTATUS":Status]
+            
+            
+            
+            let details:NSMutableDictionary = ["From":userId,
+                "To":studentId,
+                "Type":msgType,
+                "Body":messageBody];
+            
+            
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendMessageTo("\(studentId)@\(kBaseXMPPURL)", withContents: xmlBody)
+        }
+    }
+    
     //MARK: Group   Messages
     func sendExtendedTimetoRoom(var roomId:String, withClassName className:String, withStartTime StartTime:String, withDelayTime timeDelay:String)
     {
@@ -520,6 +583,35 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
         }
     }
     
+    
+    
+    func sendQueryRecievedMessageToRoom(var roomId :String)
+    {
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
+        {
+            
+            
+            roomId = "room_\(roomId)@conference.\(kBaseXMPPURL)";
+            
+            let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
+            let msgType             = kTeacherReviewDoubt
+            
+            
+            let details:NSMutableDictionary = ["From":userId,
+                "To":roomId,
+                "Type":msgType];
+            
+            
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendGroupMessageWithBody(xmlBody, withRoomId: roomId)
+        }
+    }
+    
     //MARK: Recieve Message
     public func didReceiveMessageWithBody(body: String!)
     {
@@ -578,6 +670,19 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
             }
             break
             
+            
+            
+        case kStudentDoubtSubmission:
+            
+            if delegate().respondsToSelector(Selector("smhDidgetStudentQueryWithDetails:"))
+            {
+                
+                if message.messageBody() != nil
+                {
+                    delegate().smhDidgetStudentQueryWithDetails!(message.messageBody() as! String)
+                }
+            }
+            break
             
             
         default:

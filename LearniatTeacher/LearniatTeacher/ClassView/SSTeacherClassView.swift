@@ -30,7 +30,7 @@ let kQueryView              = "Query"
 
 
 import Foundation
-class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeachermainTopicControllerDelegate,SSTeacherSubTopicControllerDelegate,SSTeacherDataSourceDelegate,SSTeacherQuestionControllerDelegate,SSTeacherMessagehandlerDelegate,SSTeacherLiveQuestionControllerDelegate,StundentDeskViewDelegate,SSTeacherSubmissionViewDelegate
+class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeachermainTopicControllerDelegate,SSTeacherSubTopicControllerDelegate,SSTeacherDataSourceDelegate,SSTeacherQuestionControllerDelegate,SSTeacherMessagehandlerDelegate,SSTeacherLiveQuestionControllerDelegate,StundentDeskViewDelegate,SSTeacherSubmissionViewDelegate,SSTeacherQueryViewDelegate
 {
    
     
@@ -110,7 +110,12 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     var submissionNotificationLabel             = UILabel()
     
     
+    var queryNotificationLabel                  = UILabel()
+    
     var newSubmissionRecieved               = NSMutableArray()
+    
+    var newQueryRecieved                    = NSMutableArray()
+    
     
     override func viewDidLoad()
     {
@@ -186,6 +191,24 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         mQueryViewButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
         
         
+        
+        
+        
+        
+        queryNotificationLabel.frame = CGRectMake(mQueryViewButton.frame.origin.x + mQueryViewButton.frame.size.width - 25 , mQueryViewButton.frame.origin.y + 5 , 40, 30)
+        queryNotificationLabel.backgroundColor = standard_Red
+        queryNotificationLabel.textColor = UIColor.whiteColor()
+        mBottombarImageView.addSubview(queryNotificationLabel)
+        queryNotificationLabel.layer.cornerRadius = 11.0;
+        queryNotificationLabel.layer.masksToBounds = true;
+        queryNotificationLabel.text = "0"
+        queryNotificationLabel.font = UIFont(name: helveticaBold, size: 20)
+        queryNotificationLabel.textAlignment = .Center
+        
+        
+        
+        
+        
         mClassView.frame = CGRectMake(0, mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , self.view.frame.size.width , self.view.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + mBottombarImageView.frame.size.height ))
         self.view.addSubview(mClassView)
         mClassView.backgroundColor = whiteBackgroundColor
@@ -216,6 +239,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         mQueryView.backgroundColor = whiteBackgroundColor
         mQueryView.hidden = true
         mQueryView.userInteractionEnabled = true
+        mQueryView.setdelegate(self)
 
         
         
@@ -445,6 +469,16 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         mSubmissionView.hidden = true
         mQueryView.hidden      = false
         currentScreen  = kQueryView
+        
+        queryNotificationLabel.hidden = true
+        if newQueryRecieved.count > 0
+        {
+            SSTeacherMessageHandler.sharedMessageHandler.sendQueryRecievedMessageToRoom(currentSessionId)
+            
+            newQueryRecieved.removeAllObjects()
+        }
+        
+        
     }
     
     
@@ -955,6 +989,13 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         }
         
         
+        newSubmissionRecieved.removeAllObjects()
+        
+        submissionNotificationLabel.hidden = true
+        
+
+        
+        
         
         if (classViewPopOverController.popoverVisible == true)
         {
@@ -969,6 +1010,11 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
                 
             }
             cumulativeTimer.invalidate()
+            
+            
+            
+            
+            
             
         }
         
@@ -1107,6 +1153,12 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
             
         }
         
+    }
+    
+    
+    func smhDidgetStudentQueryWithDetails(queryId: String) {
+        
+        mQueryView.addQueryWithDetails(queryId)
     }
     
     // MARK: - DeskView delegate functions
@@ -1325,6 +1377,45 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     }
     
     
+    
+    // MARK: - Query view delegate  functions
+    
+    func delegateQueryDownloadedWithDetails(queryDetails: AnyObject)
+    {
+        if let StudentId = queryDetails.objectForKey("StudentId") as? String
+        {
+            if let studentDeskView  = mClassView.viewWithTag(Int(StudentId)!) as? StundentDeskView
+            {
+               studentDeskView.setQueryDetails(queryDetails)
+                 newQueryRecieved.addObject(StudentId)
+                
+                
+                if currentScreen != kQueryView
+                {
+                    
+                    queryNotificationLabel.hidden = false
+                    
+                    queryNotificationLabel.text = "\(newQueryRecieved.count)"
+                }
+                
+            }
+        }
+        
+    }
+    
+    
+    func delegateQueryDeletedWithDetails(queryDetails: AnyObject) {
+        
+        if let StudentId = queryDetails.objectForKey("StudentId") as? String
+        {
+            if let studentDeskView  = mClassView.viewWithTag(Int(StudentId)!) as? StundentDeskView
+            {
+                newQueryRecieved.removeObject(StudentId)
+                studentDeskView.queryDismissed()
+                
+            }
+        }
+    }
     
     
     // MARK: - Extra functions

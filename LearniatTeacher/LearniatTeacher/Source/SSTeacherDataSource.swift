@@ -69,6 +69,10 @@ let kServiceAgregateDrillDown       =   "RetrieveAggregateDrillDown"
 
 let kServiceSendFeedback            =   "SendFeedback"
 
+let kServiceGetDoubt                =   "GetDoubts"
+
+let kServiceReplyToQuery            =   "ReplyToQuery"
+
 
 @objc protocol SSTeacherDataSourceDelegate
 {
@@ -112,6 +116,9 @@ let kServiceSendFeedback            =   "SendFeedback"
     
     optional func didGetFeedbackSentWithDetails(details:AnyObject)
     
+    optional func didGetQueryWithDetails(details:AnyObject)
+    
+    optional func didGetQueryRespondedWithDetails(details:AnyObject)
 }
 
 
@@ -480,6 +487,88 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         manager.downloadDataURL(urlString, withServiceName: kServiceSendFeedback, withDelegate: self, withRequestType: eHTTPGetRequest)
     }
     
+    
+    
+    
+    func getQueryWithQueryId(QueryId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        setdelegate(delegate)
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>RetrieveStudentQuery</Service><QueryId>%@</QueryId></Action></Sunstone>",URLPrefix,QueryId)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceGetDoubt, withDelegate: self, withRequestType: eHTTPGetRequest)
+    }
+    
+    
+    func replyToDoubtWithDetails(details:AnyObject, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        setdelegate(delegate)
+        
+        
+        
+        
+        
+        
+        var QueryId = ""
+        
+        var TeacherReplyText = ""
+        
+        var BadgeId = ""
+        
+        var DismissFlag = ""
+        
+        var StudentId = ""
+        
+        
+        
+        
+        if let  _QueryId = details.objectForKey("QueryId") as? String
+        {
+            QueryId  = _QueryId
+        }
+        
+        if let  _TeacherReplyText = details.objectForKey("TeacherReplyText") as? String
+        {
+            TeacherReplyText  = _TeacherReplyText
+        }
+        
+        
+        if let  _BadgeId = details.objectForKey("GoodQuery") as? String
+        {
+            BadgeId  = _BadgeId
+        }
+        
+        if let  _DismissFlag = details.objectForKey("DismissFlag") as? String
+        {
+            DismissFlag  = _DismissFlag
+        }
+        
+        if let  _StudentId = details.objectForKey("StudentId") as? String
+        {
+            StudentId  = _StudentId
+        }
+
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>RespondToQuery</Service><QueryId>%@</QueryId><TeacherReplyText>%@</TeacherReplyText><BadgeId>%@</BadgeId><DismissFlag>%@</DismissFlag><StudentId>%@</StudentId></Action></Sunstone>",URLPrefix,QueryId,TeacherReplyText,BadgeId,DismissFlag,StudentId)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceReplyToQuery, withDelegate: self, withRequestType: eHTTPGetRequest)
+    }
+    
+    
+    
     // MARK: - API Delegate Functions
     func delegateDidGetServiceResponseWithDetails( dict: NSMutableDictionary!, WIthServiceName serviceName: String!)
     {
@@ -619,6 +708,20 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
             if delegate().respondsToSelector(Selector("didGetFeedbackSentWithDetails:"))
             {
                 delegate().didGetFeedbackSentWithDetails!(refinedDetails)
+            }
+        }
+        else if serviceName == kServiceGetDoubt
+        {
+            if delegate().respondsToSelector(Selector("didGetQueryWithDetails:"))
+            {
+                delegate().didGetQueryWithDetails!(refinedDetails)
+            }
+        }
+        else if serviceName == kServiceReplyToQuery
+        {
+            if delegate().respondsToSelector(Selector("didGetQueryRespondedWithDetails:"))
+            {
+                delegate().didGetQueryRespondedWithDetails!(refinedDetails)
             }
         }
     
