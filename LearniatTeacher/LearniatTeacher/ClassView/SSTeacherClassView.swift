@@ -167,7 +167,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         submissionNotificationLabel.text = "0"
         submissionNotificationLabel.font = UIFont(name: helveticaBold, size: 20)
         submissionNotificationLabel.textAlignment = .Center
-        
+        submissionNotificationLabel.hidden = true
         
         
         
@@ -204,6 +204,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         queryNotificationLabel.text = "0"
         queryNotificationLabel.font = UIFont(name: helveticaBold, size: 20)
         queryNotificationLabel.textAlignment = .Center
+        queryNotificationLabel.hidden = true
         
         
         
@@ -240,6 +241,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         mQueryView.hidden = true
         mQueryView.userInteractionEnabled = true
         mQueryView.setdelegate(self)
+        
 
         
         
@@ -1339,6 +1341,50 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     }
     
     
+    func delegateStudentQueryWithDetails(details: AnyObject, withStudentDict studentDict: AnyObject)
+    {
+        
+        
+        if let studentId = studentDict.objectForKey("StudentId") as? String
+        {
+            if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView
+            {
+                let buttonPosition :CGPoint = studentDeskView.convertPoint(CGPointZero, toView: self.view)
+                
+                let questionInfoController = StudentQueryPopover()
+                //                    questionInfoController.setdelegate(self)
+                
+                
+                
+                
+                questionInfoController.setQueryWithDetails(details, withStudentDetials: studentDict)
+                
+                
+                questionInfoController.preferredContentSize = CGSizeMake(320,317)
+                
+                let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                
+                classViewPopOverController.popoverContentSize = CGSizeMake(320,317);
+                classViewPopOverController.delegate = self;
+                
+                classViewPopOverController.presentPopoverFromRect(CGRect(
+                    x:buttonPosition.x ,
+                    y:buttonPosition.y + studentDeskView.frame.size.height / 2,
+                    width: 1,
+                    height: 1), inView: self.view, permittedArrowDirections: .Right, animated: true)
+                
+            }
+        }
+
+        
+        
+        
+        
+        
+        
+         }
+    
+    
     // MARK: - Submission view delegate  functions
     func delegateGetaggregateWithOptionId(optionId: String, withView barButton: BarView) {
         
@@ -1373,6 +1419,19 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
             height: 1), inView: self.view, permittedArrowDirections:.Any, animated: true)
 
         
+        
+    }
+    
+    
+    func delegateTeacherEvaluatedReplyWithDetails(details: AnyObject, withStudentId studentId: String) {
+        
+        print(details)
+        
+        
+        if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView
+        {
+                studentDeskView.setReplayEvaluatedWithDetails(details)
+        }
         
     }
     

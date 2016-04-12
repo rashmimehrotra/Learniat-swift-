@@ -42,7 +42,7 @@
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
-                        <segue destination="2In-rm-84a" kind="presentation" id="doA-LQ-7vn"/>
+                        <segue destination="2In-rm-84a" kind="presentation" identifier="ScheduleToClassView" id="doA-LQ-7vn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IKs-Po-FVK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -108,6 +108,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="N82-LX-9VO"/>
+        <segue reference="Qwt-gC-D44"/>
     </inferredMetricsTieBreakers>
 </document>

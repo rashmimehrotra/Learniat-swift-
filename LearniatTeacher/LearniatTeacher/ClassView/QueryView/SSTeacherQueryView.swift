@@ -23,7 +23,7 @@ import Foundation
 
 
 
-class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelegate
+class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelegate,SSTeacherQuerySelectViewDelegate,SSTeacherVolunteerViewDelegate
 {
     var _delgate: AnyObject!
     
@@ -77,13 +77,15 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
             mTopImageView.frame = CGRectMake(0, 0, self.frame.size.width, 50)
             self.addSubview(mTopImageView)
             mTopImageView.backgroundColor = UIColor.whiteColor()
+            mTopImageView.userInteractionEnabled = true
+            
             
             mSocialRankingButton.frame = CGRectMake(self.frame.size.width - 130, 0, 120, mTopImageView.frame.size.height)
             mSocialRankingButton.setTitle("Social ranking", forState: .Normal)
             mTopImageView.addSubview(mSocialRankingButton)
             mSocialRankingButton.setTitleColor(standard_Button, forState: .Normal)
             mSocialRankingButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
-            
+            mSocialRankingButton.addTarget(self, action: "onSocialRankingButton", forControlEvents: .TouchUpInside)
             mQueryCountLabel.frame = CGRectMake(10, 0, 120, mTopImageView.frame.size.height)
             self.addSubview(mQueryCountLabel)
             
@@ -181,7 +183,7 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
             {
                studentqueryView.removeFromSuperview()
                 
-                if delegate().respondsToSelector(Selector("delegateDismissButtonPressedWithDetails:"))
+                if delegate().respondsToSelector(Selector("delegateQueryDeletedWithDetails:"))
                 {
                     delegate().delegateQueryDeletedWithDetails!(queryDetails)
                 }
@@ -194,6 +196,68 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
         
     }
     
+    
+    func onSocialRankingButton()
+    {
+       
+        
+        
+        let studentsQueryArray = NSMutableArray()
+        let subViews = mScrollView.subviews.flatMap{ $0 as? QuerySubview }
+        
+        for mQuerySubView in subViews
+        {
+            if mQuerySubView.isKindOfClass(QuerySubview)
+            {
+              studentsQueryArray.addObject(mQuerySubView.currentQueryDetails)
+            }
+        }
+        
+        if studentsQueryArray.count > 0
+        {
+            let querySelectView = SSTeacherQuerySelectView(frame: CGRectMake(0 , 0 , self.frame.size.width, self.frame.size.height))
+            self.addSubview(querySelectView)
+            querySelectView.setdelegate(self)
+            querySelectView.addQueriesWithDetails(studentsQueryArray)
+        }
+       
+    }
+    
+    
+    func delegateQueriesSelectedForVolunteer(queryDetails: NSMutableArray)
+    {
+        SSTeacherMessageHandler.sharedMessageHandler.sendVolunteerVoteStartedMessgeToStudents(SSTeacherDataSource.sharedDataSource.currentLiveSessionId)
+        
+        let queryVolunteerView = SSTeacherVolunteerView(frame: CGRectMake(0 , 0 , self.frame.size.width, self.frame.size.height))
+        self.addSubview(queryVolunteerView)
+        queryVolunteerView.setdelegate(self)
+        queryVolunteerView.addQueriesWithDetails(queryDetails)
+        
+    }
+    
+    
+    func delegateVolunteerSessionEnded()
+    {
+        
+        let subViews = mScrollView.subviews.flatMap{ $0 as? QuerySubview }
+        for studentqueryView in subViews
+        {
+            if studentqueryView.isKindOfClass(QuerySubview)
+            {
+                if delegate().respondsToSelector(Selector("delegateQueryDeletedWithDetails:"))
+                {
+                    delegate().delegateQueryDeletedWithDetails!(studentqueryView.currentQueryDetails)
+                     studentqueryView.removeFromSuperview()
+                }
+                
+            }
+        }
+        
+        
+        refreshScrollView()
+
+        
+    }
     
     
 }

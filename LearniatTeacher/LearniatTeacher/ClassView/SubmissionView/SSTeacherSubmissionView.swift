@@ -14,9 +14,14 @@ import Foundation
     optional func delegateGetaggregateWithOptionId(optionId: String, withView barButton: BarView)
     
     
+    optional func delegateTeacherEvaluatedReplyWithDetails(details:AnyObject, withStudentId studentId:String)
+    
+    
+    
+    
 }
 
-class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate
+class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjectiveViewDelegate
 {
     var _delgate: AnyObject!
     
@@ -200,6 +205,25 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate
         }
         
     }
+    
+    
+    // MARK: - SubJectiveView   delegate
+    
+    func delegateStudentSubmissionEvaluatedWithDetails(evaluationDetails: AnyObject, withStudentId studentId: String, withSubmissionCount SubmissionCount: Int)
+    {
+        
+        if SubmissionCount <= 0
+        {
+            mScribbleSubmissionView.hidden = true
+            noSubmissionLabel.hidden = false
+        }
+        
+        if delegate().respondsToSelector(Selector("delegateTeacherEvaluatedReplyWithDetails:withStudentId:"))
+        {
+            delegate().delegateTeacherEvaluatedReplyWithDetails!(evaluationDetails, withStudentId: studentId)
+        }
+    }
+    
     
     
     

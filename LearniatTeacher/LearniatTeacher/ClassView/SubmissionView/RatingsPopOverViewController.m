@@ -108,11 +108,7 @@
 {
     
     
-    if (badgesScrollView)
-    {
-        [badgesScrollView setHidden:NO];
-    }
-    else
+    
     {
         badgesScrollView= [[UIScrollView alloc] initWithFrame:CGRectMake(0, 55, 200, 100)];
         [self.view addSubview:badgesScrollView];
@@ -158,6 +154,18 @@
     }
     
 }
+
+
+- (UIImage*) getbadgeImageWithId:(int)Id
+{
+    NSString *imagePathString = [NSString stringWithFormat:@"/badges/%d.png",Id];
+    NSString  *jpgPath = [NSTemporaryDirectory()stringByAppendingPathComponent:imagePathString];
+    
+    UIImage *img = [UIImage imageWithContentsOfFile:jpgPath];
+    
+    return img;
+}
+
 -(void)onBadgeIcon:(id)sender
 {
     UIButton *tempButton = (UIButton*)sender;

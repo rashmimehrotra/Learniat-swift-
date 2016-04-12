@@ -367,7 +367,6 @@ class SSTeacherQuestionController: UIViewController,QuestionCellDelegate,SSTeach
             {
                 let questionInfoController = ScribbleQuestionInfoScreen()
                 questionInfoController.setdelegate(self)
-                print(questionDetails)
                 
                 questionInfoController.setScribbleInfoDetails(questionDetails)
                 
@@ -410,7 +409,6 @@ class SSTeacherQuestionController: UIViewController,QuestionCellDelegate,SSTeach
             {
                 let questionInfoController = MatchColumnOption()
                 questionInfoController.setdelegate(self)
-                print(questionDetails)
                 
                 questionInfoController.setQuestionDetails(questionDetails)
                 

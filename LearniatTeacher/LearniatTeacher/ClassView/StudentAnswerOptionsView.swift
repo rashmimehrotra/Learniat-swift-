@@ -165,7 +165,6 @@ class StudentAnswerOptionsView: UIView
             }
             else if Type == "Match Columns"
             {
-                print(questionDetails)
                 
                 addMatchColumnQuestionAnswerWithDetails(answerDetails)
                 
@@ -537,6 +536,117 @@ class StudentAnswerOptionsView: UIView
                 width=widthSpace/2;
                 height=height+heightSpace+barHeight;
             }
+        }
+    }
+    
+    
+    func setStudentEvaluationStatusWithDetails(details:AnyObject)
+    {
+        
+        /* 
+            AssessmentAnswerId = 11356;
+            BadgeId = 2;
+            ModelAnswerFlag = false;
+            Rating = 3;
+            StudentId = 527;
+            imageUrl = "TT-496-2224-2016-57-1217:57:27";
+            textRating = "Dads ad sad";
+        */
+
+        
+        
+        
+        
+        if let teacherScribble = details.objectForKey("imageUrl") as? String
+        {
+            let overLayImage = UIImageView(frame: CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
+            self.addSubview(overLayImage)
+            
+            
+            let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_QuestionsImageUrl) as! String
+            
+            if let checkedUrl = NSURL(string: "\(urlString)/\(teacherScribble)")
+            {
+                overLayImage.contentMode = .ScaleAspectFit
+                overLayImage.downloadImage(checkedUrl, withFolderType: folderType.questionImage,withResizeValue: self.frame.size)
+            }
+            
+        }
+
+        
+        
+        var ratings = 0
+        var badgeId = 0
+        var textReply = ""
+        
+        
+        
+        let mTeacherReplyState = UIImageView(frame: CGRectMake(0,self.frame.size.height - (self.frame.size.height / 3) ,self.frame.size.width,self.frame.size.height / 3))
+        self.addSubview(mTeacherReplyState)
+        mTeacherReplyState.backgroundColor = UIColor(red: 34/255.0, green:68/255.0, blue:99/255.0, alpha: 0.8)
+        
+        
+
+       
+        
+       
+        
+        if let Rating = details.objectForKey("Rating") as? String
+        {
+            
+            ratings = Int(Rating)!
+        }
+        
+        if let BadgeId = details.objectForKey("BadgeId") as? String
+        {
+            badgeId = Int(BadgeId)!
+            
+        }
+        
+        if let textRating = details.objectForKey("textRating") as? String
+        {
+            textReply = textRating
+            
+        }
+
+        
+        
+        if ratings > 0
+        {
+            let starview = StudentStarView(frame: CGRectMake(0,0,mTeacherReplyState.frame.size.width,mTeacherReplyState.frame.size.height))
+           starview.addStarsWithRatings(Int32(ratings), withSize: Float(mTeacherReplyState.frame.size.height))
+            starview.backgroundColor = UIColor.clearColor()
+            mTeacherReplyState.addSubview(starview)
+        }
+        else if badgeId > 0
+        {
+            let imageLoader = ImageUploading()
+            
+            let BadgeIdImage = UIImageView(frame: CGRectMake(0,0,mTeacherReplyState.frame.size.width,mTeacherReplyState.frame.size.height))
+            BadgeIdImage.contentMode = .ScaleAspectFit
+            BadgeIdImage.image = imageLoader.getImageWithBadgeId(Int32(badgeId))
+            
+            mTeacherReplyState.addSubview(BadgeIdImage)
+        }
+        else if textReply != ""
+        {
+            let studentAnswertext = UILabel(frame: CGRectMake(0,0,mTeacherReplyState.frame.size.width,mTeacherReplyState.frame.size.height))
+            mTeacherReplyState.addSubview(studentAnswertext)
+            
+            var fontHeight = studentAnswertext.frame.size.height/3;
+            
+            if (fontHeight > 16)
+            {
+                fontHeight = 16;
+            }
+            
+            studentAnswertext.font = UIFont(name: helveticaRegular, size: fontHeight)
+            studentAnswertext.textColor = UIColor.whiteColor()
+            studentAnswertext.lineBreakMode = .ByTruncatingMiddle
+            studentAnswertext.numberOfLines = 10
+            studentAnswertext.textAlignment = .Center
+            studentAnswertext.text = textReply
+            
         }
     }
     

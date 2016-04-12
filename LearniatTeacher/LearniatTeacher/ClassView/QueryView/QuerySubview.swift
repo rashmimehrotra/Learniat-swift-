@@ -57,32 +57,31 @@ class QuerySubview: UIView, SSTeacherDataSourceDelegate
         
         
         
-        mStudentImage.frame = CGRectMake(10,10 , 60 ,60)
+        mStudentImage.frame = CGRectMake(10,10 , 40 ,40)
         self.addSubview(mStudentImage)
         mStudentImage.backgroundColor = UIColor.clearColor()
         mStudentImage.layer.cornerRadius = mStudentImage.frame.size.width/16;
         mStudentImage.layer.masksToBounds = true
         
-        mStudentName.frame = CGRectMake(80,mStudentImage.frame.origin.y,200,mStudentImage.frame.size.height / 2)
+        mStudentName.frame = CGRectMake(mStudentImage.frame.origin.x + mStudentImage.frame.size.width + 10,mStudentImage.frame.origin.y,400,mStudentImage.frame.size.height / 1.8)
         mStudentName.textAlignment = .Center;
         mStudentName.textColor = blackTextColor
         self.addSubview(mStudentName)
         mStudentName.backgroundColor = UIColor.clearColor()
         mStudentName.textAlignment = .Left;
-        mStudentName.contentMode = .Top;
         mStudentName.font = UIFont(name: helveticaMedium, size: 18)
         
         
         
-        mQueryLabel.frame = CGRectMake(mStudentName.frame.origin.x,mStudentName.frame.origin.y + mStudentName.frame.size.height ,self.frame.size.width - mStudentName.frame.origin.x ,mStudentImage.frame.size.height / 2)
+        mQueryLabel.frame = CGRectMake(mStudentName.frame.origin.x,mStudentImage.frame.origin.y + mStudentImage.frame.size.height  ,self.frame.size.width - mStudentName.frame.origin.x ,mStudentImage.frame.size.height / 2)
         mQueryLabel.textAlignment = .Left;
-        mQueryLabel.textColor = UIColor.blackColor()
+        mQueryLabel.textColor = blackTextColor
         self.addSubview(mQueryLabel)
         mQueryLabel.backgroundColor = UIColor.clearColor()
         mQueryLabel.font = UIFont(name: helveticaRegular, size: 18)
-        
         mQueryLabel.lineBreakMode = .ByTruncatingMiddle
         mQueryLabel.numberOfLines = 20
+        mQueryLabel.contentMode = .Top;
         
         
         mDismissButton.frame = CGRectMake(self.frame.size.width - 70, 0, 70 , 40)
@@ -162,15 +161,14 @@ class QuerySubview: UIView, SSTeacherDataSourceDelegate
         currentQueryDetails = details
         var getQueryHeight :CGFloat = 80
         
-        print(details)
         
         if let queryText = details.objectForKey("QueryText") as? String
         {
             getQueryHeight = heightForView(queryText, font: mQueryLabel.font, width: mQueryLabel.frame.size.width)
             
             mQueryLabel.text = queryText
-            mQueryLabel.frame = CGRectMake(mQueryLabel.frame.origin.x ,mQueryLabel.frame.origin.y,mQueryLabel.frame.size.width,getQueryHeight)
-            getQueryHeight = getQueryHeight + 50
+            mQueryLabel.frame = CGRectMake(mQueryLabel.frame.origin.x ,mQueryLabel.frame.origin.y - 5,mQueryLabel.frame.size.width,getQueryHeight)
+            getQueryHeight = getQueryHeight + 60
         }
         
         if getQueryHeight < 80
@@ -319,7 +317,6 @@ class QuerySubview: UIView, SSTeacherDataSourceDelegate
     {
         
         
-        print(details)
         if let StudentId = currentQueryDetails.objectForKey("StudentId") as? String
         {
             if let QueryId = currentQueryDetails.objectForKey("QueryId") as? String

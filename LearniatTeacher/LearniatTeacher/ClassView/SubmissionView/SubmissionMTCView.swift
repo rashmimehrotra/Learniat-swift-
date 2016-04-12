@@ -89,11 +89,6 @@ class SubmissionMTCView: UIView {
         }
         
         
-         print(optionArray)
-        
-        
-        
-        
         
         let leftSideArray = NSMutableArray()
         
@@ -119,34 +114,6 @@ class SubmissionMTCView: UIView {
             }
         }
         
-        
-//        for var index = 0; index < leftSideArray.count ; index++
-//        {
-//            
-//            let leftSideOptionDict = leftSideArray.objectAtIndex(index)
-//            let rightSideOptionDict = RightSideArray.objectAtIndex(index)
-//            
-//            if var leftOptionText = (leftSideOptionDict.objectForKey("OptionText")) as? String
-//            {
-//                if let rightOptionText = (rightSideOptionDict.objectForKey("OptionText")) as? String
-//                {
-//                    leftOptionText = "\(leftOptionText)->\(rightOptionText)"
-//                    
-//                    leftSideOptionDict.setObject(leftOptionText, forKey: "OptionText")
-//                    
-//                    leftSideArray.replaceObjectAtIndex(index, withObject: leftSideOptionDict)
-//                    
-//                }
-//            }
-//            
-//            
-//            
-//            
-//            
-//        }
-        
-        
-        
         if let questionName = (_currentQuestionDetials.objectForKey("Name")) as? String
         {
             studentGraphView.loadMTCViewWithOPtions(leftSideArray,WithRightSideOptionArray: RightSideArray, withQuestion: questionName)
@@ -155,13 +122,6 @@ class SubmissionMTCView: UIView {
         {
             studentGraphView.loadMTCViewWithOPtions(leftSideArray,WithRightSideOptionArray: RightSideArray, withQuestion: "")
         }
-        
-        
-        
-        
-        
-        
-        
         
     }
     func didgetStudentsAnswerWithDetails(details:AnyObject)

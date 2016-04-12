@@ -201,14 +201,14 @@ class SubjectiveLeftSideView: UIView,SubjectiveStudentContainerDelegate
         
         
         currentPositionY = 10
-        
+        totlStudentsCount = 0
         let subViews = mScrollView.subviews
         for subjectiveCell in subViews
         {
             if subjectiveCell.isKindOfClass(SubjectiveStudentContainer)
             {
                 subjectiveCell.frame = CGRectMake(subjectiveCell.frame.origin.x ,currentPositionY,mScrollView.frame.size.width,mScrollView.frame.size.width)
-                
+                totlStudentsCount = totlStudentsCount + 1
                 currentPositionY = currentPositionY + subjectiveCell.frame.size.height + 10
             }
         }

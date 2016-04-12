@@ -31,6 +31,9 @@ let StudentPreAllocated         = "PreAllocated"
     
     optional func delegateStudentAnswerDownloadedWithDetails(details:AnyObject, withStudentDict studentDict:AnyObject)
     
+   
+    optional func delegateStudentQueryWithDetails(details:AnyObject, withStudentDict studentDict:AnyObject)
+    
     
     
 }
@@ -85,6 +88,8 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     
     var isQueryPresent              = false
     
+    var currentQueryDetails     :AnyObject!
+    
     var _delgate: AnyObject!
     
     func setdelegate(delegate:AnyObject)
@@ -123,7 +128,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
 
     
         
-        refrenceDeskImageView.frame = CGRectMake((self.frame.size.width-(deskSize/1.1))/2, (self.frame.size.height-deskSize)/2,deskSize/1.1,self.frame.size.height)
+        refrenceDeskImageView.frame = CGRectMake((self.frame.size.width-(deskSize/1.1))/2, (self.frame.size.height-deskSize)/2,deskSize/1.1,deskSize )
         self.addSubview(refrenceDeskImageView)
         refrenceDeskImageView.backgroundColor = UIColor.clearColor()
         cellWith = refrenceDeskImageView.frame.size.width
@@ -492,6 +497,15 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
                 
             }
         }
+        else if isQueryPresent == true
+        {
+            if delegate().respondsToSelector(Selector("delegateStudentQueryWithDetails:withStudentDict:"))
+            {
+                
+                delegate().delegateStudentQueryWithDetails!(currentQueryDetails, withStudentDict: currentStudentsDict!)
+                
+            }
+        }
         
     }
     
@@ -534,6 +548,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     {
          isQueryPresent = true
         
+        currentQueryDetails = queryDetails
         if answerRecieved == true
         {
             mQuestionStateImage.hidden = false
@@ -573,6 +588,14 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         }
         
     }
+    
+    
+    func setReplayEvaluatedWithDetails(details:AnyObject)
+    {
+        answerContainerView.setStudentEvaluationStatusWithDetails(details)
+        answerRecieved = false
+    }
+    
 
 }
 

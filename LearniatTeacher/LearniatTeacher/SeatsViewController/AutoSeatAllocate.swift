@@ -248,6 +248,26 @@ class AutoSeatAllocate: UIViewController,SSTeacherDataSourceDelegate
     
     func didGetSeatAssignmentSavedWithDetails(details: AnyObject)
     {
+        
+        
+        if let sessionid = currentSessionDetails.objectForKey(kSessionId) as? String
+        {
+            
+            if let RoomName = currentSessionDetails.objectForKey("RoomName") as? String
+            {
+                 SSTeacherMessageHandler.sharedMessageHandler.sendSeatingChangedtoRoom(sessionid, withSeatName: "A2", withRoomName: RoomName)
+            }
+            else
+            {
+                 SSTeacherMessageHandler.sharedMessageHandler.sendSeatingChangedtoRoom(sessionid, withSeatName: "A2", withRoomName: "")
+            }
+            
+           
+        }
+        
+        
+        
+        
         performSegueWithIdentifier("AutoAllocateToSchedule", sender: nil)
     }
     

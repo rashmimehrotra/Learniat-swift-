@@ -73,6 +73,10 @@ let kServiceGetDoubt                =   "GetDoubts"
 
 let kServiceReplyToQuery            =   "ReplyToQuery"
 
+let kServiceSaveSelectedQueries     =   "SaveSelectedQueries"
+
+let kServiceEndVolunteeringSession  =   "EndVolunteeringSession"
+
 
 @objc protocol SSTeacherDataSourceDelegate
 {
@@ -119,6 +123,10 @@ let kServiceReplyToQuery            =   "ReplyToQuery"
     optional func didGetQueryWithDetails(details:AnyObject)
     
     optional func didGetQueryRespondedWithDetails(details:AnyObject)
+    
+    optional func didGetSaveSelectedQueryWithDetails(details:AnyObject)
+    
+    optional func didGetVolunteeringEndedWithDetails(details:AnyObject)
 }
 
 
@@ -411,11 +419,13 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     
     
+    
     func sendFeedbackToStudentWithDetails(details:AnyObject, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
         setdelegate(delegate)
         
         let manager = APIManager()
+        
         
         var assessmentId = ""
         
@@ -431,7 +441,6 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         var modelAnswerFalg = "0"
         
-        print(details)
         
         
         
@@ -457,7 +466,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
             }
             
         }
-
+        
         if let  Rating = details.objectForKey("Rating") as? String
         {
             ratings  = Rating
@@ -488,6 +497,24 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     }
     
     
+    
+//    
+//    func sendFeedbackToStudentWithDetails(details:AnyObject, WithDelegate delegate:SSTeacherDataSourceDelegate)
+//    {
+//        setdelegate(delegate)
+//        
+//       
+//        
+//        
+//        
+//        
+//        
+//        let urlString = String(format: "%@<Sunstone><Action><Service>SendFeedback</Service><AssessmentAnswerIdList>%@</AssessmentAnswerIdList><TeacherId>%@</TeacherId><URL>%@</URL><Rating>%@</Rating><TextRating>%@</TextRating><BadgeId>%@</BadgeId><StudentId>%@</StudentId><ModelAnswerFlag>%@</ModelAnswerFlag></Action></Sunstone>",URLPrefix,assessmentId,currentUserId,imageUrl,ratings,textRating,badgeId,studentId,modelAnswerFalg)
+//        
+//        manager.downloadDataURL(urlString, withServiceName: kServiceSendFeedback, withDelegate: self, withRequestType: eHTTPGetRequest)
+//    }
+//    
+//    
     
     
     func getQueryWithQueryId(QueryId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
@@ -567,6 +594,31 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         manager.downloadDataURL(urlString, withServiceName: kServiceReplyToQuery, withDelegate: self, withRequestType: eHTTPGetRequest)
     }
     
+    
+    func saveSelectedVolunteers(QueryIdList:String, withAllowVolunteerList allowVolunteer:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        setdelegate(delegate)
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>SaveSelectedQueries</Service><QueryIdList>%@</QueryIdList><AllowVolunteerFlag>%@</AllowVolunteerFlag></Action></Sunstone>",URLPrefix,QueryIdList,allowVolunteer)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceSaveSelectedQueries, withDelegate: self, withRequestType: eHTTPGetRequest)
+    }
+    
+    
+    
+    func EndVolunteeringSessionwithQueryId(QueryIdList:String, withMeTooList MeTooList:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        setdelegate(delegate)
+        
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>EndVolunteeringSession</Service><SessionId>%@</SessionId><QueryIdList>%@</QueryIdList><MeTooCountList>%@</MeTooCountList></Action></Sunstone>",URLPrefix,currentLiveSessionId,QueryIdList,MeTooList)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceEndVolunteeringSession, withDelegate: self, withRequestType: eHTTPGetRequest)
+    }
     
     
     // MARK: - API Delegate Functions
@@ -724,6 +776,22 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
                 delegate().didGetQueryRespondedWithDetails!(refinedDetails)
             }
         }
+        else if serviceName == kServiceSaveSelectedQueries
+        {
+            if delegate().respondsToSelector(Selector("didGetSaveSelectedQueryWithDetails:"))
+            {
+                delegate().didGetSaveSelectedQueryWithDetails!(refinedDetails)
+            }
+        }
+        else if serviceName == kServiceEndVolunteeringSession
+        {
+            if delegate().respondsToSelector(Selector("didGetVolunteeringEndedWithDetails:"))
+            {
+                delegate().didGetVolunteeringEndedWithDetails!(refinedDetails)
+            }
+        }
+        
+        
     
     }
     

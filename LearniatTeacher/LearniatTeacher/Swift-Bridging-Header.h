@@ -20,4 +20,6 @@
 #import "SSStarRatingView.h"
 #import "SmoothLineView.h"
 #import "RatingsPopOverViewController.h"
+#import "ImageUploading.h"
+#import "StudentStarView.h"
 #endif /* Swift_Bridging_Header_h */

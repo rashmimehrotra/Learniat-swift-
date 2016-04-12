@@ -316,6 +316,14 @@
 		5373025F1CB6771200E76753 /* Undo_Active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 537302161CB6771200E76753 /* Undo_Active@2x.png */; };
 		537302601CB6771200E76753 /* Undo_Disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 537302171CB6771200E76753 /* Undo_Disabled.png */; };
 		537302611CB6771200E76753 /* Undo_Disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 537302181CB6771200E76753 /* Undo_Disabled@2x.png */; };
+		53778B641CBCB3C8004E6480 /* StudentQueryPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53778B631CBCB3C8004E6480 /* StudentQueryPopover.swift */; };
+		53778B661CBCBB1C004E6480 /* SSTeacherQuerySelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53778B651CBCBB1C004E6480 /* SSTeacherQuerySelectView.swift */; };
+		53778B681CBCBD96004E6480 /* QuerySelectSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53778B671CBCBD96004E6480 /* QuerySelectSubView.swift */; };
+		53778B6A1CBCECE2004E6480 /* SSTeacherVolunteerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53778B691CBCECE2004E6480 /* SSTeacherVolunteerView.swift */; };
+		53778B6C1CBCED72004E6480 /* QueryVolunteerSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53778B6B1CBCED72004E6480 /* QueryVolunteerSubView.swift */; };
+		53778B6E1CBCF672004E6480 /* VolunteerTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53778B6D1CBCF672004E6480 /* VolunteerTopView.swift */; };
+		53778B731CBD102D004E6480 /* ImageUploading.m in Sources */ = {isa = PBXBuildFile; fileRef = 53778B721CBD102D004E6480 /* ImageUploading.m */; };
+		53778B761CBD2B3C004E6480 /* StudentStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 53778B751CBD2B3C004E6480 /* StudentStarView.m */; };
 		5377E4371CAB8F1400A11E59 /* Check.png in Resources */ = {isa = PBXBuildFile; fileRef = 5377E4351CAB8F1400A11E59 /* Check.png */; };
 		5377E4381CAB8F1400A11E59 /* X.png in Resources */ = {isa = PBXBuildFile; fileRef = 5377E4361CAB8F1400A11E59 /* X.png */; };
 		5377E43A1CAB951800A11E59 /* MatchColumnOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5377E4391CAB951800A11E59 /* MatchColumnOption.swift */; };
@@ -832,6 +840,16 @@
 		537302161CB6771200E76753 /* Undo_Active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Undo_Active@2x.png"; sourceTree = "<group>"; };
 		537302171CB6771200E76753 /* Undo_Disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Undo_Disabled.png; sourceTree = "<group>"; };
 		537302181CB6771200E76753 /* Undo_Disabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Undo_Disabled@2x.png"; sourceTree = "<group>"; };
+		53778B631CBCB3C8004E6480 /* StudentQueryPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentQueryPopover.swift; sourceTree = "<group>"; };
+		53778B651CBCBB1C004E6480 /* SSTeacherQuerySelectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSTeacherQuerySelectView.swift; sourceTree = "<group>"; };
+		53778B671CBCBD96004E6480 /* QuerySelectSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuerySelectSubView.swift; sourceTree = "<group>"; };
+		53778B691CBCECE2004E6480 /* SSTeacherVolunteerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSTeacherVolunteerView.swift; sourceTree = "<group>"; };
+		53778B6B1CBCED72004E6480 /* QueryVolunteerSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueryVolunteerSubView.swift; sourceTree = "<group>"; };
+		53778B6D1CBCF672004E6480 /* VolunteerTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolunteerTopView.swift; sourceTree = "<group>"; };
+		53778B711CBD102D004E6480 /* ImageUploading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageUploading.h; sourceTree = "<group>"; };
+		53778B721CBD102D004E6480 /* ImageUploading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageUploading.m; sourceTree = "<group>"; };
+		53778B741CBD2B3C004E6480 /* StudentStarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StudentStarView.h; sourceTree = "<group>"; };
+		53778B751CBD2B3C004E6480 /* StudentStarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StudentStarView.m; sourceTree = "<group>"; };
 		5377E4351CAB8F1400A11E59 /* Check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Check.png; sourceTree = "<group>"; };
 		5377E4361CAB8F1400A11E59 /* X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = X.png; sourceTree = "<group>"; };
 		5377E4391CAB951800A11E59 /* MatchColumnOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchColumnOption.swift; sourceTree = "<group>"; };
@@ -2040,6 +2058,7 @@
 				531044A91CA665E2007AE9D5 /* StundentDeskView.swift */,
 				53E5BBAD1CAE80F400358ED8 /* StudentAnswerOptionsView.swift */,
 				539567251CB52082009B0100 /* StudentSubjectivePopover.swift */,
+				53778B631CBCB3C8004E6480 /* StudentQueryPopover.swift */,
 				53FC04341CAF8C2E00D7B941 /* QueryView */,
 				53FC04351CAF8C2E00D7B941 /* SubmissionView */,
 				53676D521CA63D7A00CADE4D /* TopicsView */,
@@ -2187,6 +2206,8 @@
 		539567271CB5281E009B0100 /* StarRatingsView */ = {
 			isa = PBXGroup;
 			children = (
+				53778B741CBD2B3C004E6480 /* StudentStarView.h */,
+				53778B751CBD2B3C004E6480 /* StudentStarView.m */,
 				539567281CB5281E009B0100 /* SSStarRatingView.h */,
 				539567291CB5281E009B0100 /* SSStarRatingView.m */,
 			);
@@ -2207,6 +2228,11 @@
 			children = (
 				53FC04381CAF8CBC00D7B941 /* SSTeacherQueryView.swift */,
 				53909C661CBB58FF00E8A1C0 /* QuerySubview.swift */,
+				53778B651CBCBB1C004E6480 /* SSTeacherQuerySelectView.swift */,
+				53778B671CBCBD96004E6480 /* QuerySelectSubView.swift */,
+				53778B691CBCECE2004E6480 /* SSTeacherVolunteerView.swift */,
+				53778B6B1CBCED72004E6480 /* QueryVolunteerSubView.swift */,
+				53778B6D1CBCF672004E6480 /* VolunteerTopView.swift */,
 			);
 			path = QueryView;
 			sourceTree = "<group>";
@@ -2216,6 +2242,8 @@
 			children = (
 				53B590221CB8E26600A69FC1 /* RatingsPopOverViewController.h */,
 				53B590231CB8E26600A69FC1 /* RatingsPopOverViewController.m */,
+				53778B711CBD102D004E6480 /* ImageUploading.h */,
+				53778B721CBD102D004E6480 /* ImageUploading.m */,
 				53FC04361CAF8C4200D7B941 /* SSTeacherSubmissionView.swift */,
 				533233321CAFD2CE00971EC7 /* SubmissionMRQView.swift */,
 				539567211CB4C763009B0100 /* SubmissionMTCView.swift */,
@@ -2435,6 +2463,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				53FC04441CAFAE2100D7B941 /* BarView.swift in Sources */,
+				53778B731CBD102D004E6480 /* ImageUploading.m in Sources */,
 				53676CAE1CA63B7F00CADE4D /* XMPPElement.m in Sources */,
 				53676D3A1CA63B7F00CADE4D /* SSTeacherMessageHandler.swift in Sources */,
 				53676CDD1CA63B7F00CADE4D /* XMPPvCardTempCoreDataStorageObject.m in Sources */,
@@ -2459,6 +2488,7 @@
 				53676CEC1CA63B7F00CADE4D /* XMPPMessage+XEP_0066.m in Sources */,
 				53676CD71CA63B7F00CADE4D /* XMPPMUC.m in Sources */,
 				53676D0F1CA63B7F00CADE4D /* XMPPMessage+XEP_0280.m in Sources */,
+				53778B6C1CBCED72004E6480 /* QueryVolunteerSubView.swift in Sources */,
 				5377E43C1CAB9B6600A11E59 /* MatchColumnCell.swift in Sources */,
 				53676CD51CA63B7F00CADE4D /* XMPPRoomOccupantMemoryStorageObject.m in Sources */,
 				53E5BBAE1CAE80F400358ED8 /* StudentAnswerOptionsView.swift in Sources */,
@@ -2467,11 +2497,13 @@
 				53676D151CA63B7F00CADE4D /* SSMessage.m in Sources */,
 				539567261CB52082009B0100 /* StudentSubjectivePopover.swift in Sources */,
 				53676CCF1CA63B7F00CADE4D /* XMPPRoomHybrid.xcdatamodeld in Sources */,
+				53778B761CBD2B3C004E6480 /* StudentStarView.m in Sources */,
 				53676C991CA63B7F00CADE4D /* NoInternetView.m in Sources */,
 				53676CB41CA63B7F00CADE4D /* XMPPPresence.m in Sources */,
 				53676CB31CA63B7F00CADE4D /* XMPPParser.m in Sources */,
 				53676CE31CA63B7F00CADE4D /* XMPPvCardTempLabel.m in Sources */,
 				53676CF91CA63B7F00CADE4D /* XMPPMessageArchiving.xcdatamodeld in Sources */,
+				53778B6E1CBCF672004E6480 /* VolunteerTopView.swift in Sources */,
 				53676D311CA63B7F00CADE4D /* ScheduleDetailView.swift in Sources */,
 				53676D351CA63B7F00CADE4D /* AutoSeatAllocate.swift in Sources */,
 				53676CC11CA63B7F00CADE4D /* XMPPRosterMemoryStorage.m in Sources */,
@@ -2526,6 +2558,7 @@
 				53676D321CA63B7F00CADE4D /* ScheduleScreenLineView.swift in Sources */,
 				53676CF71CA63B7F00CADE4D /* XMPPCapsResourceCoreDataStorageObject.m in Sources */,
 				533233481CAFE09C00971EC7 /* SSTeacherAggregatePopOverController.swift in Sources */,
+				53778B6A1CBCECE2004E6480 /* SSTeacherVolunteerView.swift in Sources */,
 				53676D221CA63B7F00CADE4D /* DDLog.m in Sources */,
 				53676D171CA63B7F00CADE4D /* DDList.m in Sources */,
 				537301091CB6227000E76753 /* SubjectiveLeftSideView.swift in Sources */,
@@ -2592,6 +2625,7 @@
 				53676CCB1CA63B7F00CADE4D /* XMPPRoom.xcdatamodeld in Sources */,
 				537301271CB665E300E76753 /* SSColorPopOverViewController.m in Sources */,
 				53676D061CA63B7F00CADE4D /* XMPPStreamManagement.m in Sources */,
+				53778B681CBCBD96004E6480 /* QuerySelectSubView.swift in Sources */,
 				53676CE41CA63B7F00CADE4D /* XMPPvCardTempModule.m in Sources */,
 				53676D181CA63B7F00CADE4D /* GCDMulticastDelegate.m in Sources */,
 				53676CDC1CA63B7F00CADE4D /* XMPPvCardCoreDataStorageObject.m in Sources */,
@@ -2602,6 +2636,7 @@
 				53676CBA1CA63B7F00CADE4D /* XMPPReconnect.m in Sources */,
 				53676CE81CA63B7F00CADE4D /* XMPPIQ+XEP_0060.m in Sources */,
 				53676D0D1CA63B7F00CADE4D /* XMPPAttentionModule.m in Sources */,
+				53778B641CBCB3C8004E6480 /* StudentQueryPopover.swift in Sources */,
 				53676D191CA63B7F00CADE4D /* RFImageToDataTransformer.m in Sources */,
 				53676D0C1CA63B7F00CADE4D /* XEP_0223.m in Sources */,
 				53676CC81CA63B7F00CADE4D /* XMPPIQ+LastActivity.m in Sources */,
@@ -2619,6 +2654,7 @@
 				53676CD41CA63B7F00CADE4D /* XMPPRoomMessageMemoryStorageObject.m in Sources */,
 				53676CB21CA63B7F00CADE4D /* XMPPModule.m in Sources */,
 				53676CA11CA63B7F00CADE4D /* LBorderView.m in Sources */,
+				53778B661CBCBB1C004E6480 /* SSTeacherQuerySelectView.swift in Sources */,
 				53676CCE1CA63B7F00CADE4D /* XMPPRoomOccupantCoreDataStorageObject.m in Sources */,
 				531044AF1CA66D6F007AE9D5 /* FXLabel.m in Sources */,
 				53676D211CA63B7F00CADE4D /* DDFileLogger.m in Sources */,

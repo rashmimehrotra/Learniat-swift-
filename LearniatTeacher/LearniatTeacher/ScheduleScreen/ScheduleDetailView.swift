@@ -523,6 +523,12 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
             topicsConfiguredLabel.text = TopicsConfigured
         }
         
+        
+        if let RoomName = details.objectForKey("RoomName") as? String
+        {
+            mRoomNameLabel.text = RoomName
+        }
+        
         if let QuestionsConfigured = details.objectForKey("QuestionsConfigured") as? String
         {
             questionConfiguredLabel.text = QuestionsConfigured
@@ -674,6 +680,19 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
             resetButton.setTitleColor(standard_TextGrey, forState: .Normal)
             
              SSTeacherDataSource.sharedDataSource.resetPreallocatedSeatsOfSession(sessionId, WithDelegate: self)
+            
+            
+            
+            
+            if let RoomName = currentSessionDetails.objectForKey("RoomName") as? String
+            {
+                SSTeacherMessageHandler.sharedMessageHandler.sendSeatingChangedtoRoom(sessionId, withSeatName: "0", withRoomName: RoomName)
+            }
+            else
+            {
+                SSTeacherMessageHandler.sharedMessageHandler.sendSeatingChangedtoRoom(sessionId, withSeatName: "0", withRoomName: "")
+            }
+            
             
         }
         

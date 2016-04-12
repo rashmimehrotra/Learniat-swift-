@@ -10,13 +10,29 @@ import Foundation
 
 let kAspectRation:CGFloat = 1.5
 
-class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSideViewDelegate,SSStarRatingViewDelegate,UIPopoverControllerDelegate,SSTeacherDataSourceDelegate
+
+
+@objc protocol SubmissionSubjectiveViewDelegate
+{
+    
+    
+    optional func delegateStudentSubmissionEvaluatedWithDetails(evaluationDetails:AnyObject, withStudentId studentId:String , withSubmissionCount SubmissionCount:Int)
+    
+    
+    
+}
+
+
+
+class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSideViewDelegate,SSStarRatingViewDelegate,UIPopoverControllerDelegate,SSTeacherDataSourceDelegate,ImageUploadingDelegate
 {
     var _delgate: AnyObject!
     
     var _currentQuestionDetials:AnyObject!
     
     var subjectiveCellContainer :SubjectiveLeftSideView!
+    
+    let imageUploading = ImageUploading()
     
     func setdelegate(delegate:AnyObject)
     {
@@ -72,6 +88,8 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     let kUplodingServer     = "http://54.251.104.13/Jupiter/upload_photos.php"
     
     
+    var sendButtonSpinner : UIActivityIndicatorView!
+    
     var          givenStarRatings       = 0
     var          givenBadgeId  :Int32   = 0
     var           givenTextReply        = ""
@@ -82,6 +100,9 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     var PopoverControllerRatings:UIPopoverController!
     
     var selectedtab    = ""
+    
+    
+    var currentTeacherImageURl = ""
 
     
     
@@ -90,7 +111,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         super.init(frame:frame)
         
         
-        
+        imageUploading.setDelegate(self)
         
        mainContainerView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)
        mainContainerView.backgroundColor = whiteBackgroundColor
@@ -135,6 +156,16 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         mSendButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
         mSendButton.addTarget(self, action: "onSendButton", forControlEvents: UIControlEvents.TouchUpInside)
 
+        
+        
+        
+        
+        sendButtonSpinner = UIActivityIndicatorView(activityIndicatorStyle:.Gray);
+        sendButtonSpinner.frame = mSendButton.frame;
+        topImageView.addSubview(sendButtonSpinner);
+        sendButtonSpinner.hidden = true;
+        
+        
         
         let lineImage = UIImageView(frame:CGRectMake(mSendButton.frame.origin.x, 5, 1, topImageView.frame.size.height - 10));
         lineImage.backgroundColor = progressviewBackground
@@ -254,7 +285,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         m_UndoButton.setImage(UIImage(named:"Undo_Disabled.png"),forState:.Normal);
         bottomview.addSubview(m_UndoButton);
         m_UndoButton.imageView?.contentMode = .ScaleAspectFit
-        
+        m_UndoButton.addTarget(self, action: "onUndoButton", forControlEvents: UIControlEvents.TouchUpInside)
         
        
         bottomtoolSelectedImageView.backgroundColor = UIColor.whiteColor();
@@ -266,7 +297,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         m_BrushButton.setImage(UIImage(named:"Marker_Selected.png"), forState:.Normal)
         bottomview.addSubview(m_BrushButton);
         m_BrushButton.imageView?.contentMode = .ScaleAspectFit
-
+        m_BrushButton.addTarget(self, action: "onBrushButton", forControlEvents: UIControlEvents.TouchUpInside)
         bottomtoolSelectedImageView.frame = m_BrushButton.frame
         
         
@@ -276,29 +307,15 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         m_EraserButton.setImage(UIImage(named:"Eraser_Unselected.png"), forState:.Normal);
         bottomview.addSubview(m_EraserButton);
         m_EraserButton.imageView?.contentMode = .ScaleAspectFit
-        
+        m_EraserButton.addTarget(self, action: "onEraserButton", forControlEvents: UIControlEvents.TouchUpInside)
         
         
         m_RedoButton.frame = CGRectMake(bottomview.frame.size.width - bottomview.frame.size.height ,0, bottomview.frame.size.height ,bottomview.frame.size.height)
         m_RedoButton.setImage(UIImage(named:"Redo_Disabled.png"), forState:.Normal);
         bottomview.addSubview(m_RedoButton);
         m_RedoButton.imageView?.contentMode = .ScaleAspectFit
-        
-        
-        
-        
-        
-//
-//        NOsubmissionLabel = [[UILabel alloc] initWithFrame:CGRectMake((self.frame.size.width-600)/2, (self.frame.size.height/2)-30, 600, 60)];
-//        [NOsubmissionLabel setText:@"There are no submission Yet"];
-//        [NOsubmissionLabel setBackgroundColor:[UIColor clearColor]];
-//        [NOsubmissionLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:40]];
-//        [NOsubmissionLabel setTextAlignment:NSTextAlignmentCenter];
-//        [NOsubmissionLabel setTextColor:[UIColor grayColor]];
-//        [self addSubview:NOsubmissionLabel];
-//        [NOsubmissionLabel setHidden:YES];
-        
-        
+        m_RedoButton.addTarget(self, action: "onRedoButton", forControlEvents: UIControlEvents.TouchUpInside)
+   
         self.bringSubviewToFront(mScribbleView)
         mainContainerView.hidden = true
         
@@ -376,13 +393,14 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
                 {
                     selectedStudentsArray.addObject(answerDetails)
                     
-                    
-                    let studentAnswerImage = UIImageView(frame: CGRectMake(0, 0, containerview.frame.size.width, containerview.frame.size.height))
-                    studentAnswerImage.tag  = Int(studentId)!
-                    containerview.addSubview(studentAnswerImage)
-                    
                     if let Scribble = answerDetails.objectForKey("Scribble") as? String
                     {
+                        let studentAnswerImage = UIImageView(frame: CGRectMake(0, 0, containerview.frame.size.width, containerview.frame.size.height))
+                        studentAnswerImage.tag  = Int(studentId)!
+                        containerview.addSubview(studentAnswerImage)
+                        
+                        
+                        
                         let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_SCRIBBLE_IMAGE_URL) as! String
                         
                         if let checkedUrl = NSURL(string: "\(urlString)/\(Scribble)")
@@ -390,6 +408,21 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
                             studentAnswerImage.contentMode = .ScaleAspectFit
                             studentAnswerImage.downloadImage(checkedUrl, withFolderType: folderType.StudentAnswer,withResizeValue: studentAnswerImage.frame.size)
                         }
+                    }
+                    else if let TextAnswer = answerDetails.objectForKey("TextAnswer") as? String
+                    {
+                        
+                        let studentAnswertext = UILabel(frame: CGRectMake(0,0,containerview.frame.size.width,containerview.frame.size.height))
+                        containerview.addSubview(studentAnswertext)
+                        studentAnswertext.font = UIFont(name: helveticaRegular, size: 18)
+                        studentAnswertext.textColor = blackTextColor
+                        studentAnswertext.lineBreakMode = .ByTruncatingMiddle
+                        studentAnswertext.numberOfLines = 10
+                        studentAnswertext.textAlignment = .Center
+                        studentAnswertext.text = TextAnswer
+                        studentAnswertext.tag  = Int(studentId)!
+                        
+                        
                     }
                 }
             }
@@ -406,6 +439,11 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
                 }
                 
                 if let studentDeskView  = containerview.viewWithTag(Int(studentId)!) as? UIImageView
+                {
+                    studentDeskView.removeFromSuperview()
+                }
+                
+                if let studentDeskView  = containerview.viewWithTag(Int(studentId)!) as? UILabel
                 {
                     studentDeskView.removeFromSuperview()
                 }
@@ -434,7 +472,13 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         givenStarRatings = 0
         givenTextReply = ""
         mScribbleView.clearButtonClicked()
+        mStarRatingView.setStarRating(0)
+        m_badgeButton.setImage(UIImage(named:"Cb_Like_Disabled.png"), forState:.Normal);
+        m_textButton.setImage(UIImage(named:"Text_Unselected.png"), forState:.Normal);
 
+        
+        mSendButton.setTitleColor(lightGrayColor, forState:.Normal);
+        mSendButton.enabled = false
         
     }
    
@@ -448,66 +492,40 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     
     func onSendButton()
     {
-        let currentDate = NSDate()
         
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyy-mm-dd HH:mm:ss"
-        
-
-        
-        let currentDateString = dateFormatter.stringFromDate(currentDate)
-        
-        
-        let nameOfImage  = "TT-\(SSTeacherDataSource.sharedDataSource.currentUserId)-\(SSTeacherDataSource.sharedDataSource.currentLiveSessionId)-\(currentDateString)"
-        
-        
-        if (mScribbleView.curImage != nil)
+        if selectedStudentsArray.count > 0
         {
-            uploadImageWithImage(mScribbleView.curImage, withName: nameOfImage)
+            
+            let currentDate = NSDate()
+            
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyy-mm-dd HH:mm:ss"
+            
+            
+            
+            let currentDateString = dateFormatter.stringFromDate(currentDate)
+            
+            
+            var nameOfImage  = "TT-\(SSTeacherDataSource.sharedDataSource.currentUserId)-\(SSTeacherDataSource.sharedDataSource.currentLiveSessionId)-\(currentDateString)"
+            nameOfImage =  nameOfImage.stringByReplacingOccurrencesOfString(" ", withString: "")
+            
+            sendButtonSpinner.hidden = false
+            sendButtonSpinner.startAnimating()
+            mSendButton.hidden = true
+            
+            if (mScribbleView.curImage != nil)
+            {
+                imageUploading.uploadImageWithImage(mScribbleView.curImage, withImageName: nameOfImage, withUserId: SSTeacherDataSource.sharedDataSource.currentUserId)
+            }
+            else
+            {
+                newImageUploadedWithName(nameOfImage)
+            }
+            
         }
         else
         {
-            for var index = 0; index < selectedStudentsArray.count ; index++
-            {
-                
-                let feedBackDetails  = NSMutableDictionary()
-                let studentdict = selectedStudentsArray.objectAtIndex(index)
-                
-                if let studentId = studentdict.objectForKey("StudentId") as? String
-                {
-                    
-                    if let studentAnswerDict = studentsAswerDictonary.objectForKey(studentId)
-                    {
-                        
-                        if let AssessmentAnswerId = studentAnswerDict.objectForKey("AssessmentAnswerId") as? String
-                        {
-                            
-                            
-                            feedBackDetails.setObject(studentId, forKey: "StudentId")
-                            
-                            feedBackDetails.setObject(AssessmentAnswerId, forKey: "AssessmentAnswerId")
-                            
-                            feedBackDetails.setObject("\(givenStarRatings)", forKey: "Rating")
-                            
-                            feedBackDetails.setObject("\(givenBadgeId)", forKey: "BadgeId")
-                            
-                            feedBackDetails.setObject("\(givenTextReply)", forKey: "textRating")
-                            
-                            feedBackDetails.setObject("\(isModelAnswerSelected)", forKey: "ModelAnswerFlag")
-                            
-                            SSTeacherDataSource.sharedDataSource.sendFeedbackToStudentWithDetails(feedBackDetails, WithDelegate: self)
-                            
-                        }
-                        
-                    }
-                    
-                    
-                }
-                
-                
-                
-                
-            }
+            self.makeToast("please select at least one student to give feed back ", duration: 1.0, position: .Bottom)
         }
         
         
@@ -579,10 +597,26 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
             if selectedtab == "Badge"
             {
                 givenBadgeId = _ratingsPopoverController.badgeId()
+                
+                m_badgeButton.setImage(_ratingsPopoverController.getbadgeImageWithId(givenBadgeId), forState:.Normal);
             }
             else
             {
                 givenTextReply = _ratingsPopoverController.textViewtext()
+                
+                
+                if (givenTextReply == "")
+                {
+                    m_textButton.setImage(UIImage(named:"Text_Unselected.png"), forState:.Normal);
+                    
+                   
+                }
+                else
+                {
+                    m_textButton.setImage(UIImage(named:"Text_Selected.png"), forState:.Normal);
+                }
+                
+                
             }
         }
         
@@ -616,7 +650,8 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     
     func lineDrawnChanged()
     {
-        
+        mSendButton.enabled = true;
+        mSendButton.setTitleColor(standard_Button, forState:.Normal);
     }
     
     // MARK: - Star view delegate
@@ -624,117 +659,20 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     func starRatingDidChange()
     {
         givenStarRatings = mStarRatingView.rating()
+        if givenStarRatings > 0
+        {
+            mSendButton.enabled = true;
+            mSendButton.setTitleColor(standard_Button, forState:.Normal);
+        }
+       
         
     }
     
 
      // MARK: - image Uploadeding delegate
-    func uploadImageWithImage(scribbleImage:UIImage, withName nameOftheImage:String)
-    {
-       
-        let imageData = UIImagePNGRepresentation(scribbleImage)
-        
-        if imageData != nil
-        {
-            let request = NSMutableURLRequest(URL: NSURL(string:kUplodingServer)!)
-
-            request.HTTPMethod = "POST"
-            
-            let boundary = NSString(format:"---------------------------14737809831466499882746641449")
-            
-            let contentType = String(format: "multipart/form-data; boundary=%@",boundary)
-            //  println("Content Type \(contentType)")
-            
-            request.addValue(contentType, forHTTPHeaderField: "Content-Type")
-            
-            let body = NSMutableData()
-            
-            // Title
-            body.appendData(NSString(format: "\r\n--%@\r\n",boundary).dataUsingEncoding(NSUTF8StringEncoding)!)
-           
-            body.appendData(NSString(format:"Content-Disposition: form-data; name=\"userfile\"; filename=\"\(nameOftheImage).png\"\r\n").dataUsingEncoding(NSUTF8StringEncoding)!)
-//            body.appendData("Hello World".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
-            
-            // Image
-            body.appendData("Content-Type: application/octet-stream\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-            
-            
-             body.appendData(imageData!)
-            
-            body.appendData(NSString(format:"Content-Disposition: form-data; name=\"profile_img\"; filename=\"img.jpg\"\\r\n").dataUsingEncoding(NSUTF8StringEncoding)!)
-            
-            body.appendData(NSString(format: "Content-Type: application/octet-stream\r\n\r\n").dataUsingEncoding(NSUTF8StringEncoding)!)
-            
-           
-            
-            body.appendData(NSString(format: "\r\n--%@\r\n", boundary).dataUsingEncoding(NSUTF8StringEncoding)!)
-            
-            
-            
-            request.HTTPBody = body
-            
-//            
-//            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) { response, data, error in
-//                guard data != nil else
-//                {
-//                    completionHandler(nil, error)
-//                    return
-//                }
-//                
-//                completionHandler(NSString(data: data!, encoding: NSUTF8StringEncoding), nil)
-//            }
-//            
-            
-            
-            let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {
-                data, response, error in
-                
-                if error != nil
-                {
-                    print("error=\(error)")
-                    return
-                }
-                
-                // You can print out response object
-                print("******* response = \(response)")
-                self.newImageUploadedWithName(nameOftheImage)
-//                // Print out reponse body
-//                let responseString = NSString(data: imageData!, encoding: NSUTF8StringEncoding)
-//                print("****** response data = \(responseString!)")
-                
-                
-//                dispatch_async(dispatch_get_main_queue(),
-//                    {
-//                    self.myActivityIndicator.stopAnimating()
-//                    self.myImageView.image = nil;
-//                });
-                
-                /*
-                if let parseJSON = json {
-                var firstNameValue = parseJSON["firstName"] as? String
-                println("firstNameValue: \(firstNameValue)")
-                }
-                */
-                
-            }
-            
-            task.resume()
-            
-            
-            
-        }
-        
-        
-    }
-    
     
     func newImageUploadedWithName(imageName:String)
     {
-        
-        
-        
-        
-        
         for var index = 0; index < selectedStudentsArray.count ; index++
         {
             
@@ -765,7 +703,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
                         
                         feedBackDetails.setObject("\(isModelAnswerSelected)", forKey: "ModelAnswerFlag")
                         
-                         SSTeacherDataSource.sharedDataSource.sendFeedbackToStudentWithDetails(feedBackDetails, WithDelegate: self)
+                        SSTeacherDataSource.sharedDataSource.sendFeedbackToStudentWithDetails(feedBackDetails, WithDelegate: self)
                         
                     }
                     
@@ -774,26 +712,14 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
                 
             }
             
-            
-            
-            
         }
+        
     }
     
     func didGetFeedbackSentWithDetails(details: AnyObject)
     {
         
         
-        print(details)
-        
-        
-        mSendButton.setTitleColor(lightGrayColor, forState:.Normal);
-        mSendButton.enabled = false
-        
-        givenBadgeId = 0
-        givenStarRatings = 0
-        givenTextReply = ""
-        mScribbleView.clearButtonClicked()
         
         
         if let studentId = details.objectForKey("Students")!.objectForKey("Student")!.objectForKey("StudentId") as? String
@@ -810,7 +736,36 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
             {
                 if selectedStudentsArray.containsObject(answerDetails)
                 {
-                    selectedStudentsArray.removeObject(answerDetails)
+                    
+                    
+                    
+                   let feedBackDetails = NSMutableDictionary()
+                   
+                    feedBackDetails.setObject(studentId, forKey: "StudentId")
+                    
+                    feedBackDetails.setObject(AssessmentAnswerId, forKey: "AssessmentAnswerId")
+                    
+                    feedBackDetails.setObject("\(givenStarRatings)", forKey: "Rating")
+                    
+                    feedBackDetails.setObject("upload/\(currentTeacherImageURl).png", forKey: "imageUrl")
+                    
+                    feedBackDetails.setObject("\(givenBadgeId)", forKey: "BadgeId")
+                    
+                    feedBackDetails.setObject("\(givenTextReply)", forKey: "textRating")
+                    
+                    feedBackDetails.setObject("\(isModelAnswerSelected)", forKey: "ModelAnswerFlag")
+                    
+                    
+                    
+                     selectedStudentsArray.removeObject(answerDetails)
+                    
+                    if delegate().respondsToSelector(Selector("delegateStudentSubmissionEvaluatedWithDetails:withStudentId:withSubmissionCount:"))
+                    {
+                        delegate().delegateStudentSubmissionEvaluatedWithDetails!(feedBackDetails, withStudentId: studentId, withSubmissionCount:subjectiveCellContainer.totlStudentsCount)
+                    }
+
+                    
+                   
                 }
             }
             
@@ -824,6 +779,43 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
             
             }
         }
+        
+        
+        
+        
+        
+        sendButtonSpinner.hidden = true
+        sendButtonSpinner.stopAnimating()
+        mSendButton.hidden = false
+        mScribbleView.clearButtonClicked()
+    }
+    
+    func didgetErrorMessage(message: String, WithServiceName serviceName: String)
+    {
+        sendButtonSpinner.hidden = true
+        sendButtonSpinner.stopAnimating()
+        mSendButton.hidden = false
+        
+        
+        self.makeToast(message, duration: 1.0, position: .Bottom)
+        
+    }
+    
+    // MARK: - ImageUploading delegate
+    
+    func ImageUploadedWithName(name: String!)
+    {
+        newImageUploadedWithName(name)
+        currentTeacherImageURl = name
+    }
+    
+    func ErrorInUploadingWithName(name: String!)
+    {
+        sendButtonSpinner.hidden = true
+        sendButtonSpinner.stopAnimating()
+        mSendButton.hidden = false
+        mScribbleView.clearButtonClicked()
+        currentTeacherImageURl = ""
     }
     
     

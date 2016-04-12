@@ -33,6 +33,8 @@
 - (int)badgeId;
 - (NSString*)textViewtext;
 
+- (UIImage*) getbadgeImageWithId:(int)Id;
+
 - (void) setDelegate:(id)delegate;
 - (id)   delegate;
 

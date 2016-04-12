@@ -426,6 +426,8 @@ extension UIImageView
                        
                         data.writeToFile(pngPath, atomically: true)
                         
+                        
+                        
                         self.image = self.resizeImage(UIImage(data: data)!, newSize: newSize)
                         self.layer.masksToBounds = true
                         
@@ -764,6 +766,21 @@ extension String
         
         return ( hours, minutes, seconds,String(format: "%02d:%02d:%02d", hours, minutes, seconds))
     }
+    
+    
+    
+    func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat
+    {
+        let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max))
+        label.numberOfLines = 0
+        label.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        label.font = font
+        label.text = text
+        
+        label.sizeToFit()
+        return label.frame.height
+    }
+    
     
     
 }
