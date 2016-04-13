@@ -15,6 +15,18 @@ class StudentAnswerOptionsView: UIView
     
     var _studentFinalAnswerOptions = NSMutableArray()
     
+    var _Popover:AnyObject!
+    func setPopover(popover:AnyObject)
+    {
+        _Popover = popover
+    }
+    
+    func popover()-> AnyObject
+    {
+        return _Popover
+    }
+    
+    
     override init(frame: CGRect) {
         
         super.init(frame:frame)
@@ -30,6 +42,27 @@ class StudentAnswerOptionsView: UIView
         
     }
     
+    func addDontKnowImage()
+    {
+        let subViews = self.subviews
+        
+        for subview in subViews
+        {
+            
+            subview.removeFromSuperview()
+            
+        }
+        
+        
+        let mDontKnowImage = UIImageView(frame: CGRectMake(10,10,self.frame.size.width - 20 ,self.frame.size.height - 20 ))
+        self.addSubview(mDontKnowImage)
+        mDontKnowImage.contentMode = .ScaleAspectFit
+        mDontKnowImage.image = UIImage(named: "don't-know.png")
+        
+        
+        
+        
+    }
     
     
     func addScribbleWithDetiails(details:AnyObject, withOverlayImage overlayImage:String)
@@ -76,13 +109,6 @@ class StudentAnswerOptionsView: UIView
                 studentAnswerImage.downloadImage(checkedUrl, withFolderType: folderType.StudentAnswer,withResizeValue: self.frame.size)
             }
         }
-        
-        
-        
-        
-       
-        
-        
     }
     
     
@@ -554,9 +580,6 @@ class StudentAnswerOptionsView: UIView
         */
 
         
-        
-        
-        
         if let teacherScribble = details.objectForKey("imageUrl") as? String
         {
             let overLayImage = UIImageView(frame: CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
@@ -648,7 +671,44 @@ class StudentAnswerOptionsView: UIView
             studentAnswertext.text = textReply
             
         }
+        
+        
+        if let ModelAnswerFlag = details.objectForKey("ModelAnswerFlag") as? String
+        {
+            if ModelAnswerFlag == "true"
+            {
+                let modelAnswerLabel = UILabel(frame: CGRectMake(0,0,self.frame.size.width,mTeacherReplyState.frame.size.height / 1.8))
+                modelAnswerLabel.backgroundColor = standard_Green
+                modelAnswerLabel.textColor = UIColor.whiteColor()
+                
+                var fontHeight = modelAnswerLabel.frame.size.height/1.2;
+                
+                if (fontHeight > 16)
+                {
+                    fontHeight = 16;
+                }
+                
+                modelAnswerLabel.font = UIFont(name: helveticaRegular, size: fontHeight)
+                modelAnswerLabel.textColor = UIColor.whiteColor()
+                modelAnswerLabel.lineBreakMode = .ByTruncatingMiddle
+                modelAnswerLabel.numberOfLines = 10
+                modelAnswerLabel.textAlignment = .Center
+                modelAnswerLabel.text = "Model Answer"
+                self.addSubview(modelAnswerLabel)
+                
+                
+            }
+            
+            
+        }
+        
+        
+        
+        
     }
+    
+    
+    
     
     
 }

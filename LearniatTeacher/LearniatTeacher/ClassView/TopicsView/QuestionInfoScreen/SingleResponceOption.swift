@@ -87,13 +87,7 @@ class SingleResponceOption : UIViewController
         addOPtionsCells()
     }
     
-    
-    
-    
-    func onDoneButton(sender:AnyObject)
-    {
-        
-    }
+   
     
     func setQuestionDetails(details:AnyObject)
     {
@@ -184,6 +178,23 @@ class SingleResponceOption : UIViewController
         
         optionScrollView.contentSize = CGSizeMake(0, postionYValue)
 
+    }
+    
+    var _Popover:AnyObject!
+    
+    func setPopover(popover:AnyObject)
+    {
+        _Popover = popover
+    }
+    
+    func popover()-> AnyObject
+    {
+        return _Popover
+    }
+    func onDoneButton()
+    {
+        popover().dismissPopoverAnimated(true)
+        
     }
     
     

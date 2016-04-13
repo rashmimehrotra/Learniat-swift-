@@ -18,6 +18,14 @@ let StudentSignedout            = "Signedout"
 let StudentPreAllocated         = "PreAllocated"
 
 
+enum StudentAnswerState
+{
+    case AnswerRecieved
+    case AnswerEvaluated
+    case AnswerDontKnow
+    case AnswerCleared
+}
+
 
 @objc protocol StundentDeskViewDelegate
 {
@@ -34,6 +42,8 @@ let StudentPreAllocated         = "PreAllocated"
    
     optional func delegateStudentQueryWithDetails(details:AnyObject, withStudentDict studentDict:AnyObject)
     
+    
+    optional func delegateStudentCellPressedWithEvaluationDetails(details:AnyObject, withStudentId studentId:String)
     
     
 }
@@ -79,12 +89,13 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     
     var answerContainerView = StudentAnswerOptionsView()
     
-    var answerRecieved = false
+    var currentAnswerState :StudentAnswerState = .AnswerCleared
     
     var mQueryTextLable              = UILabel()
     
     var _currentAnswerDetails :AnyObject!
     
+    var _currentEvaluationDetail:AnyObject!
     
     var isQueryPresent              = false
     
@@ -379,6 +390,27 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         SSTeacherDataSource.sharedDataSource.getStudentsAswerWithAnswerId(answerString, withDelegate: self)
     }
     
+    
+    func setDontKnowMessageFromStudent()
+    {
+        answerContainerView.addDontKnowImage()
+        currentAnswerState = .AnswerDontKnow
+        
+        mQuestionStateImage.hidden = true
+        mMiddleStudentName.hidden = true
+        mStudentName.hidden = false
+        mQueryTextLable.hidden = true
+        
+        answerContainerView.hidden = false
+        
+        if isQueryPresent == true
+        {
+            mDoubtImageview.hidden = false
+            mQueryTextLable.hidden = true
+            
+        }
+    }
+    
     func didGetStudentsAnswerWithDetails(details: AnyObject)
     {
         mQuestionStateImage.hidden = true
@@ -391,8 +423,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         
         if isQueryPresent == true
         {
-            mQuestionStateImage.hidden = false
-            mQuestionStateImage.image = UIImage(named: "Query.png")
+            mDoubtImageview.hidden = false
             mQueryTextLable.hidden = true
             
         }
@@ -429,7 +460,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         }
         
         
-        answerRecieved = true
+        currentAnswerState = .AnswerRecieved
         
         if delegate().respondsToSelector(Selector("delegateStudentAnswerDownloadedWithDetails:withStudentDict:"))
         {
@@ -439,10 +470,13 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         
     }
     
+    
+    
+    
     func onDeskPressed()
     {
         
-        if answerRecieved == true
+        if currentAnswerState == .AnswerRecieved
         {
                             if let questionType = _currentQuestionDetials.objectForKey("Type") as? String
                 {
@@ -497,6 +531,15 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
                 
             }
         }
+        else if currentAnswerState == .AnswerEvaluated
+        {
+            if delegate().respondsToSelector(Selector("delegateStudentCellPressedWithEvaluationDetails:withStudentId:"))
+            {
+                
+                delegate().delegateStudentCellPressedWithEvaluationDetails!(_currentEvaluationDetail,  withStudentId:(currentStudentsDict.objectForKey("StudentId") as? String)!)
+                
+            }
+        }
         else if isQueryPresent == true
         {
             if delegate().respondsToSelector(Selector("delegateStudentQueryWithDetails:withStudentDict:"))
@@ -518,11 +561,11 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
             subview.removeFromSuperview()
         }
         
-        answerRecieved = false
+        currentAnswerState = .AnswerCleared
         
         if isQueryPresent == true
         {
-            mQuestionStateImage.hidden = true
+            mDoubtImageview.hidden = true
             mQueryTextLable.hidden = false
             
             mStudentName.hidden = false
@@ -536,6 +579,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
 
         }
         
+        mQuestionStateImage.hidden = true
         answerContainerView.hidden = true
                
     }
@@ -549,15 +593,15 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
          isQueryPresent = true
         
         currentQueryDetails = queryDetails
-        if answerRecieved == true
+        if currentAnswerState == .AnswerRecieved || currentAnswerState == .AnswerEvaluated || currentAnswerState == .AnswerDontKnow
         {
-            mQuestionStateImage.hidden = false
+            mDoubtImageview.hidden = false
             mQueryTextLable.hidden = true
            
         }
         else
         {
-            mQuestionStateImage.hidden = true
+            mDoubtImageview.hidden = true
             mQueryTextLable.hidden = false
             
             mStudentName.hidden = false
@@ -577,11 +621,11 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     
     func queryDismissed()
     {
-        mQuestionStateImage.hidden = true
+        mDoubtImageview.hidden = true
         mQueryTextLable.hidden = true
         isQueryPresent = false
         
-        if answerRecieved == false
+        if currentAnswerState == .AnswerCleared
         {
             mStudentName.hidden = true
             mMiddleStudentName.hidden = false
@@ -592,8 +636,9 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     
     func setReplayEvaluatedWithDetails(details:AnyObject)
     {
+        _currentEvaluationDetail = details
         answerContainerView.setStudentEvaluationStatusWithDetails(details)
-        answerRecieved = false
+        currentAnswerState = .AnswerEvaluated
     }
     
 

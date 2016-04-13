@@ -598,7 +598,15 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
             {
                 givenBadgeId = _ratingsPopoverController.badgeId()
                 
-                m_badgeButton.setImage(_ratingsPopoverController.getbadgeImageWithId(givenBadgeId), forState:.Normal);
+                if givenBadgeId > 0
+                {
+                     m_badgeButton.setImage(_ratingsPopoverController.getbadgeImageWithId(givenBadgeId), forState:.Normal);
+                }
+                else
+                {
+                     m_badgeButton.setImage(UIImage(named:"Cb_Like_Disabled.png"), forState:.Normal);
+                }
+               
             }
             else
             {
@@ -789,6 +797,39 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         mSendButton.hidden = false
         mScribbleView.clearButtonClicked()
     }
+    
+    
+    
+    func submissionEvaluatedWithDetails(evaluationDetails:AnyObject,withStudentId studentId:String)
+    {
+        if let studentDeskView  = containerview.viewWithTag(Int(studentId)!) as? UIImageView
+        {
+            studentDeskView.removeFromSuperview()
+        }
+        
+        
+        subjectiveCellContainer.feedbackSentToStudentsWithStudentsId(studentId)
+        
+        
+        if let answerDetails = studentsAswerDictonary.objectForKey(studentId)
+        {
+            if selectedStudentsArray.containsObject(answerDetails)
+            {
+                selectedStudentsArray.removeObject(answerDetails)
+            }
+            
+            if delegate().respondsToSelector(Selector("delegateStudentSubmissionEvaluatedWithDetails:withStudentId:withSubmissionCount:"))
+            {
+                delegate().delegateStudentSubmissionEvaluatedWithDetails!(evaluationDetails, withStudentId: studentId, withSubmissionCount:subjectiveCellContainer.totlStudentsCount)
+            }
+
+        }
+        
+
+        
+        
+    }
+    
     
     func didgetErrorMessage(message: String, WithServiceName serviceName: String)
     {

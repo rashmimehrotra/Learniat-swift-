@@ -36,7 +36,7 @@ class QueryVolunteerSubView: UIView
         self.addSubview(mVolunteerButton)
         mVolunteerButton.setTitleColor(standard_Button, forState: .Normal)
         mVolunteerButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
-        mVolunteerButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Thin", size: 50)
+        mVolunteerButton.titleLabel?.font = UIFont(name: HelveticaNeueThin, size: 50)
         mVolunteerButton.addTarget(self, action: "onVonulteerButton", forControlEvents: .TouchUpInside)
         mVolunteerButton.backgroundColor = UIColor.clearColor()
 
@@ -51,7 +51,7 @@ class QueryVolunteerSubView: UIView
         mMetooLabel.text = "0"
         mMetooLabel.textColor = blackTextColor
         self.addSubview(mMetooLabel)
-        mMetooLabel.font = UIFont(name: "HelveticaNeue-Thin", size: 50)
+        mMetooLabel.font = UIFont(name: HelveticaNeueThin, size: 50)
         
         mMetooLabel.textAlignment = .Center
 

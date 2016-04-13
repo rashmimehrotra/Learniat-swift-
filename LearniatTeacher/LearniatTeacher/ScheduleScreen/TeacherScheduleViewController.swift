@@ -955,6 +955,17 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     }
     
     
+    func smhDidgetStudentBentchStateWithStudentId(studentId: String, withState state: String)
+    {
+        if mScheduleDetailView != nil
+        {
+             if mScheduleDetailView.hidden == false
+             {
+                mScheduleDetailView.refreshView()
+            }
+        }
+    }
+    
     
      // MARK: - Extra functions
     

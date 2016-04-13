@@ -49,6 +49,11 @@
 		5326079D1CA917EC002FF684 /* SingleResponceOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5326079C1CA917EC002FF684 /* SingleResponceOptionCell.swift */; };
 		533233331CAFD2CE00971EC7 /* SubmissionMRQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533233321CAFD2CE00971EC7 /* SubmissionMRQView.swift */; };
 		533233481CAFE09C00971EC7 /* SSTeacherAggregatePopOverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533233471CAFE09C00971EC7 /* SSTeacherAggregatePopOverController.swift */; };
+		5360E6BE1CBDF6D400AFE9FF /* StudentEvaluationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5360E6BD1CBDF6D400AFE9FF /* StudentEvaluationDetails.swift */; };
+		5360E6C01CBDFD7000AFE9FF /* Text_on_desk.png in Resources */ = {isa = PBXBuildFile; fileRef = 5360E6BF1CBDFD7000AFE9FF /* Text_on_desk.png */; };
+		5360E6C21CBE425300AFE9FF /* don't-know.png in Resources */ = {isa = PBXBuildFile; fileRef = 5360E6C11CBE425300AFE9FF /* don't-know.png */; };
+		5360E6C61CBE456D00AFE9FF /* DonutChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5360E6C51CBE456D00AFE9FF /* DonutChartView.m */; };
+		5360E6C81CBE53A900AFE9FF /* SSTeacherSchedulePopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5360E6C71CBE53A900AFE9FF /* SSTeacherSchedulePopoverController.swift */; };
 		53676AEA1CA63B2100CADE4D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53676AE81CA63B2100CADE4D /* Main.storyboard */; };
 		53676AEC1CA63B2100CADE4D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53676AEB1CA63B2100CADE4D /* Assets.xcassets */; };
 		53676AEF1CA63B2200CADE4D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53676AED1CA63B2200CADE4D /* LaunchScreen.storyboard */; };
@@ -328,7 +333,6 @@
 		5377E4381CAB8F1400A11E59 /* X.png in Resources */ = {isa = PBXBuildFile; fileRef = 5377E4361CAB8F1400A11E59 /* X.png */; };
 		5377E43A1CAB951800A11E59 /* MatchColumnOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5377E4391CAB951800A11E59 /* MatchColumnOption.swift */; };
 		5377E43C1CAB9B6600A11E59 /* MatchColumnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5377E43B1CAB9B6600A11E59 /* MatchColumnCell.swift */; };
-		5377E4401CABB9D500A11E59 /* SubtopicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5377E43F1CABB9D500A11E59 /* SubtopicController.swift */; };
 		53909C671CBB58FF00E8A1C0 /* QuerySubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53909C661CBB58FF00E8A1C0 /* QuerySubview.swift */; };
 		53909C6D1CBB73E500E8A1C0 /* Dismissed.png in Resources */ = {isa = PBXBuildFile; fileRef = 53909C691CBB73E500E8A1C0 /* Dismissed.png */; };
 		53909C6E1CBB73E500E8A1C0 /* Mute_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 53909C6A1CBB73E500E8A1C0 /* Mute_gray.png */; };
@@ -405,6 +409,12 @@
 		5326079C1CA917EC002FF684 /* SingleResponceOptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleResponceOptionCell.swift; sourceTree = "<group>"; };
 		533233321CAFD2CE00971EC7 /* SubmissionMRQView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionMRQView.swift; sourceTree = "<group>"; };
 		533233471CAFE09C00971EC7 /* SSTeacherAggregatePopOverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSTeacherAggregatePopOverController.swift; sourceTree = "<group>"; };
+		5360E6BD1CBDF6D400AFE9FF /* StudentEvaluationDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentEvaluationDetails.swift; sourceTree = "<group>"; };
+		5360E6BF1CBDFD7000AFE9FF /* Text_on_desk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Text_on_desk.png; sourceTree = "<group>"; };
+		5360E6C11CBE425300AFE9FF /* don't-know.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "don't-know.png"; path = "ScribbleView/don't-know.png"; sourceTree = "<group>"; };
+		5360E6C41CBE456D00AFE9FF /* DonutChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DonutChartView.h; sourceTree = "<group>"; };
+		5360E6C51CBE456D00AFE9FF /* DonutChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DonutChartView.m; sourceTree = "<group>"; };
+		5360E6C71CBE53A900AFE9FF /* SSTeacherSchedulePopoverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSTeacherSchedulePopoverController.swift; sourceTree = "<group>"; };
 		53676AE11CA63B2000CADE4D /* LearniatTeacher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearniatTeacher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53676AE91CA63B2100CADE4D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		53676AEB1CA63B2100CADE4D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -854,7 +864,6 @@
 		5377E4361CAB8F1400A11E59 /* X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = X.png; sourceTree = "<group>"; };
 		5377E4391CAB951800A11E59 /* MatchColumnOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchColumnOption.swift; sourceTree = "<group>"; };
 		5377E43B1CAB9B6600A11E59 /* MatchColumnCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchColumnCell.swift; sourceTree = "<group>"; };
-		5377E43F1CABB9D500A11E59 /* SubtopicController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubtopicController.swift; sourceTree = "<group>"; };
 		53909C661CBB58FF00E8A1C0 /* QuerySubview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuerySubview.swift; sourceTree = "<group>"; };
 		53909C691CBB73E500E8A1C0 /* Dismissed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dismissed.png; sourceTree = "<group>"; };
 		53909C6A1CBB73E500E8A1C0 /* Mute_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mute_gray.png; sourceTree = "<group>"; };
@@ -912,6 +921,7 @@
 		531044831CA64296007AE9D5 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				5360E6C11CBE425300AFE9FF /* don't-know.png */,
 				53909C681CBB73E500E8A1C0 /* QueryScreen */,
 				53B590161CB8E02900A69FC1 /* Cb_Like_Disabled.png */,
 				53B590171CB8E02900A69FC1 /* Cb_Like_Enabled.png */,
@@ -1013,6 +1023,15 @@
 			path = AgregateDrillDown;
 			sourceTree = "<group>";
 		};
+		5360E6C31CBE456D00AFE9FF /* Donart Chart */ = {
+			isa = PBXGroup;
+			children = (
+				5360E6C41CBE456D00AFE9FF /* DonutChartView.h */,
+				5360E6C51CBE456D00AFE9FF /* DonutChartView.m */,
+			);
+			path = "Donart Chart";
+			sourceTree = "<group>";
+		};
 		53676AD81CA63B2000CADE4D = {
 			isa = PBXGroup;
 			children = (
@@ -1063,6 +1082,7 @@
 		53676AF71CA63B7F00CADE4D /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				5360E6C31CBE456D00AFE9FF /* Donart Chart */,
 				5373011E1CB665E300E76753 /* Drawing */,
 				539567271CB5281E009B0100 /* StarRatingsView */,
 				53CA5A251CB23568008C42B0 /* YLProgressBar */,
@@ -2027,6 +2047,7 @@
 				53676C8A1CA63B7F00CADE4D /* ScheduleScreenLineView.swift */,
 				53676C8B1CA63B7F00CADE4D /* ScheduleScreenTile.swift */,
 				53676C8C1CA63B7F00CADE4D /* TeacherScheduleViewController.swift */,
+				5360E6C71CBE53A900AFE9FF /* SSTeacherSchedulePopoverController.swift */,
 			);
 			path = ScheduleScreen;
 			sourceTree = "<group>";
@@ -2058,6 +2079,7 @@
 				531044A91CA665E2007AE9D5 /* StundentDeskView.swift */,
 				53E5BBAD1CAE80F400358ED8 /* StudentAnswerOptionsView.swift */,
 				539567251CB52082009B0100 /* StudentSubjectivePopover.swift */,
+				5360E6BD1CBDF6D400AFE9FF /* StudentEvaluationDetails.swift */,
 				53778B631CBCB3C8004E6480 /* StudentQueryPopover.swift */,
 				53FC04341CAF8C2E00D7B941 /* QueryView */,
 				53FC04351CAF8C2E00D7B941 /* SubmissionView */,
@@ -2071,7 +2093,6 @@
 			children = (
 				53676D551CA63D7A00CADE4D /* SSTeachermainTopicController.swift */,
 				53676D531CA63D7A00CADE4D /* MainTopicCell.swift */,
-				5377E43F1CABB9D500A11E59 /* SubtopicController.swift */,
 				53676D571CA63D7A00CADE4D /* SSTeacherSubTopicController.swift */,
 				53676D581CA63D7A00CADE4D /* SubTopicCell.swift */,
 				53676D561CA63D7A00CADE4D /* SSTeacherQuestionController.swift */,
@@ -2148,6 +2169,7 @@
 		537301CF1CB6771200E76753 /* AnnotateView */ = {
 			isa = PBXGroup;
 			children = (
+				5360E6BF1CBDFD7000AFE9FF /* Text_on_desk.png */,
 				537301D01CB6771200E76753 /* Dark_Blue_Circle.png */,
 				537301D11CB6771200E76753 /* Dark_Blue_Circle@2x.png */,
 				537301D21CB6771200E76753 /* Eraser_Selected_AnnotateView.png */,
@@ -2379,6 +2401,7 @@
 				53909C6F1CBB73E500E8A1C0 /* Mute_red.png in Resources */,
 				537302361CB6771200E76753 /* Text_Unselected_AnnotateView.png in Resources */,
 				5377E4381CAB8F1400A11E59 /* X.png in Resources */,
+				5360E6C01CBDFD7000AFE9FF /* Text_on_desk.png in Resources */,
 				537302321CB6771200E76753 /* Tab_bar_Divider_AnnotateView.png in Resources */,
 				537302481CB6771200E76753 /* Mark_Model_Not_Selected@2x.png in Resources */,
 				5373024C1CB6771200E76753 /* Marker_Selected@2x.png in Resources */,
@@ -2418,6 +2441,7 @@
 				537302251CB6771200E76753 /* Marker_Unselected_AnnotateView.png in Resources */,
 				53676AEC1CA63B2100CADE4D /* Assets.xcassets in Resources */,
 				53E5BBAB1CAE3B7D00358ED8 /* StudentThinking.png in Resources */,
+				5360E6C21CBE425300AFE9FF /* don't-know.png in Resources */,
 				5373021E1CB6771200E76753 /* Eraser_Unselected_AnnotateView.png in Resources */,
 				5373025B1CB6771200E76753 /* Text_Unselected.png in Resources */,
 				5373023F1CB6771200E76753 /* Undo_Disabled_AnnotateView@2x.png in Resources */,
@@ -2515,6 +2539,7 @@
 				53676CFD1CA63B7F00CADE4D /* XMPPMessageArchiving.m in Sources */,
 				53676CBD1CA63B7F00CADE4D /* XMPPRoster.xcdatamodel in Sources */,
 				53676CD61CA63B7F00CADE4D /* XMPPMessage+XEP0045.m in Sources */,
+				5360E6C81CBE53A900AFE9FF /* SSTeacherSchedulePopoverController.swift in Sources */,
 				53676CBF1CA63B7F00CADE4D /* XMPPUserCoreDataStorageObject.m in Sources */,
 				5395672A1CB5281E009B0100 /* SSStarRatingView.m in Sources */,
 				53676CFA1CA63B7F00CADE4D /* XMPPMessageArchiving_Contact_CoreDataObject.m in Sources */,
@@ -2584,7 +2609,6 @@
 				53676CF01CA63B7F00CADE4D /* XMPPMessage+XEP_0085.m in Sources */,
 				53CA5A281CB23568008C42B0 /* YLProgressBar.m in Sources */,
 				53676D1A1CA63B7F00CADE4D /* XMPPIDTracker.m in Sources */,
-				5377E4401CABB9D500A11E59 /* SubtopicController.swift in Sources */,
 				5326079D1CA917EC002FF684 /* SingleResponceOptionCell.swift in Sources */,
 				53676CE11CA63B7F00CADE4D /* XMPPvCardTempBase.m in Sources */,
 				53676CEB1CA63B7F00CADE4D /* XMPPIQ+XEP_0066.m in Sources */,
@@ -2619,6 +2643,7 @@
 				53676CE91CA63B7F00CADE4D /* XMPPPubSub.m in Sources */,
 				53676CDA1CA63B7F00CADE4D /* XMPPvCardAvatarCoreDataStorageObject.m in Sources */,
 				53676CA81CA63B7F00CADE4D /* XMPPSCRAMSHA1Authentication.m in Sources */,
+				5360E6C61CBE456D00AFE9FF /* DonutChartView.m in Sources */,
 				53676D5B1CA63D7A00CADE4D /* QuestionCell.swift in Sources */,
 				53676CAA1CA63B7F00CADE4D /* XMPPXOAuth2Google.m in Sources */,
 				53676CC51CA63B7F00CADE4D /* XMPPIQ+JabberRPC.m in Sources */,
@@ -2646,6 +2671,7 @@
 				53676D5D1CA63D7A00CADE4D /* SSTeacherQuestionController.swift in Sources */,
 				53676CB51CA63B7F00CADE4D /* XMPPStream.m in Sources */,
 				53676CD91CA63B7F00CADE4D /* XMPPvCard.xcdatamodeld in Sources */,
+				5360E6BE1CBDF6D400AFE9FF /* StudentEvaluationDetails.swift in Sources */,
 				53676D161CA63B7F00CADE4D /* MessageManager.m in Sources */,
 				53676CBB1CA63B7F00CADE4D /* XMPPGroupCoreDataStorageObject.m in Sources */,
 				53676D0A1CA63B7F00CADE4D /* XMPPTime.m in Sources */,

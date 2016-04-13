@@ -33,6 +33,8 @@ let helveticaMedium       = "HelveticaNeue-Medium"
 
 let helveticaBold         = "HelveticaNeue-Bold"
 
+let HelveticaNeueThin     = "HelveticaNeue-Thin"
+
 
 let kClassName      = "ClassName"
 
@@ -427,8 +429,11 @@ extension UIImageView
                         data.writeToFile(pngPath, atomically: true)
                         
                         
+                        if let image = UIImage(data: data)
+                        {
+                            self.image = self.resizeImage(image, newSize: newSize)
+                        }
                         
-                        self.image = self.resizeImage(UIImage(data: data)!, newSize: newSize)
                         self.layer.masksToBounds = true
                         
                 }

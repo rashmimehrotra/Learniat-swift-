@@ -326,13 +326,32 @@ class SSTeacherQuestionController: UIViewController,QuestionCellDelegate,SSTeach
     }
     
     
+    
+    var _Popover:AnyObject!
+    
+    func setPopover(popover:AnyObject)
+    {
+        _Popover = popover
+    }
+    
+    func popover()-> AnyObject
+    {
+        return _Popover
+    }
     func onDoneButton()
     {
-        if delegate().respondsToSelector(Selector("delegateDoneButtonPressed"))
-        {
-            delegate().delegateDoneButtonPressed!()
-        }
+        popover().dismissPopoverAnimated(true)
+        
     }
+    
+    
+//    func onDoneButton()
+//    {
+//        if delegate().respondsToSelector(Selector("delegateDoneButtonPressed"))
+//        {
+//            delegate().delegateDoneButtonPressed!()
+//        }
+//    }
     
     func onBackButton()
     {
@@ -374,7 +393,7 @@ class SSTeacherQuestionController: UIViewController,QuestionCellDelegate,SSTeach
                 questionInfoController.preferredContentSize = CGSizeMake(400,317)
                 
                 let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
-                
+                questionInfoController.setPopover(classViewPopOverController)
                 classViewPopOverController.popoverContentSize = CGSizeMake(400,317);
                 classViewPopOverController.delegate = self;
                 
@@ -395,7 +414,7 @@ class SSTeacherQuestionController: UIViewController,QuestionCellDelegate,SSTeach
                 questionInfoController.preferredContentSize = CGSizeMake(400,317)
                 
                 let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
-                
+                questionInfoController.setPopover(classViewPopOverController)
                 classViewPopOverController.popoverContentSize = CGSizeMake(400,317);
                 classViewPopOverController.delegate = self;
                 
@@ -416,7 +435,7 @@ class SSTeacherQuestionController: UIViewController,QuestionCellDelegate,SSTeach
                 questionInfoController.preferredContentSize = CGSizeMake(400,317)
                 
                 let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
-                
+                questionInfoController.setPopover(classViewPopOverController)
                 classViewPopOverController.popoverContentSize = CGSizeMake(400,317);
                 classViewPopOverController.delegate = self;
                 

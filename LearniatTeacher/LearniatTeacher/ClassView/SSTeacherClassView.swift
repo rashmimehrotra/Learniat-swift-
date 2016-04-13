@@ -30,7 +30,7 @@ let kQueryView              = "Query"
 
 
 import Foundation
-class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeachermainTopicControllerDelegate,SSTeacherSubTopicControllerDelegate,SSTeacherDataSourceDelegate,SSTeacherQuestionControllerDelegate,SSTeacherMessagehandlerDelegate,SSTeacherLiveQuestionControllerDelegate,StundentDeskViewDelegate,SSTeacherSubmissionViewDelegate,SSTeacherQueryViewDelegate
+class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeachermainTopicControllerDelegate,SSTeacherSubTopicControllerDelegate,SSTeacherDataSourceDelegate,SSTeacherQuestionControllerDelegate,SSTeacherMessagehandlerDelegate,SSTeacherLiveQuestionControllerDelegate,StundentDeskViewDelegate,SSTeacherSubmissionViewDelegate,SSTeacherQueryViewDelegate,StudentSubjectivePopoverDelegate
 {
    
     
@@ -390,7 +390,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         subTopicsController.setPreferredSize(CGSizeMake(600, 100),withSessionDetails: currentSessionDetails)
         questionController.setPreferredSize(CGSizeMake(600, 100),withSessionDetails: currentSessionDetails)
         
-        liveQuestionController.setPreferredSize(CGSizeMake(600, 100),withSessionDetails: currentSessionDetails)
+        liveQuestionController.setPreferredSize(CGSizeMake(450, 350),withSessionDetails: currentSessionDetails)
         
         
         
@@ -410,7 +410,25 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     
     func onScheduleScreenPopupPressed(sender:UIButton)
     {
+        let questionInfoController = SSTeacherSchedulePopoverController()
+        questionInfoController.setdelegate(self)
         
+        let height = self.view.frame.size.height - (mTopbarImageView.frame.size.height + 20 )
+        
+        questionInfoController.setCurrentScreenSize(CGSizeMake(600,height))
+        questionInfoController.preferredContentSize = CGSizeMake(600,height)
+        
+        let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+        questionInfoController.setPopover(classViewPopOverController)
+        classViewPopOverController.popoverContentSize = CGSizeMake(600,height);
+        classViewPopOverController.delegate = self;
+        
+        classViewPopOverController.presentPopoverFromRect(CGRect(
+            x:sender.frame.origin.x + sender.frame.size.width / 2,
+            y:sender.frame.origin.y + sender.frame.size.height,
+            width: 1,
+            height: 1), inView: self.view, permittedArrowDirections: .Up, animated: true)
+
     }
     
     
@@ -455,7 +473,19 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         
         if newSubmissionRecieved.count > 0
         {
-            SSTeacherMessageHandler.sharedMessageHandler.sendHandRaiseReceivedMessageToRoom(currentSessionId)
+
+            for var index = 0; index < newSubmissionRecieved.count ; index++
+            {
+                
+                if let studentId = newSubmissionRecieved.objectAtIndex(index) as? String
+                {
+                    SSTeacherMessageHandler.sharedMessageHandler.sendHandRaiseReceivedMessageToStudentWithId(studentId)
+                }
+                
+               
+            }
+            
+            
             
             newSubmissionRecieved.removeAllObjects()
         }
@@ -719,7 +749,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
             mainTopicsController.getTopicsDetailswithStartedMaintopicId("")
             
             classViewPopOverController = UIPopoverController(contentViewController: mainTopicsController)
-            
+             mainTopicsController.setPopover(classViewPopOverController)
             classViewPopOverController.popoverContentSize = CGSizeMake(540, 680);
             classViewPopOverController.delegate = self;
             
@@ -732,11 +762,14 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         else  if isQuestionSent == true
         {
             liveQuestionController.setdelegate(self)
-            liveQuestionController.preferredContentSize = CGSizeMake(600, 44)
+            liveQuestionController.preferredContentSize = CGSizeMake(450, 350)
             
             classViewPopOverController = UIPopoverController(contentViewController: liveQuestionController)
+            
+            liveQuestionController.setPopover(classViewPopOverController)
+            
             liveQuestionController.setQuestionDetails(currentQuestionDetails, withMainTopciName: subTopicsController.mTopicName.text!, withMainTopicId: subTopicsController.currentMainTopicId)
-            classViewPopOverController.popoverContentSize = CGSizeMake(540, 680);
+            classViewPopOverController.popoverContentSize = CGSizeMake(450, 350);
             classViewPopOverController.delegate = self;
             
             classViewPopOverController.presentPopoverFromRect(CGRect(
@@ -757,7 +790,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
             subTopicsController.preferredContentSize = CGSizeMake(600, 44)
               subTopicsController.getSubtopicsDetailsWithMainTopicId(startedMainTopicID, withMainTopicName: startedMainTopicName, withStartedSubtopicID: startedSubTopicID, withCumulativeTime: currentCumulativeTime)
             classViewPopOverController = UIPopoverController(contentViewController: subTopicsController)
-            
+            subTopicsController.setPopover(classViewPopOverController)
             classViewPopOverController.popoverContentSize = CGSizeMake(540, 680);
             classViewPopOverController.delegate = self;
             
@@ -778,7 +811,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
             mainTopicsController.getTopicsDetailswithStartedMaintopicId(startedMainTopicID)
             
             classViewPopOverController = UIPopoverController(contentViewController: mainTopicsController)
-            
+            mainTopicsController.setPopover(classViewPopOverController)
             classViewPopOverController.popoverContentSize = CGSizeMake(540, 680);
             classViewPopOverController.delegate = self;
             
@@ -802,7 +835,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     {
         subTopicsController.setdelegate(self)
         subTopicsController.preferredContentSize = CGSizeMake(600, 44)
-       
+       subTopicsController.setPopover(classViewPopOverController)
         if (classViewPopOverController.popoverVisible == true)
         {
              subTopicsController.getSubtopicsDetailsWithMainTopicId(mainTopicID, withMainTopicName: mainTopicName,withStartedSubtopicID: startedSubTopicID, withCumulativeTime: currentCumulativeTime)
@@ -826,7 +859,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     {
         mainTopicsController.setdelegate(self)
         mainTopicsController.preferredContentSize = CGSizeMake(600, 44)
-      
+      mainTopicsController.setPopover(classViewPopOverController)
         if (classViewPopOverController.popoverVisible == true)
         {
               mainTopicsController.getTopicsDetailswithStartedMaintopicId(startedMainTopicID)
@@ -901,7 +934,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         
         questionController.setdelegate(self)
         questionController.preferredContentSize = CGSizeMake(600, 44)
-        
+        questionController.setPopover(classViewPopOverController)
        
       
         if (classViewPopOverController.popoverVisible == true)
@@ -950,7 +983,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
        
         subTopicsController.setdelegate(self)
         subTopicsController.preferredContentSize = CGSizeMake(600, 44)
-        
+        subTopicsController.setPopover(classViewPopOverController)
         if (classViewPopOverController.popoverVisible == true)
         {
             subTopicsController.getSubtopicsDetailsWithMainTopicId(mainTopicId, withMainTopicName: mainTopicName,withStartedSubtopicID: startedSubTopicID, withCumulativeTime: currentCumulativeTime)
@@ -1001,6 +1034,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         
         if (classViewPopOverController.popoverVisible == true)
         {
+            subTopicsController.setPopover(classViewPopOverController)
             subTopicsController.getSubtopicsDetailsWithMainTopicId(mainTopicId, withMainTopicName: mainTopicName,withStartedSubtopicID: startedSubTopicID, withCumulativeTime: currentCumulativeTime)
             
             classViewPopOverController.contentViewController = subTopicsController
@@ -1158,6 +1192,22 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     }
     
     
+    func smhDidgetStudentDontKnowMessageRecieved(StudentId: String)
+    {
+        if let studentDeskView  = mClassView.viewWithTag(Int(StudentId)!) as? StundentDeskView
+        {
+            if currentQuestionDetails != nil
+            {
+                studentDeskView.setDontKnowMessageFromStudent()
+                
+            }
+            
+            
+        }
+        
+    }
+    
+    
     func smhDidgetStudentQueryWithDetails(queryId: String) {
         
         mQueryView.addQueryWithDetails(queryId)
@@ -1185,24 +1235,20 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
             
             
             mSubmissionView.studentAnswerRecievedWIthDetails(details, withStudentDict: studentDict)
+            
+            
+            
+            if mSubmissionView.hidden == false
+            {
+                if let studentId = studentDict.objectForKey("StudentId") as? String
+                {
+                    SSTeacherMessageHandler.sharedMessageHandler.sendHandRaiseReceivedMessageToStudentWithId(studentId)
+                }
 
-            //            if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
-//            {
-//                mSubmissionView.studentAnswerRecievedWIthDetails(details, withStudentDict: studentDict)
-//            }
-//            else if (questionType == kText)
-//            {
-//                
-//            }
-//            else if (questionType == kMatchColumn)
-//            {
-//                mSubmissionView.studentAnswerRecievedWIthDetails(details, withStudentDict: studentDict)
-//            }
-//            else
-//            {
-//              
-//                
-//            }
+            }
+            
+            
+            
         }
         
         
@@ -1243,7 +1289,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
                     questionInfoController.preferredContentSize = CGSizeMake(400,317)
                     
                     let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
-                    
+                    questionInfoController.setPopover(classViewPopOverController)
                     classViewPopOverController.popoverContentSize = CGSizeMake(400,317);
                     classViewPopOverController.delegate = self;
                     
@@ -1267,7 +1313,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
                     questionInfoController.preferredContentSize = CGSizeMake(400,317)
                     
                     let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
-                    
+                    questionInfoController.setPopover(classViewPopOverController)
                     classViewPopOverController.popoverContentSize = CGSizeMake(400,317);
                     classViewPopOverController.delegate = self;
                     
@@ -1308,7 +1354,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
                     
                     classViewPopOverController.popoverContentSize = CGSizeMake(320,320);
                     classViewPopOverController.delegate = self;
-                    
+                    questionInfoController.setPopover(classViewPopOverController)
                     classViewPopOverController.presentPopoverFromRect(CGRect(
                         x:buttonPosition.x ,
                         y:buttonPosition.y + studentDeskView.frame.size.height / 2,
@@ -1341,6 +1387,37 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     }
     
     
+    
+    
+    
+    func delegateStudentCellPressedWithEvaluationDetails(details: AnyObject, withStudentId studentId: String)
+    {
+        if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView
+        {
+            let buttonPosition :CGPoint = studentDeskView.convertPoint(CGPointZero, toView: self.view)
+            
+            let questionInfoController = StudentEvaluationDetails()
+            questionInfoController.setdelegate(self)
+            
+            questionInfoController.setStudentAnswerDetails(studentDeskView._currentAnswerDetails, withStudentDetials: studentDeskView.currentStudentsDict, withCurrentQuestionDict: currentQuestionDetails, withEvaluationDetails: details)
+            
+            let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+            
+            classViewPopOverController.popoverContentSize = CGSizeMake(320,320);
+            classViewPopOverController.delegate = self;
+            questionInfoController.setPopover(classViewPopOverController)
+            
+            classViewPopOverController.presentPopoverFromRect(CGRect(
+                x:buttonPosition.x ,
+                y:buttonPosition.y + studentDeskView.frame.size.height / 2,
+                width: 1,
+                height: 1), inView: self.view, permittedArrowDirections: .Right, animated: true)
+            
+        }
+        
+    }
+    
+    
     func delegateStudentQueryWithDetails(details: AnyObject, withStudentDict studentDict: AnyObject)
     {
         
@@ -1363,7 +1440,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
                 questionInfoController.preferredContentSize = CGSizeMake(320,317)
                 
                 let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
-                
+                questionInfoController.setPopover(classViewPopOverController)
                 classViewPopOverController.popoverContentSize = CGSizeMake(320,317);
                 classViewPopOverController.delegate = self;
                 
@@ -1475,6 +1552,15 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
             }
         }
     }
+    
+    // MARK: - SubmissionPopover functions
+    
+    func delegateSubmissionEvalauatedWithAnswerDetails(answerDetails: AnyObject, withEvaluationDetail evaluation: AnyObject, withStudentId studentId: String)
+    {
+       
+        mSubmissionView.studentSubmissionEvaluatedWithDetails(evaluation, withStdentId: studentId)
+    }
+    
     
     
     // MARK: - Extra functions

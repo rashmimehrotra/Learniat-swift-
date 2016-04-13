@@ -435,19 +435,33 @@ class SSTeacherSubTopicController: UIViewController,SSTeacherDataSourceDelegate,
                 subview.removeFromSuperview()
             }
         }
-
-        
-        
     }
     
     
+    var _Popover:AnyObject!
+    
+    func setPopover(popover:AnyObject)
+    {
+        _Popover = popover
+    }
+    
+    func popover()-> AnyObject
+    {
+        return _Popover
+    }
     func onDoneButton()
     {
-        if delegate().respondsToSelector(Selector("delegateDoneButtonPressed"))
-        {
-            delegate().delegateDoneButtonPressed!()
-        }
+        popover().dismissPopoverAnimated(true)
+        
     }
+    
+//    func onDoneButton()
+//    {
+//        if delegate().respondsToSelector(Selector("delegateDoneButtonPressed"))
+//        {
+//            delegate().delegateDoneButtonPressed!()
+//        }
+//    }
     
     func delegateSubTopicCellStartedWithId(subTopicId:String, witStatedState isStarted:Bool,withSubTopicName subTopicName:String)
     {

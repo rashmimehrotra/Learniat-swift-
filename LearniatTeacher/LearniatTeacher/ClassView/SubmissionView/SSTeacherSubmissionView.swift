@@ -163,14 +163,18 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
             }
         }
         
-        
-       
-        
-        
-        
-        
-        
     }
+    
+    
+    func studentSubmissionEvaluatedWithDetails(evaluationDetails:AnyObject, withStdentId StudentId:String)
+    {
+        if mScribbleSubmissionView != nil
+        {
+            mScribbleSubmissionView.submissionEvaluatedWithDetails(evaluationDetails, withStudentId: StudentId)
+            
+        }
+    }
+    
     
     func questionClearedByTeacher()
     {

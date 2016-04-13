@@ -144,7 +144,13 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         
         let sessionState = sessionDetails.objectForKey(kSessionState) as! String
         
-        delegate().delegateScheduleTileTouchedWithState!(sessionState, withCurrentTileDetails: sessionDetails)
+        
+        if delegate().respondsToSelector(Selector("delegateScheduleTileTouchedWithState:withCurrentTileDetails:"))
+        {
+            delegate().delegateScheduleTileTouchedWithState!(sessionState, withCurrentTileDetails: sessionDetails)
+        }
+        
+        
         
     }
     

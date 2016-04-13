@@ -12,11 +12,11 @@
 let kBenchcode                  = "SeatLabel"
 let kBenchState                 = "BenchState"
 
-let kMTimeExtended          =   "180"
-let kMSeatingChanged        =   "195"
-let kMTeacherEndsSession    =   "706"
-let kMQuestionLabel         =   "170"
-let kMAllowVoiting          =   "173"
+let kTimeExtended          =   "180"
+let kSeatingChanged        =   "195"
+let kTeacherEndsSession    =   "706"
+let kQuestionLabel         =   "170"
+let kAllowVoiting          =   "173"
 let kLiveClassRoomName      =   "723"
 let kTeacherQnASubmitted    =   "231"
 let kStudentSentBenchState  =   "220"
@@ -32,7 +32,7 @@ let kWithDrawSubmission         = "707"
 let kStudentDoubtSubmission		= "215"
 let kReplyToQuery               = "708"
 let kQueryStartedForVolunteer   = "703"
-let kMeToo                      = "175"
+let keToo                      = "175"
 let kIVolunteer                 = "176"
 let kEndVolunteeringSession     = "187"
 let kTeacherReviewDoubt         = "702"
@@ -49,7 +49,7 @@ let kSendPollStoppedToStudent       = "721"
 let kCollaborationPing              = "713"
 let kCollaborationOption            = "714"
 let kCloseCollaboration             = "715"
-let kModelAnswerDetails             = "179"
+let kodelAnswerDetails             = "179"
 let kMuteStudent                    = "712"
 
 
@@ -76,6 +76,8 @@ import Foundation
     
     optional  func smhDidgetStudentAnswerMessageWithStudentId(StudentId: String, withAnswerString answerStrin:String)
     
+    
+    optional func smhDidgetStudentDontKnowMessageRecieved(StudentId:String)
     
     optional func smhDidgetStudentQueryWithDetails(queryId:String)
     
@@ -260,7 +262,7 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
         if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
         {
             let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
-            let msgType             = kMAllowVoiting
+            let msgType             = kAllowVoiting
             
             
             let messageBody = ["VotingValue":votingState,"SubTopicName":subTopicName, "SubTopicId":subTopicId]
@@ -438,7 +440,7 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
             roomId = "room_\(roomId)@conference.\(kBaseXMPPURL)";
             
             let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
-            let msgType             = kMTimeExtended
+            let msgType             = kTimeExtended
             
             
               let messageBody = ["timedelay":timeDelay ,
@@ -473,7 +475,7 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
             roomId = "room_\(roomId)@conference.\(kBaseXMPPURL)";
             
             let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
-            let msgType             = kMSeatingChanged
+            let msgType             = kSeatingChanged
             
             
             let messageBody = ["state":seatName ,
@@ -507,7 +509,7 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
             roomId = "room_\(roomId)@conference.\(kBaseXMPPURL)";
             
             let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
-            let msgType             = kMAllowVoiting
+            let msgType             = kAllowVoiting
             
             
             let messageBody = ["VotingValue":votingState,"SubTopicName":subTopicName, "SubTopicId":subTopicId]
@@ -578,6 +580,40 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
             let details:NSMutableDictionary = ["From":userId,
                 "To":roomId,
                 "Type":msgType];
+            
+            
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendGroupMessageWithBody(xmlBody, withRoomId: roomId)
+        }
+    }
+    
+    func freezeQnAMessageToRoom(var roomId :String, withAverageScore averageScore:String, withTotalResponses totalResponse:String)
+    {
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
+        {
+            
+            
+            roomId = "\(roomId)@conference.\(kBaseXMPPURL)"
+            
+            let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
+            let msgType             = kTeacherQnAFreeze
+            
+            
+            let messageBody = ["averageScore":averageScore,
+                "totalResponces":totalResponse]
+            
+
+            
+            
+            let details:NSMutableDictionary = ["From":userId,
+                "To":roomId,
+                "Type":msgType,
+                "Body":messageBody];
             
             
             
@@ -774,6 +810,17 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
                 }
             }
             break
+            
+            
+        case kDontKnow :
+           
+            if delegate().respondsToSelector(Selector("smhDidgetStudentDontKnowMessageRecieved:"))
+            {
+                delegate().smhDidgetStudentDontKnowMessageRecieved!(message.messageFrom())
+               
+            }
+            break
+
             
             
         default:

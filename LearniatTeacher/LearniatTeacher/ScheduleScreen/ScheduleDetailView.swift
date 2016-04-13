@@ -77,6 +77,11 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
     
     var resetButton                     = UIButton()
     
+    var mJoinStudentProgressBar         = DonutChartView()
+    
+    var mJoinedPercentageLabel            = UILabel()
+    
+    var mJoinedStudentsLabel            = UILabel()
     
     override init(frame: CGRect) {
         
@@ -282,6 +287,41 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         
         
         
+        
+        
+        
+        
+        mJoinStudentProgressBar.frame = CGRectMake((loadingView.frame.size.width - (loadingView.frame.size.width / 1.8) ) /  2 , LineView6.frame.origin.y + 20 , (loadingView.frame.size.width / 1.8), (loadingView.frame.size.width / 1.8))
+        loadingView.addSubview(mJoinStudentProgressBar)
+        mJoinStudentProgressBar.backgroundColor = UIColor.clearColor()
+        mJoinStudentProgressBar.progress = 20
+        
+        mJoinStudentProgressBar.lineWidth = 4
+        
+        
+        
+        
+        
+        mJoinedPercentageLabel.frame = CGRectMake(15, (mJoinStudentProgressBar.frame.size.height-(mJoinStudentProgressBar.frame.size.height / 6) )/2, mJoinStudentProgressBar.frame.size.width - 30 , mJoinStudentProgressBar.frame.size.height / 6)
+        mJoinStudentProgressBar.addSubview(mJoinedPercentageLabel)
+        mJoinedPercentageLabel.textAlignment = .Center
+        mJoinedPercentageLabel.font = UIFont(name: helveticaRegular, size: 40)
+        mJoinedPercentageLabel.lineBreakMode = .ByTruncatingMiddle
+        mJoinedPercentageLabel.textColor = blackTextColor
+        
+
+        
+        mJoinedStudentsLabel.frame = CGRectMake(mJoinedPercentageLabel.frame.origin.x ,mJoinedPercentageLabel.frame.origin.y + mJoinedPercentageLabel.frame.size.height , mJoinedPercentageLabel.frame.size.width , 30)
+        mJoinStudentProgressBar.addSubview(mJoinedStudentsLabel)
+        mJoinedStudentsLabel.textAlignment = .Center
+        mJoinedStudentsLabel.font = UIFont(name: helveticaRegular, size: 14)
+        mJoinedPercentageLabel.lineBreakMode = .ByTruncatingMiddle
+        mJoinedStudentsLabel.textColor = UIColor.lightGrayColor()
+        
+        
+        
+        
+        
         editSeatButton.frame = CGRectMake(10, loadingView.frame.size.height - 60 , loadingView.frame.size.width/4 ,loadingView.frame.size.width/12)
         editSeatButton.setTitle("Edit seats", forState: .Normal)
         editSeatButton.setTitleColor(standard_Button, forState: .Normal)
@@ -374,12 +414,18 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         overDueTimer.invalidate()
         nextSessionTimer.invalidate()
         
-         if let sessionId = details.objectForKey("SessionId") as? String
-         {
+        
+        refreshView()
+        
+    }
+    
+    
+    func refreshView()
+    {
+        if let sessionId = currentSessionDetails.objectForKey("SessionId") as? String
+        {
             SSTeacherDataSource.sharedDataSource.getScheduleSummaryWithSessionId(sessionId, WithDelegate: self)
         }
-        
-        
     }
     
     // MARK: - Teacher datasource delegate functions
@@ -420,6 +466,13 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
             if let PreAllocatedSeats = details.objectForKey("PreAllocatedSeats") as? String
             {
                 
+                
+                
+                
+                
+                
+                
+                
                 if Int(PreAllocatedSeats)! > 0
                 {
                     resetButton.enabled = true
@@ -436,9 +489,36 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
                 
                 if let OccupiedSeats = details.objectForKey("OccupiedSeats") as? String
                 {
+                    
                     let totalSesats = Int(PreAllocatedSeats)! + Int(OccupiedSeats)!
                     
                     preallocatedSeatslabel.text = "\(totalSesats) of \(StudentsRegistered)"
+                    
+                    
+                    
+                    var percenatgeValue = (NSString(format: "%@", OccupiedSeats).floatValue) / (NSString(format: "%@", StudentsRegistered).floatValue) * 100;
+                    
+                    
+                    if(isnan(percenatgeValue))
+                    {
+                        percenatgeValue = 0;
+                    }
+                    
+                    
+                    
+                    
+                    
+                    mJoinedPercentageLabel.text =  NSString(format:"%.1f%%",percenatgeValue) as String;
+                  
+                    mJoinStudentProgressBar.progress = CGFloat(percenatgeValue) / 100;
+                    
+                    let string = "\(OccupiedSeats) of \(StudentsRegistered) joined" as NSString
+                    let attributedString = NSMutableAttributedString(string: string as String )
+                    attributedString.addAttributes([NSForegroundColorAttributeName: blackTextColor], range: string.rangeOfString("\(OccupiedSeats)"))
+                    attributedString.addAttributes([NSForegroundColorAttributeName: UIColor.lightGrayColor()], range: string.rangeOfString(" of "))
+                    attributedString.addAttributes([NSForegroundColorAttributeName: blackTextColor], range: string.rangeOfString("\(StudentsRegistered)"))
+                    attributedString.addAttributes([NSForegroundColorAttributeName: UIColor.lightGrayColor()], range: string.rangeOfString(" joined"))
+                    mJoinedStudentsLabel.attributedText = attributedString
                     
                     
                     if let SeatsConfigured = details.objectForKey("SeatsConfigured") as? String
@@ -479,8 +559,6 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
 
                                 }
                             }
-                            
-                            
                         }
                         else
                         {

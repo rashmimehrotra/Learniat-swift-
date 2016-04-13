@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/ClassView/SubmissionView/AgregateDrillDown/SSTeacherAggregatePopOverController.swift"
-            timestampString = "482150153.702691"
+            filePath = "LearniatTeacher/ClassView/StudentSubjectivePopover.swift"
+            timestampString = "482217889.866785"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
-            landmarkName = "AggregateDrillDownWithOptionId(_:withQuestionDetails:withQuestionLogId:withQuestionTye:)"
+            startingLineNumber = "408"
+            endingLineNumber = "408"
+            landmarkName = "ErrorInUploadingWithName(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/Source/SSTeacherDataSource.swift"
-            timestampString = "482150160.947104"
+            filePath = "LearniatTeacher/ScheduleScreen/ScheduleDetailView.swift"
+            timestampString = "482234936.568638"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "415"
-            endingLineNumber = "415"
-            landmarkName = "getAgregateDrilDownWithOptionId(_:WithQuestionLogId:WithDelegate:)"
+            startingLineNumber = "494"
+            endingLineNumber = "494"
+            landmarkName = "setcurrentViewDetails(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,29 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/Source/SSTeacherDataSource.swift"
-            timestampString = "482160510.32556"
+            filePath = "LearniatTeacher/ScheduleScreen/SSTeacherSchedulePopoverController.swift"
+            timestampString = "482238733.754314"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "495"
-            endingLineNumber = "495"
-            landmarkName = "sendFeedbackToStudentWithDetails(_:WithDelegate:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/ClassView/StudentAnswerOptionsView.swift"
-            timestampString = "482160853.178723"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "568"
-            endingLineNumber = "568"
-            landmarkName = "setStudentEvaluationStatusWithDetails(_:)"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "viewWillDisappear(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

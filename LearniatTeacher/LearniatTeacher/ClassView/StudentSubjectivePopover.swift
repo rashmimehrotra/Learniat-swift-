@@ -7,16 +7,46 @@
 //
 
 import Foundation
-class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate
+
+
+
+@objc protocol StudentSubjectivePopoverDelegate
+{
+    
+    
+    optional func delegateSubmissionEvalauatedWithAnswerDetails(answerDetails:AnyObject,withEvaluationDetail evaluation:AnyObject, withStudentId studentId:String)
+    
+    
+    
+}
+
+
+class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeacherDataSourceDelegate,SmoothLineViewdelegate
 {
     var _delgate: AnyObject!
 
+    var _Popover:AnyObject!
     
     var _studentAnswerDetails:AnyObject!
     
     var _currentStudentDict:AnyObject!
     
     var _currentQuestiondetails:AnyObject!
+    
+    let mStarRatingView = SSStarRatingView()
+    var isModelAnswer = false
+    
+    let  mDoneButton = UIButton()
+    
+    let imageUploading = ImageUploading()
+    
+    let modelAnswerButton = UIButton()
+    
+    var sendButtonSpinner : UIActivityIndicatorView!
+    
+     var mScribbleView : SmoothLineView!
+    
+    let feedBackDetails = NSMutableDictionary()
     
     func setdelegate(delegate:AnyObject)
     {
@@ -27,6 +57,18 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate
     {
         return _delgate;
     }
+    
+    
+    
+    func setPopover(popover:AnyObject)
+    {
+        _Popover = popover
+    }
+    
+    func popover()-> AnyObject
+    {
+        return _Popover
+    }
 
     
     override func viewDidLoad()
@@ -36,6 +78,8 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate
         
 //        self.view.setNeedsLayout()
 //        self.view.layoutIfNeeded()
+        
+        imageUploading.setDelegate(self)
         
         
         let questionView = UIView(frame: CGRectMake(0, 0, 320, 320))
@@ -66,7 +110,7 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate
         
         
         
-        let  mDoneButton = UIButton(frame: CGRectMake(headerView.frame.size.width - 120, 0, 100, 40))
+         mDoneButton.frame = CGRectMake(headerView.frame.size.width - 120, 0, 100, 40)
         mDoneButton.addTarget(self, action: "onDoneButton", forControlEvents: UIControlEvents.TouchUpInside)
         mDoneButton.setTitleColor(standard_Button, forState: .Normal)
         mDoneButton.setTitle("Done", forState: .Normal)
@@ -76,16 +120,21 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate
 
         
         
+        sendButtonSpinner = UIActivityIndicatorView(activityIndicatorStyle:.Gray);
+        sendButtonSpinner.frame = mDoneButton.frame;
+        headerView.addSubview(sendButtonSpinner);
+        sendButtonSpinner.hidden = true;
+
         
         
         
         
-       let modelAnswerButton = UIButton(type:.Custom)
+       
         
         modelAnswerButton.enabled = true
         modelAnswerButton.setTitle("Mark Model", forState:.Normal)
         modelAnswerButton.setTitleColor(standard_Button ,forState:.Normal);
-//        [modelAnswerButton addTarget:self action:@selector(onModelAnswerButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        modelAnswerButton.addTarget(self, action: "onModelAnswer", forControlEvents: UIControlEvents.TouchUpInside)
         modelAnswerButton.frame = CGRectMake(20, 45, 130, 40);
         questionView.addSubview(modelAnswerButton);
         modelAnswerButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
@@ -178,11 +227,22 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate
         
         
         
+        mScribbleView = SmoothLineView(frame: CGRectMake((questionView.frame.size.width - 270)/2,lineView.frame.origin.y + lineView.frame.size.height ,270,180))
+        mScribbleView.delegate = self
+        self.view.addSubview(mScribbleView);
+        mScribbleView.userInteractionEnabled = true
+        mScribbleView.setDrawingColor(standard_Red);
+        mScribbleView.setBrushWidth(3)
+        mScribbleView.setDrawingTool(kBrushTool)
+        mScribbleView.hidden = false
+
+        
+        
         let lineView1 = UIImageView(frame:CGRectMake(20, 270, 280, 1))
         lineView1.backgroundColor = topicsLineColor
         questionView.addSubview(lineView1);
         
-        let mStarRatingView = SSStarRatingView()
+        
         mStarRatingView.setDelegate(self);
         mStarRatingView.backgroundColor = UIColor.clearColor();
         mStarRatingView.frame = CGRectMake(80, lineView1.frame.origin.y + lineView1.frame.size.height + 10, 210.0, 34.0);
@@ -199,15 +259,156 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate
     }
     
     
-    func onDoneButton(sender:AnyObject)
-    {
-        
-    }
-    
     
     func starRatingDidChange()
     {
         
     }
+    
+    
+    
+    func onModelAnswer()
+    {
+        
+        
+        isModelAnswer = true
+        modelAnswerButton.setTitleColor(UIColor.lightGrayColor() ,forState:.Normal);
+        modelAnswerButton.enabled = false
+        
+    }
+    
+    
+    // MARK: - Smooth line delegate
+    
+    func lineDrawnChanged()
+    {
+        
+    }
+    
+    func setUndoButtonEnable(enable: NSNumber!) {
+        
+    }
+    
+    func setRedoButtonEnable(enable: NSNumber!) {
+        
+    }
+    
+    
+    func onAnnotateButton()
+    {
+        
+    }
+    
+    // MARK: - sendFeedBack delegate
+    
+    func onDoneButton()
+    {
+        
+        if isModelAnswer == true || mStarRatingView.rating() > 0 || mScribbleView.curImage != nil
+        {
+            sendButtonSpinner.hidden = false
+            sendButtonSpinner.startAnimating()
+            mDoneButton.hidden = true
+            
+            let currentDate = NSDate()
+            
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyy-mm-dd HH:mm:ss"
+            
+            
+            
+            let currentDateString = dateFormatter.stringFromDate(currentDate)
+            
+            
+            var nameOfImage  = "TT-\(SSTeacherDataSource.sharedDataSource.currentUserId)-\(SSTeacherDataSource.sharedDataSource.currentLiveSessionId)-\(currentDateString)"
+            nameOfImage =  nameOfImage.stringByReplacingOccurrencesOfString(" ", withString: "")
+            
+            if mScribbleView.curImage != nil
+            {
+                
+                imageUploading.uploadImageWithImage(mScribbleView.curImage, withImageName: nameOfImage, withUserId: SSTeacherDataSource.sharedDataSource.currentUserId)
+            }
+            else
+            {
+                newImageUploadedWithName(nameOfImage)
+            }
+            
+            
+            
+        }
+        else
+        {
+            popover().dismissPopoverAnimated(true)
+        }
+        
+        
+        
+    }
+    
+    
+    func newImageUploadedWithName(imageName:String)
+    {
+        if let AssessmentAnswerId = _studentAnswerDetails.objectForKey("AssessmentAnswerId") as? String
+        {
+            
+            
+            feedBackDetails.setObject(_currentStudentDict.objectForKey("StudentId")!, forKey: "StudentId")
+            
+            feedBackDetails.setObject(AssessmentAnswerId, forKey: "AssessmentAnswerId")
+            
+            feedBackDetails.setObject("\(mStarRatingView.rating())", forKey: "Rating")
+            
+            feedBackDetails.setObject("upload/\(imageName).png", forKey: "imageUrl")
+            
+            feedBackDetails.setObject("0", forKey: "BadgeId")
+            
+            feedBackDetails.setObject("", forKey: "textRating")
+            
+            feedBackDetails.setObject("\(isModelAnswer)", forKey: "ModelAnswerFlag")
+            
+            SSTeacherDataSource.sharedDataSource.sendFeedbackToStudentWithDetails(feedBackDetails, WithDelegate: self)
+            
+        }
+    }
+    
+    func didGetFeedbackSentWithDetails(details: AnyObject)
+    {
+        
+        
+        if let studentId = details.objectForKey("Students")!.objectForKey("Student")!.objectForKey("StudentId") as? String
+        {
+            if let AssessmentAnswerId = details.objectForKey("AssessmentAnswerId") as? String
+            {
+                SSTeacherMessageHandler.sharedMessageHandler.sendFeedbackToStudentWitId(studentId, withassesmentAnswerId: AssessmentAnswerId)
+                
+                if delegate().respondsToSelector(Selector("delegateSubmissionEvalauatedWithAnswerDetails:withEvaluationDetail:withStudentId:"))
+                {
+                    
+                    delegate().delegateSubmissionEvalauatedWithAnswerDetails!(_studentAnswerDetails, withEvaluationDetail: feedBackDetails, withStudentId: studentId)
+                    
+                }
+                popover().dismissPopoverAnimated(true)
+            }
+        }
+    }
+    
+    
+    
+    
+    // MARK: - ImageUploading delegate
+    
+    func ImageUploadedWithName(name: String!)
+    {
+        newImageUploadedWithName(name)
+    }
+    
+    func ErrorInUploadingWithName(name: String!)
+    {
+        sendButtonSpinner.hidden = true
+        sendButtonSpinner.stopAnimating()
+        mDoneButton.hidden = false
+        mScribbleView.clearButtonClicked()
+    }
+    
     
 }

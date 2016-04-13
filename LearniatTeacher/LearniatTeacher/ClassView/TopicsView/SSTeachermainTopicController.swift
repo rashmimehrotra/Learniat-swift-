@@ -269,14 +269,32 @@ class SSTeachermainTopicController: UIViewController, SSTeacherDataSourceDelegat
     }
     
     
-    func onDoneButton()
+    var _Popover:AnyObject!
+    
+    func setPopover(popover:AnyObject)
     {
-        if delegate().respondsToSelector(Selector("delegateDoneButtonPressed"))
-        {
-            delegate().delegateDoneButtonPressed!()
-        }
+        _Popover = popover
     }
     
+    func popover()-> AnyObject
+    {
+        return _Popover
+    }
+    func onDoneButton()
+    {
+        popover().dismissPopoverAnimated(true)
+        
+    }
+    
+    
+//    func onDoneButton()
+//    {
+//        if delegate().respondsToSelector(Selector("delegateDoneButtonPressed"))
+//        {
+//            delegate().delegateDoneButtonPressed!()
+//        }
+//    }
+//    
     
     func delegateSubtopicButtonPressedWithID(mainTopicId: String, withmainTopicname mainTopicName: String) {
         

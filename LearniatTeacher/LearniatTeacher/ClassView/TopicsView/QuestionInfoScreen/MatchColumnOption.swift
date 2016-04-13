@@ -13,6 +13,8 @@ class MatchColumnOption : UIViewController
     
     var _delgate: AnyObject!
     
+        var _Popover:AnyObject!
+    
     var cureentQuestionDetails :AnyObject!
     
     let optionScrollView = UIScrollView()
@@ -326,6 +328,22 @@ class MatchColumnOption : UIViewController
         
     }
     
+    
+
+    func setPopover(popover:AnyObject)
+    {
+        _Popover = popover
+    }
+    
+    func popover()-> AnyObject
+    {
+        return _Popover
+    }
+    func onDoneButton()
+    {
+        popover().dismissPopoverAnimated(true)
+        
+    }
     
     
     

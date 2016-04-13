@@ -77,10 +77,25 @@ class ScribbleQuestionInfoScreen : UIViewController
     
     
     
-    func onDoneButton(sender:AnyObject)
+    var _Popover:AnyObject!
+   
+    func setPopover(popover:AnyObject)
     {
+        _Popover = popover
+    }
+    
+    func popover()-> AnyObject
+    {
+        return _Popover
+    }
+    func onDoneButton()
+    {
+        popover().dismissPopoverAnimated(true)
         
     }
+    
+    
+    
     func setScribbleInfoDetails(details:AnyObject)
     {
         questionDetails = details
