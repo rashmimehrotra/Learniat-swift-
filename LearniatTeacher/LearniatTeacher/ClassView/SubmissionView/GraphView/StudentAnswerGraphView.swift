@@ -18,6 +18,7 @@ var kOptionIdIncrementer  = 1000
     
     optional func delegateBarTouchedWithId(optionId: String, withView barButton:BarView)
     
+    optional func delegateShareButtonClickedWithDetails(details:AnyObject)
     
 }
 
@@ -32,6 +33,7 @@ class StudentAnswerGraphView: UIView
     
     var basePostionValue :CGFloat = 20
     
+    let shareGraphButton  = UIButton()
     
     var differenceheight      :CGFloat = 10
     
@@ -54,11 +56,21 @@ class StudentAnswerGraphView: UIView
         
         super.init(frame:frame)
         
-        questionNamelabel.frame =  CGRectMake(10,10,self.frame.size.width,40)
+        questionNamelabel.frame =  CGRectMake(10,10,self.frame.size.width - 50 ,40)
         self.addSubview(questionNamelabel)
         questionNamelabel.font = UIFont (name: helveticaRegular, size: 18)
         questionNamelabel.textColor = blackTextColor
         questionNamelabel.textAlignment = .Center
+        
+        
+        shareGraphButton.frame = CGRectMake(self.frame.size.width - 105, 0, 100, 50)
+        shareGraphButton.setImage(UIImage(named:"Sharebutton.png"), forState:.Normal)
+        self.addSubview(shareGraphButton);
+        shareGraphButton.imageView?.contentMode = .ScaleAspectFit
+        shareGraphButton.addTarget(self, action: "onShareGraph", forControlEvents: UIControlEvents.TouchUpInside)
+
+        
+        
         
         lineContainerView.frame  = CGRectMake(0, questionNamelabel.frame.size.height + questionNamelabel.frame.origin.y + 20 , self.frame.size.width, self.frame.size.height - (questionNamelabel.frame.size.height + questionNamelabel.frame.origin.y + 100))
         self.addSubview(lineContainerView)
@@ -372,6 +384,45 @@ class StudentAnswerGraphView: UIView
             
            
             answerBar.changeFrameWithHeight(presentValue)
+            
+            
+            if (answerBar.frame.size.height >= lineContainerView.frame.size.height)
+            {
+                differenceheight=differenceheight/2;
+                
+                
+                
+                let subViews = lineContainerView.subviews.flatMap{ $0 as? BarView }
+                for updatedbarImageview in subViews
+                {
+                    if updatedbarImageview.isKindOfClass(BarView)
+                    {
+                        
+                        updatedbarImageview.presentValue = updatedbarImageview.presentValue / 2
+                        var presentValue:CGFloat = CGFloat(updatedbarImageview.presentValue)
+                        presentValue = presentValue * differenceheight
+                        updatedbarImageview.frame = CGRectMake(updatedbarImageview.frame.origin.x ,self.lineContainerView.frame.size.height - presentValue  , updatedbarImageview.frame.size.width ,presentValue)
+                        updatedbarImageview.changeFrameWithHeight(presentValue)
+
+                        
+                        
+                        
+                        
+                        
+                    }
+                }
+                for (var i = 10; i >= 0 ; i--)
+                {
+                    if (i % 2 == 0)
+                    {
+                        if let label = lineContainerView.viewWithTag(kLabeltag + i) as? UILabel
+                        {
+                            let labelValue = NSString(format:"%@",label.text!).intValue;
+                            label.text = "\(labelValue * 2)"
+                        }
+                    }
+                }
+            }
         }
     }
     
@@ -396,10 +447,48 @@ class StudentAnswerGraphView: UIView
                 
                 
                 answerBar.changeFrameWithHeight(presentValue)
+                
+                
+                
+                
+                if (answerBar.frame.size.height >= lineContainerView.frame.size.height)
+                {
+                    differenceheight=differenceheight/2;
+                    
+                    
+                    
+                    let subViews = lineContainerView.subviews.flatMap{ $0 as? BarView }
+                    for updatedbarImageview in subViews
+                    {
+                        if updatedbarImageview.isKindOfClass(BarView)
+                        {
+                            
+                            
+                            updatedbarImageview.presentValue = updatedbarImageview.presentValue / 2
+                            var _presentValue:CGFloat = CGFloat(updatedbarImageview.presentValue)
+                            _presentValue = _presentValue * differenceheight
+                            updatedbarImageview.frame = CGRectMake(updatedbarImageview.frame.origin.x ,self.lineContainerView.frame.size.height - _presentValue  , updatedbarImageview.frame.size.width ,_presentValue)
+                            updatedbarImageview.changeFrameWithHeight(_presentValue)
+                            
+                            
+                            
+                            
+                        }
+                    }
+                    for (var i = 10; i >= 0 ; i--)
+                    {
+                        if (i % 2 == 0)
+                        {
+                            if let label = lineContainerView.viewWithTag(kLabeltag + i) as? UILabel
+                            {
+                                let labelValue = NSString(format:"%@",label.text!).intValue;
+                                 label.text = "\(labelValue * 2)"
+                            }
+                        }
+                    }
+                }
             }
         }
-        
-        
     }
     
     
@@ -413,6 +502,58 @@ class StudentAnswerGraphView: UIView
             }
         }
     }
+    
+    func onShareGraph()
+    {
+        let subViews = lineContainerView.subviews.flatMap{ $0 as? BarView }
+        let detailsDictonary = NSMutableDictionary()
+        for subview in subViews
+        {
+            if subview.isKindOfClass(BarView)
+            {
+                
+
+                let  optionsId = subview.tag
+                
+                let valueOfBars = subview.frame.size.height / differenceheight;
+                
+                
+                detailsDictonary.setObject(roundOffNumberWithFloat(Float(valueOfBars)), forKey: "option_\(optionsId)")
+                
+                
+
+                
+            }
+        }
+        
+        if delegate().respondsToSelector(Selector("delegateShareButtonClickedWithDetails:"))
+        {
+            delegate().delegateShareButtonClickedWithDetails!(detailsDictonary)
+        }
+        
+    }
+    
+    
+    
+    func roundOffNumberWithFloat(var numberToRound:Float) ->Int
+    {
+        let min = NSString(format: "%.0f", numberToRound).floatValue
+    
+        let max = min + 1;
+        let maxdif = max - numberToRound;
+        if (maxdif > 0.5)
+        {
+            numberToRound = min;
+        }
+        else
+        {
+            numberToRound = max;
+        }
+    
+        return Int(numberToRound);
+    
+    }
+
     
     
 }

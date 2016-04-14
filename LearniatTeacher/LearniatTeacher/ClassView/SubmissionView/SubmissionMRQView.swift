@@ -200,6 +200,12 @@ class SubmissionMRQView: UIView,StudentAnswerGraphViewDelegate
         
     }
     
+    func delegateShareButtonClickedWithDetails(details: AnyObject)
+    {
+        SSTeacherMessageHandler.sharedMessageHandler.shareGraphtoiPhoneStudentId("question_\(SSTeacherDataSource.sharedDataSource.currentLiveSessionId)", withDetails: details)
+        
+    }
+    
     
     
     

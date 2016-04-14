@@ -91,7 +91,7 @@ class StudentEvaluationDetails: UIViewController,SSStarRatingViewDelegate
         
         
        
-        let mStarRatingView = StudentStarView(frame: CGRectMake(20, headerView.frame.origin.y + headerView.frame.size.height + 10, headerView.frame.size.width - 90 , 34.0))
+        let mStarRatingView = StudentStarView(frame: CGRectMake(20, headerView.frame.origin.y + headerView.frame.size.height + 5, headerView.frame.size.width - 90 , 34.0))
         mStarRatingView.backgroundColor = UIColor.clearColor();
         
         if let Rating = _currentEvaluationDetails.objectForKey("Rating") as? String
@@ -124,7 +124,7 @@ class StudentEvaluationDetails: UIViewController,SSStarRatingViewDelegate
         
         
        
-        let lineView = UIImageView(frame:CGRectMake(20, mStarRatingView.frame.origin.y + mStarRatingView.frame.size.height , 280, 1))
+        let lineView = UIImageView(frame:CGRectMake(20, mStarRatingView.frame.origin.y + mStarRatingView.frame.size.height + 5 , 280, 1))
         lineView.backgroundColor = topicsLineColor
         questionView.addSubview(lineView);
         

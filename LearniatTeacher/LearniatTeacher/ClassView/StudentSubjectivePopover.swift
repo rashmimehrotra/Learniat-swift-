@@ -16,6 +16,8 @@ import Foundation
     
     optional func delegateSubmissionEvalauatedWithAnswerDetails(answerDetails:AnyObject,withEvaluationDetail evaluation:AnyObject, withStudentId studentId:String)
     
+    optional func delegateAnnotateButtonPressedWithAnswerDetails(answerDetails:AnyObject, withStudentDetails studentDict:AnyObject, withQuestionDetails questionDetails:AnyObject)
+    
     
     
 }
@@ -143,7 +145,7 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         anotateButton.enabled = true
         anotateButton.setTitle("Annotate", forState:.Normal)
         anotateButton.setTitleColor(standard_Button ,forState:.Normal);
-        //        [modelAnswerButton addTarget:self action:@selector(onModelAnswerButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        anotateButton.addTarget(self, action: "onAnnotateButton", forControlEvents: UIControlEvents.TouchUpInside)
         anotateButton.frame = CGRectMake(170, 45, 130, 40);
         questionView.addSubview(anotateButton);
         anotateButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
@@ -296,7 +298,14 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
     
     func onAnnotateButton()
     {
-        
+        if delegate().respondsToSelector(Selector("delegateAnnotateButtonPressedWithAnswerDetails:withStudentDetails:withQuestionDetails:"))
+        {
+            
+            
+            delegate().delegateAnnotateButtonPressedWithAnswerDetails!(_studentAnswerDetails, withStudentDetails: _currentStudentDict, withQuestionDetails: _currentQuestiondetails)
+            
+            popover().dismissPopoverAnimated(true)
+        }
     }
     
     // MARK: - sendFeedBack delegate
@@ -409,6 +418,8 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         mDoneButton.hidden = false
         mScribbleView.clearButtonClicked()
     }
+    
+    
     
     
 }

@@ -18,7 +18,8 @@ import Foundation
 
 
 
-class SubmissionMTCView: UIView {
+class SubmissionMTCView: UIView,StudentAnswerGraphViewDelegate
+{
     var _delgate: AnyObject!
     
     
@@ -192,6 +193,14 @@ class SubmissionMTCView: UIView {
         }
         
     }
+    
+    func delegateShareButtonClickedWithDetails(details: AnyObject)
+    {
+         SSTeacherMessageHandler.sharedMessageHandler.shareGraphtoiPhoneStudentId("question_\(SSTeacherDataSource.sharedDataSource.currentLiveSessionId)", withDetails: details)
+        
+    }
+    
+    
     
     
 }

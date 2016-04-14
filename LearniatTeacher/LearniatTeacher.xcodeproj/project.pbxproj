@@ -246,7 +246,6 @@
 		537301141CB636AA00E76753 /* desk.png in Resources */ = {isa = PBXBuildFile; fileRef = 537301121CB636AA00E76753 /* desk.png */; };
 		537301151CB636AA00E76753 /* desk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 537301131CB636AA00E76753 /* desk@2x.png */; };
 		537301261CB665E300E76753 /* SmoothLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 537301201CB665E300E76753 /* SmoothLineView.m */; };
-		537301271CB665E300E76753 /* SSColorPopOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 537301221CB665E300E76753 /* SSColorPopOverViewController.m */; };
 		537301281CB665E300E76753 /* UIImage-Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 537301251CB665E300E76753 /* UIImage-Extensions.m */; };
 		537302191CB6771200E76753 /* Dark_Blue_Circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 537301D01CB6771200E76753 /* Dark_Blue_Circle.png */; };
 		5373021A1CB6771200E76753 /* Dark_Blue_Circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 537301D11CB6771200E76753 /* Dark_Blue_Circle@2x.png */; };
@@ -333,6 +332,9 @@
 		5377E4381CAB8F1400A11E59 /* X.png in Resources */ = {isa = PBXBuildFile; fileRef = 5377E4361CAB8F1400A11E59 /* X.png */; };
 		5377E43A1CAB951800A11E59 /* MatchColumnOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5377E4391CAB951800A11E59 /* MatchColumnOption.swift */; };
 		5377E43C1CAB9B6600A11E59 /* MatchColumnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5377E43B1CAB9B6600A11E59 /* MatchColumnCell.swift */; };
+		53909C511CBF570500DDCCD0 /* colorpopOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53909C501CBF570500DDCCD0 /* colorpopOverViewController.m */; };
+		53909C531CBF627B00DDCCD0 /* Sharebutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 53909C521CBF627B00DDCCD0 /* Sharebutton.png */; };
+		53909C551CBF726800DDCCD0 /* StudentAnnotateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53909C541CBF726800DDCCD0 /* StudentAnnotateView.swift */; };
 		53909C671CBB58FF00E8A1C0 /* QuerySubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53909C661CBB58FF00E8A1C0 /* QuerySubview.swift */; };
 		53909C6D1CBB73E500E8A1C0 /* Dismissed.png in Resources */ = {isa = PBXBuildFile; fileRef = 53909C691CBB73E500E8A1C0 /* Dismissed.png */; };
 		53909C6E1CBB73E500E8A1C0 /* Mute_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 53909C6A1CBB73E500E8A1C0 /* Mute_gray.png */; };
@@ -773,8 +775,6 @@
 		537301131CB636AA00E76753 /* desk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "desk@2x.png"; sourceTree = "<group>"; };
 		5373011F1CB665E300E76753 /* SmoothLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmoothLineView.h; sourceTree = "<group>"; };
 		537301201CB665E300E76753 /* SmoothLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmoothLineView.m; sourceTree = "<group>"; };
-		537301211CB665E300E76753 /* SSColorPopOverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSColorPopOverViewController.h; sourceTree = "<group>"; };
-		537301221CB665E300E76753 /* SSColorPopOverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSColorPopOverViewController.m; sourceTree = "<group>"; };
 		537301241CB665E300E76753 /* UIImage-Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage-Extensions.h"; sourceTree = "<group>"; };
 		537301251CB665E300E76753 /* UIImage-Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage-Extensions.m"; sourceTree = "<group>"; };
 		537301D01CB6771200E76753 /* Dark_Blue_Circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dark_Blue_Circle.png; sourceTree = "<group>"; };
@@ -864,6 +864,10 @@
 		5377E4361CAB8F1400A11E59 /* X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = X.png; sourceTree = "<group>"; };
 		5377E4391CAB951800A11E59 /* MatchColumnOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchColumnOption.swift; sourceTree = "<group>"; };
 		5377E43B1CAB9B6600A11E59 /* MatchColumnCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchColumnCell.swift; sourceTree = "<group>"; };
+		53909C4F1CBF570500DDCCD0 /* colorpopOverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = colorpopOverViewController.h; sourceTree = "<group>"; };
+		53909C501CBF570500DDCCD0 /* colorpopOverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = colorpopOverViewController.m; sourceTree = "<group>"; };
+		53909C521CBF627B00DDCCD0 /* Sharebutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Sharebutton.png; path = ScribbleView/Sharebutton.png; sourceTree = "<group>"; };
+		53909C541CBF726800DDCCD0 /* StudentAnnotateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnnotateView.swift; sourceTree = "<group>"; };
 		53909C661CBB58FF00E8A1C0 /* QuerySubview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuerySubview.swift; sourceTree = "<group>"; };
 		53909C691CBB73E500E8A1C0 /* Dismissed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dismissed.png; sourceTree = "<group>"; };
 		53909C6A1CBB73E500E8A1C0 /* Mute_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mute_gray.png; sourceTree = "<group>"; };
@@ -921,6 +925,7 @@
 		531044831CA64296007AE9D5 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				53909C521CBF627B00DDCCD0 /* Sharebutton.png */,
 				5360E6C11CBE425300AFE9FF /* don't-know.png */,
 				53909C681CBB73E500E8A1C0 /* QueryScreen */,
 				53B590161CB8E02900A69FC1 /* Cb_Like_Disabled.png */,
@@ -2081,6 +2086,7 @@
 				539567251CB52082009B0100 /* StudentSubjectivePopover.swift */,
 				5360E6BD1CBDF6D400AFE9FF /* StudentEvaluationDetails.swift */,
 				53778B631CBCB3C8004E6480 /* StudentQueryPopover.swift */,
+				53909C541CBF726800DDCCD0 /* StudentAnnotateView.swift */,
 				53FC04341CAF8C2E00D7B941 /* QueryView */,
 				53FC04351CAF8C2E00D7B941 /* SubmissionView */,
 				53676D521CA63D7A00CADE4D /* TopicsView */,
@@ -2106,10 +2112,10 @@
 		5373011E1CB665E300E76753 /* Drawing */ = {
 			isa = PBXGroup;
 			children = (
+				53909C4F1CBF570500DDCCD0 /* colorpopOverViewController.h */,
+				53909C501CBF570500DDCCD0 /* colorpopOverViewController.m */,
 				5373011F1CB665E300E76753 /* SmoothLineView.h */,
 				537301201CB665E300E76753 /* SmoothLineView.m */,
-				537301211CB665E300E76753 /* SSColorPopOverViewController.h */,
-				537301221CB665E300E76753 /* SSColorPopOverViewController.m */,
 				537301231CB665E300E76753 /* UIImage-Extensions */,
 			);
 			path = Drawing;
@@ -2350,6 +2356,7 @@
 				537302601CB6771200E76753 /* Undo_Disabled.png in Resources */,
 				5310449B1CA64296007AE9D5 /* Minshift_logo.png in Resources */,
 				537302271CB6771200E76753 /* Marker_Unselected_scribble.png in Resources */,
+				53909C531CBF627B00DDCCD0 /* Sharebutton.png in Resources */,
 				5310449F1CA64296007AE9D5 /* 100.png in Resources */,
 				537302351CB6771200E76753 /* Text_Selected_AnnotateView@2x.png in Resources */,
 				5373022E1CB6771200E76753 /* Star_Unselected_AnnotateView.png in Resources */,
@@ -2493,6 +2500,7 @@
 				53676CDD1CA63B7F00CADE4D /* XMPPvCardTempCoreDataStorageObject.m in Sources */,
 				53676CE01CA63B7F00CADE4D /* XMPPvCardTempAdrTypes.m in Sources */,
 				53676CB91CA63B7F00CADE4D /* XMPPProcessOne.m in Sources */,
+				53909C511CBF570500DDCCD0 /* colorpopOverViewController.m in Sources */,
 				532607991CA90AEC002FF684 /* UIDownloadBar.m in Sources */,
 				53676CA21CA63B7F00CADE4D /* Toast.swift in Sources */,
 				53676CD11CA63B7F00CADE4D /* XMPPRoomMessageHybridCoreDataStorageObject.m in Sources */,
@@ -2577,6 +2585,7 @@
 				53676D2B1CA63B7F00CADE4D /* DDXMLNode.m in Sources */,
 				53676D081CA63B7F00CADE4D /* XMPPPing.m in Sources */,
 				53676CB81CA63B7F00CADE4D /* XMPPGoogleSharedStatus.m in Sources */,
+				53909C551CBF726800DDCCD0 /* StudentAnnotateView.swift in Sources */,
 				53676D241CA63B7F00CADE4D /* DDContextFilterLogFormatter.m in Sources */,
 				53676CF51CA63B7F00CADE4D /* XMPPCapabilitiesCoreDataStorage.m in Sources */,
 				53676CC71CA63B7F00CADE4D /* XMPPJabberRPCModule.m in Sources */,
@@ -2648,7 +2657,6 @@
 				53676CAA1CA63B7F00CADE4D /* XMPPXOAuth2Google.m in Sources */,
 				53676CC51CA63B7F00CADE4D /* XMPPIQ+JabberRPC.m in Sources */,
 				53676CCB1CA63B7F00CADE4D /* XMPPRoom.xcdatamodeld in Sources */,
-				537301271CB665E300E76753 /* SSColorPopOverViewController.m in Sources */,
 				53676D061CA63B7F00CADE4D /* XMPPStreamManagement.m in Sources */,
 				53778B681CBCBD96004E6480 /* QuerySelectSubView.swift in Sources */,
 				53676CE41CA63B7F00CADE4D /* XMPPvCardTempModule.m in Sources */,

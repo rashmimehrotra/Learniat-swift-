@@ -23,4 +23,5 @@
 #import "ImageUploading.h"
 #import "StudentStarView.h"
 #import "DonutChartView.h"
+#import "colorpopOverViewController.h"
 #endif /* Swift_Bridging_Header_h */

@@ -24,7 +24,7 @@ let kTeacherQnADone         =   "233"
 let kStudentSendAnswer      =   "321"
 let kDontKnow               =   "710"
 let kTeacherQnAFreeze       =   "232"
-let kSharegraphToIphone     =   "724"
+let kSharegraph             =   "190"
 let kTeacherHandRaiseInReview   = "223"
 let kStudentQnAAccept           = "217"
 let kSendFeedBack               = "701"
@@ -76,10 +76,14 @@ import Foundation
     
     optional  func smhDidgetStudentAnswerMessageWithStudentId(StudentId: String, withAnswerString answerStrin:String)
     
+    optional func smhDidGetstudentSubmissionWithDrawn(StudentId:String)
     
+   
     optional func smhDidgetStudentDontKnowMessageRecieved(StudentId:String)
     
     optional func smhDidgetStudentQueryWithDetails(queryId:String)
+    
+    
     
 }
 
@@ -626,6 +630,40 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
         }
     }
     
+    
+    func shareGraphtoiPhoneStudentId(var roomId :String, withDetails Details:AnyObject)
+    {
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
+        {
+            
+            
+            roomId = "\(roomId)@conference.\(kBaseXMPPURL)"
+            
+            let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
+            let msgType             = kSharegraph
+            
+            
+            let messageBody = ["Details":Details]
+            
+            
+            
+            let details:NSMutableDictionary = ["From":userId,
+                "To":roomId,
+                "Type":msgType,
+                "Body":messageBody];
+            
+            
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendGroupMessageWithBody(xmlBody, withRoomId: roomId)
+        }
+    }
+    
+    
     func sendClearQuestionMessageWithRoomId(var roomId :String)
     {
         if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
@@ -821,6 +859,18 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
             }
             break
 
+            
+        case kWithDrawSubmission:
+            
+            if delegate().respondsToSelector(Selector("smhDidGetstudentSubmissionWithDrawn:"))
+            {
+                delegate().smhDidGetstudentSubmissionWithDrawn!(message.messageFrom())
+                
+            }
+            break
+            
+            
+            
             
             
         default:

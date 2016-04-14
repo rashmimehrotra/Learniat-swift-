@@ -391,6 +391,13 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     }
     
     
+    func studentAnswerWithdrawn()
+    {
+         teacherClearedQuestion()
+    }
+    
+    
+    
     func setDontKnowMessageFromStudent()
     {
         answerContainerView.addDontKnowImage()

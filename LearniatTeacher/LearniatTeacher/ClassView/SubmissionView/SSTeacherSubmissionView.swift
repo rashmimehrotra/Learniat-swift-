@@ -176,6 +176,24 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
     }
     
     
+    
+    func studentAnswerWithdrawnWithStudentId(studentId:String)
+    {
+        if mScribbleSubmissionView != nil
+        {
+            if mScribbleSubmissionView.removeStudentAnswerWithStudentId(studentId) <= 0
+            {
+                mScribbleSubmissionView.hidden = true
+                noSubmissionLabel.hidden = false
+            }
+            
+            
+            
+        }
+
+    }
+    
+    
     func questionClearedByTeacher()
     {
         noSubmissionLabel.hidden = false

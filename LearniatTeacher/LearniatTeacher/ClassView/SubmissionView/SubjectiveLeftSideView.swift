@@ -72,7 +72,7 @@ class SubjectiveLeftSideView: UIView,SubjectiveStudentContainerDelegate
         selectAllButton.frame = CGRectMake(0, 0, self.frame.size.width, 50)
         self.addSubview(selectAllButton)
         selectAllButton.setTitleColor(LineGrayColor, forState: .Normal)
-        
+        selectAllButton.addTarget(self, action: "onSelectAllButton", forControlEvents: UIControlEvents.TouchUpInside)
 
     
         mScrollView.frame = CGRectMake(0, 50, self.frame.size.width, self.frame.size.height - 50 )
@@ -177,7 +177,7 @@ class SubjectiveLeftSideView: UIView,SubjectiveStudentContainerDelegate
         }
     }
     
-    func feedbackSentToStudentsWithStudentsId(studentId:String)
+    func removeStudentsWithStudentsId(studentId:String)
     {
         if selectedStudentsArray.containsObject(studentId)
         {
@@ -194,6 +194,55 @@ class SubjectiveLeftSideView: UIView,SubjectiveStudentContainerDelegate
 
     }
     
+    
+    func onSelectAllButton()
+    {
+        
+        if selectAllImageview.image == UIImage(named: "Unchecked.png")
+        {
+            selectAllImageview.image = UIImage(named: "Checked.png")
+            
+            
+            
+            let subViews = mScrollView.subviews.flatMap{ $0 as? SubjectiveStudentContainer }
+            
+            for subview in subViews
+            {
+                if subview.isKindOfClass(SubjectiveStudentContainer)
+                {
+                    
+                    subview.currentSelectionState = kUnSelected
+                    
+                    subview.checkMarkPressedWith()
+                  
+                }
+            }
+        
+
+            
+            
+        }
+        else
+        {
+            selectAllImageview.image = UIImage(named: "Unchecked.png")
+            
+            let subViews = mScrollView.subviews.flatMap{ $0 as? SubjectiveStudentContainer }
+            
+            for subview in subViews
+            {
+                if subview.isKindOfClass(SubjectiveStudentContainer)
+                {
+                    
+                    subview.currentSelectionState = kSelected
+                    
+                    subview.checkMarkPressedWith()
+                    
+                }
+            }
+
+        }
+        
+    }
     
     
     func refreshScrollView()

@@ -1176,6 +1176,39 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     }
     
     
+    func smhDidGetstudentSubmissionWithDrawn(StudentId: String)
+    {
+        if let studentDeskView  = mClassView.viewWithTag(Int(StudentId)!) as? StundentDeskView
+        {
+            if currentQuestionDetails != nil
+            {
+                studentDeskView.studentAnswerWithdrawn()
+                
+                mSubmissionView.studentAnswerWithdrawnWithStudentId(StudentId)
+                
+                if newSubmissionRecieved.containsObject(StudentId)
+                {
+                    newSubmissionRecieved.removeObject(StudentId)
+                    
+                    if newSubmissionRecieved.count > 0
+                    {
+                        submissionNotificationLabel.hidden = false
+                        
+                        submissionNotificationLabel.text = "\(newSubmissionRecieved.count)"
+                    }
+                    else
+                    {
+                        submissionNotificationLabel.hidden = true
+                    }
+                }
+                
+                
+            }
+            
+            
+        }
+    }
+    
     func smhDidgetStudentAnswerMessageWithStudentId(StudentId: String, withAnswerString answerStrin: String)
     {
         if let studentDeskView  = mClassView.viewWithTag(Int(StudentId)!) as? StundentDeskView
@@ -1554,6 +1587,16 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     }
     
     // MARK: - SubmissionPopover functions
+    
+    
+    func delegateAnnotateButtonPressedWithAnswerDetails(answerDetails: AnyObject, withStudentDetails studentDict: AnyObject, withQuestionDetails questionDetails: AnyObject) {
+        
+        let annotateView = StudentAnnotateView(frame: CGRectMake(0, 0 ,self.view.frame.size.width,self.view.frame.size.height))
+        self.view.addSubview(annotateView)
+        annotateView.setdelegate(self)
+        annotateView.setStudentDetails(studentDict, withAnswerDetails: answerDetails, withQuestionDetails: questionDetails)
+        
+    }
     
     func delegateSubmissionEvalauatedWithAnswerDetails(answerDetails: AnyObject, withEvaluationDetail evaluation: AnyObject, withStudentId studentId: String)
     {
