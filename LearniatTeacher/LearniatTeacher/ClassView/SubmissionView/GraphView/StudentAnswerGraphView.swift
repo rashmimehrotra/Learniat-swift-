@@ -121,7 +121,7 @@ class StudentAnswerGraphView: UIView
             if (i % 2 == 0)
             {
                 
-                let lineView = UIImageView(frame:CGRectMake(100, height, 1000, 1))
+                let lineView = UIImageView(frame:CGRectMake(100, height, self.frame.size.width - 100, 1))
                 lineView.backgroundColor = UIColor(red: 117/255.0, green: 117/255.0, blue: 117/255.0, alpha: 0.3)
                 lineContainerView.addSubview(lineView);
                 
@@ -136,7 +136,7 @@ class StudentAnswerGraphView: UIView
             else
             {
 
-                let lineView = DottedLine(frame:CGRectMake(100, height, 1000, 1))
+                let lineView = DottedLine(frame:CGRectMake(100, height, self.frame.size.width - 100, 1))
                  lineView.drawDashedBorderAroundViewWithColor(UIColor(red: 117/255.0, green: 117/255.0, blue: 117/255.0, alpha: 0.3))
                 lineContainerView.addSubview(lineView);
 

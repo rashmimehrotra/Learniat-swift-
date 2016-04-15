@@ -229,9 +229,9 @@ class SSTeachermainTopicController: UIViewController, SSTeacherDataSourceDelegat
         var height :CGFloat = CGFloat((topicsArray.count * 60) + 44)
         
         
-        if height > 700
+        if height > UIScreen.mainScreen().bounds.height - 100
         {
-            height = 700
+            height = UIScreen.mainScreen().bounds.height - 100
         }
         
         

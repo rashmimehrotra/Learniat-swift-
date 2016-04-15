@@ -108,9 +108,9 @@ class MRQAggregateView: UIView
         var height :CGFloat = CGFloat((studentIdArray.count * 70))
         
         
-        if height > 700
+        if height > UIScreen.mainScreen().bounds.height - 100
         {
-            height = 700
+            height = UIScreen.mainScreen().bounds.height - 100
         }
         
          studentsScrollview.frame = CGRectMake(0, 0, self.frame.size.width, height)

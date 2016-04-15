@@ -162,14 +162,10 @@ class SingleResponceOption : UIViewController
         
         
         
-        
-        
-        
-        if height > 700
+        if height > UIScreen.mainScreen().bounds.height - 100
         {
-            height = 700
+            height = UIScreen.mainScreen().bounds.height - 100
         }
-        
         
         
         self.preferredContentSize = CGSize(width: 400, height: height  )

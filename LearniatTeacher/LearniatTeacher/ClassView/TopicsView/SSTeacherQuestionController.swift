@@ -308,12 +308,10 @@ class SSTeacherQuestionController: UIViewController,QuestionCellDelegate,SSTeach
         
         
         
-        
-        if height > 700
+        if height > UIScreen.mainScreen().bounds.height - 100
         {
-            height = 700
+            height = UIScreen.mainScreen().bounds.height - 100
         }
-        
         
         
         self.preferredContentSize = CGSize(width: 600, height: height)

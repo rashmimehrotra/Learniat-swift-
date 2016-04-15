@@ -113,18 +113,37 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         
         imageUploading.setDelegate(self)
         
-       mainContainerView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)
-       mainContainerView.backgroundColor = whiteBackgroundColor
-        self.addSubview(mainContainerView)
+      
         
         subjectiveCellContainer  = SubjectiveLeftSideView(frame: CGRectMake(0, 0 , self.frame.size.width / 7, self.frame.size.height))
         subjectiveCellContainer.setdelegate(self)
-        mainContainerView.addSubview(subjectiveCellContainer)
+        self.addSubview(subjectiveCellContainer)
+        
+        
+        mainContainerView.frame = CGRectMake(subjectiveCellContainer.frame.size.width , 0, self.frame.size.width - subjectiveCellContainer.frame.size.width, self.frame.size.height)
+        mainContainerView.backgroundColor = whiteBackgroundColor
+        self.addSubview(mainContainerView)
+        
+        var heightRemaining:CGFloat = 130
+        
+        heightRemaining = mainContainerView.frame.size.height - heightRemaining
+        
+        
+        containerview.frame = CGRectMake((mainContainerView.frame.size.width - (heightRemaining *  kAspectRation)) / 2 ,(mainContainerView.frame.size.height - heightRemaining) / 2 ,  heightRemaining *  kAspectRation ,heightRemaining)
+        containerview.backgroundColor = UIColor.whiteColor()
+        mainContainerView.addSubview(containerview);
+        containerview.layer.shadowColor = progressviewBackground.CGColor;
+        containerview.layer.shadowOffset = CGSizeMake(0,0);
+        containerview.layer.shadowOpacity = 1;
+        containerview.layer.shadowRadius = 1.0;
+        containerview.clipsToBounds = false;
+
         
         
         
         
-        topImageView.frame = CGRectMake(180,5, 780, 54)
+        
+        topImageView.frame = CGRectMake(containerview.frame.origin.x ,containerview.frame.origin.y - 61, containerview.frame.size.width,60)
         topImageView.backgroundColor = UIColor.whiteColor()
         mainContainerView.addSubview (topImageView);
         topImageView.layer.shadowColor = progressviewBackground.CGColor;
@@ -136,7 +155,6 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         
         
         mCancelButton.showsTouchWhenHighlighted = true;
-        /* Add Cancel button target Cancel button should deselect all the selected submissions *defect 142 */
         mCancelButton.frame = CGRectMake(10 , 0, 139.0, 60.0);
         topImageView.addSubview(mCancelButton);
         mCancelButton.setTitle("Cancel", forState:.Normal);
@@ -175,7 +193,6 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
        
         
         m_textButton.frame = CGRectMake(lineImage.frame.origin.x - 50, 10, 40, topImageView.frame.size.height - 20);
-//        [m_textButton addTarget:self action:@selector(onTextReplyButton:) forControlEvents:UIControlEventTouchUpInside];
         topImageView.addSubview(m_textButton);
         m_textButton.imageView?.contentMode = .ScaleAspectFit
         m_textButton.setImage(UIImage(named:"Text_Unselected.png"), forState:.Normal);
@@ -190,7 +207,6 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         
         
         m_badgeButton.frame = CGRectMake(lineImage1.frame.origin.x - 50, 10, 40, topImageView.frame.size.height - 20);
-//        [m_badgeButton addTarget:self action:@selector(onBadgeButton:) forControlEvents:UIControlEventTouchUpInside];
         topImageView.addSubview(m_badgeButton);
         m_badgeButton.imageView?.contentMode = .ScaleAspectFit
         m_badgeButton.setImage(UIImage(named:"Cb_Like_Disabled.png"), forState:.Normal);
@@ -223,39 +239,6 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         mMarkModelButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20);
         mMarkModelButton.addTarget(self, action: "onModelAnswerButton", forControlEvents: UIControlEvents.TouchUpInside)
         
-        
-        
-        
-        
-        containerview.frame = CGRectMake(topImageView.frame.origin.x,topImageView.frame.origin.y + topImageView.frame.size.height + 1 ,  topImageView.frame.size.width,topImageView.frame.size.width / kAspectRation)
-        containerview.backgroundColor = UIColor.whiteColor()
-        mainContainerView.addSubview(containerview);
-        containerview.layer.shadowColor = progressviewBackground.CGColor;
-        containerview.layer.shadowOffset = CGSizeMake(0,0);
-        containerview.layer.shadowOpacity = 1;
-        containerview.layer.shadowRadius = 1.0;
-        containerview.clipsToBounds = false;
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         overlayimageView.frame = containerview.frame
         mainContainerView.addSubview(overlayimageView);
 
@@ -268,20 +251,11 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         mScribbleView.setDrawingTool(kBrushTool)
         mScribbleView.hidden = false
         
-        
-        
         bottomview.frame = CGRectMake(topImageView.frame.origin.x, containerview.frame.origin.y + containerview.frame.size.height , topImageView.frame.size.width,topImageView.frame.size.height)
         bottomview.backgroundColor = lightGrayTopBar
         mainContainerView.addSubview(bottomview);
         
-        
-        
-       
-        
-        
-
-        
-        m_UndoButton.frame = CGRectMake(0, 0, bottomview.frame.size.height, bottomview.frame.size.height)
+         m_UndoButton.frame = CGRectMake(0, 0, bottomview.frame.size.height, bottomview.frame.size.height)
         m_UndoButton.setImage(UIImage(named:"Undo_Disabled.png"),forState:.Normal);
         bottomview.addSubview(m_UndoButton);
         m_UndoButton.imageView?.contentMode = .ScaleAspectFit
@@ -318,7 +292,6 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         m_RedoButton.enabled = false
         
         self.bringSubviewToFront(mScribbleView)
-        mainContainerView.hidden = true
         
         
     }
@@ -339,8 +312,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     
     func setStudentAnswerWithAnswer(studentAnswer:AnyObject, withStudentDict studentdict:AnyObject, withQuestionDict QuestionDetails:AnyObject )
     {
-        mainContainerView.hidden = false
-        
+
         _currentQuestionDetials = QuestionDetails
         
         
