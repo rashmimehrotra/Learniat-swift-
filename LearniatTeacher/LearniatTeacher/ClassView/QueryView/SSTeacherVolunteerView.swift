@@ -155,7 +155,7 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
     
     func onDoneButton()
     {
-        
+       
         
         let alertView = UIAlertView( title: "End volunteering", message: "do you really want to end Social ranking?", delegate: self, cancelButtonTitle: "Cancel", otherButtonTitles: "End")
         alertView.show()

@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D2A93201CC0C4A9007A1D41 /* SetupClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2A931D1CC0C4A9007A1D41 /* SetupClassCell.swift */; };
+		4D2A93211CC0C4A9007A1D41 /* SetUpClassRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2A931E1CC0C4A9007A1D41 /* SetUpClassRoom.swift */; };
+		4D2A93221CC0C4A9007A1D41 /* SetupGridview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2A931F1CC0C4A9007A1D41 /* SetupGridview.swift */; };
+		4D2A93271CC0C986007A1D41 /* Add.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D2A93231CC0C986007A1D41 /* Add.png */; };
+		4D2A93281CC0C986007A1D41 /* Circle_Green.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D2A93241CC0C986007A1D41 /* Circle_Green.png */; };
+		4D2A93291CC0C986007A1D41 /* Circle_Red.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D2A93251CC0C986007A1D41 /* Circle_Red.png */; };
+		4D2A932A1CC0C986007A1D41 /* Remove.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D2A93261CC0C986007A1D41 /* Remove.png */; };
 		531044971CA64296007AE9D5 /* Alert_Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 531044841CA64296007AE9D5 /* Alert_Icon.png */; };
 		531044981CA64296007AE9D5 /* Blue_Alert.png in Resources */ = {isa = PBXBuildFile; fileRef = 531044851CA64296007AE9D5 /* Blue_Alert.png */; };
 		531044991CA64296007AE9D5 /* CalendarBubbleRed.png in Resources */ = {isa = PBXBuildFile; fileRef = 531044861CA64296007AE9D5 /* CalendarBubbleRed.png */; };
@@ -365,6 +372,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D2A931D1CC0C4A9007A1D41 /* SetupClassCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetupClassCell.swift; sourceTree = "<group>"; };
+		4D2A931E1CC0C4A9007A1D41 /* SetUpClassRoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetUpClassRoom.swift; sourceTree = "<group>"; };
+		4D2A931F1CC0C4A9007A1D41 /* SetupGridview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetupGridview.swift; sourceTree = "<group>"; };
+		4D2A93231CC0C986007A1D41 /* Add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Add.png; sourceTree = "<group>"; };
+		4D2A93241CC0C986007A1D41 /* Circle_Green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Circle_Green.png; sourceTree = "<group>"; };
+		4D2A93251CC0C986007A1D41 /* Circle_Red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Circle_Red.png; sourceTree = "<group>"; };
+		4D2A93261CC0C986007A1D41 /* Remove.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Remove.png; sourceTree = "<group>"; };
 		531044841CA64296007AE9D5 /* Alert_Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Alert_Icon.png; sourceTree = "<group>"; };
 		531044851CA64296007AE9D5 /* Blue_Alert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Blue_Alert.png; sourceTree = "<group>"; };
 		531044861CA64296007AE9D5 /* CalendarBubbleRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CalendarBubbleRed.png; sourceTree = "<group>"; };
@@ -925,6 +939,10 @@
 		531044831CA64296007AE9D5 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				4D2A93231CC0C986007A1D41 /* Add.png */,
+				4D2A93241CC0C986007A1D41 /* Circle_Green.png */,
+				4D2A93251CC0C986007A1D41 /* Circle_Red.png */,
+				4D2A93261CC0C986007A1D41 /* Remove.png */,
 				53909C521CBF627B00DDCCD0 /* Sharebutton.png */,
 				5360E6C11CBE425300AFE9FF /* don't-know.png */,
 				53909C681CBB73E500E8A1C0 /* QueryScreen */,
@@ -2060,6 +2078,9 @@
 		53676C8D1CA63B7F00CADE4D /* SeatsViewController */ = {
 			isa = PBXGroup;
 			children = (
+				4D2A931F1CC0C4A9007A1D41 /* SetupGridview.swift */,
+				4D2A931E1CC0C4A9007A1D41 /* SetUpClassRoom.swift */,
+				4D2A931D1CC0C4A9007A1D41 /* SetupClassCell.swift */,
 				53676C911CA63B7F00CADE4D /* PreallocateSeatViewController.swift */,
 				53676C901CA63B7F00CADE4D /* PrealloatSeatSubView.swift */,
 				53676C8E1CA63B7F00CADE4D /* AutoSeatAllocate.swift */,
@@ -2384,6 +2405,7 @@
 				537302391CB6771200E76753 /* Tick_mark_image@2x.png in Resources */,
 				537301141CB636AA00E76753 /* desk.png in Resources */,
 				537301151CB636AA00E76753 /* desk@2x.png in Resources */,
+				4D2A93291CC0C986007A1D41 /* Circle_Red.png in Resources */,
 				532607931CA90AEC002FF684 /* indicator6.png in Resources */,
 				537302441CB6771200E76753 /* Eraser_Unselected.png in Resources */,
 				537302231CB6771200E76753 /* Marker_Selected_AnnotateView@2x.png in Resources */,
@@ -2402,6 +2424,7 @@
 				537302191CB6771200E76753 /* Dark_Blue_Circle.png in Resources */,
 				53E5BBAC1CAE3B7D00358ED8 /* StudentWriting.png in Resources */,
 				537302431CB6771200E76753 /* Eraser_Selected@2x.png in Resources */,
+				4D2A93281CC0C986007A1D41 /* Circle_Green.png in Resources */,
 				531044A41CA64296007AE9D5 /* 60.png in Resources */,
 				537302331CB6771200E76753 /* Tab_bar_Divider_AnnotateView@2x.png in Resources */,
 				531044AC1CA66C89007AE9D5 /* lowParticipartion.png in Resources */,
@@ -2458,11 +2481,13 @@
 				5373021B1CB6771200E76753 /* Eraser_Selected_AnnotateView.png in Resources */,
 				537302511CB6771200E76753 /* Redo_Active.png in Resources */,
 				53B590201CB8E02900A69FC1 /* Cb_Unlike_Enabled.png in Resources */,
+				4D2A93271CC0C986007A1D41 /* Add.png in Resources */,
 				537302531CB6771200E76753 /* Redo_Disabled.png in Resources */,
 				537302521CB6771200E76753 /* Redo_Active@2x.png in Resources */,
 				5310449D1CA64296007AE9D5 /* 00.png in Resources */,
 				5326078C1CA90AEC002FF684 /* indicator10.png in Resources */,
 				531044971CA64296007AE9D5 /* Alert_Icon.png in Resources */,
+				4D2A932A1CC0C986007A1D41 /* Remove.png in Resources */,
 				537302451CB6771200E76753 /* Eraser_Unselected@2x.png in Resources */,
 				5373024D1CB6771200E76753 /* Marker_Unselected.png in Resources */,
 				53676D271CA63B7F00CADE4D /* README.txt in Resources */,
@@ -2572,6 +2597,7 @@
 				53CA5A221CB230BB008C42B0 /* MRQAggregateView.swift in Sources */,
 				537301071CB618D200E76753 /* SubmissionSubjectiveView.swift in Sources */,
 				53676C951CA63B7F00CADE4D /* AppDelegate.swift in Sources */,
+				4D2A93201CC0C4A9007A1D41 /* SetupClassCell.swift in Sources */,
 				53676CCC1CA63B7F00CADE4D /* XMPPRoomCoreDataStorage.m in Sources */,
 				537301261CB665E300E76753 /* SmoothLineView.m in Sources */,
 				532607761CA90779002FF684 /* ScribbleQuestionInfoScreen.swift in Sources */,
@@ -2607,6 +2633,7 @@
 				532607971CA90AEC002FF684 /* CustomProgressImageView.m in Sources */,
 				53676D2E1CA63B7F00CADE4D /* INILoader.swift in Sources */,
 				53676D001CA63B7F00CADE4D /* XMPPPresence+XEP_0172.m in Sources */,
+				4D2A93211CC0C4A9007A1D41 /* SetUpClassRoom.swift in Sources */,
 				53FC04371CAF8C4200D7B941 /* SSTeacherSubmissionView.swift in Sources */,
 				53676CC41CA63B7F00CADE4D /* XMPPSystemInputActivityMonitor.m in Sources */,
 				53676D121CA63B7F00CADE4D /* XMPPMessage+XEP_0308.m in Sources */,
@@ -2631,6 +2658,7 @@
 				531044C21CA6A4F7007AE9D5 /* SSTeacherLiveQuestionController.swift in Sources */,
 				53FC04421CAFAE1700D7B941 /* StudentAnswerGraphView.swift in Sources */,
 				53676CFE1CA63B7F00CADE4D /* XMPPvCardAvatarModule.m in Sources */,
+				4D2A93221CC0C4A9007A1D41 /* SetupGridview.swift in Sources */,
 				53676D291CA63B7F00CADE4D /* DDXMLDocument.m in Sources */,
 				53676C9D1CA63B7F00CADE4D /* NSData+Base64.m in Sources */,
 				53676CE61CA63B7F00CADE4D /* NSXMLElement+XEP_0059.m in Sources */,

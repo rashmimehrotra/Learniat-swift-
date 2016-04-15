@@ -1181,11 +1181,11 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     
     func allocateSeatsWithDetails(details:AnyObject)
     {
-        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let preallotController : PreallocateSeatViewController = storyboard.instantiateViewControllerWithIdentifier("PreallocateSeatViewController") as! PreallocateSeatViewController
         
-        preallotController.setCurrentSessionDetails(details)
-        self.presentViewController(preallotController, animated: true, completion: nil)
+        let gridView = SetupGridview()
+        gridView.setCurrentSessionDetails(details)
+        presentViewController(gridView, animated: true, completion: nil)
+        
     }
     
     func beginClassWithDetails(details:AnyObject)

@@ -77,6 +77,10 @@ let kServiceSaveSelectedQueries     =   "SaveSelectedQueries"
 
 let kServiceEndVolunteeringSession  =   "EndVolunteeringSession"
 
+let kServiceGetMaxStudentRegisterd  =   "GetMaxStudentRegisterd"
+
+let kServiceConfigureGrid           =   "ConfigureGrid"
+
 
 @objc protocol SSTeacherDataSourceDelegate
 {
@@ -98,7 +102,11 @@ let kServiceEndVolunteeringSession  =   "EndVolunteeringSession"
     
     optional func didGetSeatsRestWithDetials(details:AnyObject)
     
+    optional func didGetMaxStudentsRegistedWithDetails(details:AnyObject)
+    
     optional func didGetGridDesignWithDetails(details:AnyObject)
+    
+    optional func didGetSeatsConfiguredWithDetails(details:AnyObject)
     
     optional func didGetSeatAssignmentWithDetails(details:AnyObject)
     
@@ -294,6 +302,30 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         let urlString = String(format: "%@<Sunstone><Action><Service>RetrieveGridDesign</Service><RoomId>%@</RoomId></Action></Sunstone>",URLPrefix,roomId)
         
         manager.downloadDataURL(urlString, withServiceName: kServiceGetGridDesign, withDelegate: self, withRequestType: eHTTPGetRequest)
+        
+    }
+    
+    func getMaxStudentRegisterdwiRoomId(roomId :String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        setdelegate(delegate)
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>GetMaxStudentsRegistered</Service><RoomId>%@</RoomId></Action></Sunstone>",URLPrefix,roomId)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceGetMaxStudentRegisterd, withDelegate: self, withRequestType: eHTTPGetRequest)
+        
+    }
+    
+    func ConfigureSeatsWithRoomId(roomId :String, withRows rowValue:String, withColumnValue columnValue:String,withRemovedSeats removedSeats:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        setdelegate(delegate)
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>ConfigureGrid</Service><RoomId>%@</RoomId><Rows>%@</Rows><Columns>%@</Columns><SeatsRemoved>%@</SeatsRemoved></Action></Sunstone>",URLPrefix,roomId,rowValue,columnValue,removedSeats)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceConfigureGrid, withDelegate: self, withRequestType: eHTTPGetRequest)
         
     }
     
@@ -788,6 +820,20 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
             if delegate().respondsToSelector(Selector("didGetVolunteeringEndedWithDetails:"))
             {
                 delegate().didGetVolunteeringEndedWithDetails!(refinedDetails)
+            }
+        }
+        else if serviceName == kServiceGetMaxStudentRegisterd
+        {
+            if delegate().respondsToSelector(Selector("didGetMaxStudentsRegistedWithDetails:"))
+            {
+                delegate().didGetMaxStudentsRegistedWithDetails!(refinedDetails)
+            }
+        }
+        else if serviceName == kServiceConfigureGrid
+        {
+            if delegate().respondsToSelector(Selector("didGetSeatsConfiguredWithDetails:"))
+            {
+                delegate().didGetSeatsConfiguredWithDetails!(refinedDetails)
             }
         }
         

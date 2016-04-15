@@ -288,11 +288,14 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         
         
         
+        let mContainerView  = UIImageView(frame: CGRectMake(0, LineView6.frame.origin.y + 10, loadingView.frame.size.width, loadingView.frame.size.height - (LineView6.frame.origin.y + 20 + loadingView.frame.size.width/12)))
+        mContainerView.backgroundColor = UIColor.lightGrayColor()
+        loadingView.addSubview(mContainerView)
         
         
         
-        mJoinStudentProgressBar.frame = CGRectMake((loadingView.frame.size.width - (loadingView.frame.size.width / 1.8) ) /  2 , LineView6.frame.origin.y + 20 , (loadingView.frame.size.width / 1.8), (loadingView.frame.size.width / 1.8))
-        loadingView.addSubview(mJoinStudentProgressBar)
+        mJoinStudentProgressBar.frame = CGRectMake((mContainerView.frame.size.width - (mContainerView.frame.size.width / 2) ) /  2 , (mContainerView.frame.size.height - (mContainerView.frame.size.width / 2) ) /  2 , (mContainerView.frame.size.width / 2), (mContainerView.frame.size.width / 2))
+        mContainerView.addSubview(mJoinStudentProgressBar)
         mJoinStudentProgressBar.backgroundColor = UIColor.clearColor()
         mJoinStudentProgressBar.progress = 20
         
