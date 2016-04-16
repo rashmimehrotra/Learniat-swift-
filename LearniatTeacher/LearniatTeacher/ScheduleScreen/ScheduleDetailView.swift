@@ -289,7 +289,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         
         
         let mContainerView  = UIImageView(frame: CGRectMake(0, LineView6.frame.origin.y + 10, loadingView.frame.size.width, loadingView.frame.size.height - (LineView6.frame.origin.y + 20 + loadingView.frame.size.width/12)))
-        mContainerView.backgroundColor = UIColor.lightGrayColor()
+        mContainerView.backgroundColor = UIColor.clearColor()
         loadingView.addSubview(mContainerView)
         
         

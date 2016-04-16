@@ -648,6 +648,29 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         currentAnswerState = .AnswerEvaluated
     }
     
+    func getSeatIdAndStudentId() ->(seatId:String , StudentId :String)
+    {
+        
+        var StudentIdValue = "0"
+        
+        var seatIdvalue = "0"
+        
+        if let StudentId = currentStudentsDict.objectForKey("StudentId") as? String
+        {
+            StudentIdValue = StudentId
+        }
+        
+        
+        if let seatId = currentStudentsDict.objectForKey("SeatId") as? String
+        {
+            seatIdvalue = seatId
+        }
+        
+        
+        
+        return (seatIdvalue , StudentIdValue)
+    }
+    
 
 }
 

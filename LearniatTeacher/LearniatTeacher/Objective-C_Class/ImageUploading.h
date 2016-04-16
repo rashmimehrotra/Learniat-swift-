@@ -26,3 +26,9 @@
 - (void) ErrorInUploadingWithName:(NSString*)name;
 
 @end
+
+@interface NSMutableArray (Shuffle)
+
+- (void)shuffle;
+
+@end

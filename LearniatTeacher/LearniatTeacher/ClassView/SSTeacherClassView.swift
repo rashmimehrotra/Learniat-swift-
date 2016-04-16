@@ -30,7 +30,7 @@ let kQueryView              = "Query"
 
 
 import Foundation
-class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeachermainTopicControllerDelegate,SSTeacherSubTopicControllerDelegate,SSTeacherDataSourceDelegate,SSTeacherQuestionControllerDelegate,SSTeacherMessagehandlerDelegate,SSTeacherLiveQuestionControllerDelegate,StundentDeskViewDelegate,SSTeacherSubmissionViewDelegate,SSTeacherQueryViewDelegate,StudentSubjectivePopoverDelegate
+class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeachermainTopicControllerDelegate,SSTeacherSubTopicControllerDelegate,SSTeacherDataSourceDelegate,SSTeacherQuestionControllerDelegate,SSTeacherMessagehandlerDelegate,SSTeacherLiveQuestionControllerDelegate,StundentDeskViewDelegate,SSTeacherSubmissionViewDelegate,SSTeacherQueryViewDelegate,StudentSubjectivePopoverDelegate,SSSettingsViewControllerDelegate
 {
    
     
@@ -38,6 +38,9 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     var mTeacherImageView: UIImageView!
     
     var mTopbarImageView: UIImageView!
+    
+    
+    var mTeacherImageButton = UIButton()
     
      var mBottombarImageView: UIImageView!
     
@@ -115,6 +118,9 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     var newSubmissionRecieved               = NSMutableArray()
     
     var newQueryRecieved                    = NSMutableArray()
+    
+     var seatsIdArray                       = [String]()
+    
     
     
     override func viewDidLoad()
@@ -245,8 +251,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
 
         
         
-
-        
         
         mTeacherImageView = UIImageView(frame: CGRectMake(15, 20, 40 ,40))
         mTeacherImageView.backgroundColor = lightGrayColor
@@ -264,6 +268,10 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         }
         
         
+        mTeacherImageButton.frame = CGRectMake(0, 0, 40 , mTopbarImageView.frame.size.height)
+        mTopbarImageView.addSubview(mTeacherImageButton)
+        mTeacherImageButton.addTarget(self, action: "onTeacherImage", forControlEvents: UIControlEvents.TouchUpInside)
+
         
         
       let  mSchedulePopoverButton = UIButton(frame: CGRectMake(mTeacherImageView.frame.origin.x + mTeacherImageView.frame.size.width + 10,  mTeacherImageView.frame.origin.y, 250 , 50))
@@ -364,21 +372,20 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
             
         }
         
-        if var  StartTime = currentSessionDetails.objectForKey("StartTime") as? String
+        if let  StartTime = currentSessionDetails.objectForKey("StartTime") as? String
         {
             
             var _string :String = ""
             let currentDate = NSDate()
            
-            let isGreater = dateFormatter.dateFromString(StartTime)?.isGreaterThanDate(currentDate)
             
-            if isGreater == true
-            {
-                StartTime = dateFormatter.stringFromDate(currentDate)
-                currentSessionDetails.setObject(StartTime, forKey: "StartTime")
-                
-                
-            }
+//            if isGreater == true
+//            {
+//                StartTime = dateFormatter.stringFromDate(currentDate)
+//                currentSessionDetails.setObject(StartTime, forKey: "StartTime")
+//                
+//                
+//            }
             
             
             _string = _string.stringFromTimeInterval(currentDate.timeIntervalSinceDate(dateFormatter.dateFromString(StartTime)!)).fullString
@@ -449,6 +456,87 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     
 
     // MARK: - Buttons Functions
+    
+    func onTeacherImage()
+    {
+        let questionInfoController = SSSettingsViewController()
+        questionInfoController.setDelegate(self)
+        
+        questionInfoController.ClassViewTopicsButtonSettingsButtonPressed();
+
+        let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+        
+        classViewPopOverController.popoverContentSize = CGSizeMake(310, 444);
+        classViewPopOverController.delegate = self;
+        questionInfoController.setPopOverController(classViewPopOverController)
+        
+        
+        if (newSubmissionRecieved.count <= 0 && newQueryRecieved.count <= 0 && startedSubTopicID == "")
+        {
+            questionInfoController.setupTopicsButton.enabled = true;
+            questionInfoController.setupTopicsButton.setTitleColor(standard_Button,forState:.Normal);
+            
+            questionInfoController.manualResignButton.enabled = true
+            questionInfoController.manualResignButton.setTitleColor(standard_Button, forState:.Normal);
+            
+            
+            
+            questionInfoController.randomReassignButton.enabled = true
+            questionInfoController.randomReassignButton.setTitleColor(standard_Button, forState:.Normal);
+            
+           
+            questionInfoController.alphabeticalReassignButton.enabled = true
+            questionInfoController.alphabeticalReassignButton.setTitleColor(standard_Button, forState:.Normal);
+
+            questionInfoController.pullNewProfilePics.enabled = true
+            questionInfoController.pullNewProfilePics.setTitleColor(standard_Button, forState:.Normal);
+            
+            
+        }
+        else
+        {
+            
+            
+            questionInfoController.setupTopicsButton.enabled = false;
+            questionInfoController.setupTopicsButton.setTitleColor(lightGrayColor,forState:.Normal);
+            
+            
+            questionInfoController.manualResignButton.enabled = false;
+            questionInfoController.manualResignButton.setTitleColor(lightGrayColor,forState:.Normal);
+
+
+            questionInfoController.randomReassignButton.enabled = false;
+            questionInfoController.randomReassignButton.setTitleColor(lightGrayColor,forState:.Normal);
+            
+            questionInfoController.alphabeticalReassignButton.enabled = false;
+            questionInfoController.alphabeticalReassignButton.setTitleColor(lightGrayColor,forState:.Normal);
+            
+            questionInfoController.pullNewProfilePics.enabled = false;
+            questionInfoController.pullNewProfilePics.setTitleColor(lightGrayColor,forState:.Normal);
+            
+        }
+        
+        
+        
+        
+        classViewPopOverController.presentPopoverFromRect(CGRect(
+            x:mTeacherImageButton.frame.origin.x ,
+            y:mTeacherImageButton.frame.origin.y + mTeacherImageButton.frame.size.height,
+            width: 1,
+            height: 1), inView: self.view, permittedArrowDirections: .Up, animated: true)
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+    }
     
     func onClassView()
     {
@@ -522,10 +610,49 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     
     func didGetGridDesignWithDetails(details: AnyObject) {
         
+        let subViews = mClassView.subviews.flatMap{ $0 as? StundentDeskView }
         
+        for subview in subViews
+        {
+            if subview.isKindOfClass(StundentDeskView)
+            {
+               subview.removeFromSuperview()
+            }
+        }
         
         arrangegridWithDetails(details)
     }
+    
+    
+    func didGetSeatAssignmentSavedWithDetails(details: AnyObject)
+    {
+        
+        
+        if let sessionid = currentSessionDetails.objectForKey(kSessionId) as? String
+        {
+            
+            if let RoomName = currentSessionDetails.objectForKey("RoomName") as? String
+            {
+                SSTeacherMessageHandler.sharedMessageHandler.sendSeatingChangedtoRoom(sessionid, withSeatName: "A2", withRoomName: RoomName)
+            }
+            else
+            {
+                SSTeacherMessageHandler.sharedMessageHandler.sendSeatingChangedtoRoom(sessionid, withSeatName: "A2", withRoomName: "")
+            }
+            
+            SSTeacherDataSource.sharedDataSource.getStudentsInfoWithSessionId(currentSessionId, withDelegate: self)
+            
+            if let roomId = currentSessionDetails.objectForKey("RoomId") as? String
+            {
+                SSTeacherDataSource.sharedDataSource.getGridDesignDetails(roomId, WithDelegate: self)
+                mActivityIndicatore.startAnimating()
+                mActivityIndicatore.hidden = false
+            }
+
+        }
+    }
+
+    
     
     func didGetSeatAssignmentWithDetails(details: AnyObject)
     {
@@ -592,7 +719,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     {
         var columnValue         = 1
         var rowValue            = 1
-//        var seatsIdArray        = [String]()
+       
 //        var seatsLableArray     = [String]()
         var seatsRemovedArray   = [String]()
         
@@ -607,11 +734,11 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
             rowValue = Int(Rows)!
         }
         
-//        if let SeatIdList = details.objectForKey("SeatIdList") as? String
-//        {
-//            seatsIdArray =  SeatIdList.componentsSeparatedByString(",")
-//        }
-//        
+        if let SeatIdList = details.objectForKey("SeatIdList") as? String
+        {
+            seatsIdArray =  SeatIdList.componentsSeparatedByString(",")
+        }
+        
 //        if let SeatLabelList = details.objectForKey("SeatLabelList") as? String
 //        {
 //            seatsLableArray =  SeatLabelList.componentsSeparatedByString(",")
@@ -1535,7 +1662,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     
     func delegateTeacherEvaluatedReplyWithDetails(details: AnyObject, withStudentId studentId: String) {
         
-        print(details)
         
         
         if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView
@@ -1628,4 +1754,106 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
        
         return true
     }
+    
+    // MARK: - Setting controller functions
+    
+    func Settings_setupLessonPlanClicked()
+    {
+        let mSetupLessonPlan  = SSTeacherLessonPlanView(frame: CGRectMake(0, 0 ,self.view.frame.size.width, self.view.frame.size.height))
+        mSetupLessonPlan.setCurrentSessionDetails(currentSessionDetails)
+        self.view.addSubview(mSetupLessonPlan)
+        
+    }
+    
+    func Settings_AlphabeticalReassignseats()
+    {
+        
+        let studentIdArray = NSMutableArray()
+        
+        let _seatsIdArray   = NSMutableArray()
+        
+        
+        
+        
+        for var indexValue = 0 ; indexValue < StudentsDetailsArray.count ; indexValue++
+        {
+            let studentsDict = StudentsDetailsArray.objectAtIndex(indexValue)
+            
+            let seatId = seatsIdArray[indexValue]
+            if let StudentId = studentsDict.objectForKey("StudentId") as? String
+            {
+                
+                _seatsIdArray.addObject(seatId)
+                studentIdArray.addObject(StudentId)
+            }
+
+        }
+        
+        if let sessionid = currentSessionDetails.objectForKey(kSessionId) as? String
+        {
+
+            SSTeacherDataSource.sharedDataSource.SaveSeatAssignmentWithStudentsList(studentIdArray.componentsJoinedByString(","), withSeatsIdList: _seatsIdArray.componentsJoinedByString(","), withSessionId: sessionid, withDelegate: self)
+        }
+
+        
+    }
+    
+    func Settings_RandomReasignSeats()
+    {
+       
+        let studentIdArray = NSMutableArray()
+        
+        let seatsIdArray   = NSMutableArray()
+        
+        let subViews = mClassView.subviews.flatMap{ $0 as? StundentDeskView }
+        
+        for subview in subViews
+        {
+            if subview.isKindOfClass(StundentDeskView)
+            {
+                if subview.getSeatIdAndStudentId().StudentId != "0"
+                {
+                    seatsIdArray.addObject(subview.getSeatIdAndStudentId().seatId)
+                    studentIdArray.addObject(subview.getSeatIdAndStudentId().StudentId)
+                }
+            }
+        }
+        
+        
+        seatsIdArray.shuffle()
+       
+        
+        if let sessionid = currentSessionDetails.objectForKey(kSessionId) as? String
+        {
+            //            mDonebutton.hidden = true
+            SSTeacherDataSource.sharedDataSource.SaveSeatAssignmentWithStudentsList(studentIdArray.componentsJoinedByString(","), withSeatsIdList: seatsIdArray.componentsJoinedByString(","), withSessionId: sessionid, withDelegate: self)
+        }
+    }
+   
+    
+    
+    func Settings_ManualResignSeats() {
+        
+    }
+    
+    func Settings_onQueryEnbled() {
+        
+    }
+    
+    func Settings_onQuestionEnabled() {
+        
+    }
+    
+    func Settings_refreshPicsClicked() {
+        
+    }
+    
+    func Settings_testPingButtonClicked() {
+        
+    }
+    
+    func Settings_XmppReconnectButtonClicked() {
+        
+    }
+    
 }
