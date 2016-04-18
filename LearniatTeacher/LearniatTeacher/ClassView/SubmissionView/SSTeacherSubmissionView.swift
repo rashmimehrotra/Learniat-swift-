@@ -221,7 +221,7 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
     
     func delegateOptionTouchedWithId(optionId: String, withView barButton: BarView) {
         
-        if delegate().respondsToSelector(Selector("delegateGetaggregateWithOptionId:withView:"))
+        if delegate().respondsToSelector(#selector(SSTeacherSubmissionViewDelegate.delegateGetaggregateWithOptionId(_:withView:)))
         {
             delegate().delegateGetaggregateWithOptionId!(optionId,withView:barButton)
         }
@@ -240,7 +240,7 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
             noSubmissionLabel.hidden = false
         }
         
-        if delegate().respondsToSelector(Selector("delegateTeacherEvaluatedReplyWithDetails:withStudentId:"))
+        if delegate().respondsToSelector(#selector(SSTeacherSubmissionViewDelegate.delegateTeacherEvaluatedReplyWithDetails(_:withStudentId:)))
         {
             delegate().delegateTeacherEvaluatedReplyWithDetails!(evaluationDetails, withStudentId: studentId)
         }

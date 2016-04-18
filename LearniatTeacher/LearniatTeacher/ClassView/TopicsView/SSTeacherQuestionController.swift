@@ -106,7 +106,7 @@ class SSTeacherQuestionController: UIViewController,QuestionCellDelegate,SSTeach
         
         let  mDoneButton = UIButton(frame: CGRectMake(mTopbarImageView.frame.size.width - 210,  0, 200 ,mTopbarImageView.frame.size.height))
         mTopbarImageView.addSubview(mDoneButton)
-        mDoneButton.addTarget(self, action: "onDoneButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mDoneButton.addTarget(self, action: #selector(SSTeacherQuestionController.onDoneButton), forControlEvents: UIControlEvents.TouchUpInside)
         mDoneButton.setTitleColor(standard_Button, forState: .Normal)
         mDoneButton.setTitle("Done", forState: .Normal)
         mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
@@ -117,7 +117,7 @@ class SSTeacherQuestionController: UIViewController,QuestionCellDelegate,SSTeach
         
         let  mBackButton = UIButton(frame: CGRectMake(10,  0, 200 ,mTopbarImageView.frame.size.height))
         mTopbarImageView.addSubview(mBackButton)
-        mBackButton.addTarget(self, action: "onBackButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mBackButton.addTarget(self, action: #selector(SSTeacherQuestionController.onBackButton), forControlEvents: UIControlEvents.TouchUpInside)
         mBackButton.setTitleColor(standard_Button, forState: .Normal)
         mBackButton.setTitle("Back", forState: .Normal)
         mBackButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
@@ -278,7 +278,7 @@ class SSTeacherQuestionController: UIViewController,QuestionCellDelegate,SSTeach
         
         var positionY :CGFloat = 0
         
-        for var index = 0; index < mMaintopicsDetails.count ; index++
+        for index in 0 ..< mMaintopicsDetails.count 
         {
             let currentTopicDetails = mMaintopicsDetails.objectAtIndex(index)
             
@@ -353,7 +353,7 @@ class SSTeacherQuestionController: UIViewController,QuestionCellDelegate,SSTeach
     
     func onBackButton()
     {
-        if delegate().respondsToSelector(Selector("delegateQuestionBackButtonPressed:withMainTopicName:"))
+        if delegate().respondsToSelector(#selector(SSTeacherQuestionControllerDelegate.delegateQuestionBackButtonPressed(_:withMainTopicName:)))
         {
             delegate().delegateQuestionBackButtonPressed!(currentMainTopicID, withMainTopicName: currentMainTopicName)
         }
@@ -364,7 +364,7 @@ class SSTeacherQuestionController: UIViewController,QuestionCellDelegate,SSTeach
     
     func delegateSendQuestionDetails(questionDetails: AnyObject) {
         
-        if delegate().respondsToSelector(Selector("delegateQuestionSentWithQuestionDetails:"))
+        if delegate().respondsToSelector(#selector(SSTeacherQuestionControllerDelegate.delegateQuestionSentWithQuestionDetails(_:)))
         {
             delegate().delegateQuestionSentWithQuestionDetails!(questionDetails)
             

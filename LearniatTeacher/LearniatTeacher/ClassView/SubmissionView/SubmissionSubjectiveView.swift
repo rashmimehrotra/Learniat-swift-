@@ -161,7 +161,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         mCancelButton.setTitleColor(standard_Button, forState:.Normal);
         mCancelButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20);
         mCancelButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
-        mCancelButton.addTarget(self, action: "onCancelButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mCancelButton.addTarget(self, action: #selector(SubmissionSubjectiveView.onCancelButton), forControlEvents: UIControlEvents.TouchUpInside)
         
         
         mSendButton.frame = CGRectMake(topImageView.frame.size.width - 100 , 0, 100 , topImageView.frame.size.height );
@@ -172,7 +172,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         mSendButton.enabled = false
         mSendButton.highlighted = false;
         mSendButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
-        mSendButton.addTarget(self, action: "onSendButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mSendButton.addTarget(self, action: #selector(SubmissionSubjectiveView.onSendButton), forControlEvents: UIControlEvents.TouchUpInside)
 
         
         
@@ -196,7 +196,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         topImageView.addSubview(m_textButton);
         m_textButton.imageView?.contentMode = .ScaleAspectFit
         m_textButton.setImage(UIImage(named:"Text_Unselected.png"), forState:.Normal);
-        m_textButton.addTarget(self, action: "onTextButton", forControlEvents: UIControlEvents.TouchUpInside)
+        m_textButton.addTarget(self, action: #selector(SubmissionSubjectiveView.onTextButton), forControlEvents: UIControlEvents.TouchUpInside)
         
         
         
@@ -210,7 +210,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         topImageView.addSubview(m_badgeButton);
         m_badgeButton.imageView?.contentMode = .ScaleAspectFit
         m_badgeButton.setImage(UIImage(named:"Cb_Like_Disabled.png"), forState:.Normal);
-        m_badgeButton.addTarget(self, action: "onBadgeButton", forControlEvents: UIControlEvents.TouchUpInside)
+        m_badgeButton.addTarget(self, action: #selector(SubmissionSubjectiveView.onBadgeButton), forControlEvents: UIControlEvents.TouchUpInside)
         
         
         let lineImage2 = UIImageView(frame:CGRectMake(m_badgeButton.frame.origin.x - 10, 5, 1, topImageView.frame.size.height - 10));
@@ -237,7 +237,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         mMarkModelButton.setTitle("  Mark Model", forState:.Normal);
         mMarkModelButton.setTitleColor(blackTextColor, forState:.Normal)
         mMarkModelButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20);
-        mMarkModelButton.addTarget(self, action: "onModelAnswerButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mMarkModelButton.addTarget(self, action: #selector(SubmissionSubjectiveView.onModelAnswerButton), forControlEvents: UIControlEvents.TouchUpInside)
         
         overlayimageView.frame = containerview.frame
         mainContainerView.addSubview(overlayimageView);
@@ -259,7 +259,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         m_UndoButton.setImage(UIImage(named:"Undo_Disabled.png"),forState:.Normal);
         bottomview.addSubview(m_UndoButton);
         m_UndoButton.imageView?.contentMode = .ScaleAspectFit
-        m_UndoButton.addTarget(self, action: "onUndoButton", forControlEvents: UIControlEvents.TouchUpInside)
+        m_UndoButton.addTarget(self, action: #selector(SubmissionSubjectiveView.onUndoButton), forControlEvents: UIControlEvents.TouchUpInside)
         m_UndoButton.enabled = false
        
         bottomtoolSelectedImageView.backgroundColor = UIColor.whiteColor();
@@ -271,7 +271,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         m_BrushButton.setImage(UIImage(named:"Marker_Selected.png"), forState:.Normal)
         bottomview.addSubview(m_BrushButton);
         m_BrushButton.imageView?.contentMode = .ScaleAspectFit
-        m_BrushButton.addTarget(self, action: "onBrushButton", forControlEvents: UIControlEvents.TouchUpInside)
+        m_BrushButton.addTarget(self, action: #selector(SubmissionSubjectiveView.onBrushButton), forControlEvents: UIControlEvents.TouchUpInside)
         bottomtoolSelectedImageView.frame = m_BrushButton.frame
         
         
@@ -281,14 +281,14 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         m_EraserButton.setImage(UIImage(named:"Eraser_Unselected.png"), forState:.Normal);
         bottomview.addSubview(m_EraserButton);
         m_EraserButton.imageView?.contentMode = .ScaleAspectFit
-        m_EraserButton.addTarget(self, action: "onEraserButton", forControlEvents: UIControlEvents.TouchUpInside)
+        m_EraserButton.addTarget(self, action: #selector(SubmissionSubjectiveView.onEraserButton), forControlEvents: UIControlEvents.TouchUpInside)
         
         
         m_RedoButton.frame = CGRectMake(bottomview.frame.size.width - bottomview.frame.size.height ,0, bottomview.frame.size.height ,bottomview.frame.size.height)
         m_RedoButton.setImage(UIImage(named:"Redo_Disabled.png"), forState:.Normal);
         bottomview.addSubview(m_RedoButton);
         m_RedoButton.imageView?.contentMode = .ScaleAspectFit
-        m_RedoButton.addTarget(self, action: "onRedoButton", forControlEvents: UIControlEvents.TouchUpInside)
+        m_RedoButton.addTarget(self, action: #selector(SubmissionSubjectiveView.onRedoButton), forControlEvents: UIControlEvents.TouchUpInside)
         m_RedoButton.enabled = false
         
         self.bringSubviewToFront(mScribbleView)
@@ -792,7 +792,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     
     func newImageUploadedWithName(imageName:String)
     {
-        for var index = 0; index < selectedStudentsArray.count ; index++
+        for index in 0 ..< selectedStudentsArray.count 
         {
             
             let feedBackDetails  = NSMutableDictionary()
@@ -878,7 +878,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
                     
                      selectedStudentsArray.removeObject(answerDetails)
                     
-                    if delegate().respondsToSelector(Selector("delegateStudentSubmissionEvaluatedWithDetails:withStudentId:withSubmissionCount:"))
+                    if delegate().respondsToSelector(#selector(SubmissionSubjectiveViewDelegate.delegateStudentSubmissionEvaluatedWithDetails(_:withStudentId:withSubmissionCount:)))
                     {
                         delegate().delegateStudentSubmissionEvaluatedWithDetails!(feedBackDetails, withStudentId: studentId, withSubmissionCount:subjectiveCellContainer.totlStudentsCount)
                     }
@@ -953,7 +953,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
                 selectedStudentsArray.removeObject(answerDetails)
             }
             
-            if delegate().respondsToSelector(Selector("delegateStudentSubmissionEvaluatedWithDetails:withStudentId:withSubmissionCount:"))
+            if delegate().respondsToSelector(#selector(SubmissionSubjectiveViewDelegate.delegateStudentSubmissionEvaluatedWithDetails(_:withStudentId:withSubmissionCount:)))
             {
                 delegate().delegateStudentSubmissionEvaluatedWithDetails!(evaluationDetails, withStudentId: studentId, withSubmissionCount:subjectiveCellContainer.totlStudentsCount)
             }

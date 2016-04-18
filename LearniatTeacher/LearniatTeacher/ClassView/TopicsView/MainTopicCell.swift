@@ -87,7 +87,7 @@ class MainTopicCell: UIView{
         mSubTopicButton.setTitleColor(standard_Button, forState: .Normal)
         mSubTopicButton.setTitle("No SubTopics", forState: .Normal)
         mSubTopicButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
-        mSubTopicButton.addTarget(self, action: "onSubtopicButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mSubTopicButton.addTarget(self, action: #selector(MainTopicCell.onSubtopicButton), forControlEvents: UIControlEvents.TouchUpInside)
         
         
         m_progressView.userInteractionEnabled = false;
@@ -185,7 +185,7 @@ class MainTopicCell: UIView{
     
     func onSubtopicButton()
     {
-        if delegate().respondsToSelector(Selector("delegateSubtopicButtonPressedWithID:withmainTopicname:"))
+        if delegate().respondsToSelector(#selector(MainTopicCellDelegate.delegateSubtopicButtonPressedWithID(_:withmainTopicname:)))
         {
             if let topicName = currentTopicDetails.objectForKey("Name")as? String
             {

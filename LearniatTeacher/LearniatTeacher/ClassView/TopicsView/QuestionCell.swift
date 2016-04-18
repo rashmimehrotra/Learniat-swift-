@@ -79,7 +79,7 @@ class QuestionCell: UIView
         mQuestionTypeLabel.lineBreakMode = .ByTruncatingMiddle
         
         self.addSubview(mSendButton)
-        mSendButton.addTarget(self, action: "onSendButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mSendButton.addTarget(self, action: #selector(QuestionCell.onSendButton), forControlEvents: UIControlEvents.TouchUpInside)
         mSendButton.setTitleColor(standard_Button, forState: .Normal)
         mSendButton.setTitle("Send", forState: .Normal)
         mSendButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
@@ -88,7 +88,7 @@ class QuestionCell: UIView
         
         
         self.addSubview(mInfoButtonButton)
-        mInfoButtonButton.addTarget(self, action: "onInfoButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mInfoButtonButton.addTarget(self, action: #selector(QuestionCell.onInfoButton), forControlEvents: UIControlEvents.TouchUpInside)
         mInfoButtonButton.setImage(UIImage(named: "infoButton.png"), forState: .Normal)
         mInfoButtonButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
 
@@ -271,7 +271,7 @@ class QuestionCell: UIView
     
     func onSendButton()
     {
-        if delegate().respondsToSelector(Selector("delegateSendQuestionDetails:"))
+        if delegate().respondsToSelector(#selector(QuestionCellDelegate.delegateSendQuestionDetails(_:)))
         {
             delegate().delegateSendQuestionDetails!(currentQuestionDetails)
              
@@ -281,7 +281,7 @@ class QuestionCell: UIView
     
     func onInfoButton()
     {
-        if delegate().respondsToSelector(Selector("delegateOnInfoButtonWithDetails:withButton:"))
+        if delegate().respondsToSelector(#selector(QuestionCellDelegate.delegateOnInfoButtonWithDetails(_:withButton:)))
         {
             delegate().delegateOnInfoButtonWithDetails!(currentQuestionDetails, withButton: mInfoButtonButton)
             

@@ -71,7 +71,7 @@ class  LessonPlanSubTopicCell: UIView{
         checkBoxImage.frame = CGRectMake(10  , (self.frame.size .height - 20) / 2,20,20)
         checkBoxImage.image = UIImage(named:"Checked.png");
         self.addSubview(checkBoxImage);
-        m_checkBoxButton.addTarget(self, action: "checkMarkPressed", forControlEvents: UIControlEvents.TouchUpInside)
+        m_checkBoxButton.addTarget(self, action: #selector(LessonPlanSubTopicCell.checkMarkPressed), forControlEvents: UIControlEvents.TouchUpInside)
         
         
         
@@ -88,7 +88,7 @@ class  LessonPlanSubTopicCell: UIView{
         mSubTopicButton.backgroundColor = standard_Button
         mSubTopicButton.setTitle("No Questions", forState: .Normal)
         mSubTopicButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 18)
-        mSubTopicButton.addTarget(self, action: "onSubtopicButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mSubTopicButton.addTarget(self, action: #selector(LessonPlanSubTopicCell.onSubtopicButton), forControlEvents: UIControlEvents.TouchUpInside)
         mSubTopicButton.layer.cornerRadius = (mSubTopicButton.frame.size.height)/3
         
         
@@ -252,7 +252,7 @@ class  LessonPlanSubTopicCell: UIView{
     
     func onSubtopicButton()
     {
-        if delegate().respondsToSelector(Selector("delegateQuestionPressedWithSubTopicDetails:"))
+        if delegate().respondsToSelector(#selector(LessonPlanSubTopicCellDelegate.delegateQuestionPressedWithSubTopicDetails(_:)))
         {
             delegate().delegateQuestionPressedWithSubTopicDetails!(currentTopicDetails)
             mSubTopicButton.backgroundColor = standard_Green
@@ -262,7 +262,7 @@ class  LessonPlanSubTopicCell: UIView{
     
     func checkMarkPressed()
     {
-        if delegate().respondsToSelector(Selector("delegateCheckMarkPressedWithState:withIndexValue:withCurrentTopicDatails:"))
+        if delegate().respondsToSelector(#selector(LessonPlanSubTopicCellDelegate.delegateCheckMarkPressedWithState(_:withIndexValue:withCurrentTopicDatails:)))
         {
             if isSelected == true
             {

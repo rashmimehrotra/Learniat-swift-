@@ -73,7 +73,7 @@ class LessonPlanMainViewCell: UIView{
         checkBoxImage.frame = CGRectMake(10  , (self.frame.size .height - 20) / 2,20,20)
         checkBoxImage.image = UIImage(named:"Checked.png");
         self.addSubview(checkBoxImage);
-        m_checkBoxButton.addTarget(self, action: "checkMarkPressed", forControlEvents: UIControlEvents.TouchUpInside)
+        m_checkBoxButton.addTarget(self, action: #selector(LessonPlanMainViewCell.checkMarkPressed), forControlEvents: UIControlEvents.TouchUpInside)
 
         
         
@@ -90,7 +90,7 @@ class LessonPlanMainViewCell: UIView{
         mSubTopicButton.backgroundColor = standard_Button
         mSubTopicButton.setTitle("No SubTopics", forState: .Normal)
         mSubTopicButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 18)
-        mSubTopicButton.addTarget(self, action: "onSubtopicButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mSubTopicButton.addTarget(self, action: #selector(LessonPlanMainViewCell.onSubtopicButton), forControlEvents: UIControlEvents.TouchUpInside)
         mSubTopicButton.layer.cornerRadius = (mSubTopicButton.frame.size.height)/3
         
       
@@ -255,7 +255,7 @@ class LessonPlanMainViewCell: UIView{
     
     func onSubtopicButton()
     {
-        if delegate().respondsToSelector(Selector("delegateSubTopicCellPressedWithMainTopicDetails:withIndexValue:"))
+        if delegate().respondsToSelector(#selector(LessonPlanMainViewDelegate.delegateSubTopicCellPressedWithMainTopicDetails(_:withIndexValue:)))
         {
             delegate().delegateSubTopicCellPressedWithMainTopicDetails!(currentTopicDetails,withIndexValue:currentindexPath)
             mSubTopicButton.backgroundColor = standard_Green
@@ -290,7 +290,7 @@ class LessonPlanMainViewCell: UIView{
         
         if isSelected == true
         {
-            for var index = 0; index < subTopicsDetails.count ; index++
+            for index in 0 ..< subTopicsDetails.count
             {
                 let currentTopicDetails = subTopicsDetails.objectAtIndex(index)
                 currentTopicDetails.setObject("0", forKey: "Tagged")
@@ -314,7 +314,7 @@ class LessonPlanMainViewCell: UIView{
         else
         {
             
-            for var index = 0; index < subTopicsDetails.count ; index++
+            for index in 0 ..< subTopicsDetails.count 
             {
                 let currentTopicDetails = subTopicsDetails.objectAtIndex(index)
                 currentTopicDetails.setObject("1", forKey: "Tagged")

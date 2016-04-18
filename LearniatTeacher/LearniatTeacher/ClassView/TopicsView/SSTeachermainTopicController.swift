@@ -96,7 +96,7 @@ class SSTeachermainTopicController: UIViewController, SSTeacherDataSourceDelegat
         
         let  mDoneButton = UIButton(frame: CGRectMake(mTopbarImageView.frame.size.width - 210,  0, 200 ,mTopbarImageView.frame.size.height))
         mTopbarImageView.addSubview(mDoneButton)
-        mDoneButton.addTarget(self, action: "onDoneButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mDoneButton.addTarget(self, action: #selector(SSTeachermainTopicController.onDoneButton), forControlEvents: UIControlEvents.TouchUpInside)
         mDoneButton.setTitleColor(standard_Button, forState: .Normal)
         mDoneButton.setTitle("Done", forState: .Normal)
         mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
@@ -211,7 +211,7 @@ class SSTeachermainTopicController: UIViewController, SSTeacherDataSourceDelegat
        
         
         let topicsArray = NSMutableArray()
-        for var index = 0; index < mMaintopicsDetails.count ; index++
+        for index in 0 ..< mMaintopicsDetails.count 
         {
             
             
@@ -243,7 +243,7 @@ class SSTeachermainTopicController: UIViewController, SSTeacherDataSourceDelegat
         
         var positionY :CGFloat = 0
         
-        for var index = 0; index < topicsArray.count ; index++
+        for index in 0 ..< topicsArray.count 
         {
             let currentTopicDetails = topicsArray.objectAtIndex(index)
             let topicCell = MainTopicCell(frame: CGRectMake(0  , positionY, mTopicsContainerView.frame.size.width, 60))
@@ -298,7 +298,7 @@ class SSTeachermainTopicController: UIViewController, SSTeacherDataSourceDelegat
     
     func delegateSubtopicButtonPressedWithID(mainTopicId: String, withmainTopicname mainTopicName: String) {
         
-        if delegate().respondsToSelector(Selector("delegateShowSubTopicWithMainTopicId:WithMainTopicName:"))
+        if delegate().respondsToSelector(#selector(SSTeachermainTopicControllerDelegate.delegateShowSubTopicWithMainTopicId(_:WithMainTopicName:)))
         {
             delegate().delegateShowSubTopicWithMainTopicId!(mainTopicId ,WithMainTopicName:mainTopicName )
         }

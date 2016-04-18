@@ -62,14 +62,14 @@ class SSTeacherQuerySelectView: UIView,SSTeacherDataSourceDelegate
         mTopImageView.addSubview(mDoneButton)
         mDoneButton.setTitleColor(standard_Button, forState: .Normal)
         mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
-        mDoneButton.addTarget(self, action: "onDoneButton", forControlEvents: .TouchUpInside)
+        mDoneButton.addTarget(self, action: #selector(SSTeacherQuerySelectView.onDoneButton), forControlEvents: .TouchUpInside)
         
         mCancelButton.frame = CGRectMake(10, 0, 120, mTopImageView.frame.size.height)
         mCancelButton.setTitle("Cancel", forState: .Normal)
         mTopImageView.addSubview(mCancelButton)
         mCancelButton.setTitleColor(standard_Button, forState: .Normal)
         mCancelButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
-        mCancelButton.addTarget(self, action: "oncancelButton", forControlEvents: .TouchUpInside)
+        mCancelButton.addTarget(self, action: #selector(SSTeacherQuerySelectView.oncancelButton), forControlEvents: .TouchUpInside)
         
         
          }
@@ -100,7 +100,7 @@ class SSTeacherQuerySelectView: UIView,SSTeacherDataSourceDelegate
     {
         currentYPosition  = 10
         
-        for var index = 0 ; index < queryDetails.count ; index++
+        for index in 0  ..< queryDetails.count 
         {
             let queryDict = queryDetails.objectAtIndex(index)
             
@@ -183,7 +183,7 @@ class SSTeacherQuerySelectView: UIView,SSTeacherDataSourceDelegate
         
         if totalUploadingCount >= studentsQueryArray.count
         {
-            if delegate().respondsToSelector(Selector("delegateQueriesSelectedForVolunteer:"))
+            if delegate().respondsToSelector(#selector(SSTeacherQuerySelectViewDelegate.delegateQueriesSelectedForVolunteer(_:)))
             {
                 delegate().delegateQueriesSelectedForVolunteer!(studentsQueryArray)
                 self.removeFromSuperview()

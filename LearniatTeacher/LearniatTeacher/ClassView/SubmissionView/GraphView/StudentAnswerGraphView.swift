@@ -67,7 +67,7 @@ class StudentAnswerGraphView: UIView
         shareGraphButton.setImage(UIImage(named:"Sharebutton.png"), forState:.Normal)
         self.addSubview(shareGraphButton);
         shareGraphButton.imageView?.contentMode = .ScaleAspectFit
-        shareGraphButton.addTarget(self, action: "onShareGraph", forControlEvents: UIControlEvents.TouchUpInside)
+        shareGraphButton.addTarget(self, action: #selector(StudentAnswerGraphView.onShareGraph), forControlEvents: UIControlEvents.TouchUpInside)
 
         
         
@@ -116,7 +116,7 @@ class StudentAnswerGraphView: UIView
         
         var labelCount = 0;
         var height:CGFloat = 0;
-        for (var i = 10; i >= 0 ; i--)
+        for (var i = 10; i >= 0 ; i -= 1)
         {
             if (i % 2 == 0)
             {
@@ -156,7 +156,7 @@ class StudentAnswerGraphView: UIView
         
         var positionX = widthSpace / 2 + 100
         
-        for var index = 0; index < optionsArray.count; index++
+        for index in 0 ..< optionsArray.count
         {
             
             let optionDict = optionsArray.objectAtIndex(index)
@@ -190,7 +190,7 @@ class StudentAnswerGraphView: UIView
 
             let barView = BarView(frame: CGRectMake(positionX ,lineContainerView.frame.size.height, width ,0))
             lineContainerView.addSubview(barView)
-            barView.addTarget(self, action: "onBarButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+            barView.addTarget(self, action: #selector(StudentAnswerGraphView.onBarButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             if let optionId = optionDict.objectForKey("OptionId") as? String
             {
                 barView.tag = Int(optionId)!
@@ -253,12 +253,12 @@ class StudentAnswerGraphView: UIView
         
         var labelCount = 0;
         var height:CGFloat = 0;
-        for (var i = 10; i >= 0 ; i--)
+        for (var i = 10; i >= 0 ; i -= 1)
         {
             if (i % 2 == 0)
             {
                 
-                let lineView = UIImageView(frame:CGRectMake(100, height, 1000, 1))
+                let lineView = UIImageView(frame:CGRectMake(100, height, self.frame.size.width - 100, 1))
                 lineView.backgroundColor = UIColor(red: 117/255.0, green: 117/255.0, blue: 117/255.0, alpha: 0.3)
                 lineContainerView.addSubview(lineView);
                 
@@ -273,7 +273,7 @@ class StudentAnswerGraphView: UIView
             else
             {
                 
-                let lineView = DottedLine(frame:CGRectMake(100, height, 1000, 1))
+                let lineView = DottedLine(frame:CGRectMake(100, height, self.frame.size.width - 100, 1))
                 lineView.drawDashedBorderAroundViewWithColor(UIColor(red: 117/255.0, green: 117/255.0, blue: 117/255.0, alpha: 0.3))
                 lineContainerView.addSubview(lineView);
                 
@@ -293,7 +293,7 @@ class StudentAnswerGraphView: UIView
         
         var positionX = widthSpace / 2 + 100
         
-        for var index = 0; index < optionsArray.count; index++
+        for index in 0 ..< optionsArray.count
         {
             
             let optionDict = optionsArray.objectAtIndex(index)
@@ -338,7 +338,7 @@ class StudentAnswerGraphView: UIView
             
             let barView = BarView(frame: CGRectMake(positionX ,lineContainerView.frame.size.height, width ,0))
             lineContainerView.addSubview(barView)
-            barView.addTarget(self, action: "onBarButtonPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+            barView.addTarget(self, action: #selector(StudentAnswerGraphView.onBarButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             if let optionId = optionDict.objectForKey("OptionId") as? String
             {
                 barView.tag = Int(optionId)!
@@ -411,7 +411,7 @@ class StudentAnswerGraphView: UIView
                         
                     }
                 }
-                for (var i = 10; i >= 0 ; i--)
+                for (var i = 10; i >= 0 ; i -= 1)
                 {
                     if (i % 2 == 0)
                     {
@@ -475,7 +475,7 @@ class StudentAnswerGraphView: UIView
                             
                         }
                     }
-                    for (var i = 10; i >= 0 ; i--)
+                    for (var i = 10; i >= 0 ; i -= 1)
                     {
                         if (i % 2 == 0)
                         {
@@ -496,7 +496,7 @@ class StudentAnswerGraphView: UIView
     {
         if let currentButton = sender as? BarView
         {
-            if delegate().respondsToSelector(Selector("delegateBarTouchedWithId:withView:"))
+            if delegate().respondsToSelector(#selector(StudentAnswerGraphViewDelegate.delegateBarTouchedWithId(_:withView:)))
             {
                 delegate().delegateBarTouchedWithId!("\(currentButton.tag)", withView:currentButton)
             }
@@ -526,7 +526,7 @@ class StudentAnswerGraphView: UIView
             }
         }
         
-        if delegate().respondsToSelector(Selector("delegateShareButtonClickedWithDetails:"))
+        if delegate().respondsToSelector(#selector(StudentAnswerGraphViewDelegate.delegateShareButtonClickedWithDetails(_:)))
         {
             delegate().delegateShareButtonClickedWithDetails!(detailsDictonary)
         }
@@ -535,8 +535,11 @@ class StudentAnswerGraphView: UIView
     
     
     
-    func roundOffNumberWithFloat(var numberToRound:Float) ->Int
+    func roundOffNumberWithFloat(_numberToRound:Float) ->Int
     {
+        
+        var numberToRound = _numberToRound
+        
         let min = NSString(format: "%.0f", numberToRound).floatValue
     
         let max = min + 1;

@@ -70,6 +70,8 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     
     let liveQuestionController      =  SSTeacherLiveQuestionController()
     
+    var startedSubTopicDetails:AnyObject!
+    
     var startedSubTopicID           = ""
     
     var startedMainTopicID          = ""
@@ -158,7 +160,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         
         mQuestionViewButton.frame  = CGRectMake((mBottombarImageView.frame.size.width - 150)/2  , 0, 150, mBottombarImageView.frame.size.height)
         mBottombarImageView.addSubview(mQuestionViewButton)
-        mQuestionViewButton.addTarget(self, action: "onQuestionsView", forControlEvents: UIControlEvents.TouchUpInside)
+        mQuestionViewButton.addTarget(self, action: #selector(SSTeacherClassView.onQuestionsView), forControlEvents: UIControlEvents.TouchUpInside)
         mQuestionViewButton.backgroundColor = UIColor.clearColor()
         mQuestionViewButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         mQuestionViewButton.setTitle("Submission", forState: .Normal)
@@ -180,7 +182,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         
         mClassViewButton.frame  = CGRectMake(mQuestionViewButton.frame.origin.x - (mQuestionViewButton.frame.size.width + 10)  , 0, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height)
         mBottombarImageView.addSubview(mClassViewButton)
-        mClassViewButton.addTarget(self, action: "onClassView", forControlEvents: UIControlEvents.TouchUpInside)
+        mClassViewButton.addTarget(self, action: #selector(SSTeacherClassView.onClassView), forControlEvents: UIControlEvents.TouchUpInside)
         mClassViewButton.backgroundColor = UIColor.clearColor()
         mClassViewButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         mClassViewButton.setTitle("Class view", forState: .Normal)
@@ -190,7 +192,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
        
         mQueryViewButton.frame  = CGRectMake(mQuestionViewButton.frame.origin.x + (mQuestionViewButton.frame.size.width + 10)  , 0, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height)
         mBottombarImageView.addSubview(mQueryViewButton)
-        mQueryViewButton.addTarget(self, action: "onQueryView", forControlEvents: UIControlEvents.TouchUpInside)
+        mQueryViewButton.addTarget(self, action: #selector(SSTeacherClassView.onQueryView), forControlEvents: UIControlEvents.TouchUpInside)
         mQueryViewButton.backgroundColor = UIColor.clearColor()
         mQueryViewButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         mQueryViewButton.setTitle("Query", forState: .Normal)
@@ -270,13 +272,13 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         
         mTeacherImageButton.frame = CGRectMake(0, 0, 40 , mTopbarImageView.frame.size.height)
         mTopbarImageView.addSubview(mTeacherImageButton)
-        mTeacherImageButton.addTarget(self, action: "onTeacherImage", forControlEvents: UIControlEvents.TouchUpInside)
+        mTeacherImageButton.addTarget(self, action: #selector(SSTeacherClassView.onTeacherImage), forControlEvents: UIControlEvents.TouchUpInside)
 
         
         
       let  mSchedulePopoverButton = UIButton(frame: CGRectMake(mTeacherImageView.frame.origin.x + mTeacherImageView.frame.size.width + 10,  mTeacherImageView.frame.origin.y, 250 , 50))
         mTopbarImageView.addSubview(mSchedulePopoverButton)
-        mSchedulePopoverButton.addTarget(self, action: "onScheduleScreenPopupPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+        mSchedulePopoverButton.addTarget(self, action: #selector(SSTeacherClassView.onScheduleScreenPopupPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         mSchedulePopoverButton.backgroundColor = standard_Button
         mSchedulePopoverButton.layer.cornerRadius = 2
         mSchedulePopoverButton.layer.masksToBounds = true
@@ -297,7 +299,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         
          mTopicButton = UIButton(frame: CGRectMake(mTopbarImageView.frame.size.width - (mSchedulePopoverButton.frame.size.width + 10 ),  mSchedulePopoverButton.frame.origin.y, mSchedulePopoverButton.frame.size.width , mSchedulePopoverButton.frame.size.height))
         mTopbarImageView.addSubview(mTopicButton)
-        mTopicButton.addTarget(self, action: "onTopicsButton:", forControlEvents: UIControlEvents.TouchUpInside)
+        mTopicButton.addTarget(self, action: #selector(SSTeacherClassView.onTopicsButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         mTopicButton.backgroundColor = standard_Button
         mTopicButton.layer.cornerRadius = 2
         mTopicButton.layer.masksToBounds = true
@@ -324,7 +326,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
       
         
         mStartLabelUpdater.invalidate()
-        mStartLabelUpdater = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "updateStartLabelTime", userInfo: nil, repeats: true)
+        mStartLabelUpdater = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(SSTeacherClassView.updateStartLabelTime), userInfo: nil, repeats: true)
         
         
         mActivityIndicatore = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
@@ -562,7 +564,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         if newSubmissionRecieved.count > 0
         {
 
-            for var index = 0; index < newSubmissionRecieved.count ; index++
+            for index in 0 ..< newSubmissionRecieved.count
             {
                 
                 if let studentId = newSubmissionRecieved.objectAtIndex(index) as? String
@@ -767,7 +769,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         
         var totalSeatvalue  = rowValue * columnValue
         
-        for var columnIndex = 0; columnIndex < rowValue ; columnIndex++
+        for columnIndex in 0 ..< rowValue
         {
             
             let backGroundImageView = UIImageView(frame:  CGRectMake(0, postionY - barHeightSpace, mClassView.frame.size.width, barHeight + barHeightSpace) )
@@ -783,7 +785,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
             mClassView.addSubview(backGroundImageView)
             
             var positionX :CGFloat = barWidthSpace / 2
-            for var rowIndex = 0; rowIndex < columnValue ; rowIndex++
+            for _ in 0 ..< columnValue
             {
                 if seatsRemovedArray.contains("A\(totalSeatvalue)")
                 {
@@ -836,7 +838,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         }
         
         
-        for var indexValue = 0 ; indexValue < StudentsDetailsArray.count ; indexValue++
+        for indexValue in 0  ..< StudentsDetailsArray.count
         {
             let studentsDict = StudentsDetailsArray.objectAtIndex(indexValue)
             
@@ -994,6 +996,71 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         }
     }
     
+    func delegateSubtopicStateChanedWithSubTopicDetails(subTopicDetails: AnyObject, withState state: Bool, withmainTopicName mainTopicName: String)
+    {
+        
+        
+        if state == true
+        {
+            startedSubTopicDetails = subTopicDetails
+            if let topicId = subTopicDetails.objectForKey("Id")as? String
+            {
+                startedSubTopicID = topicId
+                
+                if let cumulativeTime = subTopicDetails.objectForKey("CumulativeTime")as? String
+                {
+                    
+                    currentCumulativeTime = cumulativeTime
+                    cumulativeTimer.invalidate()
+                    cumulativeTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(SSTeacherClassView.udpateCumulativeTime), userInfo: nil, repeats: true)
+                }
+                
+                
+                
+                
+                if let sessionId = (currentSessionDetails.objectForKey(kSessionId)) as? String
+                {
+                    SSTeacherDataSource.sharedDataSource.startSubTopicWithTopicID(topicId, withStudentId: "", withSessionID: sessionId, withDelegate: self)
+                   
+                    if let topicName = subTopicDetails.objectForKey("Name")as? String
+                    {
+                        mSubTopicsNamelabel.text = "\(mainTopicName) / \(topicName)"
+                    }
+                    
+                    
+                    
+                    SSTeacherMessageHandler.sharedMessageHandler.sendAllowVotingToRoom(currentSessionId, withValue: "TRUE", withSubTopicName: mSubTopicsNamelabel.text!, withSubtopicID: topicId)
+                }
+
+            }
+        }
+        else
+        {
+            
+            if let subTopicId = subTopicDetails.objectForKey("Id")as? String
+            {
+                let subTopicName = subTopicDetails.objectForKey("Name")as! String
+                
+                if let sessionId = (currentSessionDetails.objectForKey(kSessionId)) as? String
+                {
+                    SSTeacherDataSource.sharedDataSource.stopSubTopicWithTopicID(subTopicId, withSessionID: sessionId, withDelegate: self)
+                }
+                cumulativeTimer.invalidate()
+                
+                startedSubTopicID = ""
+                SSTeacherMessageHandler.sharedMessageHandler.sendAllowVotingToRoom(currentSessionId, withValue: "FALSE", withSubTopicName: subTopicName, withSubtopicID: subTopicId)
+                
+                mSubTopicsNamelabel.text = "\(mainTopicName)"
+            }
+            
+            
+        }
+        
+        
+        
+    }
+    
+    
     func delegateSubtopicStateChanedWithID(subTopicId: String, withState state: Bool, withSubtopicName subTopicName: String, withmainTopicName mainTopicName: String) {
         
         if state == true
@@ -1037,7 +1104,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     {
         currentCumulativeTime = cumulativeTime
         cumulativeTimer.invalidate()
-         cumulativeTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "udpateCumulativeTime", userInfo: nil, repeats: true)
+         cumulativeTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(SSTeacherClassView.udpateCumulativeTime), userInfo: nil, repeats: true)
     
     }
     
@@ -1053,6 +1120,17 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         var currentDate = NSDate()
         currentDate = currentDate.addSeconds(1, withDate: dateFormatter.dateFromString(currentCumulativeTime)!)
         currentCumulativeTime = dateFormatter.stringFromDate(currentDate)
+       
+        if let topicName = startedSubTopicDetails.objectForKey("Name")as? String
+        {
+
+            subTopicsController.updateSubtopicCumulativeTimeWithID(startedSubTopicID, withCumulativeTime:  "\(topicName)(\(currentCumulativeTime))".capitalizedString)
+            
+        }
+        
+        
+        
+        
     }
     
     
@@ -1182,7 +1260,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         }
         
         
-        for var indexValue = 0 ; indexValue < StudentsDetailsArray.count ; indexValue++
+        for indexValue in 0  ..< StudentsDetailsArray.count
         {
             let studentsDict = StudentsDetailsArray.objectAtIndex(indexValue)
            
@@ -1776,7 +1854,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         
         
         
-        for var indexValue = 0 ; indexValue < StudentsDetailsArray.count ; indexValue++
+        for indexValue in 0  ..< StudentsDetailsArray.count
         {
             let studentsDict = StudentsDetailsArray.objectAtIndex(indexValue)
             

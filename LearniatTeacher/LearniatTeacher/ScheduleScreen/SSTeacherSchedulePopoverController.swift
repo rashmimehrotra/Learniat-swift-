@@ -58,7 +58,7 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
         
         
         let  mDoneButton = UIButton(frame: CGRectMake(mTopbarImageView.frame.size.width - 120, 0, 100, 40))
-        mDoneButton.addTarget(self, action: "onDoneButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mDoneButton.addTarget(self, action: #selector(SSTeacherSchedulePopoverController.onDoneButton), forControlEvents: UIControlEvents.TouchUpInside)
         mDoneButton.setTitleColor(standard_Button, forState: .Normal)
         mDoneButton.setTitle("Done", forState: .Normal)
         mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
@@ -82,7 +82,7 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
         
         
         let  mEndClassButton = UIButton(frame: CGRectMake(0, _currentScreenSize.height - 50 , _currentScreenSize.width, 50))
-        mEndClassButton.addTarget(self, action: "onDoneButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mEndClassButton.addTarget(self, action: #selector(SSTeacherSchedulePopoverController.onDoneButton), forControlEvents: UIControlEvents.TouchUpInside)
         mEndClassButton.setTitleColor(standard_Red, forState: .Normal)
         mEndClassButton.setTitle("End class", forState: .Normal)
         mEndClassButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
@@ -104,7 +104,7 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
         
         
         
-        timer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: "timerAction", userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: #selector(SSTeacherSchedulePopoverController.timerAction), userInfo: nil, repeats: true)
         
         
         
@@ -113,10 +113,13 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
     
     func addNumberOfLinesToScrollView()
     {
-        var index: Int
         var positionY: CGFloat = 30
         var hourValue = 1
-        for index = 0; index <= 24; ++index
+        
+        
+      
+        
+         for index in 0 ..< 24
         {
             let hourlabel = UILabel(frame: CGRectMake(10, positionY-15,50,30))
             mScrollView.addSubview(hourlabel)
@@ -258,7 +261,7 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
         
         
         
-        for var index = 0; index < sessionDetailsArray.count; index++
+        for index in 0 ..< sessionDetailsArray.count
         {
             let dict = sessionDetailsArray.objectAtIndex(index)
             
@@ -303,9 +306,12 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
     
     // MARK: - Returning Functions
     
-    func getPositionWithHour(var hour : Int, withMinute minute:Int) -> CGFloat
+    func getPositionWithHour(_hour : Int, withMinute minute:Int) -> CGFloat
     {
         //        hour = hour
+        
+        var hour = _hour
+        
         var returningValue = CGFloat()
         
         if hour < 0

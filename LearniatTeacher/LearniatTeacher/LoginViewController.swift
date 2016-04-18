@@ -64,7 +64,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSou
         mSignUpButton.layer.cornerRadius = 5
         mSignUpButton.setTitle("Sign Up", forState: .Normal)
         mSignUpButton.titleLabel?.font = UIFont(name:helveticaMedium, size: 20)
-        mSignUpButton.addTarget(self, action: "onSignUpButton:", forControlEvents: UIControlEvents.TouchUpInside)
+        mSignUpButton.addTarget(self, action: #selector(LoginViewController.onSignUpButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
         
         
@@ -77,7 +77,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSou
         mLoginButton.layer.cornerRadius = 5
         mLoginButton.setTitle("Login", forState: .Normal)
         mLoginButton.titleLabel?.font = UIFont(name:helveticaMedium, size: 20)
-        mLoginButton.addTarget(self, action: "onLoginButton:", forControlEvents: UIControlEvents.TouchUpInside)
+        mLoginButton.addTarget(self, action: #selector(LoginViewController.onLoginButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
         mActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
         mActivityIndicator.frame = CGRectMake(mContainerView.frame.size.width - 40, mPassword.frame.origin.y + mPassword.frame.size.height + 30, 20,20)

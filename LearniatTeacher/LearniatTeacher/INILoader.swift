@@ -187,7 +187,7 @@ class INILoader: NSObject
                 let datavalue = contents.componentsSeparatedByString("\n")
                 
                 
-                for var index = 0; index < datavalue.count; index++
+                for index in 0 ..< datavalue.count
                 {
                     let string = datavalue[index]
                     let fullValueDetails = string.componentsSeparatedByString(" ")
@@ -290,7 +290,7 @@ class INILoader: NSObject
         }
         
         
-        for var i = 1; i < 11 ; i++
+        for i in 1 ..< 11
         {
             
             

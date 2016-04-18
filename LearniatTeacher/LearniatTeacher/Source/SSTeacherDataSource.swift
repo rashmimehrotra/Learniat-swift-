@@ -163,6 +163,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     var currentLiveSessionId        = ""
     
+    var isSubtopicStarted           = false
     
     var subTopicDetailsDictonary            = NSMutableDictionary()
     
@@ -674,7 +675,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         let refinedDetails = dict.objectForKey(kSunstone)!.objectForKey(kSSAction)!
         if serviceName == kServiceGetMyState
         {
-            if delegate().respondsToSelector(Selector("didGetUserStateWithDetails:"))
+            if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetUserStateWithDetails(_:)))
             {
                 delegate().didGetUserStateWithDetails!(refinedDetails)
             }
@@ -682,49 +683,49 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         }
         else if serviceName == kServiceUserLogin
         {
-            if delegate().respondsToSelector(Selector("didGetloginWithDetails:"))
+            if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetloginWithDetails(_:)))
             {
                 delegate().didGetloginWithDetails!(refinedDetails)
             }
         }
         else if serviceName == kServiceGetSchedules
         {
-            if delegate().respondsToSelector(Selector("didGetSchedulesWithDetials:"))
+            if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetSchedulesWithDetials(_:)))
             {
                 delegate().didGetSchedulesWithDetials!(refinedDetails)
             }
         }
         else if serviceName == kServiceGetMyCurrentSession
         {
-            if delegate().respondsToSelector(Selector("didGetMycurrentSessionWithDetials:"))
+            if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetMycurrentSessionWithDetials(_:)))
             {
                 delegate().didGetMycurrentSessionWithDetials!(refinedDetails)
             }
         }
         else if serviceName == kServiceGetScheduleSummary
         {
-            if delegate().respondsToSelector(Selector("didGetSessionSummaryDetials:"))
+            if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetSessionSummaryDetials(_:)))
             {
                 delegate().didGetSessionSummaryDetials!(refinedDetails)
             }
         }
         else if serviceName == kServiceUpdateSessionState
         {
-            if delegate().respondsToSelector(Selector("didGetSessionUpdatedWithDetials:"))
+            if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetSessionUpdatedWithDetials(_:)))
             {
                 delegate().didGetSessionUpdatedWithDetials!(refinedDetails)
             }
         }
         else if serviceName == kServiceExtendTime
         {
-            if delegate().respondsToSelector(Selector("didGetSessionExtendedDetials:"))
+            if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetSessionExtendedDetials(_:)))
             {
                 delegate().didGetSessionExtendedDetials!(refinedDetails)
             }
         }
         else if serviceName == kServiceResetSeatAssignment
         {
-            if delegate().respondsToSelector(Selector("didGetSeatsRestWithDetials:"))
+            if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetSeatsRestWithDetials(_:)))
             {
                 delegate().didGetSeatsRestWithDetials!(refinedDetails)
             }
@@ -732,7 +733,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         else if serviceName == kServiceGetGridDesign
         {
-            if delegate().respondsToSelector(Selector("didGetGridDesignWithDetails:"))
+            if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetGridDesignWithDetails(_:)))
             {
                 delegate().didGetGridDesignWithDetails!(refinedDetails)
             }
@@ -740,112 +741,112 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
             
         else if serviceName == kServiceGetSeatAssignment
         {
-            if delegate().respondsToSelector(Selector("didGetSeatAssignmentWithDetails:"))
+            if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetSeatAssignmentWithDetails(_:)))
             {
                 delegate().didGetSeatAssignmentWithDetails!(refinedDetails)
             }
         }
         else if serviceName == kGetStudentsSessionInfo
         {
-            if delegate().respondsToSelector(Selector("didGetStudentsInfoWithDetails:"))
+            if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetStudentsInfoWithDetails(_:)))
             {
                 delegate().didGetStudentsInfoWithDetails!(refinedDetails)
             }
         }
         else if serviceName == kServiceSeatAssignment
         {
-            if delegate().respondsToSelector(Selector("didGetSeatAssignmentSavedWithDetails:"))
+            if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetSeatAssignmentSavedWithDetails(_:)))
             {
                 delegate().didGetSeatAssignmentSavedWithDetails!(refinedDetails)
             }
         }
         else if serviceName == kServiceGetAllNodes
         {
-            if delegate().respondsToSelector(Selector("didGetAllNodesWithDetails:"))
+            if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetAllNodesWithDetails(_:)))
             {
                 delegate().didGetAllNodesWithDetails!(refinedDetails)
             }
         }
         else if serviceName == kServiceStartTopic
         {
-            if delegate().respondsToSelector(Selector("didGetSubtopicStartedWithDetails:"))
+            if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetSubtopicStartedWithDetails(_:)))
             {
                 delegate().didGetSubtopicStartedWithDetails!(refinedDetails)
             }
         }
         else if serviceName == kServiceBroadcastQuestion
         {
-            if delegate().respondsToSelector(Selector("didGetQuestionSentWithDetails:"))
+            if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetQuestionSentWithDetails(_:)))
             {
                 delegate().didGetQuestionSentWithDetails!(refinedDetails)
             }
         }
         else if serviceName == kServiceClearQuestion
         {
-            if delegate().respondsToSelector(Selector("didGetQuestionClearedWithDetails:"))
+            if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetQuestionClearedWithDetails(_:)))
             {
                 delegate().didGetQuestionClearedWithDetails!(refinedDetails)
             }
         }
         else if serviceName == kServiceRetrieveStudentAnswer
         {
-            if delegate().respondsToSelector(Selector("didGetStudentsAnswerWithDetails:"))
+            if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetStudentsAnswerWithDetails(_:)))
             {
                 delegate().didGetStudentsAnswerWithDetails!(refinedDetails)
             }
         }
         else if serviceName == kServiceAgregateDrillDown
         {
-            if delegate().respondsToSelector(Selector("didGetAgregateDrillDownWithDetails:"))
+            if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetAgregateDrillDownWithDetails(_:)))
             {
                 delegate().didGetAgregateDrillDownWithDetails!(refinedDetails)
             }
         }
         else if serviceName == kServiceSendFeedback
         {
-            if delegate().respondsToSelector(Selector("didGetFeedbackSentWithDetails:"))
+            if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetFeedbackSentWithDetails(_:)))
             {
                 delegate().didGetFeedbackSentWithDetails!(refinedDetails)
             }
         }
         else if serviceName == kServiceGetDoubt
         {
-            if delegate().respondsToSelector(Selector("didGetQueryWithDetails:"))
+            if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetQueryWithDetails(_:)))
             {
                 delegate().didGetQueryWithDetails!(refinedDetails)
             }
         }
         else if serviceName == kServiceReplyToQuery
         {
-            if delegate().respondsToSelector(Selector("didGetQueryRespondedWithDetails:"))
+            if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetQueryRespondedWithDetails(_:)))
             {
                 delegate().didGetQueryRespondedWithDetails!(refinedDetails)
             }
         }
         else if serviceName == kServiceSaveSelectedQueries
         {
-            if delegate().respondsToSelector(Selector("didGetSaveSelectedQueryWithDetails:"))
+            if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetSaveSelectedQueryWithDetails(_:)))
             {
                 delegate().didGetSaveSelectedQueryWithDetails!(refinedDetails)
             }
         }
         else if serviceName == kServiceEndVolunteeringSession
         {
-            if delegate().respondsToSelector(Selector("didGetVolunteeringEndedWithDetails:"))
+            if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetVolunteeringEndedWithDetails(_:)))
             {
                 delegate().didGetVolunteeringEndedWithDetails!(refinedDetails)
             }
         }
         else if serviceName == kServiceGetMaxStudentRegisterd
         {
-            if delegate().respondsToSelector(Selector("didGetMaxStudentsRegistedWithDetails:"))
+            if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetMaxStudentsRegistedWithDetails(_:)))
             {
                 delegate().didGetMaxStudentsRegistedWithDetails!(refinedDetails)
             }
         }
         else if serviceName == kServiceConfigureGrid
         {
-            if delegate().respondsToSelector(Selector("didGetSeatsConfiguredWithDetails:"))
+            if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetSeatsConfiguredWithDetails(_:)))
             {
                 delegate().didGetSeatsConfiguredWithDetails!(refinedDetails)
             }
@@ -853,7 +854,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         else if serviceName == kServiceSaveLessonPlan
         {
-            if delegate().respondsToSelector(Selector("didGetLessonPlanSavedWithdetails:"))
+            if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetLessonPlanSavedWithdetails(_:)))
             {
                 delegate().didGetLessonPlanSavedWithdetails!(refinedDetails)
             }
@@ -870,7 +871,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     func delegateServiceErrorMessage(message: String!, withServiceName ServiceName: String!, withErrorCode code: String!) {
     
         
-        if delegate().respondsToSelector(Selector("didgetErrorMessage:WithServiceName:"))
+        if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didgetErrorMessage(_:WithServiceName:)))
         {
             delegate().didgetErrorMessage!(message,WithServiceName: ServiceName)
         }

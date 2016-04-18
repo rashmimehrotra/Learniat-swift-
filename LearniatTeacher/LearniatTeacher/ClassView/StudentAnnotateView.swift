@@ -129,7 +129,7 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         mCancelButton.setTitleColor(UIColor.whiteColor(), forState:.Normal);
         mCancelButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20);
         mCancelButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
-        mCancelButton.addTarget(self, action: "onCancelButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mCancelButton.addTarget(self, action: #selector(StudentAnnotateView.onCancelButton), forControlEvents: UIControlEvents.TouchUpInside)
         
         
         mSendButton.frame = CGRectMake(mTopbarImageView.frame.size.width - 100 , 0, 100 , mTopbarImageView.frame.size.height );
@@ -140,7 +140,7 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         mSendButton.enabled = false
         mSendButton.highlighted = false;
         mSendButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
-        mSendButton.addTarget(self, action: "onSendButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mSendButton.addTarget(self, action: #selector(StudentAnnotateView.onSendButton), forControlEvents: UIControlEvents.TouchUpInside)
         
         
         sendButtonSpinner = UIActivityIndicatorView(activityIndicatorStyle:.WhiteLarge);
@@ -171,7 +171,7 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         topImageView.addSubview(m_textButton);
         m_textButton.imageView?.contentMode = .ScaleAspectFit
         m_textButton.setImage(UIImage(named:"Text_Unselected.png"), forState:.Normal);
-        m_textButton.addTarget(self, action: "onTextButton", forControlEvents: UIControlEvents.TouchUpInside)
+        m_textButton.addTarget(self, action: #selector(StudentAnnotateView.onTextButton), forControlEvents: UIControlEvents.TouchUpInside)
         
         
         
@@ -186,7 +186,7 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         topImageView.addSubview(m_badgeButton);
         m_badgeButton.imageView?.contentMode = .ScaleAspectFit
         m_badgeButton.setImage(UIImage(named:"Cb_Like_Disabled.png"), forState:.Normal);
-        m_badgeButton.addTarget(self, action: "onBadgeButton", forControlEvents: UIControlEvents.TouchUpInside)
+        m_badgeButton.addTarget(self, action: #selector(StudentAnnotateView.onBadgeButton), forControlEvents: UIControlEvents.TouchUpInside)
         
         
         let lineImage2 = UIImageView(frame:CGRectMake(m_badgeButton.frame.origin.x - 10, 5, 1, topImageView.frame.size.height - 10));
@@ -213,7 +213,7 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         mMarkModelButton.setTitle("  Mark Model", forState:.Normal);
         mMarkModelButton.setTitleColor(blackTextColor, forState:.Normal)
         mMarkModelButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20);
-        mMarkModelButton.addTarget(self, action: "onModelAnswerButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mMarkModelButton.addTarget(self, action: #selector(StudentAnnotateView.onModelAnswerButton), forControlEvents: UIControlEvents.TouchUpInside)
         
         
         
@@ -260,7 +260,7 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         m_UndoButton.setImage(UIImage(named:"Undo_Disabled.png"),forState:.Normal);
         bottomview.addSubview(m_UndoButton);
         m_UndoButton.imageView?.contentMode = .ScaleAspectFit
-        m_UndoButton.addTarget(self, action: "onUndoButton", forControlEvents: UIControlEvents.TouchUpInside)
+        m_UndoButton.addTarget(self, action: #selector(StudentAnnotateView.onUndoButton), forControlEvents: UIControlEvents.TouchUpInside)
         m_UndoButton.enabled = false
         
         bottomtoolSelectedImageView.backgroundColor = UIColor.whiteColor();
@@ -272,7 +272,7 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         m_BrushButton.setImage(UIImage(named:"Marker_Selected.png"), forState:.Normal)
         bottomview.addSubview(m_BrushButton);
         m_BrushButton.imageView?.contentMode = .ScaleAspectFit
-        m_BrushButton.addTarget(self, action: "onBrushButton", forControlEvents: UIControlEvents.TouchUpInside)
+        m_BrushButton.addTarget(self, action: #selector(StudentAnnotateView.onBrushButton), forControlEvents: UIControlEvents.TouchUpInside)
         bottomtoolSelectedImageView.frame = m_BrushButton.frame
         
         
@@ -282,14 +282,14 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         m_EraserButton.setImage(UIImage(named:"Eraser_Unselected.png"), forState:.Normal);
         bottomview.addSubview(m_EraserButton);
         m_EraserButton.imageView?.contentMode = .ScaleAspectFit
-        m_EraserButton.addTarget(self, action: "onEraserButton", forControlEvents: UIControlEvents.TouchUpInside)
+        m_EraserButton.addTarget(self, action: #selector(StudentAnnotateView.onEraserButton), forControlEvents: UIControlEvents.TouchUpInside)
         
         
         m_RedoButton.frame = CGRectMake(bottomview.frame.size.width - bottomview.frame.size.height ,0, bottomview.frame.size.height ,bottomview.frame.size.height)
         m_RedoButton.setImage(UIImage(named:"Redo_Disabled.png"), forState:.Normal);
         bottomview.addSubview(m_RedoButton);
         m_RedoButton.imageView?.contentMode = .ScaleAspectFit
-        m_RedoButton.addTarget(self, action: "onRedoButton", forControlEvents: UIControlEvents.TouchUpInside)
+        m_RedoButton.addTarget(self, action: #selector(StudentAnnotateView.onRedoButton), forControlEvents: UIControlEvents.TouchUpInside)
         m_RedoButton.enabled = false
         
 
@@ -788,7 +788,7 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
 
                 
                 
-                if delegate().respondsToSelector(Selector("delegateSubmissionEvalauatedWithAnswerDetails:withEvaluationDetail:withStudentId:"))
+                if delegate().respondsToSelector(#selector(StudentAnnotateViewDelegate.delegateSubmissionEvalauatedWithAnswerDetails(_:withEvaluationDetail:withStudentId:)))
                 {
                      delegate().delegateSubmissionEvalauatedWithAnswerDetails!(studentsAswerDictonary, withEvaluationDetail: feedBackDetails, withStudentId: studentId)
                 }

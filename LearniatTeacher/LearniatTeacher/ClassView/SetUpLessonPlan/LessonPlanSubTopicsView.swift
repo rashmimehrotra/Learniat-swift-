@@ -91,7 +91,7 @@ class LessonPlanSubTopicsView: UIView,SSTeacherDataSourceDelegate,UIGestureRecog
         mainTopicCell.m_checkBoxButton.hidden = true
         
         let  mDoneButton = UIButton(frame: CGRectMake( 10, 0, 100, 60))
-        mDoneButton.addTarget(self, action: "onBackButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mDoneButton.addTarget(self, action: #selector(LessonPlanSubTopicsView.onBackButton), forControlEvents: UIControlEvents.TouchUpInside)
         mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
         mTopicsContainerView.addSubview(mDoneButton)
         mDoneButton.setImage(UIImage(named: "arrow_Blue.png"), forState: .Normal)
@@ -168,7 +168,7 @@ class LessonPlanSubTopicsView: UIView,SSTeacherDataSourceDelegate,UIGestureRecog
         
         var positionY :CGFloat = 80
         
-        for var index = 0; index < mMaintopicsDetails.count ; index++
+        for index in 0 ..< mMaintopicsDetails.count 
         {
             let currentTopicDetails = mMaintopicsDetails.objectAtIndex(index)
             let topicCell = LessonPlanSubTopicCell(frame: CGRectMake(10  , positionY, mTopicsContainerView.frame.size.width - 20, 60))
@@ -185,7 +185,7 @@ class LessonPlanSubTopicsView: UIView,SSTeacherDataSourceDelegate,UIGestureRecog
     func onBackButton()
     {
         
-        if delegate().respondsToSelector(Selector("delegateSubTopicRemovedWithTopicDetails:"))
+        if delegate().respondsToSelector(#selector(LessonPlanSubTopicsViewDelegate.delegateSubTopicRemovedWithTopicDetails(_:)))
         {
             delegate().delegateSubTopicRemovedWithTopicDetails!(_currentMainTopicDetails)
         }
@@ -267,7 +267,7 @@ class LessonPlanSubTopicsView: UIView,SSTeacherDataSourceDelegate,UIGestureRecog
         
         
         
-        if delegate().respondsToSelector(Selector("delegateCellStateChangedWithState:withIndexValue:withCurrentTopicDatails:withChecMarkState:"))
+        if delegate().respondsToSelector(#selector(LessonPlanSubTopicsViewDelegate.delegateCellStateChangedWithState(_:withIndexValue:withCurrentTopicDatails:withChecMarkState:)))
         {
             delegate().delegateCellStateChangedWithState!(SelectedState, withIndexValue: _currentSubTopicIndexpath, withCurrentTopicDatails: _currentMainTopicDetails,withChecMarkState:selectedState)
 

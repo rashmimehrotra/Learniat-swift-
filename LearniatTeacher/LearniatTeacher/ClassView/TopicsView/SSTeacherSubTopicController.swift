@@ -17,7 +17,7 @@ import UIKit
     
     optional func delegateSubTopicBackButtonPressed()
     
-    optional func delegateSubtopicStateChanedWithID(subTopicId:String, withState state:Bool, withSubtopicName subTopicName:String, withmainTopicName mainTopicName:String)
+    optional func delegateSubtopicStateChanedWithSubTopicDetails(subTopicDetails:AnyObject, withState state:Bool, withmainTopicName mainTopicName:String)
     
     
     optional func delegateQuestionButtonPressedWithSubtopicId(subtopicId:String, withSubTopicName subTopicName:String, withMainTopicId mainTopicId:String, withMainTopicName mainTopicName:String)
@@ -72,34 +72,35 @@ class SSTeacherSubTopicController: UIViewController,SSTeacherDataSourceDelegate,
         self.view.layoutIfNeeded()
         
     }
-    
-    override func viewWillDisappear(animated: Bool) {
-        
-        
-        
-        
-        
-        
-        let subtopicArray = NSMutableArray()
-        
-        let subViews = mTopicsContainerView.subviews.flatMap{ $0 as? SubTopicCell }
-        
-        for subview in subViews
-        {
-            if subview.isKindOfClass(SubTopicCell)
-            {
-               subtopicArray.addObject(subview.currentSubTopicDetails)
-                
-                if subview.startButton.titleLabel?.text == "Stop"
-                {
-                    delegate().delegateSubtopicHiddenWithCumulativeTime!((subview.currentSubTopicDetails.objectForKey("CumulativeTime")as? String)!)
-                    
-                }
-                subview.subTopicStopped()
-                subview.removeFromSuperview()
-            }
-        }
-    }
+//    
+//    override func viewWillDisappear(animated: Bool) {
+//        
+//        
+//        
+//        
+//        
+//        
+//        
+//        let subtopicArray = NSMutableArray()
+//        
+//        let subViews = mTopicsContainerView.subviews.flatMap{ $0 as? SubTopicCell }
+//        
+//        for subview in subViews
+//        {
+//            if subview.isKindOfClass(SubTopicCell)
+//            {
+//               subtopicArray.addObject(subview.currentSubTopicDetails)
+//                
+//                if subview.startButton.titleLabel?.text == "Stop"
+//                {
+//                    delegate().delegateSubtopicHiddenWithCumulativeTime!((subview.currentSubTopicDetails.objectForKey("CumulativeTime")as? String)!)
+//                    
+//                }
+//                subview.subTopicStopped()
+//                subview.removeFromSuperview()
+//            }
+//        }
+//    }
     
     func setPreferredSize(size:CGSize, withSessionDetails details:AnyObject)
     {
@@ -131,7 +132,7 @@ class SSTeacherSubTopicController: UIViewController,SSTeacherDataSourceDelegate,
         
         let  mDoneButton = UIButton(frame: CGRectMake(mTopbarImageView.frame.size.width - 210,  0, 200 ,mTopbarImageView.frame.size.height))
         mTopbarImageView.addSubview(mDoneButton)
-        mDoneButton.addTarget(self, action: "onDoneButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mDoneButton.addTarget(self, action: #selector(SSTeacherSubTopicController.onDoneButton), forControlEvents: UIControlEvents.TouchUpInside)
         mDoneButton.setTitleColor(standard_Button, forState: .Normal)
         mDoneButton.setTitle("Done", forState: .Normal)
         mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
@@ -142,7 +143,7 @@ class SSTeacherSubTopicController: UIViewController,SSTeacherDataSourceDelegate,
         
         let  mBackButton = UIButton(frame: CGRectMake(10,  0, 200 ,mTopbarImageView.frame.size.height))
         mTopbarImageView.addSubview(mBackButton)
-        mBackButton.addTarget(self, action: "onBackButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mBackButton.addTarget(self, action: #selector(SSTeacherSubTopicController.onBackButton), forControlEvents: UIControlEvents.TouchUpInside)
         mBackButton.setTitleColor(standard_Button, forState: .Normal)
         mBackButton.setTitle("Back", forState: .Normal)
         mBackButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
@@ -255,6 +256,17 @@ class SSTeacherSubTopicController: UIViewController,SSTeacherDataSourceDelegate,
     }
     
     
+    
+    func updateSubtopicCumulativeTimeWithID(subToicId:String, withCumulativeTime cumulativeTime:String)
+    {
+        if let subTopicView  = mTopicsContainerView.viewWithTag(Int(subToicId)!) as? SubTopicCell
+        {
+               subTopicView.m_SubTopicLabel.text = cumulativeTime.capitalizedString
+            
+        }
+    }
+    
+    
     // MARK: - datasource delegate functions
     
     func didGetAllNodesWithDetails(details: AnyObject) {
@@ -313,7 +325,7 @@ class SSTeacherSubTopicController: UIViewController,SSTeacherDataSourceDelegate,
         
         
         let topicsArray = NSMutableArray()
-        for var index = 0; index < mMaintopicsDetails.count ; index++
+        for index in 0 ..< mMaintopicsDetails.count 
         {
             
             
@@ -348,7 +360,7 @@ class SSTeacherSubTopicController: UIViewController,SSTeacherDataSourceDelegate,
         
         var positionY :CGFloat = 0
         
-        for var index = 0; index < topicsArray.count ; index++
+        for index in 0 ..< topicsArray.count 
         {
             let currentTopicDetails = topicsArray.objectAtIndex(index)
             
@@ -401,7 +413,7 @@ class SSTeacherSubTopicController: UIViewController,SSTeacherDataSourceDelegate,
     
     func onBackButton()
     {
-        if delegate().respondsToSelector(Selector("delegateSubTopicBackButtonPressed"))
+        if delegate().respondsToSelector(#selector(SSTeacherSubTopicControllerDelegate.delegateSubTopicBackButtonPressed))
         {
             delegate().delegateSubTopicBackButtonPressed!()
         }
@@ -412,7 +424,7 @@ class SSTeacherSubTopicController: UIViewController,SSTeacherDataSourceDelegate,
     
     func delegateQuestionButtonPressedWithID(subTopicId: String, withSubTopicName subTopicName: String) {
         
-        if delegate().respondsToSelector(Selector("delegateQuestionButtonPressedWithSubtopicId:withSubTopicName:withMainTopicId:withMainTopicName:"))
+        if delegate().respondsToSelector(#selector(SSTeacherSubTopicControllerDelegate.delegateQuestionButtonPressedWithSubtopicId(_:withSubTopicName:withMainTopicId:withMainTopicName:)))
         {
             
             delegate().delegateQuestionButtonPressedWithSubtopicId!(subTopicId, withSubTopicName: subTopicName, withMainTopicId: currentMainTopicId, withMainTopicName: mTopicName.text!)
@@ -428,7 +440,7 @@ class SSTeacherSubTopicController: UIViewController,SSTeacherDataSourceDelegate,
             {
                 if subview.startButton.titleLabel?.text == "Stop"
                 {
-                    delegate().delegateSubtopicHiddenWithCumulativeTime!((subview.currentSubTopicDetails.objectForKey("CumulativeTime")as? String)!)
+//                    delegate().delegateSubtopicHiddenWithCumulativeTime!((subview.currentSubTopicDetails.objectForKey("CumulativeTime")as? String)!)
                     
                 }
                 subview.subTopicStopped()
@@ -463,11 +475,16 @@ class SSTeacherSubTopicController: UIViewController,SSTeacherDataSourceDelegate,
 //        }
 //    }
     
-    func delegateSubTopicCellStartedWithId(subTopicId:String, witStatedState isStarted:Bool,withSubTopicName subTopicName:String)
-    {
-        if delegate().respondsToSelector(Selector("delegateSubtopicStateChanedWithID:withState:withSubtopicName:withmainTopicName:"))
+    
+    
+    
+    func delegateSubTopicCellStartedWithDetails(subTopicDetails: AnyObject, witStatedState isStarted: Bool) {
+        
+        
+        
+        if delegate().respondsToSelector(#selector(SSTeacherSubTopicControllerDelegate.delegateSubtopicStateChanedWithSubTopicDetails(_:withState:withmainTopicName:)))
         {
-            delegate().delegateSubtopicStateChanedWithID!(subTopicId, withState: isStarted,withSubtopicName:subTopicName,withmainTopicName: mTopicName.text!)
+            delegate().delegateSubtopicStateChanedWithSubTopicDetails!(subTopicDetails, withState: isStarted, withmainTopicName: mTopicName.text!)
         }
         
     }

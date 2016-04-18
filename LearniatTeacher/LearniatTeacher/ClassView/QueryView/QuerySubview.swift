@@ -91,7 +91,7 @@ class QuerySubview: UIView, SSTeacherDataSourceDelegate
         dismissImage.image = UIImage(named: "Dismissed.png")
         dismissImage.contentMode = .ScaleAspectFit
         mDismissButton.addSubview(dismissImage)
-        mDismissButton.addTarget(self, action: "onDismissButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mDismissButton.addTarget(self, action: #selector(QuerySubview.onDismissButton), forControlEvents: UIControlEvents.TouchUpInside)
         
         
         let lineImage = UIImageView(frame:CGRectMake(mDismissButton.frame.origin.x, 5, 1, mDismissButton.frame.size.height - 10));
@@ -103,7 +103,7 @@ class QuerySubview: UIView, SSTeacherDataSourceDelegate
         self.addSubview(mTextReplyButton)
         mTextReplyButton.setTitle("Text Reply", forState: .Normal)
         mTextReplyButton.setTitleColor(standard_Button, forState: .Normal)
-        mTextReplyButton.addTarget(self, action: "onTextReplyButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mTextReplyButton.addTarget(self, action: #selector(QuerySubview.onTextReplyButton), forControlEvents: UIControlEvents.TouchUpInside)
         
         
         let lineImage2 = UIImageView(frame:CGRectMake(mTextReplyButton.frame.origin.x, 5, 1, mDismissButton.frame.size.height - 10));
@@ -116,7 +116,7 @@ class QuerySubview: UIView, SSTeacherDataSourceDelegate
         self.addSubview(mGoodQueryButton)
         mGoodQueryButton.setTitle("Good query", forState: .Normal)
         mGoodQueryButton.setTitleColor(standard_Button, forState: .Normal)
-        mGoodQueryButton.addTarget(self, action: "onGoodQueryButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mGoodQueryButton.addTarget(self, action: #selector(QuerySubview.onGoodQueryButton), forControlEvents: UIControlEvents.TouchUpInside)
         
         
         
@@ -129,7 +129,7 @@ class QuerySubview: UIView, SSTeacherDataSourceDelegate
        let mMuteButton = UIButton()
         mMuteButton.frame = CGRectMake(mGoodQueryButton.frame.origin.x - 80, 0, 80 , 40)
         self.addSubview(mMuteButton)
-        mMuteButton.addTarget(self, action: "onMuteButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mMuteButton.addTarget(self, action: #selector(QuerySubview.onMuteButton), forControlEvents: UIControlEvents.TouchUpInside)
         
         mMuteButtonImage.frame = CGRectMake((mMuteButton.frame.size.width - 25 ) / 2  , (mMuteButton.frame.size.height - 25 ) / 2, 25, 25)
         mMuteButtonImage.image = UIImage(named: "Mute_gray.png")
@@ -250,7 +250,7 @@ class QuerySubview: UIView, SSTeacherDataSourceDelegate
        SSTeacherDataSource.sharedDataSource.replyToDoubtWithDetails(currentQueryDetails, WithDelegate: self)
         
         
-        if delegate().respondsToSelector(Selector("delegateGoodQueryButtonPressedWithDetails:"))
+        if delegate().respondsToSelector(#selector(QuerySubviewDelegate.delegateGoodQueryButtonPressedWithDetails(_:)))
         {
             delegate().delegateGoodQueryButtonPressedWithDetails!(currentQueryDetails)
         }
@@ -263,7 +263,7 @@ class QuerySubview: UIView, SSTeacherDataSourceDelegate
         mTextReplyButton.setTitleColor(blackTextColor, forState: .Normal)
 
         
-        if delegate().respondsToSelector(Selector("delegateTextReplyButtonPressedWithDetails:"))
+        if delegate().respondsToSelector(#selector(QuerySubviewDelegate.delegateTextReplyButtonPressedWithDetails(_:)))
         {
             delegate().delegateTextReplyButtonPressedWithDetails!(currentQueryDetails)
         }
@@ -328,7 +328,7 @@ class QuerySubview: UIView, SSTeacherDataSourceDelegate
                 {
                     if  dismissFlag == "1"
                     {
-                            if delegate().respondsToSelector(Selector("delegateDismissButtonPressedWithDetails:"))
+                            if delegate().respondsToSelector(#selector(QuerySubviewDelegate.delegateDismissButtonPressedWithDetails(_:)))
                             {
                                 delegate().delegateDismissButtonPressedWithDetails!(currentQueryDetails)
                             }

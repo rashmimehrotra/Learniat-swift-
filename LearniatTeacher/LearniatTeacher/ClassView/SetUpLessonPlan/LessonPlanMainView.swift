@@ -99,7 +99,7 @@ class LessonPlanMainView: UIView,SSTeacherDataSourceDelegate,LessonPlanMainViewD
         
         var positionY :CGFloat = 10
         
-        for var index = 0; index < mMaintopicsDetails.count ; index++
+        for index in 0 ..< mMaintopicsDetails.count
         {
             let currentTopicDetails = mMaintopicsDetails.objectAtIndex(index)
             let topicCell = LessonPlanMainViewCell(frame: CGRectMake(10  , positionY, mTopicsContainerView.frame.size.width - 20, 60))
@@ -215,7 +215,7 @@ class LessonPlanMainView: UIView,SSTeacherDataSourceDelegate,LessonPlanMainViewD
         let topicsIdDetails = NSMutableArray()
         
         
-        for var index = 0; index < mMaintopicsDetails.count ; index++
+        for index in 0 ..< mMaintopicsDetails.count 
         {
             let currentTopicDetails = mMaintopicsDetails.objectAtIndex(index)
             
@@ -248,7 +248,7 @@ class LessonPlanMainView: UIView,SSTeacherDataSourceDelegate,LessonPlanMainViewD
                     
                     
                     
-                    for var SubTopicIndex = 0; SubTopicIndex < subTopicsDetails.count ; SubTopicIndex++
+                    for SubTopicIndex in 0 ..< subTopicsDetails.count 
                     {
                         let currentTopicDetails = subTopicsDetails.objectAtIndex(SubTopicIndex)
                         if let Tagged = currentTopicDetails.objectForKey("Tagged") as? String

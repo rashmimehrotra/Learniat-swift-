@@ -51,7 +51,7 @@ class AutoSeatAllocate: UIViewController,SSTeacherDataSourceDelegate
         mBackButton.setTitle("Back", forState: .Normal)
         mBackButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         mBackButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
-        mBackButton.addTarget(self, action: "onBack", forControlEvents: UIControlEvents.TouchUpInside)
+        mBackButton.addTarget(self, action: #selector(AutoSeatAllocate.onBack), forControlEvents: UIControlEvents.TouchUpInside)
         mBackButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
         
         
@@ -69,7 +69,7 @@ class AutoSeatAllocate: UIViewController,SSTeacherDataSourceDelegate
         mDonebutton.setTitle("Done", forState: .Normal)
         mDonebutton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         mDonebutton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
-        mDonebutton.addTarget(self, action: "onDone", forControlEvents: UIControlEvents.TouchUpInside)
+        mDonebutton.addTarget(self, action: #selector(AutoSeatAllocate.onDone), forControlEvents: UIControlEvents.TouchUpInside)
         
         
         let  mAutomatically = UIButton(frame: CGRectMake(mDonebutton.frame.origin.x  - (mTopbarImageView.frame.size.height * 2), 0,mTopbarImageView.frame.size.height * 2,mTopbarImageView.frame.size.height ))
@@ -77,7 +77,7 @@ class AutoSeatAllocate: UIViewController,SSTeacherDataSourceDelegate
         mAutomatically.setTitle("Edit seats", forState: .Normal)
         mAutomatically.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         mAutomatically.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
-        mAutomatically.addTarget(self, action: "onEditSeat", forControlEvents: UIControlEvents.TouchUpInside)
+        mAutomatically.addTarget(self, action: #selector(AutoSeatAllocate.onEditSeat), forControlEvents: UIControlEvents.TouchUpInside)
         
         
         
@@ -168,10 +168,10 @@ class AutoSeatAllocate: UIViewController,SSTeacherDataSourceDelegate
         
         var totalSeatvalue  = rowValue * columnValue
         
-        for var columnIndex = 0; columnIndex < rowValue ; columnIndex++
+        for _ in 0 ..< rowValue
         {
             var positionX :CGFloat = barWidthSpace / 2
-            for var rowIndex = 0; rowIndex < columnValue ; rowIndex++
+            for _ in 0 ..< columnValue
             {
                 if seatsRemovedArray.contains("A\(totalSeatvalue)")
                 {
@@ -223,7 +223,7 @@ class AutoSeatAllocate: UIViewController,SSTeacherDataSourceDelegate
             }
         }
        
-        for var index = 0 ; index < StudentsArray.count ; index++
+        for index in 0  ..< StudentsArray.count
         {
             let studentsDict = StudentsArray.objectAtIndex(index)
             

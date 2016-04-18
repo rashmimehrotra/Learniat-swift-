@@ -158,7 +158,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         mRefreshButton.setImage(UIImage(named: "refresh.png"), forState: .Normal)
         mTopbarImageView.addSubview(mRefreshButton)
         mRefreshButton.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
-        mRefreshButton.addTarget(self, action: "onRefreshButton:", forControlEvents: UIControlEvents.TouchUpInside)
+        mRefreshButton.addTarget(self, action: #selector(TeacherScheduleViewController.onRefreshButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         mRefreshButton.hidden = false
         
         
@@ -208,7 +208,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
         
         
-         timer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: "timerAction", userInfo: nil, repeats: true)
+         timer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: #selector(TeacherScheduleViewController.timerAction), userInfo: nil, repeats: true)
     }
    
     deinit {
@@ -220,10 +220,13 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     
     func addNumberOfLinesToScrollView()
     {
-        var index: Int
         var positionY: CGFloat = 30
         var hourValue = 1
-        for index = 0; index <= 24; ++index
+        
+        
+        
+        
+        for index in 0 ..< 25
         {
             let hourlabel = UILabel(frame: CGRectMake(10, positionY-15,50,30))
             mScrollView.addSubview(hourlabel)
@@ -303,9 +306,9 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     
     // MARK: - Returning Functions
     
-    func getPositionWithHour(var hour : Int, withMinute minute:Int) -> CGFloat
+    func getPositionWithHour(_hour : Int, withMinute minute:Int) -> CGFloat
     {
-        //        hour = hour
+        var  hour = _hour
         var returningValue = CGFloat()
         
         if hour < 0
@@ -369,7 +372,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         }
         
         
-        for var index = 0; index < sessionDetailsArray.count; index++
+        for index in 0 ..< sessionDetailsArray.count
         {
             let dict = sessionDetailsArray.objectAtIndex(index)
              let sessionid = dict.objectForKey(kSessionId) as! String
@@ -416,7 +419,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
         
         
-        for var index = 0; index < sessionDetailsArray.count; index++
+        for index in 0 ..< sessionDetailsArray.count
         {
             let dict = sessionDetailsArray.objectAtIndex(index)
             
@@ -1023,7 +1026,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
         mySlider.minimumValue=1.00;
 
-        mySlider.addTarget(self, action: "sliderHandler:", forControlEvents: UIControlEvents.ValueChanged)
+        mySlider.addTarget(self, action: #selector(TeacherScheduleViewController.sliderHandler(_:)), forControlEvents: UIControlEvents.ValueChanged)
         mySlider.tintColor = UIColor.greenColor();
         
         mExtTimelabel=UILabel(frame: CGRectMake(50, 20, 250, 40));
@@ -1191,7 +1194,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     func beginClassWithDetails(details:AnyObject)
     {
         
-        for var index = 0; index < sessionDetailsArray.count; index++
+        for index in 0 ..< sessionDetailsArray.count
         {
             let dict = sessionDetailsArray.objectAtIndex(index)
             let sessionid = dict.objectForKey(kSessionId) as! String

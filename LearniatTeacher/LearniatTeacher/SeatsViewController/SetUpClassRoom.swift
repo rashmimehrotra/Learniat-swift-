@@ -54,7 +54,7 @@ class SetUpClassRoom: UIViewController,SetupClassCellDelegate,SSTeacherDataSourc
         mBackButton.setTitle("Back", forState: .Normal)
         mBackButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         mBackButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
-        mBackButton.addTarget(self, action: "onBack", forControlEvents: UIControlEvents.TouchUpInside)
+        mBackButton.addTarget(self, action: #selector(SetUpClassRoom.onBack), forControlEvents: UIControlEvents.TouchUpInside)
         mBackButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
         
         
@@ -82,7 +82,7 @@ class SetUpClassRoom: UIViewController,SetupClassCellDelegate,SSTeacherDataSourc
         mDoneButton.setTitle("Done", forState: .Normal)
         mDoneButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         mDoneButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
-        mDoneButton.addTarget(self, action: "onDoneButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mDoneButton.addTarget(self, action: #selector(SetUpClassRoom.onDoneButton), forControlEvents: UIControlEvents.TouchUpInside)
         
         
        
@@ -155,11 +155,11 @@ class SetUpClassRoom: UIViewController,SetupClassCellDelegate,SSTeacherDataSourc
         
         var totalSeatvalue  = currentRowValue * currentColumnValue
         
-        for var columnIndex = 0; columnIndex < currentRowValue ; columnIndex++
+        for _ in 0 ..< currentRowValue 
         {
             
             var positionX :CGFloat = barWidthSpace / 2
-            for var rowIndex = 0; rowIndex < currentColumnValue ; rowIndex++
+            for _ in 0 ..< currentColumnValue 
             {
                 let seatView = SetupClassCell(frame: CGRectMake(positionX, postionY, barWidthvalue, barHeight))
                 mGridContainerView.addSubview(seatView)

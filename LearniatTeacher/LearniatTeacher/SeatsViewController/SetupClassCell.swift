@@ -79,7 +79,7 @@ class SetupClassCell: UIView,UIGestureRecognizerDelegate
         refrenceDeskImageView.borderWidth = 1;
         
         refrenceDeskImageView.borderColor = standard_Red;
-        let tap = UITapGestureRecognizer(target: self, action: Selector("handleTap:"))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(SetupClassCell.handleTap(_:)))
         tap.delegate = self
         refrenceDeskImageView.addGestureRecognizer(tap)
 
@@ -105,7 +105,7 @@ class SetupClassCell: UIView,UIGestureRecognizerDelegate
         if  EndCornerImageView.image == UIImage(named: "Add.png")
         {
                         
-            if delegate().respondsToSelector(Selector("delegateCellPressedWithSelectedState:withCell:"))
+            if delegate().respondsToSelector(#selector(SetupClassCellDelegate.delegateCellPressedWithSelectedState(_:withCell:)))
             {
                 delegate().delegateCellPressedWithSelectedState!(true, withCell:self)
                 
@@ -115,7 +115,7 @@ class SetupClassCell: UIView,UIGestureRecognizerDelegate
         else
         {
                         
-            if delegate().respondsToSelector(Selector("delegateCellPressedWithSelectedState:withCell:"))
+            if delegate().respondsToSelector(#selector(SetupClassCellDelegate.delegateCellPressedWithSelectedState(_:withCell:)))
             {
                 delegate().delegateCellPressedWithSelectedState!(false, withCell:self)
                 

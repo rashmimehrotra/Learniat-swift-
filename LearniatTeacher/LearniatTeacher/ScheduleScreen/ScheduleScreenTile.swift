@@ -86,7 +86,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         cancelledImageView.hidden = true
         
         
-        let tap = UITapGestureRecognizer(target: self, action: Selector("handleTap:"))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(ScheduleScreenTile.handleTap(_:)))
         tap.delegate = self
         self.addGestureRecognizer(tap)
         
@@ -145,7 +145,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         let sessionState = sessionDetails.objectForKey(kSessionState) as! String
         
         
-        if delegate().respondsToSelector(Selector("delegateScheduleTileTouchedWithState:withCurrentTileDetails:"))
+        if delegate().respondsToSelector(#selector(ScheduleScreenTileDelegate.delegateScheduleTileTouchedWithState(_:withCurrentTileDetails:)))
         {
             delegate().delegateScheduleTileTouchedWithState!(sessionState, withCurrentTileDetails: sessionDetails)
         }
@@ -432,7 +432,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         overDueTimer.invalidate()
         nextSessionTimer.invalidate()
         
-        overDueTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "updateOverdueSession", userInfo: nil, repeats: true)
+        overDueTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(ScheduleScreenTile.updateOverdueSession), userInfo: nil, repeats: true)
     }
     
     
@@ -458,7 +458,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
            
             if isGreater == true || isEqual == true
             {
-                if delegate().respondsToSelector(Selector("delegateRefreshSchedule"))
+                if delegate().respondsToSelector(#selector(ScheduleScreenTileDelegate.delegateRefreshSchedule))
                 {
                     delegate().delegateRefreshSchedule!()
                 }
@@ -485,7 +485,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
 
         overDueTimer.invalidate()
         nextSessionTimer.invalidate()
-        nextSessionTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "updateNextSession", userInfo: nil, repeats: true)
+        nextSessionTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(ScheduleScreenTile.updateNextSession), userInfo: nil, repeats: true)
         
         
          let differenceMinutes  = currentDate.minutesAndSecondsDiffernceBetweenDates(currentDate, endDate: dateFormatter.dateFromString(sessionDetails.objectForKey("StartTime") as! String)!)
@@ -526,7 +526,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
                 overDueTimer.invalidate()
                 nextSessionTimer.invalidate()
                 alertTimeValue = alertExtendingMunites
-                if delegate().respondsToSelector(Selector("delegateRefreshSchedule"))
+                if delegate().respondsToSelector(#selector(ScheduleScreenTileDelegate.delegateRefreshSchedule))
                 {
                     delegate().delegateRefreshSchedule!()
                 }
@@ -537,7 +537,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
             overDueTimer.invalidate()
             nextSessionTimer.invalidate()
             alertTimeValue = alertExtendingMunites
-            if delegate().respondsToSelector(Selector("delegateRefreshSchedule"))
+            if delegate().respondsToSelector(#selector(ScheduleScreenTileDelegate.delegateRefreshSchedule))
             {
                 delegate().delegateRefreshSchedule!()
             }
@@ -550,7 +550,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
                 overDueTimer.invalidate()
                 nextSessionTimer.invalidate()
                 alertTimeValue = alertExtendingMunites
-                if delegate().respondsToSelector(Selector("delegateRefreshSchedule"))
+                if delegate().respondsToSelector(#selector(ScheduleScreenTileDelegate.delegateRefreshSchedule))
                 {
                     delegate().delegateRefreshSchedule!()
                 }

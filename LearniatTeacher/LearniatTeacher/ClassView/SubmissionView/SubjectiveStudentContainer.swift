@@ -158,7 +158,7 @@ class SubjectiveStudentContainer: UIView
         checkBoxImage.image = UIImage(named:"Unchecked.png");
         
         mRoundedContainerView.addSubview(checkBoxImage);
-        m_checkBoxButton.addTarget(self, action: "checkMarkPressedWith", forControlEvents: UIControlEvents.TouchUpInside)
+        m_checkBoxButton.addTarget(self, action: #selector(SubjectiveStudentContainer.checkMarkPressedWith), forControlEvents: UIControlEvents.TouchUpInside)
                 
                 // Initialization code
         
@@ -286,7 +286,7 @@ class SubjectiveStudentContainer: UIView
             
             
             
-            if delegate().respondsToSelector(Selector("delegateCheckmarkPressedWithState:withStudentDetails:withAnswerDetails:"))
+            if delegate().respondsToSelector(#selector(SubjectiveStudentContainerDelegate.delegateCheckmarkPressedWithState(_:withStudentDetails:withAnswerDetails:)))
             {
                 delegate().delegateCheckmarkPressedWithState!(true, withStudentDetails: _currentStudentDetails, withAnswerDetails: _currentStudentAnswerDetails)
             }
@@ -300,7 +300,7 @@ class SubjectiveStudentContainer: UIView
             currentSelectionState = kUnSelected
             checkBoxImage.image = UIImage(named:"Unchecked.png");
             
-            if delegate().respondsToSelector(Selector("delegateCheckmarkPressedWithState:withStudentDetails:withAnswerDetails:"))
+            if delegate().respondsToSelector(#selector(SubjectiveStudentContainerDelegate.delegateCheckmarkPressedWithState(_:withStudentDetails:withAnswerDetails:)))
             {
                 delegate().delegateCheckmarkPressedWithState!(false, withStudentDetails: _currentStudentDetails, withAnswerDetails: _currentStudentAnswerDetails)
             }

@@ -16,7 +16,7 @@ import Foundation
     
     optional func delegateQuestionButtonPressedWithID(subTopicId:String, withSubTopicName subTopicName:String)
     
-    optional func delegateSubTopicCellStartedWithId(subTopicId:String, witStatedState isStarted:Bool,withSubTopicName subTopicName:String)
+    optional func delegateSubTopicCellStartedWithDetails(subTopicDetails:AnyObject, witStatedState isStarted:Bool)
     
 }
 
@@ -40,7 +40,7 @@ class SubTopicCell: UIView{
     
     var _delgate: AnyObject!
     
-    var cumulativeTimer                    = NSTimer()
+//    var cumulativeTimer                    = NSTimer()
     
     var currentSubTopicDetails :AnyObject!
     
@@ -91,7 +91,7 @@ class SubTopicCell: UIView{
         startButton.setTitleColor(standard_Green, forState: .Normal)
         startButton.setTitle("Start", forState: .Normal)
         startButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
-        startButton.addTarget(self, action: "onStartButton", forControlEvents: UIControlEvents.TouchUpInside)
+        startButton.addTarget(self, action: #selector(SubTopicCell.onStartButton), forControlEvents: UIControlEvents.TouchUpInside)
         
         
         
@@ -101,7 +101,7 @@ class SubTopicCell: UIView{
         mQuestionsButton.setTitleColor(standard_Button_Disabled, forState: .Normal)
         mQuestionsButton.setTitle("No questions", forState: .Normal)
         mQuestionsButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
-        mQuestionsButton.addTarget(self, action: "onQuestionsButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mQuestionsButton.addTarget(self, action: #selector(SubTopicCell.onQuestionsButton), forControlEvents: UIControlEvents.TouchUpInside)
         mQuestionsButton.enabled = false
         mQuestionsButton.titleLabel!.lineBreakMode = .ByTruncatingMiddle
         
@@ -129,6 +129,7 @@ class SubTopicCell: UIView{
         if let topicId = currentTopicDetails.objectForKey("Id")as? String
         {
             mSubTopicId = topicId
+            self.tag = Int(topicId)!
         }
         
         
@@ -210,7 +211,7 @@ class SubTopicCell: UIView{
     
     func onQuestionsButton()
     {
-        if delegate().respondsToSelector(Selector("delegateQuestionButtonPressedWithID:withSubTopicName:"))
+        if delegate().respondsToSelector(#selector(SubTopicCellDelegate.delegateQuestionButtonPressedWithID(_:withSubTopicName:)))
         {
             if let topicName = currentSubTopicDetails.objectForKey("Name")as? String
             {
@@ -222,39 +223,47 @@ class SubTopicCell: UIView{
     
     func onStartButton()
     {
-        if let topicName = currentSubTopicDetails.objectForKey("Name")as? String
+        if delegate().respondsToSelector(#selector(SubTopicCellDelegate.delegateSubTopicCellStartedWithDetails(_:witStatedState:)))
         {
-            if delegate().respondsToSelector(Selector("delegateSubTopicCellStartedWithId:witStatedState:withSubTopicName:"))
+            
+            if startButton.titleLabel?.text == "Start" || startButton.titleLabel?.text == "Resume"
             {
                 
-                if startButton.titleLabel?.text == "Start" || startButton.titleLabel?.text == "Resume"
+                if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
                 {
-                    delegate().delegateSubTopicCellStartedWithId!(mSubTopicId, witStatedState: true ,withSubTopicName:topicName )
+                    delegate().delegateSubTopicCellStartedWithDetails!(currentSubTopicDetails, witStatedState: true)
+                    
                     startButton.setTitle("Stop", forState: .Normal)
                     startButton.setTitleColor(standard_Red, forState: .Normal)
                     subTopicStatred()
-                    
-                }
-                else
-                {
-                    delegate().delegateSubTopicCellStartedWithId!(mSubTopicId, witStatedState: false ,withSubTopicName:topicName)
-                    startButton.setTitle("Resume", forState: .Normal)
-                    startButton.setTitleColor(standard_Green, forState: .Normal)
-                    subTopicStopped()
+                    SSTeacherDataSource.sharedDataSource.isSubtopicStarted = true
                 }
                 
+               
+                
             }
+            else
+            {
+                
+                delegate().delegateSubTopicCellStartedWithDetails!(currentSubTopicDetails, witStatedState: false)
+                
+                startButton.setTitle("Resume", forState: .Normal)
+                startButton.setTitleColor(standard_Green, forState: .Normal)
+                subTopicStopped()
+                SSTeacherDataSource.sharedDataSource.isSubtopicStarted = false
+            }
+            
         }
     }
     
     func subTopicStatred()
     {
-        cumulativeTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "udpateCumulativeTime", userInfo: nil, repeats: true)
+//        cumulativeTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(SubTopicCell.udpateCumulativeTime), userInfo: nil, repeats: true)
     }
     
     func subTopicStopped()
     {
-        cumulativeTimer.invalidate()
+//        cumulativeTimer.invalidate()
     }
     
     func udpateCumulativeTime()

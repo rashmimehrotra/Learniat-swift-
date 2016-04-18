@@ -122,7 +122,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         doneButton.setTitle("Done", forState: .Normal)
         doneButton.setTitleColor(standard_Button, forState: .Normal)
         doneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
-        doneButton.addTarget(self, action: "onDoneButton", forControlEvents: UIControlEvents.TouchUpInside)
+        doneButton.addTarget(self, action: #selector(ScheduleDetailView.onDoneButton), forControlEvents: UIControlEvents.TouchUpInside)
         doneButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
         
         
@@ -231,7 +231,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         resetButton.setTitle("Reset", forState: .Normal)
         resetButton.setTitleColor(standard_Button, forState: .Normal)
         resetButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
-        resetButton.addTarget(self, action: "onReset", forControlEvents: UIControlEvents.TouchUpInside)
+        resetButton.addTarget(self, action: #selector(ScheduleDetailView.onReset), forControlEvents: UIControlEvents.TouchUpInside)
         resetButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
         
         
@@ -332,7 +332,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         editSeatButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 18)
         editSeatButton.hidden = true
 //        editSeatButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
-        editSeatButton.addTarget(self, action: "onEditSeats", forControlEvents: UIControlEvents.TouchUpInside)
+        editSeatButton.addTarget(self, action: #selector(ScheduleDetailView.onEditSeats), forControlEvents: UIControlEvents.TouchUpInside)
         editSeatButton.layer.cornerRadius = 5
         editSeatButton.layer.borderWidth = 1
         editSeatButton.layer.borderColor = standard_Button.CGColor
@@ -349,7 +349,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         loadingView.addSubview(allocateSeatButton)
         allocateSeatButton.hidden = true
         allocateSeatButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 18)
-        allocateSeatButton.addTarget(self, action: "onAllocateSeats", forControlEvents: UIControlEvents.TouchUpInside)
+        allocateSeatButton.addTarget(self, action: #selector(ScheduleDetailView.onAllocateSeats), forControlEvents: UIControlEvents.TouchUpInside)
         
         
         
@@ -360,7 +360,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         configureGrid.hidden = true
         configureGrid.titleLabel?.font = UIFont(name: helveticaRegular, size: 18)
         configureGrid.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
-        configureGrid.addTarget(self, action: "onConfigureGrid", forControlEvents: UIControlEvents.TouchUpInside)
+        configureGrid.addTarget(self, action: #selector(ScheduleDetailView.onConfigureGrid), forControlEvents: UIControlEvents.TouchUpInside)
         
         
         
@@ -370,7 +370,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         loadingView.addSubview(cancelClassButton)
         cancelClassButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 18)
         cancelClassButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
-        cancelClassButton.addTarget(self, action: "onCancelClass", forControlEvents: UIControlEvents.TouchUpInside)
+        cancelClassButton.addTarget(self, action: #selector(ScheduleDetailView.onCancelClass), forControlEvents: UIControlEvents.TouchUpInside)
 
         
         
@@ -385,7 +385,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         loadingView.addSubview(openClassButton)
         openClassButton.hidden = true
         openClassButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 18)
-        openClassButton.addTarget(self, action: "onOpenClass", forControlEvents: UIControlEvents.TouchUpInside)
+        openClassButton.addTarget(self, action: #selector(ScheduleDetailView.onOpenClass), forControlEvents: UIControlEvents.TouchUpInside)
         
        
         
@@ -401,7 +401,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         loadingView.addSubview(beginClassButton)
         beginClassButton.hidden = true
         beginClassButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 18)
-        beginClassButton.addTarget(self, action: "onBeginClass", forControlEvents: UIControlEvents.TouchUpInside)
+        beginClassButton.addTarget(self, action: #selector(ScheduleDetailView.onBeginClass), forControlEvents: UIControlEvents.TouchUpInside)
         
     }
     
@@ -638,7 +638,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
             overDueTimer.invalidate()
             nextSessionTimer.invalidate()
             
-            overDueTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "updateOverdueSession", userInfo: nil, repeats: true)
+            overDueTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(ScheduleDetailView.updateOverdueSession), userInfo: nil, repeats: true)
 
            
 
@@ -652,7 +652,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
             mTimelabel.text = "Starts: \(_string)"
             
             nextSessionTimer.invalidate()
-            nextSessionTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "updateNextSession", userInfo: nil, repeats: true)
+            nextSessionTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(ScheduleDetailView.updateNextSession), userInfo: nil, repeats: true)
 
         }
         
@@ -702,7 +702,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
     
     func onEditSeats()
     {
-        if delegate().respondsToSelector(Selector("delegateEditSeatPressedWithDetails:"))
+        if delegate().respondsToSelector(#selector(ScheduleDetailViewDelegate.delegateEditSeatPressedWithDetails(_:)))
         {
             delegate().delegateEditSeatPressedWithDetails!(currentSessionDetails)
         }
@@ -711,7 +711,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
     
     func onAllocateSeats()
     {
-        if delegate().respondsToSelector(Selector("delegateAllocateSeatPressedWithDetails:"))
+        if delegate().respondsToSelector(#selector(ScheduleDetailViewDelegate.delegateAllocateSeatPressedWithDetails(_:)))
         {
             delegate().delegateAllocateSeatPressedWithDetails!(currentSessionDetails)
         }
@@ -721,7 +721,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
     
     func onConfigureGrid()
     {
-        if delegate().respondsToSelector(Selector("delegateConfigureGridPressedWithDetails:"))
+        if delegate().respondsToSelector(#selector(ScheduleDetailViewDelegate.delegateConfigureGridPressedWithDetails(_:)))
         {
             delegate().delegateConfigureGridPressedWithDetails!(currentSessionDetails)
         }
@@ -729,7 +729,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
     
     func onCancelClass()
     {
-        if delegate().respondsToSelector(Selector("delegateCancelClassPressedWithDetails:"))
+        if delegate().respondsToSelector(#selector(ScheduleDetailViewDelegate.delegateCancelClassPressedWithDetails(_:)))
         {
             delegate().delegateCancelClassPressedWithDetails!(currentSessionDetails)
         }
@@ -737,7 +737,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
     
     func onOpenClass()
     {
-        if delegate().respondsToSelector(Selector("delegateOpenClassPressedWithDetails:"))
+        if delegate().respondsToSelector(#selector(ScheduleDetailViewDelegate.delegateOpenClassPressedWithDetails(_:)))
         {
             delegate().delegateOpenClassPressedWithDetails!(currentSessionDetails)
         }
@@ -745,7 +745,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
     
     func onBeginClass()
     {
-        if delegate().respondsToSelector(Selector("delegateBeginClassPressedWithDetails:"))
+        if delegate().respondsToSelector(#selector(ScheduleDetailViewDelegate.delegateBeginClassPressedWithDetails(_:)))
         {
             delegate().delegateBeginClassPressedWithDetails!(currentSessionDetails)
         }
@@ -779,7 +779,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         
        
         
-        if delegate().respondsToSelector(Selector("delegateResetButtonPressedWithDetails:"))
+        if delegate().respondsToSelector(#selector(ScheduleDetailViewDelegate.delegateResetButtonPressedWithDetails(_:)))
         {
             delegate().delegateResetButtonPressedWithDetails!(currentSessionDetails)
         }

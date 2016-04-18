@@ -95,7 +95,7 @@ class SubmissionMTCView: UIView,StudentAnswerGraphViewDelegate
         
         let RightSideArray = NSMutableArray()
         
-        for var index = 0; index < optionArray.count ; index++
+        for index in 0 ..< optionArray.count
         {
             
             let optionDict = optionArray.objectAtIndex(index)
@@ -147,7 +147,7 @@ class SubmissionMTCView: UIView,StudentAnswerGraphViewDelegate
         
         
         
-        for (var answerIndex = 0; answerIndex < studentAnsweOptions.count; answerIndex++)
+        for answerIndex in 0 ..< studentAnsweOptions.count
         {
             let answerOptiondict = studentAnsweOptions.objectAtIndex(answerIndex)
             
@@ -187,7 +187,7 @@ class SubmissionMTCView: UIView,StudentAnswerGraphViewDelegate
     
     func delegateBarTouchedWithId(optionId: String, withView barButton: BarView) {
         
-        if delegate().respondsToSelector(Selector("delegateOptionTouchedWithId:withView:"))
+        if delegate().respondsToSelector(#selector(SubmissionMTCViewDelegate.delegateOptionTouchedWithId(_:withView:)))
         {
             delegate().delegateOptionTouchedWithId!(optionId,withView:barButton)
         }

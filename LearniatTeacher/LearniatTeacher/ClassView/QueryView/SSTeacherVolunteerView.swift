@@ -61,7 +61,7 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
         mTopImageView.addSubview(mDoneButton)
         mDoneButton.setTitleColor(standard_Button, forState: .Normal)
         mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
-        mDoneButton.addTarget(self, action: "onDoneButton", forControlEvents: .TouchUpInside)
+        mDoneButton.addTarget(self, action: #selector(SSTeacherVolunteerView.onDoneButton), forControlEvents: .TouchUpInside)
         
         mQueryCountLabel.frame = CGRectMake(10, 0, 120, mTopImageView.frame.size.height)
         self.addSubview(mQueryCountLabel)
@@ -109,7 +109,7 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
     {
         currentYPosition  = 10
         
-        for var index = 0 ; index < queryDetails.count ; index++
+        for index in 0  ..< queryDetails.count 
         {
             let queryDict = queryDetails.objectAtIndex(index)
             
@@ -206,7 +206,7 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
        
         SSTeacherMessageHandler.sharedMessageHandler.sendEndVolunteeringMessagetoStudent(SSTeacherDataSource.sharedDataSource.currentLiveSessionId)
         
-        if delegate().respondsToSelector(Selector("delegateVolunteerSessionEnded"))
+        if delegate().respondsToSelector(#selector(SSTeacherVolunteerViewDelegate.delegateVolunteerSessionEnded))
         {
             
             

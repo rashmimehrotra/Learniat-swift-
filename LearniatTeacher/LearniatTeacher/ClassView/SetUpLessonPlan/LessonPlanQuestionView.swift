@@ -74,7 +74,7 @@ class LessonPlanQuestionView: UIView,SSTeacherDataSourceDelegate,UIGestureRecogn
         mainTopicCell.m_checkBoxButton.hidden = true
         
         let  mDoneButton = UIButton(frame: CGRectMake( 10, 0, 100, 60))
-        mDoneButton.addTarget(self, action: "onBackButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mDoneButton.addTarget(self, action: #selector(LessonPlanQuestionView.onBackButton), forControlEvents: UIControlEvents.TouchUpInside)
         mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
         mTopicsContainerView.addSubview(mDoneButton)
         mDoneButton.setImage(UIImage(named: "arrow_Blue.png"), forState: .Normal)
@@ -148,7 +148,7 @@ class LessonPlanQuestionView: UIView,SSTeacherDataSourceDelegate,UIGestureRecogn
         
         var positionY :CGFloat = 80
         
-        for var index = 0; index < mQuestionsDetails.count ; index++
+        for index in 0 ..< mQuestionsDetails.count 
         {
             let currentTopicDetails = mQuestionsDetails.objectAtIndex(index)
             let topicCell = LessonPlanQuestionViewCell(frame: CGRectMake(10  , positionY, mTopicsContainerView.frame.size.width - 20, 60))
@@ -165,7 +165,7 @@ class LessonPlanQuestionView: UIView,SSTeacherDataSourceDelegate,UIGestureRecogn
     func onBackButton()
     {
         
-        if delegate().respondsToSelector(Selector("delegateSubTopicRemovedWithTopicDetails:"))
+        if delegate().respondsToSelector(#selector(LessonPlanQuestionViewDelegate.delegateSubTopicRemovedWithTopicDetails(_:)))
         {
             delegate().delegateSubTopicRemovedWithTopicDetails!(_currentMainTopicDetails)
         }

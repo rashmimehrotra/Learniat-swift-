@@ -113,7 +113,7 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         
         
          mDoneButton.frame = CGRectMake(headerView.frame.size.width - 120, 0, 100, 40)
-        mDoneButton.addTarget(self, action: "onDoneButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mDoneButton.addTarget(self, action: #selector(StudentSubjectivePopover.onDoneButton), forControlEvents: UIControlEvents.TouchUpInside)
         mDoneButton.setTitleColor(standard_Button, forState: .Normal)
         mDoneButton.setTitle("Done", forState: .Normal)
         mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
@@ -136,7 +136,7 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         modelAnswerButton.enabled = true
         modelAnswerButton.setTitle("Mark Model", forState:.Normal)
         modelAnswerButton.setTitleColor(standard_Button ,forState:.Normal);
-        modelAnswerButton.addTarget(self, action: "onModelAnswer", forControlEvents: UIControlEvents.TouchUpInside)
+        modelAnswerButton.addTarget(self, action: #selector(StudentSubjectivePopover.onModelAnswer), forControlEvents: UIControlEvents.TouchUpInside)
         modelAnswerButton.frame = CGRectMake(20, 45, 130, 40);
         questionView.addSubview(modelAnswerButton);
         modelAnswerButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
@@ -145,7 +145,7 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         anotateButton.enabled = true
         anotateButton.setTitle("Annotate", forState:.Normal)
         anotateButton.setTitleColor(standard_Button ,forState:.Normal);
-        anotateButton.addTarget(self, action: "onAnnotateButton", forControlEvents: UIControlEvents.TouchUpInside)
+        anotateButton.addTarget(self, action: #selector(StudentSubjectivePopover.onAnnotateButton), forControlEvents: UIControlEvents.TouchUpInside)
         anotateButton.frame = CGRectMake(170, 45, 130, 40);
         questionView.addSubview(anotateButton);
         anotateButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
@@ -298,7 +298,7 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
     
     func onAnnotateButton()
     {
-        if delegate().respondsToSelector(Selector("delegateAnnotateButtonPressedWithAnswerDetails:withStudentDetails:withQuestionDetails:"))
+        if delegate().respondsToSelector(#selector(StudentSubjectivePopoverDelegate.delegateAnnotateButtonPressedWithAnswerDetails(_:withStudentDetails:withQuestionDetails:)))
         {
             
             
@@ -390,7 +390,7 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
             {
                 SSTeacherMessageHandler.sharedMessageHandler.sendFeedbackToStudentWitId(studentId, withassesmentAnswerId: AssessmentAnswerId)
                 
-                if delegate().respondsToSelector(Selector("delegateSubmissionEvalauatedWithAnswerDetails:withEvaluationDetail:withStudentId:"))
+                if delegate().respondsToSelector(#selector(StudentSubjectivePopoverDelegate.delegateSubmissionEvalauatedWithAnswerDetails(_:withEvaluationDetail:withStudentId:)))
                 {
                     
                     delegate().delegateSubmissionEvalauatedWithAnswerDetails!(_studentAnswerDetails, withEvaluationDetail: feedBackDetails, withStudentId: studentId)

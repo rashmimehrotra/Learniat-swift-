@@ -67,7 +67,7 @@ class SetupGridview: UIViewController,SSTeacherDataSourceDelegate,UIAlertViewDel
         mBackButton.setTitle("Back", forState: .Normal)
         mBackButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         mBackButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
-        mBackButton.addTarget(self, action: "onBack", forControlEvents: UIControlEvents.TouchUpInside)
+        mBackButton.addTarget(self, action: #selector(SetupGridview.onBack), forControlEvents: UIControlEvents.TouchUpInside)
         mBackButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
         
         
@@ -76,7 +76,7 @@ class SetupGridview: UIViewController,SSTeacherDataSourceDelegate,UIAlertViewDel
         mDoneButton.setTitle("Done", forState: .Normal)
         mDoneButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         mDoneButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
-        mDoneButton.addTarget(self, action: "onDone", forControlEvents: UIControlEvents.TouchUpInside)
+        mDoneButton.addTarget(self, action: #selector(SetupGridview.onDone), forControlEvents: UIControlEvents.TouchUpInside)
         mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
         mDoneButton.hidden = true
         
@@ -98,7 +98,7 @@ class SetupGridview: UIViewController,SSTeacherDataSourceDelegate,UIAlertViewDel
         draggingView.layer.borderColor = standard_Red.CGColor
         draggingView.layer.borderWidth = 2
         
-        let edgePan = UIPanGestureRecognizer(target: self, action: "OnDragView:")
+        let edgePan = UIPanGestureRecognizer(target: self, action: #selector(SetupGridview.OnDragView(_:)))
         
         draggingView.addGestureRecognizer(edgePan)
         
@@ -204,11 +204,11 @@ class SetupGridview: UIViewController,SSTeacherDataSourceDelegate,UIAlertViewDel
         
         
         
-        for var columnIndex = 0; columnIndex < rowValue ; columnIndex++
+        for _ in 0 ..< rowValue 
         {
             
             var positionX :CGFloat = 0
-            for var rowIndex = 0; rowIndex < columnValue ; rowIndex++
+            for _ in 0 ..< columnValue 
             {
                 
                     let seatView = UIImageView(frame: CGRectMake(positionX, postionY, barWidthvalue, barHeight))

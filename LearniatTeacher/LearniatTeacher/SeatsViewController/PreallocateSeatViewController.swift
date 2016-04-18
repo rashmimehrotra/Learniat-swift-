@@ -48,7 +48,7 @@ class PreallocateSeatViewController: UIViewController,SSTeacherDataSourceDelegat
         mBackButton.setTitle("Back", forState: .Normal)
         mBackButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         mBackButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
-        mBackButton.addTarget(self, action: "onBack", forControlEvents: UIControlEvents.TouchUpInside)
+        mBackButton.addTarget(self, action: #selector(PreallocateSeatViewController.onBack), forControlEvents: UIControlEvents.TouchUpInside)
         mBackButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
         
         
@@ -66,7 +66,7 @@ class PreallocateSeatViewController: UIViewController,SSTeacherDataSourceDelegat
         mManually.setTitle("Manually", forState: .Normal)
         mManually.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         mManually.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
-        mManually.addTarget(self, action: "onManually", forControlEvents: UIControlEvents.TouchUpInside)
+        mManually.addTarget(self, action: #selector(PreallocateSeatViewController.onManually), forControlEvents: UIControlEvents.TouchUpInside)
         
         
        let  mAutomatically = UIButton(frame: CGRectMake(mManually.frame.origin.x  - (mTopbarImageView.frame.size.height * 2), 0,mTopbarImageView.frame.size.height * 2,mTopbarImageView.frame.size.height ))
@@ -74,7 +74,7 @@ class PreallocateSeatViewController: UIViewController,SSTeacherDataSourceDelegat
         mAutomatically.setTitle("Automatically", forState: .Normal)
         mAutomatically.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         mAutomatically.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
-        mAutomatically.addTarget(self, action: "onAutomatically", forControlEvents: UIControlEvents.TouchUpInside)
+        mAutomatically.addTarget(self, action: #selector(PreallocateSeatViewController.onAutomatically), forControlEvents: UIControlEvents.TouchUpInside)
         
         
         
@@ -171,11 +171,11 @@ class PreallocateSeatViewController: UIViewController,SSTeacherDataSourceDelegat
         
         var totalSeatvalue  = rowValue * columnValue
         
-        for var columnIndex = 0; columnIndex < rowValue ; columnIndex++
+        for _ in 0 ..< rowValue
         {
             
             var positionX :CGFloat = barWidthSpace / 2
-            for var rowIndex = 0; rowIndex < columnValue ; rowIndex++
+            for _ in 0 ..< columnValue 
             {
                 if seatsRemovedArray.contains("A\(totalSeatvalue)")
                 {

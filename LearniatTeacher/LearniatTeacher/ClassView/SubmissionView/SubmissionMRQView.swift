@@ -119,7 +119,7 @@ class SubmissionMRQView: UIView,StudentAnswerGraphViewDelegate
         
         
         let studentFinalAsnwer = NSMutableArray()
-        for (var answerIndex = 0; answerIndex < studentAnsweOptions.count; answerIndex++)
+        for answerIndex in 0 ..< studentAnsweOptions.count
         {
             let answerOptiondict = studentAnsweOptions.objectAtIndex(answerIndex)
             
@@ -134,7 +134,7 @@ class SubmissionMRQView: UIView,StudentAnswerGraphViewDelegate
         
         let optionIdValues = getOptionIdArrayWithGivenOPtions(studentFinalAsnwer)
         
-        for (var index = 0; index < optionIdValues.count; index++)
+        for index in 0 ..< optionIdValues.count
         {
             if let optionId = optionIdValues.objectAtIndex(index) as? String
             {
@@ -156,14 +156,14 @@ class SubmissionMRQView: UIView,StudentAnswerGraphViewDelegate
         let optionIdArray = NSMutableArray()
         
         
-        for (var answerIndex = 0; answerIndex < currentQuestionOptionsArray.count; answerIndex++)
+        for answerIndex in 0 ..< currentQuestionOptionsArray.count
         {
             let questionOptiondict = currentQuestionOptionsArray.objectAtIndex(answerIndex)
             
             if let OptionText = questionOptiondict.objectForKey("OptionText") as? String
             {
                 
-                for (var index = 0; index < answerOptionsArray.count; index++)
+                for index in 0 ..< answerOptionsArray.count
                 {
                     if let answerOption = answerOptionsArray.objectAtIndex(index) as? String
                     {
@@ -193,7 +193,7 @@ class SubmissionMRQView: UIView,StudentAnswerGraphViewDelegate
     
     func delegateBarTouchedWithId(optionId: String, withView barButton: BarView) {
         
-        if delegate().respondsToSelector(Selector("delegateOptionTouchedWithId:withView:"))
+        if delegate().respondsToSelector(#selector(SubmissionMRQViewDelegate.delegateOptionTouchedWithId(_:withView:)))
         {
             delegate().delegateOptionTouchedWithId!(optionId,withView:barButton)
         }

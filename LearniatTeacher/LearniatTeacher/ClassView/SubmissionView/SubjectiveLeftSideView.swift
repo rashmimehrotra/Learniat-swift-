@@ -72,7 +72,7 @@ class SubjectiveLeftSideView: UIView,SubjectiveStudentContainerDelegate
         selectAllButton.frame = CGRectMake(0, 0, self.frame.size.width, 50)
         self.addSubview(selectAllButton)
         selectAllButton.setTitleColor(LineGrayColor, forState: .Normal)
-        selectAllButton.addTarget(self, action: "onSelectAllButton", forControlEvents: UIControlEvents.TouchUpInside)
+        selectAllButton.addTarget(self, action: #selector(SubjectiveLeftSideView.onSelectAllButton), forControlEvents: UIControlEvents.TouchUpInside)
 
     
         mScrollView.frame = CGRectMake(0, 50, self.frame.size.width, self.frame.size.height - 50 )
@@ -144,7 +144,7 @@ class SubjectiveLeftSideView: UIView,SubjectiveStudentContainerDelegate
         
         
         
-        if delegate().respondsToSelector(Selector("delegateStudentSelectedWithState:withStudentDetails:withAnswerDetails:"))
+        if delegate().respondsToSelector(#selector(SubjectiveLeftSideViewDelegate.delegateStudentSelectedWithState(_:withStudentDetails:withAnswerDetails:)))
         {
             delegate().delegateStudentSelectedWithState!(state, withStudentDetails: studentDetails, withAnswerDetails: answerDetails)
         }

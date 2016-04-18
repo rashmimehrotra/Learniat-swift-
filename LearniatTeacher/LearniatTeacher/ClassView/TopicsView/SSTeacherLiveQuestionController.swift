@@ -86,7 +86,7 @@ class SSTeacherLiveQuestionController: UIViewController,UIPopoverControllerDeleg
         
         let  mTopicsButton = UIButton(frame: CGRectMake(10,  0, 200 ,mTopbarImageView.frame.size.height))
         mTopbarImageView.addSubview(mTopicsButton)
-        mTopicsButton.addTarget(self, action: "onDoneButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mTopicsButton.addTarget(self, action: #selector(SSTeacherLiveQuestionController.onDoneButton), forControlEvents: UIControlEvents.TouchUpInside)
         mTopicsButton.setTitleColor(standard_Button, forState: .Normal)
         mTopicsButton.setTitle("Topics", forState: .Normal)
         mTopicsButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
@@ -97,7 +97,7 @@ class SSTeacherLiveQuestionController: UIViewController,UIPopoverControllerDeleg
         
         let  mDoneButton = UIButton(frame: CGRectMake(mTopbarImageView.frame.size.width - 210,  0, 200 ,mTopbarImageView.frame.size.height))
         mTopbarImageView.addSubview(mDoneButton)
-        mDoneButton.addTarget(self, action: "onDoneButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mDoneButton.addTarget(self, action: #selector(SSTeacherLiveQuestionController.onDoneButton), forControlEvents: UIControlEvents.TouchUpInside)
         mDoneButton.setTitleColor(standard_Button, forState: .Normal)
         mDoneButton.setTitle("Done", forState: .Normal)
         mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
@@ -136,7 +136,7 @@ class SSTeacherLiveQuestionController: UIViewController,UIPopoverControllerDeleg
         
         mInfoButton.frame = CGRectMake(questionImageView.frame.size.width - (mTopbarImageView.frame.size.height + 10) , seperatorView.frame.size.height + seperatorView.frame.origin.y , mTopbarImageView.frame.size.height ,mTopbarImageView.frame.size.height)
         questionImageView.addSubview(mInfoButton)
-        mInfoButton.addTarget(self, action: "onInfoButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mInfoButton.addTarget(self, action: #selector(SSTeacherLiveQuestionController.onInfoButton), forControlEvents: UIControlEvents.TouchUpInside)
         mInfoButton.setImage(UIImage(named: "infoButton.png"), forState: .Normal)
         mInfoButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
         
@@ -166,7 +166,7 @@ class SSTeacherLiveQuestionController: UIViewController,UIPopoverControllerDeleg
         
           mFreezbutton.frame =   CGRectMake((questionImageView.frame.size.width - 200) / 2,  mQuestionNameLabel.frame.size.height + mQuestionNameLabel.frame.origin.y + 20, 200 ,mTopbarImageView.frame.size.height)
         questionImageView.addSubview(mFreezbutton)
-        mFreezbutton.addTarget(self, action: "onFreezButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mFreezbutton.addTarget(self, action: #selector(SSTeacherLiveQuestionController.onFreezButton), forControlEvents: UIControlEvents.TouchUpInside)
         mFreezbutton.setTitleColor(standard_Red, forState: .Normal)
         mFreezbutton.setTitle("Freeze response", forState: .Normal)
         mFreezbutton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
@@ -196,7 +196,7 @@ class SSTeacherLiveQuestionController: UIViewController,UIPopoverControllerDeleg
         
         let  clearQuestion = UIButton(frame: CGRectMake(10,  questionImageView.frame.size.height - mTopbarImageView.frame.size.height , questionImageView.frame.size.width - 20  ,mTopbarImageView.frame.size.height))
         questionImageView.addSubview(clearQuestion)
-        clearQuestion.addTarget(self, action: "onClearQuestion", forControlEvents: UIControlEvents.TouchUpInside)
+        clearQuestion.addTarget(self, action: #selector(SSTeacherLiveQuestionController.onClearQuestion), forControlEvents: UIControlEvents.TouchUpInside)
         clearQuestion.setTitleColor(standard_Button, forState: .Normal)
         clearQuestion.setTitle("Close question", forState: .Normal)
         clearQuestion.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
@@ -395,7 +395,7 @@ class SSTeacherLiveQuestionController: UIViewController,UIPopoverControllerDeleg
         mFreezbutton.enabled = true
         mFreezbutton.setTitleColor(standard_Red, forState: .Normal)
         
-        if delegate().respondsToSelector(Selector("delegateQuestionCleared:withCurrentmainTopicId:withCurrentMainTopicName:"))
+        if delegate().respondsToSelector(#selector(SSTeacherLiveQuestionControllerDelegate.delegateQuestionCleared(_:withCurrentmainTopicId:withCurrentMainTopicName:)))
         {
             delegate().delegateQuestionCleared!(currentQuestionDetails, withCurrentmainTopicId: currentMainTopicId, withCurrentMainTopicName: currentMainTopicName)
         }

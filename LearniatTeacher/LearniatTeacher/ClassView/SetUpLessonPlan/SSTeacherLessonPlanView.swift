@@ -47,7 +47,7 @@ class SSTeacherLessonPlanView: UIView,SSTeacherDataSourceDelegate
         mCancelButton.setTitleColor(UIColor.whiteColor(), forState:.Normal);
         mCancelButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20);
         mCancelButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
-        mCancelButton.addTarget(self, action: "onCancelButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mCancelButton.addTarget(self, action: #selector(SSTeacherLessonPlanView.onCancelButton), forControlEvents: UIControlEvents.TouchUpInside)
         
         
         mSendButton.frame = CGRectMake(mTopbarImageView.frame.size.width - 100 , 0, 100 , mTopbarImageView.frame.size.height );
@@ -57,7 +57,7 @@ class SSTeacherLessonPlanView: UIView,SSTeacherDataSourceDelegate
         mSendButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20);
         mSendButton.highlighted = false;
         mSendButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
-        mSendButton.addTarget(self, action: "onSendButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mSendButton.addTarget(self, action: #selector(SSTeacherLessonPlanView.onSendButton), forControlEvents: UIControlEvents.TouchUpInside)
         mSendButton.hidden = true
         
         sendButtonSpinner = UIActivityIndicatorView(activityIndicatorStyle:.WhiteLarge);

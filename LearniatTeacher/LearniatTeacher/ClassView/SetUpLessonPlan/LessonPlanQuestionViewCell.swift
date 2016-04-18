@@ -77,7 +77,7 @@ class LessonPlanQuestionViewCell: UIView
         
         
         self.addSubview(mInfoButtonButton)
-        mInfoButtonButton.addTarget(self, action: "onInfoButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mInfoButtonButton.addTarget(self, action: #selector(LessonPlanQuestionViewCell.onInfoButton), forControlEvents: UIControlEvents.TouchUpInside)
         mInfoButtonButton.setImage(UIImage(named: "infoButton.png"), forState: .Normal)
         mInfoButtonButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
         mInfoButtonButton.imageView?.contentMode = .ScaleAspectFill
@@ -259,7 +259,7 @@ class LessonPlanQuestionViewCell: UIView
    
     func onInfoButton()
     {
-        if delegate().respondsToSelector(Selector("delegateOnInfoButtonWithDetails:withButton:"))
+        if delegate().respondsToSelector(#selector(LessonPlanQuestionViewCellDelegate.delegateOnInfoButtonWithDetails(_:withButton:)))
         {
             delegate().delegateOnInfoButtonWithDetails!(currentQuestionDetails, withButton: mInfoButtonButton)
             

@@ -271,7 +271,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         let  mDoneButton = UIButton()
         mDoneButton.frame = mDeskFrame
         refrenceDeskImageView.addSubview(mDoneButton)
-        mDoneButton.addTarget(self, action: "onDeskPressed", forControlEvents: UIControlEvents.TouchUpInside)
+        mDoneButton.addTarget(self, action: #selector(StundentDeskView.onDeskPressed), forControlEvents: UIControlEvents.TouchUpInside)
         
         
     }
@@ -469,7 +469,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         
         currentAnswerState = .AnswerRecieved
         
-        if delegate().respondsToSelector(Selector("delegateStudentAnswerDownloadedWithDetails:withStudentDict:"))
+        if delegate().respondsToSelector(#selector(StundentDeskViewDelegate.delegateStudentAnswerDownloadedWithDetails(_:withStudentDict:)))
         {
             delegate().delegateStudentAnswerDownloadedWithDetails!(details, withStudentDict:currentStudentsDict)
             
@@ -490,7 +490,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
                     
                     if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
                     {
-                        if delegate().respondsToSelector(Selector("delegateStudentCellPressedWithViewSubjectiveAnswerDetails:withStudentId:"))
+                        if delegate().respondsToSelector(#selector(StundentDeskViewDelegate.delegateStudentCellPressedWithViewSubjectiveAnswerDetails(_:withStudentId:)))
                         {
                             
                             delegate().delegateStudentCellPressedWithViewSubjectiveAnswerDetails!(_currentAnswerDetails,  withStudentId:(currentStudentsDict.objectForKey("StudentId") as? String)!)
@@ -501,7 +501,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
                     else if (questionType == kText)
                     {
                         
-                        if delegate().respondsToSelector(Selector("delegateStudentCellPressedWithViewSubjectiveAnswerDetails:withStudentId:"))
+                        if delegate().respondsToSelector(#selector(StundentDeskViewDelegate.delegateStudentCellPressedWithViewSubjectiveAnswerDetails(_:withStudentId:)))
                         {
                             
                              delegate().delegateStudentCellPressedWithViewSubjectiveAnswerDetails!(_currentAnswerDetails,  withStudentId:(currentStudentsDict.objectForKey("StudentId") as? String)!)
@@ -513,7 +513,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
                     }
                     else if (questionType == kMatchColumn)
                     {
-                        if delegate().respondsToSelector(Selector("delegateStudentCellPressedWithViewAnswerOptions:withStudentId:"))
+                        if delegate().respondsToSelector(#selector(StundentDeskViewDelegate.delegateStudentCellPressedWithViewAnswerOptions(_:withStudentId:)))
                         {
                             
                             delegate().delegateStudentCellPressedWithViewAnswerOptions!(answerContainerView._studentFinalAnswerOptions,  withStudentId:(currentStudentsDict.objectForKey("StudentId") as? String)!)
@@ -523,7 +523,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
                     }
                     else
                     {
-                        if delegate().respondsToSelector(Selector("delegateStudentCellPressedWithViewAnswerOptions:withStudentId:"))
+                        if delegate().respondsToSelector(#selector(StundentDeskViewDelegate.delegateStudentCellPressedWithViewAnswerOptions(_:withStudentId:)))
                         {
                             
                              delegate().delegateStudentCellPressedWithViewAnswerOptions!(answerContainerView._studentFinalAnswerOptions,  withStudentId:(currentStudentsDict.objectForKey("StudentId") as? String)!)
@@ -540,7 +540,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         }
         else if currentAnswerState == .AnswerEvaluated
         {
-            if delegate().respondsToSelector(Selector("delegateStudentCellPressedWithEvaluationDetails:withStudentId:"))
+            if delegate().respondsToSelector(#selector(StundentDeskViewDelegate.delegateStudentCellPressedWithEvaluationDetails(_:withStudentId:)))
             {
                 
                 delegate().delegateStudentCellPressedWithEvaluationDetails!(_currentEvaluationDetail,  withStudentId:(currentStudentsDict.objectForKey("StudentId") as? String)!)
@@ -549,7 +549,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         }
         else if isQueryPresent == true
         {
-            if delegate().respondsToSelector(Selector("delegateStudentQueryWithDetails:withStudentDict:"))
+            if delegate().respondsToSelector(#selector(StundentDeskViewDelegate.delegateStudentQueryWithDetails(_:withStudentDict:)))
             {
                 
                 delegate().delegateStudentQueryWithDetails!(currentQueryDetails, withStudentDict: currentStudentsDict!)

@@ -85,7 +85,7 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
             mTopImageView.addSubview(mSocialRankingButton)
             mSocialRankingButton.setTitleColor(standard_Button, forState: .Normal)
             mSocialRankingButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
-            mSocialRankingButton.addTarget(self, action: "onSocialRankingButton", forControlEvents: .TouchUpInside)
+            mSocialRankingButton.addTarget(self, action: #selector(SSTeacherQueryView.onSocialRankingButton), forControlEvents: .TouchUpInside)
             mQueryCountLabel.frame = CGRectMake(10, 0, 120, mTopImageView.frame.size.height)
             self.addSubview(mQueryCountLabel)
             
@@ -106,7 +106,7 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
         {
             
             
-            if delegate().respondsToSelector(Selector("delegateQueryDownloadedWithDetails:"))
+            if delegate().respondsToSelector(#selector(SSTeacherQueryViewDelegate.delegateQueryDownloadedWithDetails(_:)))
             {
                 delegate().delegateQueryDownloadedWithDetails!(queryDetails)
             }
@@ -183,7 +183,7 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
             {
                studentqueryView.removeFromSuperview()
                 
-                if delegate().respondsToSelector(Selector("delegateQueryDeletedWithDetails:"))
+                if delegate().respondsToSelector(#selector(SSTeacherQueryViewDelegate.delegateQueryDeletedWithDetails(_:)))
                 {
                     delegate().delegateQueryDeletedWithDetails!(queryDetails)
                 }
@@ -244,7 +244,7 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
         {
             if studentqueryView.isKindOfClass(QuerySubview)
             {
-                if delegate().respondsToSelector(Selector("delegateQueryDeletedWithDetails:"))
+                if delegate().respondsToSelector(#selector(SSTeacherQueryViewDelegate.delegateQueryDeletedWithDetails(_:)))
                 {
                     delegate().delegateQueryDeletedWithDetails!(studentqueryView.currentQueryDetails)
                      studentqueryView.removeFromSuperview()
