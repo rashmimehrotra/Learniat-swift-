@@ -1762,7 +1762,8 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         let mSetupLessonPlan  = SSTeacherLessonPlanView(frame: CGRectMake(0, 0 ,self.view.frame.size.width, self.view.frame.size.height))
         mSetupLessonPlan.setCurrentSessionDetails(currentSessionDetails)
         self.view.addSubview(mSetupLessonPlan)
-        
+        SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.removeAllObjects()
+        mainTopicsController.mMaintopicsDetails.removeAllObjects()
     }
     
     func Settings_AlphabeticalReassignseats()

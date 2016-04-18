@@ -55,6 +55,8 @@ let kServiceSeatAssignment          =   "StudentSeatAssignment"
 
 let kServiceGetAllNodes				=   "GetAllNodes"
 
+let kServiceSaveLessonPlan			=    "SaveLessonPlan"
+
 let kServiceStartTopic              =   "SetCurrentTopic"
 
 let kServiceStopTopic               =   "StopTopic"
@@ -135,6 +137,8 @@ let kServiceConfigureGrid           =   "ConfigureGrid"
     optional func didGetSaveSelectedQueryWithDetails(details:AnyObject)
     
     optional func didGetVolunteeringEndedWithDetails(details:AnyObject)
+    
+    optional func didGetLessonPlanSavedWithdetails(details:AnyObject)
 }
 
 
@@ -377,6 +381,16 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         manager.downloadDataURL(urlString, withServiceName: kServiceGetAllNodes, withDelegate: self, withRequestType: eHTTPGetRequest)
     }
     
+    func saveLessonPlan(classId:String,  withTopicIdList topicIdList:String, withDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        setdelegate(delegate)
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>RecordLessonPlan</Service><TeacherId>%@</TeacherId><ClassId>%@</ClassId><TopicIdList>%@</TopicIdList></Action></Sunstone>",URLPrefix,currentUserId,classId,topicIdList)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceSaveLessonPlan, withDelegate: self, withRequestType: eHTTPGetRequest)
+    }
     
    
     func startSubTopicWithTopicID(topicId:String,withStudentId studentId:String,withSessionID sessionid:String, withDelegate delegate:SSTeacherDataSourceDelegate)
@@ -837,6 +851,13 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
             }
         }
         
+        else if serviceName == kServiceSaveLessonPlan
+        {
+            if delegate().respondsToSelector(Selector("didGetLessonPlanSavedWithdetails:"))
+            {
+                delegate().didGetLessonPlanSavedWithdetails!(refinedDetails)
+            }
+        }
         
     
     }

@@ -56,18 +56,10 @@ class LessonPlanQuestionView: UIView,SSTeacherDataSourceDelegate,UIGestureRecogn
         
         self.backgroundColor =  UIColor.clearColor()
         
-        let bacGroundView = UIView(frame: CGRectMake(0, 0, self.frame.size.width,self.frame.size.height))
-        self.addSubview(bacGroundView)
-        bacGroundView.backgroundColor = blackTextColor
-        bacGroundView.alpha = 0.4
-        let tap = UITapGestureRecognizer(target: self, action: Selector("handleTap:"))
-        tap.delegate = self
-        bacGroundView.addGestureRecognizer(tap)
-        
-        
-        mTopicsContainerView.frame = CGRectMake(60, 0, self.frame.size.width - 120,self.frame.size.height)
+        mTopicsContainerView.frame = CGRectMake(100, 0, self.frame.size.width - 200,self.frame.size.height)
         self.addSubview(mTopicsContainerView)
         mTopicsContainerView.backgroundColor = lightGrayTopBar
+        
         
         
         
@@ -80,6 +72,14 @@ class LessonPlanQuestionView: UIView,SSTeacherDataSourceDelegate,UIGestureRecogn
         mainTopicCell.mSubTopicButton.hidden = true
         mainTopicCell.checkBoxImage.hidden = true
         mainTopicCell.m_checkBoxButton.hidden = true
+        
+        let  mDoneButton = UIButton(frame: CGRectMake( 10, 0, 100, 60))
+        mDoneButton.addTarget(self, action: "onBackButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
+        mTopicsContainerView.addSubview(mDoneButton)
+        mDoneButton.setImage(UIImage(named: "arrow_Blue.png"), forState: .Normal)
+        mDoneButton.imageView?.contentMode = .ScaleAspectFit
+        
         
         
         
@@ -120,9 +120,9 @@ class LessonPlanQuestionView: UIView,SSTeacherDataSourceDelegate,UIGestureRecogn
         
         addTopicsForheight()
         
-        mainTopicCell.setMainTopicDetails(mainTopicDetails)
+        mainTopicCell.setMainTopicDetails(mainTopicDetails, withIndexPath: 0)
         
-        
+        mainTopicCell.backgroundColor = UIColor.clearColor()
         
         
     }
@@ -153,7 +153,7 @@ class LessonPlanQuestionView: UIView,SSTeacherDataSourceDelegate,UIGestureRecogn
             let currentTopicDetails = mQuestionsDetails.objectAtIndex(index)
             let topicCell = LessonPlanQuestionViewCell(frame: CGRectMake(10  , positionY, mTopicsContainerView.frame.size.width - 20, 60))
             topicCell.setdelegate(self)
-            topicCell.frame =   CGRectMake(0  , positionY, mTopicsContainerView.frame.size.width, topicCell.getCurrentCellHeightWithDetails(currentTopicDetails, WIthCountValue: index + 1))
+            topicCell.frame =   CGRectMake(10  , positionY, mTopicsContainerView.frame.size.width - 20 , topicCell.getCurrentCellHeightWithDetails(currentTopicDetails, WIthCountValue: index + 1))
             mTopicsContainerView.addSubview(topicCell)
             positionY = positionY + topicCell.frame.size.height + 10
         }
@@ -162,7 +162,7 @@ class LessonPlanQuestionView: UIView,SSTeacherDataSourceDelegate,UIGestureRecogn
         
     }
     
-    func handleTap(sender: UITapGestureRecognizer? = nil)
+    func onBackButton()
     {
         
         if delegate().respondsToSelector(Selector("delegateSubTopicRemovedWithTopicDetails:"))
@@ -170,7 +170,20 @@ class LessonPlanQuestionView: UIView,SSTeacherDataSourceDelegate,UIGestureRecogn
             delegate().delegateSubTopicRemovedWithTopicDetails!(_currentMainTopicDetails)
         }
         
-        self.removeFromSuperview()
+        
+        UIView.animateWithDuration(0.6, animations:
+            {
+            self.frame =  CGRectMake(self.frame.size.width,0,self.frame.size.width,self.frame.size.height )
+            },
+            completion:
+            { finished in
+                self.removeFromSuperview()
+        })
+        
+        
+        
+        
+       
     }
     
     

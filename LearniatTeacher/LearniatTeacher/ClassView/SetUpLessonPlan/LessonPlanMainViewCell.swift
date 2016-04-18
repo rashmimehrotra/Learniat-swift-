@@ -14,7 +14,9 @@ import Foundation
     
     
     
-    optional func delegateSubTopicCellPressedWithMainTopicDetails(topicDetails:AnyObject)
+    optional func delegateSubTopicCellPressedWithMainTopicDetails(topicDetails:AnyObject, withIndexValue indexValue:Int)
+    
+     optional func delegateMainTopicCheckMarkPressedWithState(SelectedState:Bool, withIndexValue indexValue:Int, withCurrentTopicDatails details:AnyObject)
     
 }
 
@@ -43,6 +45,8 @@ class LessonPlanMainViewCell: UIView{
     
     var m_checkBoxButton :UIButton!
     
+    var currentindexPath    = 0
+    
     func setdelegate(delegate:AnyObject)
     {
         _delgate = delegate;
@@ -60,7 +64,7 @@ class LessonPlanMainViewCell: UIView{
         
         
         
-        self.backgroundColor = UIColor.whiteColor()
+        
         
          dateFormatter.dateFormat = "HH:mm:ss"
         
@@ -73,7 +77,7 @@ class LessonPlanMainViewCell: UIView{
 
         
         
-        m_graspImageView.frame = CGRectMake(checkBoxImage.frame.size.width + checkBoxImage.frame.origin.x + 10, (self.frame.size.height - (self.frame.size.height / 1.3))/2 ,self.frame.size.height / 1.3,self.frame.size.height / 1.3)
+        m_graspImageView.frame = CGRectMake(checkBoxImage.frame.size.width + checkBoxImage.frame.origin.x + 10, (self.frame.size.height - (self.frame.size.height / 1.8))/2 ,self.frame.size.height / 1.8,self.frame.size.height / 1.8)
         self.addSubview(m_graspImageView)
         m_graspImageView.image = UIImage(named: "00.png")
         m_graspImageView.contentMode = .ScaleAspectFit
@@ -112,7 +116,7 @@ class LessonPlanMainViewCell: UIView{
         self.addSubview(m_progressView)
         m_progressView.frame  = CGRectMake(0, self.frame.size.height - 3 , self.frame.size.width , 1)
         m_progressView.progressTintColor = standard_Button;
-        let transform: CGAffineTransform = CGAffineTransformMakeScale(1.0, 1.5);
+        let transform: CGAffineTransform = CGAffineTransformMakeScale(1.0, 2);
         m_progressView.transform = transform;
         
         
@@ -124,11 +128,11 @@ class LessonPlanMainViewCell: UIView{
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setMainTopicDetails(topicDetails:AnyObject)
+    func setMainTopicDetails(topicDetails:AnyObject, withIndexPath indexPath:Int)
     {
         
         currentTopicDetails = topicDetails
-        
+        currentindexPath = indexPath
 
         if let topicId = currentTopicDetails.objectForKey("Id")as? String
         {
@@ -193,10 +197,14 @@ class LessonPlanMainViewCell: UIView{
             if Tagged == "1"
             {
                  checkBoxImage.image = UIImage(named:"Checked.png");
+                self.backgroundColor = UIColor.whiteColor()
+                isSelected = true
             }
             else
             {
                  checkBoxImage.image = UIImage(named:"Unchecked.png");
+                self.backgroundColor = UIColor.clearColor()
+                isSelected = false
             }
         }
         
@@ -247,9 +255,9 @@ class LessonPlanMainViewCell: UIView{
     
     func onSubtopicButton()
     {
-        if delegate().respondsToSelector(Selector("delegateSubTopicCellPressedWithMainTopicDetails:"))
+        if delegate().respondsToSelector(Selector("delegateSubTopicCellPressedWithMainTopicDetails:withIndexValue:"))
         {
-            delegate().delegateSubTopicCellPressedWithMainTopicDetails!(currentTopicDetails)
+            delegate().delegateSubTopicCellPressedWithMainTopicDetails!(currentTopicDetails,withIndexValue:currentindexPath)
             mSubTopicButton.backgroundColor = standard_Green
         }
         
@@ -257,19 +265,74 @@ class LessonPlanMainViewCell: UIView{
     
     func checkMarkPressed()
     {
+        
+        var subTopicsDetails = NSMutableArray()
+        
+        if  let classCheckingVariable = currentTopicDetails.objectForKey("SubTopics")?.objectForKey("SubTopic")
+        {
+            if classCheckingVariable.isKindOfClass(NSMutableArray)
+            {
+                subTopicsDetails = classCheckingVariable as! NSMutableArray
+            }
+            else
+            {
+                subTopicsDetails.addObject(currentTopicDetails.objectForKey("SubTopics")!.objectForKey("SubTopic")!)
+                
+            }
+            
+        }
+
+        
+       
+        
+        
+        
+        
         if isSelected == true
         {
+            for var index = 0; index < subTopicsDetails.count ; index++
+            {
+                let currentTopicDetails = subTopicsDetails.objectAtIndex(index)
+                currentTopicDetails.setObject("0", forKey: "Tagged")
+                subTopicsDetails.replaceObjectAtIndex(index, withObject: currentTopicDetails)
+            }
+            
+             currentTopicDetails.setObject("0", forKey: "Tagged")
+            currentTopicDetails.setObject(subTopicsDetails, forKey: "SubTopic")
+            
+            currentTopicDetails.setObject(currentTopicDetails, forKey: "SubTopics")
+            
             checkBoxImage.image = UIImage(named:"Unchecked.png");
             self.backgroundColor = UIColor.clearColor()
+            delegate().delegateMainTopicCheckMarkPressedWithState!(false, withIndexValue: currentindexPath, withCurrentTopicDatails: currentTopicDetails)
             isSelected = false
+            
+           
+            
             
         }
         else
         {
+            
+            for var index = 0; index < subTopicsDetails.count ; index++
+            {
+                let currentTopicDetails = subTopicsDetails.objectAtIndex(index)
+                currentTopicDetails.setObject("1", forKey: "Tagged")
+                subTopicsDetails.replaceObjectAtIndex(index, withObject: currentTopicDetails)
+            }
+            
+             currentTopicDetails.setObject("1", forKey: "Tagged")
+            currentTopicDetails.setObject(subTopicsDetails, forKey: "SubTopic")
+            
+            currentTopicDetails.setObject(currentTopicDetails, forKey: "SubTopics")
+            
+            
             checkBoxImage.image = UIImage(named:"Checked.png");
             self.backgroundColor = UIColor.whiteColor()
+            delegate().delegateMainTopicCheckMarkPressedWithState!(true, withIndexValue: currentindexPath, withCurrentTopicDatails: currentTopicDetails)
             isSelected = true
         }
+        
     }
     
     

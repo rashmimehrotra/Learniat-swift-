@@ -25,6 +25,8 @@ class LessonPlanMainView: UIView,SSTeacherDataSourceDelegate,LessonPlanMainViewD
     
     var  mTopicName                 = UILabel()
     
+    var _currentTopicDetails:AnyObject!
+    
     override init(frame: CGRect)
     {
         
@@ -52,6 +54,8 @@ class LessonPlanMainView: UIView,SSTeacherDataSourceDelegate,LessonPlanMainViewD
     
     func setCurrentSessionDetails(sessionDetails:AnyObject, withFullLessonPlanDetails _fullLessonPlan:AnyObject)
     {
+        _currentTopicDetails = _fullLessonPlan
+        
           mMaintopicsDetails.removeAllObjects()
         
         let classCheckingVariable = _fullLessonPlan.objectForKey("MainTopics")!.objectForKey("MainTopic")!
@@ -100,7 +104,7 @@ class LessonPlanMainView: UIView,SSTeacherDataSourceDelegate,LessonPlanMainViewD
             let currentTopicDetails = mMaintopicsDetails.objectAtIndex(index)
             let topicCell = LessonPlanMainViewCell(frame: CGRectMake(10  , positionY, mTopicsContainerView.frame.size.width - 20, 60))
             topicCell.setdelegate(self)
-            topicCell.setMainTopicDetails(currentTopicDetails)
+            topicCell.setMainTopicDetails(currentTopicDetails, withIndexPath: index)
             mTopicsContainerView.addSubview(topicCell)
             positionY = positionY + topicCell.frame.size.height + 10
         }
@@ -111,18 +115,81 @@ class LessonPlanMainView: UIView,SSTeacherDataSourceDelegate,LessonPlanMainViewD
     
     // MARK: - mainTopic cell delegate functions
     
-    func delegateSubTopicCellPressedWithMainTopicDetails(topicDetails: AnyObject)
-    {
+    func delegateSubTopicCellPressedWithMainTopicDetails(topicDetails: AnyObject, withIndexValue indexValue: Int) {
+        
         
        let SubTopicsView = LessonPlanSubTopicsView(frame: CGRectMake(0,0,self.frame.size.width,self.frame.size.height ))
-        SubTopicsView.setCurrentMainTopicDetails(topicDetails)
+        SubTopicsView.setCurrentMainTopicDetails(topicDetails, withMainTopicIndexPath: indexValue)
         SubTopicsView.setdelegate(self)
         self.addSubview(SubTopicsView)
         
         
     }
     
+    
+    func delegateMainTopicCheckMarkPressedWithState(SelectedState:Bool, withIndexValue indexValue:Int, withCurrentTopicDatails details:AnyObject)
+    {
+        
+        if indexValue < mMaintopicsDetails.count
+        {
+            mMaintopicsDetails.replaceObjectAtIndex(indexValue, withObject: details)
+            
+        }
+        
+        _currentTopicDetails.setObject(mMaintopicsDetails, forKey: "MainTopic")
+        
+        _currentTopicDetails.setObject(_currentTopicDetails, forKey: "MainTopics")
+
+        
+    }
+    
     // MARK: - subTopic View delegate functions
+    
+    func delegateCellStateChangedWithState(SelectedState: Bool, withIndexValue indexValue: Int, withCurrentTopicDatails details: AnyObject, withChecMarkState checkMark: Int) {
+        
+        if indexValue < mMaintopicsDetails.count
+        {
+            mMaintopicsDetails.replaceObjectAtIndex(indexValue, withObject: details)
+            
+        }
+        
+        _currentTopicDetails.setObject(mMaintopicsDetails, forKey: "MainTopic")
+        
+        _currentTopicDetails.setObject(_currentTopicDetails, forKey: "MainTopics")
+        
+        
+        
+        if let topicId = details.objectForKey("Id")as? String
+        {
+            if let topicCell  = mTopicsContainerView.viewWithTag(Int(topicId)!) as? LessonPlanMainViewCell
+            {
+
+                if checkMark == 1
+                {
+                    topicCell.checkBoxImage.image = UIImage(named:"Checked.png");
+                    topicCell.backgroundColor = UIColor.whiteColor()
+                }
+                else if checkMark == 0
+                {
+                    topicCell.checkBoxImage.image = UIImage(named:"Unchecked.png");
+                    topicCell.backgroundColor = UIColor.clearColor()
+                }
+                else
+                {
+                    topicCell.checkBoxImage.image = UIImage(named:"halfChecked.png");
+                    topicCell.backgroundColor = UIColor.whiteColor()
+                    
+                }
+                
+                
+            }
+            
+        }
+        
+
+    }
+    
+    
     
     func delegateSubTopicRemovedWithTopicDetails(topicDetails: AnyObject)
     {
@@ -140,4 +207,75 @@ class LessonPlanMainView: UIView,SSTeacherDataSourceDelegate,LessonPlanMainViewD
 
         }
     }
+    
+    
+    func getAllSelectedtopicId() -> String
+    {
+        
+        let topicsIdDetails = NSMutableArray()
+        
+        
+        for var index = 0; index < mMaintopicsDetails.count ; index++
+        {
+            let currentTopicDetails = mMaintopicsDetails.objectAtIndex(index)
+            
+            if let Tagged = currentTopicDetails.objectForKey("Tagged") as? String
+            {
+                if Tagged == "1"
+                {
+                   
+                    if let topicId = currentTopicDetails.objectForKey("Id")as? String
+                    {
+                        topicsIdDetails.addObject(topicId)
+                    }
+                    
+                    
+                     var subTopicsDetails = NSMutableArray()
+                    
+                    if  let classCheckingVariable = currentTopicDetails.objectForKey("SubTopics")?.objectForKey("SubTopic")
+                    {
+                        if classCheckingVariable.isKindOfClass(NSMutableArray)
+                        {
+                            subTopicsDetails = classCheckingVariable as! NSMutableArray
+                        }
+                        else
+                        {
+                            subTopicsDetails.addObject(currentTopicDetails.objectForKey("SubTopics")!.objectForKey("SubTopic")!)
+                            
+                        }
+                        
+                    }
+                    
+                    
+                    
+                    for var SubTopicIndex = 0; SubTopicIndex < subTopicsDetails.count ; SubTopicIndex++
+                    {
+                        let currentTopicDetails = subTopicsDetails.objectAtIndex(SubTopicIndex)
+                        if let Tagged = currentTopicDetails.objectForKey("Tagged") as? String
+                        {
+                            if Tagged == "1"
+                            {
+                                
+                                if let topicId = currentTopicDetails.objectForKey("Id")as? String
+                                {
+                                    topicsIdDetails.addObject(topicId)
+                                }
+                            }
+                        }
+                       
+                    }
+                }
+                
+            }
+        }
+
+        
+       let topicDetailsString = topicsIdDetails.componentsJoinedByString(",")
+        
+        print(topicDetailsString)
+        
+        return topicDetailsString 
+    }
+    
+    
 }

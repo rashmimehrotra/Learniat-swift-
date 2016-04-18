@@ -55,7 +55,6 @@ class SSTeacherLessonPlanView: UIView,SSTeacherDataSourceDelegate
         mSendButton.setTitle("Send", forState:.Normal);
         mSendButton.setTitleColor(UIColor.whiteColor(), forState:.Normal);
         mSendButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20);
-        mSendButton.enabled = false
         mSendButton.highlighted = false;
         mSendButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
         mSendButton.addTarget(self, action: "onSendButton", forControlEvents: UIControlEvents.TouchUpInside)
@@ -93,7 +92,16 @@ class SSTeacherLessonPlanView: UIView,SSTeacherDataSourceDelegate
     
     func onSendButton()
     {
-        self.removeFromSuperview()
+        
+        if let ClassId = _currentSessionDetails.objectForKey("ClassId") as? String
+        {
+             SSTeacherDataSource.sharedDataSource.saveLessonPlan(ClassId, withTopicIdList: MainTopicsView.getAllSelectedtopicId(), withDelegate: self)
+            sendButtonSpinner.hidden = false
+            sendButtonSpinner.startAnimating()
+            mSendButton.hidden = true
+            
+        }
+        
     }
     
     
@@ -128,6 +136,21 @@ class SSTeacherLessonPlanView: UIView,SSTeacherDataSourceDelegate
         
         
         
+    }
+    
+    func didGetLessonPlanSavedWithdetails(details: AnyObject)
+    {
+        sendButtonSpinner.hidden = true
+        sendButtonSpinner.stopAnimating()
+        mSendButton.hidden = false
+        self.removeFromSuperview()
+    }
+    
+    func didgetErrorMessage(message: String, WithServiceName serviceName: String)
+    {
+        sendButtonSpinner.hidden = true
+        sendButtonSpinner.stopAnimating()
+        mSendButton.hidden = false
     }
     
     
