@@ -61,7 +61,6 @@ class SSTeacherAggregatePopOverController: UIViewController, SSTeacherDataSource
     func didGetAgregateDrillDownWithDetails(details: AnyObject)
     {
 
-        print(details)
         
         activityIndicator.stopAnimating()
         

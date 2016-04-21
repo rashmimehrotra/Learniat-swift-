@@ -9,205 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/ClassView/StudentSubjectivePopover.swift"
-            timestampString = "482311995.526409"
+            filePath = "LearniatTeacher/ClassView/StundentDeskView.swift"
+            timestampString = "482764877.636732"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "417"
-            endingLineNumber = "417"
-            landmarkName = "ErrorInUploadingWithName(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/ScheduleScreen/ScheduleDetailView.swift"
-            timestampString = "482234936.568638"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "494"
-            endingLineNumber = "494"
-            landmarkName = "setcurrentViewDetails(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/ClassView/SubmissionView/GraphView/StudentAnswerGraphView.swift"
-            timestampString = "482307646.035721"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "433"
-            endingLineNumber = "433"
-            landmarkName = "increaseBarValueWithOptionText(_:)"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "LearniatTeacher.StudentAnswerGraphView.increaseBarValueWithOptionText (Swift.String) -&gt; ()"
-                  moduleName = "LearniatTeacher"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/SubmissionView/GraphView/StudentAnswerGraphView.swift"
-                  timestampString = "482670370.294416"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "433"
-                  endingLineNumber = "433"
-                  offsetFromSymbolStart = "52">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "LearniatTeacher.StudentAnswerGraphView.increaseBarValueWithOptionText (Swift.String) -&gt; ()"
-                  moduleName = "LearniatTeacher"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/SubmissionView/GraphView/StudentAnswerGraphView.swift"
-                  timestampString = "482670370.294657"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "433"
-                  endingLineNumber = "433"
-                  offsetFromSymbolStart = "639">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/ClassView/SubmissionView/GraphView/StudentAnswerGraphView.swift"
-            timestampString = "482307453.188852"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "391"
-            endingLineNumber = "391"
-            landmarkName = "increaseBarValueWithOPtionID(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/ClassView/SubmissionView/GraphView/StudentAnswerGraphView.swift"
-            timestampString = "482308219.399224"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "483"
-            endingLineNumber = "483"
-            landmarkName = "increaseBarValueWithOptionText(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/ClassView/SubmissionView/GraphView/StudentAnswerGraphView.swift"
-            timestampString = "482308354.122341"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "416"
-            endingLineNumber = "416"
-            landmarkName = "increaseBarValueWithOPtionID(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/ClassView/StudentAnnotateView.swift"
-            timestampString = "482313549.153363"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "816"
-            endingLineNumber = "816"
-            landmarkName = "ImageUploadedWithName(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/ClassView/StudentAnnotateView.swift"
-            timestampString = "482313384.451403"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "730"
-            endingLineNumber = "730"
-            landmarkName = "newImageUploadedWithName(_:)"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "LearniatTeacher.StudentAnnotateView.newImageUploadedWithName (Swift.String) -&gt; ()"
-                  moduleName = "LearniatTeacher"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/StudentAnnotateView.swift"
-                  timestampString = "482670370.295907"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "730"
-                  endingLineNumber = "730"
-                  offsetFromSymbolStart = "42">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "LearniatTeacher.StudentAnnotateView.newImageUploadedWithName (Swift.String) -&gt; ()"
-                  moduleName = "LearniatTeacher"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/StudentAnnotateView.swift"
-                  timestampString = "482670370.296111"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "730"
-                  endingLineNumber = "730"
-                  offsetFromSymbolStart = "800">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/ClassView/TopicsView/SSTeacherSubTopicController.swift"
-            timestampString = "482669689.280375"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "465"
-            endingLineNumber = "465"
-            landmarkName = "onDoneButton()"
+            startingLineNumber = "658"
+            endingLineNumber = "658"
+            landmarkName = "getSeatIdAndStudentId()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -218,12 +26,76 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatTeacher/Source/SSTeacherDataSource.swift"
-            timestampString = "482670699.848679"
+            timestampString = "482730169.856815"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "381"
-            endingLineNumber = "381"
-            landmarkName = "getAllNodesWithClassId(_:withSubjectId:withTopicId:withType:withDelegate:)"
+            startingLineNumber = "390"
+            endingLineNumber = "390"
+            landmarkName = "saveLessonPlan(_:withTopicIdList:withDelegate:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatTeacher/ClassView/SetUpLessonPlan/SSTeacherLessonPlanView.swift"
+            timestampString = "482730177.052477"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "96"
+            endingLineNumber = "96"
+            landmarkName = "onSendButton()"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LearniatTeacher.SSTeacherLessonPlanView.onSendButton () -&gt; ()"
+                  moduleName = "LearniatTeacher"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/SetUpLessonPlan/SSTeacherLessonPlanView.swift"
+                  timestampString = "482730232.04291"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "96"
+                  endingLineNumber = "96"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LearniatTeacher.SSTeacherLessonPlanView.onSendButton () -&gt; ()"
+                  moduleName = "LearniatTeacher"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/SetUpLessonPlan/SSTeacherLessonPlanView.swift"
+                  timestampString = "482730232.043136"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "96"
+                  endingLineNumber = "96"
+                  offsetFromSymbolStart = "716">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatTeacher/ClassView/SetUpLessonPlan/LessonPlanMainView.swift"
+            timestampString = "482730226.126932"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "260"
+            endingLineNumber = "260"
+            landmarkName = "getAllSelectedtopicId()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

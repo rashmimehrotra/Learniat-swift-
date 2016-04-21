@@ -30,7 +30,7 @@ let kQueryView              = "Query"
 
 
 import Foundation
-class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeachermainTopicControllerDelegate,SSTeacherSubTopicControllerDelegate,SSTeacherDataSourceDelegate,SSTeacherQuestionControllerDelegate,SSTeacherMessagehandlerDelegate,SSTeacherLiveQuestionControllerDelegate,StundentDeskViewDelegate,SSTeacherSubmissionViewDelegate,SSTeacherQueryViewDelegate,StudentSubjectivePopoverDelegate,SSSettingsViewControllerDelegate
+class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeachermainTopicControllerDelegate,SSTeacherSubTopicControllerDelegate,SSTeacherDataSourceDelegate,SSTeacherQuestionControllerDelegate,SSTeacherMessagehandlerDelegate,SSTeacherLiveQuestionControllerDelegate,StundentDeskViewDelegate,SSTeacherSubmissionViewDelegate,SSTeacherQueryViewDelegate,StudentSubjectivePopoverDelegate,SSSettingsViewControllerDelegate,SSTeacherSchedulePopoverControllerDelegate
 {
    
     
@@ -423,7 +423,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         questionInfoController.setdelegate(self)
         
         let height = self.view.frame.size.height - (mTopbarImageView.frame.size.height + 20 )
-        
+        questionInfoController.setdelegate(self)
         questionInfoController.setCurrentScreenSize(CGSizeMake(600,height))
         questionInfoController.preferredContentSize = CGSizeMake(600,height)
         
@@ -712,6 +712,12 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         }
     }
     
+    
+    func didGetSessionUpdatedWithDetials(details: AnyObject)
+    {
+        let scheduleScreenView  = TeacherScheduleViewController()
+        presentViewController(scheduleScreenView, animated: true, completion: nil)
+    }
     
     
 // MARK: - seatAssignment functions
@@ -1933,6 +1939,19 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     
     func Settings_XmppReconnectButtonClicked() {
         
+    }
+    
+     // MARK: - SSTeacherSchedulePopoverController Delegate  functions
+    
+    func delegateSessionEnded()
+    {
+        
+        if let sessionId = (currentSessionDetails.objectForKey(kSessionId)) as? String
+        {
+            SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(sessionId, WithStatusvalue: "5", WithDelegate: self)
+        
+        }
+       
     }
     
 }

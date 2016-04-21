@@ -7,6 +7,15 @@
 //
 
 import Foundation
+
+@objc protocol SSTeacherSchedulePopoverControllerDelegate
+{
+    
+    optional func delegateSessionEnded()
+    
+    
+}
+
 class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDelegate
 {
     
@@ -82,7 +91,7 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
         
         
         let  mEndClassButton = UIButton(frame: CGRectMake(0, _currentScreenSize.height - 50 , _currentScreenSize.width, 50))
-        mEndClassButton.addTarget(self, action: #selector(SSTeacherSchedulePopoverController.onDoneButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mEndClassButton.addTarget(self, action: #selector(SSTeacherSchedulePopoverController.onEndSession), forControlEvents: UIControlEvents.TouchUpInside)
         mEndClassButton.setTitleColor(standard_Red, forState: .Normal)
         mEndClassButton.setTitle("End class", forState: .Normal)
         mEndClassButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
@@ -203,6 +212,16 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
         popover().dismissPopoverAnimated(true)
     }
     
+    
+    func onEndSession()
+    {
+        popover().dismissPopoverAnimated(true)
+        
+        if delegate().respondsToSelector(#selector(SSTeacherSchedulePopoverControllerDelegate.delegateSessionEnded))
+        {
+            delegate().delegateSessionEnded!()
+        }
+    }
     
     func timerAction()
     {

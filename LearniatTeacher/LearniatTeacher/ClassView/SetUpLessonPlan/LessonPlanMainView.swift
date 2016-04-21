@@ -250,13 +250,13 @@ class LessonPlanMainView: UIView,SSTeacherDataSourceDelegate,LessonPlanMainViewD
                     
                     for SubTopicIndex in 0 ..< subTopicsDetails.count 
                     {
-                        let currentTopicDetails = subTopicsDetails.objectAtIndex(SubTopicIndex)
-                        if let Tagged = currentTopicDetails.objectForKey("Tagged") as? String
+                        let _currentSubTopicDetails = subTopicsDetails.objectAtIndex(SubTopicIndex)
+                        if let Tagged = _currentSubTopicDetails.objectForKey("Tagged") as? String
                         {
                             if Tagged == "1"
                             {
                                 
-                                if let topicId = currentTopicDetails.objectForKey("Id")as? String
+                                if let topicId = _currentSubTopicDetails.objectForKey("Id")as? String
                                 {
                                     topicsIdDetails.addObject(topicId)
                                 }
@@ -272,7 +272,6 @@ class LessonPlanMainView: UIView,SSTeacherDataSourceDelegate,LessonPlanMainViewD
         
        let topicDetailsString = topicsIdDetails.componentsJoinedByString(",")
         
-        print(topicDetailsString)
         
         return topicDetailsString 
     }

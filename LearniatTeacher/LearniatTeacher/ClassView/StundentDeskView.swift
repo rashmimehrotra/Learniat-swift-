@@ -655,15 +655,20 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         
         var seatIdvalue = "0"
         
-        if let StudentId = currentStudentsDict.objectForKey("StudentId") as? String
+        if currentStudentsDict != nil
         {
-            StudentIdValue = StudentId
-        }
-        
-        
-        if let seatId = currentStudentsDict.objectForKey("SeatId") as? String
-        {
-            seatIdvalue = seatId
+            if let StudentId = currentStudentsDict.objectForKey("StudentId") as? String
+            {
+                StudentIdValue = StudentId
+            }
+            
+            
+            if let seatId = currentStudentsDict.objectForKey("SeatId") as? String
+            {
+                seatIdvalue = seatId
+            }
+            
+
         }
         
         

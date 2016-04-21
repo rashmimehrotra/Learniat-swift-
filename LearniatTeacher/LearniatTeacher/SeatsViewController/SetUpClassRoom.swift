@@ -168,7 +168,6 @@ class SetUpClassRoom: UIViewController,SetupClassCellDelegate,SSTeacherDataSourc
                 positionX = positionX + barWidthvalue + barWidthSpace
                 seatView.currentSeatString = "A\(totalSeatvalue)"
                 
-                print(seatView.currentSeatString)
                 
                 
                 totalSeatvalue = totalSeatvalue - 1
@@ -214,7 +213,6 @@ class SetUpClassRoom: UIViewController,SetupClassCellDelegate,SSTeacherDataSourc
                 seatCell.EndCornerImageView.image = UIImage(named: "Add.png")
                 seatCell.refrenceDeskImageView.borderColor = standard_Green;
                 
-                 print(seatCell.currentSeatString)
                 
                 if seatIdString.containsObject(seatCell.currentSeatString)
                 {
@@ -262,7 +260,6 @@ class SetUpClassRoom: UIViewController,SetupClassCellDelegate,SSTeacherDataSourc
     
     func didGetSeatsConfiguredWithDetails(details: AnyObject)
     {
-        print(details)
         
         mActivityIndicatore.hidden = true
         
