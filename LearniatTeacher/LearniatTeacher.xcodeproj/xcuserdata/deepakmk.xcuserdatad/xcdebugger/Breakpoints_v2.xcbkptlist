@@ -58,7 +58,7 @@
                   moduleName = "LearniatTeacher"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/SetUpLessonPlan/SSTeacherLessonPlanView.swift"
-                  timestampString = "482730232.04291"
+                  timestampString = "482908426.884955"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "96"
@@ -73,7 +73,7 @@
                   moduleName = "LearniatTeacher"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/SetUpLessonPlan/SSTeacherLessonPlanView.swift"
-                  timestampString = "482730232.043136"
+                  timestampString = "482908426.88516"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "96"
@@ -96,6 +96,38 @@
             startingLineNumber = "260"
             endingLineNumber = "260"
             landmarkName = "getAllSelectedtopicId()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatTeacher/ClassView/SSTeacherClassView.swift"
+            timestampString = "482908360.331928"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1218"
+            endingLineNumber = "1218"
+            landmarkName = "delegateScribbleQuestionWithSubtopicId(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatTeacher/ClassView/TopicsView/SSTeacherQuestionController.swift"
+            timestampString = "482908380.723224"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "414"
+            endingLineNumber = "414"
+            landmarkName = "onScribbleButton()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

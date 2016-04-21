@@ -21,7 +21,8 @@ import Foundation
     optional func delegateDoneButtonPressed()
     
     
-    
+    optional func delegateScribbleQuestionWithSubtopicId(subTopicID:String)
+
     
     
 }
@@ -49,6 +50,9 @@ class SSTeacherQuestionController: UIViewController,QuestionCellDelegate,SSTeach
     var currentMainTopicName                = ""
     
     var isCurrentSubtopicStarted :Bool           = false
+    
+    
+    var questionButtonsView         = UIView()
     
     var questionsDetailsDictonary:Dictionary<String, NSMutableArray> = Dictionary()
     
@@ -136,6 +140,43 @@ class SSTeacherQuestionController: UIViewController,QuestionCellDelegate,SSTeach
         mTopbarImageView.addSubview(mActivityIndicator)
         mActivityIndicator.hidesWhenStopped = true
         mActivityIndicator.hidden = true
+        
+        
+        
+        questionButtonsView.frame = CGRectMake(0, mTopicsContainerView.frame.size.height + mTopicsContainerView.frame.origin.y, mTopicsContainerView.frame.size.width, 44)
+        self.view.addSubview(questionButtonsView)
+        questionButtonsView.backgroundColor = UIColor.whiteColor()
+        
+        
+        let  mScribbleButton = UIButton(frame: CGRectMake(20,  0, 160 ,mTopbarImageView.frame.size.height))
+        questionButtonsView.addSubview(mScribbleButton)
+        mScribbleButton.addTarget(self, action: #selector(SSTeacherQuestionController.onScribbleButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mScribbleButton.setTitleColor(standard_Button, forState: .Normal)
+        mScribbleButton.setTitle("Scribble", forState: .Normal)
+        mScribbleButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
+        mScribbleButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
+        
+        
+        let  mMatchColumn = UIButton(frame: CGRectMake(220,  0, 160 ,mTopbarImageView.frame.size.height))
+        questionButtonsView.addSubview(mMatchColumn)
+        mMatchColumn.addTarget(self, action: #selector(SSTeacherQuestionController.onMTCButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mMatchColumn.setTitleColor(standard_Button, forState: .Normal)
+        mMatchColumn.setTitle("MTC", forState: .Normal)
+        mMatchColumn.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
+        mMatchColumn.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
+        
+        
+        let  mMRQ = UIButton(frame: CGRectMake(mTopbarImageView.frame.size.width - 180 ,  0, 160 ,mTopbarImageView.frame.size.height))
+        questionButtonsView.addSubview(mMRQ)
+        mMRQ.addTarget(self, action: #selector(SSTeacherQuestionController.onMRQButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mMRQ.setTitleColor(standard_Button, forState: .Normal)
+        mMRQ.setTitle("MRQ", forState: .Normal)
+        mMRQ.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        mMRQ.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
+        
+        
+        
+        
         
         
     }
@@ -316,9 +357,11 @@ class SSTeacherQuestionController: UIViewController,QuestionCellDelegate,SSTeach
         
         self.preferredContentSize = CGSize(width: 600, height: height)
         
-        mTopicsContainerView.frame = CGRectMake(0, 44, mTopicsContainerView.frame.size.width, height - 44)
+        mTopicsContainerView.frame = CGRectMake(0, 44, mTopicsContainerView.frame.size.width, height - 88)
         
         mTopicsContainerView.contentSize = CGSizeMake(0, positionY + 20)
+        
+        questionButtonsView.frame = CGRectMake(0, mTopicsContainerView.frame.size.height + mTopicsContainerView.frame.origin.y, mTopicsContainerView.frame.size.width, 44)
         
         mActivityIndicator.stopAnimating()
     }
@@ -358,6 +401,44 @@ class SSTeacherQuestionController: UIViewController,QuestionCellDelegate,SSTeach
             delegate().delegateQuestionBackButtonPressed!(currentMainTopicID, withMainTopicName: currentMainTopicName)
         }
     }
+    
+    
+    
+    func onScribbleButton()
+    {
+        
+        if isCurrentSubtopicStarted == true
+        {
+            
+            
+            
+            if delegate().respondsToSelector(#selector(SSTeacherQuestionControllerDelegate.delegateScribbleQuestionWithSubtopicId(_:)))
+            {
+                delegate().delegateScribbleQuestionWithSubtopicId!(currentSubTopicId)
+                
+                popover().dismissPopoverAnimated(true)
+            }
+        }
+        else
+        {
+            
+        }
+        
+      
+    }
+    
+    
+    func onMTCButton()
+    {
+        
+    }
+    
+    func onMRQButton()
+    {
+        
+    }
+    
+    
     
     // MARK: - Question delegate functions
     

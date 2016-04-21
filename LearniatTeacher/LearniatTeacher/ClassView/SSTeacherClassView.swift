@@ -1210,9 +1210,15 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
             cumulativeTimer.invalidate()
             
         }
-        
-
     }
+    
+    func delegateScribbleQuestionWithSubtopicId(subTopicID: String)
+    {
+        let mScriblleview =  SSTeacherScribbleQuestion(frame:CGRectMake(0  ,0,self.view.frame.size.width,self.view.frame.size.height))
+        self.view.addSubview(mScriblleview)
+        
+    }
+    
     
     // MARK: - live Question delegate functions
     
