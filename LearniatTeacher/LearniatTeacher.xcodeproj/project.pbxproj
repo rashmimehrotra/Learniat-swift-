@@ -66,6 +66,7 @@
 		5326079B1CA91788002FF684 /* SingleResponceOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5326079A1CA91788002FF684 /* SingleResponceOption.swift */; };
 		5326079D1CA917EC002FF684 /* SingleResponceOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5326079C1CA917EC002FF684 /* SingleResponceOptionCell.swift */; };
 		533063F61CC88F590035CCDE /* SSTeacherScribbleQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533063F51CC88F590035CCDE /* SSTeacherScribbleQuestion.swift */; };
+		5330645F1CC8E3A50035CCDE /* SZTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5330645E1CC8E3A50035CCDE /* SZTextView.m */; };
 		533233331CAFD2CE00971EC7 /* SubmissionMRQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533233321CAFD2CE00971EC7 /* SubmissionMRQView.swift */; };
 		533233481CAFE09C00971EC7 /* SSTeacherAggregatePopOverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533233471CAFE09C00971EC7 /* SSTeacherAggregatePopOverController.swift */; };
 		5360E6BE1CBDF6D400AFE9FF /* StudentEvaluationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5360E6BD1CBDF6D400AFE9FF /* StudentEvaluationDetails.swift */; };
@@ -448,10 +449,8 @@
 		5326079A1CA91788002FF684 /* SingleResponceOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleResponceOption.swift; sourceTree = "<group>"; };
 		5326079C1CA917EC002FF684 /* SingleResponceOptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleResponceOptionCell.swift; sourceTree = "<group>"; };
 		533063F51CC88F590035CCDE /* SSTeacherScribbleQuestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSTeacherScribbleQuestion.swift; sourceTree = "<group>"; };
-		533063F81CC8A2620035CCDE /* GeometryCertificate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeometryCertificate.h; sourceTree = "<group>"; };
-		533063F91CC8A2620035CCDE /* MathCertificate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MathCertificate.h; sourceTree = "<group>"; };
-		533063FA1CC8A2620035CCDE /* MutilineEditorCertificate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MutilineEditorCertificate.h; sourceTree = "<group>"; };
-		533063FB1CC8A2620035CCDE /* MutilineSubCertificate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MutilineSubCertificate.h; sourceTree = "<group>"; };
+		5330645D1CC8E3A50035CCDE /* SZTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZTextView.h; sourceTree = "<group>"; };
+		5330645E1CC8E3A50035CCDE /* SZTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZTextView.m; sourceTree = "<group>"; };
 		533233321CAFD2CE00971EC7 /* SubmissionMRQView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionMRQView.swift; sourceTree = "<group>"; };
 		533233471CAFE09C00971EC7 /* SSTeacherAggregatePopOverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSTeacherAggregatePopOverController.swift; sourceTree = "<group>"; };
 		5360E6BD1CBDF6D400AFE9FF /* StudentEvaluationDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentEvaluationDetails.swift; sourceTree = "<group>"; };
@@ -964,7 +963,6 @@
 		4DC246491CC1F6B500E01CA4 /* Objective-C_Class */ = {
 			isa = PBXGroup;
 			children = (
-				533063F71CC8A2620035CCDE /* MYScriptCertificate */,
 				4DC2464A1CC1F6B500E01CA4 /* ImageUploading.h */,
 				4DC2464B1CC1F6B500E01CA4 /* ImageUploading.m */,
 				4DC2464C1CC1F6B500E01CA4 /* RatingsPopOverViewController.h */,
@@ -1097,15 +1095,13 @@
 			path = QuestionCreation;
 			sourceTree = "<group>";
 		};
-		533063F71CC8A2620035CCDE /* MYScriptCertificate */ = {
+		5330645C1CC8E3A50035CCDE /* CustomTextView */ = {
 			isa = PBXGroup;
 			children = (
-				533063F81CC8A2620035CCDE /* GeometryCertificate.h */,
-				533063F91CC8A2620035CCDE /* MathCertificate.h */,
-				533063FA1CC8A2620035CCDE /* MutilineEditorCertificate.h */,
-				533063FB1CC8A2620035CCDE /* MutilineSubCertificate.h */,
+				5330645D1CC8E3A50035CCDE /* SZTextView.h */,
+				5330645E1CC8E3A50035CCDE /* SZTextView.m */,
 			);
-			path = MYScriptCertificate;
+			path = CustomTextView;
 			sourceTree = "<group>";
 		};
 		533233461CAFE05900971EC7 /* AgregateDrillDown */ = {
@@ -1179,6 +1175,7 @@
 		53676AF71CA63B7F00CADE4D /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				5330645C1CC8E3A50035CCDE /* CustomTextView */,
 				5360E6C31CBE456D00AFE9FF /* Donart Chart */,
 				5373011E1CB665E300E76753 /* Drawing */,
 				539567271CB5281E009B0100 /* StarRatingsView */,
@@ -2722,6 +2719,7 @@
 				53676CF01CA63B7F00CADE4D /* XMPPMessage+XEP_0085.m in Sources */,
 				53CA5A281CB23568008C42B0 /* YLProgressBar.m in Sources */,
 				53676D1A1CA63B7F00CADE4D /* XMPPIDTracker.m in Sources */,
+				5330645F1CC8E3A50035CCDE /* SZTextView.m in Sources */,
 				5326079D1CA917EC002FF684 /* SingleResponceOptionCell.swift in Sources */,
 				53676CE11CA63B7F00CADE4D /* XMPPvCardTempBase.m in Sources */,
 				53676CEB1CA63B7F00CADE4D /* XMPPIQ+XEP_0066.m in Sources */,

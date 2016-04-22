@@ -1185,7 +1185,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
             {
                 mQuestionNamelabel.text = questionName
             }
-            
         }
     }
     
@@ -1214,8 +1213,10 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     
     func delegateScribbleQuestionWithSubtopicId(subTopicID: String)
     {
-        let mScriblleview =  SSTeacherScribbleQuestion(frame:CGRectMake(0  ,0,self.view.frame.size.width,self.view.frame.size.height))
-        self.view.addSubview(mScriblleview)
+        let mScribbleview =  SSTeacherScribbleQuestion(frame:CGRectMake(0  ,0,self.view.frame.size.width,self.view.frame.size.height))
+        self.view.addSubview(mScribbleview)
+        mScribbleview.setdelegate(self)
+        mScribbleview.setCurrentTopicId(startedSubTopicID)
         
     }
     

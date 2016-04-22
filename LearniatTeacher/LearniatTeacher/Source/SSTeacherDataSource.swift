@@ -83,6 +83,12 @@ let kServiceGetMaxStudentRegisterd  =   "GetMaxStudentRegisterd"
 
 let kServiceConfigureGrid           =   "ConfigureGrid"
 
+let kuploadTeacherScribble          =   "UploadTeacherScribble"
+
+let kRecordQuestion                 =   "RecordQuestion"
+
+let kServiceGetQuestion             =   "GetQuestion"
+
 
 @objc protocol SSTeacherDataSourceDelegate
 {
@@ -139,6 +145,12 @@ let kServiceConfigureGrid           =   "ConfigureGrid"
     optional func didGetVolunteeringEndedWithDetails(details:AnyObject)
     
     optional func didGetLessonPlanSavedWithdetails(details:AnyObject)
+    
+    optional func didGetScribbleUploadedWithDetaisl(details:AnyObject)
+    
+    optional func didGetQuestionRecordedWithDetaisl(details:AnyObject)
+    
+    optional func didGetQuestionWithDetails(details:AnyObject)
 }
 
 
@@ -464,6 +476,19 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     }
     
     
+    func fetchQuestionWithQuestionLogId(questionLogId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        setdelegate(delegate)
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>FetchQuestion</Service><QuestionLogId>%@</QuestionLogId></Action></Sunstone>",URLPrefix,questionLogId)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceGetQuestion, withDelegate: self, withRequestType: eHTTPGetRequest)
+    }
+
+    
+    
     
     
     
@@ -668,6 +693,37 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     }
     
     
+    
+    
+    func uploadTeacherScribble(ScribbleId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        setdelegate(delegate)
+        
+        let manager = APIManager()
+        
+        
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>UploadTeacherScribble</Service><ImagePath>%@</ImagePath><TeacherId>%@</TeacherId></Action></Sunstone>",URLPrefix,ScribbleId,currentUserId)
+        
+        manager.downloadDataURL(urlString, withServiceName: kuploadTeacherScribble, withDelegate: self, withRequestType: eHTTPGetRequest)
+    }
+    
+    func recordQuestionWithScribbleId(ScribbleId:String,withQuestionName questionName:String,WithType Type:String,withTopicId topicd:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        setdelegate(delegate)
+        
+        let manager = APIManager()
+        
+        
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>RecordQuestion</Service><SessionId>%@</SessionId><QuestionType>%@</QuestionType><TopicId>%@</TopicId><TeacherId>%@</TeacherId><ScribbleId>%@</ScribbleId><QuestionTitle>%@</QuestionTitle></Action></Sunstone>",URLPrefix,currentLiveSessionId,Type,topicd,currentUserId,ScribbleId,questionName)
+        
+        manager.downloadDataURL(urlString, withServiceName: kRecordQuestion, withDelegate: self, withRequestType: eHTTPGetRequest)
+    }
+    
+    
+    
+    
     // MARK: - API Delegate Functions
     func delegateDidGetServiceResponseWithDetails( dict: NSMutableDictionary!, WIthServiceName serviceName: String!)
     {
@@ -857,6 +913,27 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
             if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetLessonPlanSavedWithdetails(_:)))
             {
                 delegate().didGetLessonPlanSavedWithdetails!(refinedDetails)
+            }
+        }
+        else if serviceName == kuploadTeacherScribble
+        {
+            if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetScribbleUploadedWithDetaisl(_:)))
+            {
+                delegate().didGetScribbleUploadedWithDetaisl!(refinedDetails)
+            }
+        }
+        else if serviceName == kRecordQuestion
+        {
+            if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetQuestionRecordedWithDetaisl(_:)))
+            {
+                delegate().didGetQuestionRecordedWithDetaisl!(refinedDetails)
+            }
+        }
+        else if serviceName == kServiceGetQuestion
+        {
+            if delegate().respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetQuestionWithDetails(_:)))
+            {
+                delegate().didGetQuestionWithDetails!(refinedDetails)
             }
         }
         

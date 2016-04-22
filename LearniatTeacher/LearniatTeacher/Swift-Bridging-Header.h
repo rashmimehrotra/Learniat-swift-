@@ -25,4 +25,5 @@
 #import "DonutChartView.h"
 #import "colorpopOverViewController.h"
 #import "SSSettingsViewController.h"
+#import "SZTextView.h"
 #endif /* Swift_Bridging_Header_h */

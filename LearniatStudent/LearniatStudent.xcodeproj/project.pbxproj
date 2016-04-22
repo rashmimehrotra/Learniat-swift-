@@ -1,0 +1,295 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5330646D1CC9DAAE0035CCDE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5330646C1CC9DAAE0035CCDE /* AppDelegate.swift */; };
+		5330646F1CC9DAAE0035CCDE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5330646E1CC9DAAE0035CCDE /* ViewController.swift */; };
+		533064721CC9DAAE0035CCDE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 533064701CC9DAAE0035CCDE /* Main.storyboard */; };
+		533064741CC9DAAE0035CCDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 533064731CC9DAAE0035CCDE /* Assets.xcassets */; };
+		533064771CC9DAAE0035CCDE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 533064751CC9DAAE0035CCDE /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		533064691CC9DAAE0035CCDE /* LearniatStudent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearniatStudent.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5330646C1CC9DAAE0035CCDE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5330646E1CC9DAAE0035CCDE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		533064711CC9DAAE0035CCDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		533064731CC9DAAE0035CCDE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		533064761CC9DAAE0035CCDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		533064781CC9DAAE0035CCDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		533064661CC9DAAE0035CCDE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		533064601CC9DAAE0035CCDE = {
+			isa = PBXGroup;
+			children = (
+				5330646B1CC9DAAE0035CCDE /* LearniatStudent */,
+				5330646A1CC9DAAE0035CCDE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5330646A1CC9DAAE0035CCDE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				533064691CC9DAAE0035CCDE /* LearniatStudent.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5330646B1CC9DAAE0035CCDE /* LearniatStudent */ = {
+			isa = PBXGroup;
+			children = (
+				5330646C1CC9DAAE0035CCDE /* AppDelegate.swift */,
+				5330646E1CC9DAAE0035CCDE /* ViewController.swift */,
+				533064701CC9DAAE0035CCDE /* Main.storyboard */,
+				533064731CC9DAAE0035CCDE /* Assets.xcassets */,
+				533064751CC9DAAE0035CCDE /* LaunchScreen.storyboard */,
+				533064781CC9DAAE0035CCDE /* Info.plist */,
+			);
+			path = LearniatStudent;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		533064681CC9DAAE0035CCDE /* LearniatStudent */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5330647B1CC9DAAE0035CCDE /* Build configuration list for PBXNativeTarget "LearniatStudent" */;
+			buildPhases = (
+				533064651CC9DAAE0035CCDE /* Sources */,
+				533064661CC9DAAE0035CCDE /* Frameworks */,
+				533064671CC9DAAE0035CCDE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LearniatStudent;
+			productName = LearniatStudent;
+			productReference = 533064691CC9DAAE0035CCDE /* LearniatStudent.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		533064611CC9DAAE0035CCDE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = Mindshift;
+				TargetAttributes = {
+					533064681CC9DAAE0035CCDE = {
+						CreatedOnToolsVersion = 7.3;
+					};
+				};
+			};
+			buildConfigurationList = 533064641CC9DAAE0035CCDE /* Build configuration list for PBXProject "LearniatStudent" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 533064601CC9DAAE0035CCDE;
+			productRefGroup = 5330646A1CC9DAAE0035CCDE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				533064681CC9DAAE0035CCDE /* LearniatStudent */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		533064671CC9DAAE0035CCDE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				533064771CC9DAAE0035CCDE /* LaunchScreen.storyboard in Resources */,
+				533064741CC9DAAE0035CCDE /* Assets.xcassets in Resources */,
+				533064721CC9DAAE0035CCDE /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		533064651CC9DAAE0035CCDE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5330646F1CC9DAAE0035CCDE /* ViewController.swift in Sources */,
+				5330646D1CC9DAAE0035CCDE /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		533064701CC9DAAE0035CCDE /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				533064711CC9DAAE0035CCDE /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		533064751CC9DAAE0035CCDE /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				533064761CC9DAAE0035CCDE /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		533064791CC9DAAE0035CCDE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		5330647A1CC9DAAE0035CCDE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5330647C1CC9DAAE0035CCDE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = LearniatStudent/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.LearniatStudent;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		5330647D1CC9DAAE0035CCDE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = LearniatStudent/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.LearniatStudent;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		533064641CC9DAAE0035CCDE /* Build configuration list for PBXProject "LearniatStudent" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				533064791CC9DAAE0035CCDE /* Debug */,
+				5330647A1CC9DAAE0035CCDE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5330647B1CC9DAAE0035CCDE /* Build configuration list for PBXNativeTarget "LearniatStudent" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5330647C1CC9DAAE0035CCDE /* Debug */,
+				5330647D1CC9DAAE0035CCDE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 533064611CC9DAAE0035CCDE /* Project object */;
+}
