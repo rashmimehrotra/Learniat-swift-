@@ -63,7 +63,7 @@ class QuerySelectSubView: UIView
         checkBoxImage.image = UIImage(named:"Checked.png");
         
         self.addSubview(checkBoxImage);
-        m_checkBoxButton.addTarget(self, action: "checkMarkPressed", forControlEvents: UIControlEvents.TouchUpInside)
+        m_checkBoxButton.addTarget(self, action: #selector(QuerySelectSubView.checkMarkPressed), forControlEvents: UIControlEvents.TouchUpInside)
 
         
         

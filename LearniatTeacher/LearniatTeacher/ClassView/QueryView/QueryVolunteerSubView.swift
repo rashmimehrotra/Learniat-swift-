@@ -37,7 +37,7 @@ class QueryVolunteerSubView: UIView
         mVolunteerButton.setTitleColor(standard_Button, forState: .Normal)
         mVolunteerButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
         mVolunteerButton.titleLabel?.font = UIFont(name: HelveticaNeueThin, size: 50)
-        mVolunteerButton.addTarget(self, action: "onVonulteerButton", forControlEvents: .TouchUpInside)
+        mVolunteerButton.addTarget(self, action: #selector(QueryVolunteerSubView.onVonulteerButton), forControlEvents: .TouchUpInside)
         mVolunteerButton.backgroundColor = UIColor.clearColor()
 
         

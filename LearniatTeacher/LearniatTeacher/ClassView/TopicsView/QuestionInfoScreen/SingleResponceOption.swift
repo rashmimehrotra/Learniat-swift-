@@ -72,7 +72,7 @@ class SingleResponceOption : UIViewController
         
         
         let  mDoneButton = UIButton(frame: CGRectMake(headerView.frame.size.width - 210, 0, 200, 50))
-        mDoneButton.addTarget(self, action: "onDoneButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mDoneButton.addTarget(self, action: #selector(SingleResponceOption.onDoneButton), forControlEvents: UIControlEvents.TouchUpInside)
         mDoneButton.setTitleColor(standard_Button, forState: .Normal)
         mDoneButton.setTitle("Done", forState: .Normal)
         mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
@@ -129,7 +129,7 @@ class SingleResponceOption : UIViewController
                    
                     
                     
-                    for var indexValu = 0 ;indexValu < optionArray.count; indexValu++
+                    for var indexValu = 0 ;indexValu < optionArray.count; indexValu += 1
                     {
                         let optionDict = optionArray.objectAtIndex(indexValu)
                         

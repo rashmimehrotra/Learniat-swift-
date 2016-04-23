@@ -87,7 +87,7 @@ class MRQAggregateView: UIView
         
         var positionY:CGFloat = 0
         
-        for(var index = 0; index < studentIdArray.count; index++)
+        for(var index = 0; index < studentIdArray.count; index += 1)
         {
             let studentId = studentIdArray[index]
             let studentName = studentNameArray[index]

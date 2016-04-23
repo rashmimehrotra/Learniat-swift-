@@ -65,7 +65,7 @@ class MatchColumnOption : UIViewController
         
         
         let  mDoneButton = UIButton(frame: CGRectMake(headerView.frame.size.width - 220, 0, 200, 50))
-        mDoneButton.addTarget(self, action: "onDoneButton", forControlEvents: UIControlEvents.TouchUpInside)
+        mDoneButton.addTarget(self, action: #selector(MatchColumnOption.onDoneButton as (MatchColumnOption) -> () -> ()), forControlEvents: UIControlEvents.TouchUpInside)
         mDoneButton.setTitleColor(standard_Button, forState: .Normal)
         mDoneButton.setTitle("Done", forState: .Normal)
         mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
@@ -134,7 +134,7 @@ class MatchColumnOption : UIViewController
         
         
         
-        for var index = 0; index < optionArray.count ; index++
+        for index in 0 ..< optionArray.count 
         {
             
            let optionDict = optionArray.objectAtIndex(index)
@@ -163,7 +163,7 @@ class MatchColumnOption : UIViewController
         
         if leftSideArray.count == RightSideArray.count
         {
-            for var index = 0; index < leftSideArray.count ; index++
+            for index in 0 ..< leftSideArray.count 
             {
                 
                 let leftSideOptionDict = leftSideArray.objectAtIndex(index)
@@ -210,7 +210,7 @@ class MatchColumnOption : UIViewController
         }
         else if leftSideArray.count < RightSideArray.count
         {
-            for var index = 0; index < leftSideArray.count ; index++
+            for var index = 0; index < leftSideArray.count ; index += 1
             {
                 
                 let leftSideOptionDict = leftSideArray.objectAtIndex(index)
@@ -257,7 +257,7 @@ class MatchColumnOption : UIViewController
         }
         else
         {
-            for var index = 0; index < RightSideArray.count ; index++
+            for var index = 0; index < RightSideArray.count ; index += 1
             {
                 
                 let leftSideOptionDict = leftSideArray.objectAtIndex(index)
