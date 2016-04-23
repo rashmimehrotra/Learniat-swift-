@@ -294,23 +294,24 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         
         
         
-        mJoinStudentProgressBar.frame = CGRectMake((mContainerView.frame.size.width - (mContainerView.frame.size.width / 2) ) /  2 , (mContainerView.frame.size.height - (mContainerView.frame.size.width / 2) ) /  2 , (mContainerView.frame.size.width / 2), (mContainerView.frame.size.width / 2))
+        mJoinStudentProgressBar.frame = CGRectMake((mContainerView.frame.size.width - (mContainerView.frame.size.width / 1.6) ) /  2 , (mContainerView.frame.size.height - (mContainerView.frame.size.width / 1.6) ) /  2 , (mContainerView.frame.size.width / 1.6), (mContainerView.frame.size.width / 1.6))
         mContainerView.addSubview(mJoinStudentProgressBar)
         mJoinStudentProgressBar.backgroundColor = UIColor.clearColor()
         mJoinStudentProgressBar.progress = 20
         
-        mJoinStudentProgressBar.lineWidth = 4
+        mJoinStudentProgressBar.lineWidth = 6
         
         
         
         
         
-        mJoinedPercentageLabel.frame = CGRectMake(15, (mJoinStudentProgressBar.frame.size.height-(mJoinStudentProgressBar.frame.size.height / 6) )/2, mJoinStudentProgressBar.frame.size.width - 30 , mJoinStudentProgressBar.frame.size.height / 6)
+        mJoinedPercentageLabel.frame = CGRectMake(0, (mJoinStudentProgressBar.frame.size.height-((mJoinStudentProgressBar.frame.size.height / 6) + 30) )/2, mJoinStudentProgressBar.frame.size.width , mJoinStudentProgressBar.frame.size.height / 6)
         mJoinStudentProgressBar.addSubview(mJoinedPercentageLabel)
         mJoinedPercentageLabel.textAlignment = .Center
-        mJoinedPercentageLabel.font = UIFont(name: helveticaRegular, size: 40)
+        mJoinedPercentageLabel.font = UIFont(name: HelveticaNeueThin, size: 40)
         mJoinedPercentageLabel.lineBreakMode = .ByTruncatingMiddle
         mJoinedPercentageLabel.textColor = blackTextColor
+        mJoinedPercentageLabel.backgroundColor = UIColor.clearColor()
         
 
         

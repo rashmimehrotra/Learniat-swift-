@@ -572,7 +572,6 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     
     func smhDidgetTimeExtendedWithDetails(Details: AnyObject)
     {
-//        print(Details)
         
         delegateRefreshSchedule()
     }

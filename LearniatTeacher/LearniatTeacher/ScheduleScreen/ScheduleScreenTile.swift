@@ -167,7 +167,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         updateSessionColorWithSessionState(sessionDetails.objectForKey(kSessionState) as! String)
         
         updatSeatinglabelWithDetials(details)
-        let classNameWithRoom = String(format:"%@(%@)",(details.objectForKey(kClassName) as! String),(details.objectForKey(kRoomName) as! String))
+        let classNameWithRoom = String(format:"%@ (%@) (%@)",(details.objectForKey(kClassName) as! String),(details.objectForKey(kRoomName) as! String),(details.objectForKey(kSessionId) as! String))
         mClassName.text = classNameWithRoom
     
         

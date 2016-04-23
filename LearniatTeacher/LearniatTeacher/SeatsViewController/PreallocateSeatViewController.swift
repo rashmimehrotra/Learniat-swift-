@@ -81,7 +81,7 @@ class PreallocateSeatViewController: UIViewController,SSTeacherDataSourceDelegat
         
         mGridContainerView.frame = CGRectMake(10, mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + 10 , self.view.frame.size.width - 20, self.view.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height) - 50 )
         self.view.addSubview(mGridContainerView)
-        mGridContainerView.backgroundColor = UIColor.clearColor()
+        mGridContainerView.backgroundColor = whiteBackgroundColor
 //        mGridContainerView.hidden = true
         
         

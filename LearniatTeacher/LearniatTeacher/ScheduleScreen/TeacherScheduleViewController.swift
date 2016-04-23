@@ -201,12 +201,14 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
         
         let currentDate = NSDate()
-        mCurrentTimeLine = CurrentTimeLineView(frame: CGRectMake(30, 0 , self.view.frame.size.width-30, 10))
+        mCurrentTimeLine = CurrentTimeLineView(frame: CGRectMake(0, 0 , self.view.frame.size.width, 10))
         mScrollView.addSubview(mCurrentTimeLine)
         mCurrentTimeLine.addToCurrentTimewithHours(getPositionWithHour(currentDate.hour(), withMinute: currentDate.minute()))
         mScrollView.contentOffset = CGPointMake(0,mCurrentTimeLine.frame.origin.y-self.view.frame.size.height/3);
+        mCurrentTimeLine.setCurrentTimeLabel(currentDate.toShortTimeString())
+        checkToHideLabelwithDate(currentDate)
         
-        
+        mScrollView.bringSubviewToFront(mCurrentTimeLine)
         
          timer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: #selector(TeacherScheduleViewController.timerAction), userInfo: nil, repeats: true)
     }
@@ -250,7 +252,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             }
             hourlabel.font = UIFont (name: helveticaRegular, size: 16)
             hourlabel.textAlignment = NSTextAlignment.Right
-            
+            hourlabel.tag = index
             
             
             let hourLineView = ScheduleScreenLineView()
@@ -300,6 +302,9 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
         
         mCurrentTimeLine.addToCurrentTimewithHours(getPositionWithHour(currentHour, withMinute: currentDate.minute()))
+        mCurrentTimeLine.setCurrentTimeLabel(currentDate.toShortTimeString())
+        checkToHideLabelwithDate(currentDate)
+        mScrollView.bringSubviewToFront(mCurrentTimeLine)
     }
     
     
@@ -429,7 +434,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             let StartPositionOfTile = getPositionWithHour(startDate.hourValue(), withMinute: startDate.minuteValue())
             
             
-            let scheduleTileView = ScheduleScreenTile(frame: CGRectMake(75, StartPositionOfTile, self.view.frame.size.width-85, totalSize))
+            let scheduleTileView = ScheduleScreenTile(frame: CGRectMake(80, StartPositionOfTile, self.view.frame.size.width-90, totalSize))
             mScrollView.addSubview(scheduleTileView)
             scheduleTileView.setdelegate(self)
             
@@ -460,6 +465,11 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         let currentDate = NSDate()
         let currentHour = (currentDate.hour())
         mCurrentTimeLine.addToCurrentTimewithHours(getPositionWithHour(currentHour, withMinute: currentDate.minute()))
+        
+        mCurrentTimeLine.setCurrentTimeLabel(currentDate.toShortTimeString())
+        mScrollView.bringSubviewToFront(mCurrentTimeLine)
+        checkToHideLabelwithDate(currentDate)
+        
         UIView.animateWithDuration(0.5, animations: {
             self.mScrollView.contentOffset = CGPointMake(0,self.mCurrentTimeLine.frame.origin.y - self.view.frame.size.height/3);
         })
@@ -1214,6 +1224,37 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
          self.sendTimeExtendMessageWithDetails(details, withMessage: "Class has begun")
        
         self.presentViewController(preallotController, animated: true, completion: nil)
+    }
+    
+    func checkToHideLabelwithDate(currentDate:NSDate)
+    {
+        
+        
+        for index in 0 ..< 25
+        {
+            if let hourLabel  = mScrollView.viewWithTag(index) as? UILabel
+            {
+                hourLabel.hidden = false
+            }
+        }
+        
+        
+        if currentDate.minute() > 55
+        {
+            if let hourLabel  = mScrollView.viewWithTag(currentDate.hour() + 1) as? UILabel
+            {
+                hourLabel.hidden = true
+            }
+        }
+        else if currentDate.minute() < 5
+        {
+            if let hourLabel  = mScrollView.viewWithTag(currentDate.hour()) as? UILabel
+            {
+                hourLabel.hidden = true
+            }
+        }
+        
+
     }
     
 }

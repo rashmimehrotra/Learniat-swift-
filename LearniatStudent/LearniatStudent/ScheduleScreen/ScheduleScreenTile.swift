@@ -159,9 +159,6 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         
         
         loadAllViewObjects()
-        
-        print(details)
-        
         sessionDetails = details
 
         updateSessionColorWithSessionState(sessionDetails.objectForKey(kSessionState) as! String)

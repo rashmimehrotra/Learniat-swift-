@@ -12,7 +12,7 @@ import Foundation
     
     
     
-    optional func delegateOnInfoButtonWithDetails(questionDetails:AnyObject, withButton infoButton:UIButton)
+    optional func delegateOnInfoButtonWithDetails(questionDetails:AnyObject, withButton infoButton:UIImageView)
     
 }
 
@@ -27,6 +27,8 @@ class LessonPlanQuestionViewCell: UIView
     var mIndexValuesLabel   :UILabel   = UILabel()
     
     var mInfoButtonButton    :UIButton  = UIButton()
+    
+    var mInfoButtonImage   = UIImageView()
     
     var mQuestionTypeLabel  :UILabel   = UILabel()
     
@@ -76,11 +78,12 @@ class LessonPlanQuestionViewCell: UIView
         mQuestionTypeLabel.lineBreakMode = .ByTruncatingMiddle
         
         
+        self.addSubview(mInfoButtonImage)
+        mInfoButtonImage.image = UIImage(named: "infoButton.png")
+        mInfoButtonImage.contentMode = .ScaleAspectFill
+        
         self.addSubview(mInfoButtonButton)
         mInfoButtonButton.addTarget(self, action: #selector(LessonPlanQuestionViewCell.onInfoButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mInfoButtonButton.setImage(UIImage(named: "infoButton.png"), forState: .Normal)
-        mInfoButtonButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
-        mInfoButtonButton.imageView?.contentMode = .ScaleAspectFill
         
     }
     
@@ -102,7 +105,7 @@ class LessonPlanQuestionViewCell: UIView
         
         if let questionName = details.objectForKey("Name")as? String
         {
-            mQuestionNameLabel.text = "\(questionCout).\(questionName)"
+            mQuestionNameLabel.text = "\(questionCout). \(questionName)"
             
             height = heightForView(questionName, font: mQuestionNameLabel.font, width: mQuestionNameLabel.frame.size.width)
             
@@ -182,23 +185,26 @@ class LessonPlanQuestionViewCell: UIView
             if(questionType.isEqualToString(kText))
             {
                 
-                mQuestionTypeLabel.text = "TEXT";
+                mQuestionTypeLabel.text = questionType as String;
                 mInfoButtonButton.hidden = true
+                mInfoButtonImage.hidden = true
                 
             }
             else if(questionType.isEqualToString(kOverlayScribble))
             {
                 
-                mQuestionTypeLabel.text = "SCRIBBLE";
+                mQuestionTypeLabel.text = questionType as String;
                 mInfoButtonButton.hidden = false
+                mInfoButtonImage.hidden = false
                 
                 
             }
             else if(questionType.isEqualToString(kFreshScribble))
             {
                 
-                mQuestionTypeLabel.text = "FRESH SCRIBBLE";
+                mQuestionTypeLabel.text = questionType as String;
                 mInfoButtonButton.hidden = true
+                mInfoButtonImage.hidden =  true
                 
                 
             }
@@ -206,24 +212,27 @@ class LessonPlanQuestionViewCell: UIView
             else if(questionType.isEqualToString(kMRQ))
             {
                 
-                mQuestionTypeLabel.text = "MULTIPLE RESPONSE";
+                mQuestionTypeLabel.text = questionType as String;
                 mInfoButtonButton.hidden = false
+                mInfoButtonImage.hidden = false
                 
                 
             }
             else if(questionType.isEqualToString(kMCQ))
             {
                 
-                mQuestionTypeLabel.text = "SINGLE RESPONSE";
+                mQuestionTypeLabel.text = questionType as String;
                 mInfoButtonButton.hidden = false
+                mInfoButtonImage.hidden =  false
                 
                 
             }
             else
             {
                 
-                mQuestionTypeLabel.text = "MATCH COLOUMN";
+                mQuestionTypeLabel.text = questionType as String;
                 mInfoButtonButton.hidden = false
+                mInfoButtonImage.hidden =  false
                 
             }
             
@@ -236,8 +245,9 @@ class LessonPlanQuestionViewCell: UIView
         mQuestionTypeLabel.frame = CGRectMake(mIndexValuesLabel.frame.origin.x + mIndexValuesLabel.frame.size.width + 15 , mIndexValuesLabel.frame.origin.y, self.frame.size.width / 2, self.frame.size.width / 20)
         
         
-        mInfoButtonButton.frame = CGRectMake(self.frame.size.width - ((self.frame.size.width / 15 ) + 10) ,mQuestionNameLabel.frame.origin.y + mQuestionNameLabel.frame.size.height + 25, self.frame.size.width / 15, self.frame.size.width / 20)
+        mInfoButtonImage.frame = CGRectMake(self.frame.size.width - ((self.frame.size.width / 15 ) + 10) ,mQuestionNameLabel.frame.origin.y + mQuestionNameLabel.frame.size.height + 25, self.frame.size.width / 15, self.frame.size.width / 20)
         
+        mInfoButtonButton.frame = CGRectMake(0 ,0, self.frame.size.width, height)
         
         return height
         
@@ -261,7 +271,7 @@ class LessonPlanQuestionViewCell: UIView
     {
         if delegate().respondsToSelector(#selector(LessonPlanQuestionViewCellDelegate.delegateOnInfoButtonWithDetails(_:withButton:)))
         {
-            delegate().delegateOnInfoButtonWithDetails!(currentQuestionDetails, withButton: mInfoButtonButton)
+            delegate().delegateOnInfoButtonWithDetails!(currentQuestionDetails, withButton: mInfoButtonImage)
             
             
         }

@@ -112,7 +112,7 @@ class QuestionCell: UIView
         
         if let questionName = details.objectForKey("Name")as? String
         {
-            mQuestionNameLabel.text = "\(questionCout).\(questionName)"
+            mQuestionNameLabel.text = "\(questionCout). \(questionName)"
             
             height = heightForView(questionName, font: mQuestionNameLabel.font, width: mQuestionNameLabel.frame.size.width)
             
@@ -192,14 +192,14 @@ class QuestionCell: UIView
             if(questionType.isEqualToString(kText))
             {
                 
-                mQuestionTypeLabel.text = "TEXT";
+                mQuestionTypeLabel.text = questionType as String ;
                 mInfoButtonButton.hidden = true
                 
             }
             else if(questionType.isEqualToString(kOverlayScribble))
             {
             
-                mQuestionTypeLabel.text = "SCRIBBLE";
+                mQuestionTypeLabel.text = questionType as String;
                 mInfoButtonButton.hidden = false
             
             
@@ -207,7 +207,7 @@ class QuestionCell: UIView
             else if(questionType.isEqualToString(kFreshScribble))
             {
             
-                mQuestionTypeLabel.text = "FRESH SCRIBBLE";
+                mQuestionTypeLabel.text = questionType as String;
                 mInfoButtonButton.hidden = true
             
             
@@ -216,7 +216,7 @@ class QuestionCell: UIView
             else if(questionType.isEqualToString(kMRQ))
             {
             
-                mQuestionTypeLabel.text = "MULTIPLE RESPONSE";
+                mQuestionTypeLabel.text = questionType as String;
                 mInfoButtonButton.hidden = false
             
             
@@ -224,7 +224,7 @@ class QuestionCell: UIView
             else if(questionType.isEqualToString(kMCQ))
             {
             
-                mQuestionTypeLabel.text = "SINGLE RESPONSE";
+                mQuestionTypeLabel.text = questionType as String;
                  mInfoButtonButton.hidden = false
             
             
@@ -232,7 +232,7 @@ class QuestionCell: UIView
             else
             {
             
-                mQuestionTypeLabel.text = "MATCH COLOUMN";
+                mQuestionTypeLabel.text = questionType as String;
                  mInfoButtonButton.hidden = false
             
             }

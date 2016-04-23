@@ -35,7 +35,7 @@ class PrealloatSeatSubView: UIView{
         mainChariView.dashPattern = 4;
         mainChariView.spacePattern = 4;
         mainChariView.borderWidth = 1;
-        mainChariView.borderColor = LineGrayColor;
+        mainChariView.borderColor = lightGrayColor;
     }
     
     required init?(coder aDecoder: NSCoder)

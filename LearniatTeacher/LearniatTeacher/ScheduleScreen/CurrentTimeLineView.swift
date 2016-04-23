@@ -9,24 +9,37 @@
 import Foundation
 class CurrentTimeLineView: UIView
 {
+    
+    
+    var timeLabel = UILabel()
+    
     override init(frame: CGRect) {
         
         super.init(frame:frame)
         
         
+        timeLabel.frame = CGRectMake(0, 0, 50, self.frame.size.height)
+        self.addSubview(timeLabel)
+        timeLabel.font = UIFont(name: helveticaRegular, size: 10)
+        timeLabel.textColor = standard_Red
+        timeLabel.textAlignment = .Right
+        
+        let circleView = UIImageView()
+        circleView.frame = CGRectMake(timeLabel.frame.origin.x + timeLabel.frame.size.width + 5,0,10,10)
+        self.addSubview(circleView)
+        circleView.layer.cornerRadius =  circleView.frame.size.width/2
+        circleView.backgroundColor = standard_Yellow
+
+        
+        
         self.backgroundColor = UIColor.clearColor()
         
         let lineview =  UIImageView()
-        lineview.frame = CGRectMake(5, 4, self.frame.size.width,2)
+        lineview.frame = CGRectMake(circleView.frame.origin.x + (circleView.frame.size.width/2), 4, self.frame.size.width - (timeLabel.frame.origin.x + (timeLabel.frame.size.width/2)),2)
         self.addSubview(lineview)
-        lineview.backgroundColor = standard_Green
+        lineview.backgroundColor = standard_Yellow
 
         
-        let circleView = UIImageView()
-        circleView.frame = CGRectMake(0,0,10,10)
-        self.addSubview(circleView)
-        circleView.layer.cornerRadius =  circleView.frame.size.width/2
-        circleView.backgroundColor = standard_Green
         
         
         
@@ -42,6 +55,12 @@ class CurrentTimeLineView: UIView
         
        
     }
+    
+    func setCurrentTimeLabel(currentTime :String)
+    {
+        timeLabel.text = currentTime
+    }
+    
 
     
    

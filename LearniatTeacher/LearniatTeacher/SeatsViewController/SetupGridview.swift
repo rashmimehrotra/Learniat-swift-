@@ -8,8 +8,7 @@
 
 import Foundation
 import UIKit
-
-
+import Darwin
 
 
 
@@ -27,6 +26,7 @@ class SetupGridview: UIViewController,SSTeacherDataSourceDelegate,UIAlertViewDel
     
     let EndCornerImageView = UIImageView()
     
+    let starCornerImage = UIImageView()
     
     let cellDraggedCountValue  = UILabel()
     
@@ -89,7 +89,7 @@ class SetupGridview: UIViewController,SSTeacherDataSourceDelegate,UIAlertViewDel
         registerdStudentsLable.text = "YOU HAVE 0 STUDENTS REGISTERED FOR THIS CLASS. PLEASE SELECT A GRID WITH AT LEAST 0 SEATS"
         
         
-        containerView.frame = CGRectMake(10,(registerdStudentsLable.frame.origin.y + registerdStudentsLable.frame.size.height + 5) ,self.view.frame.size.width - 20 ,self.view.frame.size.height - (registerdStudentsLable.frame.origin.y + registerdStudentsLable.frame.size.height + 40))
+        containerView.frame = CGRectMake(20,(registerdStudentsLable.frame.origin.y + registerdStudentsLable.frame.size.height + 5) ,self.view.frame.size.width - 40 ,self.view.frame.size.height - (registerdStudentsLable.frame.origin.y + registerdStudentsLable.frame.size.height + 40))
         self.view.addSubview(containerView)
         
         
@@ -100,7 +100,7 @@ class SetupGridview: UIViewController,SSTeacherDataSourceDelegate,UIAlertViewDel
         
         let edgePan = UIPanGestureRecognizer(target: self, action: #selector(SetupGridview.OnDragView(_:)))
         
-        draggingView.addGestureRecognizer(edgePan)
+        containerView.addGestureRecognizer(edgePan)
         
         
         
@@ -113,6 +113,11 @@ class SetupGridview: UIViewController,SSTeacherDataSourceDelegate,UIAlertViewDel
         cellDraggedCountValue.layer.cornerRadius = 13
         cellDraggedCountValue.layer.masksToBounds = true
         cellDraggedCountValue.text = "1"
+       
+        
+        starCornerImage.image = UIImage(named: "Circle_Red.png")
+        containerView.addSubview(starCornerImage)
+        
         
         EndCornerImageView.image = UIImage(named: "Circle_Red.png")
         containerView.addSubview(EndCornerImageView)
@@ -151,6 +156,52 @@ class SetupGridview: UIViewController,SSTeacherDataSourceDelegate,UIAlertViewDel
             mActivityIndicatore.hidden = true
             mDoneButton.hidden = false
             registerdStudentsLable.text = "YOU HAVE \(maxRegStudents) STUDENTS REGISTERED FOR THIS CLASS. PLEASE SELECT A GRID WITH AT LEAST \(maxRegStudents) SEATS"
+            let  squrtFun = sqrt(maxRegStudents.floatValue)
+           
+            
+            
+            UIView.animateWithDuration(0.2, animations:
+                {
+                    
+                    if (squrtFun - floor(squrtFun) < 0.5)
+                    {
+                         self.draggingView.frame =  CGRectMake(0, 0, self.cellSize.width * CGFloat((squrtFun + 1)) , self.cellSize.height * CGFloat(squrtFun))
+                    }
+                    else
+                    {
+                         self.draggingView.frame =  CGRectMake(0, 0, self.cellSize.width * CGFloat(squrtFun) , self.cellSize.height * CGFloat(squrtFun))
+                    }
+                    
+              
+            })
+            
+            let cellColumnValue = draggingView.frame.size.width / cellSize.width
+            
+            let cellRowValue = draggingView.frame.size.height / cellSize.height
+            
+            
+            
+            let totalSeats = round(cellRowValue) * round(cellColumnValue)
+            
+            cellDraggedCountValue.text = "\(Float(totalSeats).cleanValue)"
+            
+            if Int(totalSeats) >= miniumSeats
+            {
+                draggingView.layer.borderColor = standard_Green.CGColor
+                cellDraggedCountValue.backgroundColor = standard_Green
+                EndCornerImageView.image = UIImage(named: "Circle_Green.png")
+                 starCornerImage.image = UIImage(named: "Circle_Green.png")
+            }
+            else
+            {
+                draggingView.layer.borderColor = standard_Red.CGColor
+                cellDraggedCountValue.backgroundColor = standard_Red
+                EndCornerImageView.image = UIImage(named: "Circle_Red.png")
+                starCornerImage.image = UIImage(named: "Circle_Red.png")
+            }
+            
+            
+            roundOffDragView()
             
         }
         
@@ -227,122 +278,155 @@ class SetupGridview: UIViewController,SSTeacherDataSourceDelegate,UIAlertViewDel
         
         draggingView.frame = CGRectMake(0, 0, cellSize.width, cellSize.height)
         EndCornerImageView.frame = CGRectMake(draggingView.frame.size.width - 22, draggingView.frame.size.height - 22, 40, 40)
+        starCornerImage.frame = CGRectMake(-18,-18, 40, 40)
         cellDraggedCountValue.frame =  CGRectMake(draggingView.frame.size.width - 20 , -10 ,40 ,25)
         containerView.bringSubviewToFront(draggingView)
         containerView.bringSubviewToFront(cellDraggedCountValue)
+        containerView.bringSubviewToFront(EndCornerImageView)
+        containerView.bringSubviewToFront(starCornerImage)
+        
         
 
     }
     
     func OnDragView(recognizer: UIPanGestureRecognizer)
     {
-        
-    
-        
         if recognizer.state == UIGestureRecognizerState.Changed
         {
-            
-            var translation = recognizer.locationInView(containerView)
-           
-            if translation.x < cellSize.width
-            {
-                translation.x = cellSize.width
-            }
-            if translation.y < cellSize.height
-            {
-                translation.y = cellSize.height
-            }
-            
-            
-             draggingView.frame = CGRectMake(0, 0, translation.x,translation.y)
-            
-             EndCornerImageView.frame = CGRectMake(draggingView.frame.size.width - 22, draggingView.frame.size.height - 22, 40, 40)
-            cellDraggedCountValue.frame =  CGRectMake(draggingView.frame.size.width - 20 , -10 ,40 ,25)
-            
-            let cellColumnValue = draggingView.frame.size.width / cellSize.width
-            
-            let cellRowValue = draggingView.frame.size.height / cellSize.height
-
-            
-            
-            let totalSeats = round(cellRowValue) * round(cellColumnValue)
-            
-            cellDraggedCountValue.text = "\(Float(totalSeats).cleanValue)"
-            
-            
-            if Int(totalSeats) >= miniumSeats
-            {
-                draggingView.layer.borderColor = standard_Green.CGColor
-              cellDraggedCountValue.backgroundColor = standard_Green
-                EndCornerImageView.image = UIImage(named: "Circle_Green.png")
-            }
-            else
-            {
-                draggingView.layer.borderColor = standard_Red.CGColor
-                 cellDraggedCountValue.backgroundColor = standard_Red
-                  EndCornerImageView.image = UIImage(named: "Circle_Red.png")
-            }
-            
-            
-            
-            
-            
-        
+            let translation = recognizer.locationInView(containerView)
+            chnagedFrameWithPoint(translation)
+        }
+        else if recognizer.state == UIGestureRecognizerState.Changed
+        {
+            let translation = recognizer.locationInView(containerView)
+            chnagedFrameWithPoint(translation)
         }
         else if recognizer.state == UIGestureRecognizerState.Ended
         {
-            
-            
-            var cellColumnValue = round(draggingView.frame.size.width / cellSize.width)
-            
-            var cellRowValue = round(draggingView.frame.size.height / cellSize.height)
-            
-            
-            if cellColumnValue <= 0
-            {
-                cellColumnValue = 1
-            }
-            if cellRowValue <= 0
-            {
-                cellRowValue = 1
-            }
-            
-            draggingView.frame = CGRectMake(0, 0, CGFloat(cellColumnValue) * cellSize.width ,CGFloat(cellRowValue) * cellSize.height)
-            
-            EndCornerImageView.frame = CGRectMake(draggingView.frame.size.width - 22, draggingView.frame.size.height - 22, 40, 40)
-            cellDraggedCountValue.frame =  CGRectMake(draggingView.frame.size.width - 20 , -10 ,40 ,25)
-            
-             let totalSeats = round(cellRowValue) * round(cellColumnValue)
-            
-            if Int(totalSeats) >= miniumSeats
-            {
-                draggingView.layer.borderColor = standard_Green.CGColor
-                cellDraggedCountValue.backgroundColor = standard_Green
-                EndCornerImageView.image = UIImage(named: "Circle_Green.png")
-            }
-            else
-            {
-                draggingView.layer.borderColor = standard_Red.CGColor
-                cellDraggedCountValue.backgroundColor = standard_Red
-                EndCornerImageView.image = UIImage(named: "Circle_Red.png")
-            }
-
-            
-            numberOfColumns = Int(cellColumnValue)
-            
-            numberOfRows = Int(cellRowValue)
-
+            roundOffDragView()
         }
         
     }
     
     
     
+    func chnagedFrameWithPoint(_translation:CGPoint)
+    {
+        var translation = _translation
+        
+        if translation.x < cellSize.width
+        {
+            translation.x = cellSize.width
+        }
+        if translation.y < cellSize.height
+        {
+            translation.y = cellSize.height
+        }
+        
+        
+        draggingView.frame = CGRectMake(0, 0, translation.x,translation.y)
+        
+        EndCornerImageView.frame = CGRectMake(draggingView.frame.size.width - 22, draggingView.frame.size.height - 22, 40, 40)
+        starCornerImage.frame = CGRectMake(-18,-18, 40, 40)
+        cellDraggedCountValue.frame =  CGRectMake(draggingView.frame.size.width - 20 , -10 ,40 ,25)
+        
+        let cellColumnValue = draggingView.frame.size.width / cellSize.width
+        
+        let cellRowValue = draggingView.frame.size.height / cellSize.height
+        
+        
+        
+        let totalSeats = round(cellRowValue) * round(cellColumnValue)
+        
+        cellDraggedCountValue.text = "\(Float(totalSeats).cleanValue)"
+        
+        
+        if Int(totalSeats) >= miniumSeats
+        {
+            draggingView.layer.borderColor = standard_Green.CGColor
+            cellDraggedCountValue.backgroundColor = standard_Green
+            EndCornerImageView.image = UIImage(named: "Circle_Green.png")
+            starCornerImage.image = UIImage(named: "Circle_Green.png")
+            
+        }
+        else
+        {
+            draggingView.layer.borderColor = standard_Red.CGColor
+            cellDraggedCountValue.backgroundColor = standard_Red
+            EndCornerImageView.image = UIImage(named: "Circle_Red.png")
+            starCornerImage.image = UIImage(named: "Circle_Red.png")
+        }
+        
+        
+        
+        
+        
+        
+    }
+    
+    func roundOffDragView()
+    {
+        var cellColumnValue = round(draggingView.frame.size.width / cellSize.width)
+        
+        var cellRowValue = round(draggingView.frame.size.height / cellSize.height)
+        
+        
+        if cellColumnValue <= 0
+        {
+            cellColumnValue = 1
+        }
+        if cellRowValue <= 0
+        {
+            cellRowValue = 1
+        }
+        
+        
+        UIView.animateWithDuration(0.2, animations:
+            {
+           self.draggingView.frame = CGRectMake(0, 0, CGFloat(cellColumnValue) * self.cellSize.width ,CGFloat(cellRowValue) * self.cellSize.height)
+            self.EndCornerImageView.frame = CGRectMake(self.draggingView.frame.size.width - 22, self.draggingView.frame.size.height - 22, 40, 40)
+            
+            self.starCornerImage.frame = CGRectMake(-18,-18, 40, 40)
+            
+            self.cellDraggedCountValue.frame =  CGRectMake(self.draggingView.frame.size.width - 20 , -10 ,40 ,25)
+        })
+
+        
+        
+        
+       
+        
+        let totalSeats = round(cellRowValue) * round(cellColumnValue)
+        
+        if Int(totalSeats) >= miniumSeats
+        {
+            draggingView.layer.borderColor = standard_Green.CGColor
+            cellDraggedCountValue.backgroundColor = standard_Green
+            EndCornerImageView.image = UIImage(named: "Circle_Green.png")
+            starCornerImage.image = UIImage(named: "Circle_Green.png")
+        }
+        else
+        {
+            draggingView.layer.borderColor = standard_Red.CGColor
+            cellDraggedCountValue.backgroundColor = standard_Red
+            EndCornerImageView.image = UIImage(named: "Circle_Red.png")
+            starCornerImage.image = UIImage(named: "Circle_Red.png")
+        }
+        
+        
+        numberOfColumns = Int(cellColumnValue)
+        
+        numberOfRows = Int(cellRowValue)
+        
+    }
     
     
     
     
 }
+
+
+
 
 
 extension Float {

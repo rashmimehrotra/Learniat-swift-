@@ -227,7 +227,7 @@ class SetUpClassRoom: UIViewController,SetupClassCellDelegate,SSTeacherDataSourc
             }
             else
             {
-                let alert = UIAlertController(title: "Alert", message: "You can not delete more seats", preferredStyle: UIAlertControllerStyle.Alert)
+                let alert = UIAlertController(title: "Alert", message: "You cannot delete more seats", preferredStyle: UIAlertControllerStyle.Alert)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
                 self.presentViewController(alert, animated: true, completion: nil)
 

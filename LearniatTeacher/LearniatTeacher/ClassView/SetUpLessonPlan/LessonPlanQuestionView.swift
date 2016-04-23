@@ -19,7 +19,7 @@ import Foundation
 
 
 
-class LessonPlanQuestionView: UIView,SSTeacherDataSourceDelegate,UIGestureRecognizerDelegate,LessonPlanSubTopicCellDelegate
+class LessonPlanQuestionView: UIView,SSTeacherDataSourceDelegate,UIGestureRecognizerDelegate,LessonPlanSubTopicCellDelegate,UIPopoverControllerDelegate
 {
     
     
@@ -194,6 +194,82 @@ class LessonPlanQuestionView: UIView,SSTeacherDataSourceDelegate,UIGestureRecogn
     {
         
         
+    }
+    
+    func delegateOnInfoButtonWithDetails(questionDetails:AnyObject, withButton infoButton:UIImageView)
+    {
+        
+        
+        
+        let buttonPosition :CGPoint = infoButton.convertPoint(CGPointZero, toView: self)
+        
+        
+        if let questionType = questionDetails.objectForKey("Type") as? String
+        {
+            if questionType == "Overlay Scribble"
+            {
+                let questionInfoController = ScribbleQuestionInfoScreen()
+                questionInfoController.setdelegate(self)
+                
+                questionInfoController.setScribbleInfoDetails(questionDetails)
+                
+                
+                questionInfoController.preferredContentSize = CGSizeMake(400,317)
+                
+                let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                questionInfoController.setPopover(classViewPopOverController)
+                classViewPopOverController.popoverContentSize = CGSizeMake(400,317);
+                classViewPopOverController.delegate = self;
+                
+                classViewPopOverController.presentPopoverFromRect(CGRect(
+                    x:buttonPosition.x ,
+                    y:buttonPosition.y + infoButton.frame.size.height / 2,
+                    width: 1,
+                    height: 1), inView: self, permittedArrowDirections: .Right, animated: true)
+            }
+            else if questionType == "Multiple Response" || questionType == "Multiple Choice"
+            {
+                let questionInfoController = SingleResponceOption()
+                
+                
+                questionInfoController.setQuestionDetails(questionDetails)
+                
+                
+                questionInfoController.preferredContentSize = CGSizeMake(400,317)
+                
+                let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                questionInfoController.setPopover(classViewPopOverController)
+                classViewPopOverController.popoverContentSize = CGSizeMake(400,317);
+                classViewPopOverController.delegate = self;
+                
+                classViewPopOverController.presentPopoverFromRect(CGRect(
+                    x:buttonPosition.x ,
+                    y:buttonPosition.y + infoButton.frame.size.height / 2,
+                    width: 1,
+                    height: 1), inView: self, permittedArrowDirections: .Right, animated: true)
+            }
+            else if questionType == "Match Columns"
+            {
+                let questionInfoController = MatchColumnOption()
+                questionInfoController.setdelegate(self)
+                
+                questionInfoController.setQuestionDetails(questionDetails)
+                
+                
+                questionInfoController.preferredContentSize = CGSizeMake(400,317)
+                
+                let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                questionInfoController.setPopover(classViewPopOverController)
+                classViewPopOverController.popoverContentSize = CGSizeMake(400,317);
+                classViewPopOverController.delegate = self;
+                
+                classViewPopOverController.presentPopoverFromRect(CGRect(
+                    x:buttonPosition.x ,
+                    y:buttonPosition.y + infoButton.frame.size.height / 2,
+                    width: 1,
+                    height: 1), inView: self, permittedArrowDirections: .Right, animated: true)
+            }
+        }
     }
     
     

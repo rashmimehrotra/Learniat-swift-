@@ -52,7 +52,7 @@ class SSTeacherLessonPlanView: UIView,SSTeacherDataSourceDelegate
         
         mSendButton.frame = CGRectMake(mTopbarImageView.frame.size.width - 100 , 0, 100 , mTopbarImageView.frame.size.height );
         mTopbarImageView.addSubview(mSendButton);
-        mSendButton.setTitle("Send", forState:.Normal);
+        mSendButton.setTitle("Done", forState:.Normal);
         mSendButton.setTitleColor(UIColor.whiteColor(), forState:.Normal);
         mSendButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20);
         mSendButton.highlighted = false;
@@ -127,6 +127,10 @@ class SSTeacherLessonPlanView: UIView,SSTeacherDataSourceDelegate
     func didGetAllNodesWithDetails(details: AnyObject)
     {
        
+        print(details)
+        
+        
+        
         sendButtonSpinner.hidden = true
         sendButtonSpinner.stopAnimating()
         mSendButton.hidden = false
