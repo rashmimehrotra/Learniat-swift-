@@ -474,7 +474,6 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
     
     func didGetQuestionRecordedWithDetaisl(details: AnyObject)
     {
-        print(details)
         
        
 
@@ -514,9 +513,6 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
     
     func didGetQuestionWithDetails(details: AnyObject)
     {
-        print(details)
-        
-        
         
         
         if let status = details.objectForKey("Status") as? String

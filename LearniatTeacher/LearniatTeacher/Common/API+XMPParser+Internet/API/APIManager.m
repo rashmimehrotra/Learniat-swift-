@@ -97,6 +97,9 @@
     [receivedData appendData:data];
     NSString*   serverResponseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     
+    
+   
+    
     if (!serverResponseString)
     {
         for (int i=0; i<5; i++)
@@ -129,6 +132,8 @@
             }
         }
     }
+    
+//     NSLog(@"%@",serverResponseString);
     
     if (fullresposeString==nil)
     {

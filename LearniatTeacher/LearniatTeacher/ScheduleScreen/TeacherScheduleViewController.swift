@@ -51,8 +51,6 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     var mExtTimelabel: UILabel = UILabel();
 
     
-    var sessionAlertView    :UIAlertController!
-    
     var extendTimeSessiondetails : AnyObject!
     
     var activityIndicator  = UIActivityIndicatorView(activityIndicatorStyle:.WhiteLarge)
@@ -84,13 +82,13 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         foregroundNotification = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationWillEnterForegroundNotification, object: nil, queue: NSOperationQueue.mainQueue()) {
             [unowned self] notification in
             
-            if self.sessionAlertView != nil
-            {
-                if self.sessionAlertView.isBeingPresented()
-                {
-                    self.sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
-                }
-            }
+//            if self.sessionAlertView != nil
+//            {
+//                if self.sessionAlertView.isBeingPresented()
+//                {
+//                    self.sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
+//                }
+//            }
             
              SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
         }
@@ -368,13 +366,13 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             mScheduleDetailView.onDoneButton()
         }
         
-        if self.sessionAlertView != nil
-        {
-            if self.sessionAlertView.isBeingPresented()
-            {
-                self.sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
-            }
-        }
+//        if self.sessionAlertView != nil
+//        {
+//            if self.sessionAlertView.isBeingPresented()
+//            {
+//                self.sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
+//            }
+//        }
         
         
         for index in 0 ..< sessionDetailsArray.count
@@ -768,62 +766,62 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
         
         
-        if sessionAlertView != nil
-        {
-            if sessionAlertView.isBeingPresented()
-            {
-                sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
-            }
-        }
+//        if sessionAlertView != nil
+//        {
+//            if sessionAlertView.isBeingPresented()
+//            {
+//                sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
+//            }
+//        }
         
         
-        sessionAlertView = UIAlertController(title: "AllocateSeat", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        sessionAlertView.addAction(UIAlertAction(title: "Allocate seats", style: .Default, handler: { action in
-            
-            if let currentSessionDetails = self.sessionIdDictonary[SessionId]
-            {
-                self.allocateSeatsWithDetails(currentSessionDetails)
-            }
-            
-            
-            
-        }))
+//        sessionAlertView = UIAlertController(title: "AllocateSeat", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+//        sessionAlertView.addAction(UIAlertAction(title: "Allocate seats", style: .Default, handler: { action in
+//            
+//            if let currentSessionDetails = self.sessionIdDictonary[SessionId]
+//            {
+//                self.allocateSeatsWithDetails(currentSessionDetails)
+//            }
+//            
+//            
+//            
+//        }))
         
-        sessionAlertView.addAction(UIAlertAction(title: "Cancel Class", style: .Default, handler: { action in
-            
-            SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SessionId, WithStatusvalue: kCanClled, WithDelegate: self)
-            
-            if let currentSessionDetails = self.sessionIdDictonary[SessionId]
-            {
-                self.sendTimeExtendMessageWithDetails(currentSessionDetails, withMessage: "Class has been cancelled")
-            }
-            
-            
-           
-            
-            
-        }))
+//        sessionAlertView.addAction(UIAlertAction(title: "Cancel Class", style: .Default, handler: { action in
+//            
+//            SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SessionId, WithStatusvalue: kCanClled, WithDelegate: self)
+//            
+//            if let currentSessionDetails = self.sessionIdDictonary[SessionId]
+//            {
+//                self.sendTimeExtendMessageWithDetails(currentSessionDetails, withMessage: "Class has been cancelled")
+//            }
+//            
+//            
+//           
+//            
+//            
+//        }))
         
-        sessionAlertView.addAction(UIAlertAction(title: "Extendtime", style: .Default, handler: { action in
-            
-            if let currentSessionDetails = self.sessionIdDictonary[SessionId]
-            {
-                self.showExtendTimeAlertForSessionDetaisl(currentSessionDetails)
-            }
-            
-        }))
+//        sessionAlertView.addAction(UIAlertAction(title: "Extendtime", style: .Default, handler: { action in
+//            
+//            if let currentSessionDetails = self.sessionIdDictonary[SessionId]
+//            {
+//                self.showExtendTimeAlertForSessionDetaisl(currentSessionDetails)
+//            }
+//            
+//        }))
         
-        sessionAlertView.addAction(UIAlertAction(title: "Dismiss", style: .Cancel, handler: { action in
-            
-            
-                if let scheduleTileView  = self.mScrollView.viewWithTag(Int(SessionId)!) as? ScheduleScreenTile
-                {
-                    scheduleTileView.alertDismissed()
-                }
-            
-        }))
-        
-        self.presentViewController(sessionAlertView, animated: true, completion: nil)
+//        sessionAlertView.addAction(UIAlertAction(title: "Dismiss", style: .Cancel, handler: { action in
+//            
+//            
+//                if let scheduleTileView  = self.mScrollView.viewWithTag(Int(SessionId)!) as? ScheduleScreenTile
+//                {
+//                    scheduleTileView.alertDismissed()
+//                }
+//            
+//        }))
+//        
+//        self.presentViewController(sessionAlertView, animated: true, completion: nil)
     }
     
     
@@ -831,110 +829,110 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     
     func showOpenClassAlertWithSessionId(SessionId:String, withMessage message:String)
     {
-        if sessionAlertView != nil
-        {
-            if sessionAlertView.isBeingPresented()
-            {
-                sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
-            }
-        }
+//        if sessionAlertView != nil
+//        {
+//            if sessionAlertView.isBeingPresented()
+//            {
+//                sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
+//            }
+//        }
 
         
-        sessionAlertView = UIAlertController(title: "OpenClass", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        sessionAlertView.addAction(UIAlertAction(title: "Open Class", style: .Default, handler: { action in
-             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SessionId, WithStatusvalue: kopened, WithDelegate: self)
-            
-            if let currentSessionDetails = self.sessionIdDictonary[SessionId]
-            {
-                self.sendTimeExtendMessageWithDetails(currentSessionDetails, withMessage: "Class has been opened")
-            }
-
-            
-        }))
+//        sessionAlertView = UIAlertController(title: "OpenClass", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+//        sessionAlertView.addAction(UIAlertAction(title: "Open Class", style: .Default, handler: { action in
+//             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SessionId, WithStatusvalue: kopened, WithDelegate: self)
+//            
+//            if let currentSessionDetails = self.sessionIdDictonary[SessionId]
+//            {
+//                self.sendTimeExtendMessageWithDetails(currentSessionDetails, withMessage: "Class has been opened")
+//            }
+//
+//            
+//        }))
         
-        sessionAlertView.addAction(UIAlertAction(title: "Cancel Class", style: .Default, handler: { action in
-            
-             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SessionId, WithStatusvalue: kCanClled, WithDelegate: self)
-            
-        }))
+//        sessionAlertView.addAction(UIAlertAction(title: "Cancel Class", style: .Default, handler: { action in
+//            
+//             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SessionId, WithStatusvalue: kCanClled, WithDelegate: self)
+//            
+//        }))
         
-        sessionAlertView.addAction(UIAlertAction(title: "Extendtime", style: .Default, handler: { action in
-            
-            if let currentSessionDetails = self.sessionIdDictonary[SessionId]
-            {
-                self.showExtendTimeAlertForSessionDetaisl(currentSessionDetails)
-            }
-            
-            
-            
-        }))
-        
-        sessionAlertView.addAction(UIAlertAction(title: "Dismiss", style: .Cancel, handler: { action in
-            
-            
-            if let scheduleTileView  = self.mScrollView.viewWithTag(Int(SessionId)!) as? ScheduleScreenTile
-            {
-                scheduleTileView.alertDismissed()
-            }
-
-            
-        }))
-        
-        self.presentViewController(sessionAlertView, animated: true, completion: nil)
+//        sessionAlertView.addAction(UIAlertAction(title: "Extendtime", style: .Default, handler: { action in
+//            
+//            if let currentSessionDetails = self.sessionIdDictonary[SessionId]
+//            {
+//                self.showExtendTimeAlertForSessionDetaisl(currentSessionDetails)
+//            }
+//            
+//            
+//            
+//        }))
+//        
+//        sessionAlertView.addAction(UIAlertAction(title: "Dismiss", style: .Cancel, handler: { action in
+//            
+//            
+//            if let scheduleTileView  = self.mScrollView.viewWithTag(Int(SessionId)!) as? ScheduleScreenTile
+//            {
+//                scheduleTileView.alertDismissed()
+//            }
+//
+//            
+//        }))
+//        
+//        self.presentViewController(sessionAlertView, animated: true, completion: nil)
     }
     
     func showBeginClassAlertWithSessionId(SessionId:String, withMessage message:String)
     {
-        if sessionAlertView != nil
-        {
-            if sessionAlertView.isBeingPresented()
-            {
-                sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
-            }
-        }
+//        if sessionAlertView != nil
+//        {
+//            if sessionAlertView.isBeingPresented()
+//            {
+//                sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
+//            }
+//        }
 
         
-        sessionAlertView = UIAlertController(title: "BeginClass", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        sessionAlertView.addAction(UIAlertAction(title: "Begin Class", style: .Default, handler: { action in
-            
-            
-            self.sessionUpdatedLive = true
-             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SessionId, WithStatusvalue: kLive, WithDelegate: self)
-            
-            if let currentSessionDetails = self.sessionIdDictonary[SessionId]
-            {
-               
-                
-                self.liveSessionDetails = currentSessionDetails
-            }
-            
-        }))
+//        sessionAlertView = UIAlertController(title: "BeginClass", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+//        sessionAlertView.addAction(UIAlertAction(title: "Begin Class", style: .Default, handler: { action in
+//            
+//            
+//            self.sessionUpdatedLive = true
+//             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SessionId, WithStatusvalue: kLive, WithDelegate: self)
+//            
+//            if let currentSessionDetails = self.sessionIdDictonary[SessionId]
+//            {
+//               
+//                
+//                self.liveSessionDetails = currentSessionDetails
+//            }
+//            
+//        }))
         
-        sessionAlertView.addAction(UIAlertAction(title: "Cancel Class", style: .Default, handler: { action in
-            
-             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SessionId, WithStatusvalue: kCanClled, WithDelegate: self)
-            
-        }))
+//        sessionAlertView.addAction(UIAlertAction(title: "Cancel Class", style: .Default, handler: { action in
+//            
+//             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SessionId, WithStatusvalue: kCanClled, WithDelegate: self)
+//            
+//        }))
         
-        sessionAlertView.addAction(UIAlertAction(title: "Extendtime", style: .Default, handler: { action in
-            
-            if let currentSessionDetails = self.sessionIdDictonary[SessionId]
-            {
-                self.showExtendTimeAlertForSessionDetaisl(currentSessionDetails)
-            }
-            
-        }))
+//        sessionAlertView.addAction(UIAlertAction(title: "Extendtime", style: .Default, handler: { action in
+//            
+//            if let currentSessionDetails = self.sessionIdDictonary[SessionId]
+//            {
+//                self.showExtendTimeAlertForSessionDetaisl(currentSessionDetails)
+//            }
+//            
+//        }))
         
-        sessionAlertView.addAction(UIAlertAction(title: "Dismiss", style: .Cancel, handler: { action in
-            
-            if let scheduleTileView  = self.mScrollView.viewWithTag(Int(SessionId)!) as? ScheduleScreenTile
-            {
-                scheduleTileView.alertDismissed()
-            }
-
-        }))
-        
-        self.presentViewController(sessionAlertView, animated: true, completion: nil)
+//        sessionAlertView.addAction(UIAlertAction(title: "Dismiss", style: .Cancel, handler: { action in
+//            
+//            if let scheduleTileView  = self.mScrollView.viewWithTag(Int(SessionId)!) as? ScheduleScreenTile
+//            {
+//                scheduleTileView.alertDismissed()
+//            }
+//
+//        }))
+//        
+//        self.presentViewController(sessionAlertView, animated: true, completion: nil)
     }
     
     
@@ -1118,46 +1116,46 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     func delegateCancelClassPressedWithDetails(details: AnyObject)
     {
         
-        if sessionAlertView != nil
-        {
-            if sessionAlertView.isBeingPresented()
-            {
-                sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
-            }
-        }
+//        if sessionAlertView != nil
+//        {
+//            if sessionAlertView.isBeingPresented()
+//            {
+//                sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
+//            }
+//        }
         
         
-        sessionAlertView = UIAlertController(title: "Cancel class", message: "Do you really want to Cancel this class? \n You cannot reverse this action!", preferredStyle: UIAlertControllerStyle.Alert)
-        sessionAlertView.addAction(UIAlertAction(title: "Cancel class", style: .Default, handler: { action in
-            
-        
-            if let sessionid = details.objectForKey(kSessionId) as? String
-            {
-                SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(sessionid, WithStatusvalue: kCanClled, WithDelegate: self)
-                self.sendTimeExtendMessageWithDetails(details, withMessage: "Class has been cancelled")
-                
-                self.mScheduleDetailView.onDoneButton()
-            }
-
-            
-        }))
-        
-        sessionAlertView.addAction(UIAlertAction(title: "Dismiss", style: .Default, handler: { action in
-            
-            if let sessionid = details.objectForKey(kSessionId) as? String
-            {
-                if let scheduleTileView  = self.mScrollView.viewWithTag(Int(sessionid)!) as? ScheduleScreenTile
-                {
-                    scheduleTileView.alertDismissed()
-                }
-            }
-            
-            
-            
-        }))
-        
-        
-        self.presentViewController(sessionAlertView, animated: true, completion: nil)
+//        sessionAlertView = UIAlertController(title: "Cancel class", message: "Do you really want to Cancel this class? \n You cannot reverse this action!", preferredStyle: UIAlertControllerStyle.Alert)
+//        sessionAlertView.addAction(UIAlertAction(title: "Cancel class", style: .Default, handler: { action in
+//            
+//        
+//            if let sessionid = details.objectForKey(kSessionId) as? String
+//            {
+//                SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(sessionid, WithStatusvalue: kCanClled, WithDelegate: self)
+//                self.sendTimeExtendMessageWithDetails(details, withMessage: "Class has been cancelled")
+//                
+//                self.mScheduleDetailView.onDoneButton()
+//            }
+//
+//            
+//        }))
+//        
+//        sessionAlertView.addAction(UIAlertAction(title: "Dismiss", style: .Default, handler: { action in
+//            
+//            if let sessionid = details.objectForKey(kSessionId) as? String
+//            {
+//                if let scheduleTileView  = self.mScrollView.viewWithTag(Int(sessionid)!) as? ScheduleScreenTile
+//                {
+//                    scheduleTileView.alertDismissed()
+//                }
+//            }
+//            
+//            
+//            
+//        }))
+//        
+//        
+//        self.presentViewController(sessionAlertView, animated: true, completion: nil)
         
         
         

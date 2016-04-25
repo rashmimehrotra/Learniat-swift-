@@ -126,10 +126,6 @@ class SSTeacherLessonPlanView: UIView,SSTeacherDataSourceDelegate
     
     func didGetAllNodesWithDetails(details: AnyObject)
     {
-       
-        print(details)
-        
-        
         
         sendButtonSpinner.hidden = true
         sendButtonSpinner.stopAnimating()

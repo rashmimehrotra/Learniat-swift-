@@ -1,3 +1,5 @@
+
+
 //
 //  SSTeacherClassView.swift
 //  Learniat Teacher
@@ -123,6 +125,11 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     
      var seatsIdArray                       = [String]()
     
+    var mRemainingTimeProgressBar           = UIProgressView()
+    
+    
+    
+    
     
     
     override func viewDidLoad()
@@ -150,6 +157,15 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         mBottombarImageView.backgroundColor = topbarColor
         self.view.addSubview(mBottombarImageView)
         mBottombarImageView.userInteractionEnabled = true
+        
+        mRemainingTimeProgressBar.userInteractionEnabled = false;
+        mBottombarImageView.addSubview(mRemainingTimeProgressBar)
+        mRemainingTimeProgressBar.frame  = CGRectMake(0, mBottombarImageView.frame.size.height - 4 , mBottombarImageView.frame.size.width, 1)
+        mRemainingTimeProgressBar.progressTintColor = standard_Button;
+        let transform: CGAffineTransform = CGAffineTransformMakeScale(1.0, 2);
+        mRemainingTimeProgressBar.transform = transform;
+        
+        
         
         
         mBottombarImageView.addSubview(tabPlaceHolderImage)
@@ -188,7 +204,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         mClassViewButton.setTitle("Class view", forState: .Normal)
         mClassViewButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
         
-        tabPlaceHolderImage.frame = CGRectMake(mClassViewButton.frame.origin.x  , 5, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height - 10 )
+        tabPlaceHolderImage.frame = CGRectMake(mClassViewButton.frame.origin.x  , 10, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height - 20 )
        
         mQueryViewButton.frame  = CGRectMake(mQuestionViewButton.frame.origin.x + (mQuestionViewButton.frame.size.width + 10)  , 0, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height)
         mBottombarImageView.addSubview(mQueryViewButton)
@@ -395,6 +411,38 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
         }
         
         
+        
+        if let  StartTime = currentSessionDetails.objectForKey("StartTime") as? String
+        {
+         
+            if let  EndTime = currentSessionDetails.objectForKey("EndTime") as? String
+            {
+                 let currentDate = NSDate()
+                
+                   var totalminutesRemaining = currentDate.minutesDiffernceBetweenDates(dateFormatter.dateFromString(StartTime)!, endDate: dateFormatter.dateFromString(EndTime )!)
+                
+                totalminutesRemaining = totalminutesRemaining * 60
+                
+                
+                
+                 var minutesRemaining = currentDate.minutesDiffernceBetweenDates(dateFormatter.dateFromString(StartTime )!, endDate:currentDate )
+                
+                
+                minutesRemaining = minutesRemaining * 60
+                
+                
+                let progressValue :CGFloat = CGFloat(minutesRemaining) / CGFloat(totalminutesRemaining)
+                mRemainingTimeProgressBar.progress = Float(progressValue)
+                
+                
+                
+                
+                
+            }
+        }
+        
+        
+        
         mainTopicsController.setPreferredSize(CGSizeMake(600, 100),withSessionDetails: currentSessionDetails)
         subTopicsController.setPreferredSize(CGSizeMake(600, 100),withSessionDetails: currentSessionDetails)
         questionController.setPreferredSize(CGSizeMake(600, 100),withSessionDetails: currentSessionDetails)
@@ -453,6 +501,29 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
             
             _string = _string.stringFromTimeInterval(currentDate.timeIntervalSinceDate(dateFormatter.dateFromString(StartTime)!)).fullString
             mStartTimeLabel.text = "Started: \(_string)"
+            
+            
+            
+            if let  EndTime = currentSessionDetails.objectForKey("EndTime") as? String
+            {
+
+                var totalminutesRemaining = currentDate.minutesDiffernceBetweenDates(dateFormatter.dateFromString(StartTime)!, endDate: dateFormatter.dateFromString(EndTime )!)
+                
+                totalminutesRemaining = totalminutesRemaining * 60
+                
+                
+                
+                var minutesRemaining = currentDate.minutesDiffernceBetweenDates(dateFormatter.dateFromString(StartTime )!, endDate:currentDate )
+                
+                
+                minutesRemaining = minutesRemaining * 60
+                
+                
+                let progressValue :CGFloat = CGFloat(minutesRemaining) / CGFloat(totalminutesRemaining)
+                mRemainingTimeProgressBar.progress = Float(progressValue)
+                
+            }
+            
         }
     }
     
@@ -542,7 +613,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     
     func onClassView()
     {
-         tabPlaceHolderImage.frame = CGRectMake(mClassViewButton.frame.origin.x  , 5, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height - 10 )
+         tabPlaceHolderImage.frame = CGRectMake(mClassViewButton.frame.origin.x  , 10, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height - 20 )
         currentScreen  = kClassView
         
         mClassView.hidden      = false
@@ -552,7 +623,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     
     func onQuestionsView()
     {
-         tabPlaceHolderImage.frame = CGRectMake(mQuestionViewButton.frame.origin.x  , 5, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height - 10 )
+         tabPlaceHolderImage.frame = CGRectMake(mQuestionViewButton.frame.origin.x  , 10, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height - 20 )
         
         mClassView.hidden      = true
         mSubmissionView.hidden = false
@@ -585,7 +656,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,SSTeacher
     
     func onQueryView()
     {
-         tabPlaceHolderImage.frame = CGRectMake(mQueryViewButton.frame.origin.x  , 5, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height - 10 )
+         tabPlaceHolderImage.frame = CGRectMake(mQueryViewButton.frame.origin.x  , 10, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height - 20 )
       
         mClassView.hidden      = true
         mSubmissionView.hidden = true
