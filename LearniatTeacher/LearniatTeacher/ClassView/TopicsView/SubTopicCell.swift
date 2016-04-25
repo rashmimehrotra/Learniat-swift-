@@ -40,7 +40,6 @@ class SubTopicCell: UIView{
     
     var _delgate: AnyObject!
     
-//    var cumulativeTimer                    = NSTimer()
     
     var currentSubTopicDetails :AnyObject!
     
@@ -121,7 +120,7 @@ class SubTopicCell: UIView{
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setMainTopicDetails(currentTopicDetails:AnyObject)
+    func setSubTopicDetails(currentTopicDetails:AnyObject)
     {
         
         currentSubTopicDetails = currentTopicDetails
@@ -231,12 +230,22 @@ class SubTopicCell: UIView{
                 
                 if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
                 {
-                    delegate().delegateSubTopicCellStartedWithDetails!(currentSubTopicDetails, witStatedState: true)
+                    if let topicId = currentSubTopicDetails.objectForKey("Id")as? String
+                    {
+                        SSTeacherDataSource.sharedDataSource.isSubtopicStarted = true
+
+                        SSTeacherDataSource.sharedDataSource.startedSubTopicId = topicId
+                        
+                        
+                        if let topicName = currentSubTopicDetails.objectForKey("Name")as? String
+                        {
+                             SSTeacherDataSource.sharedDataSource.startedSubTopicName = topicName
+                        }
+                        
+                         delegate().delegateSubTopicCellStartedWithDetails!(currentSubTopicDetails, witStatedState: true)
+                    }
                     
-                    startButton.setTitle("Stop", forState: .Normal)
-                    startButton.setTitleColor(standard_Red, forState: .Normal)
-                    subTopicStatred()
-                    SSTeacherDataSource.sharedDataSource.isSubtopicStarted = true
+                    
                 }
                 
                
@@ -246,56 +255,11 @@ class SubTopicCell: UIView{
             {
                 
                 delegate().delegateSubTopicCellStartedWithDetails!(currentSubTopicDetails, witStatedState: false)
-                
-                startButton.setTitle("Resume", forState: .Normal)
-                startButton.setTitleColor(standard_Green, forState: .Normal)
-                subTopicStopped()
-                SSTeacherDataSource.sharedDataSource.isSubtopicStarted = false
+               
+               SSTeacherDataSource.sharedDataSource.isSubtopicStarted = false
             }
             
         }
     }
-    
-    func subTopicStatred()
-    {
-//        cumulativeTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(SubTopicCell.udpateCumulativeTime), userInfo: nil, repeats: true)
-    }
-    
-    func subTopicStopped()
-    {
-//        cumulativeTimer.invalidate()
-    }
-    
-    func udpateCumulativeTime()
-    {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "HH:mm:ss"
-        
-        var _string :String = ""
-        var currentDate = NSDate()
-        
-        
-        if let CumulativeTime = currentSubTopicDetails.objectForKey("CumulativeTime")as? String
-        {
-             currentDate = currentDate.addSeconds(1, withDate: dateFormatter.dateFromString(CumulativeTime)!)
-             _string = dateFormatter.stringFromDate(currentDate)
-             currentSubTopicDetails.setObject(_string, forKey: "CumulativeTime")
-            
-        }
-        
-       
-        if let topicName = currentSubTopicDetails.objectForKey("Name")as? String
-        {
-            if let CumulativeTime = currentSubTopicDetails.objectForKey("CumulativeTime")as? String
-            {
-                m_SubTopicLabel.text = "\(topicName)(\(CumulativeTime))".capitalizedString
-            }
-            else
-            {
-                m_SubTopicLabel.text = "\(topicName)".capitalizedString
-            }
-        }
-    }
-    
     
 }

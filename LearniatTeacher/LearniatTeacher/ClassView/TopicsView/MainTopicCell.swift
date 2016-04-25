@@ -115,6 +115,7 @@ class MainTopicCell: UIView{
         if let topicId = currentTopicDetails.objectForKey("Id")as? String
         {
             mMainTopicId = topicId
+            self.tag = Int(topicId)!
         }
         
         

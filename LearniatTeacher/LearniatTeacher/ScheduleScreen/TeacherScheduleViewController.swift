@@ -666,10 +666,12 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
                         mScheduleDetailView.setdelegate(self)
                         self.view.bringSubviewToFront(mScheduleDetailView)
                         mScheduleDetailView.backgroundColor = UIColor.whiteColor()
-                        mScheduleDetailView.layer.shadowColor = standard_TextGrey.CGColor;
-                        mScheduleDetailView.layer.shadowOffset = CGSizeMake(-10,0);
-                        mScheduleDetailView.layer.shadowOpacity = 0.1;
                         mScheduleDetailView.layer.shadowRadius = 1.0;
+                        
+                        mScheduleDetailView.layer.shadowColor = UIColor.blackColor().CGColor
+                        mScheduleDetailView.layer.shadowOpacity = 0.3
+                        mScheduleDetailView.layer.shadowOffset = CGSizeZero
+                        mScheduleDetailView.layer.shadowRadius = 10
                         
                     }
                     

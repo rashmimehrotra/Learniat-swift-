@@ -182,6 +182,15 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     var questionsDictonary                  = NSMutableDictionary()
     
     
+    var startedSubTopicId                   = ""
+    
+    var startedMainTopicId                  = ""
+    
+    var startedSubTopicName                 = ""
+    
+    var startedMainTopicName                = ""
+    
+    
     // MARK: - Delegate Functions
     
     func setdelegate(delegate:AnyObject)

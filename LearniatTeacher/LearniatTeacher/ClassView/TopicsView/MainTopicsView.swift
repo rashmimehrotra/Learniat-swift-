@@ -1,14 +1,14 @@
 //
-//  SSTeachermainTopicController.swift
-//  Learniat Teacher
+//  MainTopicsView.swift
+//  LearniatTeacher
 //
-//  Created by Deepak MK on 24/03/16.
+//  Created by Deepak MK on 25/04/16.
 //  Copyright © 2016 Mindshift. All rights reserved.
 //
 
 import Foundation
 
-@objc protocol SSTeachermainTopicControllerDelegate
+@objc protocol MainTopicsViewDelegate
 {
     
     
@@ -24,7 +24,7 @@ import Foundation
 
 
 
-class SSTeachermainTopicController: UIView, SSTeacherDataSourceDelegate,MainTopicCellDelegate
+class MainTopicsView: UIView, SSTeacherDataSourceDelegate,MainTopicCellDelegate
 {
     
     var currentSessionDetails       :AnyObject!
@@ -41,8 +41,9 @@ class SSTeachermainTopicController: UIView, SSTeacherDataSourceDelegate,MainTopi
     
     
     var _delgate: AnyObject!
-   
     
+    
+    var currentMainTopicsViewHeight :CGFloat = 0
     
     func setdelegate(delegate:AnyObject)
     {
@@ -58,23 +59,6 @@ class SSTeachermainTopicController: UIView, SSTeacherDataSourceDelegate,MainTopi
     override init(frame: CGRect)
     {
         super.init(frame:frame)
-        
-        
-
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    
-    
-    func setSessionDetails( details:AnyObject)
-    {
-        
-        
-        
-        currentSessionDetails = details
         
         let mTopbarImageView = UIImageView(frame: CGRectMake(0, 0, self.frame.size.width, 44))
         mTopbarImageView.backgroundColor = lightGrayTopBar
@@ -99,7 +83,7 @@ class SSTeachermainTopicController: UIView, SSTeacherDataSourceDelegate,MainTopi
         
         let  mDoneButton = UIButton(frame: CGRectMake(mTopbarImageView.frame.size.width - 210,  0, 200 ,mTopbarImageView.frame.size.height))
         mTopbarImageView.addSubview(mDoneButton)
-        mDoneButton.addTarget(self, action: #selector(SSTeachermainTopicController.onDoneButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mDoneButton.addTarget(self, action: #selector(MainTopicsView.onDoneButton), forControlEvents: UIControlEvents.TouchUpInside)
         mDoneButton.setTitleColor(standard_Button, forState: .Normal)
         mDoneButton.setTitle("Done", forState: .Normal)
         mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
@@ -119,8 +103,19 @@ class SSTeachermainTopicController: UIView, SSTeacherDataSourceDelegate,MainTopi
         mActivityIndicator.hidesWhenStopped = true
         mActivityIndicator.hidden = true
         
-        
     }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    
+    func setSessionDetails( details:AnyObject)
+    {
+        currentSessionDetails = details
+    }
+    
     
     
     
@@ -128,11 +123,27 @@ class SSTeachermainTopicController: UIView, SSTeacherDataSourceDelegate,MainTopi
     {
         startedmainTopicId = topicId
         
-        if mMaintopicsDetails.count > 0
+        
+        if SSTeacherDataSource.sharedDataSource.startedMainTopicId != ""
         {
-            addTopicsForheight()
+            if let subTopicCellView  = mTopicsContainerView.viewWithTag(Int(SSTeacherDataSource.sharedDataSource.startedMainTopicId)!) as? MainTopicCell
+            {
+                
+                if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == true
+                {
+                  subTopicCellView.m_MainTopicLabel.textColor = standard_Green
+                }
+                else
+                {
+                    subTopicCellView.m_MainTopicLabel.textColor = blackTextColor
+                }
+                
+            }
+
         }
-        else
+        
+        
+        if mMaintopicsDetails.count <= 0
         {
             if let ClassId = currentSessionDetails.objectForKey("ClassId") as? String
             {
@@ -164,10 +175,10 @@ class SSTeachermainTopicController: UIView, SSTeacherDataSourceDelegate,MainTopi
     }
     
     
-     // MARK: - datasource delegate functions
+    // MARK: - datasource delegate functions
     
     func didGetAllNodesWithDetails(details: AnyObject) {
-
+        
         mMaintopicsDetails.removeAllObjects()
         
         if let statusString = details.objectForKey("Status") as? String
@@ -211,10 +222,10 @@ class SSTeachermainTopicController: UIView, SSTeacherDataSourceDelegate,MainTopi
         }
         
         
-       
+        
         
         let topicsArray = NSMutableArray()
-        for index in 0 ..< mMaintopicsDetails.count 
+        for index in 0 ..< mMaintopicsDetails.count
         {
             
             
@@ -224,7 +235,7 @@ class SSTeachermainTopicController: UIView, SSTeacherDataSourceDelegate,MainTopi
             {
                 if Tagged == "1"
                 {
-                   topicsArray.addObject(currentTopicDetails)
+                    topicsArray.addObject(currentTopicDetails)
                 }
             }
         }
@@ -240,7 +251,7 @@ class SSTeachermainTopicController: UIView, SSTeacherDataSourceDelegate,MainTopi
         
         UIView.animateWithDuration(0.5, animations:
             {
-               self.frame =  CGRectMake(self.frame.origin.x, self.frame.origin.y, 600, height)
+                self.frame =  CGRectMake(self.frame.origin.x, self.frame.origin.y, 600, height)
         })
         
         
@@ -251,31 +262,23 @@ class SSTeachermainTopicController: UIView, SSTeacherDataSourceDelegate,MainTopi
         
         var positionY :CGFloat = 0
         
-        for index in 0 ..< topicsArray.count 
+        for index in 0 ..< topicsArray.count
         {
             let currentTopicDetails = topicsArray.objectAtIndex(index)
             let topicCell = MainTopicCell(frame: CGRectMake(0  , positionY, mTopicsContainerView.frame.size.width, 60))
             topicCell.setdelegate(self)
             topicCell.setMainTopicDetails(currentTopicDetails)
-           
-            if startedmainTopicId == currentTopicDetails.objectForKey("Id")as! String
-            {
-                topicCell.m_MainTopicLabel.textColor = standard_Green
-            }
-            else
-            {
-                topicCell.m_MainTopicLabel.textColor = blackTextColor
-            }
-            
             mTopicsContainerView.addSubview(topicCell)
             positionY = positionY + topicCell.frame.size.height
         }
         
-       mTopicsContainerView.contentSize = CGSizeMake(0, positionY + 20)
+        mTopicsContainerView.contentSize = CGSizeMake(0, positionY + 20)
         
         mActivityIndicator.stopAnimating()
         
-        if delegate().respondsToSelector(#selector(SSTeachermainTopicControllerDelegate.delegateTopicsSizeChangedWithHeight(_:)))
+        currentMainTopicsViewHeight = height
+        
+        if delegate().respondsToSelector(#selector(MainTopicsViewDelegate.delegateTopicsSizeChangedWithHeight(_:)))
         {
             delegate().delegateTopicsSizeChangedWithHeight!(height)
         }
@@ -285,27 +288,19 @@ class SSTeachermainTopicController: UIView, SSTeacherDataSourceDelegate,MainTopi
     
     func onDoneButton()
     {
-        if delegate().respondsToSelector(#selector(SSTeachermainTopicControllerDelegate.delegateDoneButtonPressed))
+        if delegate().respondsToSelector(#selector(MainTopicsViewDelegate.delegateDoneButtonPressed))
         {
             delegate().delegateDoneButtonPressed!()
         }
-
+        
         
     }
     
-    
-//    func onDoneButton()
-//    {
-//        if delegate().respondsToSelector(Selector("delegateDoneButtonPressed"))
-//        {
-//            delegate().delegateDoneButtonPressed!()
-//        }
-//    }
-//    
+   
     
     func delegateSubtopicButtonPressedWithID(mainTopicId: String, withmainTopicname mainTopicName: String) {
         
-        if delegate().respondsToSelector(#selector(SSTeachermainTopicControllerDelegate.delegateShowSubTopicWithMainTopicId(_:WithMainTopicName:)))
+        if delegate().respondsToSelector(#selector(MainTopicsViewDelegate.delegateShowSubTopicWithMainTopicId(_:WithMainTopicName:)))
         {
             delegate().delegateShowSubTopicWithMainTopicId!(mainTopicId ,WithMainTopicName:mainTopicName )
         }
