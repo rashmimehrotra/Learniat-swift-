@@ -50,7 +50,7 @@ class BarView: UIButton
     
     func increasePresentValue()
     {
-        presentValue = presentValue + 8
+        presentValue = presentValue + 1
     }
     
 

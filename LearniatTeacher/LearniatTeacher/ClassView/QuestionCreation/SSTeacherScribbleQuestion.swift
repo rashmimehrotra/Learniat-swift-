@@ -150,7 +150,7 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         mScribbleView.delegate = self
         self.addSubview(mScribbleView);
         mScribbleView.userInteractionEnabled = true
-        mScribbleView.setDrawingColor(standard_Red);
+        mScribbleView.setDrawingColor(blackTextColor);
         mScribbleView.setBrushWidth(5)
         mScribbleView.setDrawingTool(kBrushTool)
         mScribbleView.hidden = false

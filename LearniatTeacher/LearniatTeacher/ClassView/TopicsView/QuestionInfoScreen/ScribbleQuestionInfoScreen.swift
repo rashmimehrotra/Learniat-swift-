@@ -102,7 +102,7 @@ class ScribbleQuestionInfoScreen : UIViewController
     }
     func showScribbleWithDetails(Url:String)
     {
-        let imageView = CustomProgressImageView(frame: CGRectMake(0,50, 400, 267))
+        let imageView = UIImageView(frame: CGRectMake(0,50, 400, 267))
         self.view.addSubview(imageView)
 
         

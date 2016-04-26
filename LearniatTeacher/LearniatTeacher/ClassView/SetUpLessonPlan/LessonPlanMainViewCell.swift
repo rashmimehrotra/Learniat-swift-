@@ -131,6 +131,7 @@ class LessonPlanMainViewCell: UIView{
     func setMainTopicDetails(topicDetails:AnyObject, withIndexPath indexPath:Int)
     {
         
+        
         currentTopicDetails = topicDetails
         currentindexPath = indexPath
 
@@ -191,23 +192,7 @@ class LessonPlanMainViewCell: UIView{
         
         
         
-        
-        if let Tagged = currentTopicDetails.objectForKey("Tagged") as? String
-        {
-            if Tagged == "1"
-            {
-                 checkBoxImage.image = UIImage(named:"Checked.png");
-                self.backgroundColor = UIColor.whiteColor()
-                isSelected = true
-            }
-            else
-            {
-                 checkBoxImage.image = UIImage(named:"Unchecked.png");
-                self.backgroundColor = UIColor.clearColor()
-                isSelected = false
-            }
-        }
-        
+      
         
         
         
@@ -229,6 +214,45 @@ class LessonPlanMainViewCell: UIView{
                 
             }
 
+        }
+        
+        
+        
+        
+        
+        if let Tagged = currentTopicDetails.objectForKey("Tagged") as? String
+        {
+            if Tagged == "1"
+            {
+                checkBoxImage.image = UIImage(named:"Checked.png");
+                self.backgroundColor = UIColor.whiteColor()
+                isSelected = true
+                
+                
+                if subTopicsDetails.count > 0
+                {
+                    for index in 0..<subTopicsDetails.count
+                    {
+                        let subTopicDict = subTopicsDetails.objectAtIndex(index)
+                      
+                        if let s_Tagged = subTopicDict.objectForKey("Tagged") as? String
+                        {
+                            if s_Tagged == "0"
+                            {
+                                checkBoxImage.image = UIImage(named:"halfChecked.png");
+                            }
+                        }
+                    }
+                }
+                
+            }
+            else
+            {
+                checkBoxImage.image = UIImage(named:"Unchecked.png");
+                self.backgroundColor = UIColor.clearColor()
+                isSelected = false
+                
+            }
         }
         
         

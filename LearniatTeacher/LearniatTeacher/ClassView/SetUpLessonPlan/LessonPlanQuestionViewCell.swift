@@ -32,6 +32,9 @@ class LessonPlanQuestionViewCell: UIView
     
     var mQuestionTypeLabel  :UILabel   = UILabel()
     
+    let checkBoxImage       = UIImageView()
+    
+    var m_checkBoxButton :UIButton!
     
     var currentQuestionDetails :AnyObject!
     
@@ -54,15 +57,23 @@ class LessonPlanQuestionViewCell: UIView
         self.backgroundColor = whiteBackgroundColor
         
         
+//        m_checkBoxButton = UIButton(frame:CGRectMake(0, 0, self.frame.size.width ,self.frame.size.height - 10));
+//        self.addSubview(m_checkBoxButton);
+       
+        checkBoxImage.frame = CGRectMake(10  , 10,20,20)
+        checkBoxImage.image = UIImage(named:"Checked.png");
+        self.addSubview(checkBoxImage);
+//        m_checkBoxButton.addTarget(self, action: #selector(LessonPlanSubTopicCell.checkMarkPressed), forControlEvents: UIControlEvents.TouchUpInside)
+
         
-        mQuestionNameLabel.frame = CGRectMake(10 , 10 , self.frame.size.width - 60 , self.frame.size.height)
+        
+        mQuestionNameLabel.frame = CGRectMake(checkBoxImage.frame.size.width + checkBoxImage.frame.origin.x + 10 , 10 , self.frame.size.width - (checkBoxImage.frame.size.width + checkBoxImage.frame.origin.x + 15) , self.frame.size.height)
         mQuestionNameLabel.font = UIFont(name:helveticaRegular, size: 18)
         self.addSubview(mQuestionNameLabel)
         mQuestionNameLabel.textColor = blackTextColor
         mQuestionNameLabel.textAlignment = .Left
         mQuestionNameLabel.lineBreakMode = .ByTruncatingMiddle
         mQuestionNameLabel.numberOfLines  = 20
-        
         
         mIndexValuesLabel.font = UIFont(name:helveticaRegular, size: 16)
         self.addSubview(mIndexValuesLabel)
@@ -120,7 +131,7 @@ class LessonPlanQuestionViewCell: UIView
             mQuestionNameLabel.frame = CGRectMake(mQuestionNameLabel.frame.origin.x, mQuestionNameLabel.frame.origin.y + 10, mQuestionNameLabel.frame.size.width, height)
         }
         
-        height = height + 80
+        height = height + 60
         
         
         let seperatorView = UIView(frame: CGRectMake(5 ,height - 1 , self.frame.size.width - 10,1))
@@ -144,7 +155,7 @@ class LessonPlanQuestionViewCell: UIView
                     mIndexValuesLabel.hidden = false
                     
                     
-                    let  _string =  NSMutableAttributedString(string:"\(Int(questionAverage))% (\(NumberOfResponses))")
+                   let  _string =  NSMutableAttributedString(string:"\(String(format: "%02d", Int(questionAverage)))% (\(NumberOfResponses))")
                     
                     
                     
@@ -242,13 +253,13 @@ class LessonPlanQuestionViewCell: UIView
         }
         
         
-        mIndexValuesLabel.frame = CGRectMake(mQuestionNameLabel.frame.origin.x, mQuestionNameLabel.frame.origin.y + mQuestionNameLabel.frame.size.height + 25, self.frame.size.width / 5 , self.frame.size.width / 20)
+        mIndexValuesLabel.frame = CGRectMake(mQuestionNameLabel.frame.origin.x, mQuestionNameLabel.frame.origin.y + mQuestionNameLabel.frame.size.height + 5, self.frame.size.width / 5 , self.frame.size.width / 20)
         
         
-        mQuestionTypeLabel.frame = CGRectMake(mIndexValuesLabel.frame.origin.x + mIndexValuesLabel.frame.size.width + 15 , mIndexValuesLabel.frame.origin.y, self.frame.size.width / 2, self.frame.size.width / 20)
+        mQuestionTypeLabel.frame = CGRectMake(mIndexValuesLabel.frame.origin.x + mIndexValuesLabel.frame.size.width + 5 , mIndexValuesLabel.frame.origin.y, self.frame.size.width / 2, self.frame.size.width / 20)
         
         
-        mInfoButtonImage.frame = CGRectMake(self.frame.size.width - ((self.frame.size.width / 15 ) + 10) ,mQuestionNameLabel.frame.origin.y + mQuestionNameLabel.frame.size.height + 25, self.frame.size.width / 15, self.frame.size.width / 20)
+        mInfoButtonImage.frame = CGRectMake(self.frame.size.width - ((self.frame.size.width / 15 ) + 10) ,mQuestionNameLabel.frame.origin.y + mQuestionNameLabel.frame.size.height + 5, self.frame.size.width / 15, self.frame.size.width / 20)
         
         mInfoButtonButton.frame = CGRectMake(0 ,0, self.frame.size.width, height)
         

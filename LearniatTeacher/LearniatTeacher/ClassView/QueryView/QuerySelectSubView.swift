@@ -28,7 +28,7 @@ class QuerySelectSubView: UIView
     
     var isAllowVolunteer        = true
 
-    
+    var m_checkBoxButton        = UIButton()
     
     var currentReplyDetails :AnyObject!
     
@@ -55,7 +55,7 @@ class QuerySelectSubView: UIView
         mStudentImage.layer.masksToBounds = true
         
         
-        let m_checkBoxButton = UIButton(frame:CGRectMake(0, 10, 100,40));
+         m_checkBoxButton.frame = CGRectMake(0, 10, 100,40)
         self.addSubview(m_checkBoxButton);
         
         checkBoxImage.frame = CGRectMake(10  ,10 + (m_checkBoxButton.frame.size .height - 20) / 2,20,20)
@@ -175,6 +175,10 @@ class QuerySelectSubView: UIView
         {
             currentQueryDetails.setObject(StudentId, forKey: "StudentId")
         }
+        
+        
+         m_checkBoxButton.frame = CGRectMake(0, 00, self.frame.size.width,getQueryHeight)
+        
         return getQueryHeight
         
     }
@@ -187,6 +191,7 @@ class QuerySelectSubView: UIView
             checkBoxImage.image = UIImage(named:"Unchecked.png");
             AllowVolunteerSwitch.setOn(false, animated: true)
             isSelected = false
+            self.backgroundColor = UIColor.clearColor()
             
         }
         else
@@ -194,6 +199,7 @@ class QuerySelectSubView: UIView
             checkBoxImage.image = UIImage(named:"Checked.png");
             AllowVolunteerSwitch.setOn(true, animated: true)
             isSelected = true
+             self.backgroundColor = UIColor.whiteColor()
         }
     }
     
