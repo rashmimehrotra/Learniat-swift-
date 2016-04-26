@@ -32,7 +32,7 @@ let kQueryView              = "Query"
 
 
 import Foundation
-class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopicsViewDelegate,SubTopicsViewDelegate,SSTeacherDataSourceDelegate,QuestionsViewDelegate,SSTeacherMessagehandlerDelegate,SSTeacherLiveQuestionControllerDelegate,StundentDeskViewDelegate,SSTeacherSubmissionViewDelegate,SSTeacherQueryViewDelegate,StudentSubjectivePopoverDelegate,SSSettingsViewControllerDelegate,SSTeacherSchedulePopoverControllerDelegate
+class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopicsViewDelegate,SubTopicsViewDelegate,SSTeacherDataSourceDelegate,QuestionsViewDelegate,SSTeacherMessagehandlerDelegate,LiveQuestionViewDelegate,StundentDeskViewDelegate,SSTeacherSubmissionViewDelegate,SSTeacherQueryViewDelegate,StudentSubjectivePopoverDelegate,SSSettingsViewControllerDelegate,SSTeacherSchedulePopoverControllerDelegate
 {
    
     
@@ -70,7 +70,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     var questionTopicsView          :  QuestionsView!
     
-    let liveQuestionController      =  SSTeacherLiveQuestionController()
+    var liveQuestionView            :   LiveQuestionView!
     
     var startedSubTopicDetails:AnyObject!
     
@@ -81,13 +81,11 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     var currentQuestionLogId        = ""
     
-    var isQuestionSent              :Bool = false
     
     var currentCumulativeTime       :String   = ""
     
     var classViewPopOverController  :UIPopoverController!
     
-    var cumulativeTimer                    = NSTimer()
     
     var  mTopicButton:UIButton!
     
@@ -481,7 +479,14 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
         
         
-        liveQuestionController.setPreferredSize(CGSizeMake(450, 350),withSessionDetails: currentSessionDetails)
+        liveQuestionView = LiveQuestionView(frame:CGRectMake(0,0, 450   ,350))
+        liveQuestionView.setSessionDetails(currentSessionDetails)
+        liveQuestionView.setdelegate(self)
+        mShowTopicsView.addSubview(liveQuestionView)
+        liveQuestionView.hidden = true
+        
+        
+        
         
         
         
@@ -663,6 +668,11 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mSubmissionView.hidden = false
         mQueryView.hidden      = true
         currentScreen  = kSubmissionView
+//        mShowTopicsView.hidden = true
+//        if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
+//        {
+//            mSubTopicsNamelabel.text = "No topic selected"
+//        }
         
         submissionNotificationLabel.hidden = true
         
@@ -692,6 +702,12 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     {
          tabPlaceHolderImage.frame = CGRectMake(mQueryViewButton.frame.origin.x  , 10, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height - 20 )
       
+//        mShowTopicsView.hidden = true
+//        if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
+//        {
+//            mSubTopicsNamelabel.text = "No topic selected"
+//        }
+        
         mClassView.hidden      = true
         mSubmissionView.hidden = true
         mQueryView.hidden      = false
@@ -779,11 +795,11 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     func didGetQuestionSentWithDetails(details: AnyObject) {
         
-        
+       
         if let QuestionLogId = details.objectForKey("QuestionLogId") as? String
         {
             
-            isQuestionSent = true
+            SSTeacherDataSource.sharedDataSource.isQuestionSent = true
             
             currentQuestionLogId = QuestionLogId
             
@@ -797,15 +813,15 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                     
                     if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
                     {
-                       mSubmissionView.addScribbleQuestionWithDetails(currentQuestionDetails)
+                        mSubmissionView.addScribbleQuestionWithDetails(currentQuestionDetails)
                     }
                     else if (questionType == kText)
                     {
-                         mSubmissionView.addScribbleQuestionWithDetails(currentQuestionDetails)
+                        mSubmissionView.addScribbleQuestionWithDetails(currentQuestionDetails)
                     }
                     else if (questionType == kMatchColumn)
                     {
-                         mSubmissionView.addMTCQuestionWithDetails(currentQuestionDetails)
+                        mSubmissionView.addMTCQuestionWithDetails(currentQuestionDetails)
                     }
                     else
                     {
@@ -815,6 +831,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 }
             }
         }
+        
     }
     
     
@@ -982,107 +999,66 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     func onTopicsButton(sender:UIButton)
     {
         
-        
-        mShowTopicsView.hidden = false
-        self.view.bringSubviewToFront(mShowTopicsView)
-        
-        
-        if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
+        if mShowTopicsView.hidden == true
         {
-          
-            
-            mainTopicsView.getTopicsDetailswithStartedMaintopicId("")
-             mShowTopicsView.frame = CGRectMake(mShowTopicsView.frame.origin.x, mShowTopicsView.frame.origin.y , mShowTopicsView.frame.size.width  , mainTopicsView.currentMainTopicsViewHeight)
-            mainTopicsView.hidden = false
-            subTopicsView.hidden = true
-            questionTopicsView.hidden = true
-            mShowTopicsView.bringSubviewToFront(mainTopicsView)
-           
+            mShowTopicsView.hidden = false
+            self.view.bringSubviewToFront(mShowTopicsView)
             
             
-            
+            if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
+            {
+                
+                
+                mainTopicsView.getTopicsDetailswithStartedMaintopicId("")
+                mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 600, mShowTopicsView.frame.origin.y , 600  , mainTopicsView.currentMainTopicsViewHeight)
+                
+                hideAllViewInTopicsView()
+                mainTopicsView.hidden = false
+                mShowTopicsView.bringSubviewToFront(mainTopicsView)
+                
+                
+                
+                
+            }
+            else  if SSTeacherDataSource.sharedDataSource.isQuestionSent == true
+            {
+                liveQuestionView.setQuestionDetails(currentQuestionDetails, withMainTopciName: subTopicsView.mTopicName.text!, withMainTopicId: SSTeacherDataSource.sharedDataSource.startedMainTopicId)
+                hideAllViewInTopicsView()
+                liveQuestionView.hidden = false
+                mShowTopicsView.bringSubviewToFront(liveQuestionView)
+                
+                
+                
+                mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 450, mShowTopicsView.frame.origin.y ,450  ,350)
+                
+            }
+            else if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == true
+            {
+                
+                
+                subTopicsView.frame = CGRectMake(0,0, 600   ,44)
+                subTopicsView.getSubtopicsDetailsWithMainTopicId(SSTeacherDataSource.sharedDataSource.startedMainTopicId, withMainTopicName: SSTeacherDataSource.sharedDataSource.startedMainTopicName,withStartedSubtopicID:SSTeacherDataSource.sharedDataSource.startedSubTopicId
+                )
+                hideAllViewInTopicsView()
+                subTopicsView.hidden = false
+                mShowTopicsView.bringSubviewToFront(subTopicsView)
+                
+                
+                
+                
+                
+                mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 600, mShowTopicsView.frame.origin.y , 600 , subTopicsView.currentMainTopicsViewHeight)
+            }
+
         }
-        else if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == true
+        else
         {
-            
-            
-            subTopicsView.frame = CGRectMake(0,0, 600   ,44)
-            subTopicsView.getSubtopicsDetailsWithMainTopicId(SSTeacherDataSource.sharedDataSource.startedMainTopicId, withMainTopicName: SSTeacherDataSource.sharedDataSource.startedMainTopicName,withStartedSubtopicID:SSTeacherDataSource.sharedDataSource.startedSubTopicId
-            )
-            subTopicsView.hidden = false
-            mainTopicsView.hidden = true
-             questionTopicsView.hidden = true
-            mShowTopicsView.bringSubviewToFront(subTopicsView)
-            
-            
-            mShowTopicsView.frame = CGRectMake(mShowTopicsView.frame.origin.x, mShowTopicsView.frame.origin.y , mShowTopicsView.frame.size.width  , subTopicsView.currentMainTopicsViewHeight)
+            mShowTopicsView.hidden = true
+            if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
+            {
+                mSubTopicsNamelabel.text = "No topic selected"
+            }
         }
-//        else  if isQuestionSent == true
-//        {
-//            liveQuestionController.setdelegate(self)
-//            liveQuestionController.preferredContentSize = CGSizeMake(450, 350)
-//            
-//            classViewPopOverController = UIPopoverController(contentViewController: liveQuestionController)
-//            
-//            liveQuestionController.setPopover(classViewPopOverController)
-//            
-//            liveQuestionController.setQuestionDetails(currentQuestionDetails, withMainTopciName: subTopicsController.mTopicName.text!, withMainTopicId: subTopicsController.currentMainTopicId)
-//            classViewPopOverController.popoverContentSize = CGSizeMake(450, 350);
-//            classViewPopOverController.delegate = self;
-//            
-//            classViewPopOverController.presentPopoverFromRect(CGRect(
-//                x: mTopicButton.frame.origin.x + mTopicButton.frame.size.width / 2 ,
-//                y: mTopicButton.frame.origin.y + mTopicButton.frame.size.height,
-//                width: 1,
-//                height: 1), inView: self.view, permittedArrowDirections: .Up, animated: true)
-//
-//        }
-//        else
-//        {
-//           
-//            
-//           
-//            
-//            
-//            subTopicsController.setdelegate(self)
-//            subTopicsController.preferredContentSize = CGSizeMake(600, 44)
-//              subTopicsController.getSubtopicsDetailsWithMainTopicId(startedMainTopicID, withMainTopicName: startedMainTopicName, withStartedSubtopicID: startedSubTopicID, withCumulativeTime: currentCumulativeTime)
-//            classViewPopOverController = UIPopoverController(contentViewController: subTopicsController)
-//            subTopicsController.setPopover(classViewPopOverController)
-//            classViewPopOverController.popoverContentSize = CGSizeMake(540, 680);
-//            classViewPopOverController.delegate = self;
-//            
-//            classViewPopOverController.presentPopoverFromRect(CGRect(
-//                x: mTopicButton.frame.origin.x + mTopicButton.frame.size.width / 2 ,
-//                y: mTopicButton.frame.origin.y + mTopicButton.frame.size.height,
-//                width: 1,
-//                height: 1), inView: self.view, permittedArrowDirections: .Up, animated: true)
-//            cumulativeTimer.invalidate()
-//        }
-//        
-//        
-//        if classViewPopOverController.popoverVisible == false
-//        {
-//            
-//            mainTopicsController.setdelegate(self)
-//            mainTopicsController.preferredContentSize = CGSizeMake(600, 44)
-//            mainTopicsController.getTopicsDetailswithStartedMaintopicId(startedMainTopicID)
-//            
-//            classViewPopOverController = UIPopoverController(contentViewController: mainTopicsController)
-//            mainTopicsController.setPopover(classViewPopOverController)
-//            classViewPopOverController.popoverContentSize = CGSizeMake(540, 680);
-//            classViewPopOverController.delegate = self;
-//            
-//            classViewPopOverController.presentPopoverFromRect(CGRect(
-//                x: mTopicButton.frame.origin.x + mTopicButton.frame.size.width / 2 ,
-//                y: mTopicButton.frame.origin.y + mTopicButton.frame.size.height,
-//                width: 1,
-//                height: 1), inView: self.view, permittedArrowDirections: .Up, animated: true)
-//        }
-//        
-//        
-        
-        
     }
 
     
@@ -1094,7 +1070,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     {
         UIView.animateWithDuration(0.5, animations:
             {
-                self.mShowTopicsView.frame = CGRectMake(self.mShowTopicsView.frame.origin.x, self.mShowTopicsView.frame.origin.y , self.mShowTopicsView.frame.size.width  , height)
+                self.mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 600, self.mShowTopicsView.frame.origin.y , 600 , height)
         })
         
         
@@ -1108,10 +1084,11 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
         subTopicsView.frame = CGRectMake(0,0, 600   ,44)
         subTopicsView.getSubtopicsDetailsWithMainTopicId(mainTopicID, withMainTopicName: mainTopicName,withStartedSubtopicID: SSTeacherDataSource.sharedDataSource.startedSubTopicId)
+
+        hideAllViewInTopicsView()
         subTopicsView.hidden = false
-        mainTopicsView.hidden = true
         mShowTopicsView.bringSubviewToFront(subTopicsView)
-          mShowTopicsView.frame = CGRectMake(mShowTopicsView.frame.origin.x, mShowTopicsView.frame.origin.y , mShowTopicsView.frame.size.width  , subTopicsView.currentMainTopicsViewHeight)
+          mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 600, mShowTopicsView.frame.origin.y ,600, subTopicsView.currentMainTopicsViewHeight)
         
         
         if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
@@ -1130,10 +1107,11 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     func delegateSubTopicBackButtonPressed()
     {
         mainTopicsView.getTopicsDetailswithStartedMaintopicId("")
+        
+        hideAllViewInTopicsView()
         mainTopicsView.hidden = false
         mShowTopicsView.bringSubviewToFront(mainTopicsView)
-        subTopicsView.hidden = true
-         mShowTopicsView.frame = CGRectMake(mShowTopicsView.frame.origin.x, mShowTopicsView.frame.origin.y , mShowTopicsView.frame.size.width  , mainTopicsView.currentMainTopicsViewHeight)
+         mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 600, mShowTopicsView.frame.origin.y , 600 , mainTopicsView.currentMainTopicsViewHeight)
        
     }
     
@@ -1174,7 +1152,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 {
                     SSTeacherDataSource.sharedDataSource.stopSubTopicWithTopicID(subTopicId, withSessionID: sessionId, withDelegate: self)
                 }
-                cumulativeTimer.invalidate()
                 
                 SSTeacherMessageHandler.sharedMessageHandler.sendAllowVotingToRoom(currentSessionId, withValue: "FALSE", withSubTopicName: subTopicName, withSubtopicID: subTopicId)
                 
@@ -1239,28 +1216,14 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             questionTopicsView.getQuestionsDetailsWithsubTopicId(subtopicId, withSubTopicName: subTopicName, withMainTopicId: mainTopicId, withMainTopicName: mainTopicName, withSubtopicStarted: false)
         }
 
+         hideAllViewInTopicsView()
         
         questionTopicsView.hidden = false
         mShowTopicsView.bringSubviewToFront(questionTopicsView)
-        subTopicsView.hidden = true
-        mainTopicsView.hidden = true
         
-        mShowTopicsView.frame = CGRectMake(mShowTopicsView.frame.origin.x, mShowTopicsView.frame.origin.y , mShowTopicsView.frame.size.width  , questionTopicsView.currentMainTopicsViewHeight)
+        mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 600, mShowTopicsView.frame.origin.y , 600 , questionTopicsView.currentMainTopicsViewHeight)
+
         
-        
-        
-        
-//        if (classViewPopOverController.popoverVisible == true)
-//        {
-//           
-//            
-//            classViewPopOverController.contentViewController = questionController
-//            
-//            if startedSubTopicID == ""
-//            {
-//                mSubTopicsNamelabel.text = "\(mainTopicName) / \(subTopicName)"
-//            }
-//        }
     }
     
     
@@ -1268,51 +1231,44 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     func delegateQuestionSentWithQuestionDetails(questionDetails: AnyObject) {
         
-        currentQuestionDetails = questionDetails
         
-        if let QuestionID = (currentQuestionDetails.objectForKey("Id")) as? String
+        
+        
+        if SSTeacherDataSource.sharedDataSource.isQuestionSent == false
         {
-            SSTeacherDataSource.sharedDataSource.broadcastQuestionWithQuestionId(QuestionID, withSessionID: currentSessionId, withDelegate: self)
-            isQuestionSent = true
-            classViewPopOverController.dismissPopoverAnimated(true)
+            mShowTopicsView.hidden = true
             
-            if let questionName = (currentQuestionDetails.objectForKey("Name")) as? String
+            currentQuestionDetails = questionDetails
+            
+            if let QuestionID = (currentQuestionDetails.objectForKey("Id")) as? String
             {
-                mQuestionNamelabel.text = questionName
+                SSTeacherDataSource.sharedDataSource.broadcastQuestionWithQuestionId(QuestionID, withSessionID: currentSessionId, withDelegate: self)
+                SSTeacherDataSource.sharedDataSource.isQuestionSent = true
+                
+                if let questionName = (currentQuestionDetails.objectForKey("Name")) as? String
+                {
+                    mQuestionNamelabel.text = questionName
+                }
             }
+
+        }
+        else
+        {
+            self.view.makeToast("Please clear current question to send new question", duration: 5.0, position: .Bottom)
         }
     }
     
     
     func delegateQuestionBackButtonPressed(mainTopicId: String, withMainTopicName mainTopicName: String) {
        
-//        subTopicsController.setdelegate(self)
-//        subTopicsController.preferredContentSize = CGSizeMake(600, 44)
-//        subTopicsController.setPopover(classViewPopOverController)
-//        if (classViewPopOverController.popoverVisible == true)
-//        {
-//            subTopicsController.getSubtopicsDetailsWithMainTopicId(mainTopicId, withMainTopicName: mainTopicName,withStartedSubtopicID: startedSubTopicID, withCumulativeTime: currentCumulativeTime)
-//            
-//            classViewPopOverController.contentViewController = subTopicsController
-//            if startedSubTopicID == ""
-//            {
-//                mSubTopicsNamelabel.text = mainTopicName
-//                startedMainTopicID = mainTopicId
-//                startedMainTopicName = mainTopicName
-//                
-//            }
-//            cumulativeTimer.invalidate()
-//            
-//        }
-        
-        
-        
         subTopicsView.frame = CGRectMake(0,0, 600   ,44)
         subTopicsView.getSubtopicsDetailsWithMainTopicId(mainTopicId, withMainTopicName: mainTopicName,withStartedSubtopicID:SSTeacherDataSource.sharedDataSource.startedSubTopicId
         )
+        
+        
+        hideAllViewInTopicsView()
+        
         subTopicsView.hidden = false
-        mainTopicsView.hidden = true
-        questionTopicsView.hidden = true
         mShowTopicsView.bringSubviewToFront(subTopicsView)
         
     }
@@ -1331,15 +1287,24 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     func delegateQuestionCleared(questionDetails: AnyObject, withCurrentmainTopicId mainTopicId: String, withCurrentMainTopicName mainTopicName: String) {
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
         SSTeacherDataSource.sharedDataSource.clearQuestionWithQuestionogId(currentQuestionLogId, withDelegate: self)
         
         
         
-        isQuestionSent = false
+        SSTeacherDataSource.sharedDataSource.isQuestionSent = false
         
-         questionTopicsView.clearQuestionTopicId(SSTeacherDataSource.sharedDataSource.startedSubTopicId)
-//        subTopicsController.preferredContentSize = CGSizeMake(600, 44)
-//      subTopicsController.clearSubTopicDetailsWithMainTopicId(mainTopicId)
+        questionTopicsView.clearQuestionTopicId(SSTeacherDataSource.sharedDataSource.startedSubTopicId)
+        subTopicsView.clearSubTopicDetailsWithMainTopicId(mainTopicId)
+        
         
         if (SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.objectForKey(mainTopicId) != nil)
         {
@@ -1355,27 +1320,16 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
         
         
-        if (classViewPopOverController.popoverVisible == true)
-        {
-//            subTopicsController.setPopover(classViewPopOverController)
-            subTopicsView.getSubtopicsDetailsWithMainTopicId(mainTopicId, withMainTopicName: mainTopicName,withStartedSubtopicID: SSTeacherDataSource.sharedDataSource.startedSubTopicId)
-            
-//            classViewPopOverController.contentViewController = subTopicsController
-            if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
-            {
-                mSubTopicsNamelabel.text = mainTopicName
-                startedMainTopicID = mainTopicId
-                startedMainTopicName = mainTopicName
-                
-            }
-            cumulativeTimer.invalidate()
-            
-            
-            
-            
-            
-            
-        }
+        subTopicsView.frame = CGRectMake(0,0, 600   ,44)
+        subTopicsView.getSubtopicsDetailsWithMainTopicId(mainTopicId, withMainTopicName: mainTopicName,withStartedSubtopicID:SSTeacherDataSource.sharedDataSource.startedSubTopicId
+        )
+        
+        
+        hideAllViewInTopicsView()
+        subTopicsView.hidden = false
+        mShowTopicsView.bringSubviewToFront(subTopicsView)
+         mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 600, mShowTopicsView.frame.origin.y , 600 , 44)
+
         
         
         for indexValue in 0  ..< StudentsDetailsArray.count
@@ -1393,9 +1347,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
            
         }
         
-
-        
-        
         mQuestionNamelabel.text = "No active question"
         SSTeacherMessageHandler.sharedMessageHandler.sendClearQuestionMessageWithRoomId("question_\(currentSessionId)")
         mSubmissionView.questionClearedByTeacher()
@@ -1404,6 +1355,30 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     func delegateDoneButtonPressed()
     {
         mShowTopicsView.hidden = true
+       
+        if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
+        {
+            mSubTopicsNamelabel.text = "No topic selected"
+        }
+    }
+    
+    func delegateTopicsButtonPressed()
+    {
+        
+        subTopicsView.frame = CGRectMake(0,0, 600   ,44)
+        subTopicsView.getSubtopicsDetailsWithMainTopicId(SSTeacherDataSource.sharedDataSource.startedMainTopicId, withMainTopicName: SSTeacherDataSource.sharedDataSource.startedMainTopicName,withStartedSubtopicID:SSTeacherDataSource.sharedDataSource.startedSubTopicId
+        )
+       hideAllViewInTopicsView()
+        subTopicsView.hidden = false
+       
+        mShowTopicsView.bringSubviewToFront(subTopicsView)
+        
+        
+        
+        
+        
+        mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 600, mShowTopicsView.frame.origin.y , 600 , subTopicsView.currentMainTopicsViewHeight)
+        
     }
     
     
@@ -1928,33 +1903,16 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     
     
-    // MARK: - Extra functions
-    func popoverControllerDidDismissPopover(popoverController: UIPopoverController)
-    {
-        if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
-         {
-            mSubTopicsNamelabel.text = "No topic selected"
-        }
-    }
-    
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        if let _ = touches.first
-        {
-            
-        }
-        super.touchesBegan(touches, withEvent:event)
-    }
-    
-    
-    func popoverControllerShouldDismissPopover(popoverController: UIPopoverController) -> Bool {
-       
-        return true
-    }
-    
     // MARK: - Setting controller functions
     
     func Settings_setupLessonPlanClicked()
     {
+        mShowTopicsView.hidden = true
+        if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
+        {
+            mSubTopicsNamelabel.text = "No topic selected"
+        }
+        
         let mSetupLessonPlan  = SSTeacherLessonPlanView(frame: CGRectMake(0, 0 ,self.view.frame.size.width, self.view.frame.size.height))
         mSetupLessonPlan.setCurrentSessionDetails(currentSessionDetails)
         self.view.addSubview(mSetupLessonPlan)
@@ -2065,5 +2023,15 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         }
        
     }
+    
+    
+    func hideAllViewInTopicsView()
+    {
+        mainTopicsView.hidden = true
+        subTopicsView.hidden = true
+        questionTopicsView.hidden = true
+        liveQuestionView.hidden = true
+    }
+    
     
 }

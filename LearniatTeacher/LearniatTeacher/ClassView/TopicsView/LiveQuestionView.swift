@@ -1,25 +1,27 @@
 //
-//  SSTeacherLiveQuestionController.swift
+//  LiveQuestionView.swift
 //  LearniatTeacher
 //
-//  Created by Deepak MK on 26/03/16.
+//  Created by Deepak MK on 26/04/16.
 //  Copyright © 2016 Mindshift. All rights reserved.
 //
 
 import Foundation
 
-@objc protocol SSTeacherLiveQuestionControllerDelegate
+@objc protocol LiveQuestionViewDelegate
 {
     
     
     optional func delegateQuestionCleared(questionDetails:AnyObject, withCurrentmainTopicId mainTopicId:String, withCurrentMainTopicName mainTopicName:String)
-  
+    
     optional func delegateDoneButtonPressed()
+    
+    optional func delegateTopicsButtonPressed()
     
 }
 
 
-class SSTeacherLiveQuestionController: UIViewController,UIPopoverControllerDelegate
+class LiveQuestionView: UIView,UIPopoverControllerDelegate
 {
     var _delgate: AnyObject!
     
@@ -28,23 +30,23 @@ class SSTeacherLiveQuestionController: UIViewController,UIPopoverControllerDeleg
     
     var currentQuestionDetails       :AnyObject!
     
-     var currentMainTopicId           = ""
+    var currentMainTopicId           = ""
     
     var currentMainTopicName          = ""
     
     let mIndexValuesLabel = UILabel()
     
-     let mQuestionTypeLabel = UILabel()
+    let mQuestionTypeLabel = UILabel()
     
     var questionImageView = UIImageView()
     
-     let mQuestionNameLabel = UILabel()
+    let mQuestionNameLabel = UILabel()
     
     let mInfoButton    :UIButton  = UIButton()
-
+    
     let  mFreezbutton = UIButton()
     
-     let mTopicName = UILabel()
+    let mTopicName = UILabel()
     
     var questionsDetailsDictonary:Dictionary<String, NSMutableArray> = Dictionary()
     
@@ -59,23 +61,18 @@ class SSTeacherLiveQuestionController: UIViewController,UIPopoverControllerDeleg
         return _delgate;
     }
     
-    
-    override func viewDidLoad()
+    override init(frame: CGRect)
     {
-        super.viewDidLoad()
-        
-        
-        self.view.setNeedsLayout()
-        self.view.layoutIfNeeded()
-        
-        
-        self.view.backgroundColor = whiteBackgroundColor
-        
-        questionImageView.frame  = CGRectMake(0, 0, 450,350)
-        self.view.addSubview(questionImageView)
-        questionImageView.userInteractionEnabled = true
+        super.init(frame:frame)
         
 
+        self.backgroundColor = whiteBackgroundColor
+        
+        questionImageView.frame  = CGRectMake(0, 0, 450,350)
+        self.addSubview(questionImageView)
+        questionImageView.userInteractionEnabled = true
+        
+        
         
         
         let mTopbarImageView = UIImageView(frame: CGRectMake(0, 0, questionImageView.frame.size.width, 44))
@@ -86,7 +83,7 @@ class SSTeacherLiveQuestionController: UIViewController,UIPopoverControllerDeleg
         
         let  mTopicsButton = UIButton(frame: CGRectMake(10,  0, 200 ,mTopbarImageView.frame.size.height))
         mTopbarImageView.addSubview(mTopicsButton)
-        mTopicsButton.addTarget(self, action: #selector(SSTeacherLiveQuestionController.onDoneButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mTopicsButton.addTarget(self, action: #selector(LiveQuestionView.onTopicsButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
         mTopicsButton.setTitleColor(standard_Button, forState: .Normal)
         mTopicsButton.setTitle("Topics", forState: .Normal)
         mTopicsButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
@@ -97,7 +94,7 @@ class SSTeacherLiveQuestionController: UIViewController,UIPopoverControllerDeleg
         
         let  mDoneButton = UIButton(frame: CGRectMake(mTopbarImageView.frame.size.width - 210,  0, 200 ,mTopbarImageView.frame.size.height))
         mTopbarImageView.addSubview(mDoneButton)
-        mDoneButton.addTarget(self, action: #selector(SSTeacherLiveQuestionController.onDoneButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mDoneButton.addTarget(self, action: #selector(LiveQuestionView.onDoneButton), forControlEvents: UIControlEvents.TouchUpInside)
         mDoneButton.setTitleColor(standard_Button, forState: .Normal)
         mDoneButton.setTitle("Done", forState: .Normal)
         mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
@@ -120,11 +117,11 @@ class SSTeacherLiveQuestionController: UIViewController,UIPopoverControllerDeleg
         
         
         
-       
+        
         
         mQuestionTypeLabel.frame = CGRectMake(mIndexValuesLabel.frame.origin.x + mIndexValuesLabel.frame.size.width + 10   ,                                                    seperatorView.frame.size.height + seperatorView.frame.origin.y ,
-            mTopbarImageView.frame.size.width - (mIndexValuesLabel.frame.origin.x + (mIndexValuesLabel.frame.size.width * 2) + 20 )  ,
-            mTopbarImageView.frame.size.height)
+                                              mTopbarImageView.frame.size.width - (mIndexValuesLabel.frame.origin.x + (mIndexValuesLabel.frame.size.width * 2) + 20 )  ,
+                                              mTopbarImageView.frame.size.height)
         mQuestionTypeLabel.font = UIFont(name:helveticaBold, size: 16)
         questionImageView.addSubview(mQuestionTypeLabel)
         mQuestionTypeLabel.textColor = UIColor.lightGrayColor()
@@ -136,14 +133,14 @@ class SSTeacherLiveQuestionController: UIViewController,UIPopoverControllerDeleg
         
         mInfoButton.frame = CGRectMake(questionImageView.frame.size.width - (mTopbarImageView.frame.size.height + 10) , seperatorView.frame.size.height + seperatorView.frame.origin.y , mTopbarImageView.frame.size.height ,mTopbarImageView.frame.size.height)
         questionImageView.addSubview(mInfoButton)
-        mInfoButton.addTarget(self, action: #selector(SSTeacherLiveQuestionController.onInfoButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mInfoButton.addTarget(self, action: #selector(LiveQuestionView.onInfoButton), forControlEvents: UIControlEvents.TouchUpInside)
         mInfoButton.setImage(UIImage(named: "infoButton.png"), forState: .Normal)
         mInfoButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
         
-
         
         
-
+        
+        
         let seperatorView2 = UIView(frame: CGRectMake(10,  mQuestionTypeLabel.frame.size.height + mQuestionTypeLabel.frame.origin.y , questionImageView.frame.size.width - 20  ,1))
         seperatorView2.backgroundColor = LineGrayColor;
         questionImageView.addSubview(seperatorView2)
@@ -152,7 +149,7 @@ class SSTeacherLiveQuestionController: UIViewController,UIPopoverControllerDeleg
         
         
         
-       
+        
         
         mQuestionNameLabel.frame = CGRectMake(10 , seperatorView2.frame.size.height + seperatorView2.frame.origin.y + 20  , questionImageView.frame.size.width - 20 ,mTopbarImageView.frame.size.height)
         mQuestionNameLabel.font = UIFont(name:helveticaMedium, size: 18)
@@ -164,9 +161,9 @@ class SSTeacherLiveQuestionController: UIViewController,UIPopoverControllerDeleg
         
         
         
-          mFreezbutton.frame =   CGRectMake((questionImageView.frame.size.width - 200) / 2,  mQuestionNameLabel.frame.size.height + mQuestionNameLabel.frame.origin.y + 20, 200 ,mTopbarImageView.frame.size.height)
+        mFreezbutton.frame =   CGRectMake((questionImageView.frame.size.width - 200) / 2,  mQuestionNameLabel.frame.size.height + mQuestionNameLabel.frame.origin.y + 20, 200 ,mTopbarImageView.frame.size.height)
         questionImageView.addSubview(mFreezbutton)
-        mFreezbutton.addTarget(self, action: #selector(SSTeacherLiveQuestionController.onFreezButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mFreezbutton.addTarget(self, action: #selector(LiveQuestionView.onFreezButton), forControlEvents: UIControlEvents.TouchUpInside)
         mFreezbutton.setTitleColor(standard_Red, forState: .Normal)
         mFreezbutton.setTitle("Freeze response", forState: .Normal)
         mFreezbutton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
@@ -179,7 +176,7 @@ class SSTeacherLiveQuestionController: UIViewController,UIPopoverControllerDeleg
         
         
         
-       
+        
         
         mTopicName.frame = CGRectMake(10 , mFreezbutton.frame.size.height + mFreezbutton.frame.origin.y + 20  , questionImageView.frame.size.width - 20 ,mTopbarImageView.frame.size.height)
         mTopicName.font = UIFont(name:helveticaRegular, size: 18)
@@ -188,7 +185,7 @@ class SSTeacherLiveQuestionController: UIViewController,UIPopoverControllerDeleg
         mTopicName.textAlignment = .Center
         mTopicName.lineBreakMode = .ByTruncatingMiddle
         mTopicName.numberOfLines  = 20
-
+        
         
         let seperatorView1 = UIView(frame: CGRectMake(10,  questionImageView.frame.size.height - mTopbarImageView.frame.size.height , questionImageView.frame.size.width - 20  ,1))
         seperatorView1.backgroundColor = LineGrayColor;
@@ -196,32 +193,29 @@ class SSTeacherLiveQuestionController: UIViewController,UIPopoverControllerDeleg
         
         let  clearQuestion = UIButton(frame: CGRectMake(10,  questionImageView.frame.size.height - mTopbarImageView.frame.size.height , questionImageView.frame.size.width - 20  ,mTopbarImageView.frame.size.height))
         questionImageView.addSubview(clearQuestion)
-        clearQuestion.addTarget(self, action: #selector(SSTeacherLiveQuestionController.onClearQuestion), forControlEvents: UIControlEvents.TouchUpInside)
+        clearQuestion.addTarget(self, action: #selector(LiveQuestionView.onClearQuestion), forControlEvents: UIControlEvents.TouchUpInside)
         clearQuestion.setTitleColor(standard_Button, forState: .Normal)
         clearQuestion.setTitle("Close question", forState: .Normal)
         clearQuestion.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
         clearQuestion.titleLabel?.font = UIFont(name: helveticaRegular, size: 20)
         
-
-        
-        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     
-    func setPreferredSize(size:CGSize, withSessionDetails details:AnyObject)
+    
+    func setSessionDetails( details:AnyObject)
     {
-        
-        
-        
         currentSessionDetails = details
         
-        
-        
     }
     
     
     
-
+    
     
     
     // MARK: - datasource delegate functions
@@ -230,7 +224,7 @@ class SSTeacherLiveQuestionController: UIViewController,UIPopoverControllerDeleg
     {
         
         
-        let subViews = self.view.subviews
+        let subViews = self.subviews
         
         for subview in subViews
         {
@@ -242,19 +236,18 @@ class SSTeacherLiveQuestionController: UIViewController,UIPopoverControllerDeleg
             
         }
         
-
+        
         
         currentQuestionDetails = details
         currentMainTopicId = mainTopicId
         currentMainTopicName = mainTopicName
         
-       
         
         
         
-        if var QuestonAvgScore = currentQuestionDetails.objectForKey("QuestonAvgScore")as? NSString
+        
+        if let QuestonAvgScore = currentQuestionDetails.objectForKey("QuestonAvgScore")as? NSString
         {
-            QuestonAvgScore = String(format: "%02d", QuestonAvgScore.intValue)
             
             let questionAverage = QuestonAvgScore.floatValue * 100.0
             
@@ -265,7 +258,7 @@ class SSTeacherLiveQuestionController: UIViewController,UIPopoverControllerDeleg
                     mIndexValuesLabel.hidden = false
                     
                     
-                    let  _string =  NSMutableAttributedString(string:"\(Int(questionAverage))% (\(NumberOfResponses))")
+                    let  _string =  NSMutableAttributedString(string:"\(String(format: "%02d", Int(questionAverage)))% (\(NumberOfResponses))")
                     
                     
                     
@@ -367,11 +360,11 @@ class SSTeacherLiveQuestionController: UIViewController,UIPopoverControllerDeleg
         
         
         
-       
-        mTopicName.text = currentMainTopicName
-
         
-          }
+        mTopicName.text = "\(SSTeacherDataSource.sharedDataSource.startedMainTopicName) / \(SSTeacherDataSource.sharedDataSource.startedSubTopicName)"
+        
+        
+    }
     
     
     var _Popover:AnyObject!
@@ -387,8 +380,18 @@ class SSTeacherLiveQuestionController: UIViewController,UIPopoverControllerDeleg
     }
     func onDoneButton()
     {
-        popover().dismissPopoverAnimated(true)
-        
+        if delegate().respondsToSelector(#selector(LiveQuestionViewDelegate.delegateDoneButtonPressed))
+        {
+            delegate().delegateDoneButtonPressed!()
+        }
+    }
+    
+    func onTopicsButtonPressed()
+    {
+        if delegate().respondsToSelector(#selector(LiveQuestionViewDelegate.delegateTopicsButtonPressed))
+        {
+            delegate().delegateTopicsButtonPressed!()
+        }
     }
     
     func onClearQuestion()
@@ -397,7 +400,7 @@ class SSTeacherLiveQuestionController: UIViewController,UIPopoverControllerDeleg
         mFreezbutton.enabled = true
         mFreezbutton.setTitleColor(standard_Red, forState: .Normal)
         
-        if delegate().respondsToSelector(#selector(SSTeacherLiveQuestionControllerDelegate.delegateQuestionCleared(_:withCurrentmainTopicId:withCurrentMainTopicName:)))
+        if delegate().respondsToSelector(#selector(LiveQuestionViewDelegate.delegateQuestionCleared(_:withCurrentmainTopicId:withCurrentMainTopicName:)))
         {
             delegate().delegateQuestionCleared!(currentQuestionDetails, withCurrentmainTopicId: currentMainTopicId, withCurrentMainTopicName: currentMainTopicName)
         }
@@ -406,24 +409,25 @@ class SSTeacherLiveQuestionController: UIViewController,UIPopoverControllerDeleg
     func onFreezButton()
     {
         
-        let QuestonAvgScore = currentQuestionDetails.objectForKey("QuestonAvgScore")as? String
+        var QuestonAvgScore = currentQuestionDetails.objectForKey("QuestonAvgScore")as? NSString
         
-         let NumberOfResponses = currentQuestionDetails.objectForKey("NumberOfResponses")as? String
+        QuestonAvgScore = String(format: "%02d", QuestonAvgScore!.intValue)
+        
+        let NumberOfResponses = currentQuestionDetails.objectForKey("NumberOfResponses")as? String
         
         
         
         
-        SSTeacherMessageHandler.sharedMessageHandler.freezeQnAMessageToRoom("question_\(SSTeacherDataSource.sharedDataSource.currentLiveSessionId)", withAverageScore: QuestonAvgScore!, withTotalResponses: NumberOfResponses!)
+        SSTeacherMessageHandler.sharedMessageHandler.freezeQnAMessageToRoom("question_\(SSTeacherDataSource.sharedDataSource.currentLiveSessionId)", withAverageScore: QuestonAvgScore! as String, withTotalResponses: NumberOfResponses!)
         
         mFreezbutton.enabled = false
         mFreezbutton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
-        
         
     }
     
     func onInfoButton()
     {
-       
+        
         if let questionType = currentQuestionDetails.objectForKey("Type") as? String
         {
             if questionType == "Overlay Scribble"
@@ -445,7 +449,7 @@ class SSTeacherLiveQuestionController: UIViewController,UIPopoverControllerDeleg
                     x:mInfoButton.frame.origin.x ,
                     y:mInfoButton.frame.origin.y + mInfoButton.frame.size.height / 2,
                     width: 1,
-                    height: 1), inView: self.view, permittedArrowDirections: .Right, animated: true)
+                    height: 1), inView: self, permittedArrowDirections: .Right, animated: true)
             }
             else if questionType == "Multiple Response" || questionType == "Multiple Choice"
             {
@@ -466,7 +470,7 @@ class SSTeacherLiveQuestionController: UIViewController,UIPopoverControllerDeleg
                     x:mInfoButton.frame.origin.x ,
                     y:mInfoButton.frame.origin.y + mInfoButton.frame.size.height / 2,
                     width: 1,
-                    height: 1), inView: self.view, permittedArrowDirections: .Right, animated: true)
+                    height: 1), inView: self, permittedArrowDirections: .Right, animated: true)
             }
             else if questionType == "Match Columns"
             {
@@ -487,7 +491,7 @@ class SSTeacherLiveQuestionController: UIViewController,UIPopoverControllerDeleg
                     x:mInfoButton.frame.origin.x ,
                     y:mInfoButton.frame.origin.y + mInfoButton.frame.size.height / 2,
                     width: 1,
-                    height: 1), inView: self.view, permittedArrowDirections: .Right, animated: true)
+                    height: 1), inView: self, permittedArrowDirections: .Right, animated: true)
             }
         }
     }

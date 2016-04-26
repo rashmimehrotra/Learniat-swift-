@@ -177,6 +177,8 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     var isSubtopicStarted           = false
     
+    var isQuestionSent              = false
+    
     var subTopicDetailsDictonary            = NSMutableDictionary()
     
     var questionsDictonary                  = NSMutableDictionary()

@@ -233,13 +233,13 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSou
             }
             else
             {
-               self.view.makeToast(status, duration: 2.0, position: .Bottom)
+               self.view.makeToast(status, duration: 5.0, position: .Bottom)
                  loginButtonPressed(false)
             }
         }
         else
         {
-            self.view.makeToast("User name or password is incorrect, please try again. ", duration: 2.0, position: .Bottom)
+            self.view.makeToast("User name or password is incorrect, please try again. ", duration: 5.0, position: .Bottom)
              loginButtonPressed(false)
         }
         
@@ -269,7 +269,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSou
     }
     func didgetErrorMessage(message: String, WithServiceName serviceName: String)
     {
-        self.view.makeToast(message, duration: 2.0, position: .Bottom)
+        self.view.makeToast(message, duration: 5.0, position: .Bottom)
         loginButtonPressed(false)
         
     }
@@ -278,7 +278,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSou
     {
         if state == false
         {
-            self.view.makeToast("Stream disconnected ", duration: 2.0, position: .Bottom)
+            self.view.makeToast("Stream disconnected ", duration: 5.0, position: .Bottom)
             loginButtonPressed(false)
 
         }
@@ -298,7 +298,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSou
         }
        else
         {
-            self.view.makeToast("User id or password is incorrect, please try again. ", duration: 2.0, position: .Bottom)
+            self.view.makeToast("User id or password is incorrect, please try again. ", duration: 5.0, position: .Bottom)
             loginButtonPressed(false)
         }
     }

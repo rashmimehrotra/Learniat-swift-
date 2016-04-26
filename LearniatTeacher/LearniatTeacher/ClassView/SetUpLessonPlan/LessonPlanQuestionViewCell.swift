@@ -130,12 +130,15 @@ class LessonPlanQuestionViewCell: UIView
         
         
         
-        if let QuestonAvgScore = details.objectForKey("QuestonAvgScore")as? NSString
+        if var QuestonAvgScore = details.objectForKey("QuestonAvgScore")as? NSString
         {
+            QuestonAvgScore = String(format: "%02d", QuestonAvgScore.intValue)
+            
             let questionAverage = QuestonAvgScore.floatValue * 100.0
             
             if let NumberOfResponses = details.objectForKey("NumberOfResponses")as? NSString
             {
+                
                 if NumberOfResponses.intValue > 0
                 {
                     mIndexValuesLabel.hidden = false

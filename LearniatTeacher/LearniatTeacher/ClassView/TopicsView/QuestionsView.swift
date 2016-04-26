@@ -197,6 +197,19 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
     func getQuestionsDetailsWithsubTopicId(subTopicId:String, withSubTopicName subTopicName:String, withMainTopicId mainTopicId:String, withMainTopicName mainTopicName:String, withSubtopicStarted isStarted:Bool)
     {
         
+        let subViews = mTopicsContainerView.subviews.flatMap{ $0 as? QuestionCell }
+        
+        for subview in subViews
+        {
+            if subview.isKindOfClass(QuestionCell)
+            {
+                subview.removeFromSuperview()
+            }
+        }
+        
+        
+        
+        
         currentMainTopicID = mainTopicId
         currentMainTopicName = mainTopicName
         
@@ -314,19 +327,6 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
         {
             mTopicsContainerView.hidden = false
         }
-        
-        
-        
-        let subViews = mTopicsContainerView.subviews.flatMap{ $0 as? QuestionCell }
-        
-        for subview in subViews
-        {
-            if subview.isKindOfClass(QuestionCell)
-            {
-                subview.removeFromSuperview()
-            }
-        }
-        
         
         
         var height :CGFloat = 44
@@ -452,7 +452,9 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
     // MARK: - Question delegate functions
     
     
-    func delegateSendQuestionDetails(questionDetails: AnyObject) {
+    func delegateSendQuestionDetails(questionDetails: AnyObject)
+    {
+        
         
         if delegate().respondsToSelector(#selector(QuestionsViewDelegate.delegateQuestionSentWithQuestionDetails(_:)))
         {

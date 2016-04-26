@@ -139,6 +139,8 @@ class QuestionCell: UIView
         
         if let QuestonAvgScore = details.objectForKey("QuestonAvgScore")as? NSString
         {
+           
+            
             let questionAverage = QuestonAvgScore.floatValue * 100.0
             
             if let NumberOfResponses = details.objectForKey("NumberOfResponses")as? NSString
@@ -147,8 +149,8 @@ class QuestionCell: UIView
                 {
                     mIndexValuesLabel.hidden = false
                     
-                    
-                    let  _string =  NSMutableAttributedString(string:"\(Int(questionAverage))% (\(NumberOfResponses))")
+
+                    let  _string =  NSMutableAttributedString(string:"\(String(format: "%02d", Int(questionAverage)))% (\(NumberOfResponses))")
                     
                     
 

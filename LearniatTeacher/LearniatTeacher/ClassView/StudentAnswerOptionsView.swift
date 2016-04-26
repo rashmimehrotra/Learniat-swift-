@@ -243,7 +243,7 @@ class StudentAnswerOptionsView: UIView
         
         
         let studentFinalAsnwer = NSMutableArray()
-        for (var answerIndex = 0; answerIndex < studentAnsweOptions.count; answerIndex++)
+        for answerIndex in 0..<studentAnsweOptions.count
         {
             let answerOptiondict = studentAnsweOptions.objectAtIndex(answerIndex)
             
@@ -296,13 +296,13 @@ class StudentAnswerOptionsView: UIView
     func getOptionsValuesWithOptionsArray(answerOptions:NSMutableArray, withQuestionOptions questionOptions:NSMutableArray)-> NSMutableArray
     {
         
-        for (var index = 0; index < questionOptions.count; index++)
+        for index in 0..<questionOptions.count
         {
             let questionOptiondict = questionOptions.objectAtIndex(index)
             
             if let questionOptionText = questionOptiondict.objectForKey("OptionText") as? String
             {
-                for (var answerIndex = 0; answerIndex < answerOptions.count; answerIndex++)
+                for answerIndex in 0..<answerOptions.count
                 {
                     if let answerOptionText = answerOptions.objectAtIndex(answerIndex) as? String
                     {
@@ -331,7 +331,7 @@ class StudentAnswerOptionsView: UIView
             }
         }
         
-        for (var index = 0; index < questionOptions.count; index++)
+        for index in 0..<questionOptions.count
         {
             let questionOptiondict = questionOptions.objectAtIndex(index)
             
@@ -398,9 +398,9 @@ class StudentAnswerOptionsView: UIView
             var optionsArrayCount = 0
             
             
-            for (var i = 0; i < Int(numberOfRow); i++)
+            for _ in 0..<Int(numberOfRow)
             {
-                for (var j = 0; j < Int(numberOfcolumn); j++)
+                for _ in 0..<Int(numberOfcolumn)
                 {
                     let containerView =  UIImageView(frame:CGRectMake(width, height, barWidth, barHeight))
                     self.addSubview(containerView);
@@ -429,7 +429,7 @@ class StudentAnswerOptionsView: UIView
                         
                         if let questionOptionText = questionOptiondict.objectForKey("OptionText") as? String
                         {
-                            for (var answerIndex = 0; answerIndex < answerOptions.count; answerIndex++)
+                            for answerIndex in 0..<answerOptions.count
                             {
                                 if let answerOptionText = answerOptions.objectAtIndex(answerIndex) as? String
                                 {
@@ -511,9 +511,9 @@ class StudentAnswerOptionsView: UIView
             var optionsArrayCount = 0
             
             
-            for (var i = 0; i < Int(numberOfRow); i++)
+            for _ in 0..<Int(numberOfRow)
             {
-                for (var j = 0; j < Int(numberOfcolumn); j++)
+                for _ in 0..<Int(numberOfcolumn)
                 {
                     let containerView =  UIImageView(frame:CGRectMake(width, height, barWidth, barHeight))
                     self.addSubview(containerView);

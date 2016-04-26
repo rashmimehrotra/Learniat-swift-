@@ -126,7 +126,7 @@ class MTCAggregateView: UIView
         
          var positionY:CGFloat = 40
         
-        for(var index = 0; index < studentIdArray.count; index += 1)
+        for index in 0..<studentIdArray.count
         {
             let studentId = studentIdArray[index]
             let studentName = studentNameArray[index]
@@ -153,7 +153,7 @@ class MTCAggregateView: UIView
         wrongStudentsLabel.font = UIFont(name: helveticaMedium, size: 18);
         
         positionY = 40
-        for(var index = 0; index < wrongStudentIdArray.count; index += 1)
+        for index in 0..<wrongStudentIdArray.count
         {
             let studentId = wrongStudentIdArray[index]
             let studentName = wrongStudentNameArray[index]

@@ -105,7 +105,7 @@ class SingleResponceOptionCell: UIView
             
             if let questionOptionText = questiondetails.objectForKey("OptionText") as? String
             {
-                for (var answerIndex = 0; answerIndex < mAnswerOptions.count; answerIndex += 1)
+                for answerIndex in 0 ..< mAnswerOptions.count
                 {
                     if let answerOptionText = mAnswerOptions.objectAtIndex(answerIndex) as? String
                     {

@@ -115,8 +115,8 @@ class StudentAnswerGraphView: UIView
         differenceheight = (lineContainerView.frame.size.height) / CGFloat(10)
         
         var labelCount = 0;
-        var height:CGFloat = 0;
-        for (var i = 10; i >= 0 ; i -= 1)
+        var height:CGFloat = differenceheight * 10;
+        for i in 0..<11
         {
             if (i % 2 == 0)
             {
@@ -141,7 +141,7 @@ class StudentAnswerGraphView: UIView
                 lineContainerView.addSubview(lineView);
 
             }
-            height = height + differenceheight
+            height = height - differenceheight
         }
         
         
@@ -252,8 +252,9 @@ class StudentAnswerGraphView: UIView
         differenceheight = (lineContainerView.frame.size.height) / CGFloat(10)
         
         var labelCount = 0;
-        var height:CGFloat = 0;
-        for (var i = 10; i >= 0 ; i -= 1)
+        
+        var height:CGFloat = differenceheight * 10;
+        for i in 0..<11
         {
             if (i % 2 == 0)
             {
@@ -278,7 +279,7 @@ class StudentAnswerGraphView: UIView
                 lineContainerView.addSubview(lineView);
                 
             }
-            height = height + differenceheight
+            height = height - differenceheight
         }
         
         
@@ -411,7 +412,7 @@ class StudentAnswerGraphView: UIView
                         
                     }
                 }
-                for (var i = 10; i >= 0 ; i -= 1)
+                for i in 0..<11
                 {
                     if (i % 2 == 0)
                     {
@@ -475,7 +476,7 @@ class StudentAnswerGraphView: UIView
                             
                         }
                     }
-                    for (var i = 10; i >= 0 ; i -= 1)
+                    for i in 0..<11
                     {
                         if (i % 2 == 0)
                         {

@@ -457,7 +457,7 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         
         if mQuestionNametextView.text.isEmpty
         {
-            self.makeToast("Please type question name ", duration: 2.0, position: .Bottom)
+            self.makeToast("Please type question name ", duration: 5.0, position: .Bottom)
         }
         else
         {

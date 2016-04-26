@@ -129,7 +129,7 @@ class SingleResponceOption : UIViewController
                    
                     
                     
-                    for var indexValu = 0 ;indexValu < optionArray.count; indexValu += 1
+                    for indexValu in 0..<optionArray.count
                     {
                         let optionDict = optionArray.objectAtIndex(indexValu)
                         

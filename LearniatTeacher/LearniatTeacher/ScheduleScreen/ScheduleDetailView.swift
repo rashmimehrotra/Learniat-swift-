@@ -308,7 +308,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         mJoinedPercentageLabel.frame = CGRectMake(0, (mJoinStudentProgressBar.frame.size.height-((mJoinStudentProgressBar.frame.size.height / 6) + 30) )/2, mJoinStudentProgressBar.frame.size.width , mJoinStudentProgressBar.frame.size.height / 6)
         mJoinStudentProgressBar.addSubview(mJoinedPercentageLabel)
         mJoinedPercentageLabel.textAlignment = .Center
-        mJoinedPercentageLabel.font = UIFont(name: HelveticaNeueThin, size: 40)
+        mJoinedPercentageLabel.font = UIFont(name: HelveticaNeueThin, size: 50)
         mJoinedPercentageLabel.lineBreakMode = .ByTruncatingMiddle
         mJoinedPercentageLabel.textColor = blackTextColor
         mJoinedPercentageLabel.backgroundColor = UIColor.clearColor()

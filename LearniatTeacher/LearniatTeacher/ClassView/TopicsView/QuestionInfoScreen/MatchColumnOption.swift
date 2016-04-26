@@ -210,7 +210,7 @@ class MatchColumnOption : UIViewController
         }
         else if leftSideArray.count < RightSideArray.count
         {
-            for var index = 0; index < leftSideArray.count ; index += 1
+            for index in 0..<leftSideArray.count
             {
                 
                 let leftSideOptionDict = leftSideArray.objectAtIndex(index)
@@ -257,7 +257,7 @@ class MatchColumnOption : UIViewController
         }
         else
         {
-            for var index = 0; index < RightSideArray.count ; index += 1
+            for index in 0..<RightSideArray.count 
             {
                 
                 let leftSideOptionDict = leftSideArray.objectAtIndex(index)

@@ -237,7 +237,7 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
     
     func didgetErrorMessage(message: String, WithServiceName serviceName: String)
     {
-        self.view.makeToast(message, duration: 2.0, position: .Bottom)
+        self.view.makeToast(message, duration: 5.0, position: .Bottom)
         
         activityIndicator.hidden = true
         activityIndicator.stopAnimating()

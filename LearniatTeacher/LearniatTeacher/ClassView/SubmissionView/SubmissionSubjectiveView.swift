@@ -503,7 +503,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         }
         else
         {
-            self.makeToast("please select at least one student to give feed back ", duration: 1.0, position: .Bottom)
+            self.makeToast("please select at least one student to give feed back ", duration: 3.0, position: .Bottom)
         }
         
         
@@ -973,7 +973,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         mSendButton.hidden = false
         
         
-        self.makeToast(message, duration: 1.0, position: .Bottom)
+        self.makeToast(message, duration: 5.0, position: .Bottom)
         
     }
     
