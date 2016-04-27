@@ -73,37 +73,37 @@ class LessonPlanSubTopicsView: UIView,SSTeacherDataSourceDelegate,UIGestureRecog
 //        bacGroundView.addGestureRecognizer(tap)
 
         
-        mTopicsContainerView.frame = CGRectMake(100, 0, self.frame.size.width - 200,self.frame.size.height)
+        mTopicsContainerView.frame = CGRectMake(100,60, self.frame.size.width - 200,self.frame.size.height - 60 )
         self.addSubview(mTopicsContainerView)
         mTopicsContainerView.backgroundColor = lightGrayTopBar
         mTopicsContainerView.userInteractionEnabled = true
        
         
+        let imageview =  UIImageView(frame: CGRectMake(100  , 0, mTopicsContainerView.frame.size.width , 60))
+        self.addSubview(imageview)
+        imageview.backgroundColor = lightGrayTopBar
 
         
-        mainTopicCell = LessonPlanMainViewCell(frame: CGRectMake(10  , 0, mTopicsContainerView.frame.size.width - 20 , 60))
+        mainTopicCell = LessonPlanMainViewCell(frame: CGRectMake(100  , 0, mTopicsContainerView.frame.size.width , 60))
         mainTopicCell.setdelegate(self)
         mainTopicCell.layer.cornerRadius = 5
-        mTopicsContainerView.addSubview(mainTopicCell)
+        self.addSubview(mainTopicCell)
         mainTopicCell.backgroundColor = UIColor.clearColor()
         mainTopicCell.mSubTopicButton.hidden = true
         mainTopicCell.checkBoxImage.hidden = true
         mainTopicCell.m_checkBoxButton.hidden = true
+        mainTopicCell.mQuestionsButton.hidden = true
+        
+       
+        
         
         let  mDoneButton = UIButton(frame: CGRectMake( 10, 0, 100, 60))
         mDoneButton.addTarget(self, action: #selector(LessonPlanSubTopicsView.onBackButton), forControlEvents: UIControlEvents.TouchUpInside)
         mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
-        mTopicsContainerView.addSubview(mDoneButton)
+        mainTopicCell.addSubview(mDoneButton)
         mDoneButton.setImage(UIImage(named: "arrow_Blue.png"), forState: .Normal)
         mDoneButton.imageView?.contentMode = .ScaleAspectFit
-
-        
-        let lineImage = UIImageView(frame: CGRectMake(0  , mainTopicCell.frame.origin.y + mainTopicCell.frame.size.height + 10 , mTopicsContainerView.frame.size.width , 2))
-        lineImage.backgroundColor = lightGrayColor
-        
-        mTopicsContainerView.addSubview(lineImage)
-        
-    }
+}
     
     
     required init?(coder aDecoder: NSCoder)
@@ -166,7 +166,7 @@ class LessonPlanSubTopicsView: UIView,SSTeacherDataSourceDelegate,UIGestureRecog
         
         
         
-        var positionY :CGFloat = 80
+        var positionY :CGFloat = 10
         
         for index in 0 ..< mMaintopicsDetails.count 
         {

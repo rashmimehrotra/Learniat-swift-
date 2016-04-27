@@ -14,6 +14,7 @@ class ScribbleQuestionInfoScreen : UIViewController
     
     var questionDetails :AnyObject!
     
+    var  ScribbleImageView = UIImageView()
     func setdelegate(delegate:AnyObject)
     {
         _delgate = delegate;
@@ -62,15 +63,13 @@ class ScribbleQuestionInfoScreen : UIViewController
         mDoneButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
         headerView.addSubview(mDoneButton)
         
-        
+        ScribbleImageView.frame = CGRectMake(0,50, 400, 267)
+        self.view.addSubview(ScribbleImageView)
+
         if let scribble = questionDetails.objectForKey("Scribble") as? String
         {
             showScribbleWithDetails(scribble)
         }
-        
-        
-        
-        
         
     }
     
@@ -102,16 +101,14 @@ class ScribbleQuestionInfoScreen : UIViewController
     }
     func showScribbleWithDetails(Url:String)
     {
-        let imageView = UIImageView(frame: CGRectMake(0,50, 400, 267))
-        self.view.addSubview(imageView)
-
+       
         
         let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_QuestionsImageUrl) as! String
         
         if let checkedUrl = NSURL(string: "\(urlString)/\(Url)")
         {
-            imageView.contentMode = .ScaleAspectFit
-            imageView.downloadImage(checkedUrl, withFolderType: folderType.ProFilePics)
+            ScribbleImageView.contentMode = .ScaleAspectFit
+            ScribbleImageView.downloadImage(checkedUrl, withFolderType: folderType.ProFilePics)
         }
 
         

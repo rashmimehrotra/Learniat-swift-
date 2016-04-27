@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/ClassView/SetUpLessonPlan/LessonPlanMainView.swift"
-            timestampString = "482650654.678507"
+            filePath = "LearniatTeacher/Source/SSTeacherDataSource.swift"
+            timestampString = "483361911.791424"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
-            landmarkName = "delegateCellStateChangedWithState(_:withIndexValue:withCurrentTopicDatails:withChecMarkState:)"
+            startingLineNumber = "475"
+            endingLineNumber = "475"
+            landmarkName = "getStudentsAswerWithAnswerId(_:withDelegate:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,29 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/ClassView/SetUpLessonPlan/LessonPlanSubTopicCell.swift"
-            timestampString = "482650700.050021"
+            filePath = "LearniatTeacher/ClassView/StundentDeskView.swift"
+            timestampString = "483362300.662722"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "191"
-            endingLineNumber = "191"
-            landmarkName = "setSubTopicTopicDetails(_:withIndexValue:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/ClassView/SetUpLessonPlan/LessonPlanSubTopicCell.swift"
-            timestampString = "482650917.98538"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "265"
-            endingLineNumber = "265"
-            landmarkName = "checkMarkPressed()"
+            startingLineNumber = "425"
+            endingLineNumber = "425"
+            landmarkName = "didGetStudentsAnswerWithDetails(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -78,9 +78,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     var startedMainTopicID          = ""
     
     var startedMainTopicName        = ""
-    
-    var currentQuestionLogId        = ""
-    
+        
     
     var currentCumulativeTime       :String   = ""
     
@@ -127,7 +125,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     var mShowTopicsView                         = UIView()
     
-    
+    var dummQuestionAnswerView              = StudentAnswerDemo()
     
     override func viewDidLoad()
     {
@@ -139,6 +137,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         self.view.setNeedsLayout()
         self.view.layoutIfNeeded()
         
+        dummQuestionAnswerView.setdelegate(self)
         
         SSTeacherMessageHandler.sharedMessageHandler.setdelegate(self)
         
@@ -323,7 +322,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mTopicButton.layer.masksToBounds = true
         
         
-        mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 600, mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , 600, 680)
+        mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 610, mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , 600, 680)
         
         mShowTopicsView.backgroundColor = UIColor.whiteColor()
         mShowTopicsView.layer.shadowColor = UIColor.blackColor().CGColor
@@ -801,12 +800,15 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             
             SSTeacherDataSource.sharedDataSource.isQuestionSent = true
             
-            currentQuestionLogId = QuestionLogId
             
+            SSTeacherDataSource.sharedDataSource.currentQuestionLogId = QuestionLogId
             
             if let Type = currentQuestionDetails.objectForKey("Type") as? String
             {
-                SSTeacherMessageHandler.sharedMessageHandler.sendQuestionWithRoomName("question_\(currentSessionId)", withQuestionLogId: currentQuestionLogId, withQuestionType: Type)
+                SSTeacherMessageHandler.sharedMessageHandler.sendQuestionWithRoomName("question_\(currentSessionId)", withQuestionLogId: SSTeacherDataSource.sharedDataSource.currentQuestionLogId, withQuestionType: Type)
+                
+                
+                
                 
                 if let questionType = currentQuestionDetails.objectForKey("Type") as? String
                 {
@@ -826,6 +828,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                     else
                     {
                         mSubmissionView.addMRQQuestionWithDetails(currentQuestionDetails)
+                        dummQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
                         
                     }
                 }
@@ -1010,7 +1013,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 
                 
                 mainTopicsView.getTopicsDetailswithStartedMaintopicId("")
-                mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 600, mShowTopicsView.frame.origin.y , 600  , mainTopicsView.currentMainTopicsViewHeight)
+                mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 610, mShowTopicsView.frame.origin.y , 600  , mainTopicsView.currentMainTopicsViewHeight)
                 
                 hideAllViewInTopicsView()
                 mainTopicsView.hidden = false
@@ -1029,7 +1032,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 
                 
                 
-                mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 450, mShowTopicsView.frame.origin.y ,450  ,350)
+                mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 460, mShowTopicsView.frame.origin.y ,450  ,350)
                 
             }
             else if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == true
@@ -1047,7 +1050,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 
                 
                 
-                mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 600, mShowTopicsView.frame.origin.y , 600 , subTopicsView.currentMainTopicsViewHeight)
+                mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 610, mShowTopicsView.frame.origin.y , 600 , subTopicsView.currentMainTopicsViewHeight)
             }
 
         }
@@ -1070,7 +1073,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     {
         UIView.animateWithDuration(0.5, animations:
             {
-                self.mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 600, self.mShowTopicsView.frame.origin.y , 600 , height)
+                self.mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 610, self.mShowTopicsView.frame.origin.y , 600 , height)
         })
         
         
@@ -1088,7 +1091,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         hideAllViewInTopicsView()
         subTopicsView.hidden = false
         mShowTopicsView.bringSubviewToFront(subTopicsView)
-          mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 600, mShowTopicsView.frame.origin.y ,600, subTopicsView.currentMainTopicsViewHeight)
+          mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 610, mShowTopicsView.frame.origin.y ,600, subTopicsView.currentMainTopicsViewHeight)
         
         
         if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
@@ -1111,7 +1114,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         hideAllViewInTopicsView()
         mainTopicsView.hidden = false
         mShowTopicsView.bringSubviewToFront(mainTopicsView)
-         mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 600, mShowTopicsView.frame.origin.y , 600 , mainTopicsView.currentMainTopicsViewHeight)
+         mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 610, mShowTopicsView.frame.origin.y , 600 , mainTopicsView.currentMainTopicsViewHeight)
        
     }
     
@@ -1221,7 +1224,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         questionTopicsView.hidden = false
         mShowTopicsView.bringSubviewToFront(questionTopicsView)
         
-        mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 600, mShowTopicsView.frame.origin.y , 600 , questionTopicsView.currentMainTopicsViewHeight)
+        mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 610, mShowTopicsView.frame.origin.y , 600 , questionTopicsView.currentMainTopicsViewHeight)
 
         
     }
@@ -1296,7 +1299,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
         
         
-        SSTeacherDataSource.sharedDataSource.clearQuestionWithQuestionogId(currentQuestionLogId, withDelegate: self)
+        SSTeacherDataSource.sharedDataSource.clearQuestionWithQuestionogId(SSTeacherDataSource.sharedDataSource.currentQuestionLogId, withDelegate: self)
         
         
         
@@ -1328,7 +1331,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         hideAllViewInTopicsView()
         subTopicsView.hidden = false
         mShowTopicsView.bringSubviewToFront(subTopicsView)
-         mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 600, mShowTopicsView.frame.origin.y , 600 , 44)
+         mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 610, mShowTopicsView.frame.origin.y , 600 , 44)
 
         
         
@@ -1377,7 +1380,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
         
         
-        mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 600, mShowTopicsView.frame.origin.y , 600 , subTopicsView.currentMainTopicsViewHeight)
+        mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 610, mShowTopicsView.frame.origin.y , 600 , subTopicsView.currentMainTopicsViewHeight)
         
     }
     
@@ -1807,7 +1810,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         if let questionType = currentQuestionDetails.objectForKey("Type") as? String
         {
             
-            questionInfoController.AggregateDrillDownWithOptionId(optionId, withQuestionDetails: currentQuestionDetails, withQuestionLogId: currentQuestionLogId,withQuestionTye:questionType )
+            questionInfoController.AggregateDrillDownWithOptionId(optionId, withQuestionDetails: currentQuestionDetails, withQuestionLogId: SSTeacherDataSource.sharedDataSource.currentQuestionLogId,withQuestionTye:questionType )
            
         }
         

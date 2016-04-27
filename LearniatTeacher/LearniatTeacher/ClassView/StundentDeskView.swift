@@ -387,6 +387,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     func studentSentAnswerWithAnswerString(answerString:String, withQuestionDetails details:AnyObject)
     {
         _currentQuestionDetials = details
+        
         SSTeacherDataSource.sharedDataSource.getStudentsAswerWithAnswerId(answerString, withDelegate: self)
     }
     
@@ -425,7 +426,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         mStudentName.hidden = false
         _currentAnswerDetails = details
         mQueryTextLable.hidden = true
-        
+        setStudentCurrentState(StudentLive)
         answerContainerView.hidden = false
         
         if isQueryPresent == true

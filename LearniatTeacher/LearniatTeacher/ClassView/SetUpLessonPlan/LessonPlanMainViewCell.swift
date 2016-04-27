@@ -31,6 +31,9 @@ class LessonPlanMainViewCell: UIView{
     
     var mSubTopicButton     = UIButton()
     
+    
+    var mQuestionsButton     = UIButton()
+    
     var mMainTopicId          = "0"
     
      let checkBoxImage       = UIImageView()
@@ -89,12 +92,25 @@ class LessonPlanMainViewCell: UIView{
         mSubTopicButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         mSubTopicButton.backgroundColor = standard_Button
         mSubTopicButton.setTitle("No SubTopics", forState: .Normal)
-        mSubTopicButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 18)
+        mSubTopicButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 20)
         mSubTopicButton.addTarget(self, action: #selector(LessonPlanMainViewCell.onSubtopicButton), forControlEvents: UIControlEvents.TouchUpInside)
         mSubTopicButton.layer.cornerRadius = (mSubTopicButton.frame.size.height)/3
         
+        
+        
+        
+        mQuestionsButton.frame = CGRectMake(mSubTopicButton.frame.origin.x - 160 , 10 ,150 ,self.frame.size.height - 20)
+        self.addSubview(mQuestionsButton)
+        mQuestionsButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
+        mQuestionsButton.setTitleColor(standard_Button, forState: .Normal)
+        mQuestionsButton.setTitle("No Question", forState: .Normal)
+        mQuestionsButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 20)
+        mQuestionsButton.addTarget(self, action: #selector(LessonPlanMainViewCell.onSubtopicButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mQuestionsButton.layer.cornerRadius = (mSubTopicButton.frame.size.height)/3
+
+        
       
-        var remainingWidth = m_graspImageView.frame.size.width + m_graspImageView.frame.origin.x + mSubTopicButton.frame.size.width + 30
+        var remainingWidth = m_graspImageView.frame.size.width + m_graspImageView.frame.origin.x + mSubTopicButton.frame.size.width + mQuestionsButton.frame.size.width + 40
         
         remainingWidth = self.frame.size.width - remainingWidth
         
@@ -109,7 +125,6 @@ class LessonPlanMainViewCell: UIView{
         m_MainTopicLabel.textColor = blackTextColor
         m_MainTopicLabel.textAlignment = .Left
         m_MainTopicLabel.lineBreakMode = .ByTruncatingMiddle
-        
         
         
         m_progressView.userInteractionEnabled = false;
@@ -242,6 +257,42 @@ class LessonPlanMainViewCell: UIView{
                                 checkBoxImage.image = UIImage(named:"halfChecked.png");
                             }
                         }
+                        
+                        var questionDetails = NSMutableArray()
+                        
+                        if (subTopicDict.objectForKey("Questions") != nil)
+                        {
+                            let classCheckingVariable = subTopicDict.objectForKey("Questions")!.objectForKey("Question")!
+                            
+                            if classCheckingVariable.isKindOfClass(NSMutableArray)
+                            {
+                                questionDetails = classCheckingVariable as! NSMutableArray
+                            }
+                            else
+                            {
+                                questionDetails.addObject(subTopicDict.objectForKey("Questions")!.objectForKey("Question")!)
+                                
+                            }
+                            
+                            
+                            if Int(questionDetails.count) <= 0
+                            {
+                                mQuestionsButton.setTitle("No Questions", forState: .Normal)
+                                mQuestionsButton.enabled = false
+                                mQuestionsButton.backgroundColor = lightGrayColor
+                            }
+                            else if Int(subTopicsDetails.count) == 1
+                            {
+                                mQuestionsButton.setTitle("\(subTopicsDetails.count) Question", forState: .Normal)
+                            }
+                            else
+                            {
+                                mQuestionsButton.setTitle("\(subTopicsDetails.count) Questions", forState: .Normal)
+                            }
+                        }
+                        
+                        
+                        
                     }
                 }
                 
@@ -251,6 +302,47 @@ class LessonPlanMainViewCell: UIView{
                 checkBoxImage.image = UIImage(named:"Unchecked.png");
                 self.backgroundColor = UIColor.clearColor()
                 isSelected = false
+                
+                
+                for index in 0..<subTopicsDetails.count
+                {
+                    let subTopicDict = subTopicsDetails.objectAtIndex(index)
+                    
+                    var questionDetails = NSMutableArray()
+                    
+                    if (subTopicDict.objectForKey("Questions") != nil)
+                    {
+                        let classCheckingVariable = subTopicDict.objectForKey("Questions")!.objectForKey("Question")!
+                        
+                        if classCheckingVariable.isKindOfClass(NSMutableArray)
+                        {
+                            questionDetails = classCheckingVariable as! NSMutableArray
+                        }
+                        else
+                        {
+                            questionDetails.addObject(subTopicDict.objectForKey("Questions")!.objectForKey("Question")!)
+                            
+                        }
+                        
+                        
+                        if Int(questionDetails.count) <= 0
+                        {
+                            mQuestionsButton.setTitle("No Questions", forState: .Normal)
+                            mQuestionsButton.enabled = false
+                            mQuestionsButton.backgroundColor = lightGrayColor
+                        }
+                        else if Int(subTopicsDetails.count) == 1
+                        {
+                            mQuestionsButton.setTitle("\(subTopicsDetails.count) Question", forState: .Normal)
+                        }
+                        else
+                        {
+                            mQuestionsButton.setTitle("\(subTopicsDetails.count) Questions", forState: .Normal)
+                        }
+                    }
+                    
+                }
+                
                 
             }
         }

@@ -183,6 +183,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     var questionsDictonary                  = NSMutableDictionary()
     
+    var currentQuestionLogId                = ""
     
     var startedSubTopicId                   = ""
     

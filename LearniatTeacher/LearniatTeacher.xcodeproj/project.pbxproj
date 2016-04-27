@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D0A7FC81CCF783B001AA119 /* StudentAnswerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0A7FC71CCF783B001AA119 /* StudentAnswerDemo.swift */; };
+		4D0A7FCA1CCF79C6001AA119 /* StudentAnswerSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0A7FC91CCF79C6001AA119 /* StudentAnswerSelectionView.swift */; };
 		4D2A93201CC0C4A9007A1D41 /* SetupClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2A931D1CC0C4A9007A1D41 /* SetupClassCell.swift */; };
 		4D2A93211CC0C4A9007A1D41 /* SetUpClassRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2A931E1CC0C4A9007A1D41 /* SetUpClassRoom.swift */; };
 		4D2A93221CC0C4A9007A1D41 /* SetupGridview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2A931F1CC0C4A9007A1D41 /* SetupGridview.swift */; };
@@ -383,6 +385,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D0A7FC71CCF783B001AA119 /* StudentAnswerDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerDemo.swift; sourceTree = "<group>"; };
+		4D0A7FC91CCF79C6001AA119 /* StudentAnswerSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerSelectionView.swift; sourceTree = "<group>"; };
 		4D2A931D1CC0C4A9007A1D41 /* SetupClassCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetupClassCell.swift; sourceTree = "<group>"; };
 		4D2A931E1CC0C4A9007A1D41 /* SetUpClassRoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetUpClassRoom.swift; sourceTree = "<group>"; };
 		4D2A931F1CC0C4A9007A1D41 /* SetupGridview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetupGridview.swift; sourceTree = "<group>"; };
@@ -960,6 +964,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4D0A7FC61CCF7822001AA119 /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				4D0A7FC71CCF783B001AA119 /* StudentAnswerDemo.swift */,
+				4D0A7FC91CCF79C6001AA119 /* StudentAnswerSelectionView.swift */,
+			);
+			path = Demo;
+			sourceTree = "<group>";
+		};
 		4DC246491CC1F6B500E01CA4 /* Objective-C_Class */ = {
 			isa = PBXGroup;
 			children = (
@@ -2172,6 +2185,7 @@
 		53676D501CA63D7A00CADE4D /* ClassView */ = {
 			isa = PBXGroup;
 			children = (
+				4D0A7FC61CCF7822001AA119 /* Demo */,
 				53676D511CA63D7A00CADE4D /* SSTeacherClassView.swift */,
 				531044A91CA665E2007AE9D5 /* StundentDeskView.swift */,
 				53E5BBAD1CAE80F400358ED8 /* StudentAnswerOptionsView.swift */,
@@ -2621,6 +2635,7 @@
 				5377E43C1CAB9B6600A11E59 /* MatchColumnCell.swift in Sources */,
 				53676CD51CA63B7F00CADE4D /* XMPPRoomOccupantMemoryStorageObject.m in Sources */,
 				53E5BBAE1CAE80F400358ED8 /* StudentAnswerOptionsView.swift in Sources */,
+				4D0A7FC81CCF783B001AA119 /* StudentAnswerDemo.swift in Sources */,
 				53676D5F1CA63D7A00CADE4D /* SubTopicCell.swift in Sources */,
 				53676CD01CA63B7F00CADE4D /* XMPPRoomHybridStorage.m in Sources */,
 				53676D151CA63B7F00CADE4D /* SSMessage.m in Sources */,
@@ -2810,6 +2825,7 @@
 				53676CE21CA63B7F00CADE4D /* XMPPvCardTempEmail.m in Sources */,
 				53676C9F1CA63B7F00CADE4D /* CustomAlertView.m in Sources */,
 				53676C9E1CA63B7F00CADE4D /* XMLDictionary.m in Sources */,
+				4D0A7FCA1CCF79C6001AA119 /* StudentAnswerSelectionView.swift in Sources */,
 				53676D2A1CA63B7F00CADE4D /* DDXMLElement.m in Sources */,
 				53676CD31CA63B7F00CADE4D /* XMPPRoomMemoryStorage.m in Sources */,
 				53676CC01CA63B7F00CADE4D /* XMPPResourceMemoryStorageObject.m in Sources */,
@@ -2927,7 +2943,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: deepak mk (862RK2T33X)";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = LearniatTeacher/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
@@ -2939,7 +2955,7 @@
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.LearniatTeacher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "95d3328e-4d6b-41bf-b8ad-cfdf363fec9c";
+				PROVISIONING_PROFILE = "bf448ed6-d1b3-431e-8bf1-ff016bbac1a5";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatTeacher/Swift-Bridging-Header.h";
 				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 			};
@@ -2950,7 +2966,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: deepak mk (862RK2T33X)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: deepak mk (862RK2T33X)";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = LearniatTeacher/Info.plist;
@@ -2963,7 +2979,7 @@
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.LearniatTeacher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "95d3328e-4d6b-41bf-b8ad-cfdf363fec9c";
+				PROVISIONING_PROFILE = "bf448ed6-d1b3-431e-8bf1-ff016bbac1a5";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatTeacher/Swift-Bridging-Header.h";
 				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 			};

@@ -36,7 +36,8 @@ class LessonPlanQuestionView: UIView,SSTeacherDataSourceDelegate,UIGestureRecogn
     var mainTopicCell           :LessonPlanMainViewCell!
     
     var _delgate: AnyObject!
-    
+   
+    var questionButtonsView         = UIView()
     
     func setdelegate(delegate:AnyObject)
     {
@@ -56,37 +57,70 @@ class LessonPlanQuestionView: UIView,SSTeacherDataSourceDelegate,UIGestureRecogn
         
         self.backgroundColor =  UIColor.clearColor()
         
-        mTopicsContainerView.frame = CGRectMake(100, 0, self.frame.size.width - 200,self.frame.size.height)
+        mTopicsContainerView.frame = CGRectMake(100,60, self.frame.size.width - 200,self.frame.size.height - 104 )
         self.addSubview(mTopicsContainerView)
         mTopicsContainerView.backgroundColor = lightGrayTopBar
         
         
         
+        questionButtonsView.frame = CGRectMake(100, mTopicsContainerView.frame.size.height + mTopicsContainerView.frame.origin.y, mTopicsContainerView.frame.size.width, 44)
+        self.addSubview(questionButtonsView)
+        questionButtonsView.backgroundColor = UIColor.whiteColor()
+        questionButtonsView.layer.shadowColor = UIColor.blackColor().CGColor
+        questionButtonsView.layer.shadowOpacity = 0.3
+        questionButtonsView.layer.shadowOffset = CGSizeZero
+        questionButtonsView.layer.shadowRadius = 10
+        
+        let  mScribbleButton = UIButton(frame: CGRectMake(20,  0, 160 ,questionButtonsView.frame.size.height))
+        questionButtonsView.addSubview(mScribbleButton)
+        mScribbleButton.addTarget(self, action: #selector(LessonPlanQuestionView.onScribbleButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mScribbleButton.setTitleColor(standard_Button, forState: .Normal)
+        mScribbleButton.setTitle("Scribble", forState: .Normal)
+        mScribbleButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
+        mScribbleButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
         
         
-        mainTopicCell = LessonPlanMainViewCell(frame: CGRectMake(10  , 0, mTopicsContainerView.frame.size.width - 20 , 60))
+        let  mMatchColumn = UIButton(frame: CGRectMake(220,  0, 160 ,questionButtonsView.frame.size.height))
+        questionButtonsView.addSubview(mMatchColumn)
+        mMatchColumn.addTarget(self, action: #selector(LessonPlanQuestionView.onMTCButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mMatchColumn.setTitleColor(standard_Button, forState: .Normal)
+        mMatchColumn.setTitle("MTC", forState: .Normal)
+        mMatchColumn.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
+        mMatchColumn.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
+        
+        
+        let  mMRQ = UIButton(frame: CGRectMake(questionButtonsView.frame.size.width - 180 ,  0, 160 ,questionButtonsView.frame.size.height))
+        questionButtonsView.addSubview(mMRQ)
+        mMRQ.addTarget(self, action: #selector(LessonPlanQuestionView.onMRQButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mMRQ.setTitleColor(standard_Button, forState: .Normal)
+        mMRQ.setTitle("MRQ", forState: .Normal)
+        mMRQ.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        mMRQ.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
+        
+
+        
+        
+         let imageview =  UIImageView(frame: CGRectMake(100  , 0, mTopicsContainerView.frame.size.width , 60))
+        self.addSubview(imageview)
+        imageview.backgroundColor = lightGrayTopBar
+        
+        mainTopicCell = LessonPlanMainViewCell(frame: CGRectMake(100  , 0, mTopicsContainerView.frame.size.width , 60))
         mainTopicCell.setdelegate(self)
         mainTopicCell.layer.cornerRadius = 5
-        mTopicsContainerView.addSubview(mainTopicCell)
+        self.addSubview(mainTopicCell)
         mainTopicCell.backgroundColor = UIColor.clearColor()
         mainTopicCell.mSubTopicButton.hidden = true
         mainTopicCell.checkBoxImage.hidden = true
         mainTopicCell.m_checkBoxButton.hidden = true
+        mainTopicCell.mQuestionsButton.hidden = true
+        
         
         let  mDoneButton = UIButton(frame: CGRectMake( 10, 0, 100, 60))
         mDoneButton.addTarget(self, action: #selector(LessonPlanQuestionView.onBackButton), forControlEvents: UIControlEvents.TouchUpInside)
         mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
-        mTopicsContainerView.addSubview(mDoneButton)
+        mainTopicCell.addSubview(mDoneButton)
         mDoneButton.setImage(UIImage(named: "arrow_Blue.png"), forState: .Normal)
         mDoneButton.imageView?.contentMode = .ScaleAspectFit
-        
-        
-        
-        
-        let lineImage = UIImageView(frame: CGRectMake(0  , mainTopicCell.frame.origin.y + mainTopicCell.frame.size.height + 10 , mTopicsContainerView.frame.size.width , 2))
-        lineImage.backgroundColor = lightGrayColor
-        
-        mTopicsContainerView.addSubview(lineImage)
         
     }
     
@@ -98,6 +132,22 @@ class LessonPlanQuestionView: UIView,SSTeacherDataSourceDelegate,UIGestureRecogn
         
     }
     
+    func onScribbleButton()
+    {
+        
+    }
+    
+    
+    func onMTCButton()
+    {
+        
+    }
+    
+    func onMRQButton()
+    {
+        
+    }
+
     
     func setCurrentMainTopicDetails(mainTopicDetails:AnyObject)
     {
@@ -146,7 +196,7 @@ class LessonPlanQuestionView: UIView,SSTeacherDataSourceDelegate,UIGestureRecogn
         
         
         
-        var positionY :CGFloat = 80
+        var positionY :CGFloat = 10
         
         for index in 0 ..< mQuestionsDetails.count 
         {
