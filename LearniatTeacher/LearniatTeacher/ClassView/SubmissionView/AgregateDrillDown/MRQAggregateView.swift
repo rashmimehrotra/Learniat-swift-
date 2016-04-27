@@ -21,7 +21,8 @@ class MRQAggregateView: UIView
         
         studentsScrollview.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)
         self.addSubview(studentsScrollview)
-      
+      studentsScrollview.userInteractionEnabled = true
+        
         
         
     }
@@ -88,6 +89,18 @@ class MRQAggregateView: UIView
         var positionY:CGFloat = 0
         
         
+        var height :CGFloat = CGFloat((studentIdArray.count * 70))
+        
+        
+        if height > UIScreen.mainScreen().bounds.height - 100
+        {
+            height = UIScreen.mainScreen().bounds.height - 100
+        }
+        
+        studentsScrollview.frame = CGRectMake(0, 0, self.frame.size.width, height)
+
+        
+        
         for index in 0..<studentIdArray.count
         {
             let studentId = studentIdArray[index]
@@ -96,7 +109,7 @@ class MRQAggregateView: UIView
             let graspIndex = graspIndexArray[index]
             
             
-            let agregateCell = AggregateCell(frame: CGRectMake(0,positionY,studentsScrollview.frame.size.width,70))
+            let agregateCell = AggregateCell(frame: CGRectMake(10,positionY,studentsScrollview.frame.size.width - 20,70))
             studentsScrollview.addSubview(agregateCell)
             agregateCell.addStudentId(studentId, withName: studentName, withgraspLevel: graspIndex, withParticipation: participationIndex.floatValue)
             
@@ -106,16 +119,7 @@ class MRQAggregateView: UIView
         }
         
         
-        var height :CGFloat = CGFloat((studentIdArray.count * 70))
-        
-        
-        if height > UIScreen.mainScreen().bounds.height - 100
-        {
-            height = UIScreen.mainScreen().bounds.height - 100
-        }
-        
-         studentsScrollview.frame = CGRectMake(0, 0, self.frame.size.width, height)
-         studentsScrollview.contentSize = CGSizeMake(0, positionY)
+        studentsScrollview.contentSize = CGSizeMake(0, positionY)
         
         return height
         

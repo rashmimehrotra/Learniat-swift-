@@ -27,7 +27,7 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
     
     var topImageView = UIImageView()
     
-    let mStudentImageView = UIImageView()
+    let mStudentImageView = CustomProgressImageView()
     
     let  mProgressView = YLProgressBar()
 
@@ -331,7 +331,7 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         
         if let overlayImage = _currentQuestionDetials.objectForKey("Scribble") as? String
         {
-            let overlayimageView = UIImageView()
+            let overlayimageView = CustomProgressImageView()
             overlayimageView.frame = containerview.frame
             containerview.addSubview(overlayimageView);
 
@@ -361,7 +361,7 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
             
             if let Scribble = answerDetails.objectForKey("Scribble") as? String
             {
-                let studentAnswerImage = UIImageView(frame: CGRectMake(0, 0, containerview.frame.size.width, containerview.frame.size.height))
+                let studentAnswerImage = CustomProgressImageView(frame: CGRectMake(0, 0, containerview.frame.size.width, containerview.frame.size.height))
                 studentAnswerImage.tag  = Int(studentId)!
                 containerview.addSubview(studentAnswerImage)
                 

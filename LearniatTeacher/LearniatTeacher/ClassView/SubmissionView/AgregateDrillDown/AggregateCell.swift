@@ -11,7 +11,7 @@ class AggregateCell: UIView
 {
     let studentName = UILabel()
     let graspLevelLabel = UILabel()
-    var studentImage = UIImageView()
+    var studentImage = CustomProgressImageView()
     var progressView = YLProgressBar()
     var graspImageView = UIImageView()
     

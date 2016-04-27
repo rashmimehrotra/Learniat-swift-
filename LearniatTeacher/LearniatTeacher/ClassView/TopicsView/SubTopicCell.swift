@@ -28,6 +28,8 @@ class SubTopicCell: UIView{
     
     var m_SubTopicLabel    = UILabel()
     
+    var mDemoLabel          = UILabel()
+    
     var mQuestionsButton     = UIButton()
     
     var mSubTopicId          = "0"
@@ -67,6 +69,7 @@ class SubTopicCell: UIView{
         let seperatorView = UIView(frame: CGRectMake(0 ,self.frame.size.height - 1 , self.frame.size.width,1))
         seperatorView.backgroundColor = topicsLineColor;
         self.addSubview(seperatorView)
+        
         
         
         
@@ -112,6 +115,14 @@ class SubTopicCell: UIView{
         m_progressView.transform = transform;
         
         
+        mDemoLabel = UILabel(frame: CGRectMake(10 , 0 , 100, 10))
+        mDemoLabel.font = UIFont(name:helveticaMedium, size: 10)
+        self.addSubview(mDemoLabel)
+        mDemoLabel.textColor = standard_Green
+        mDemoLabel.textAlignment = .Left
+        mDemoLabel.lineBreakMode = .ByTruncatingMiddle
+        mDemoLabel.text = "Simulation"
+
         
         
     }
@@ -127,6 +138,33 @@ class SubTopicCell: UIView{
         
         if let topicId = currentTopicDetails.objectForKey("Id")as? String
         {
+            if SSTeacherDataSource.sharedDataSource.mDemoQuerySubTopicsArray.count>0
+            {
+               if SSTeacherDataSource.sharedDataSource.mDemoQuerySubTopicsArray.containsObject(topicId)
+               {
+                    if NSUserDefaults.standardUserDefaults().boolForKey("isSimulateMode") == true
+                    {
+                       mDemoLabel.hidden = false
+                }
+                else
+                    {
+                         mDemoLabel.hidden = true
+                }
+                
+                
+                }
+                else
+               {
+                    mDemoLabel.hidden = true
+                }
+                
+                
+            }
+            else
+            {
+                mDemoLabel.hidden = true
+            }
+            
             mSubTopicId = topicId
             self.tag = Int(topicId)!
         }
@@ -244,12 +282,7 @@ class SubTopicCell: UIView{
                         
                          delegate().delegateSubTopicCellStartedWithDetails!(currentSubTopicDetails, witStatedState: true)
                     }
-                    
-                    
                 }
-                
-               
-                
             }
             else
             {

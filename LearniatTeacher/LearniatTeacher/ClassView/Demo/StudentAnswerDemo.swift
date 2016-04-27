@@ -22,6 +22,15 @@ import Foundation
 
 class StudentAnswerDemo: UIView,StudentAnswerSelectionViewDelegate
 {
+    
+    
+    
+    var notLiveStudentsDetails = NSMutableArray()
+    
+    
+    
+    var currentQuestionDetails:AnyObject!
+    
     var _delgate: AnyObject!
     
     func setdelegate(delegate:AnyObject)
@@ -34,6 +43,8 @@ class StudentAnswerDemo: UIView,StudentAnswerSelectionViewDelegate
         return _delgate;
     }
 
+    var totalStudentsCount = 0
+    
     override init(frame: CGRect)
     {
         super.init(frame:frame)
@@ -51,6 +62,11 @@ class StudentAnswerDemo: UIView,StudentAnswerSelectionViewDelegate
     func sendDummyAnswerWithQuestionDetails(questionDetails:AnyObject, withStudentDetails studentDetails:NSMutableArray)
     {
 
+        
+        currentQuestionDetails = questionDetails
+        
+         notLiveStudentsDetails.removeAllObjects()
+        
         for index in 0..<studentDetails.count
         {
             let currentStudentsDict = studentDetails.objectAtIndex(index)
@@ -58,13 +74,37 @@ class StudentAnswerDemo: UIView,StudentAnswerSelectionViewDelegate
             {
                 if _StudentState !=  StudentLive && _StudentState !=  StudentLiveBackground
                 {
-                   
-                    let studentsAnswer = StudentAnswerSelectionView()
-                    studentsAnswer.setdelegate(self)
-                    studentsAnswer.setCurrentQuestionDetails(questionDetails, withCurrentStudentDetails: currentStudentsDict)
+                   notLiveStudentsDetails.addObject(currentStudentsDict)
+                    totalStudentsCount = totalStudentsCount + 1
                 }
             }
         }
+        
+        notLiveStudentsDetails.shuffle()
+        
+        if totalStudentsCount >= notLiveStudentsDetails.count
+        {
+            totalStudentsCount = notLiveStudentsDetails.count - 1
+        }
+        if let questionType = questionDetails.objectForKey("Type") as? String
+        {
+            if (questionType == kOverlayScribble || questionType == kFreshScribble )
+            {
+//                if totalStudentsCount > 4
+//                {
+//                    totalStudentsCount = 4
+//                }
+            }
+        }
+        
+        
+        
+        let currentStudentsDict = notLiveStudentsDetails.objectAtIndex(totalStudentsCount)
+        let studentsAnswer = StudentAnswerSelectionView()
+        studentsAnswer.setdelegate(self)
+        studentsAnswer.setCurrentQuestionDetails(questionDetails, withCurrentStudentDetails: currentStudentsDict)
+        
+        totalStudentsCount = totalStudentsCount - 1
         
     }
     
@@ -77,10 +117,24 @@ class StudentAnswerDemo: UIView,StudentAnswerSelectionViewDelegate
             {
                 delegate().smhDidgetStudentAnswerMessageWithStudentId!(stundentId, withAnswerString: answerId)
             }
+            
+            if totalStudentsCount >= 0
+            {
+                if totalStudentsCount < notLiveStudentsDetails.count
+                {
+                    let currentStudentsDict = notLiveStudentsDetails.objectAtIndex(totalStudentsCount)
+                    let studentsAnswer = StudentAnswerSelectionView()
+                    studentsAnswer.setdelegate(self)
+                    studentsAnswer.setCurrentQuestionDetails(currentQuestionDetails, withCurrentStudentDetails: currentStudentsDict)
+                    totalStudentsCount = totalStudentsCount - 1
+                }
+                else
+                {
+                    totalStudentsCount = notLiveStudentsDetails.count - 1
+                }
+            }
         }
-        
-        
-        
     }
+    
     
 }

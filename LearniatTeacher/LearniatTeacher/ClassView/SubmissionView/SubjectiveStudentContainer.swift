@@ -36,13 +36,13 @@ class SubjectiveStudentContainer: UIView
     
     var selectAllImageview = UIImageView()
     
-    let mOverlayImageView = UIImageView()
+    let mOverlayImageView = CustomProgressImageView()
     
-    let mSubmissionImageView = UIImageView()
+    let mSubmissionImageView = CustomProgressImageView()
     
     let  mProgressView = YLProgressBar()
     
-    let mStudentImageView = UIImageView()
+    let mStudentImageView = CustomProgressImageView()
     
     let mStudentNameLabel = UILabel()
     

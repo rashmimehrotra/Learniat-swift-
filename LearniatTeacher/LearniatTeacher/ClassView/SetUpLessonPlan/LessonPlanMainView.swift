@@ -79,8 +79,6 @@ class LessonPlanMainView: UIView,SSTeacherDataSourceDelegate,LessonPlanMainViewD
     func addTopicsForheight()
     {
         
-        
-        
         if mMaintopicsDetails.count <= 0
         {
             mTopicName.text = "No Topics found"

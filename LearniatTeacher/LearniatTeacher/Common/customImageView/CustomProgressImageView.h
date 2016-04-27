@@ -26,7 +26,7 @@
 
 }
 
-- (void) setImageWithUrl:(NSString*)Url WithSavingPath:(NSString*)savingPath withPlaceHolderName:(NSString*)imageName withBorderRequired:(BOOL)status withColor:(UIColor*)color;
+- (void) setImageWithUrl:(NSURL*)Url WithSavingPath:(NSString*)savingPath withPlaceHolderName:(NSString*)imageName withBorderRequired:(BOOL)status withColor:(UIColor*)color;
 
 
 - (void) setdelegate:(id)delegate;

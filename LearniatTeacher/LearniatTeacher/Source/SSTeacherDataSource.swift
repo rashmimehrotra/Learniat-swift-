@@ -163,6 +163,19 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     var _delgate            :AnyObject!
     
+    
+    // MARK: - Delegate Functions
+    
+    func setdelegate(delegate:AnyObject)
+    {
+        _delgate = delegate;
+    }
+    
+    func   delegate()->AnyObject
+    {
+        return _delgate;
+    }
+    
     var currentUserId       :String!
     
     var currentSchoolId     :String!
@@ -193,20 +206,17 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     var startedMainTopicName                = ""
     
-    
-    // MARK: - Delegate Functions
-    
-    func setdelegate(delegate:AnyObject)
-    {
-        _delgate = delegate;
-    }
-    
-    func   delegate()->AnyObject
-    {
-        return _delgate;
-    }
+   
     
     
+    var isSimulationEnabled          :Bool = false
+    
+    
+    var mDemoQuerySubTopicsArray                = NSMutableArray()
+    
+    var mDemoCollaborationSubTopicArray         = NSMutableArray()
+    
+    var mDemoQuestionsIdArray                   = NSMutableArray()
     
     
     func setSubTopicDictonaryWithDict(details:NSMutableArray,withKey key:String)

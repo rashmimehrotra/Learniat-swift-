@@ -14,7 +14,7 @@ class QuerySelectSubView: UIView
     
     var currentQueryDetails:AnyObject!
     
-    var mStudentImage        = UIImageView()
+    var mStudentImage        = CustomProgressImageView()
     
     var mStudentName         = UILabel()
     

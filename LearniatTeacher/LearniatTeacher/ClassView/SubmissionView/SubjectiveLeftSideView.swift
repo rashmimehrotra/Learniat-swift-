@@ -105,11 +105,13 @@ class SubjectiveLeftSideView: UIView,SubjectiveStudentContainerDelegate
         mScrollView.addSubview(subjectiveCell)
         
         
-        mScrollView.contentSize = CGSizeMake(0, currentPositionY)
+        
         
         currentPositionY = currentPositionY + subjectiveCell.frame.size.height + 10
         totlStudentsCount = totlStudentsCount + 1
         refreshScrollView()
+        
+        mScrollView.contentSize = CGSizeMake(0, currentPositionY)
         
     }
     

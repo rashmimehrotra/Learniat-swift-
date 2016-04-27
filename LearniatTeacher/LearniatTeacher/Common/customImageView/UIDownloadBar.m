@@ -28,7 +28,6 @@ possibleFilename;
 - (void) forceContinue {
 	operationBreaked = NO;
 	
-	NSLog(@"%f",bytesReceived);
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: downloadUrl];
 	
 	[request addValue: [NSString stringWithFormat: @"bytes=%.0f-", bytesReceived ] forHTTPHeaderField: @"Range"];	
@@ -71,11 +70,10 @@ possibleFilename;
 			self.progress = ((bytesReceived/(float)expectedBytes)*100)/100;
 			percentComplete = self.progress*100;
 		}
-		NSLog(@" Data receiving... Percent complete: %f", percentComplete);
 		[delegate downloadBarUpdated:self];
 	} else {
 		[connection cancel];
-		NSLog(@" STOP !!!!  Receiving data was stoped");
+		
 	}
 		
 }
@@ -92,24 +90,16 @@ possibleFilename;
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
 	
-	NSLog(@"[DO::didReceiveData] %d operation", (int)self);
-	NSLog(@"[DO::didReceiveData] ddb: %.2f, wdb: %.2f, ratio: %.2f", 
-		  (float)bytesReceived, 
-		  (float)expectedBytes,
-		  (float)bytesReceived / (float)expectedBytes);
 	
 	NSHTTPURLResponse *r = (NSHTTPURLResponse*) response;
 	NSDictionary *headers = [r allHeaderFields];
-	NSLog(@"[DO::didReceiveResponse] response headers: %@", headers);
 	if (headers){
 		if ([headers objectForKey: @"Content-Range"]) {
 			NSString *contentRange = [headers objectForKey: @"Content-Range"];
-			NSLog(@"Content-Range: %@", contentRange);
 			NSRange range = [contentRange rangeOfString: @"/"];
 			NSString *totalBytesCount = [contentRange substringFromIndex: range.location + 1];
 			expectedBytes = [totalBytesCount floatValue];
 		} else if ([headers objectForKey: @"Content-Length"]) {
-			NSLog(@"Content-Length: %@", [headers objectForKey: @"Content-Length"]);
 			expectedBytes = [[headers objectForKey: @"Content-Length"] floatValue];
 		} else expectedBytes = -1;
 		
@@ -123,8 +113,7 @@ possibleFilename;
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
 	[self.delegate downloadBar:self didFinishWithData:self.receivedData suggestedFilename:localFilename];
 	operationFinished = YES;
-    NSLog(@"%@",connection);
-	NSLog(@"Connection did finish loading...");
+    
 	//[connection release];
 }
 

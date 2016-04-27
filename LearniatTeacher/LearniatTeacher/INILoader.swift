@@ -103,6 +103,9 @@ let kQuestionImage                =  "/questionImage"
 
 let kBadgesImage                  =  "/badges"
 
+let kDemoPlistUrl                 =  "http://54.251.104.13/Demo"
+
+
 
 
 let whiteBackgroundColor: UIColor = UIColor(red: 246/255.0, green:246/255.0, blue:246/255.0, alpha: 1)
@@ -326,7 +329,7 @@ class INILoader: NSObject
 
 // MARK: - ImageView Extension
 
-extension UIImageView
+extension CustomProgressImageView
 {
     func getDataFromUrl(url:NSURL, completion: ((data: NSData?, response: NSURLResponse?, error: NSError? ) -> Void)) {
         NSURLSession.sharedSession().dataTaskWithURL(url) { (data, response, error) in
@@ -360,29 +363,7 @@ extension UIImageView
         }
         
         pngPath = pngPath.stringByAppendingString("/\(url.lastPathComponent ?? "")")
-        var isDir :ObjCBool = false
-        let exists :Bool = NSFileManager.defaultManager().fileExistsAtPath(pngPath, isDirectory: &isDir)
-        if !exists
-        {
-            
-            getDataFromUrl(url) { (data, response, error)  in
-                dispatch_async(dispatch_get_main_queue())
-                    { () -> Void in
-                        guard let data = data where error == nil else { return }
-                        
-                        
-                        self.image = UIImage(data: data)
-                        self.layer.masksToBounds = true
-                        data.writeToFile(pngPath, atomically: true)
-                }
-            }
-        }
-        else
-        {
-            self.image = UIImage(contentsOfFile: pngPath)
-            self.layer.masksToBounds = true
-        }
-        
+        setImageWithUrl(url, withSavingPath: pngPath, withPlaceHolderName: "", withBorderRequired: false, withColor: UIColor.clearColor())
         
         
         
@@ -414,37 +395,8 @@ extension UIImageView
             break
         }
         pngPath = pngPath.stringByAppendingString("/\(url.lastPathComponent ?? "")")
-        var isDir :ObjCBool = false
-        let exists :Bool = NSFileManager.defaultManager().fileExistsAtPath(pngPath, isDirectory: &isDir)
-        if !exists
-        {
-            
-            getDataFromUrl(url) { (data, response, error)  in
-                dispatch_async(dispatch_get_main_queue())
-                    { () -> Void in
-                        guard let data = data where error == nil else { return }
-                        
-                        
-                       
-                        data.writeToFile(pngPath, atomically: true)
-                        
-                        
-                        if let image = UIImage(data: data)
-                        {
-                            self.image = self.resizeImage(image, newSize: newSize)
-                        }
-                        
-                        self.layer.masksToBounds = true
-                        
-                }
-            }
-        }
-        else
-        {
-            
-            self.image = self.resizeImage(UIImage(contentsOfFile: pngPath)!, newSize: newSize)
-            self.layer.masksToBounds = true
-        }
+        setImageWithUrl(url, withSavingPath: pngPath, withPlaceHolderName: "", withBorderRequired: false, withColor: UIColor.clearColor())
+        
     }
     
     func resizeImage(image: UIImage, newSize: CGSize) -> UIImage {

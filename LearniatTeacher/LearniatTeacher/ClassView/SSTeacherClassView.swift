@@ -37,7 +37,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
    
     
     
-    var mTeacherImageView: UIImageView!
+    var mTeacherImageView: CustomProgressImageView!
     
     var mTopbarImageView: UIImageView!
     
@@ -125,7 +125,14 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     var mShowTopicsView                         = UIView()
     
-    var dummQuestionAnswerView              = StudentAnswerDemo()
+    var demoQuestionAnswerView              = StudentAnswerDemo()
+    
+    
+    var demoQueryView                       = StudentQueryDemo()
+    
+    var plistLoader = PlistDownloder()
+    
+   
     
     override func viewDidLoad()
     {
@@ -137,7 +144,9 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         self.view.setNeedsLayout()
         self.view.layoutIfNeeded()
         
-        dummQuestionAnswerView.setdelegate(self)
+        demoQuestionAnswerView.setdelegate(self)
+        
+        demoQueryView.setdelegate(self)
         
         SSTeacherMessageHandler.sharedMessageHandler.setdelegate(self)
         
@@ -271,7 +280,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
         
         
-        mTeacherImageView = UIImageView(frame: CGRectMake(15, 20, 40 ,40))
+        mTeacherImageView = CustomProgressImageView(frame: CGRectMake(15, 20, 40 ,40))
         mTeacherImageView.backgroundColor = lightGrayColor
         mTopbarImageView.addSubview(mTeacherImageView)
         mTeacherImageView.layer.masksToBounds = true
@@ -366,7 +375,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
        
         addAllDetailsOfSession()
         
-        
+        downloladDemoMasterFileDetails()
         
     }
 
@@ -560,6 +569,13 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 let progressValue :CGFloat = CGFloat(minutesRemaining) / CGFloat(totalminutesRemaining)
                 mRemainingTimeProgressBar.progress = Float(progressValue)
                 
+                
+                let classEndingRemainingTime = currentDate.minutesDiffernceBetweenDates(currentDate, endDate:dateFormatter.dateFromString(EndTime )! )
+                
+                if classEndingRemainingTime <= 0
+                {
+                    delegateSessionEnded()
+                }
             }
             
         }
@@ -570,6 +586,12 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     func onTeacherImage()
     {
+        mShowTopicsView.hidden = true
+        if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
+        {
+            mSubTopicsNamelabel.text = "No topic selected"
+        }
+        
         let questionInfoController = SSSettingsViewController()
         questionInfoController.setDelegate(self)
         
@@ -789,6 +811,10 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     func didGetSubtopicStartedWithDetails(details: AnyObject)
     {
+        if NSUserDefaults.standardUserDefaults().boolForKey("isSimulateMode") == true
+        {
+            demoQueryView.sendDummyQueriesWithStudentDetails(StudentsDetailsArray)
+        }
         
     }
     
@@ -816,19 +842,38 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                     if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
                     {
                         mSubmissionView.addScribbleQuestionWithDetails(currentQuestionDetails)
+                       
+                        if NSUserDefaults.standardUserDefaults().boolForKey("isSimulateMode") == true
+                        {
+                            demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
+                        }
                     }
                     else if (questionType == kText)
                     {
                         mSubmissionView.addScribbleQuestionWithDetails(currentQuestionDetails)
+                        if NSUserDefaults.standardUserDefaults().boolForKey("isSimulateMode") == true
+                        {
+                            demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
+                        }
                     }
                     else if (questionType == kMatchColumn)
                     {
                         mSubmissionView.addMTCQuestionWithDetails(currentQuestionDetails)
+                        
+                        if NSUserDefaults.standardUserDefaults().boolForKey("isSimulateMode") == true
+                        {
+                            demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
+                        }
+                        
                     }
-                    else
+                    else if (questionType  == kMCQ  || questionType == kMRQ)
                     {
                         mSubmissionView.addMRQQuestionWithDetails(currentQuestionDetails)
-                        dummQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
+                        if NSUserDefaults.standardUserDefaults().boolForKey("isSimulateMode") == true
+                        {
+                          demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
+                        }
+                        
                         
                     }
                 }
@@ -1121,7 +1166,8 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     func delegateSubtopicStateChanedWithSubTopicDetails(subTopicDetails: AnyObject, withState state: Bool, withmainTopicName mainTopicName: String)
     {
         
-        
+        mainTopicsView.mMaintopicsDetails.removeAllObjects()
+
         if state == true
         {
             startedSubTopicDetails = subTopicDetails
@@ -1628,10 +1674,10 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                     classViewPopOverController.delegate = self;
                     
                     classViewPopOverController.presentPopoverFromRect(CGRect(
-                        x:buttonPosition.x ,
+                        x:buttonPosition.x + studentDeskView.frame.size.height / 2,
                         y:buttonPosition.y + studentDeskView.frame.size.height / 2,
                         width: 1,
-                        height: 1), inView: self.view, permittedArrowDirections: .Right, animated: true)
+                        height: 1), inView: self.view, permittedArrowDirections:[.Right, .Left], animated: true)
                 }
                 else
                 {
@@ -1652,10 +1698,10 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                     classViewPopOverController.delegate = self;
                     
                     classViewPopOverController.presentPopoverFromRect(CGRect(
-                        x:buttonPosition.x ,
+                        x:buttonPosition.x + studentDeskView.frame.size.height / 2,
                         y:buttonPosition.y + studentDeskView.frame.size.height / 2,
                         width: 1,
-                        height: 1), inView: self.view, permittedArrowDirections: .Right, animated: true)
+                        height: 1), inView: self.view, permittedArrowDirections: [.Right, .Left], animated: true)
                     
                     
                 }
@@ -1690,10 +1736,10 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                     classViewPopOverController.delegate = self;
                     questionInfoController.setPopover(classViewPopOverController)
                     classViewPopOverController.presentPopoverFromRect(CGRect(
-                        x:buttonPosition.x ,
+                        x:buttonPosition.x + studentDeskView.frame.size.height / 2,
                         y:buttonPosition.y + studentDeskView.frame.size.height / 2,
                         width: 1,
-                        height: 1), inView: self.view, permittedArrowDirections: .Right, animated: true)
+                        height: 1), inView: self.view, permittedArrowDirections: [.Right, .Left], animated: true)
                     
                     
                     
@@ -1742,10 +1788,10 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             questionInfoController.setPopover(classViewPopOverController)
             
             classViewPopOverController.presentPopoverFromRect(CGRect(
-                x:buttonPosition.x ,
+                x:buttonPosition.x + studentDeskView.frame.size.height / 2,
                 y:buttonPosition.y + studentDeskView.frame.size.height / 2,
                 width: 1,
-                height: 1), inView: self.view, permittedArrowDirections: .Right, animated: true)
+                height: 1), inView: self.view, permittedArrowDirections: [.Right, .Left], animated: true)
             
         }
         
@@ -1779,10 +1825,10 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 classViewPopOverController.delegate = self;
                 
                 classViewPopOverController.presentPopoverFromRect(CGRect(
-                    x:buttonPosition.x ,
+                    x:buttonPosition.x + studentDeskView.frame.size.height / 2,
                     y:buttonPosition.y + studentDeskView.frame.size.height / 2,
                     width: 1,
-                    height: 1), inView: self.view, permittedArrowDirections: .Right, animated: true)
+                    height: 1), inView: self.view, permittedArrowDirections:[.Right, .Left], animated: true)
                 
             }
         }
@@ -1827,7 +1873,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             x:buttonPosition.x + barButton.frame.size.width / 2,
             y:buttonPosition.y + barButton.frame.size.height / 2,
             width: 1,
-            height: 1), inView: self.view, permittedArrowDirections:.Any, animated: true)
+            height: 1), inView: self.view, permittedArrowDirections:[.Right, .Left], animated: true)
 
         
         
@@ -2034,6 +2080,61 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         subTopicsView.hidden = true
         questionTopicsView.hidden = true
         liveQuestionView.hidden = true
+    }
+    
+    
+    
+    func downloladDemoMasterFileDetails()
+    {
+        
+        let  url = NSURL(string: "\(kDemoPlistUrl)/DemoMasterDetails.plist")
+        let mDemoMaseterFileDetails = plistLoader.returnDictonarywithPlistName("DemoMasterDetails.plist", withUrl: url)
+        
+        if (mDemoMaseterFileDetails.objectForKey("DemoCollaborationSubtopicId") != nil)
+        {
+            let classCheckingVariable = mDemoMaseterFileDetails.objectForKey("DemoCollaborationSubtopicId")
+            
+            if classCheckingVariable!.isKindOfClass(NSMutableArray)
+            {
+                SSTeacherDataSource.sharedDataSource.mDemoCollaborationSubTopicArray = classCheckingVariable as! NSMutableArray
+            }
+            else
+            {
+                SSTeacherDataSource.sharedDataSource.mDemoCollaborationSubTopicArray.addObject(mDemoMaseterFileDetails.objectForKey("DemoCollaborationSubtopicId")!)
+                
+            }
+        }
+        
+        
+        if (mDemoMaseterFileDetails.objectForKey("DemoQuestionsId") != nil)
+        {
+            let classCheckingVariable = mDemoMaseterFileDetails.objectForKey("DemoQuestionsId")
+            
+            if classCheckingVariable!.isKindOfClass(NSMutableArray)
+            {
+                SSTeacherDataSource.sharedDataSource.mDemoQuestionsIdArray = classCheckingVariable as! NSMutableArray
+            }
+            else
+            {
+                SSTeacherDataSource.sharedDataSource.mDemoQuestionsIdArray.addObject(mDemoMaseterFileDetails.objectForKey("DemoQuestionsId")!)
+                
+            }
+        }
+        
+        if (mDemoMaseterFileDetails.objectForKey("DemoSubTopicsId") != nil)
+        {
+            let classCheckingVariable = mDemoMaseterFileDetails.objectForKey("DemoSubTopicsId")
+            
+            if classCheckingVariable!.isKindOfClass(NSMutableArray)
+            {
+                SSTeacherDataSource.sharedDataSource.mDemoQuerySubTopicsArray = classCheckingVariable as! NSMutableArray
+            }
+            else
+            {
+            SSTeacherDataSource.sharedDataSource.mDemoQuerySubTopicsArray.addObject(mDemoMaseterFileDetails.objectForKey("DemoSubTopicsId")!)
+                
+            }
+        }
     }
     
     

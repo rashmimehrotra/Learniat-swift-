@@ -140,7 +140,10 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
     func clearSubTopicDetailsWithMainTopicId(mainTopicId:String)
     {
        
-        
+        if SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.objectForKey(mainTopicId) != nil
+        {
+            SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.removeObjectForKey(mainTopicId)
+        }
     }
     
     
@@ -430,15 +433,18 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
     func delegateSubTopicCellStartedWithDetails(subTopicDetails: AnyObject, witStatedState isStarted: Bool) {
         
         
+        
+        if SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.objectForKey(currentMainTopicId) != nil
+        {
+            SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.removeObjectForKey(currentMainTopicId)
+        }
+
+        
         if isStarted == true
         {
             
             if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == true
             {
-                
-                
-                
-                
                 if let subTopicCellView  = mTopicsContainerView.viewWithTag(Int(SSTeacherDataSource.sharedDataSource.startedSubTopicId)!) as? SubTopicCell
                 {
                     subTopicCellView.startButton.setTitle("Stop", forState: .Normal)

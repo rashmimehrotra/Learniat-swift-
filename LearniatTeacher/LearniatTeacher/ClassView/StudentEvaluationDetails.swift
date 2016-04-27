@@ -143,7 +143,7 @@ class StudentEvaluationDetails: UIViewController,SSStarRatingViewDelegate
             {
                 if let overlayImage = _currentQuestiondetails.objectForKey("Scribble") as? String
                 {
-                    let overLayImageView = UIImageView(frame: CGRectMake((questionView.frame.size.width - 270)/2,lineView.frame.origin.y + 2 ,270,180))
+                    let overLayImageView = CustomProgressImageView(frame: CGRectMake((questionView.frame.size.width - 270)/2,lineView.frame.origin.y + 2 ,270,180))
                     questionView.addSubview(overLayImageView)
                     
                     
@@ -158,7 +158,7 @@ class StudentEvaluationDetails: UIViewController,SSStarRatingViewDelegate
                 }
                 
                 
-                let studentAnswerImage = UIImageView(frame: CGRectMake((questionView.frame.size.width - 270)/2,lineView.frame.origin.y + lineView.frame.size.height ,270,180))
+                let studentAnswerImage = CustomProgressImageView(frame: CGRectMake((questionView.frame.size.width - 270)/2,lineView.frame.origin.y + lineView.frame.size.height ,270,180))
                 questionView.addSubview(studentAnswerImage)
                 
                 
@@ -204,7 +204,7 @@ class StudentEvaluationDetails: UIViewController,SSStarRatingViewDelegate
         
         if let teacherScribble = _currentEvaluationDetails.objectForKey("imageUrl") as? String
         {
-            let overLayImage = UIImageView(frame: CGRectMake((questionView.frame.size.width - 270)/2,lineView.frame.origin.y + lineView.frame.size.height ,270,180))
+            let overLayImage = CustomProgressImageView(frame: CGRectMake((questionView.frame.size.width - 270)/2,lineView.frame.origin.y + lineView.frame.size.height ,270,180))
             questionView.addSubview(overLayImage)
             
             

@@ -80,7 +80,10 @@ class SSTeacherAggregatePopOverController: UIViewController, SSTeacherDataSource
                 mMtcAgregateView = MTCAggregateView(frame: CGRectMake(0, 0,400,70))
                 self.view.addSubview(mMtcAgregateView)
             }
-            self.preferredContentSize = CGSize(width: 400, height: mMtcAgregateView.showAggregateWithDetails(details))
+            
+            mMtcAgregateView.frame = CGRectMake(0, 0,400,mMtcAgregateView.showAggregateWithDetails(details))
+            
+            self.preferredContentSize = CGSize(width: 400, height: mMtcAgregateView.frame.size.height)
         }
         else
         {
@@ -91,9 +94,10 @@ class SSTeacherAggregatePopOverController: UIViewController, SSTeacherDataSource
             }
             
             
+            mMrqAgregateView.frame = CGRectMake(0, 0,400,mMrqAgregateView.showAggregateWithDetails(details))
             
             
-            self.preferredContentSize = CGSize(width: 400, height: mMrqAgregateView.showAggregateWithDetails(details))
+            self.preferredContentSize = CGSize(width: 400, height: mMrqAgregateView.frame.size.height)
             
         }
         

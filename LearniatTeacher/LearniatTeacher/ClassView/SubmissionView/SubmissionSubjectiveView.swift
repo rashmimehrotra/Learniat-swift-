@@ -60,7 +60,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     
     let containerview = UIView()
     
-    let overlayimageView = UIImageView()
+    let overlayimageView = CustomProgressImageView()
     
     var mScribbleView : SmoothLineView!
     
@@ -373,7 +373,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
                     
                     if let Scribble = answerDetails.objectForKey("Scribble") as? String
                     {
-                        let studentAnswerImage = UIImageView(frame: CGRectMake(0, 0, containerview.frame.size.width, containerview.frame.size.height))
+                        let studentAnswerImage = CustomProgressImageView(frame: CGRectMake(0, 0, containerview.frame.size.width, containerview.frame.size.height))
                         studentAnswerImage.tag  = Int(studentId)!
                         containerview.addSubview(studentAnswerImage)
                         

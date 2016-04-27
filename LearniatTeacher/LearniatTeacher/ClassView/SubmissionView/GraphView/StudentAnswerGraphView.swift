@@ -399,7 +399,6 @@ class StudentAnswerGraphView: UIView
                     if updatedbarImageview.isKindOfClass(BarView)
                     {
                         
-                        updatedbarImageview.presentValue = updatedbarImageview.presentValue / 2
                         var presentValue:CGFloat = CGFloat(updatedbarImageview.presentValue)
                         presentValue = presentValue * differenceheight
                         updatedbarImageview.frame = CGRectMake(updatedbarImageview.frame.origin.x ,self.lineContainerView.frame.size.height - presentValue  , updatedbarImageview.frame.size.width ,presentValue)
@@ -454,7 +453,7 @@ class StudentAnswerGraphView: UIView
                 
                 if (answerBar.frame.size.height >= lineContainerView.frame.size.height)
                 {
-                    differenceheight=differenceheight/2;
+                    differenceheight = differenceheight/2;
                     
                     
                     
@@ -464,8 +463,6 @@ class StudentAnswerGraphView: UIView
                         if updatedbarImageview.isKindOfClass(BarView)
                         {
                             
-                            
-                            updatedbarImageview.presentValue = updatedbarImageview.presentValue / 2
                             var _presentValue:CGFloat = CGFloat(updatedbarImageview.presentValue)
                             _presentValue = _presentValue * differenceheight
                             updatedbarImageview.frame = CGRectMake(updatedbarImageview.frame.origin.x ,self.lineContainerView.frame.size.height - _presentValue  , updatedbarImageview.frame.size.width ,_presentValue)

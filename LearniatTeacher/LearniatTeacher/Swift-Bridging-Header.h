@@ -26,4 +26,5 @@
 #import "colorpopOverViewController.h"
 #import "SSSettingsViewController.h"
 #import "SZTextView.h"
+#import "PlistDownloder.h"
 #endif /* Swift_Bridging_Header_h */

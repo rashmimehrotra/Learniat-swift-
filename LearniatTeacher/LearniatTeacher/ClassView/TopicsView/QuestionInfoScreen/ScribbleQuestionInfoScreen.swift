@@ -14,7 +14,7 @@ class ScribbleQuestionInfoScreen : UIViewController
     
     var questionDetails :AnyObject!
     
-    var  ScribbleImageView = UIImageView()
+    var  ScribbleImageView = CustomProgressImageView()
     func setdelegate(delegate:AnyObject)
     {
         _delgate = delegate;

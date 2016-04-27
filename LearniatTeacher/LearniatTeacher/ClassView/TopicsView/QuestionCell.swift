@@ -36,6 +36,8 @@ class QuestionCell: UIView
     
     var currentQuestionDetails :AnyObject!
     
+    var mDemoLabel          = UILabel()
+    
     func setdelegate(delegate:AnyObject)
     {
         _delgate = delegate;
@@ -91,6 +93,15 @@ class QuestionCell: UIView
         mInfoButtonButton.addTarget(self, action: #selector(QuestionCell.onInfoButton), forControlEvents: UIControlEvents.TouchUpInside)
         mInfoButtonButton.setImage(UIImage(named: "infoButton.png"), forState: .Normal)
         mInfoButtonButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        
+        
+        mDemoLabel = UILabel(frame: CGRectMake(10 , 0 , 100, 10))
+        mDemoLabel.font = UIFont(name:helveticaMedium, size: 10)
+        self.addSubview(mDemoLabel)
+        mDemoLabel.textColor = standard_Green
+        mDemoLabel.textAlignment = .Left
+        mDemoLabel.lineBreakMode = .ByTruncatingMiddle
+        mDemoLabel.text = "Simulation"
 
     }
 
@@ -105,10 +116,42 @@ class QuestionCell: UIView
         var height :CGFloat = 100
         
         
-
         
         
         currentQuestionDetails = details
+        
+        
+        
+        if let topicId = currentQuestionDetails.objectForKey("Id")as? String
+        {
+            if SSTeacherDataSource.sharedDataSource.mDemoQuestionsIdArray.count>0
+            {
+                if SSTeacherDataSource.sharedDataSource.mDemoQuestionsIdArray.containsObject(topicId)
+                {
+                    if NSUserDefaults.standardUserDefaults().boolForKey("isSimulateMode") == true
+                    {
+                        mDemoLabel.hidden = false
+                    }
+                    else
+                    {
+                        mDemoLabel.hidden = true
+                    }
+                }
+                else
+                {
+                    mDemoLabel.hidden = true
+                }
+                
+                
+            }
+            else
+            {
+                mDemoLabel.hidden = true
+            }
+            
+           
+        }
+        
         
         if let questionName = details.objectForKey("Name")as? String
         {

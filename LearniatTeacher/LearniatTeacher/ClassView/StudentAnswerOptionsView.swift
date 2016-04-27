@@ -80,7 +80,7 @@ class StudentAnswerOptionsView: UIView
         
         if overlayImage != ""
         {
-            let overLayImage = UIImageView(frame: CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
+            let overLayImage = CustomProgressImageView(frame: CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
             self.addSubview(overLayImage)
             
             
@@ -95,7 +95,7 @@ class StudentAnswerOptionsView: UIView
         }
         
         
-        let studentAnswerImage = UIImageView(frame: CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
+        let studentAnswerImage = CustomProgressImageView(frame: CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
         self.addSubview(studentAnswerImage)
        
         
@@ -582,7 +582,7 @@ class StudentAnswerOptionsView: UIView
         
         if let teacherScribble = details.objectForKey("imageUrl") as? String
         {
-            let overLayImage = UIImageView(frame: CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
+            let overLayImage = CustomProgressImageView(frame: CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
             self.addSubview(overLayImage)
             
             

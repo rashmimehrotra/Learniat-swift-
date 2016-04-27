@@ -37,6 +37,8 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
     
     var mScrollView : UIScrollView!
     
+    var noSubmissionLabel = UILabel()
+    
     override init(frame: CGRect)
     {
         
@@ -88,6 +90,14 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
             mSocialRankingButton.addTarget(self, action: #selector(SSTeacherQueryView.onSocialRankingButton), forControlEvents: .TouchUpInside)
             mQueryCountLabel.frame = CGRectMake(10, 0, 120, mTopImageView.frame.size.height)
             self.addSubview(mQueryCountLabel)
+            
+            noSubmissionLabel.frame = CGRectMake(0, (self.frame.size.height - 300)/2, self.frame.size.width, 300)
+            self.addSubview(noSubmissionLabel)
+            noSubmissionLabel.text = "There are no student queries pending"
+            noSubmissionLabel.textColor = blackTextColor
+            noSubmissionLabel.hidden = false
+            noSubmissionLabel.textAlignment = .Center
+            noSubmissionLabel.font =  UIFont(name: helveticaMedium, size: 35);
             
             
             
@@ -144,7 +154,12 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
         {
             if mQuerySubView.isKindOfClass(QuerySubview)
             {
-                mQuerySubView.frame = CGRectMake(mQuerySubView.frame.origin.x ,currentYPosition,mQuerySubView.frame.size.width,mQuerySubView.frame.size.height)
+                UIView.animateWithDuration(0.2, animations:
+                    {
+                        mQuerySubView.frame = CGRectMake(mQuerySubView.frame.origin.x ,self.currentYPosition,mQuerySubView.frame.size.width,mQuerySubView.frame.size.height)
+                })
+                
+               
                 
                 currentYPosition = currentYPosition + mQuerySubView.frame.size.height + 10
                 queryCount = queryCount + 1
@@ -157,11 +172,13 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
         {
             mSocialRankingButton.setTitleColor(standard_Button, forState: .Normal)
             mSocialRankingButton.enabled = true
+            noSubmissionLabel.hidden = true
         }
         else
         {
             mSocialRankingButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
             mSocialRankingButton.enabled = false
+            noSubmissionLabel.hidden = false
         }
         
         mScrollView.contentSize = CGSizeMake(0, currentYPosition)
@@ -181,6 +198,9 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
         {
             if let studentqueryView  = mScrollView.viewWithTag(Int(QueryId)!) as? QuerySubview
             {
+                
+                
+                
                studentqueryView.removeFromSuperview()
                 
                 if delegate().respondsToSelector(#selector(SSTeacherQueryViewDelegate.delegateQueryDeletedWithDetails(_:)))
@@ -192,16 +212,12 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
         }
        
         refreshScrollView()
-        
-        
     }
     
     
     func onSocialRankingButton()
     {
        
-        
-        
         let studentsQueryArray = NSMutableArray()
         let subViews = mScrollView.subviews.flatMap{ $0 as? QuerySubview }
         
@@ -253,10 +269,7 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
             }
         }
         
-        
         refreshScrollView()
-
-        
     }
     
     

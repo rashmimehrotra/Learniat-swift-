@@ -16,18 +16,23 @@
         
         
        
+        
+    }
+    return self;
+}
+- (void) setImageWithUrl:(NSURL*)Url WithSavingPath:(NSString*)savingPath withPlaceHolderName:(NSString*)imageName withBorderRequired:(BOOL)status withColor:(UIColor*)color
+{
+
+    if (!_progressBarImageView)
+    {
         _progressBarImageView= [[UIImageView alloc] initWithFrame:CGRectMake((self.frame.size.width-self.frame.size.width/2)/2,(self.frame.size.height-self.frame.size.width/2)/2,self.frame.size.width/2,self.frame.size.width/2)];
         [self addSubview:_progressBarImageView];
         self.contentMode=UIViewContentModeScaleAspectFill;
         _progressBarImageView.animationImages = ProgressIndicatorArray;
         _progressBarImageView.animationDuration = 1;
-        
-    }
-    return self;
-}
-- (void) setImageWithUrl:(NSString*)Url WithSavingPath:(NSString*)savingPath withPlaceHolderName:(NSString*)imageName withBorderRequired:(BOOL)status withColor:(UIColor*)color
-{
 
+    }
+    
     savingImagePath=savingPath;
     _progressBarImageView.hidden=NO;
     [_progressBarImageView startAnimating];
@@ -39,7 +44,7 @@
     {
         
         
-        bar= [[UIDownloadBar alloc] initWithURL:[NSURL URLWithString:Url] progressBarFrame:self.frame timeout:120 delegate:self];
+        bar= [[UIDownloadBar alloc] initWithURL:Url progressBarFrame:self.frame timeout:120 delegate:self];
     }
     else
     {
@@ -90,7 +95,6 @@
 
 - (void)downloadBar:(UIDownloadBar *)downloadBar didFailWithError:(NSError *)error
 {
-    NSLog(@"%@", error);
     [_progressBarImageView setHidden:YES];
     [_progressBarImageView stopAnimating];
 }

@@ -64,7 +64,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     
     var answerDeskImageView  = LBorderView()
     
-    var mStudentImage  = UIImageView()
+    var mStudentImage  = CustomProgressImageView()
     
     var mParticipationLessImageView  = UIImageView()
     
@@ -599,7 +599,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     func setQueryDetails(queryDetails:AnyObject)
     {
          isQueryPresent = true
-        
+        setStudentCurrentState(StudentLive)
         currentQueryDetails = queryDetails
         if currentAnswerState == .AnswerRecieved || currentAnswerState == .AnswerEvaluated || currentAnswerState == .AnswerDontKnow
         {

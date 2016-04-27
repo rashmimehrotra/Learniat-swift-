@@ -102,6 +102,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSou
             
                if let userId = NSUserDefaults.standardUserDefaults().objectForKey(kUserId) as? String
                {
+                SSTeacherDataSource.sharedDataSource.setdelegate(self)
                 SSTeacherDataSource.sharedDataSource.getUserState(userId, withDelegate: self)
                 loginButtonPressed(true)
                 

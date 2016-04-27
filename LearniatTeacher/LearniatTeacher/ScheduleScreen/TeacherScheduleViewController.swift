@@ -20,7 +20,7 @@ let halfHourMultipleRatio : CGFloat = (oneHourDiff / 2)/(30)
 
 class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegate,ScheduleScreenTileDelegate,SSTeacherMessagehandlerDelegate,CustomAlertViewDelegate,ScheduleDetailViewDelegate
 {
-    var mTeacherImageView: UIImageView!
+    var mTeacherImageView: CustomProgressImageView!
    
     var mTopbarImageView: UIImageView!
     
@@ -107,7 +107,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
         
         
-        mTeacherImageView = UIImageView(frame: CGRectMake(15, 15, mTopbarImageView.frame.size.height - 20 ,mTopbarImageView.frame.size.height - 20))
+        mTeacherImageView = CustomProgressImageView(frame: CGRectMake(15, 15, mTopbarImageView.frame.size.height - 20 ,mTopbarImageView.frame.size.height - 20))
         mTeacherImageView.backgroundColor = lightGrayColor
         mTopbarImageView.addSubview(mTeacherImageView)
         mTeacherImageView.layer.masksToBounds = true
@@ -1215,15 +1215,26 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             }
         }
        
-        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let preallotController : SSTeacherClassView = storyboard.instantiateViewControllerWithIdentifier("SSTeacherClassView") as! SSTeacherClassView
         
-         preallotController.setSessionDetails(details)
+        if (details.objectForKey(kSessionId) != nil)
+        {
+            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let preallotController : SSTeacherClassView = storyboard.instantiateViewControllerWithIdentifier("SSTeacherClassView") as! SSTeacherClassView
+            
+            preallotController.setSessionDetails(details)
+            
+            
+            self.sendTimeExtendMessageWithDetails(details, withMessage: "Class has begun")
+            
+            self.presentViewController(preallotController, animated: true, completion: nil)
+        }
+        else
+        {
+            delegateRefreshSchedule()
+             self.view.makeToast("Error in schedule. Refreshing...", duration:3.0, position: .Bottom)
+        }
         
         
-         self.sendTimeExtendMessageWithDetails(details, withMessage: "Class has begun")
-       
-        self.presentViewController(preallotController, animated: true, completion: nil)
     }
     
     func checkToHideLabelwithDate(currentDate:NSDate)

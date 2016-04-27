@@ -29,7 +29,7 @@ class QuerySubview: UIView, SSTeacherDataSourceDelegate
     
     var currentQueryDetails:AnyObject!
     
-    var mStudentImage        = UIImageView()
+    var mStudentImage        = CustomProgressImageView()
     
     var mStudentName         = UILabel()
     

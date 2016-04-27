@@ -363,6 +363,9 @@
 		539567241CB4EA59009B0100 /* MTCAggregateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539567231CB4EA59009B0100 /* MTCAggregateView.swift */; };
 		539567261CB52082009B0100 /* StudentSubjectivePopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539567251CB52082009B0100 /* StudentSubjectivePopover.swift */; };
 		5395672A1CB5281E009B0100 /* SSStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 539567291CB5281E009B0100 /* SSStarRatingView.m */; };
+		539945D71CD09AD700007EC7 /* PlistDownloder.m in Sources */ = {isa = PBXBuildFile; fileRef = 539945D61CD09AD700007EC7 /* PlistDownloder.m */; };
+		539945D91CD0A54B00007EC7 /* StudentQueryDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539945D81CD0A54B00007EC7 /* StudentQueryDemo.swift */; };
+		539945DB1CD0A56100007EC7 /* StudentQuerySelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539945DA1CD0A56100007EC7 /* StudentQuerySelectionView.swift */; };
 		53B5901C1CB8E02900A69FC1 /* Cb_Like_Disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 53B590161CB8E02900A69FC1 /* Cb_Like_Disabled.png */; };
 		53B5901D1CB8E02900A69FC1 /* Cb_Like_Enabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 53B590171CB8E02900A69FC1 /* Cb_Like_Enabled.png */; };
 		53B5901E1CB8E02900A69FC1 /* Cb_Unlike_Disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 53B590181CB8E02900A69FC1 /* Cb_Unlike_Disabled.png */; };
@@ -920,6 +923,10 @@
 		539567251CB52082009B0100 /* StudentSubjectivePopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentSubjectivePopover.swift; sourceTree = "<group>"; };
 		539567281CB5281E009B0100 /* SSStarRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSStarRatingView.h; sourceTree = "<group>"; };
 		539567291CB5281E009B0100 /* SSStarRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSStarRatingView.m; sourceTree = "<group>"; };
+		539945D51CD09AD700007EC7 /* PlistDownloder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlistDownloder.h; sourceTree = "<group>"; };
+		539945D61CD09AD700007EC7 /* PlistDownloder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlistDownloder.m; sourceTree = "<group>"; };
+		539945D81CD0A54B00007EC7 /* StudentQueryDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentQueryDemo.swift; sourceTree = "<group>"; };
+		539945DA1CD0A56100007EC7 /* StudentQuerySelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentQuerySelectionView.swift; sourceTree = "<group>"; };
 		53B590161CB8E02900A69FC1 /* Cb_Like_Disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cb_Like_Disabled.png; sourceTree = "<group>"; };
 		53B590171CB8E02900A69FC1 /* Cb_Like_Enabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cb_Like_Enabled.png; sourceTree = "<group>"; };
 		53B590181CB8E02900A69FC1 /* Cb_Unlike_Disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cb_Unlike_Disabled.png; sourceTree = "<group>"; };
@@ -969,6 +976,8 @@
 			children = (
 				4D0A7FC71CCF783B001AA119 /* StudentAnswerDemo.swift */,
 				4D0A7FC91CCF79C6001AA119 /* StudentAnswerSelectionView.swift */,
+				539945D81CD0A54B00007EC7 /* StudentQueryDemo.swift */,
+				539945DA1CD0A56100007EC7 /* StudentQuerySelectionView.swift */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -976,6 +985,8 @@
 		4DC246491CC1F6B500E01CA4 /* Objective-C_Class */ = {
 			isa = PBXGroup;
 			children = (
+				539945D51CD09AD700007EC7 /* PlistDownloder.h */,
+				539945D61CD09AD700007EC7 /* PlistDownloder.m */,
 				4DC2464A1CC1F6B500E01CA4 /* ImageUploading.h */,
 				4DC2464B1CC1F6B500E01CA4 /* ImageUploading.m */,
 				4DC2464C1CC1F6B500E01CA4 /* RatingsPopOverViewController.h */,
@@ -2616,6 +2627,7 @@
 				53676D381CA63B7F00CADE4D /* PreallocateSeatViewController.swift in Sources */,
 				53676CF11CA63B7F00CADE4D /* XMPPSoftwareVersion.m in Sources */,
 				53676D111CA63B7F00CADE4D /* NSXMLElement+XEP_0297.m in Sources */,
+				539945D71CD09AD700007EC7 /* PlistDownloder.m in Sources */,
 				53676CD81CA63B7F00CADE4D /* XMPPRoom.m in Sources */,
 				53CA5A241CB2337D008C42B0 /* AggregateCell.swift in Sources */,
 				53676D2F1CA63B7F00CADE4D /* LoginViewController.swift in Sources */,
@@ -2634,6 +2646,7 @@
 				53778B6C1CBCED72004E6480 /* QueryVolunteerSubView.swift in Sources */,
 				5377E43C1CAB9B6600A11E59 /* MatchColumnCell.swift in Sources */,
 				53676CD51CA63B7F00CADE4D /* XMPPRoomOccupantMemoryStorageObject.m in Sources */,
+				539945DB1CD0A56100007EC7 /* StudentQuerySelectionView.swift in Sources */,
 				53E5BBAE1CAE80F400358ED8 /* StudentAnswerOptionsView.swift in Sources */,
 				4D0A7FC81CCF783B001AA119 /* StudentAnswerDemo.swift in Sources */,
 				53676D5F1CA63D7A00CADE4D /* SubTopicCell.swift in Sources */,
@@ -2678,6 +2691,7 @@
 				53676CF31CA63B7F00CADE4D /* NSString+XEP_0106.m in Sources */,
 				53676D091CA63B7F00CADE4D /* XMPPAutoTime.m in Sources */,
 				53676CA01CA63B7F00CADE4D /* DottedLine.m in Sources */,
+				539945D91CD0A54B00007EC7 /* StudentQueryDemo.swift in Sources */,
 				53676C961CA63B7F00CADE4D /* APIManager.m in Sources */,
 				53676CBE1CA63B7F00CADE4D /* XMPPRosterCoreDataStorage.m in Sources */,
 				53676D301CA63B7F00CADE4D /* CurrentTimeLineView.swift in Sources */,

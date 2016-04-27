@@ -12,7 +12,7 @@ class AutoSeatSubView: UIView{
     
     var sizeOfCell:CGFloat = 0
     
-    var StudentImageView = UIImageView()
+    var StudentImageView = CustomProgressImageView()
     
     var StudentNameLabel    = UILabel()
     

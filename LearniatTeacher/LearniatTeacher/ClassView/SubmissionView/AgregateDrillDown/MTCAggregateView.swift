@@ -152,6 +152,31 @@ class MTCAggregateView: UIView
         wrongStudentsLabel.backgroundColor = standard_Red
         wrongStudentsLabel.font = UIFont(name: helveticaMedium, size: 18);
         
+        
+        
+        var height:CGFloat = 100
+        let correctStudentHeight :CGFloat = CGFloat((studentIdArray.count * 70))
+        let wrongStudentHeight :CGFloat = CGFloat((wrongStudentIdArray.count * 70))
+        
+        if correctStudentHeight > wrongStudentHeight
+        {
+            height = correctStudentHeight + 40
+        }
+        else
+        {
+            height = wrongStudentHeight + 40
+        }
+        
+        
+        
+        if height > UIScreen.mainScreen().bounds.height - 100
+        {
+            height = UIScreen.mainScreen().bounds.height - 100
+        }
+        
+        studentsScrollview.frame = CGRectMake(0, 0, self.frame.size.width, height)
+        
+        
         positionY = 40
         for index in 0..<wrongStudentIdArray.count
         {
@@ -174,27 +199,7 @@ class MTCAggregateView: UIView
         
         
         
-        var height:CGFloat = 100
-        let correctStudentHeight :CGFloat = CGFloat((studentIdArray.count * 70))
-        let wrongStudentHeight :CGFloat = CGFloat((wrongStudentIdArray.count * 70))
-        
-        if correctStudentHeight > wrongStudentHeight
-        {
-            height = correctStudentHeight + 40
-        }
-        else
-        {
-             height = wrongStudentHeight + 40
-        }
-        
-
-        
-        if height > UIScreen.mainScreen().bounds.height - 100
-        {
-            height = UIScreen.mainScreen().bounds.height - 100
-        }
-        
-        studentsScrollview.frame = CGRectMake(0, 0, self.frame.size.width, height)
+       
         studentsScrollview.contentSize = CGSizeMake(studentsScrollview.frame.size.width * 2, positionY)
         return height
         

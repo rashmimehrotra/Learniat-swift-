@@ -170,7 +170,7 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
             {
                 if let overlayImage = _currentQuestiondetails.objectForKey("Scribble") as? String
                 {
-                    let overLayImageView = UIImageView(frame: CGRectMake((questionView.frame.size.width - 270)/2,lineView.frame.origin.y + 2 ,270,180))
+                    let overLayImageView = CustomProgressImageView(frame: CGRectMake((questionView.frame.size.width - 270)/2,lineView.frame.origin.y + 2 ,270,180))
                     questionView.addSubview(overLayImageView)
                     
                     
@@ -185,7 +185,7 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
                 }
                 
                 
-                let studentAnswerImage = UIImageView(frame: CGRectMake((questionView.frame.size.width - 270)/2,lineView.frame.origin.y + lineView.frame.size.height ,270,180))
+                let studentAnswerImage = CustomProgressImageView(frame: CGRectMake((questionView.frame.size.width - 270)/2,lineView.frame.origin.y + lineView.frame.size.height ,270,180))
                 questionView.addSubview(studentAnswerImage)
                 
                 
