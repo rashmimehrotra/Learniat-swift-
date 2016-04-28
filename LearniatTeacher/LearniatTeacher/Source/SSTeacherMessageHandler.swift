@@ -84,6 +84,8 @@ import Foundation
     optional func smhDidgetStudentQueryWithDetails(queryId:String)
     
     
+    optional func smhDidgetStudentPollWithDetails(optionValue:String)
+    
     
 }
 
@@ -777,12 +779,68 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
     }
     
     
+    func sendLikertPollMessageToRoom(_roomId :String, withSelectedOption options:String, withQuestionName questionName:String)
+    {
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
+        {
+            
+            
+            let roomId = "room_\(_roomId)@conference.\(kBaseXMPPURL)";
+            
+            let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
+            let msgType             = kSendPollMessageToStudents
+            
+            let messageBody = ["selectedOptions":options,
+                               "questionName":questionName]
+            
+            let details:NSMutableDictionary = ["From":userId,
+                                               "To":roomId,
+                                               "Type":msgType,
+                                               "Body":messageBody];
+            
+            
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendGroupMessageWithBody(xmlBody, withRoomId: roomId)
+        }
+    }
+    func sendPollStoppedMessageToRoom(_roomId :String)
+    {
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
+        {
+            
+            
+            let roomId = "room_\(_roomId)@conference.\(kBaseXMPPURL)";
+            
+            let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
+            let msgType             = kSendPollStoppedToStudent
+            
+            
+            let details:NSMutableDictionary = ["From":userId,
+                                               "To":roomId,
+                                               "Type":msgType];
+            
+            
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendGroupMessageWithBody(xmlBody, withRoomId: roomId)
+        }
+    }
+    
+    
     //MARK: Recieve Message
     public func didReceiveMessageWithBody(body: String!)
     {
         
         let message = SSMessage.init(XMLString: body)
-        
         
         if message.messageType() == nil
         {
@@ -866,6 +924,21 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
             {
                 delegate().smhDidGetstudentSubmissionWithDrawn!(message.messageFrom())
                 
+            }
+            break
+            
+        case kSendSelectedPollToTeacher:
+            
+            if delegate().respondsToSelector(#selector(SSTeacherMessagehandlerDelegate.smhDidgetStudentPollWithDetails(_:)))
+            {
+                if message.messageBody() != nil
+                {
+                    if let optionsValue =  message.messageBody().objectForKey("option") as? String
+                    {
+                        delegate().smhDidgetStudentPollWithDetails!(optionsValue)
+                    }
+                    
+                }
             }
             break
             

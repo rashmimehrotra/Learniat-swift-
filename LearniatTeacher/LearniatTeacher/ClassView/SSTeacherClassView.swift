@@ -28,6 +28,7 @@ let kStudentOccupied         = 10
 let kClassView              = "classView"
 let kSubmissionView         = "Submission"
 let kQueryView              = "Query"
+let kPollView               = "Polling"
 
 
 
@@ -91,7 +92,9 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     var mSubmissionView                 = SSTeacherSubmissionView()
     
-    var mQueryView                      = SSTeacherQueryView()
+    var mQueryView                      : SSTeacherQueryView!
+    
+     var mPollingView                      : SSTeacherPollView!
     
     var StudentsDetailsArray                = NSMutableArray()
     
@@ -100,6 +103,8 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     var mQuestionViewButton                 = UIButton()
     
     var mQueryViewButton                    = UIButton()
+    
+     var mPollViewButton                    = UIButton()
     
     var tabPlaceHolderImage                 = UIImageView()
     
@@ -184,7 +189,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         tabPlaceHolderImage.layer.masksToBounds = true
         
         
-        mQuestionViewButton.frame  = CGRectMake((mBottombarImageView.frame.size.width - 150)/2  , 0, 150, mBottombarImageView.frame.size.height)
+        mQuestionViewButton.frame  = CGRectMake(mBottombarImageView.frame.size.width/2 - 150  , 0, 150, mBottombarImageView.frame.size.height)
         mBottombarImageView.addSubview(mQuestionViewButton)
         mQuestionViewButton.addTarget(self, action: #selector(SSTeacherClassView.onQuestionsView), forControlEvents: UIControlEvents.TouchUpInside)
         mQuestionViewButton.backgroundColor = UIColor.clearColor()
@@ -213,7 +218,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mClassViewButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         mClassViewButton.setTitle("Class view", forState: .Normal)
         mClassViewButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
-        
         tabPlaceHolderImage.frame = CGRectMake(mClassViewButton.frame.origin.x  , 10, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height - 20 )
        
         mQueryViewButton.frame  = CGRectMake(mQuestionViewButton.frame.origin.x + (mQuestionViewButton.frame.size.width + 10)  , 0, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height)
@@ -225,6 +229,15 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mQueryViewButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
         
         
+        mPollViewButton.frame  = CGRectMake(mQueryViewButton.frame.origin.x + (mQueryViewButton.frame.size.width + 10)  , 0, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height)
+        mBottombarImageView.addSubview(mPollViewButton)
+        mPollViewButton.addTarget(self, action: #selector(SSTeacherClassView.onPollView), forControlEvents: UIControlEvents.TouchUpInside)
+        mPollViewButton.backgroundColor = UIColor.clearColor()
+        mPollViewButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        mPollViewButton.setTitle("Poll", forState: .Normal)
+        mPollViewButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
+        
+
         
         
         
@@ -268,13 +281,21 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
         
         
-        
-        mQueryView.frame = CGRectMake(0, mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , self.view.frame.size.width , self.view.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + mBottombarImageView.frame.size.height ))
+        mQueryView = SSTeacherQueryView(frame:CGRectMake(0, mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , self.view.frame.size.width , self.view.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + mBottombarImageView.frame.size.height )))
         self.view.addSubview(mQueryView)
         mQueryView.backgroundColor = whiteBackgroundColor
         mQueryView.hidden = true
         mQueryView.userInteractionEnabled = true
         mQueryView.setdelegate(self)
+        
+        
+        mPollingView = SSTeacherPollView(frame:CGRectMake(0, mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , self.view.frame.size.width , self.view.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + mBottombarImageView.frame.size.height )))
+        self.view.addSubview(mPollingView)
+        mPollingView.backgroundColor = whiteBackgroundColor
+        mPollingView.hidden = true
+        mPollingView.userInteractionEnabled = true
+        mPollingView.setdelegate(self)
+
         
 
         
@@ -574,6 +595,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 
                 if classEndingRemainingTime <= 0
                 {
+                    mStartLabelUpdater.invalidate()
                     delegateSessionEnded()
                 }
             }
@@ -679,6 +701,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mClassView.hidden      = false
         mSubmissionView.hidden = true
         mQueryView.hidden      = true
+         mPollingView.hidden    = true
     }
     
     func onQuestionsView()
@@ -688,6 +711,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mClassView.hidden      = true
         mSubmissionView.hidden = false
         mQueryView.hidden      = true
+         mPollingView.hidden    = true
         currentScreen  = kSubmissionView
 //        mShowTopicsView.hidden = true
 //        if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
@@ -731,7 +755,29 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
         mClassView.hidden      = true
         mSubmissionView.hidden = true
+        mPollingView.hidden    = true
         mQueryView.hidden      = false
+        currentScreen  = kQueryView
+        
+        queryNotificationLabel.hidden = true
+        if newQueryRecieved.count > 0
+        {
+            SSTeacherMessageHandler.sharedMessageHandler.sendQueryRecievedMessageToRoom(currentSessionId)
+            
+            newQueryRecieved.removeAllObjects()
+        }
+        
+        
+    }
+    
+    func onPollView()
+    {
+        tabPlaceHolderImage.frame = CGRectMake(mPollViewButton.frame.origin.x  , 10, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height - 20 )
+        
+        mClassView.hidden      = true
+        mSubmissionView.hidden = true
+        mQueryView.hidden      = true
+        mPollingView.hidden      = false
         currentScreen  = kQueryView
         
         queryNotificationLabel.hidden = true
@@ -956,8 +1002,9 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             }
             else
             {
-                backGroundImageView.backgroundColor = UIColor(red: 249/255.0, green:249/255.0, blue:249/255.0, alpha: 1)
+                backGroundImageView.backgroundColor = whiteBackgroundColor
             }
+            
             mClassView.addSubview(backGroundImageView)
             
             var positionX :CGFloat = barWidthSpace / 2
@@ -1433,6 +1480,12 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
 // MARK: - message handler delegate
     
+    func smhStreamReconnectingWithDelay(delay: Int32) {
+        
+        self.view.makeToast("Reconnecting in \(delay) seconds", duration: 0.5, position: .Bottom)
+      
+    }
+    
     func smhDidcreateRoomWithRoomName(roomName: String)
     {
        
@@ -1591,6 +1644,16 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     func smhDidgetStudentQueryWithDetails(queryId: String) {
         
         mQueryView.addQueryWithDetails(queryId)
+    }
+    
+    func smhDidgetStudentPollWithDetails(optionValue: String)
+    {
+        
+        if mPollingView != nil
+        {
+            mPollingView.didGetStudentPollValue(optionValue)
+        }
+        
     }
     
     // MARK: - DeskView delegate functions

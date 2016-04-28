@@ -136,6 +136,7 @@ let topicsLineColor     : UIColor = UIColor(red: 236.0/255.0, green: 233.0/255.0
 
 let progressviewBackground    : UIColor = UIColor(red:213/255.0, green: 213/255.0, blue: 213/255.0, alpha: 1)
 
+let pollCellBackgroundColor     = UIColor(red: 235/255.0, green:235/255.0, blue:235/255.0, alpha: 1)
 
 
 
@@ -363,7 +364,20 @@ extension CustomProgressImageView
         }
         
         pngPath = pngPath.stringByAppendingString("/\(url.lastPathComponent ?? "")")
-        setImageWithUrl(url, withSavingPath: pngPath, withPlaceHolderName: "", withBorderRequired: false, withColor: UIColor.clearColor())
+       
+        var isDir :ObjCBool = false
+        let exists :Bool = NSFileManager.defaultManager().fileExistsAtPath(pngPath, isDirectory: &isDir)
+        if !exists
+        {
+            setImageWithUrl(url, withSavingPath: pngPath, withPlaceHolderName: "", withBorderRequired: false, withColor: UIColor.clearColor())
+        }
+        else
+        {
+            self.image = UIImage(contentsOfFile: pngPath)
+            self.layer.masksToBounds = true
+        }
+        
+//        setImageWithUrl(url, withSavingPath: pngPath, withPlaceHolderName: "", withBorderRequired: false, withColor: UIColor.clearColor())
         
         
         
@@ -395,7 +409,29 @@ extension CustomProgressImageView
             break
         }
         pngPath = pngPath.stringByAppendingString("/\(url.lastPathComponent ?? "")")
-        setImageWithUrl(url, withSavingPath: pngPath, withPlaceHolderName: "", withBorderRequired: false, withColor: UIColor.clearColor())
+        
+        
+        var isDir :ObjCBool = false
+        let exists :Bool = NSFileManager.defaultManager().fileExistsAtPath(pngPath, isDirectory: &isDir)
+        if !exists
+        {
+            setImageWithUrl(url, withSavingPath: pngPath, withPlaceHolderName: "", withBorderRequired: false, withColor: UIColor.clearColor())
+        }
+        else
+        {
+            if newSize.height < 100
+            {
+                self.image = self.resizeImage( UIImage(contentsOfFile: pngPath)!, newSize: newSize)
+            }
+            else
+            {
+                self.image = UIImage(contentsOfFile: pngPath)
+            }
+            
+            self.layer.masksToBounds = true
+        }
+        
+       
         
     }
     

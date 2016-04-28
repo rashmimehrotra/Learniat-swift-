@@ -264,6 +264,7 @@ class SubjectiveLeftSideView: UIView,SubjectiveStudentContainerDelegate
             }
         }
         
+        mScrollView.contentSize = CGSizeMake(0, currentPositionY)
         
         if selectedStudentsArray.count <= 0
         {

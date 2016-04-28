@@ -70,6 +70,12 @@
 		5330645F1CC8E3A50035CCDE /* SZTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5330645E1CC8E3A50035CCDE /* SZTextView.m */; };
 		533233331CAFD2CE00971EC7 /* SubmissionMRQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533233321CAFD2CE00971EC7 /* SubmissionMRQView.swift */; };
 		533233481CAFE09C00971EC7 /* SSTeacherAggregatePopOverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533233471CAFE09C00971EC7 /* SSTeacherAggregatePopOverController.swift */; };
+		53460C311CD1E52900076F85 /* SSTeacherPollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53460C301CD1E52900076F85 /* SSTeacherPollView.swift */; };
+		53460C331CD1E9AE00076F85 /* PollingCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53460C321CD1E9AE00076F85 /* PollingCreationView.swift */; };
+		53460C381CD1F12000076F85 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53460C371CD1F12000076F85 /* CustomTextView.swift */; };
+		53460C3B1CD1F82B00076F85 /* PollViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 53460C3A1CD1F82B00076F85 /* PollViewCell.m */; };
+		53460C3D1CD21BB300076F85 /* PollingGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53460C3C1CD21BB300076F85 /* PollingGraphView.swift */; };
+		53460C3F1CD22C3F00076F85 /* PollCompletedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53460C3E1CD22C3F00076F85 /* PollCompletedView.swift */; };
 		5360E6BE1CBDF6D400AFE9FF /* StudentEvaluationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5360E6BD1CBDF6D400AFE9FF /* StudentEvaluationDetails.swift */; };
 		5360E6C01CBDFD7000AFE9FF /* Text_on_desk.png in Resources */ = {isa = PBXBuildFile; fileRef = 5360E6BF1CBDFD7000AFE9FF /* Text_on_desk.png */; };
 		5360E6C21CBE425300AFE9FF /* don't-know.png in Resources */ = {isa = PBXBuildFile; fileRef = 5360E6C11CBE425300AFE9FF /* don't-know.png */; };
@@ -459,6 +465,13 @@
 		5330645E1CC8E3A50035CCDE /* SZTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZTextView.m; sourceTree = "<group>"; };
 		533233321CAFD2CE00971EC7 /* SubmissionMRQView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionMRQView.swift; sourceTree = "<group>"; };
 		533233471CAFE09C00971EC7 /* SSTeacherAggregatePopOverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSTeacherAggregatePopOverController.swift; sourceTree = "<group>"; };
+		53460C301CD1E52900076F85 /* SSTeacherPollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSTeacherPollView.swift; sourceTree = "<group>"; };
+		53460C321CD1E9AE00076F85 /* PollingCreationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PollingCreationView.swift; sourceTree = "<group>"; };
+		53460C371CD1F12000076F85 /* CustomTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
+		53460C391CD1F82B00076F85 /* PollViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PollViewCell.h; sourceTree = "<group>"; };
+		53460C3A1CD1F82B00076F85 /* PollViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PollViewCell.m; sourceTree = "<group>"; };
+		53460C3C1CD21BB300076F85 /* PollingGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PollingGraphView.swift; sourceTree = "<group>"; };
+		53460C3E1CD22C3F00076F85 /* PollCompletedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PollCompletedView.swift; sourceTree = "<group>"; };
 		5360E6BD1CBDF6D400AFE9FF /* StudentEvaluationDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentEvaluationDetails.swift; sourceTree = "<group>"; };
 		5360E6BF1CBDFD7000AFE9FF /* Text_on_desk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Text_on_desk.png; sourceTree = "<group>"; };
 		5360E6C11CBE425300AFE9FF /* don't-know.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "don't-know.png"; path = "ScribbleView/don't-know.png"; sourceTree = "<group>"; };
@@ -1139,6 +1152,19 @@
 			path = AgregateDrillDown;
 			sourceTree = "<group>";
 		};
+		53460C2F1CD1D25A00076F85 /* Polling */ = {
+			isa = PBXGroup;
+			children = (
+				53460C301CD1E52900076F85 /* SSTeacherPollView.swift */,
+				53460C321CD1E9AE00076F85 /* PollingCreationView.swift */,
+				53460C3C1CD21BB300076F85 /* PollingGraphView.swift */,
+				53460C3E1CD22C3F00076F85 /* PollCompletedView.swift */,
+				53460C391CD1F82B00076F85 /* PollViewCell.h */,
+				53460C3A1CD1F82B00076F85 /* PollViewCell.m */,
+			);
+			path = Polling;
+			sourceTree = "<group>";
+		};
 		5360E6C31CBE456D00AFE9FF /* Donart Chart */ = {
 			isa = PBXGroup;
 			children = (
@@ -1216,6 +1242,7 @@
 				53676B131CA63B7F00CADE4D /* LBorderView.m */,
 				53676B141CA63B7F00CADE4D /* Toast.swift */,
 				53676B151CA63B7F00CADE4D /* XMPP */,
+				53460C371CD1F12000076F85 /* CustomTextView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2196,6 +2223,7 @@
 		53676D501CA63D7A00CADE4D /* ClassView */ = {
 			isa = PBXGroup;
 			children = (
+				53460C2F1CD1D25A00076F85 /* Polling */,
 				4D0A7FC61CCF7822001AA119 /* Demo */,
 				53676D511CA63D7A00CADE4D /* SSTeacherClassView.swift */,
 				531044A91CA665E2007AE9D5 /* StundentDeskView.swift */,
@@ -2647,6 +2675,7 @@
 				5377E43C1CAB9B6600A11E59 /* MatchColumnCell.swift in Sources */,
 				53676CD51CA63B7F00CADE4D /* XMPPRoomOccupantMemoryStorageObject.m in Sources */,
 				539945DB1CD0A56100007EC7 /* StudentQuerySelectionView.swift in Sources */,
+				53460C3D1CD21BB300076F85 /* PollingGraphView.swift in Sources */,
 				53E5BBAE1CAE80F400358ED8 /* StudentAnswerOptionsView.swift in Sources */,
 				4D0A7FC81CCF783B001AA119 /* StudentAnswerDemo.swift in Sources */,
 				53676D5F1CA63D7A00CADE4D /* SubTopicCell.swift in Sources */,
@@ -2687,6 +2716,7 @@
 				53676CAC1CA63B7F00CADE4D /* NSNumber+XMPP.m in Sources */,
 				4DC246551CC20FA200E01CA4 /* SSTeacherLessonPlanView.swift in Sources */,
 				53676CA41CA63B7F00CADE4D /* XMPPDeprecatedDigestAuthentication.m in Sources */,
+				53460C331CD1E9AE00076F85 /* PollingCreationView.swift in Sources */,
 				53676CEE1CA63B7F00CADE4D /* NSDate+XMPPDateTimeProfiles.m in Sources */,
 				53676CF31CA63B7F00CADE4D /* NSString+XEP_0106.m in Sources */,
 				53676D091CA63B7F00CADE4D /* XMPPAutoTime.m in Sources */,
@@ -2706,6 +2736,7 @@
 				537301261CB665E300E76753 /* SmoothLineView.m in Sources */,
 				532607761CA90779002FF684 /* ScribbleQuestionInfoScreen.swift in Sources */,
 				53676C9A1CA63B7F00CADE4D /* Reachability.m in Sources */,
+				53460C3B1CD1F82B00076F85 /* PollViewCell.m in Sources */,
 				53676D131CA63B7F00CADE4D /* XMPPMessage+XEP_0333.m in Sources */,
 				53676D051CA63B7F00CADE4D /* XMPPStreamManagementStanzas.m in Sources */,
 				53676CBC1CA63B7F00CADE4D /* XMPPResourceCoreDataStorageObject.m in Sources */,
@@ -2776,6 +2807,7 @@
 				53676CC31CA63B7F00CADE4D /* XMPPRoster.m in Sources */,
 				53676D331CA63B7F00CADE4D /* ScheduleScreenTile.swift in Sources */,
 				53D8CCAD1CCE1A1200BA838C /* MainTopicsView.swift in Sources */,
+				53460C3F1CD22C3F00076F85 /* PollCompletedView.swift in Sources */,
 				53676CF21CA63B7F00CADE4D /* XMPPTransports.m in Sources */,
 				53676D071CA63B7F00CADE4D /* XMPPAutoPing.m in Sources */,
 				53676CED1CA63B7F00CADE4D /* XMPPRegistration.m in Sources */,
@@ -2818,6 +2850,7 @@
 				53676CD91CA63B7F00CADE4D /* XMPPvCard.xcdatamodeld in Sources */,
 				5360E6BE1CBDF6D400AFE9FF /* StudentEvaluationDetails.swift in Sources */,
 				53676D161CA63B7F00CADE4D /* MessageManager.m in Sources */,
+				53460C381CD1F12000076F85 /* CustomTextView.swift in Sources */,
 				53676CBB1CA63B7F00CADE4D /* XMPPGroupCoreDataStorageObject.m in Sources */,
 				53676D0A1CA63B7F00CADE4D /* XMPPTime.m in Sources */,
 				4DC246611CC24E9100E01CA4 /* LessonPlanQuestionViewCell.swift in Sources */,
@@ -2832,6 +2865,7 @@
 				53676D211CA63B7F00CADE4D /* DDFileLogger.m in Sources */,
 				537301281CB665E300E76753 /* UIImage-Extensions.m in Sources */,
 				53676CA91CA63B7F00CADE4D /* XMPPXFacebookPlatformAuthentication.m in Sources */,
+				53460C311CD1E52900076F85 /* SSTeacherPollView.swift in Sources */,
 				53676CDB1CA63B7F00CADE4D /* XMPPvCardCoreDataStorage.m in Sources */,
 				53676D1E1CA63B7F00CADE4D /* GCDAsyncSocket.m in Sources */,
 				5377E43A1CAB951800A11E59 /* MatchColumnOption.swift in Sources */,

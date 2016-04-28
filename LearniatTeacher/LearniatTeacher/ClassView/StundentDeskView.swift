@@ -139,7 +139,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
 
     
         
-        refrenceDeskImageView.frame = CGRectMake((self.frame.size.width-(deskSize/1.1))/2, (self.frame.size.height-deskSize)/2,deskSize/1.1,deskSize )
+        refrenceDeskImageView.frame = CGRectMake((self.frame.size.width-(deskSize))/2, (self.frame.size.height-deskSize)/2,deskSize,deskSize )
         self.addSubview(refrenceDeskImageView)
         refrenceDeskImageView.backgroundColor = UIColor.clearColor()
         cellWith = refrenceDeskImageView.frame.size.width
@@ -149,7 +149,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         
         
         
-        mStudentImage.frame = CGRectMake((refrenceDeskImageView.frame.size.width - refrenceDeskImageView.frame.size.width / 1.1)/2, (refrenceDeskImageView.frame.size.width / 3.5) / 8, refrenceDeskImageView.frame.size.width / 3.5, refrenceDeskImageView.frame.size.width / 3.5)
+        mStudentImage.frame = CGRectMake((refrenceDeskImageView.frame.size.width - refrenceDeskImageView.frame.size.width / 1.2 )/2, (refrenceDeskImageView.frame.size.height / 4.5) / 8, refrenceDeskImageView.frame.size.width / 4.5, refrenceDeskImageView.frame.size.width / 4.5)
         refrenceDeskImageView.addSubview(mStudentImage)
         mStudentImage.backgroundColor = UIColor.clearColor()
         mStudentImage.layer.cornerRadius = mStudentImage.frame.size.width/16;
@@ -163,7 +163,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         mParticipationLessImageView.hidden = true
         
         
-        answerDeskImageView.frame = CGRectMake((refrenceDeskImageView.frame.size.width-refrenceDeskImageView.frame.size.width/1.1)/2, (mStudentImage.frame.size.height+cellHeight/8),refrenceDeskImageView.frame.size.width/1.1, refrenceDeskImageView.frame.size.width/1.65)
+        answerDeskImageView.frame = CGRectMake((refrenceDeskImageView.frame.size.width-refrenceDeskImageView.frame.size.width/1.2)/2, (mStudentImage.frame.size.height + cellHeight/6),refrenceDeskImageView.frame.size.width/1.2, refrenceDeskImageView.frame.size.width/1.8)
         refrenceDeskImageView.addSubview(answerDeskImageView)
         answerDeskImageView.borderType = BorderTypeDashed;
         answerDeskImageView.dashPattern = 4;
@@ -212,7 +212,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         mStudentName.backgroundColor = UIColor.clearColor()
         mStudentName.allowOrphans = true;
         mStudentName.textAlignment = .Center;
-        mStudentName.contentMode = .Top;
+        mStudentName.contentMode = .Center;
         mStudentName.hidden = true
         
         fontHeight = mStudentName.frame.size.height/1.3;

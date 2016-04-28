@@ -44,7 +44,35 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
         
         super.init(frame:frame)
         
+        mScrollView = UIScrollView()
+        mScrollView.frame = CGRectMake(0, 50, self.frame.size.width, self.frame.size.height - 50 )
+        self.addSubview(mScrollView)
+        mScrollView.backgroundColor = whiteBackgroundColor
         
+        
+        mTopImageView.frame = CGRectMake(0, 0, self.frame.size.width, 50)
+        self.addSubview(mTopImageView)
+        mTopImageView.backgroundColor = UIColor.whiteColor()
+        mTopImageView.userInteractionEnabled = true
+        
+        
+        mSocialRankingButton.frame = CGRectMake(self.frame.size.width - 130, 0, 120, mTopImageView.frame.size.height)
+        mSocialRankingButton.setTitle("Social ranking", forState: .Normal)
+        mTopImageView.addSubview(mSocialRankingButton)
+        mSocialRankingButton.setTitleColor(standard_Button, forState: .Normal)
+        mSocialRankingButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        mSocialRankingButton.addTarget(self, action: #selector(SSTeacherQueryView.onSocialRankingButton), forControlEvents: .TouchUpInside)
+        mQueryCountLabel.frame = CGRectMake(10, 0, 120, mTopImageView.frame.size.height)
+        self.addSubview(mQueryCountLabel)
+        
+        noSubmissionLabel.frame = CGRectMake(0, (self.frame.size.height - 300)/2, self.frame.size.width, 300)
+        self.addSubview(noSubmissionLabel)
+        noSubmissionLabel.text = "There are no student queries pending"
+        noSubmissionLabel.textColor = blackTextColor
+        noSubmissionLabel.hidden = false
+        noSubmissionLabel.textAlignment = .Center
+        noSubmissionLabel.font =  UIFont(name: helveticaMedium, size: 35);
+
        
         
     }
@@ -67,41 +95,6 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
     
     func addQueryWithDetails(QueryId:String)
     {
-        
-        if mScrollView == nil
-        {
-            mScrollView = UIScrollView()
-            mScrollView.frame = CGRectMake(0, 50, self.frame.size.width, self.frame.size.height - 50 )
-            self.addSubview(mScrollView)
-            mScrollView.backgroundColor = whiteBackgroundColor
-            
-            
-            mTopImageView.frame = CGRectMake(0, 0, self.frame.size.width, 50)
-            self.addSubview(mTopImageView)
-            mTopImageView.backgroundColor = UIColor.whiteColor()
-            mTopImageView.userInteractionEnabled = true
-            
-            
-            mSocialRankingButton.frame = CGRectMake(self.frame.size.width - 130, 0, 120, mTopImageView.frame.size.height)
-            mSocialRankingButton.setTitle("Social ranking", forState: .Normal)
-            mTopImageView.addSubview(mSocialRankingButton)
-            mSocialRankingButton.setTitleColor(standard_Button, forState: .Normal)
-            mSocialRankingButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
-            mSocialRankingButton.addTarget(self, action: #selector(SSTeacherQueryView.onSocialRankingButton), forControlEvents: .TouchUpInside)
-            mQueryCountLabel.frame = CGRectMake(10, 0, 120, mTopImageView.frame.size.height)
-            self.addSubview(mQueryCountLabel)
-            
-            noSubmissionLabel.frame = CGRectMake(0, (self.frame.size.height - 300)/2, self.frame.size.width, 300)
-            self.addSubview(noSubmissionLabel)
-            noSubmissionLabel.text = "There are no student queries pending"
-            noSubmissionLabel.textColor = blackTextColor
-            noSubmissionLabel.hidden = false
-            noSubmissionLabel.textAlignment = .Center
-            noSubmissionLabel.font =  UIFont(name: helveticaMedium, size: 35);
-            
-            
-            
-        }
         
         SSTeacherDataSource.sharedDataSource.getQueryWithQueryId(QueryId, WithDelegate: self)
     }

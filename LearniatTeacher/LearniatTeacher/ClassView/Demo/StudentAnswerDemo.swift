@@ -90,10 +90,10 @@ class StudentAnswerDemo: UIView,StudentAnswerSelectionViewDelegate
         {
             if (questionType == kOverlayScribble || questionType == kFreshScribble )
             {
-//                if totalStudentsCount > 4
-//                {
-//                    totalStudentsCount = 4
-//                }
+                if totalStudentsCount > 5
+                {
+                    totalStudentsCount = 5
+                }
             }
         }
         

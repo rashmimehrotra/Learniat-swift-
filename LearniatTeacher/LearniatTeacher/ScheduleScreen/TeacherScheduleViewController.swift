@@ -554,8 +554,8 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
                 
         }
         
-        activityIndicator.hidden = false
-        activityIndicator.startAnimating()
+        activityIndicator.hidden = true
+        activityIndicator.stopAnimating()
     }
     
     func didGetSessionExtendedDetials(details: AnyObject) {
@@ -1113,51 +1113,46 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     }
     func delegateConfigureGridPressedWithDetails(details: AnyObject)
     {
-        
+        self.allocateSeatsWithDetails(details)
     }
     func delegateCancelClassPressedWithDetails(details: AnyObject)
     {
         
-//        if sessionAlertView != nil
-//        {
-//            if sessionAlertView.isBeingPresented()
-//            {
-//                sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
-//            }
-//        }
+        
+      let  sessionAlertView = UIAlertController(title: "Cancel class", message: "Do you really want to Cancel this class? \n You cannot reverse this action!", preferredStyle: UIAlertControllerStyle.Alert)
+        sessionAlertView.addAction(UIAlertAction(title: "Cancel class", style: .Default, handler: { action in
+            
+        
+            if let sessionid = details.objectForKey(kSessionId) as? String
+            {
+                SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(sessionid, WithStatusvalue: kCanClled, WithDelegate: self)
+                self.activityIndicator.hidden = false
+                self.activityIndicator.startAnimating()
+                
+                self.sendTimeExtendMessageWithDetails(details, withMessage: "Class has been cancelled")
+                
+                self.mScheduleDetailView.onDoneButton()
+            }
+
+            
+        }))
+        
+        sessionAlertView.addAction(UIAlertAction(title: "Dismiss", style: .Default, handler: { action in
+            
+            if let sessionid = details.objectForKey(kSessionId) as? String
+            {
+                if let scheduleTileView  = self.mScrollView.viewWithTag(Int(sessionid)!) as? ScheduleScreenTile
+                {
+                    scheduleTileView.alertDismissed()
+                }
+            }
+            
+            
+            
+        }))
         
         
-//        sessionAlertView = UIAlertController(title: "Cancel class", message: "Do you really want to Cancel this class? \n You cannot reverse this action!", preferredStyle: UIAlertControllerStyle.Alert)
-//        sessionAlertView.addAction(UIAlertAction(title: "Cancel class", style: .Default, handler: { action in
-//            
-//        
-//            if let sessionid = details.objectForKey(kSessionId) as? String
-//            {
-//                SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(sessionid, WithStatusvalue: kCanClled, WithDelegate: self)
-//                self.sendTimeExtendMessageWithDetails(details, withMessage: "Class has been cancelled")
-//                
-//                self.mScheduleDetailView.onDoneButton()
-//            }
-//
-//            
-//        }))
-//        
-//        sessionAlertView.addAction(UIAlertAction(title: "Dismiss", style: .Default, handler: { action in
-//            
-//            if let sessionid = details.objectForKey(kSessionId) as? String
-//            {
-//                if let scheduleTileView  = self.mScrollView.viewWithTag(Int(sessionid)!) as? ScheduleScreenTile
-//                {
-//                    scheduleTileView.alertDismissed()
-//                }
-//            }
-//            
-//            
-//            
-//        }))
-//        
-//        
-//        self.presentViewController(sessionAlertView, animated: true, completion: nil)
+        self.presentViewController(sessionAlertView, animated: true, completion: nil)
         
         
         
@@ -1167,6 +1162,8 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         if let sessionid = details.objectForKey(kSessionId) as? String
         {
             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(sessionid, WithStatusvalue: kopened, WithDelegate: self)
+            self.activityIndicator.hidden = false
+            self.activityIndicator.startAnimating()
             
             self.sendTimeExtendMessageWithDetails(details, withMessage: "Class has been opened")
             
@@ -1181,6 +1178,8 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             self.liveSessionDetails = details
             
             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(sessionid, WithStatusvalue: kLive, WithDelegate: self)
+            self.activityIndicator.hidden = false
+            self.activityIndicator.startAnimating()
             self.mScheduleDetailView.onDoneButton()
         }
     }
@@ -1230,8 +1229,8 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         }
         else
         {
-            delegateRefreshSchedule()
-             self.view.makeToast("Error in schedule. Refreshing...", duration:3.0, position: .Bottom)
+//            delegateRefreshSchedule()
+             self.view.makeToast("Error in schedule. Please refresh...", duration:3.0, position: .Bottom)
         }
         
         
