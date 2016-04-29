@@ -109,18 +109,18 @@ class SSTeacherPollView: UIView,PollingCreationViewDelegate,PollingGraphViewDele
         
         if graphTagValues.objectForKey(questionName) != nil
         {
-            if let questionTag = graphTagValues.objectForKey(questionName) as? String
-            {
-                
-                if let mCompltedView  = self.viewWithTag(Int(questionTag)!) as? PollCompletedView
-                {
-                    
-                }
-                else
-                {
-                    
-                }
-            }
+//            if let questionTag = graphTagValues.objectForKey(questionName) as? String
+//            {
+//                
+//                if let mCompltedView  = self.viewWithTag(Int(questionTag)!) as? PollCompletedView
+//                {
+//                    
+//                }
+//                else
+//                {
+//                    
+//                }
+//            }
             
             
         }

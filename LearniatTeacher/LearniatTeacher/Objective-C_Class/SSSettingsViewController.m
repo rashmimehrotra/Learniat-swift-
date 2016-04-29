@@ -6,6 +6,7 @@
 //
 
 #import "SSSettingsViewController.h"
+#import "PlistDownloder.h"
 @interface SSSettingsViewController ()
 
 @end
@@ -287,6 +288,34 @@ pullNewProfilePics;
     UISwitch *mySwitch = [[UISwitch alloc] initWithFrame:CGRectMake(240, 328, 0, 0)];
     [mySwitch addTarget:self action:@selector(onSimulateSwitch:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:mySwitch];
+    
+//    PlistDownloder * downloder = [[PlistDownloder alloc] init];
+//    
+//    
+//    
+//   id  dict =  [downloder returnDictonarywithUrl:[NSURL URLWithString:@"http://54.251.104.13/Demo/SimulationPlist.plist"]];
+//    
+//    if (dict != nil)
+//    {   NSString* string = [dict objectForKey:@"IsSimulation"];
+//        
+//        if ([string  isEqualToString:@"1"])
+//        {
+//            mySwitch.enabled = true;
+//            [mTextAnswerLabel setTextColor:[UIColor colorWithRed:96.0/255.0 green:96.0/255.0 blue:96.0/255.0 alpha:1.0]];
+//            
+//        }
+//        else{
+//            mySwitch.enabled = false;
+//            [mySwitch setOn:NO];
+//            [mTextAnswerLabel setTextColor:[UIColor lightGrayColor]];
+//        }
+//    }
+//    else
+//    {
+//        mySwitch.enabled = false;
+//        [mySwitch setOn:NO];
+//        [mTextAnswerLabel setTextColor:[UIColor lightGrayColor]];
+//    }
     
     
     NSUserDefaults* defaults=[NSUserDefaults standardUserDefaults];
