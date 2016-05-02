@@ -9,29 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/ClassView/Polling/PollingCreationView.swift"
-            timestampString = "483532935.962741"
+            filePath = "LearniatTeacher/ClassView/Polling/SSTeacherPollView.swift"
+            timestampString = "483683587.611147"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
-            landmarkName = "onSendButton()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/ClassView/Polling/PollingCreationView.swift"
-            timestampString = "483532935.962741"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
-            landmarkName = "onSendButton()"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
+            landmarkName = "delegateStopButtonPressedWithMultiplierValue(_:withOptionsArray:withOptionsvalue:withQuestionName:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

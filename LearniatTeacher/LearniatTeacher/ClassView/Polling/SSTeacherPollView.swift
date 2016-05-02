@@ -22,6 +22,12 @@ class SSTeacherPollView: UIView,PollingCreationViewDelegate,PollingGraphViewDele
     
     var pollTagValue            = 100000001
     
+    var Xposition :CGFloat  = 10
+    
+    var YPosition:CGFloat   = 10
+    
+    var mGraphScrollView    = UIScrollView()
+    
     func setdelegate(delegate:AnyObject)
     {
         _delgate = delegate;
@@ -45,12 +51,18 @@ class SSTeacherPollView: UIView,PollingCreationViewDelegate,PollingGraphViewDele
         mTopImageView.userInteractionEnabled = true
         
         
+        YPosition =  10
+        
         createNewPollButton.frame = CGRectMake(self.frame.size.width - 210, 0, 200, mTopImageView.frame.size.height)
         createNewPollButton.setTitle("Create new poll", forState: .Normal)
         mTopImageView.addSubview(createNewPollButton)
         createNewPollButton.setTitleColor(standard_Green, forState: .Normal)
         createNewPollButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
         createNewPollButton.addTarget(self, action: #selector(SSTeacherPollView.onCreatePollView), forControlEvents: .TouchUpInside)
+        
+        
+        mGraphScrollView.frame = CGRectMake(0, mTopImageView.frame.size.height, self.frame.size.width, self.frame.size.height - mTopImageView.frame.size.height)
+        self.addSubview(mGraphScrollView)
         
     }
     
@@ -109,18 +121,44 @@ class SSTeacherPollView: UIView,PollingCreationViewDelegate,PollingGraphViewDele
         
         if graphTagValues.objectForKey(questionName) != nil
         {
-//            if let questionTag = graphTagValues.objectForKey(questionName) as? String
-//            {
-//                
-//                if let mCompltedView  = self.viewWithTag(Int(questionTag)!) as? PollCompletedView
-//                {
-//                    
-//                }
-//                else
-//                {
-//                    
-//                }
-//            }
+            if let questionTag = graphTagValues.objectForKey(questionName) as? Int
+            {
+                
+                if let mCompltedView  = self.viewWithTag(questionTag) as? PollCompletedView
+                {
+                    mCompltedView.setGraphDetailsWithQuestionName(questionName)
+                }
+                else
+                {
+                    
+                    
+                    let remainngValue = (self.frame.size.width - 40 )/2
+                    
+                    let mcomletedView = PollCompletedView(frame:CGRectMake(Xposition,YPosition,remainngValue / 1.01 ,remainngValue / 1.06 ))
+                    mGraphScrollView.addSubview(mcomletedView)
+                    mcomletedView.tag = questionTag
+                    mcomletedView.setGraphDetailsWithQuestionName(questionName)
+                    
+                   
+                    
+                    
+                    if Xposition ==  10
+                    {
+                       Xposition = Xposition + mcomletedView.frame.size.width + 20
+                       
+                    }
+                    else
+                    {
+                        Xposition = 10
+                        YPosition = YPosition + mcomletedView.frame.size.height + 10
+
+                    }
+
+                    mGraphScrollView.contentSize = CGSizeMake(0, YPosition)
+                    
+                    
+                }
+            }
             
             
         }

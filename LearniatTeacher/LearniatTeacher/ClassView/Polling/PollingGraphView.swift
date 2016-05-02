@@ -65,11 +65,11 @@ class PollingGraphView: UIView
         questionNamelabel.textAlignment = .Center
         
         
-        shareGraphButton.frame = CGRectMake(self.frame.size.width - 105, 0, 100, 50)
+        shareGraphButton.frame = CGRectMake(self.frame.size.width - 110, 0, 100, 50)
         shareGraphButton.setTitle("Stop", forState: .Normal)
         shareGraphButton.setTitleColor(standard_Red, forState: .Normal)
         self.addSubview(shareGraphButton);
-        shareGraphButton.imageView?.contentMode = .ScaleAspectFit
+        shareGraphButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
         shareGraphButton.addTarget(self, action: #selector(PollingGraphView.onStopButton), forControlEvents: UIControlEvents.TouchUpInside)
         
         

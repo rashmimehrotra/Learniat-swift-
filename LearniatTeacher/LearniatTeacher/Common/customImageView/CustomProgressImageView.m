@@ -43,8 +43,14 @@
    if(![[NSFileManager defaultManager] fileExistsAtPath:savingPath])
     {
         
+         NSLog(@"%@",Url);
+        if (Url != nil)
+        {
+            bar= [[UIDownloadBar alloc] initWithURL:Url progressBarFrame:self.frame timeout:120 delegate:self];
+        }
         
-        bar= [[UIDownloadBar alloc] initWithURL:Url progressBarFrame:self.frame timeout:120 delegate:self];
+        
+       
     }
     else
     {
