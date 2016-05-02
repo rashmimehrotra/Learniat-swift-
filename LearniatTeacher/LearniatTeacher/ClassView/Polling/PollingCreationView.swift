@@ -60,7 +60,7 @@ class PollingCreationView: UIView,PollViewCellDelegate
         mTopImageView.addSubview(mCancelButton)
         mCancelButton.setTitleColor(standard_Button, forState: .Normal)
         mCancelButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
-        mCancelButton.addTarget(self, action: #selector(SSTeacherPollView.onCreatePollView), forControlEvents: .TouchUpInside)
+        mCancelButton.addTarget(self, action: #selector(PollingCreationView.onCancelButton), forControlEvents: .TouchUpInside)
         
         
         mStartButton.frame = CGRectMake(self.frame.size.width - 210, 0, 200, mTopImageView.frame.size.height)
@@ -153,6 +153,11 @@ class PollingCreationView: UIView,PollViewCellDelegate
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    func onCancelButton()
+    {
+        self.removeFromSuperview()
+    }
     
     func onSendButton()
     {

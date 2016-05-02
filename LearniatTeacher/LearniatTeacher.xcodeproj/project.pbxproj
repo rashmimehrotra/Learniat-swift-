@@ -76,6 +76,8 @@
 		53460C3B1CD1F82B00076F85 /* PollViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 53460C3A1CD1F82B00076F85 /* PollViewCell.m */; };
 		53460C3D1CD21BB300076F85 /* PollingGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53460C3C1CD21BB300076F85 /* PollingGraphView.swift */; };
 		53460C3F1CD22C3F00076F85 /* PollCompletedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53460C3E1CD22C3F00076F85 /* PollCompletedView.swift */; };
+		53576E8D1CD72AC2003AB9C9 /* StudentPollingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53576E8C1CD72AC2003AB9C9 /* StudentPollingView.swift */; };
+		53576E8F1CD7559D003AB9C9 /* LessonPLanDismissed.png in Resources */ = {isa = PBXBuildFile; fileRef = 53576E8E1CD7559D003AB9C9 /* LessonPLanDismissed.png */; };
 		5360E6BE1CBDF6D400AFE9FF /* StudentEvaluationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5360E6BD1CBDF6D400AFE9FF /* StudentEvaluationDetails.swift */; };
 		5360E6C01CBDFD7000AFE9FF /* Text_on_desk.png in Resources */ = {isa = PBXBuildFile; fileRef = 5360E6BF1CBDFD7000AFE9FF /* Text_on_desk.png */; };
 		5360E6C21CBE425300AFE9FF /* don't-know.png in Resources */ = {isa = PBXBuildFile; fileRef = 5360E6C11CBE425300AFE9FF /* don't-know.png */; };
@@ -472,6 +474,8 @@
 		53460C3A1CD1F82B00076F85 /* PollViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PollViewCell.m; sourceTree = "<group>"; };
 		53460C3C1CD21BB300076F85 /* PollingGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PollingGraphView.swift; sourceTree = "<group>"; };
 		53460C3E1CD22C3F00076F85 /* PollCompletedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PollCompletedView.swift; sourceTree = "<group>"; };
+		53576E8C1CD72AC2003AB9C9 /* StudentPollingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentPollingView.swift; sourceTree = "<group>"; };
+		53576E8E1CD7559D003AB9C9 /* LessonPLanDismissed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LessonPLanDismissed.png; sourceTree = "<group>"; };
 		5360E6BD1CBDF6D400AFE9FF /* StudentEvaluationDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentEvaluationDetails.swift; sourceTree = "<group>"; };
 		5360E6BF1CBDFD7000AFE9FF /* Text_on_desk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Text_on_desk.png; sourceTree = "<group>"; };
 		5360E6C11CBE425300AFE9FF /* don't-know.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "don't-know.png"; path = "ScribbleView/don't-know.png"; sourceTree = "<group>"; };
@@ -991,6 +995,7 @@
 				4D0A7FC91CCF79C6001AA119 /* StudentAnswerSelectionView.swift */,
 				539945D81CD0A54B00007EC7 /* StudentQueryDemo.swift */,
 				539945DA1CD0A56100007EC7 /* StudentQuerySelectionView.swift */,
+				53576E8C1CD72AC2003AB9C9 /* StudentPollingView.swift */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -1027,6 +1032,7 @@
 		531044831CA64296007AE9D5 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				53576E8E1CD7559D003AB9C9 /* LessonPLanDismissed.png */,
 				4D8266AC1CC4965300F3E5D1 /* arrow_Blue.png */,
 				4D2A93231CC0C986007A1D41 /* Add.png */,
 				4D2A93241CC0C986007A1D41 /* Circle_Green.png */,
@@ -2501,6 +2507,7 @@
 				5310449B1CA64296007AE9D5 /* Minshift_logo.png in Resources */,
 				537302271CB6771200E76753 /* Marker_Unselected_scribble.png in Resources */,
 				53909C531CBF627B00DDCCD0 /* Sharebutton.png in Resources */,
+				53576E8F1CD7559D003AB9C9 /* LessonPLanDismissed.png in Resources */,
 				5310449F1CA64296007AE9D5 /* 100.png in Resources */,
 				537302351CB6771200E76753 /* Text_Selected_AnnotateView@2x.png in Resources */,
 				5373022E1CB6771200E76753 /* Star_Unselected_AnnotateView.png in Resources */,
@@ -2730,6 +2737,7 @@
 				53909C671CBB58FF00E8A1C0 /* QuerySubview.swift in Sources */,
 				53CA5A221CB230BB008C42B0 /* MRQAggregateView.swift in Sources */,
 				537301071CB618D200E76753 /* SubmissionSubjectiveView.swift in Sources */,
+				53576E8D1CD72AC2003AB9C9 /* StudentPollingView.swift in Sources */,
 				53676C951CA63B7F00CADE4D /* AppDelegate.swift in Sources */,
 				4D2A93201CC0C4A9007A1D41 /* SetupClassCell.swift in Sources */,
 				53676CCC1CA63B7F00CADE4D /* XMPPRoomCoreDataStorage.m in Sources */,

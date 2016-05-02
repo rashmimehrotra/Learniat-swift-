@@ -7,17 +7,16 @@
 //
 
 import Foundation
-class CustomTextView: UIView,UITextViewDelegate
+class CustomTextView: UIView,UITextFieldDelegate
 {
     
     
 
     let mTopicText              = UILabel()
     
-    let mQuestionTextView       = UITextView()
+    let mQuestionTextView       = UITextField()
     
     
-    var currentPlaceHolder      = ""
     
     var StartText               = ""
     
@@ -57,8 +56,6 @@ class CustomTextView: UIView,UITextViewDelegate
         mQuestionTextView.delegate = self
         mQuestionTextView.font =  UIFont(name: helveticaRegular, size: 20);
         mQuestionTextView.textAlignment = .Left
-        mQuestionTextView.text = currentPlaceHolder
-        mQuestionTextView.scrollsToTop = true
         
         let mStartButton = UIButton(frame:CGRectMake(0, 0, self.frame.size.width,self.frame.size.height))
         self.addSubview(mStartButton)
@@ -69,10 +66,8 @@ class CustomTextView: UIView,UITextViewDelegate
     
     func setPlaceHolder(_placeHolder:String, withStartSting _startString:String)
     {
-        currentPlaceHolder = _placeHolder
         
-        mQuestionTextView.textColor = UIColor.lightGrayColor()
-        mQuestionTextView.text = _placeHolder
+        mQuestionTextView.placeholder = _placeHolder
        
         StartText = _startString
         mTopicText.text = StartText
@@ -90,45 +85,17 @@ class CustomTextView: UIView,UITextViewDelegate
         fatalError("init(coder:) has not been implemented")
     }
     
-    func textViewDidBeginEditing(textView: UITextView)
-    {
-        if textView.textColor == UIColor.lightGrayColor()
-        {
-            textView.text = ""
-            textView.textColor = UIColor.blackColor()
-        }
-    }
-    func textViewDidEndEditing(textView: UITextView)
-    {
-        if textView.text.isEmpty
-        {
-            textView.text = currentPlaceHolder
-            textView.textColor = UIColor.lightGrayColor()
-        }
-    }
-    
-    func textViewDidChange(textView: UITextView)
-    {
-        if textView.text.isEmpty
-        {
-            textView.text = currentPlaceHolder
-            textView.textColor = UIColor.lightGrayColor()
-        }
-        else
-        {
-            textView.textColor = blackTextColor
-        }
-    }
+
     
     func getTextOfCurrentTextView()->String
     {
         
-        if mQuestionTextView.text.isEmpty || mQuestionTextView.text == currentPlaceHolder
+        if mQuestionTextView.text!.isEmpty
         {
             mQuestionTextView.text = ""
         }
         
         
-        return mQuestionTextView.text
+        return mQuestionTextView.text!
     }
 }

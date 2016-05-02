@@ -9,13 +9,45 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/ClassView/Polling/SSTeacherPollView.swift"
-            timestampString = "483683587.611147"
+            filePath = "LearniatTeacher/ClassView/SetUpLessonPlan/predictWordController/PredictWordViewController.m"
+            timestampString = "483876501.601335"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
-            landmarkName = "delegateStopButtonPressedWithMultiplierValue(_:withOptionsArray:withOptionsvalue:withQuestionName:)"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "-setpridictWordDetails:withPredictedWord:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatTeacher/ClassView/SetUpLessonPlan/LessonPlanMainView.swift"
+            timestampString = "483882007.918551"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "309"
+            endingLineNumber = "309"
+            landmarkName = "searchingTextWithSearchText(_:withSearchedTopics:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatTeacher/INILoader.swift"
+            timestampString = "483880664.450602"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "803"
+            endingLineNumber = "803"
+            landmarkName = "getAttributeText(_:withSubString:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

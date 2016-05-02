@@ -275,4 +275,65 @@ class LessonPlanMainView: UIView,SSTeacherDataSourceDelegate,LessonPlanMainViewD
     }
     
     
+    func searchingTextWithSearchText(searchText:String, withSearchedTopics topics:NSMutableArray)
+    {
+        for index in 0 ..< mMaintopicsDetails.count
+        {
+            let currentTopicDetails = mMaintopicsDetails.objectAtIndex(index)
+            
+            if let topicId = currentTopicDetails.objectForKey("Id")as? String
+            {
+                
+                 if let topicCell  = mTopicsContainerView.viewWithTag(Int(topicId)!) as? LessonPlanMainViewCell
+                 {
+                    topicCell.m_MainTopicLabel.textColor = blackTextColor
+                    if let topicName = currentTopicDetails.objectForKey("Name")as? String
+                    {
+                        if let CumulativeTime = currentTopicDetails.objectForKey("CumulativeTime")as? String
+                        {
+                            topicCell.m_MainTopicLabel.text = "\(topicName)(\(CumulativeTime))".capitalizedString
+                        }
+                        else
+                        {
+                            topicCell.m_MainTopicLabel.text = "\(topicName)".capitalizedString
+                        }
+                        
+                        topicCell.m_MainTopicLabel.attributedText = topicName.getAttributeText(topicCell.m_MainTopicLabel.text!.capitalizedString, withSubString: "")
+                    }
+                }
+            }
+        }
+        
+        
+        
+        for index in 0 ..< topics.count
+        {
+            let currentTopicDetails = topics.objectAtIndex(index)
+            
+            if let topicId = currentTopicDetails.objectForKey("Id")as? String
+            {
+                
+                if let topicCell  = mTopicsContainerView.viewWithTag(Int(topicId)!) as? LessonPlanMainViewCell
+                {
+                    
+                    if let topicName = currentTopicDetails.objectForKey("Name")as? String
+                    {
+                        if let CumulativeTime = currentTopicDetails.objectForKey("CumulativeTime")as? String
+                        {
+                           topicCell.m_MainTopicLabel.text = "\(topicName)(\(CumulativeTime))".capitalizedString
+                        }
+                        else
+                        {
+                           topicCell.m_MainTopicLabel.text = "\(topicName)".capitalizedString
+                        }
+                        
+                        topicCell.m_MainTopicLabel.attributedText = topicName.getAttributeText(topicCell.m_MainTopicLabel.text!.capitalizedString, withSubString: searchText.capitalizedString)
+                    }
+                }
+            }
+        }
+        
+        
+    }
+    
 }

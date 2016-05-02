@@ -12,7 +12,7 @@ import Foundation
 {
     
     
-    func delegateStopButtonPressedWithMultiplierValue(multiplier:Int, withOptionsArray optionsArray:NSMutableArray, withOptionsvalue optionsValue:NSMutableArray, withQuestionName questionName: String)
+    func delegateStopButtonPressedWithMultiplierValue(multiplier:Int, withOptionsArray optionsArray:NSMutableArray, withOptionsvalue optionsValue:NSMutableArray, withQuestionName questionName: String, withTagValue tag:Int)
     
     
 }
@@ -213,15 +213,15 @@ class PollingGraphView: UIView
             if mQuerySubView.isKindOfClass(BarView)
             {
                 
-                optionsValuesArray.addObject(mQuerySubView.presentValue)
+                optionsValuesArray.addObject(String(format: "\(mQuerySubView.presentValue)"))
                 
             }
         }
         
         
-        if delegate().respondsToSelector(#selector(PollingGraphViewDelegate.delegateStopButtonPressedWithMultiplierValue(_:withOptionsArray:withOptionsvalue:withQuestionName:)))
+        if delegate().respondsToSelector(#selector(PollingGraphViewDelegate.delegateStopButtonPressedWithMultiplierValue(_:withOptionsArray:withOptionsvalue:withQuestionName:withTagValue:)))
          {
-            delegate().delegateStopButtonPressedWithMultiplierValue(multipleValue, withOptionsArray: currentOptionsArray, withOptionsvalue: optionsValuesArray, withQuestionName: questionNamelabel.text!)
+            delegate().delegateStopButtonPressedWithMultiplierValue(multipleValue, withOptionsArray: currentOptionsArray, withOptionsvalue: optionsValuesArray, withQuestionName: questionNamelabel.text!,withTagValue: self.tag)
         }
         
         self.removeFromSuperview()

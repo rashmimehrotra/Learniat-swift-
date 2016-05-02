@@ -7,7 +7,17 @@
 //
 
 import Foundation
-class SSTeacherPollView: UIView,PollingCreationViewDelegate,PollingGraphViewDelegate
+
+@objc protocol SSTeacherPollViewDelegate
+{
+    
+    
+    func delegatePollingStartedWithOptions(optionsArray:NSMutableArray)
+    
+    
+}
+
+class SSTeacherPollView: UIView,PollingCreationViewDelegate,PollingGraphViewDelegate,PollCompletedViewDelegate
 {
     
     let mTopImageView = UIImageView()
@@ -96,75 +106,77 @@ class SSTeacherPollView: UIView,PollingCreationViewDelegate,PollingGraphViewDele
     func delegateSendButtonpressedWithSelectedOptionsArray(selectedOptions: String, withQuestionName questionName:String)
     {
         
-        if graphTagValues.objectForKey(questionName) == nil
-        {
-            graphTagValues.setObject(pollTagValue, forKey: questionName)
-            pollTagValue = pollTagValue + 1
-        }
-        
         let options = NSMutableArray()
         options.addObjectsFromArray(selectedOptions.componentsSeparatedByString(";;;"))
         
          mPollGraphView = PollingGraphView(frame:CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
         self.addSubview(mPollGraphView)
         mPollGraphView.setdelegate(self)
+        mPollGraphView.tag = pollTagValue
         mPollGraphView.loadGraphViewWithOPtions(options, withQuestion: questionName)
+        pollTagValue = pollTagValue + 1
         
+        if delegate().respondsToSelector(#selector(SSTeacherPollViewDelegate.delegatePollingStartedWithOptions(_:)))
+        {
+            delegate().delegatePollingStartedWithOptions(options)
+        }
         
     }
     
     
     // MARK: - Polling GraphView functions
     
-    func delegateStopButtonPressedWithMultiplierValue(multiplier: Int, withOptionsArray optionsArray: NSMutableArray, withOptionsvalue optionsValue: NSMutableArray, withQuestionName questionName: String)
-    {
+    func delegateStopButtonPressedWithMultiplierValue(multiplier: Int, withOptionsArray optionsArray: NSMutableArray, withOptionsvalue optionsValue: NSMutableArray, withQuestionName questionName: String, withTagValue tag: Int) {
         
-        if graphTagValues.objectForKey(questionName) != nil
-        {
-            if let questionTag = graphTagValues.objectForKey(questionName) as? Int
+//        if let mCompltedView  = self.viewWithTag(tag) as? PollCompletedView
+//        {
+//            mCompltedView.setGraphDetailsWithQuestionName(questionName,withOPtionsArray:optionsArray,withOptionsValues: optionsValue )
+//        }
+//        else
+//        {
+//            
+        
+            
+            let mcomletedView = PollCompletedView(frame:CGRectMake(Xposition,YPosition,(self.frame.size.width - 40 )/2 ,(self.frame.size.width - 40 )/2 ))
+            mGraphScrollView.addSubview(mcomletedView)
+            mcomletedView.tag = tag
+            mcomletedView.setGraphDetailsWithQuestionName(questionName,withOPtionsArray:optionsArray,withOptionsValues: optionsValue, withMultiplier: multiplier)
+            mcomletedView.setdelegate(self)
+            if Xposition ==  10
             {
+                Xposition = Xposition + mcomletedView.frame.size.width + 20
+                mGraphScrollView.contentSize = CGSizeMake(0, YPosition + mcomletedView.frame.size.height)
                 
-                if let mCompltedView  = self.viewWithTag(questionTag) as? PollCompletedView
-                {
-                    mCompltedView.setGraphDetailsWithQuestionName(questionName)
-                }
-                else
-                {
-                    
-                    
-                    let remainngValue = (self.frame.size.width - 40 )/2
-                    
-                    let mcomletedView = PollCompletedView(frame:CGRectMake(Xposition,YPosition,remainngValue / 1.01 ,remainngValue / 1.06 ))
-                    mGraphScrollView.addSubview(mcomletedView)
-                    mcomletedView.tag = questionTag
-                    mcomletedView.setGraphDetailsWithQuestionName(questionName)
-                    
-                   
-                    
-                    
-                    if Xposition ==  10
-                    {
-                       Xposition = Xposition + mcomletedView.frame.size.width + 20
-                       
-                    }
-                    else
-                    {
-                        Xposition = 10
-                        YPosition = YPosition + mcomletedView.frame.size.height + 10
-
-                    }
-
-                    mGraphScrollView.contentSize = CGSizeMake(0, YPosition)
-                    
-                    
-                }
             }
-            
-            
-        }
+            else
+            {
+                Xposition = 10
+                YPosition = YPosition + mcomletedView.frame.size.height + 10
+                mGraphScrollView.contentSize = CGSizeMake(0, YPosition)
+                
+            }
+        
+//        }
     }
     
+    // MARK: - Poll completed view functions
     
+    func delegateOnResendButtonPressedWithOptions(optionsArray: NSMutableArray, withQuestionName questionName: String, withTagValue tagValue: Int)
+    {
+        
+        
+        mPollGraphView = PollingGraphView(frame:CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
+        self.addSubview(mPollGraphView)
+        mPollGraphView.setdelegate(self)
+        mPollGraphView.tag =  tagValue
+        mPollGraphView.loadGraphViewWithOPtions(optionsArray, withQuestion: questionName)
+        
+        
+         if delegate().respondsToSelector(#selector(SSTeacherPollViewDelegate.delegatePollingStartedWithOptions(_:)))
+         {
+            delegate().delegatePollingStartedWithOptions(optionsArray)
+        }
+    }
     
     
     func didGetStudentPollValue(optionValue:String)

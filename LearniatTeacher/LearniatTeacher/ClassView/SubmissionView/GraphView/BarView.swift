@@ -16,6 +16,8 @@ class BarView: UIButton
     
     var presentValue :Int = 0
     
+    var presentWidthValue :Int = 1
+    
     var barView = UIImageView()
     
 
@@ -45,6 +47,7 @@ class BarView: UIButton
     
     func changeFrameWithHeight(height:CGFloat)
     {
+        
         barView.frame = CGRectMake(barView.frame.origin.x ,0 , barView.frame.size.width ,height)
     }
     
@@ -53,6 +56,10 @@ class BarView: UIButton
         presentValue = presentValue + 1
     }
     
+    func increasePresentWidthvalue()
+    {
+        presentWidthValue  = presentWidthValue + 1
+    }
 
     
     

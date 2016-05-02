@@ -33,7 +33,7 @@ let kPollView               = "Polling"
 
 
 import Foundation
-class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopicsViewDelegate,SubTopicsViewDelegate,SSTeacherDataSourceDelegate,QuestionsViewDelegate,SSTeacherMessagehandlerDelegate,LiveQuestionViewDelegate,StundentDeskViewDelegate,SSTeacherSubmissionViewDelegate,SSTeacherQueryViewDelegate,StudentSubjectivePopoverDelegate,SSSettingsViewControllerDelegate,SSTeacherSchedulePopoverControllerDelegate
+class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopicsViewDelegate,SubTopicsViewDelegate,SSTeacherDataSourceDelegate,QuestionsViewDelegate,SSTeacherMessagehandlerDelegate,LiveQuestionViewDelegate,StundentDeskViewDelegate,SSTeacherSubmissionViewDelegate,SSTeacherQueryViewDelegate,StudentSubjectivePopoverDelegate,SSSettingsViewControllerDelegate,SSTeacherSchedulePopoverControllerDelegate,SSTeacherPollViewDelegate
 {
    
     
@@ -135,6 +135,8 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     var demoQueryView                       = StudentQueryDemo()
     
+    var pollingDemoView                     = StudentPollingView()
+    
     var plistLoader = PlistDownloder()
     
    
@@ -152,6 +154,9 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         demoQuestionAnswerView.setdelegate(self)
         
         demoQueryView.setdelegate(self)
+        
+        
+        pollingDemoView.setdelegate(self)
         
         SSTeacherMessageHandler.sharedMessageHandler.setdelegate(self)
         
@@ -2013,7 +2018,15 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mSubmissionView.studentSubmissionEvaluatedWithDetails(evaluation, withStdentId: studentId)
     }
     
-    
+    // MARK: - Polling delegate functions
+    func delegatePollingStartedWithOptions(optionsArray: NSMutableArray)
+    {
+        if NSUserDefaults.standardUserDefaults().boolForKey("isSimulateMode") == true
+        {
+            pollingDemoView.sendDummyPollingWithStudents(StudentsDetailsArray, withOPtionsArray: optionsArray)
+        }
+        
+    }
     
     // MARK: - Setting controller functions
     

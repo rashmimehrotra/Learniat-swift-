@@ -7,7 +7,7 @@
 //
 
 import Foundation
-class SSTeacherLessonPlanView: UIView,SSTeacherDataSourceDelegate
+class SSTeacherLessonPlanView: UIView,SSTeacherDataSourceDelegate, UISearchBarDelegate,UIPopoverControllerDelegate
 {
     
     let mSendButton = UIButton()
@@ -22,6 +22,11 @@ class SSTeacherLessonPlanView: UIView,SSTeacherDataSourceDelegate
     
     var MainTopicsView : LessonPlanMainView!
     
+    var fullLessonPlanDetails    : AnyObject!
+    
+    let lessonPlanSearchBar = UISearchBar()
+    
+    
     
     override init(frame: CGRect)
     {
@@ -33,7 +38,7 @@ class SSTeacherLessonPlanView: UIView,SSTeacherDataSourceDelegate
         
         
         
-         mTopbarImageView.frame = CGRectMake(0, 0, self.frame.size.width, 70)
+         mTopbarImageView.frame = CGRectMake(0, 0, self.frame.size.width, 60)
         mTopbarImageView.backgroundColor = topbarColor
         self.addSubview(mTopbarImageView)
         mTopbarImageView.userInteractionEnabled = true
@@ -71,7 +76,18 @@ class SSTeacherLessonPlanView: UIView,SSTeacherDataSourceDelegate
         
         self.addSubview(MainTopicsView)
         
-        
+          lessonPlanSearchBar.frame = CGRectMake((mTopbarImageView.frame.size.width - 400)/2 , 20, 400, 40)
+        lessonPlanSearchBar.placeholder = "Search"
+        mTopbarImageView.addSubview(lessonPlanSearchBar)
+        lessonPlanSearchBar.backgroundColor = UIColor.clearColor()
+        lessonPlanSearchBar.barTintColor = topbarColor
+        lessonPlanSearchBar.delegate = self
+        lessonPlanSearchBar.barStyle = UIBarStyle.Default
+        lessonPlanSearchBar.translucent = true
+        lessonPlanSearchBar.tintColor = UIColor.whiteColor()
+        let image = UIImage()
+        lessonPlanSearchBar.backgroundImage = image
+        lessonPlanSearchBar.setImage(UIImage(named: "LessonPLanDismissed.png"), forSearchBarIcon: .Clear, state: .Normal)
         
         
     }
@@ -131,6 +147,8 @@ class SSTeacherLessonPlanView: UIView,SSTeacherDataSourceDelegate
         sendButtonSpinner.stopAnimating()
         mSendButton.hidden = false
         
+        print(details)
+        fullLessonPlanDetails = details
         MainTopicsView.setCurrentSessionDetails(_currentSessionDetails, withFullLessonPlanDetails: details)
         
         
@@ -154,7 +172,97 @@ class SSTeacherLessonPlanView: UIView,SSTeacherDataSourceDelegate
     }
     
     
-    // MARK: - datasource delegate functions
+    // MARK: - search bar delegate functions
+    
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar)
+    {
+        searchBar.showsCancelButton = true
+        
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar)
+    {
+        searchBar.resignFirstResponder()
+        searchBar.showsCancelButton = false
+    }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String)
+    {
+        
+        var mMaintopicsDetails = NSMutableArray()
+        
+        
+        let searchedTopics = NSMutableArray()
+        
+        let classCheckingVariable = fullLessonPlanDetails.objectForKey("MainTopics")!.objectForKey("MainTopic")!
+        
+        if classCheckingVariable.isKindOfClass(NSMutableArray)
+        {
+            mMaintopicsDetails = classCheckingVariable as! NSMutableArray
+        }
+        else
+        {
+            mMaintopicsDetails.addObject(fullLessonPlanDetails.objectForKey("MainTopics")!.objectForKey("MainTopic")!)
+            
+        }
+        
+        
+        for mainIndex in 0 ..< mMaintopicsDetails.count
+        {
+            let mainTopicDict = mMaintopicsDetails.objectAtIndex(mainIndex)
+             if var topicName = mainTopicDict.objectForKey("Name")as? String
+             {
+                 topicName = topicName.lowercaseString
+                
+                if topicName.containsString(searchText.lowercaseString)
+                {
+                    searchedTopics.addObject(mainTopicDict)
+                }
+                else
+                {
+                   
+                    var subTopicsArrray = NSMutableArray()
+                   
+                    if  let classCheckingVariable = mainTopicDict.objectForKey("SubTopics")?.objectForKey("SubTopic")
+                    {
+                        if classCheckingVariable.isKindOfClass(NSMutableArray)
+                        {
+                            subTopicsArrray = classCheckingVariable as! NSMutableArray
+                        }
+                        else
+                        {
+                            subTopicsArrray.addObject(mainTopicDict.objectForKey("SubTopics")!.objectForKey("SubTopic")!)
+                            
+                        }
+                        
+                        for subIndex in 0 ..< subTopicsArrray.count
+                        {
+                            let subTopicTopicDict = subTopicsArrray.objectAtIndex(subIndex)
+                            if var subTopictopicName = subTopicTopicDict.objectForKey("Name")as? String
+                            {
+                                subTopictopicName = subTopictopicName.lowercaseString
+                                
+                                if subTopictopicName.containsString(searchText.lowercaseString)
+                                {
+                                    searchedTopics.addObject(mainTopicDict)
+                                    
+                                    break
+                                }
+                            }
+                            
+                        }
+                    }
+                }
+            }
+        }
+        
+        
+        if MainTopicsView != nil
+        {
+            MainTopicsView.searchingTextWithSearchText(searchText.lowercaseString, withSearchedTopics: searchedTopics)
+        }
+    }
+    
     
     
 

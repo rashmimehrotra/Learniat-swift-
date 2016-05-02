@@ -790,3 +790,22 @@ extension Int
         return Int(mini + arc4random_uniform(maxi - mini)) - offset
     }
 }
+extension String
+{
+    
+    func getAttributeText(fullString:String, withSubString searchstring :String) -> NSMutableAttributedString
+    {
+        let attributedString = NSMutableAttributedString(string: fullString as String)
+        let str = NSString(string: fullString)
+        let theRange = str.rangeOfString(searchstring)
+        if theRange.location != NSNotFound
+        {
+            attributedString.addAttribute(NSBackgroundColorAttributeName, value: UIColor.yellowColor(), range: theRange)
+            attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.blackColor(), range: theRange)
+        }
+        
+        return attributedString
+       
+    }
+    
+}

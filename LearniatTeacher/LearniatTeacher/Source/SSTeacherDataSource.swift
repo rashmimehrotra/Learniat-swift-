@@ -206,7 +206,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     var startedMainTopicName                = ""
     
-   
+    var taggedTopicIdArray                   = NSMutableArray()
     
     
     var isSimulationEnabled          :Bool = false
