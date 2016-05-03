@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatTeacher/ClassView/SetUpLessonPlan/LessonPlanMainView.swift"
-            timestampString = "483882007.918551"
+            timestampString = "483963361.946546"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "309"
-            endingLineNumber = "309"
-            landmarkName = "searchingTextWithSearchText(_:withSearchedTopics:)"
+            startingLineNumber = "255"
+            endingLineNumber = "255"
+            landmarkName = "getAllSelectedtopicId()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,13 +41,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/INILoader.swift"
-            timestampString = "483880664.450602"
+            filePath = "LearniatTeacher/ClassView/SetUpLessonPlan/LessonPlanMainView.swift"
+            timestampString = "483964455.512916"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "803"
-            endingLineNumber = "803"
-            landmarkName = "getAttributeText(_:withSubString:)"
+            startingLineNumber = "294"
+            endingLineNumber = "294"
+            landmarkName = "searchingTextWithSearchText(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatTeacher/ClassView/SetUpLessonPlan/LessonPlanMainViewCell.swift"
+            timestampString = "483964055.638691"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "574"
+            endingLineNumber = "574"
+            landmarkName = "searchingForTextInmainTopicWithText(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

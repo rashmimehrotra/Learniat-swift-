@@ -14,14 +14,13 @@ import Foundation
     
     
     
-    optional func delegateSubTopicCellPressedWithMainTopicDetails(topicDetails:AnyObject, withIndexValue indexValue:Int)
-    
-     optional func delegateMainTopicCheckMarkPressedWithState(SelectedState:Bool, withIndexValue indexValue:Int, withCurrentTopicDatails details:AnyObject)
+    optional func delegateSubTopicCellPressedWithMainTopicDetails(topicDetails:AnyObject, withCell topicCell:LessonPlanMainViewCell , withHeight height:CGFloat)
     
 }
 
 
-class LessonPlanMainViewCell: UIView{
+class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
+{
     
         let dateFormatter = NSDateFormatter()
     
@@ -42,13 +41,20 @@ class LessonPlanMainViewCell: UIView{
     
     var currentTopicDetails :AnyObject!
     
-    var     isSelected          = true
+    let mMainTopicView = UIView()
+    
+    var  isSelected             = true
     
     var _delgate: AnyObject!
     
     var m_checkBoxButton :UIButton!
     
+    
+    var currentSubtopicsArray = NSMutableArray()
+    
     var currentindexPath    = 0
+    
+    var SubTopicsView :LessonPlanSubTopicsView!
     
     func setdelegate(delegate:AnyObject)
     {
@@ -71,26 +77,39 @@ class LessonPlanMainViewCell: UIView{
         
          dateFormatter.dateFormat = "HH:mm:ss"
         
-         m_checkBoxButton = UIButton(frame:CGRectMake(0, 0, self.frame.size.width ,self.frame.size.height - 10));
-        self.addSubview(m_checkBoxButton);
-        checkBoxImage.frame = CGRectMake(10  , (self.frame.size .height - 20) / 2,20,20)
+         mMainTopicView.frame = CGRectMake(0, 0, self.frame.size.width ,self.frame.size.height)
+        self.addSubview(mMainTopicView)
+        mMainTopicView.backgroundColor = whiteBackgroundColor
+        
+        
+        let button = UIButton(frame:CGRectMake(0, 0, self.frame.size.width ,self.frame.size.height));
+        mMainTopicView.addSubview(button)
+         button.addTarget(self, action: #selector(LessonPlanMainViewCell.onSubtopicButton), forControlEvents: UIControlEvents.TouchUpInside)
+        
+        
+        
+        
+         m_checkBoxButton = UIButton(frame:CGRectMake(0, 0, self.frame.size.height ,self.frame.size.height));
+        mMainTopicView.addSubview(m_checkBoxButton);
+        m_checkBoxButton.backgroundColor = UIColor.whiteColor()
+       
+        checkBoxImage.frame = CGRectMake((m_checkBoxButton.frame.size.width - 20 )/2  , (m_checkBoxButton.frame.size.height - 20) / 2,20,20)
         checkBoxImage.image = UIImage(named:"Checked.png");
-        self.addSubview(checkBoxImage);
+        mMainTopicView.addSubview(checkBoxImage);
         m_checkBoxButton.addTarget(self, action: #selector(LessonPlanMainViewCell.checkMarkPressed), forControlEvents: UIControlEvents.TouchUpInside)
 
         
         
-        m_graspImageView.frame = CGRectMake(checkBoxImage.frame.size.width + checkBoxImage.frame.origin.x + 10, (self.frame.size.height - (self.frame.size.height / 1.8))/2 ,self.frame.size.height / 1.8,self.frame.size.height / 1.8)
-        self.addSubview(m_graspImageView)
+        m_graspImageView.frame = CGRectMake(m_checkBoxButton.frame.size.width + m_checkBoxButton.frame.origin.x + 10, (self.frame.size.height - (self.frame.size.height / 1.8))/2 ,self.frame.size.height / 1.8,self.frame.size.height / 1.8)
+        mMainTopicView.addSubview(m_graspImageView)
         m_graspImageView.image = UIImage(named: "00.png")
         m_graspImageView.contentMode = .ScaleAspectFit
         
         
         mSubTopicButton.frame = CGRectMake(self.frame.size.width - 160 , 10 ,150 ,self.frame.size.height - 20)
-        self.addSubview(mSubTopicButton)
-        mSubTopicButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
-        mSubTopicButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        mSubTopicButton.backgroundColor = standard_Button
+        mMainTopicView.addSubview(mSubTopicButton)
+        mSubTopicButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        mSubTopicButton.setTitleColor(standard_Button, forState: .Normal)
         mSubTopicButton.setTitle("No SubTopics", forState: .Normal)
         mSubTopicButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 20)
         mSubTopicButton.addTarget(self, action: #selector(LessonPlanMainViewCell.onSubtopicButton), forControlEvents: UIControlEvents.TouchUpInside)
@@ -100,9 +119,9 @@ class LessonPlanMainViewCell: UIView{
         
         
         mQuestionsButton.frame = CGRectMake(mSubTopicButton.frame.origin.x - 160 , 10 ,150 ,self.frame.size.height - 20)
-        self.addSubview(mQuestionsButton)
+        mMainTopicView.addSubview(mQuestionsButton)
         mQuestionsButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
-        mQuestionsButton.setTitleColor(standard_Button, forState: .Normal)
+        mQuestionsButton.setTitleColor(standard_Green, forState: .Normal)
         mQuestionsButton.setTitle("No Question", forState: .Normal)
         mQuestionsButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 20)
         mQuestionsButton.addTarget(self, action: #selector(LessonPlanMainViewCell.onSubtopicButton), forControlEvents: UIControlEvents.TouchUpInside)
@@ -112,7 +131,7 @@ class LessonPlanMainViewCell: UIView{
       
         var remainingWidth = m_graspImageView.frame.size.width + m_graspImageView.frame.origin.x + mSubTopicButton.frame.size.width + mQuestionsButton.frame.size.width + 40
         
-        remainingWidth = self.frame.size.width - remainingWidth
+        remainingWidth = mMainTopicView.frame.size.width - remainingWidth
         
         
         
@@ -121,20 +140,24 @@ class LessonPlanMainViewCell: UIView{
         
         m_MainTopicLabel = UILabel(frame: CGRectMake(m_graspImageView.frame.size.width + m_graspImageView.frame.origin.x + 10 , (self.frame.size.height - (self.frame.size.height / 1.3))/2  , remainingWidth, self.frame.size.height / 1.3 ))
         m_MainTopicLabel.font = UIFont(name:helveticaRegular, size: 18)
-        self.addSubview(m_MainTopicLabel)
+        mMainTopicView.addSubview(m_MainTopicLabel)
         m_MainTopicLabel.textColor = blackTextColor
         m_MainTopicLabel.textAlignment = .Left
         m_MainTopicLabel.lineBreakMode = .ByTruncatingMiddle
         
         
         m_progressView.userInteractionEnabled = false;
-        self.addSubview(m_progressView)
-        m_progressView.frame  = CGRectMake(0, self.frame.size.height - 3 , self.frame.size.width , 1)
+        mMainTopicView.addSubview(m_progressView)
+        m_progressView.frame  = CGRectMake(m_graspImageView.frame.origin.x,m_MainTopicLabel.frame.origin.y + m_MainTopicLabel.frame.size.height - 5, self.frame.size.width - (m_graspImageView.frame.origin.x + 10) , 1)
         m_progressView.progressTintColor = standard_Button;
-        let transform: CGAffineTransform = CGAffineTransformMakeScale(1.0, 2);
+        let transform: CGAffineTransform = CGAffineTransformMakeScale(1.0, 1.3);
         m_progressView.transform = transform;
         
+        let lineView = UIImageView(frame:CGRectMake(0, mMainTopicView.frame.size.height-1, mMainTopicView.frame.size.width, 1))
+        lineView.backgroundColor = LineGrayColor
+        mMainTopicView.addSubview(lineView)
         
+
         
         
     }
@@ -143,6 +166,7 @@ class LessonPlanMainViewCell: UIView{
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - set mainTopic details functions
     func setMainTopicDetails(topicDetails:AnyObject, withIndexPath indexPath:Int)
     {
         
@@ -204,148 +228,99 @@ class LessonPlanMainViewCell: UIView{
             
             m_progressView.progress = percentageValue
         }
-        
-        
-        
-      
-        
-        
-        
-        
-        var subTopicsDetails = NSMutableArray()
-        
        
         
+         getSubtopicsCountWithMainTopicsDetails(currentTopicDetails)
         
-       if  let classCheckingVariable = currentTopicDetails.objectForKey("SubTopics")?.objectForKey("SubTopic")
-       {
+        
+        
+        
+        let subTopicHeight:CGFloat = CGFloat(currentSubtopicsArray.count) * 55
+        
+        if SubTopicsView == nil
+        {
+            SubTopicsView = LessonPlanSubTopicsView(frame: CGRectMake(m_checkBoxButton.frame.origin.x + m_checkBoxButton.frame.size.width,mMainTopicView.frame.size.height,self.frame.size.width - (m_checkBoxButton.frame.origin.x + m_checkBoxButton.frame.size.width),subTopicHeight ))
+            SubTopicsView.setSubtopicsArray(currentSubtopicsArray, withSelectedState: isSelected)
+            SubTopicsView.setdelegate(self)
+            self.addSubview(SubTopicsView)
+            SubTopicsView.hidden = true
+        }
+        
+        
+    }
+    
+    
+    
+    func getSubtopicsCountWithMainTopicsDetails(_mainTopicDetails:AnyObject)->NSMutableArray
+    {
+       
+        var subTopicsDetails = NSMutableArray()
+        
+        if  let classCheckingVariable = _mainTopicDetails.objectForKey("SubTopics")?.objectForKey("SubTopic")
+        {
             if classCheckingVariable.isKindOfClass(NSMutableArray)
             {
                 subTopicsDetails = classCheckingVariable as! NSMutableArray
             }
             else
             {
-                subTopicsDetails.addObject(currentTopicDetails.objectForKey("SubTopics")!.objectForKey("SubTopic")!)
+                subTopicsDetails.addObject(_mainTopicDetails.objectForKey("SubTopics")!.objectForKey("SubTopic")!)
                 
             }
-
+            
         }
         
         
         
-        
+        currentSubtopicsArray = subTopicsDetails
         
         if let Tagged = currentTopicDetails.objectForKey("Tagged") as? String
         {
             if Tagged == "1"
             {
+                selectSubtopicsWithState(true)
                 checkBoxImage.image = UIImage(named:"Checked.png");
-                self.backgroundColor = UIColor.whiteColor()
+
                 isSelected = true
-                
-                
-                if subTopicsDetails.count > 0
-                {
-                    for index in 0..<subTopicsDetails.count
-                    {
-                        let subTopicDict = subTopicsDetails.objectAtIndex(index)
-                      
-                        if let s_Tagged = subTopicDict.objectForKey("Tagged") as? String
-                        {
-                            if s_Tagged == "0"
-                            {
-                                checkBoxImage.image = UIImage(named:"halfChecked.png");
-                            }
-                        }
-                        
-                        var questionDetails = NSMutableArray()
-                        
-                        if (subTopicDict.objectForKey("Questions") != nil)
-                        {
-                            let classCheckingVariable = subTopicDict.objectForKey("Questions")!.objectForKey("Question")!
-                            
-                            if classCheckingVariable.isKindOfClass(NSMutableArray)
-                            {
-                                questionDetails = classCheckingVariable as! NSMutableArray
-                            }
-                            else
-                            {
-                                questionDetails.addObject(subTopicDict.objectForKey("Questions")!.objectForKey("Question")!)
-                                
-                            }
-                            
-                            
-                            if Int(questionDetails.count) <= 0
-                            {
-                                mQuestionsButton.setTitle("No Questions", forState: .Normal)
-                                mQuestionsButton.enabled = false
-                                mQuestionsButton.backgroundColor = lightGrayColor
-                            }
-                            else if Int(subTopicsDetails.count) == 1
-                            {
-                                mQuestionsButton.setTitle("\(subTopicsDetails.count) Question", forState: .Normal)
-                            }
-                            else
-                            {
-                                mQuestionsButton.setTitle("\(subTopicsDetails.count) Questions", forState: .Normal)
-                            }
-                        }
-                        
-                        
-                        
-                    }
-                }
-                
-            }
-            else
-            {
-                checkBoxImage.image = UIImage(named:"Unchecked.png");
-                self.backgroundColor = UIColor.clearColor()
-                isSelected = false
-                
                 
                 for index in 0..<subTopicsDetails.count
                 {
                     let subTopicDict = subTopicsDetails.objectAtIndex(index)
                     
-                    var questionDetails = NSMutableArray()
-                    
-                    if (subTopicDict.objectForKey("Questions") != nil)
+                    if let s_Tagged = subTopicDict.objectForKey("Tagged") as? String
                     {
-                        let classCheckingVariable = subTopicDict.objectForKey("Questions")!.objectForKey("Question")!
-                        
-                        if classCheckingVariable.isKindOfClass(NSMutableArray)
+                        if s_Tagged == "0"
                         {
-                            questionDetails = classCheckingVariable as! NSMutableArray
-                        }
-                        else
-                        {
-                            questionDetails.addObject(subTopicDict.objectForKey("Questions")!.objectForKey("Question")!)
+                            checkBoxImage.image = UIImage(named:"halfChecked.png");
+                            
+                            if let topicId = subTopicDict.objectForKey("Id")as? String
+                            {
+                                if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.containsObject(topicId) == true
+                                {
+                                    SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.removeObject(topicId)
+                                }
+                            }
                             
                         }
-                        
-                        
-                        if Int(questionDetails.count) <= 0
-                        {
-                            mQuestionsButton.setTitle("No Questions", forState: .Normal)
-                            mQuestionsButton.enabled = false
-                            mQuestionsButton.backgroundColor = lightGrayColor
-                        }
-                        else if Int(subTopicsDetails.count) == 1
-                        {
-                            mQuestionsButton.setTitle("\(subTopicsDetails.count) Question", forState: .Normal)
-                        }
-                        else
-                        {
-                            mQuestionsButton.setTitle("\(subTopicsDetails.count) Questions", forState: .Normal)
-                        }
                     }
-                    
                 }
                 
                 
             }
+            else
+            {
+                checkBoxImage.image = UIImage(named:"Unchecked.png");
+                selectSubtopicsWithState(false)
+                isSelected = false
+                
+            }
+            
+            
         }
+        
+        getQuestionsCountWithSubTopicDetails(subTopicsDetails)
+        
+        
         
         
         
@@ -354,7 +329,7 @@ class LessonPlanMainViewCell: UIView{
         {
             mSubTopicButton.setTitle("No Sub topics", forState: .Normal)
             mSubTopicButton.enabled = false
-            mSubTopicButton.backgroundColor = lightGrayColor
+            mSubTopicButton.setTitleColor(lightGrayColor, forState: .Normal)
         }
         else if Int(subTopicsDetails.count) == 1
         {
@@ -364,92 +339,248 @@ class LessonPlanMainViewCell: UIView{
         {
             mSubTopicButton.setTitle("\(subTopicsDetails.count) Sub topics", forState: .Normal)
         }
-
         
+        return subTopicsDetails
+    }
+    
+    
+    func getQuestionsCountWithSubTopicDetails(subTopicsDetails:NSMutableArray)
+    {
+        
+        
+        var questionsCount = 0
+        
+        for index in 0..<subTopicsDetails.count
+        {
+            let subTopicDict = subTopicsDetails.objectAtIndex(index)
+            
+            var questionDetails = NSMutableArray()
+            
+            if (subTopicDict.objectForKey("Questions") != nil)
+            {
+                let classCheckingVariable = subTopicDict.objectForKey("Questions")!.objectForKey("Question")!
+                
+                if classCheckingVariable.isKindOfClass(NSMutableArray)
+                {
+                    questionDetails = classCheckingVariable as! NSMutableArray
+                }
+                else
+                {
+                    questionDetails.addObject(subTopicDict.objectForKey("Questions")!.objectForKey("Question")!)
+                    
+                }
+            }
+            
+            questionsCount = questionsCount + questionDetails.count
+            
+        }
+        
+        
+          mQuestionsButton.setTitleColor(standard_Green, forState: .Normal)
+        
+        if questionsCount <= 0
+        {
+            mQuestionsButton.setTitle("No Questions", forState: .Normal)
+            mQuestionsButton.enabled = false
+              mQuestionsButton.setTitleColor(lightGrayColor, forState: .Normal)
+        }
+        else if questionsCount == 1
+        {
+            mQuestionsButton.setTitle("\(questionsCount) Question", forState: .Normal)
+        }
+        else
+        {
+            mQuestionsButton.setTitle("\(questionsCount) Questions", forState: .Normal)
+        }
         
     }
     
+    
+    // MARK: - Buttons functions
     func onSubtopicButton()
     {
-        if delegate().respondsToSelector(#selector(LessonPlanMainViewDelegate.delegateSubTopicCellPressedWithMainTopicDetails(_:withIndexValue:)))
+        
+        
+        
+        
+        var subTopicHeight:CGFloat = CGFloat(currentSubtopicsArray.count) * 55
+        
+         if SubTopicsView.hidden == false
+         {
+            SubTopicsView.hidden = true
+            
+            subTopicHeight = mMainTopicView.frame.size.height
+            
+         }
+        else
         {
-            delegate().delegateSubTopicCellPressedWithMainTopicDetails!(currentTopicDetails,withIndexValue:currentindexPath)
-            mSubTopicButton.backgroundColor = standard_Green
+            SubTopicsView.hidden = false
+            subTopicHeight = mMainTopicView.frame.size.height + subTopicHeight
+            
+        }
+        
+        
+        
+        
+        
+        
+
+        if delegate().respondsToSelector(#selector(LessonPlanMainViewDelegate.delegateSubTopicCellPressedWithMainTopicDetails(_:withCell:withHeight:)))
+        {
+            delegate().delegateSubTopicCellPressedWithMainTopicDetails!(currentTopicDetails, withCell: self, withHeight: subTopicHeight)
         }
         
     }
     
     func checkMarkPressed()
     {
-        
-        var subTopicsDetails = NSMutableArray()
-        
-        if  let classCheckingVariable = currentTopicDetails.objectForKey("SubTopics")?.objectForKey("SubTopic")
-        {
-            if classCheckingVariable.isKindOfClass(NSMutableArray)
-            {
-                subTopicsDetails = classCheckingVariable as! NSMutableArray
-            }
-            else
-            {
-                subTopicsDetails.addObject(currentTopicDetails.objectForKey("SubTopics")!.objectForKey("SubTopic")!)
-                
-            }
-            
-        }
-
-        
-       
-        
-        
-        
-        
         if isSelected == true
         {
-            for index in 0 ..< subTopicsDetails.count
-            {
-                let currentTopicDetails = subTopicsDetails.objectAtIndex(index)
-                currentTopicDetails.setObject("0", forKey: "Tagged")
-                subTopicsDetails.replaceObjectAtIndex(index, withObject: currentTopicDetails)
-            }
             
-             currentTopicDetails.setObject("0", forKey: "Tagged")
-            currentTopicDetails.setObject(subTopicsDetails, forKey: "SubTopic")
-            
-            currentTopicDetails.setObject(currentTopicDetails, forKey: "SubTopics")
+            selectSubtopicsWithState(false)
             
             checkBoxImage.image = UIImage(named:"Unchecked.png");
-            self.backgroundColor = UIColor.clearColor()
-            delegate().delegateMainTopicCheckMarkPressedWithState!(false, withIndexValue: currentindexPath, withCurrentTopicDatails: currentTopicDetails)
             isSelected = false
             
-           
+            if SubTopicsView != nil
+            {
+                SubTopicsView.checkMarkStateChangedWithState(false)
+                
+            }
             
             
         }
         else
         {
-            
-            for index in 0 ..< subTopicsDetails.count 
-            {
-                let currentTopicDetails = subTopicsDetails.objectAtIndex(index)
-                currentTopicDetails.setObject("1", forKey: "Tagged")
-                subTopicsDetails.replaceObjectAtIndex(index, withObject: currentTopicDetails)
-            }
-            
-             currentTopicDetails.setObject("1", forKey: "Tagged")
-            currentTopicDetails.setObject(subTopicsDetails, forKey: "SubTopic")
-            
-            currentTopicDetails.setObject(currentTopicDetails, forKey: "SubTopics")
-            
-            
+            selectSubtopicsWithState(true)
             checkBoxImage.image = UIImage(named:"Checked.png");
-            self.backgroundColor = UIColor.whiteColor()
-            delegate().delegateMainTopicCheckMarkPressedWithState!(true, withIndexValue: currentindexPath, withCurrentTopicDatails: currentTopicDetails)
             isSelected = true
+            if SubTopicsView != nil
+            {
+                SubTopicsView.checkMarkStateChangedWithState(true)
+                
+            }
         }
         
     }
+    
+    // MARK: - SubTopicDelegate  functions
+    
+    func delegateCellStatewithChecMarkState(checkMark: Int)
+    {
+        if checkMark == 0
+        {
+            checkBoxImage.image = UIImage(named:"Unchecked.png");
+            isSelected = false
+            if let topicId = currentTopicDetails.objectForKey("Id")as? String
+            {
+                if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.containsObject(topicId) == true
+                {
+                    SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.removeObject(topicId)
+                }
+            }
+        }
+        else if checkMark == 1
+        {
+            checkBoxImage.image = UIImage(named:"Checked.png");
+            if let topicId = currentTopicDetails.objectForKey("Id")as? String
+            {
+                
+                if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.containsObject(topicId) == false
+                {
+                    SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.addObject(topicId)
+                }
+            }
+            isSelected = true
+        }
+        else
+        {
+            checkBoxImage.image = UIImage(named:"halfChecked.png");
+            
+            if let topicId = currentTopicDetails.objectForKey("Id")as? String
+            {
+                
+                if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.containsObject(topicId) == false
+                {
+                    SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.addObject(topicId)
+                }
+            }
+            
+            isSelected = true
+        }
+    }
+    
+    
+    // MARK: - Extra func functions
+    
+    func selectSubtopicsWithState(selected:Bool)
+    {
+        
+        if let topicId = currentTopicDetails.objectForKey("Id")as? String
+        {
+            
+                if selected == true
+                {
+                    if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.containsObject(topicId) == false
+                    {
+                        SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.addObject(topicId)
+                    }
+                    
+                }
+                else
+                {
+                    if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.containsObject(topicId) == true
+                    {
+                        SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.removeObject(topicId)
+                    }
+                    
+                }
+            }
+        
+        
+        
+        for index in 0 ..< currentSubtopicsArray.count
+        {
+            let TopicDetails = currentSubtopicsArray.objectAtIndex(index)
+            
+            
+            if let topicId = TopicDetails.objectForKey("Id")as? String
+            {
+                if selected == true
+                {
+                    if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.containsObject(topicId) == false
+                    {
+                        SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.addObject(topicId)
+                    }
+                    
+                }
+                else
+                {
+                    if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.containsObject(topicId) == true
+                    {
+                        SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.removeObject(topicId)
+                    }
+                    
+                }
+            }
+        }
+    }
+    
+    
+     // MARK: - Searching functions
+    func searchingForTextInmainTopicWithText(searchtext:String)
+    {
+        m_MainTopicLabel.attributedText = searchtext.getAttributeText(m_MainTopicLabel.text!.capitalizedString, withSubString: searchtext.capitalizedString)
+        
+        
+        if SubTopicsView != nil
+        {
+            SubTopicsView.searchTopicNameWithSearchText(searchtext)
+        }
+        
+    }
+    
+    
     
     
 }

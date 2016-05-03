@@ -108,7 +108,7 @@ let kDemoPlistUrl                 =  "http://54.251.104.13/Demo"
 
 
 
-let whiteBackgroundColor: UIColor = UIColor(red: 246/255.0, green:246/255.0, blue:246/255.0, alpha: 1)
+let whiteBackgroundColor: UIColor = UIColor(red: 248/255.0, green:248/255.0, blue:248/255.0, alpha: 1)
 
 let topbarColor         : UIColor = UIColor(red: 46/255.0, green:88/255.0, blue:128/255.0, alpha: 1)
 
@@ -807,5 +807,23 @@ extension String
         return attributedString
        
     }
+    
+    
+    func isAttributeFound(fullString:String, withSubString searchstring :String) -> Bool
+    {
+        var isFound = false
+        
+        let str = NSString(string: fullString)
+        let theRange = str.rangeOfString(searchstring)
+        if theRange.location != NSNotFound
+        {
+           isFound = true
+        }
+        
+        return isFound
+        
+    }
+    
+    
     
 }

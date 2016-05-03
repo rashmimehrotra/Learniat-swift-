@@ -13,11 +13,10 @@ import Foundation
     
     
     
-    optional func delegateSubTopicRemovedWithTopicDetails(topicDetails:AnyObject)
     
     
     
-    optional func delegateCellStateChangedWithState(SelectedState:Bool, withIndexValue indexValue:Int, withCurrentTopicDatails details:AnyObject, withChecMarkState checkMark:Int)
+    optional func delegateCellStatewithChecMarkState(checkMark:Int)
 
     
     
@@ -29,21 +28,11 @@ class LessonPlanSubTopicsView: UIView,SSTeacherDataSourceDelegate,UIGestureRecog
 {
     
     
-    var _currentSessionDetails       :AnyObject!
-    
     var mTopicsContainerView        = UIScrollView()
     
-    var mMaintopicsDetails          = NSMutableArray()
-    
-    var fullSubTopicLessonPlan              = NSMutableArray()
-    
-    var _currentMainTopicDetails      :AnyObject!
-    
-    var mainTopicCell           :LessonPlanMainViewCell!
+    var mSubtopicsDetails          = NSMutableArray()
     
     var _delgate: AnyObject!
-    
-    var _currentSubTopicIndexpath           = 0
     
     
     func setdelegate(delegate:AnyObject)
@@ -63,47 +52,12 @@ class LessonPlanSubTopicsView: UIView,SSTeacherDataSourceDelegate,UIGestureRecog
         
         
         self.backgroundColor =  UIColor.clearColor()
-        
-        let bacGroundView = UIView(frame: CGRectMake(0, 0, self.frame.size.width,self.frame.size.height))
-        self.addSubview(bacGroundView)
-        bacGroundView.backgroundColor = blackTextColor
-        bacGroundView.alpha = 0.4
-//        let tap = UITapGestureRecognizer(target: self, action: Selector("handleTap:"))
-//        tap.delegate = self
-//        bacGroundView.addGestureRecognizer(tap)
 
-        
-        mTopicsContainerView.frame = CGRectMake(100,60, self.frame.size.width - 200,self.frame.size.height - 60 )
+        mTopicsContainerView.frame = CGRectMake(0,0, self.frame.size.width,self.frame.size.height )
         self.addSubview(mTopicsContainerView)
         mTopicsContainerView.backgroundColor = lightGrayTopBar
         mTopicsContainerView.userInteractionEnabled = true
-       
-        
-        let imageview =  UIImageView(frame: CGRectMake(100  , 0, mTopicsContainerView.frame.size.width , 60))
-        self.addSubview(imageview)
-        imageview.backgroundColor = lightGrayTopBar
-
-        
-        mainTopicCell = LessonPlanMainViewCell(frame: CGRectMake(100  , 0, mTopicsContainerView.frame.size.width , 60))
-        mainTopicCell.setdelegate(self)
-        mainTopicCell.layer.cornerRadius = 5
-        self.addSubview(mainTopicCell)
-        mainTopicCell.backgroundColor = UIColor.clearColor()
-        mainTopicCell.mSubTopicButton.hidden = true
-        mainTopicCell.checkBoxImage.hidden = true
-        mainTopicCell.m_checkBoxButton.hidden = true
-        mainTopicCell.mQuestionsButton.hidden = true
-        
-       
-        
-        
-        let  mDoneButton = UIButton(frame: CGRectMake( 10, 0, 100, 60))
-        mDoneButton.addTarget(self, action: #selector(LessonPlanSubTopicsView.onBackButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
-        mainTopicCell.addSubview(mDoneButton)
-        mDoneButton.setImage(UIImage(named: "arrow_Blue.png"), forState: .Normal)
-        mDoneButton.imageView?.contentMode = .ScaleAspectFit
-}
+    }
     
     
     required init?(coder aDecoder: NSCoder)
@@ -113,44 +67,20 @@ class LessonPlanSubTopicsView: UIView,SSTeacherDataSourceDelegate,UIGestureRecog
         
     }
     
-    
-    func setCurrentMainTopicDetails(mainTopicDetails:AnyObject, withMainTopicIndexPath indexPath:Int)
+    func setSubtopicsArray(subTopicArray:NSMutableArray, withSelectedState selectedState:Bool)
     {
-        
-        _currentMainTopicDetails = mainTopicDetails
-        _currentSubTopicIndexpath = indexPath
-        
-        mMaintopicsDetails.removeAllObjects()
-        
-        let classCheckingVariable = mainTopicDetails.objectForKey("SubTopics")!.objectForKey("SubTopic")!
-        
-        if classCheckingVariable.isKindOfClass(NSMutableArray)
-        {
-            mMaintopicsDetails = classCheckingVariable as! NSMutableArray
-        }
-        else
-        {
-            mMaintopicsDetails.addObject(mainTopicDetails.objectForKey("SubTopics")!.objectForKey("SubTopic")!)
-            
-        }
-        
-        addTopicsForheight()
-        
-         mainTopicCell.setMainTopicDetails(mainTopicDetails, withIndexPath: 0)
-        
-        mainTopicCell.backgroundColor = UIColor.clearColor()
-        
-        
+         mSubtopicsDetails.removeAllObjects()
+        mSubtopicsDetails = subTopicArray
+        addTopicsForheight(selectedState)
     }
+   
     
-  
-    
-    func addTopicsForheight()
+    func addTopicsForheight(selectedState:Bool)
     {
         
         
         
-        if mMaintopicsDetails.count <= 0
+        if mSubtopicsDetails.count <= 0
         {
             
             mTopicsContainerView.hidden = true
@@ -166,31 +96,20 @@ class LessonPlanSubTopicsView: UIView,SSTeacherDataSourceDelegate,UIGestureRecog
         
         
         
-        var positionY :CGFloat = 10
+        var positionY :CGFloat = 0
         
-        for index in 0 ..< mMaintopicsDetails.count 
+        for index in 0 ..< mSubtopicsDetails.count
         {
-            let currentTopicDetails = mMaintopicsDetails.objectAtIndex(index)
-            let topicCell = LessonPlanSubTopicCell(frame: CGRectMake(10  , positionY, mTopicsContainerView.frame.size.width - 20, 60))
+            let currentTopicDetails = mSubtopicsDetails.objectAtIndex(index)
+            let topicCell = LessonPlanSubTopicCell(frame: CGRectMake(0  , positionY, mTopicsContainerView.frame.size.width, 55))
             topicCell.setdelegate(self)
-            topicCell.setSubTopicTopicDetails(currentTopicDetails,withIndexValue: index)
+            topicCell.setSubTopicTopicDetails(currentTopicDetails, withSelectedState: selectedState)
             mTopicsContainerView.addSubview(topicCell)
-            positionY = positionY + topicCell.frame.size.height + 10
+            positionY = positionY + topicCell.frame.size.height
         }
         
-        mTopicsContainerView.contentSize = CGSizeMake(0, positionY + 20)
+        mTopicsContainerView.contentSize = CGSizeMake(0, 0)
         
-    }
-    
-    func onBackButton()
-    {
-        
-        if delegate().respondsToSelector(#selector(LessonPlanSubTopicsViewDelegate.delegateSubTopicRemovedWithTopicDetails(_:)))
-        {
-            delegate().delegateSubTopicRemovedWithTopicDetails!(_currentMainTopicDetails)
-        }
-        
-        self.removeFromSuperview()
     }
     
     
@@ -200,63 +119,48 @@ class LessonPlanSubTopicsView: UIView,SSTeacherDataSourceDelegate,UIGestureRecog
     func delegateQuestionPressedWithSubTopicDetails(topicDetails: AnyObject)
     {
         
-        let SubTopicsView = LessonPlanQuestionView(frame: CGRectMake(self.frame.size.width,0,self.frame.size.width,self.frame.size.height ))
-        SubTopicsView.setCurrentMainTopicDetails(topicDetails)
-        
-        UIView.animateWithDuration(0.6, animations: {
-             SubTopicsView.frame =  CGRectMake(0,0,self.frame.size.width,self.frame.size.height )
-            })
-        
-        
-        SubTopicsView.setdelegate(self)
-        self.addSubview(SubTopicsView)
+//        let SubTopicsView = LessonPlanQuestionView(frame: CGRectMake(self.frame.size.width,0,self.frame.size.width,self.frame.size.height ))
+//        SubTopicsView.setCurrentMainTopicDetails(topicDetails)
+//        
+//        UIView.animateWithDuration(0.6, animations: {
+//             SubTopicsView.frame =  CGRectMake(0,0,self.frame.size.width,self.frame.size.height )
+//            })
+//        
+//        
+//        SubTopicsView.setdelegate(self)
+//        self.addSubview(SubTopicsView)
     }
     
     
-    
-    
-    func delegateCheckMarkPressedWithState(SelectedState: Bool, withIndexValue indexValue: Int, withCurrentTopicDatails details: AnyObject) {
-        
-        
-        if indexValue < mMaintopicsDetails.count
-        {
-            mMaintopicsDetails.replaceObjectAtIndex(indexValue, withObject: details)
-            
-        }
-        
-        _currentMainTopicDetails.setObject(mMaintopicsDetails, forKey: "SubTopic")
-        
-        _currentMainTopicDetails.setObject(_currentMainTopicDetails, forKey: "SubTopics")
-        
-        
+    func delegateSubtopicCellCheckMarkPressed()
+    {
         var selectedState = 0
-        
+
         var notSelectedState = 0
-        
-        let subViews = mTopicsContainerView.subviews.flatMap{ $0 as? LessonPlanSubTopicCell }
-        
-        for subview in subViews
+
+        for index in 0 ..< mSubtopicsDetails.count
         {
-            if subview.isKindOfClass(LessonPlanSubTopicCell)
+            let currentSubTopicDetails = mSubtopicsDetails.objectAtIndex(index)
+            
+            if let topicId = currentSubTopicDetails.objectForKey("Id")as? String
             {
-                if subview.isSelected == true
-                {
+               if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.containsObject(topicId)
+               {
                     selectedState = selectedState + 1
                 }
-                else if subview.isSelected == false
-                {
+                else
+               {
                     notSelectedState = notSelectedState + 1
                 }
-                
             }
         }
         
         
-        if mMaintopicsDetails.count == selectedState
+        if mSubtopicsDetails.count == selectedState
         {
             selectedState  = 1
         }
-        else if mMaintopicsDetails.count == notSelectedState
+        else if mSubtopicsDetails.count == notSelectedState
         {
             selectedState  = 0
         }
@@ -264,34 +168,69 @@ class LessonPlanSubTopicsView: UIView,SSTeacherDataSourceDelegate,UIGestureRecog
         {
             selectedState  = 2
         }
-        
-        
-        
-        if delegate().respondsToSelector(#selector(LessonPlanSubTopicsViewDelegate.delegateCellStateChangedWithState(_:withIndexValue:withCurrentTopicDatails:withChecMarkState:)))
-        {
-            delegate().delegateCellStateChangedWithState!(SelectedState, withIndexValue: _currentSubTopicIndexpath, withCurrentTopicDatails: _currentMainTopicDetails,withChecMarkState:selectedState)
 
+        if delegate().respondsToSelector(#selector(LessonPlanSubTopicsViewDelegate.delegateCellStatewithChecMarkState))
+        {
+            delegate().delegateCellStatewithChecMarkState!(selectedState)
+            
         }
         
     }
     
     
     
+    
+    
       // MARK: - Question view delegate functions
     func delegateSubTopicRemovedWithTopicDetails(topicDetails: AnyObject)
     {
-        if let topicId = topicDetails.objectForKey("Id")as? String
+//        if let topicId = topicDetails.objectForKey("Id")as? String
+//        {
+//            if let topicCell  = mTopicsContainerView.viewWithTag(Int(topicId)!) as? LessonPlanSubTopicCell
+//            {
+//                UIView.animateWithDuration(0.5)
+//                    {
+//                        topicCell.mSubTopicButton.backgroundColor = standard_Button
+//                }
+//                
+//                
+//            }
+//            
+//        }
+    }
+    
+    
+    func checkMarkStateChangedWithState(state:Bool)
+    {
+        
+        let subViews =  mTopicsContainerView.subviews.flatMap{ $0 as? LessonPlanSubTopicCell }
+        for topicCell in subViews
         {
-            if let topicCell  = mTopicsContainerView.viewWithTag(Int(topicId)!) as? LessonPlanSubTopicCell
+            if topicCell.isKindOfClass(LessonPlanSubTopicCell)
             {
-                UIView.animateWithDuration(0.5)
-                    {
-                        topicCell.mSubTopicButton.backgroundColor = standard_Button
+                if state == true
+                {
+                    topicCell.selectCell()
                 }
-                
-                
+                else
+                {
+                    topicCell.unselectCell()
+                }
             }
-            
+        }
+        
+    }
+    
+    
+    func searchTopicNameWithSearchText(searchtext:String)
+    {
+        let subViews =  mTopicsContainerView.subviews.flatMap{ $0 as? LessonPlanSubTopicCell }
+        for topicCell in subViews
+        {
+            if topicCell.isKindOfClass(LessonPlanSubTopicCell)
+            {
+                topicCell.searchingForTextInmainTopicWithText(searchtext)
+            }
         }
     }
     

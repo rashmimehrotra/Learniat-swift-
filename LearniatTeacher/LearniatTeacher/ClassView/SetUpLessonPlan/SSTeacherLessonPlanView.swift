@@ -146,9 +146,9 @@ class SSTeacherLessonPlanView: UIView,SSTeacherDataSourceDelegate, UISearchBarDe
         sendButtonSpinner.hidden = true
         sendButtonSpinner.stopAnimating()
         mSendButton.hidden = false
-        
-        print(details)
+
         fullLessonPlanDetails = details
+        SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.removeAllObjects()
         MainTopicsView.setCurrentSessionDetails(_currentSessionDetails, withFullLessonPlanDetails: details)
         
         
@@ -178,88 +178,29 @@ class SSTeacherLessonPlanView: UIView,SSTeacherDataSourceDelegate, UISearchBarDe
     {
         searchBar.showsCancelButton = true
         
+        if MainTopicsView != nil
+        {
+            MainTopicsView.searchingStarted()
+        }
+        
     }
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar)
     {
         searchBar.resignFirstResponder()
         searchBar.showsCancelButton = false
+        if MainTopicsView != nil
+        {
+            MainTopicsView.searchingStopped()
+        }
     }
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String)
     {
         
-        var mMaintopicsDetails = NSMutableArray()
-        
-        
-        let searchedTopics = NSMutableArray()
-        
-        let classCheckingVariable = fullLessonPlanDetails.objectForKey("MainTopics")!.objectForKey("MainTopic")!
-        
-        if classCheckingVariable.isKindOfClass(NSMutableArray)
-        {
-            mMaintopicsDetails = classCheckingVariable as! NSMutableArray
-        }
-        else
-        {
-            mMaintopicsDetails.addObject(fullLessonPlanDetails.objectForKey("MainTopics")!.objectForKey("MainTopic")!)
-            
-        }
-        
-        
-        for mainIndex in 0 ..< mMaintopicsDetails.count
-        {
-            let mainTopicDict = mMaintopicsDetails.objectAtIndex(mainIndex)
-             if var topicName = mainTopicDict.objectForKey("Name")as? String
-             {
-                 topicName = topicName.lowercaseString
-                
-                if topicName.containsString(searchText.lowercaseString)
-                {
-                    searchedTopics.addObject(mainTopicDict)
-                }
-                else
-                {
-                   
-                    var subTopicsArrray = NSMutableArray()
-                   
-                    if  let classCheckingVariable = mainTopicDict.objectForKey("SubTopics")?.objectForKey("SubTopic")
-                    {
-                        if classCheckingVariable.isKindOfClass(NSMutableArray)
-                        {
-                            subTopicsArrray = classCheckingVariable as! NSMutableArray
-                        }
-                        else
-                        {
-                            subTopicsArrray.addObject(mainTopicDict.objectForKey("SubTopics")!.objectForKey("SubTopic")!)
-                            
-                        }
-                        
-                        for subIndex in 0 ..< subTopicsArrray.count
-                        {
-                            let subTopicTopicDict = subTopicsArrray.objectAtIndex(subIndex)
-                            if var subTopictopicName = subTopicTopicDict.objectForKey("Name")as? String
-                            {
-                                subTopictopicName = subTopictopicName.lowercaseString
-                                
-                                if subTopictopicName.containsString(searchText.lowercaseString)
-                                {
-                                    searchedTopics.addObject(mainTopicDict)
-                                    
-                                    break
-                                }
-                            }
-                            
-                        }
-                    }
-                }
-            }
-        }
-        
-        
         if MainTopicsView != nil
         {
-            MainTopicsView.searchingTextWithSearchText(searchText.lowercaseString, withSearchedTopics: searchedTopics)
+            MainTopicsView.searchingTextWithSearchText(searchText.lowercaseString)
         }
     }
     

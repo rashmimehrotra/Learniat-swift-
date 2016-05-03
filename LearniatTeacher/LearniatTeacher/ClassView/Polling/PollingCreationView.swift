@@ -168,7 +168,6 @@ class PollingCreationView: UIView,PollViewCellDelegate
             {
                 if mQuerySubView.isKindOfClass(PollViewCell)
                 {
-                    print(mQuerySubView.getPollSubcellState())
                     
                    if mQuerySubView.getPollSubcellState() == kSelected
                    {
