@@ -16,6 +16,9 @@ import Foundation
     
     optional func delegateSubTopicCellPressedWithMainTopicDetails(topicDetails:AnyObject, withCell topicCell:LessonPlanMainViewCell , withHeight height:CGFloat)
     
+    
+    optional func delegateQuestionButtonPressedWithDetails(topicDetails:AnyObject)
+    
 }
 
 
@@ -182,8 +185,10 @@ class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
         }
         
         
-        if let topicName = currentTopicDetails.objectForKey("Name")as? String
+        if var topicName = currentTopicDetails.objectForKey("Name")as? String
         {
+            topicName = topicName.capitalizedString
+            
             if let CumulativeTime = currentTopicDetails.objectForKey("CumulativeTime")as? String
             {
                 m_MainTopicLabel.text = "\(topicName)(\(CumulativeTime))".capitalizedString
@@ -431,6 +436,25 @@ class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
         }
         
     }
+    
+    
+    func onQuestionButton()
+    {
+        if delegate().respondsToSelector(#selector(LessonPlanMainViewDelegate.delegateQuestionButtonPressedWithDetails(_:)))
+        {
+            delegate().delegateQuestionButtonPressedWithDetails!(currentTopicDetails)
+        }
+    }
+    
+    func delegateSubTopicViewQuestionButtonPressedwithDetails(subTopicDetails: AnyObject)
+    {
+        if delegate().respondsToSelector(#selector(LessonPlanMainViewDelegate.delegateQuestionButtonPressedWithDetails(_:)))
+        {
+            delegate().delegateQuestionButtonPressedWithDetails!(subTopicDetails)
+        }
+        
+    }
+    
     
     func checkMarkPressed()
     {

@@ -792,10 +792,16 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     
     func newImageUploadedWithName(imageName:String)
     {
+        let feedBackDetails  = NSMutableDictionary()
+        
+        let StudentIdArray = NSMutableArray()
+        
+        let AssessmentAnswerIdArray = NSMutableArray()
+        
         for index in 0 ..< selectedStudentsArray.count 
         {
             
-            let feedBackDetails  = NSMutableDictionary()
+            
             let studentdict = selectedStudentsArray.objectAtIndex(index)
             
             if let studentId = studentdict.objectForKey("StudentId") as? String
@@ -807,22 +813,10 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
                     if let AssessmentAnswerId = studentAnswerDict.objectForKey("AssessmentAnswerId") as? String
                     {
                         
+                        StudentIdArray.addObject(studentId)
+                        AssessmentAnswerIdArray.addObject(AssessmentAnswerId)
                         
-                        feedBackDetails.setObject(studentId, forKey: "StudentId")
                         
-                        feedBackDetails.setObject(AssessmentAnswerId, forKey: "AssessmentAnswerId")
-                        
-                        feedBackDetails.setObject("\(givenStarRatings)", forKey: "Rating")
-                        
-                        feedBackDetails.setObject("upload/\(imageName)", forKey: "imageUrl")
-                        
-                        feedBackDetails.setObject("\(givenBadgeId)", forKey: "BadgeId")
-                        
-                        feedBackDetails.setObject("\(givenTextReply)", forKey: "textRating")
-                        
-                        feedBackDetails.setObject("\(isModelAnswerSelected)", forKey: "ModelAnswerFlag")
-                        
-                        SSTeacherDataSource.sharedDataSource.sendFeedbackToStudentWithDetails(feedBackDetails, WithDelegate: self)
                         
                     }
                     
@@ -832,6 +826,23 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
             }
             
         }
+        
+        feedBackDetails.setObject(StudentIdArray.componentsJoinedByString(","), forKey: "StudentId")
+        
+        feedBackDetails.setObject(AssessmentAnswerIdArray.componentsJoinedByString(","), forKey: "AssessmentAnswerId")
+        
+        feedBackDetails.setObject("\(givenStarRatings)", forKey: "Rating")
+        
+        feedBackDetails.setObject("upload/\(imageName)", forKey: "imageUrl")
+        
+        feedBackDetails.setObject("\(givenBadgeId)", forKey: "BadgeId")
+        
+        feedBackDetails.setObject("\(givenTextReply)", forKey: "textRating")
+        
+        feedBackDetails.setObject("\(isModelAnswerSelected)", forKey: "ModelAnswerFlag")
+        
+        SSTeacherDataSource.sharedDataSource.sendFeedbackToStudentWithDetails(feedBackDetails, WithDelegate: self)
+        
         
     }
     
@@ -839,66 +850,84 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     {
         
         
-        
-        
-        if let studentId = details.objectForKey("Students")!.objectForKey("Student")!.objectForKey("StudentId") as? String
+        if details.objectForKey("Status") as? String == "Success"
         {
-           if let AssessmentAnswerId = details.objectForKey("AssessmentAnswerId") as? String
-           {
-                    SSTeacherMessageHandler.sharedMessageHandler.sendFeedbackToStudentWitId(studentId, withassesmentAnswerId: AssessmentAnswerId)
             
-            
-            subjectiveCellContainer.removeStudentsWithStudentsId(studentId)
-            
-            
-            if let answerDetails = studentsAswerDictonary.objectForKey(studentId)
+            if let _studentId = details.objectForKey("Students")!.objectForKey("Student")!.objectForKey("StudentId") as? String
             {
-                if selectedStudentsArray.containsObject(answerDetails)
-                {
-                    
-                    
-                    
-                   let feedBackDetails = NSMutableDictionary()
-                   
-                    feedBackDetails.setObject(studentId, forKey: "StudentId")
-                    
-                    feedBackDetails.setObject(AssessmentAnswerId, forKey: "AssessmentAnswerId")
-                    
-                    feedBackDetails.setObject("\(givenStarRatings)", forKey: "Rating")
-                    
-                    feedBackDetails.setObject("upload/\(currentTeacherImageURl).png", forKey: "imageUrl")
-                    
-                    feedBackDetails.setObject("\(givenBadgeId)", forKey: "BadgeId")
-                    
-                    feedBackDetails.setObject("\(givenTextReply)", forKey: "textRating")
-                    
-                    feedBackDetails.setObject("\(isModelAnswerSelected)", forKey: "ModelAnswerFlag")
-                    
-                    
-                    
-                     selectedStudentsArray.removeObject(answerDetails)
-                    
-                    if delegate().respondsToSelector(#selector(SubmissionSubjectiveViewDelegate.delegateStudentSubmissionEvaluatedWithDetails(_:withStudentId:withSubmissionCount:)))
-                    {
-                        delegate().delegateStudentSubmissionEvaluatedWithDetails!(feedBackDetails, withStudentId: studentId, withSubmissionCount:subjectiveCellContainer.totlStudentsCount)
-                    }
+                
+                
+               if let _AssessmentAnswerId = details.objectForKey("AssessmentAnswerId") as? String
+               {
 
+                    var StudentIdArray = [String]()
                     
-                   
+                    var AssessmentAnswerIdArray = [String]()
+                    
+                    
+                    StudentIdArray = _studentId.componentsSeparatedByString(",")
+                    
+                    AssessmentAnswerIdArray = _AssessmentAnswerId.componentsSeparatedByString(",")
+                
+                
+                    for index in 0..<StudentIdArray.count
+                    {
+                        let studentIdValue = StudentIdArray[index]
+                        let AssessmentAnswervalue = AssessmentAnswerIdArray[index]
+                        
+                        
+                        SSTeacherMessageHandler.sharedMessageHandler.sendFeedbackToStudentWitId(studentIdValue, withassesmentAnswerId: AssessmentAnswervalue)
+                        
+                        
+                        subjectiveCellContainer.removeStudentsWithStudentsId(studentIdValue)
+                        
+                        
+                        if let answerDetails = studentsAswerDictonary.objectForKey(studentIdValue)
+                        {
+                            if selectedStudentsArray.containsObject(answerDetails)
+                            {
+                                
+                                
+                                
+                                let feedBackDetails = NSMutableDictionary()
+                                
+                                feedBackDetails.setObject(studentIdValue, forKey: "StudentId")
+                                
+                                feedBackDetails.setObject(AssessmentAnswervalue, forKey: "AssessmentAnswerId")
+                                
+                                feedBackDetails.setObject("\(givenStarRatings)", forKey: "Rating")
+                                
+                                feedBackDetails.setObject("upload/\(currentTeacherImageURl).png", forKey: "imageUrl")
+                                
+                                feedBackDetails.setObject("\(givenBadgeId)", forKey: "BadgeId")
+                                
+                                feedBackDetails.setObject("\(givenTextReply)", forKey: "textRating")
+                                
+                                feedBackDetails.setObject("\(isModelAnswerSelected)", forKey: "ModelAnswerFlag")
+                                
+                                
+                                
+                                selectedStudentsArray.removeObject(answerDetails)
+                                
+                                if delegate().respondsToSelector(#selector(SubmissionSubjectiveViewDelegate.delegateStudentSubmissionEvaluatedWithDetails(_:withStudentId:withSubmissionCount:)))
+                                {
+                                    delegate().delegateStudentSubmissionEvaluatedWithDetails!(feedBackDetails, withStudentId: studentIdValue, withSubmissionCount:subjectiveCellContainer.totlStudentsCount)
+                                }
+                                
+                                
+                                
+                            }
+                        }
+                        
+                        
+                        if let studentDeskView  = containerview.viewWithTag(Int(studentIdValue)!) as? UIImageView
+                        {
+                            studentDeskView.removeFromSuperview()
+                        }
+                    }
                 }
             }
-            
-           
-            if let studentDeskView  = containerview.viewWithTag(Int(studentId)!) as? UIImageView
-            {
-                studentDeskView.removeFromSuperview()
-            }
-            
-            
-            
-            }
         }
-        
         
         
         

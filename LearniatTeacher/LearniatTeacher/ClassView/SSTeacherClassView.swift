@@ -33,7 +33,7 @@ let kPollView               = "Polling"
 
 
 import Foundation
-class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopicsViewDelegate,SubTopicsViewDelegate,SSTeacherDataSourceDelegate,QuestionsViewDelegate,SSTeacherMessagehandlerDelegate,LiveQuestionViewDelegate,StundentDeskViewDelegate,SSTeacherSubmissionViewDelegate,SSTeacherQueryViewDelegate,StudentSubjectivePopoverDelegate,SSSettingsViewControllerDelegate,SSTeacherSchedulePopoverControllerDelegate,SSTeacherPollViewDelegate
+class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopicsViewDelegate,SubTopicsViewDelegate,SSTeacherDataSourceDelegate,QuestionsViewDelegate,SSTeacherMessagehandlerDelegate,LiveQuestionViewDelegate,StundentDeskViewDelegate,SSTeacherSubmissionViewDelegate,SSTeacherQueryViewDelegate,StudentSubjectivePopoverDelegate,SSSettingsViewControllerDelegate,SSTeacherSchedulePopoverControllerDelegate,SSTeacherPollViewDelegate,StudentModelAnswerViewDelegate
 {
    
     
@@ -90,11 +90,16 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     var mClassView                      = UIView()
     
+    var mModelAnswerButton                  : ModelAnswerButtonView!
+    
     var mSubmissionView                 = SSTeacherSubmissionView()
     
     var mQueryView                      : SSTeacherQueryView!
     
-     var mPollingView                      : SSTeacherPollView!
+     var mPollingView                   : SSTeacherPollView!
+    
+    
+    var mModelAnswerView                    : StudentModelAnswerView!
     
     var StudentsDetailsArray                = NSMutableArray()
     
@@ -357,6 +362,14 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mTopicButton.layer.masksToBounds = true
         
         
+        mModelAnswerButton = ModelAnswerButtonView(frame:CGRectMake(mTopicButton.frame.origin.x - (mTopicButton.frame.size.width + 10 ) , mTopicButton.frame.origin.y, mTopicButton.frame.size.width, mTopicButton.frame.size.height))
+        mTopbarImageView.addSubview(mModelAnswerButton)
+        mModelAnswerButton.backgroundColor = standard_Green
+         mModelAnswerButton.addTarget(self, action: #selector(SSTeacherClassView.onModelAnswerButton), forControlEvents: UIControlEvents.TouchUpInside)
+        
+        
+        
+        
         mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 610, mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , 600, 680)
         
         mShowTopicsView.backgroundColor = UIColor.whiteColor()
@@ -368,6 +381,16 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         self.view.addSubview(mShowTopicsView)
         
         
+        
+        mModelAnswerView = StudentModelAnswerView(frame:CGRectMake(mModelAnswerButton.frame.origin.x - 30 , mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , mModelAnswerButton.frame.size.width + 60, 60))
+        self.view.addSubview(mModelAnswerView)
+        mModelAnswerView.backgroundColor = UIColor.whiteColor()
+        mModelAnswerView.layer.shadowColor = UIColor.blackColor().CGColor
+        mModelAnswerView.layer.shadowOpacity = 0.3
+        mModelAnswerView.layer.shadowOffset = CGSizeZero
+        mModelAnswerView.layer.shadowRadius = 10
+        mModelAnswerView.setdelegate(self)
+
         
         
         mSubTopicsNamelabel = UILabel(frame: CGRectMake(10, 5 , mTopicButton.frame.size.width - 20, 20))
@@ -1096,6 +1119,12 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     
 // MARK: - buttons functions
+    
+    func onModelAnswerButton()
+    {
+        
+    }
+    
     func onTopicsButton(sender:UIButton)
     {
         
@@ -1954,6 +1983,15 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
         if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView
         {
+            
+            if let ModelAnswerFlag = details.objectForKey("ModelAnswerFlag") as? String
+            {
+                if ModelAnswerFlag == "true"
+                {
+                    mModelAnswerView.newModelAnswerAddedWithQuestionLogId(SSTeacherDataSource.sharedDataSource.currentQuestionLogId)
+                }
+            }
+            
                 studentDeskView.setReplayEvaluatedWithDetails(details)
         }
         
@@ -2213,5 +2251,16 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         }
     }
     
+    // MARK: - ModelAnswer Delegate  functions
+    func delegateModelAnswerViewLoadedWithHeight(height: CGFloat)
+    {
+        UIView.animateWithDuration(0.6, animations:
+            {
+               self.mModelAnswerView.frame = CGRectMake(self.mModelAnswerView.frame.origin.x, self.mModelAnswerView.frame.origin.y,self.mModelAnswerView.frame.size.width, height)
+        })
+        
+        
+        
+    }
     
 }

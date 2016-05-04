@@ -57,10 +57,24 @@ class LessonPlanQuestionView: UIView,SSTeacherDataSourceDelegate,UIGestureRecogn
         
         self.backgroundColor =  UIColor.clearColor()
         
+        
+        let backGroundView = UIView(frame:CGRectMake(0,0, self.frame.size.width,self.frame.size.height))
+        self.addSubview(backGroundView)
+        backGroundView.backgroundColor = blackTextColor
+        backGroundView.alpha = 0.5
+        
+        
+        
         mTopicsContainerView.frame = CGRectMake(100,60, self.frame.size.width - 200,self.frame.size.height - 104 )
         self.addSubview(mTopicsContainerView)
-        mTopicsContainerView.backgroundColor = lightGrayTopBar
+        mTopicsContainerView.backgroundColor = whiteBackgroundColor
+        mTopicsContainerView.layer.shadowRadius = 1.0;
         
+        mTopicsContainerView.layer.shadowColor = UIColor.blackColor().CGColor
+        mTopicsContainerView.layer.shadowOpacity = 0.3
+        mTopicsContainerView.layer.shadowOffset = CGSizeZero
+        mTopicsContainerView.layer.shadowRadius = 10
+
         
         
         questionButtonsView.frame = CGRectMake(100, mTopicsContainerView.frame.size.height + mTopicsContainerView.frame.origin.y, mTopicsContainerView.frame.size.width, 44)
@@ -108,11 +122,16 @@ class LessonPlanQuestionView: UIView,SSTeacherDataSourceDelegate,UIGestureRecogn
         mainTopicCell.setdelegate(self)
         mainTopicCell.layer.cornerRadius = 5
         self.addSubview(mainTopicCell)
-        mainTopicCell.backgroundColor = UIColor.clearColor()
+        mainTopicCell.mMainTopicView.backgroundColor = UIColor.whiteColor()
         mainTopicCell.mSubTopicButton.hidden = true
         mainTopicCell.checkBoxImage.hidden = true
         mainTopicCell.m_checkBoxButton.hidden = true
         mainTopicCell.mQuestionsButton.hidden = true
+        mainTopicCell.layer.shadowColor = UIColor.blackColor().CGColor
+        mainTopicCell.layer.shadowOpacity = 0.3
+        mainTopicCell.layer.shadowOffset = CGSizeZero
+        mainTopicCell.layer.shadowRadius = 5
+
         
         
         let  mDoneButton = UIButton(frame: CGRectMake( 10, 0, 100, 60))
@@ -155,7 +174,7 @@ class LessonPlanQuestionView: UIView,SSTeacherDataSourceDelegate,UIGestureRecogn
         _currentMainTopicDetails = mainTopicDetails
         
         mQuestionsDetails.removeAllObjects()
-        
+        print(mainTopicDetails)
         let classCheckingVariable = mainTopicDetails.objectForKey("Questions")!.objectForKey("Question")!
         
         if classCheckingVariable.isKindOfClass(NSMutableArray)
@@ -214,26 +233,8 @@ class LessonPlanQuestionView: UIView,SSTeacherDataSourceDelegate,UIGestureRecogn
     
     func onBackButton()
     {
+        self.removeFromSuperview()
         
-        if delegate().respondsToSelector(#selector(LessonPlanQuestionViewDelegate.delegateSubTopicRemovedWithTopicDetails(_:)))
-        {
-            delegate().delegateSubTopicRemovedWithTopicDetails!(_currentMainTopicDetails)
-        }
-        
-        
-        UIView.animateWithDuration(0.6, animations:
-            {
-            self.frame =  CGRectMake(self.frame.size.width,0,self.frame.size.width,self.frame.size.height )
-            },
-            completion:
-            { finished in
-                self.removeFromSuperview()
-        })
-        
-        
-        
-        
-       
     }
     
     

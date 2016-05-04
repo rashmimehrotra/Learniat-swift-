@@ -56,7 +56,7 @@ class StudentQuerySelectionView: UIView,APIManagerDelegate
     {
         
         _currentStudentDetails = studentDetails
-        
+        _delgate = self
         if queryDetails.count > 0
         {
             queryDetails.shuffle()
@@ -83,10 +83,10 @@ class StudentQuerySelectionView: UIView,APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>SaveStudentQuery</Service><StudentId>%@</StudentId><SessionId>%@</SessionId><QueryText>%@</QueryText><Anonymous>0</Anonymous></Action></Sunstone>",URLPrefix,StudentId,SSTeacherDataSource.sharedDataSource.currentLiveSessionId,query)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceSaveStudentQuery, withDelegate: self, withRequestType: eHTTPGetRequest)
+        manager.downloadDataURL(urlString, withServiceName: kServiceSaveStudentQuery, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate:delegate())
     }
-    func delegateDidGetServiceResponseWithDetails(dict: NSMutableDictionary!, WIthServiceName serviceName: String!)
-    {
+    func delegateDidGetServiceResponseWithDetails(dict: NSMutableDictionary!, WIthServiceName serviceName: String!, withRetruningDelegate returningDelegate: AnyObject!) {
+        
         if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == true
         {
             let refinedDetails = dict.objectForKey(kSunstone)!.objectForKey(kSSAction)!

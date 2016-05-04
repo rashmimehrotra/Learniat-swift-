@@ -17,6 +17,7 @@
 #import "XMPPRoomMemoryStorage.h"
 #import "XMPPvCardCoreDataStorage.h"
 #import "XMPPvCardTemp.h"
+#import "XMPPPing.h"
 /**
  message manager class manage all message sequence.
  */

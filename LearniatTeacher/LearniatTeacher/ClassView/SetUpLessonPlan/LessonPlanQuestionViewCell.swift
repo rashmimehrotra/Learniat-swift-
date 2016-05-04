@@ -114,8 +114,10 @@ class LessonPlanQuestionViewCell: UIView
         
         currentQuestionDetails = details
         
-        if let questionName = details.objectForKey("Name")as? String
+        if var questionName = details.objectForKey("Name")as? String
         {
+             questionName = questionName.capitalizedString
+            
             mQuestionNameLabel.text = "\(questionCout). \(questionName)"
             
             height = heightForView(questionName, font: mQuestionNameLabel.font, width: mQuestionNameLabel.frame.size.width)

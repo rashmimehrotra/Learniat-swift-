@@ -27,6 +27,10 @@
 		4DC2465D1CC2450C00E01CA4 /* LessonPlanSubTopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC2465C1CC2450C00E01CA4 /* LessonPlanSubTopicCell.swift */; };
 		4DC2465F1CC24BFF00E01CA4 /* LessonPlanQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC2465E1CC24BFF00E01CA4 /* LessonPlanQuestionView.swift */; };
 		4DC246611CC24E9100E01CA4 /* LessonPlanQuestionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC246601CC24E9100E01CA4 /* LessonPlanQuestionViewCell.swift */; };
+		5309C75C1CD9D32600481E0C /* StudentModelAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5309C75B1CD9D32600481E0C /* StudentModelAnswerView.swift */; };
+		5309C75E1CD9D9D600481E0C /* ModelAnswerButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5309C75D1CD9D9D600481E0C /* ModelAnswerButtonView.swift */; };
+		5309C7601CD9DEB200481E0C /* Share.png in Resources */ = {isa = PBXBuildFile; fileRef = 5309C75F1CD9DEB200481E0C /* Share.png */; };
+		5309C7DD1CDA1B9500481E0C /* StudentModelAnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5309C7DC1CDA1B9500481E0C /* StudentModelAnswerCell.swift */; };
 		531044971CA64296007AE9D5 /* Alert_Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 531044841CA64296007AE9D5 /* Alert_Icon.png */; };
 		531044981CA64296007AE9D5 /* Blue_Alert.png in Resources */ = {isa = PBXBuildFile; fileRef = 531044851CA64296007AE9D5 /* Blue_Alert.png */; };
 		531044991CA64296007AE9D5 /* CalendarBubbleRed.png in Resources */ = {isa = PBXBuildFile; fileRef = 531044861CA64296007AE9D5 /* CalendarBubbleRed.png */; };
@@ -419,6 +423,10 @@
 		4DC2465C1CC2450C00E01CA4 /* LessonPlanSubTopicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonPlanSubTopicCell.swift; sourceTree = "<group>"; };
 		4DC2465E1CC24BFF00E01CA4 /* LessonPlanQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonPlanQuestionView.swift; sourceTree = "<group>"; };
 		4DC246601CC24E9100E01CA4 /* LessonPlanQuestionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonPlanQuestionViewCell.swift; sourceTree = "<group>"; };
+		5309C75B1CD9D32600481E0C /* StudentModelAnswerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentModelAnswerView.swift; sourceTree = "<group>"; };
+		5309C75D1CD9D9D600481E0C /* ModelAnswerButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelAnswerButtonView.swift; sourceTree = "<group>"; };
+		5309C75F1CD9DEB200481E0C /* Share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Share.png; sourceTree = "<group>"; };
+		5309C7DC1CDA1B9500481E0C /* StudentModelAnswerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentModelAnswerCell.swift; sourceTree = "<group>"; };
 		531044841CA64296007AE9D5 /* Alert_Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Alert_Icon.png; sourceTree = "<group>"; };
 		531044851CA64296007AE9D5 /* Blue_Alert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Blue_Alert.png; sourceTree = "<group>"; };
 		531044861CA64296007AE9D5 /* CalendarBubbleRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CalendarBubbleRed.png; sourceTree = "<group>"; };
@@ -2238,6 +2246,9 @@
 				5360E6BD1CBDF6D400AFE9FF /* StudentEvaluationDetails.swift */,
 				53778B631CBCB3C8004E6480 /* StudentQueryPopover.swift */,
 				53909C541CBF726800DDCCD0 /* StudentAnnotateView.swift */,
+				5309C75B1CD9D32600481E0C /* StudentModelAnswerView.swift */,
+				5309C7DC1CDA1B9500481E0C /* StudentModelAnswerCell.swift */,
+				5309C75D1CD9D9D600481E0C /* ModelAnswerButtonView.swift */,
 				533063F41CC88F3F0035CCDE /* QuestionCreation */,
 				4DC246531CC20F8500E01CA4 /* SetUpLessonPlan */,
 				53FC04341CAF8C2E00D7B941 /* QueryView */,
@@ -2286,6 +2297,7 @@
 		537301CE1CB6771200E76753 /* ScribbleView */ = {
 			isa = PBXGroup;
 			children = (
+				5309C75F1CD9DEB200481E0C /* Share.png */,
 				537301CF1CB6771200E76753 /* AnnotateView */,
 				537301F71CB6771200E76753 /* Checked.png */,
 				537301F81CB6771200E76753 /* Checked@2x.png */,
@@ -2514,6 +2526,7 @@
 				537302261CB6771200E76753 /* Marker_Unselected_AnnotateView@2x.png in Resources */,
 				53676AEF1CA63B2200CADE4D /* LaunchScreen.storyboard in Resources */,
 				5373022A1CB6771200E76753 /* Redo_Disabled_AnnotateView.png in Resources */,
+				5309C7601CD9DEB200481E0C /* Share.png in Resources */,
 				537302341CB6771200E76753 /* Text_Selected_AnnotateView.png in Resources */,
 				5310449C1CA64296007AE9D5 /* refresh.png in Resources */,
 				5373025C1CB6771200E76753 /* Text_Unselected@2x.png in Resources */,
@@ -2712,6 +2725,7 @@
 				5360E6C81CBE53A900AFE9FF /* SSTeacherSchedulePopoverController.swift in Sources */,
 				53676CBF1CA63B7F00CADE4D /* XMPPUserCoreDataStorageObject.m in Sources */,
 				4DC246501CC1F6B500E01CA4 /* ImageUploading.m in Sources */,
+				5309C7DD1CDA1B9500481E0C /* StudentModelAnswerCell.swift in Sources */,
 				5395672A1CB5281E009B0100 /* SSStarRatingView.m in Sources */,
 				53676CFA1CA63B7F00CADE4D /* XMPPMessageArchiving_Contact_CoreDataObject.m in Sources */,
 				53676D021CA63B7F00CADE4D /* XMPPMessageDeliveryReceipts.m in Sources */,
@@ -2751,6 +2765,7 @@
 				5326079B1CA91788002FF684 /* SingleResponceOption.swift in Sources */,
 				53676CDF1CA63B7F00CADE4D /* XMPPvCardTempAdr.m in Sources */,
 				53676CFB1CA63B7F00CADE4D /* XMPPMessageArchiving_Message_CoreDataObject.m in Sources */,
+				5309C75C1CD9D32600481E0C /* StudentModelAnswerView.swift in Sources */,
 				53676D2B1CA63B7F00CADE4D /* DDXMLNode.m in Sources */,
 				53676D081CA63B7F00CADE4D /* XMPPPing.m in Sources */,
 				53676CB81CA63B7F00CADE4D /* XMPPGoogleSharedStatus.m in Sources */,
@@ -2816,6 +2831,7 @@
 				53676D331CA63B7F00CADE4D /* ScheduleScreenTile.swift in Sources */,
 				53D8CCAD1CCE1A1200BA838C /* MainTopicsView.swift in Sources */,
 				53460C3F1CD22C3F00076F85 /* PollCompletedView.swift in Sources */,
+				5309C75E1CD9D9D600481E0C /* ModelAnswerButtonView.swift in Sources */,
 				53676CF21CA63B7F00CADE4D /* XMPPTransports.m in Sources */,
 				53676D071CA63B7F00CADE4D /* XMPPAutoPing.m in Sources */,
 				53676CED1CA63B7F00CADE4D /* XMPPRegistration.m in Sources */,

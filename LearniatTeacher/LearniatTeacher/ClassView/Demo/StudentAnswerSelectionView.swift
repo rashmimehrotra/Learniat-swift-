@@ -92,6 +92,7 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
     func selectMulitipleChoiceOptionsWithQuestionDetails(questionDetails:AnyObject)
     {
         
+        
         var optionArray = NSMutableArray()
         
         if let options = questionDetails.objectForKey("Options")
@@ -421,7 +422,7 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>SendAnswer</Service><StudentId>%@</StudentId><OptionText>%@</OptionText><SessionId>%@</SessionId><QuestionLogId>%@</QuestionLogId><QuestionType>%@</QuestionType></Action></Sunstone>",URLPrefix,StudentId,OptionText,SSTeacherDataSource.sharedDataSource.currentLiveSessionId,QuestionLogId,type)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceSendAnswer, withDelegate: self, withRequestType: eHTTPGetRequest)
+        manager.downloadDataURL(urlString, withServiceName: kServiceSendAnswer, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: self)
     }
     
     
@@ -433,7 +434,7 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>SendAnswer</Service><StudentId>%@</StudentId><Sequence>%@</Sequence><SessionId>%@</SessionId><QuestionLogId>%@</QuestionLogId><QuestionType>%@</QuestionType></Action></Sunstone>",URLPrefix,StudentId,OptionText,SSTeacherDataSource.sharedDataSource.currentLiveSessionId,QuestionLogId,type)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceSendAnswer, withDelegate: self, withRequestType: eHTTPGetRequest)
+        manager.downloadDataURL(urlString, withServiceName: kServiceSendAnswer, withDelegate: self, withRequestType: eHTTPGetRequest , withReturningDelegate: self)
     }
     
     
@@ -444,7 +445,7 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>SendAnswer</Service><StudentId>%@</StudentId><ImagePath>%@</ImagePath><SessionId>%@</SessionId><QuestionLogId>%@</QuestionLogId><QuestionType>%@</QuestionType></Action></Sunstone>",URLPrefix,StudentId,imagePath,SSTeacherDataSource.sharedDataSource.currentLiveSessionId,QuestionLogId,type)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceSendAnswer, withDelegate: self, withRequestType: eHTTPGetRequest)
+        manager.downloadDataURL(urlString, withServiceName: kServiceSendAnswer, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: self)
     }
     
     
@@ -456,12 +457,12 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>SendAnswer</Service><StudentId>%@</StudentId><TextAnswer>%@</TextAnswer><SessionId>%@</SessionId><QuestionLogId>%@</QuestionLogId><QuestionType>%@</QuestionType></Action></Sunstone>",URLPrefix,StudentId,textAnswer,SSTeacherDataSource.sharedDataSource.currentLiveSessionId,QuestionLogId,type)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceSendAnswer, withDelegate: self, withRequestType: eHTTPGetRequest)
+        manager.downloadDataURL(urlString, withServiceName: kServiceSendAnswer, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: self)
     }
     
     
     
-    func delegateDidGetServiceResponseWithDetails(dict: NSMutableDictionary!, WIthServiceName serviceName: String!)
+     func delegateDidGetServiceResponseWithDetails(dict: NSMutableDictionary!, WIthServiceName serviceName: String!, withRetruningDelegate returningDelegate: AnyObject!)
     {
         if SSTeacherDataSource.sharedDataSource.isQuestionSent == true
         {

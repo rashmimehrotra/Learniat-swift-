@@ -156,24 +156,29 @@ class LessonPlanMainView: UIView,SSTeacherDataSourceDelegate,LessonPlanMainViewD
     
     func delegateSubTopicCellPressedWithMainTopicDetails(topicDetails: AnyObject, withCell topicCell: LessonPlanMainViewCell, withHeight height: CGFloat)
     {
-        
-        
         topicCell.frame = CGRectMake(topicCell.frame.origin.x, topicCell.frame.origin.y, topicCell.frame.width, height)
-        
         rearrangeScrollView()
-        
-        
-//        if let topicCell  = mTopicsContainerView.viewWithTag(Int(topicId)!) as? LessonPlanMainViewCell
-//        {
-//            
-//            
-//        }
-//        
-        
-        
-        
     }
     
+    func delegateQuestionButtonPressedWithDetails(topicDetails: AnyObject)
+    {
+        
+        
+        
+        
+                let SubTopicsView = LessonPlanQuestionView(frame: CGRectMake(0,0,self.frame.size.width,self.frame.size.height ))
+                SubTopicsView.setCurrentMainTopicDetails(topicDetails)
+        
+                UIView.animateWithDuration(0.6, animations:
+                    {
+                     SubTopicsView.frame =  CGRectMake(0,0,self.frame.size.width,self.frame.size.height )
+                    })
+        
+        
+                SubTopicsView.setdelegate(self)
+                self.addSubview(SubTopicsView)
+        
+    }
     
     func delegateMainTopicCheckMarkPressedWithState(SelectedState: Bool, withCurrentTopicDatails details: AnyObject)
     {

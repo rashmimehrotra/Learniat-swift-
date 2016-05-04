@@ -17,6 +17,8 @@ import Foundation
     
     
     optional func delegateCellStatewithChecMarkState(checkMark:Int)
+    
+    optional func delegateSubTopicViewQuestionButtonPressedwithDetails(subTopicDetails:AnyObject)
 
     
     
@@ -129,6 +131,12 @@ class LessonPlanSubTopicsView: UIView,SSTeacherDataSourceDelegate,UIGestureRecog
 //        
 //        SubTopicsView.setdelegate(self)
 //        self.addSubview(SubTopicsView)
+        
+        if delegate().respondsToSelector(#selector(LessonPlanSubTopicsViewDelegate.delegateSubTopicViewQuestionButtonPressedwithDetails(_:)))
+        {
+            delegate().delegateSubTopicViewQuestionButtonPressedwithDetails!(topicDetails)
+        }
+        
     }
     
     

@@ -157,8 +157,9 @@ class  LessonPlanSubTopicCell: UIView{
             
             
             
-            if let topicName = currentTopicDetails.objectForKey("Name")as? String
+            if var topicName = currentTopicDetails.objectForKey("Name")as? String
             {
+                 topicName = topicName.capitalizedString
                 if let CumulativeTime = currentTopicDetails.objectForKey("CumulativeTime")as? String
                 {
                     m_MainTopicLabel.text = "\(topicName)(\(CumulativeTime))".capitalizedString
@@ -234,27 +235,27 @@ class  LessonPlanSubTopicCell: UIView{
                 }
             }
             
-            if selectedState == true
-            {
-                checkBoxImage.image = UIImage(named:"Checked.png");
-                isSelected = true
-                
-                
-                if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.containsObject(topicId) == false
-                {
-                    SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.addObject(topicId)
-                }
-            }
-            else
-            {
-                checkBoxImage.image = UIImage(named:"Unchecked.png");
-                isSelected = false
-                
-                if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.containsObject(topicId) == true
-                {
-                    SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.removeObject(topicId)
-                }
-            }
+//            if selectedState == true
+//            {
+//                checkBoxImage.image = UIImage(named:"Checked.png");
+//                isSelected = true
+//                
+//                
+//                if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.containsObject(topicId) == false
+//                {
+//                    SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.addObject(topicId)
+//                }
+//            }
+//            else
+//            {
+//                checkBoxImage.image = UIImage(named:"Unchecked.png");
+//                isSelected = false
+//                
+//                if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.containsObject(topicId) == true
+//                {
+//                    SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.removeObject(topicId)
+//                }
+//            }
         
             
         }

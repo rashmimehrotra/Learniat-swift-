@@ -88,7 +88,7 @@ class SSTeacherLessonPlanView: UIView,SSTeacherDataSourceDelegate, UISearchBarDe
         let image = UIImage()
         lessonPlanSearchBar.backgroundImage = image
         lessonPlanSearchBar.setImage(UIImage(named: "LessonPLanDismissed.png"), forSearchBarIcon: .Clear, state: .Normal)
-        
+        lessonPlanSearchBar.autocapitalizationType = .None
         
     }
     
