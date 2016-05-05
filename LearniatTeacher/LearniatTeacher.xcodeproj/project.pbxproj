@@ -16,6 +16,11 @@
 		4D2A93281CC0C986007A1D41 /* Circle_Green.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D2A93241CC0C986007A1D41 /* Circle_Green.png */; };
 		4D2A93291CC0C986007A1D41 /* Circle_Red.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D2A93251CC0C986007A1D41 /* Circle_Red.png */; };
 		4D2A932A1CC0C986007A1D41 /* Remove.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D2A93261CC0C986007A1D41 /* Remove.png */; };
+		4D496D421CDB5CDD00233E25 /* TeacherMathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D496D411CDB5CDD00233E25 /* TeacherMathView.swift */; };
+		4D496D461CDB5F9B00233E25 /* Equation.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D496D431CDB5F9B00233E25 /* Equation.png */; };
+		4D496D471CDB5F9B00233E25 /* Shapes.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D496D441CDB5F9B00233E25 /* Shapes.png */; };
+		4D496D481CDB5F9B00233E25 /* Text.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D496D451CDB5F9B00233E25 /* Text.png */; };
+		4D496D4A1CDB618400233E25 /* Button.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D496D491CDB618400233E25 /* Button.xib */; };
 		4D8266AD1CC4965300F3E5D1 /* arrow_Blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8266AC1CC4965300F3E5D1 /* arrow_Blue.png */; };
 		4DC246501CC1F6B500E01CA4 /* ImageUploading.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC2464B1CC1F6B500E01CA4 /* ImageUploading.m */; };
 		4DC246511CC1F6B500E01CA4 /* RatingsPopOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC2464D1CC1F6B500E01CA4 /* RatingsPopOverViewController.m */; };
@@ -409,6 +414,11 @@
 		4D2A93241CC0C986007A1D41 /* Circle_Green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Circle_Green.png; sourceTree = "<group>"; };
 		4D2A93251CC0C986007A1D41 /* Circle_Red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Circle_Red.png; sourceTree = "<group>"; };
 		4D2A93261CC0C986007A1D41 /* Remove.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Remove.png; sourceTree = "<group>"; };
+		4D496D411CDB5CDD00233E25 /* TeacherMathView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeacherMathView.swift; sourceTree = "<group>"; };
+		4D496D431CDB5F9B00233E25 /* Equation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Equation.png; sourceTree = "<group>"; };
+		4D496D441CDB5F9B00233E25 /* Shapes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Shapes.png; sourceTree = "<group>"; };
+		4D496D451CDB5F9B00233E25 /* Text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Text.png; sourceTree = "<group>"; };
+		4D496D491CDB618400233E25 /* Button.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Button.xib; sourceTree = "<group>"; };
 		4D8266AC1CC4965300F3E5D1 /* arrow_Blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_Blue.png; sourceTree = "<group>"; };
 		4DC2464A1CC1F6B500E01CA4 /* ImageUploading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageUploading.h; sourceTree = "<group>"; };
 		4DC2464B1CC1F6B500E01CA4 /* ImageUploading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageUploading.m; sourceTree = "<group>"; };
@@ -1040,6 +1050,9 @@
 		531044831CA64296007AE9D5 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				4D496D431CDB5F9B00233E25 /* Equation.png */,
+				4D496D441CDB5F9B00233E25 /* Shapes.png */,
+				4D496D451CDB5F9B00233E25 /* Text.png */,
 				53576E8E1CD7559D003AB9C9 /* LessonPLanDismissed.png */,
 				4D8266AC1CC4965300F3E5D1 /* arrow_Blue.png */,
 				4D2A93231CC0C986007A1D41 /* Add.png */,
@@ -1142,6 +1155,8 @@
 			isa = PBXGroup;
 			children = (
 				533063F51CC88F590035CCDE /* SSTeacherScribbleQuestion.swift */,
+				4D496D411CDB5CDD00233E25 /* TeacherMathView.swift */,
+				4D496D491CDB618400233E25 /* Button.xib */,
 			);
 			path = QuestionCreation;
 			sourceTree = "<group>";
@@ -2550,6 +2565,7 @@
 				537301151CB636AA00E76753 /* desk@2x.png in Resources */,
 				4D2A93291CC0C986007A1D41 /* Circle_Red.png in Resources */,
 				532607931CA90AEC002FF684 /* indicator6.png in Resources */,
+				4D496D461CDB5F9B00233E25 /* Equation.png in Resources */,
 				537302441CB6771200E76753 /* Eraser_Unselected.png in Resources */,
 				537302231CB6771200E76753 /* Marker_Selected_AnnotateView@2x.png in Resources */,
 				4D8266AD1CC4965300F3E5D1 /* arrow_Blue.png in Resources */,
@@ -2570,6 +2586,7 @@
 				537302431CB6771200E76753 /* Eraser_Selected@2x.png in Resources */,
 				4D2A93281CC0C986007A1D41 /* Circle_Green.png in Resources */,
 				531044A41CA64296007AE9D5 /* 60.png in Resources */,
+				4D496D4A1CDB618400233E25 /* Button.xib in Resources */,
 				537302331CB6771200E76753 /* Tab_bar_Divider_AnnotateView@2x.png in Resources */,
 				531044AC1CA66C89007AE9D5 /* lowParticipartion.png in Resources */,
 				53909C6F1CBB73E500E8A1C0 /* Mute_red.png in Resources */,
@@ -2610,6 +2627,7 @@
 				531044A71CA64296007AE9D5 /* 90.png in Resources */,
 				5373023C1CB6771200E76753 /* Undo_Active_AnnotateView.png in Resources */,
 				5373023D1CB6771200E76753 /* Undo_Active_AnnotateView@2x.png in Resources */,
+				4D496D481CDB5F9B00233E25 /* Text.png in Resources */,
 				532607941CA90AEC002FF684 /* indicator7.png in Resources */,
 				532607921CA90AEC002FF684 /* indicator5.png in Resources */,
 				537302251CB6771200E76753 /* Marker_Unselected_AnnotateView.png in Resources */,
@@ -2629,6 +2647,7 @@
 				537302531CB6771200E76753 /* Redo_Disabled.png in Resources */,
 				537302521CB6771200E76753 /* Redo_Active@2x.png in Resources */,
 				5310449D1CA64296007AE9D5 /* 00.png in Resources */,
+				4D496D471CDB5F9B00233E25 /* Shapes.png in Resources */,
 				5326078C1CA90AEC002FF684 /* indicator10.png in Resources */,
 				531044971CA64296007AE9D5 /* Alert_Icon.png in Resources */,
 				4D2A932A1CC0C986007A1D41 /* Remove.png in Resources */,
@@ -2703,6 +2722,7 @@
 				53676D151CA63B7F00CADE4D /* SSMessage.m in Sources */,
 				539567261CB52082009B0100 /* StudentSubjectivePopover.swift in Sources */,
 				53676CCF1CA63B7F00CADE4D /* XMPPRoomHybrid.xcdatamodeld in Sources */,
+				4D496D421CDB5CDD00233E25 /* TeacherMathView.swift in Sources */,
 				53778B761CBD2B3C004E6480 /* StudentStarView.m in Sources */,
 				4DC2465D1CC2450C00E01CA4 /* LessonPlanSubTopicCell.swift in Sources */,
 				53676C991CA63B7F00CADE4D /* NoInternetView.m in Sources */,

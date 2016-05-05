@@ -11,10 +11,10 @@
 typedef enum {
     
     eHTTPGetRequest,
-    eHTTPPostRequest,
-    eHTTPMultiPartPostRequest,
-    eHTTPPutRequest,
-    eHTTPDeleteRequest,
+//    eHTTPPostRequest,
+//    eHTTPMultiPartPostRequest,
+//    eHTTPPutRequest,
+//    eHTTPDeleteRequest,
 
 }eHTTPRequestType;
 

@@ -196,6 +196,47 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         m_RedoButton.enabled = false
         
         
+        
+        
+        let  mEquationButton = UIButton(frame: CGRectMake(m_RedoButton.frame.origin.x - 120,  bottomtoolSelectedImageView.frame.origin.y,110 ,bottomtoolSelectedImageView.frame.size.height))
+        bottomview.addSubview(mEquationButton)
+        mEquationButton.addTarget(self, action: #selector(StudentModelAnswerView.onSendAllButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mEquationButton.imageView?.contentMode = .ScaleAspectFit
+        mEquationButton.setTitle("Equation", forState: .Normal)
+        mEquationButton.setTitleColor(standard_Button, forState: .Normal)
+         mEquationButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        mEquationButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 15);
+        
+        let mEquationImage = UIImageView(frame:CGRectMake(15, 15, mEquationButton.frame.size.height - 30 ,mEquationButton.frame.size.height - 30 ))
+        mEquationImage.image = UIImage(named: "Equation.png")
+        mEquationImage.contentMode = .ScaleAspectFit
+        mEquationButton.addSubview(mEquationImage)
+        
+        
+        
+        
+        
+        let  mShapesButton = UIButton(frame: CGRectMake(mEquationButton.frame.origin.x - 120,  bottomtoolSelectedImageView.frame.origin.y,110 ,bottomtoolSelectedImageView.frame.size.height  ))
+        bottomview.addSubview(mShapesButton)
+        mShapesButton.addTarget(self, action: #selector(StudentModelAnswerView.onSendAllButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mShapesButton.imageView?.contentMode = .ScaleAspectFit
+        mShapesButton.setTitle("Shapes", forState: .Normal)
+        mShapesButton.setTitleColor(standard_Button, forState: .Normal)
+        mShapesButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        mShapesButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 15)
+        
+        let mShapesImage = UIImageView(frame:CGRectMake(15, 15, mShapesButton.frame.size.height - 30 ,mShapesButton.frame.size.height - 30 ))
+        mShapesImage.image = UIImage(named: "Shapes.png")
+        mShapesImage.contentMode = .ScaleAspectFit
+        mShapesButton.addSubview(mShapesImage)
+        
+        
+        
+        
+        
+        
+        
+        
     }
     
     

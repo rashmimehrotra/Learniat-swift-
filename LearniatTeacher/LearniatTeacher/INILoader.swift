@@ -828,3 +828,21 @@ extension String
     
     
 }
+
+
+
+
+
+
+
+
+extension UIButton
+{
+    func loadFromNibNamed(nibNamed: String, bundle : NSBundle? = nil) -> UIButton?
+    {
+        return UINib(
+            nibName: nibNamed,
+            bundle: bundle
+            ).instantiateWithOwner(nil, options: nil)[0] as? UIButton
+    }
+}
