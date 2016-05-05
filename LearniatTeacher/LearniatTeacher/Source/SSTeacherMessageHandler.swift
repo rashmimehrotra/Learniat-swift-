@@ -49,7 +49,7 @@ let kSendPollStoppedToStudent       = "721"
 let kCollaborationPing              = "713"
 let kCollaborationOption            = "714"
 let kCloseCollaboration             = "715"
-let kodelAnswerDetails             = "179"
+let kModelAnswerDetails             = "179"
 let kMuteStudent                    = "712"
 
 
@@ -823,6 +823,40 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
             let details:NSMutableDictionary = ["From":userId,
                                                "To":roomId,
                                                "Type":msgType];
+            
+            
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendGroupMessageWithBody(xmlBody, withRoomId: roomId)
+        }
+    }
+    
+    
+    func sendModelAnswerToStudentWithRoomId(_roomId :String, withQuestionLogId QuestionLogId:NSString)
+    {
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
+        {
+            
+            
+            let roomId = "room_\(_roomId)@conference.\(kBaseXMPPURL)";
+            
+            let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
+            let msgType             = kModelAnswerDetails
+            
+            
+            let messageBody = ["modelAnserDetails":QuestionLogId]
+            
+
+            
+            let details:NSMutableDictionary = ["From":userId,
+                                               "To":roomId,
+                                               "Type":msgType,
+                                               "Body":messageBody];
+
             
             
             

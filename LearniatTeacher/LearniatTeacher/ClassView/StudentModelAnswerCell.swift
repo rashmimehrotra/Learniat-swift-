@@ -7,7 +7,17 @@
 //
 
 import Foundation
-class StudentModelAnswerCell: UIView
+
+@objc protocol StudentModelAnswerCellDelegate
+{
+    
+    
+    optional func delegateModelAnswerRemovedWithAssesmentAnswerId(assesmentAnswerID:String)
+    
+    
+}
+
+class StudentModelAnswerCell: UIView,SSTeacherDataSourceDelegate
 {
     
     var studentImage    = CustomProgressImageView()
@@ -16,17 +26,33 @@ class StudentModelAnswerCell: UIView
     
     var RemoveButton        = UIButton()
     
+    var currentCellDetails  :AnyObject!
+    
     var answerContainerView     = UIView()
+    
+    
+    var _delgate: AnyObject!
+    
+    func setdelegate(delegate:AnyObject)
+    {
+        _delgate = delegate;
+    }
+    
+    func   delegate()->AnyObject
+    {
+        return _delgate;
+    }
+    
     
     override init(frame: CGRect)
     {
         super.init(frame: frame)
         
-        studentImage.frame = CGRectMake(10, 10, 40, 40)
+        studentImage.frame = CGRectMake(10, 5, 40, 40)
         self.addSubview(studentImage)
         
         
-        StudentName.frame = CGRectMake(55, 10, 120, 40)
+        StudentName.frame = CGRectMake(55, 5, 120, 40)
         StudentName.backgroundColor = UIColor.clearColor();
         StudentName.hidden = false
         StudentName.textAlignment = .Left;
@@ -35,19 +61,19 @@ class StudentModelAnswerCell: UIView
         StudentName.textColor = blackTextColor
         
         
-        RemoveButton.frame = CGRectMake(self.frame.size.width  -   110  , 0, 100 ,40)
+        RemoveButton.frame = CGRectMake(self.frame.size.width  -   110  , 5, 100 ,40)
         RemoveButton.backgroundColor = UIColor.clearColor()
         self.addSubview(RemoveButton)
         RemoveButton.setTitle("Remove", forState: .Normal)
         RemoveButton.setTitleColor(standard_Button, forState: .Normal)
         RemoveButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
-        
-        
-        let lineView = UIImageView(frame:CGRectMake(0, 61, self.frame.size.width, 1))
+        RemoveButton.titleLabel!.font = UIFont(name:helveticaMedium, size: 18)
+         RemoveButton.addTarget(self, action: #selector(StudentModelAnswerCell.onRemoveButton), forControlEvents: UIControlEvents.TouchUpInside)
+        let lineView = UIImageView(frame:CGRectMake(0, 55, self.frame.size.width, 1))
         lineView.backgroundColor = LineGrayColor
         self.addSubview(lineView)
         
-        answerContainerView.frame = CGRectMake(0, 62, self.frame.size.width, self.frame.size.width / 1.5)
+        answerContainerView.frame = CGRectMake(0, 55, self.frame.size.width, self.frame.size.width / 1.5)
         self.addSubview(answerContainerView)
 
         
@@ -60,6 +86,7 @@ class StudentModelAnswerCell: UIView
     
     func setModelAnswerWithDetails(details:AnyObject)
     {
+        currentCellDetails = details
         
         if let StudentId = details.objectForKey("StudentId") as? String
         {
@@ -71,6 +98,10 @@ class StudentModelAnswerCell: UIView
                 studentImage.downloadImage(checkedUrl, withFolderType: folderType.ProFilePics)
             }
         }
+        
+        studentImage.layer.cornerRadius = 4
+        
+        studentImage.layer.masksToBounds = true
         
         if let _StudentName = details.objectForKey("Name") as? String
         {
@@ -112,5 +143,16 @@ class StudentModelAnswerCell: UIView
         }
     }
     
+    func onRemoveButton()
+    {
+        self.removeFromSuperview()
+        
+        if let  AssessmentAnswerId = currentCellDetails.objectForKey("AssessmentAnswerId") as? String
+        {
+            delegate().delegateModelAnswerRemovedWithAssesmentAnswerId!(AssessmentAnswerId)
+            
+            SSTeacherDataSource.sharedDataSource.recordModelAnswerwithAssesmentAnswerId(AssessmentAnswerId, WithDelegate: self)
+        }
+    }
     
 }

@@ -43,6 +43,7 @@ class ModelAnswerButtonView: UIButton
         mShareButton.frame = CGRectMake(self.frame.size.width  -   self.frame.size.height  , 0, self.frame.size.height ,self.frame.size.height )
         mShareButton.backgroundColor = UIColor.clearColor()
         self.addSubview(mShareButton)
+//        mShareButton.addTarget(self, action: #selector(StudentModelAnswerView.onSendAllButton), forControlEvents: UIControlEvents.TouchUpInside)
         
         let shareImage = UIImageView(frame:CGRectMake(10, 10, mShareButton.frame.size.width - 20 , mShareButton.frame.size.height - 20 ))
         shareImage.image = UIImage(named:"Share.png")
@@ -56,6 +57,7 @@ class ModelAnswerButtonView: UIButton
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     
     
     

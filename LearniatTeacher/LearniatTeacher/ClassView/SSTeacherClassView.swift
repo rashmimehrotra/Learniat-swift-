@@ -366,6 +366,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mTopbarImageView.addSubview(mModelAnswerButton)
         mModelAnswerButton.backgroundColor = standard_Green
          mModelAnswerButton.addTarget(self, action: #selector(SSTeacherClassView.onModelAnswerButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mModelAnswerButton.hidden = true
         
         
         
@@ -390,7 +391,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mModelAnswerView.layer.shadowOffset = CGSizeZero
         mModelAnswerView.layer.shadowRadius = 10
         mModelAnswerView.setdelegate(self)
-
+        mModelAnswerView.hidden = true
         
         
         mSubTopicsNamelabel = UILabel(frame: CGRectMake(10, 5 , mTopicButton.frame.size.width - 20, 20))
@@ -1122,11 +1123,21 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     func onModelAnswerButton()
     {
-        
+        mShowTopicsView.hidden = true
+        if mModelAnswerView.hidden == false
+        {
+           mModelAnswerView.hidden = true
+        }
+        else
+        {
+            mModelAnswerView.hidden = false
+        }
     }
     
     func onTopicsButton(sender:UIButton)
     {
+        
+        mModelAnswerView.hidden =  true
         
         if mShowTopicsView.hidden == true
         {
@@ -2252,12 +2263,23 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     }
     
     // MARK: - ModelAnswer Delegate  functions
-    func delegateModelAnswerViewLoadedWithHeight(height: CGFloat)
-    {
+    func delegateModelAnswerViewLoadedWithHeight(height: CGFloat, withCount modelCount: Int) {
+        
+        mModelAnswerButton.hidden = false
+        mModelAnswerButton.modelAnswerCountLabel.text = "\(modelCount)"
+        
         UIView.animateWithDuration(0.6, animations:
             {
                self.mModelAnswerView.frame = CGRectMake(self.mModelAnswerView.frame.origin.x, self.mModelAnswerView.frame.origin.y,self.mModelAnswerView.frame.size.width, height)
+                self.mModelAnswerView.layer.cornerRadius = 5
         })
+        
+        if modelCount <= 0
+        {
+            mModelAnswerButton.hidden = true
+            mModelAnswerView.hidden = true 
+        }
+        
         
         
         

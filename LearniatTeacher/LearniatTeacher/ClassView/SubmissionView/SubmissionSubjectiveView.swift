@@ -316,13 +316,13 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         _currentQuestionDetials = QuestionDetails
         
         
-        overlayimageView.image = nil
-        let subViews = containerview.subviews
-        
-        for subview in subViews
-        {
-            subview.removeFromSuperview()
-        }
+//        overlayimageView.image = nil
+//        let subViews = containerview.subviews
+//        
+//        for subview in subViews
+//        {
+//            subview.removeFromSuperview()
+//        }
         
         if let studentId = studentdict.objectForKey("StudentId") as? String
         {

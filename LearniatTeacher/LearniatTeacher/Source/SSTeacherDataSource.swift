@@ -91,6 +91,8 @@ let kServiceGetQuestion             =   "GetQuestion"
 
 let  kGetAllModelAnswer             =   "GetAllModelAnswers"
 
+let kRecordModelAnswer              =   "RecordModelAnswer"
+
 
 @objc protocol SSTeacherDataSourceDelegate
 {
@@ -155,6 +157,8 @@ let  kGetAllModelAnswer             =   "GetAllModelAnswers"
     optional func didGetQuestionWithDetails(details:AnyObject)
     
     optional func didGetModelAnswerWithDetails(details:AnyObject)
+    
+    optional func didGetModelAnswerRecordedWithDetails(details:AnyObject)
 }
 
 
@@ -761,6 +765,16 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     }
     
     
+    func recordModelAnswerwithAssesmentAnswerId(AssesmentAnswerId:String,WithDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        setdelegate(delegate)
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>RecordModelAnswer</Service><AssessmentAnswerId>%@</AssessmentAnswerId></Action></Sunstone>",URLPrefix,AssesmentAnswerId)
+        
+        manager.downloadDataURL(urlString, withServiceName: kRecordModelAnswer, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+    }
     
     
     // MARK: - API delegate Functions
@@ -980,6 +994,13 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
             if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetModelAnswerWithDetails(_:)))
             {
                 returningDelegate.didGetModelAnswerWithDetails!(refinedDetails)
+            }
+        }
+        else if serviceName == kRecordModelAnswer
+        {
+            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetModelAnswerRecordedWithDetails(_:)))
+            {
+                returningDelegate.didGetModelAnswerRecordedWithDetails!(refinedDetails)
             }
         }
     }
