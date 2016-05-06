@@ -198,16 +198,16 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         
         
         
-        let  mEquationButton = UIButton(frame: CGRectMake(m_RedoButton.frame.origin.x - 120,  bottomtoolSelectedImageView.frame.origin.y,110 ,bottomtoolSelectedImageView.frame.size.height))
+        let  mEquationButton = UIButton(frame: CGRectMake(m_RedoButton.frame.origin.x - 140,  bottomtoolSelectedImageView.frame.origin.y,130 ,bottomtoolSelectedImageView.frame.size.height))
         bottomview.addSubview(mEquationButton)
-        mEquationButton.addTarget(self, action: #selector(StudentModelAnswerView.onSendAllButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mEquationButton.addTarget(self, action: #selector(SSTeacherScribbleQuestion.onEquationButton), forControlEvents: UIControlEvents.TouchUpInside)
         mEquationButton.imageView?.contentMode = .ScaleAspectFit
         mEquationButton.setTitle("Equation", forState: .Normal)
         mEquationButton.setTitleColor(standard_Button, forState: .Normal)
          mEquationButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
-        mEquationButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 15);
+        mEquationButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18);
         
-        let mEquationImage = UIImageView(frame:CGRectMake(15, 15, mEquationButton.frame.size.height - 30 ,mEquationButton.frame.size.height - 30 ))
+        let mEquationImage = UIImageView(frame:CGRectMake(10, 10, mEquationButton.frame.size.height - 20 ,mEquationButton.frame.size.height - 20 ))
         mEquationImage.image = UIImage(named: "Equation.png")
         mEquationImage.contentMode = .ScaleAspectFit
         mEquationButton.addSubview(mEquationImage)
@@ -218,14 +218,14 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         
         let  mShapesButton = UIButton(frame: CGRectMake(mEquationButton.frame.origin.x - 120,  bottomtoolSelectedImageView.frame.origin.y,110 ,bottomtoolSelectedImageView.frame.size.height  ))
         bottomview.addSubview(mShapesButton)
-        mShapesButton.addTarget(self, action: #selector(StudentModelAnswerView.onSendAllButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mShapesButton.addTarget(self, action: #selector(SSTeacherScribbleQuestion.onShapesButton), forControlEvents: UIControlEvents.TouchUpInside)
         mShapesButton.imageView?.contentMode = .ScaleAspectFit
         mShapesButton.setTitle("Shapes", forState: .Normal)
         mShapesButton.setTitleColor(standard_Button, forState: .Normal)
         mShapesButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
-        mShapesButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 15)
+        mShapesButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
         
-        let mShapesImage = UIImageView(frame:CGRectMake(15, 15, mShapesButton.frame.size.height - 30 ,mShapesButton.frame.size.height - 30 ))
+        let mShapesImage = UIImageView(frame:CGRectMake(10, 10, mShapesButton.frame.size.height - 20 ,mShapesButton.frame.size.height - 20 ))
         mShapesImage.image = UIImage(named: "Shapes.png")
         mShapesImage.contentMode = .ScaleAspectFit
         mShapesButton.addSubview(mShapesImage)
@@ -394,6 +394,17 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
     func onRedoButton()
     {
         mScribbleView.redoButtonClicked()
+    }
+    
+    func onEquationButton()
+    {
+        let mathView = TeacherMathView(frame:CGRectMake(0,0,self.frame.size.width, self.frame.size.height))
+        self.addSubview(mathView)
+    }
+    
+    func onShapesButton()
+    {
+        
     }
     
     

@@ -27,6 +27,9 @@ class TeacherMathView: UIView
     {
         super.init(frame: frame)
        
+        
+        self.backgroundColor = whiteBackgroundColor
+        
         let mTopbarImageView = UIImageView(frame: CGRectMake(0, 0, self.frame.size.width, 60))
         mTopbarImageView.backgroundColor = whiteColor
         self.addSubview(mTopbarImageView)
@@ -56,7 +59,7 @@ class TeacherMathView: UIView
         mTopbarImageView.addSubview(mBackButton)
         mBackButton.addTarget(self, action: #selector(StudentModelAnswerView.onSendAllButton), forControlEvents: UIControlEvents.TouchUpInside)
         mBackButton.setTitleColor(standard_Button, forState: .Normal)
-        mBackButton.setTitle("Send all", forState: .Normal)
+        mBackButton.setTitle("Cancel", forState: .Normal)
         mBackButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
         mBackButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
         
@@ -98,12 +101,6 @@ class TeacherMathView: UIView
         bottomtoolSelectedImageView.frame = m_BrushButton.frame
         
         
-//        m_EraserButton.frame = CGRectMake((bottomview.frame.size.width/2) + 10  ,5, bottomview.frame.size.height ,bottomview.frame.size.height - 10)
-//        m_EraserButton.setImage(UIImage(named:"Eraser_Unselected.png"), forState:.Normal);
-//        bottomview.addSubview(m_EraserButton);
-//        m_EraserButton.imageView?.contentMode = .ScaleAspectFit
-//        m_EraserButton.addTarget(self, action: #selector(StudentAnnotateView.onEraserButton), forControlEvents: UIControlEvents.TouchUpInside)
-//        
         
         m_RedoButton.frame = CGRectMake(bottomview.frame.size.width - bottomview.frame.size.height ,0, bottomview.frame.size.height ,bottomview.frame.size.height)
         m_RedoButton.setImage(UIImage(named:"Redo_Disabled.png"), forState:.Normal);
