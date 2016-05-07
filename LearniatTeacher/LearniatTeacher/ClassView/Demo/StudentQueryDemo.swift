@@ -18,7 +18,7 @@ import Foundation
     
 }
 
-class StudentQueryDemo: UIView
+class StudentQueryDemo: UIView, StudentQuerySelectionViewDelegate
 {
     var notLiveStudentsDetails = NSMutableArray()
 
@@ -125,8 +125,8 @@ class StudentQueryDemo: UIView
         }
     }
     
-    func delegateStudentQueryRecievedWithId(queryId:String, withStudentId stundentId:String)
-    {
+    func delegateStudentQueryRecievedWithId(queryId: String, withStudentId stundentId: String) {
+        
         if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == true
         {
             if delegate().respondsToSelector(#selector(StudentQueryDemoDelegate.smhDidgetStudentQueryWithDetails(_:)))

@@ -174,7 +174,7 @@ class SubTopicCell: UIView{
         {
             if let CumulativeTime = currentTopicDetails.objectForKey("CumulativeTime")as? String
             {
-                m_SubTopicLabel.text = "\(topicName)(\(CumulativeTime))".capitalizedString
+                m_SubTopicLabel.text = "\(topicName)(\(CumulativeTime)) \(mSubTopicId)".capitalizedString
             }
             else
             {

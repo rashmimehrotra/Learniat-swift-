@@ -20,7 +20,6 @@
 		4D496D461CDB5F9B00233E25 /* Equation.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D496D431CDB5F9B00233E25 /* Equation.png */; };
 		4D496D471CDB5F9B00233E25 /* Shapes.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D496D441CDB5F9B00233E25 /* Shapes.png */; };
 		4D496D481CDB5F9B00233E25 /* Text.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D496D451CDB5F9B00233E25 /* Text.png */; };
-		4D496D4A1CDB618400233E25 /* Button.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D496D491CDB618400233E25 /* Button.xib */; };
 		4D8266AD1CC4965300F3E5D1 /* arrow_Blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8266AC1CC4965300F3E5D1 /* arrow_Blue.png */; };
 		4DC246501CC1F6B500E01CA4 /* ImageUploading.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC2464B1CC1F6B500E01CA4 /* ImageUploading.m */; };
 		4DC246511CC1F6B500E01CA4 /* RatingsPopOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC2464D1CC1F6B500E01CA4 /* RatingsPopOverViewController.m */; };
@@ -79,6 +78,16 @@
 		5330645F1CC8E3A50035CCDE /* SZTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5330645E1CC8E3A50035CCDE /* SZTextView.m */; };
 		533233331CAFD2CE00971EC7 /* SubmissionMRQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533233321CAFD2CE00971EC7 /* SubmissionMRQView.swift */; };
 		533233481CAFE09C00971EC7 /* SSTeacherAggregatePopOverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533233471CAFE09C00971EC7 /* SSTeacherAggregatePopOverController.swift */; };
+		534217621CDC81D90061A7E7 /* ATKCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5342175F1CDC81D80061A7E7 /* ATKCore.framework */; };
+		534217631CDC81D90061A7E7 /* ATKMath.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 534217601CDC81D80061A7E7 /* ATKMath.framework */; };
+		534217641CDC81D90061A7E7 /* ATKMathWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 534217611CDC81D90061A7E7 /* ATKMathWidget.framework */; };
+		534217661CDC81ED0061A7E7 /* MathResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 534217651CDC81ED0061A7E7 /* MathResources.bundle */; };
+		534217691CDC82140061A7E7 /* com.mindshiftapps.LearniatTeacher.c in Sources */ = {isa = PBXBuildFile; fileRef = 534217671CDC82140061A7E7 /* com.mindshiftapps.LearniatTeacher.c */; };
+		5342176B1CDC834A0061A7E7 /* ATKMathWidget.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5342176A1CDC834A0061A7E7 /* ATKMathWidget.bundle */; };
+		5342176D1CDC8D570061A7E7 /* TeacherShapesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5342176C1CDC8D570061A7E7 /* TeacherShapesView.swift */; };
+		534217701CDC8EF90061A7E7 /* ATKGeometry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5342176E1CDC8EF90061A7E7 /* ATKGeometry.framework */; };
+		534217711CDC8EF90061A7E7 /* ATKGeometryWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5342176F1CDC8EF90061A7E7 /* ATKGeometryWidget.framework */; };
+		534217731CDC8F1F0061A7E7 /* ATKGeometryWidget.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 534217721CDC8F1F0061A7E7 /* ATKGeometryWidget.bundle */; };
 		53460C311CD1E52900076F85 /* SSTeacherPollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53460C301CD1E52900076F85 /* SSTeacherPollView.swift */; };
 		53460C331CD1E9AE00076F85 /* PollingCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53460C321CD1E9AE00076F85 /* PollingCreationView.swift */; };
 		53460C381CD1F12000076F85 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53460C371CD1F12000076F85 /* CustomTextView.swift */; };
@@ -383,6 +392,7 @@
 		539945D71CD09AD700007EC7 /* PlistDownloder.m in Sources */ = {isa = PBXBuildFile; fileRef = 539945D61CD09AD700007EC7 /* PlistDownloder.m */; };
 		539945D91CD0A54B00007EC7 /* StudentQueryDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539945D81CD0A54B00007EC7 /* StudentQueryDemo.swift */; };
 		539945DB1CD0A56100007EC7 /* StudentQuerySelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539945DA1CD0A56100007EC7 /* StudentQuerySelectionView.swift */; };
+		53A3B1C91CDDAE870031E92A /* css in Resources */ = {isa = PBXBuildFile; fileRef = 53A3B1C81CDDAE870031E92A /* css */; };
 		53B5901C1CB8E02900A69FC1 /* Cb_Like_Disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 53B590161CB8E02900A69FC1 /* Cb_Like_Disabled.png */; };
 		53B5901D1CB8E02900A69FC1 /* Cb_Like_Enabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 53B590171CB8E02900A69FC1 /* Cb_Like_Enabled.png */; };
 		53B5901E1CB8E02900A69FC1 /* Cb_Unlike_Disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 53B590181CB8E02900A69FC1 /* Cb_Unlike_Disabled.png */; };
@@ -392,6 +402,13 @@
 		53CA5A221CB230BB008C42B0 /* MRQAggregateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CA5A211CB230BB008C42B0 /* MRQAggregateView.swift */; };
 		53CA5A241CB2337D008C42B0 /* AggregateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CA5A231CB2337D008C42B0 /* AggregateCell.swift */; };
 		53CA5A281CB23568008C42B0 /* YLProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 53CA5A271CB23568008C42B0 /* YLProgressBar.m */; };
+		53D1C1561CDC9C5C0095B1EB /* GeometryResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 53D1C1541CDC9C5C0095B1EB /* GeometryResources.bundle */; };
+		53D1C15B1CDCA8B20095B1EB /* SPUserResizableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 53D1C15A1CDCA8B20095B1EB /* SPUserResizableView.m */; };
+		53D1C15E1CDCAE9F0095B1EB /* ImageEditorSubView.m in Sources */ = {isa = PBXBuildFile; fileRef = 53D1C15D1CDCAE9F0095B1EB /* ImageEditorSubView.m */; };
+		53D1C1631CDCAFC40095B1EB /* Delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 53D1C15F1CDCAFC40095B1EB /* Delete.png */; };
+		53D1C1641CDCAFC40095B1EB /* dragAndDrop.png in Resources */ = {isa = PBXBuildFile; fileRef = 53D1C1601CDCAFC40095B1EB /* dragAndDrop.png */; };
+		53D1C1651CDCAFC40095B1EB /* Edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 53D1C1611CDCAFC40095B1EB /* Edit.png */; };
+		53D1C1681CDCB30F0095B1EB /* Resize.png in Resources */ = {isa = PBXBuildFile; fileRef = 53D1C1671CDCB30F0095B1EB /* Resize.png */; };
 		53D8CCAD1CCE1A1200BA838C /* MainTopicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D8CCAC1CCE1A1200BA838C /* MainTopicsView.swift */; };
 		53D8CCAF1CCE1DF300BA838C /* SubTopicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D8CCAE1CCE1DF300BA838C /* SubTopicsView.swift */; };
 		53D8CCB11CCE314E00BA838C /* QuestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D8CCB01CCE314E00BA838C /* QuestionsView.swift */; };
@@ -418,7 +435,6 @@
 		4D496D431CDB5F9B00233E25 /* Equation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Equation.png; sourceTree = "<group>"; };
 		4D496D441CDB5F9B00233E25 /* Shapes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Shapes.png; sourceTree = "<group>"; };
 		4D496D451CDB5F9B00233E25 /* Text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Text.png; sourceTree = "<group>"; };
-		4D496D491CDB618400233E25 /* Button.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Button.xib; sourceTree = "<group>"; };
 		4D8266AC1CC4965300F3E5D1 /* arrow_Blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_Blue.png; sourceTree = "<group>"; };
 		4DC2464A1CC1F6B500E01CA4 /* ImageUploading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageUploading.h; sourceTree = "<group>"; };
 		4DC2464B1CC1F6B500E01CA4 /* ImageUploading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageUploading.m; sourceTree = "<group>"; };
@@ -485,6 +501,17 @@
 		5330645E1CC8E3A50035CCDE /* SZTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZTextView.m; sourceTree = "<group>"; };
 		533233321CAFD2CE00971EC7 /* SubmissionMRQView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionMRQView.swift; sourceTree = "<group>"; };
 		533233471CAFE09C00971EC7 /* SSTeacherAggregatePopOverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSTeacherAggregatePopOverController.swift; sourceTree = "<group>"; };
+		5342175F1CDC81D80061A7E7 /* ATKCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ATKCore.framework; path = LearniatTeacher/ATKCore.framework; sourceTree = "<group>"; };
+		534217601CDC81D80061A7E7 /* ATKMath.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ATKMath.framework; path = LearniatTeacher/ATKMath.framework; sourceTree = "<group>"; };
+		534217611CDC81D90061A7E7 /* ATKMathWidget.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ATKMathWidget.framework; path = LearniatTeacher/ATKMathWidget.framework; sourceTree = "<group>"; };
+		534217651CDC81ED0061A7E7 /* MathResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MathResources.bundle; sourceTree = "<group>"; };
+		534217671CDC82140061A7E7 /* com.mindshiftapps.LearniatTeacher.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = com.mindshiftapps.LearniatTeacher.c; sourceTree = "<group>"; };
+		534217681CDC82140061A7E7 /* MyCertificate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCertificate.h; sourceTree = "<group>"; };
+		5342176A1CDC834A0061A7E7 /* ATKMathWidget.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ATKMathWidget.bundle; sourceTree = "<group>"; };
+		5342176C1CDC8D570061A7E7 /* TeacherShapesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeacherShapesView.swift; sourceTree = "<group>"; };
+		5342176E1CDC8EF90061A7E7 /* ATKGeometry.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ATKGeometry.framework; path = LearniatTeacher/ATKGeometry.framework; sourceTree = "<group>"; };
+		5342176F1CDC8EF90061A7E7 /* ATKGeometryWidget.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ATKGeometryWidget.framework; path = LearniatTeacher/ATKGeometryWidget.framework; sourceTree = "<group>"; };
+		534217721CDC8F1F0061A7E7 /* ATKGeometryWidget.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ATKGeometryWidget.bundle; sourceTree = "<group>"; };
 		53460C301CD1E52900076F85 /* SSTeacherPollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSTeacherPollView.swift; sourceTree = "<group>"; };
 		53460C321CD1E9AE00076F85 /* PollingCreationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PollingCreationView.swift; sourceTree = "<group>"; };
 		53460C371CD1F12000076F85 /* CustomTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
@@ -962,6 +989,7 @@
 		539945D61CD09AD700007EC7 /* PlistDownloder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlistDownloder.m; sourceTree = "<group>"; };
 		539945D81CD0A54B00007EC7 /* StudentQueryDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentQueryDemo.swift; sourceTree = "<group>"; };
 		539945DA1CD0A56100007EC7 /* StudentQuerySelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentQuerySelectionView.swift; sourceTree = "<group>"; };
+		53A3B1C81CDDAE870031E92A /* css */ = {isa = PBXFileReference; lastKnownFileType = folder; path = css; sourceTree = "<group>"; };
 		53B590161CB8E02900A69FC1 /* Cb_Like_Disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cb_Like_Disabled.png; sourceTree = "<group>"; };
 		53B590171CB8E02900A69FC1 /* Cb_Like_Enabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cb_Like_Enabled.png; sourceTree = "<group>"; };
 		53B590181CB8E02900A69FC1 /* Cb_Unlike_Disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cb_Unlike_Disabled.png; sourceTree = "<group>"; };
@@ -972,6 +1000,15 @@
 		53CA5A231CB2337D008C42B0 /* AggregateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AggregateCell.swift; sourceTree = "<group>"; };
 		53CA5A261CB23568008C42B0 /* YLProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLProgressBar.h; sourceTree = "<group>"; };
 		53CA5A271CB23568008C42B0 /* YLProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLProgressBar.m; sourceTree = "<group>"; };
+		53D1C1541CDC9C5C0095B1EB /* GeometryResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GeometryResources.bundle; sourceTree = "<group>"; };
+		53D1C1591CDCA8B20095B1EB /* SPUserResizableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPUserResizableView.h; sourceTree = "<group>"; };
+		53D1C15A1CDCA8B20095B1EB /* SPUserResizableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPUserResizableView.m; sourceTree = "<group>"; };
+		53D1C15C1CDCAE9F0095B1EB /* ImageEditorSubView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageEditorSubView.h; sourceTree = "<group>"; };
+		53D1C15D1CDCAE9F0095B1EB /* ImageEditorSubView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageEditorSubView.m; sourceTree = "<group>"; };
+		53D1C15F1CDCAFC40095B1EB /* Delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Delete.png; sourceTree = "<group>"; };
+		53D1C1601CDCAFC40095B1EB /* dragAndDrop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dragAndDrop.png; sourceTree = "<group>"; };
+		53D1C1611CDCAFC40095B1EB /* Edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Edit.png; sourceTree = "<group>"; };
+		53D1C1671CDCB30F0095B1EB /* Resize.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Resize.png; sourceTree = "<group>"; };
 		53D8CCAC1CCE1A1200BA838C /* MainTopicsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTopicsView.swift; sourceTree = "<group>"; };
 		53D8CCAE1CCE1DF300BA838C /* SubTopicsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubTopicsView.swift; sourceTree = "<group>"; };
 		53D8CCB01CCE314E00BA838C /* QuestionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionsView.swift; sourceTree = "<group>"; };
@@ -989,6 +1026,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				534217701CDC8EF90061A7E7 /* ATKGeometry.framework in Frameworks */,
+				534217711CDC8EF90061A7E7 /* ATKGeometryWidget.framework in Frameworks */,
+				534217631CDC81D90061A7E7 /* ATKMath.framework in Frameworks */,
+				534217641CDC81D90061A7E7 /* ATKMathWidget.framework in Frameworks */,
 				53676D4E1CA63CAB00CADE4D /* Security.framework in Frameworks */,
 				53676D4C1CA63CA300CADE4D /* CoreLocation.framework in Frameworks */,
 				53676D4A1CA63C9900CADE4D /* SystemConfiguration.framework in Frameworks */,
@@ -1000,6 +1041,7 @@
 				53676D401CA63C6900CADE4D /* UIKit.framework in Frameworks */,
 				53676D3E1CA63C6300CADE4D /* Foundation.framework in Frameworks */,
 				53676D3C1CA63C5B00CADE4D /* CoreGraphics.framework in Frameworks */,
+				534217621CDC81D90061A7E7 /* ATKCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1021,6 +1063,10 @@
 		4DC246491CC1F6B500E01CA4 /* Objective-C_Class */ = {
 			isa = PBXGroup;
 			children = (
+				53D1C15C1CDCAE9F0095B1EB /* ImageEditorSubView.h */,
+				53D1C15D1CDCAE9F0095B1EB /* ImageEditorSubView.m */,
+				53D1C1591CDCA8B20095B1EB /* SPUserResizableView.h */,
+				53D1C15A1CDCA8B20095B1EB /* SPUserResizableView.m */,
 				539945D51CD09AD700007EC7 /* PlistDownloder.h */,
 				539945D61CD09AD700007EC7 /* PlistDownloder.m */,
 				4DC2464A1CC1F6B500E01CA4 /* ImageUploading.h */,
@@ -1050,6 +1096,13 @@
 		531044831CA64296007AE9D5 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				53D1C15F1CDCAFC40095B1EB /* Delete.png */,
+				53D1C1601CDCAFC40095B1EB /* dragAndDrop.png */,
+				53D1C1611CDCAFC40095B1EB /* Edit.png */,
+				53D1C1671CDCB30F0095B1EB /* Resize.png */,
+				53A3B1C81CDDAE870031E92A /* css */,
+				53D1C1541CDC9C5C0095B1EB /* GeometryResources.bundle */,
+				534217651CDC81ED0061A7E7 /* MathResources.bundle */,
 				4D496D431CDB5F9B00233E25 /* Equation.png */,
 				4D496D441CDB5F9B00233E25 /* Shapes.png */,
 				4D496D451CDB5F9B00233E25 /* Text.png */,
@@ -1156,7 +1209,9 @@
 			children = (
 				533063F51CC88F590035CCDE /* SSTeacherScribbleQuestion.swift */,
 				4D496D411CDB5CDD00233E25 /* TeacherMathView.swift */,
-				4D496D491CDB618400233E25 /* Button.xib */,
+				5342176C1CDC8D570061A7E7 /* TeacherShapesView.swift */,
+				534217671CDC82140061A7E7 /* com.mindshiftapps.LearniatTeacher.c */,
+				534217681CDC82140061A7E7 /* MyCertificate.h */,
 			);
 			path = QuestionCreation;
 			sourceTree = "<group>";
@@ -1206,6 +1261,11 @@
 		53676AD81CA63B2000CADE4D = {
 			isa = PBXGroup;
 			children = (
+				5342176E1CDC8EF90061A7E7 /* ATKGeometry.framework */,
+				5342176F1CDC8EF90061A7E7 /* ATKGeometryWidget.framework */,
+				5342175F1CDC81D80061A7E7 /* ATKCore.framework */,
+				534217601CDC81D80061A7E7 /* ATKMath.framework */,
+				534217611CDC81D90061A7E7 /* ATKMathWidget.framework */,
 				53676D4D1CA63CAB00CADE4D /* Security.framework */,
 				53676D4B1CA63CA300CADE4D /* CoreLocation.framework */,
 				53676D491CA63C9900CADE4D /* SystemConfiguration.framework */,
@@ -1232,6 +1292,8 @@
 		53676AE31CA63B2000CADE4D /* LearniatTeacher */ = {
 			isa = PBXGroup;
 			children = (
+				534217721CDC8F1F0061A7E7 /* ATKGeometryWidget.bundle */,
+				5342176A1CDC834A0061A7E7 /* ATKMathWidget.bundle */,
 				53676AF61CA63B7F00CADE4D /* AppDelegate.swift */,
 				53676AF71CA63B7F00CADE4D /* Common */,
 				53676C851CA63B7F00CADE4D /* INILoader.swift */,
@@ -2555,6 +2617,7 @@
 				537302461CB6771200E76753 /* halfChecked.png in Resources */,
 				531044A51CA64296007AE9D5 /* 70.png in Resources */,
 				531044A61CA64296007AE9D5 /* 80.png in Resources */,
+				534217731CDC8F1F0061A7E7 /* ATKGeometryWidget.bundle in Resources */,
 				537302371CB6771200E76753 /* Text_Unselected_AnnotateView@2x.png in Resources */,
 				537302381CB6771200E76753 /* Tick_mark_image.png in Resources */,
 				5373025D1CB6771200E76753 /* Unchecked.png in Resources */,
@@ -2584,10 +2647,12 @@
 				537302191CB6771200E76753 /* Dark_Blue_Circle.png in Resources */,
 				53E5BBAC1CAE3B7D00358ED8 /* StudentWriting.png in Resources */,
 				537302431CB6771200E76753 /* Eraser_Selected@2x.png in Resources */,
+				53A3B1C91CDDAE870031E92A /* css in Resources */,
 				4D2A93281CC0C986007A1D41 /* Circle_Green.png in Resources */,
 				531044A41CA64296007AE9D5 /* 60.png in Resources */,
-				4D496D4A1CDB618400233E25 /* Button.xib in Resources */,
 				537302331CB6771200E76753 /* Tab_bar_Divider_AnnotateView@2x.png in Resources */,
+				53D1C1561CDC9C5C0095B1EB /* GeometryResources.bundle in Resources */,
+				53D1C1681CDCB30F0095B1EB /* Resize.png in Resources */,
 				531044AC1CA66C89007AE9D5 /* lowParticipartion.png in Resources */,
 				53909C6F1CBB73E500E8A1C0 /* Mute_red.png in Resources */,
 				537302361CB6771200E76753 /* Text_Unselected_AnnotateView.png in Resources */,
@@ -2614,11 +2679,13 @@
 				5373025A1CB6771200E76753 /* Text_Selected@2x.png in Resources */,
 				537302241CB6771200E76753 /* Marker_Selected_scribble.png in Resources */,
 				5326078F1CA90AEC002FF684 /* indicator2.png in Resources */,
+				53D1C1651CDCAFC40095B1EB /* Edit.png in Resources */,
 				537302491CB6771200E76753 /* Mark_Model_Selected.png in Resources */,
 				5310449A1CA64296007AE9D5 /* infoButton.png in Resources */,
 				5373023B1CB6771200E76753 /* Top_bar_Divider_AnnotateView@2x.png in Resources */,
 				532607961CA90AEC002FF684 /* indicator9.png in Resources */,
 				531044A01CA64296007AE9D5 /* 20.png in Resources */,
+				53D1C1631CDCAFC40095B1EB /* Delete.png in Resources */,
 				53909C701CBB73E500E8A1C0 /* Thumbs_Up.png in Resources */,
 				5373021F1CB6771200E76753 /* Eraser_Unselected_AnnotateView@2x.png in Resources */,
 				537302501CB6771200E76753 /* Rate_Type_Arrow_Icon@2x.png in Resources */,
@@ -2627,6 +2694,7 @@
 				531044A71CA64296007AE9D5 /* 90.png in Resources */,
 				5373023C1CB6771200E76753 /* Undo_Active_AnnotateView.png in Resources */,
 				5373023D1CB6771200E76753 /* Undo_Active_AnnotateView@2x.png in Resources */,
+				534217661CDC81ED0061A7E7 /* MathResources.bundle in Resources */,
 				4D496D481CDB5F9B00233E25 /* Text.png in Resources */,
 				532607941CA90AEC002FF684 /* indicator7.png in Resources */,
 				532607921CA90AEC002FF684 /* indicator5.png in Resources */,
@@ -2650,7 +2718,9 @@
 				4D496D471CDB5F9B00233E25 /* Shapes.png in Resources */,
 				5326078C1CA90AEC002FF684 /* indicator10.png in Resources */,
 				531044971CA64296007AE9D5 /* Alert_Icon.png in Resources */,
+				5342176B1CDC834A0061A7E7 /* ATKMathWidget.bundle in Resources */,
 				4D2A932A1CC0C986007A1D41 /* Remove.png in Resources */,
+				53D1C1641CDCAFC40095B1EB /* dragAndDrop.png in Resources */,
 				537302451CB6771200E76753 /* Eraser_Unselected@2x.png in Resources */,
 				5373024D1CB6771200E76753 /* Marker_Unselected.png in Resources */,
 				53676D271CA63B7F00CADE4D /* README.txt in Resources */,
@@ -2697,7 +2767,9 @@
 				539945D71CD09AD700007EC7 /* PlistDownloder.m in Sources */,
 				53676CD81CA63B7F00CADE4D /* XMPPRoom.m in Sources */,
 				53CA5A241CB2337D008C42B0 /* AggregateCell.swift in Sources */,
+				5342176D1CDC8D570061A7E7 /* TeacherShapesView.swift in Sources */,
 				53676D2F1CA63B7F00CADE4D /* LoginViewController.swift in Sources */,
+				53D1C15B1CDCA8B20095B1EB /* SPUserResizableView.m in Sources */,
 				53676D0B1CA63B7F00CADE4D /* NSXMLElement+XEP_0203.m in Sources */,
 				53676D141CA63B7F00CADE4D /* NSXMLElement+XEP_0335.m in Sources */,
 				53676D251CA63B7F00CADE4D /* DDDispatchQueueLogFormatter.m in Sources */,
@@ -2789,6 +2861,7 @@
 				53676D2B1CA63B7F00CADE4D /* DDXMLNode.m in Sources */,
 				53676D081CA63B7F00CADE4D /* XMPPPing.m in Sources */,
 				53676CB81CA63B7F00CADE4D /* XMPPGoogleSharedStatus.m in Sources */,
+				53D1C15E1CDCAE9F0095B1EB /* ImageEditorSubView.m in Sources */,
 				53909C551CBF726800DDCCD0 /* StudentAnnotateView.swift in Sources */,
 				53676D241CA63B7F00CADE4D /* DDContextFilterLogFormatter.m in Sources */,
 				53676CF51CA63B7F00CADE4D /* XMPPCapabilitiesCoreDataStorage.m in Sources */,
@@ -2916,6 +2989,7 @@
 				53676CA71CA63B7F00CADE4D /* XMPPPlainAuthentication.m in Sources */,
 				53676CE21CA63B7F00CADE4D /* XMPPvCardTempEmail.m in Sources */,
 				53676C9F1CA63B7F00CADE4D /* CustomAlertView.m in Sources */,
+				534217691CDC82140061A7E7 /* com.mindshiftapps.LearniatTeacher.c in Sources */,
 				53676C9E1CA63B7F00CADE4D /* XMLDictionary.m in Sources */,
 				4D0A7FCA1CCF79C6001AA119 /* StudentAnswerSelectionView.swift in Sources */,
 				53676D2A1CA63B7F00CADE4D /* DDXMLElement.m in Sources */,
@@ -3037,6 +3111,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: deepak mk (862RK2T33X)";
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/LearniatTeacher",
+				);
 				INFOPLIST_FILE = LearniatTeacher/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -3044,7 +3122,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/LearniatTeacher/Common/XMPP/Vendor/libidn",
 				);
-				OTHER_LDFLAGS = "-lxml2";
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-ObjC",
+					"-lstdc++",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.LearniatTeacher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "bf448ed6-d1b3-431e-8bf1-ff016bbac1a5";
@@ -3061,6 +3143,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: deepak mk (862RK2T33X)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: deepak mk (862RK2T33X)";
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/LearniatTeacher",
+				);
 				INFOPLIST_FILE = LearniatTeacher/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -3068,7 +3154,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/LearniatTeacher/Common/XMPP/Vendor/libidn",
 				);
-				OTHER_LDFLAGS = "-lxml2";
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-ObjC",
+					"-lstdc++",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.LearniatTeacher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "bf448ed6-d1b3-431e-8bf1-ff016bbac1a5";

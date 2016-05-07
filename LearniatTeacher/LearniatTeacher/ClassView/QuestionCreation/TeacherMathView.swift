@@ -8,7 +8,15 @@
 
 import Foundation
 
-class TeacherMathView: UIView
+@objc protocol TeacherMathViewDelegate
+{
+    
+    optional func delegateShapesImages(image:UIImage, withBinaryData binaryData:NSData, withtagValue tagValue:Int, withType type:String)
+    
+    
+}
+
+class TeacherMathView: UIView,MAWMathViewDelegate,UIPopoverControllerDelegate
 {
     
     let containerview = UIView()
@@ -21,7 +29,27 @@ class TeacherMathView: UIView
     
     let m_UndoButton = UIButton()
     
+    var mathView = MAWMathView()
+    
+    var _mathCertificateRegistered = Bool()
+    
+    
     let bottomtoolSelectedImageView = UIImageView()
+    
+    
+    var _delgate: AnyObject!
+    
+    
+    func setdelegate(delegate:AnyObject)
+    {
+        _delgate = delegate;
+    }
+    
+    func   delegate()->AnyObject
+    {
+        return _delgate;
+    }
+    
     
     override init(frame: CGRect)
     {
@@ -48,16 +76,16 @@ class TeacherMathView: UIView
         
         let  mDoneButton = UIButton(frame: CGRectMake(mTopbarImageView.frame.size.width - 210,  0, 200 ,mTopbarImageView.frame.size.height))
         mTopbarImageView.addSubview(mDoneButton)
-        mDoneButton.addTarget(self, action: #selector(StudentModelAnswerView.onSendAllButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mDoneButton.addTarget(self, action: #selector(TeacherMathView.onSendButton), forControlEvents: UIControlEvents.TouchUpInside)
         mDoneButton.setTitleColor(standard_Button, forState: .Normal)
-        mDoneButton.setTitle("Send all", forState: .Normal)
+        mDoneButton.setTitle("Send", forState: .Normal)
         mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
         mDoneButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
         
         
         let  mBackButton = UIButton(frame: CGRectMake(10,  0, 200 ,mTopbarImageView.frame.size.height))
         mTopbarImageView.addSubview(mBackButton)
-        mBackButton.addTarget(self, action: #selector(StudentModelAnswerView.onSendAllButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mBackButton.addTarget(self, action: #selector(TeacherMathView.onCancelButton), forControlEvents: UIControlEvents.TouchUpInside)
         mBackButton.setTitleColor(standard_Button, forState: .Normal)
         mBackButton.setTitle("Cancel", forState: .Normal)
         mBackButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
@@ -85,7 +113,7 @@ class TeacherMathView: UIView
         m_UndoButton.setImage(UIImage(named:"Undo_Disabled.png"),forState:.Normal);
         bottomview.addSubview(m_UndoButton);
         m_UndoButton.imageView?.contentMode = .ScaleAspectFit
-        m_UndoButton.addTarget(self, action: #selector(StudentAnnotateView.onUndoButton), forControlEvents: UIControlEvents.TouchUpInside)
+        m_UndoButton.addTarget(self, action: #selector(TeacherMathView.onUndoButton), forControlEvents: UIControlEvents.TouchUpInside)
         m_UndoButton.enabled = false
         
         bottomtoolSelectedImageView.backgroundColor = UIColor.whiteColor();
@@ -97,7 +125,7 @@ class TeacherMathView: UIView
         m_BrushButton.setImage(UIImage(named:"Marker_Selected.png"), forState:.Normal)
         bottomview.addSubview(m_BrushButton);
         m_BrushButton.imageView?.contentMode = .ScaleAspectFit
-        m_BrushButton.addTarget(self, action: #selector(StudentAnnotateView.onBrushButton), forControlEvents: UIControlEvents.TouchUpInside)
+        m_BrushButton.addTarget(self, action: #selector(TeacherMathView.onBrushButton), forControlEvents: UIControlEvents.TouchUpInside)
         bottomtoolSelectedImageView.frame = m_BrushButton.frame
         
         
@@ -106,9 +134,38 @@ class TeacherMathView: UIView
         m_RedoButton.setImage(UIImage(named:"Redo_Disabled.png"), forState:.Normal);
         bottomview.addSubview(m_RedoButton);
         m_RedoButton.imageView?.contentMode = .ScaleAspectFit
-        m_RedoButton.addTarget(self, action: #selector(StudentAnnotateView.onRedoButton), forControlEvents: UIControlEvents.TouchUpInside)
+        m_RedoButton.addTarget(self, action: #selector(TeacherMathView.onRedoButton), forControlEvents: UIControlEvents.TouchUpInside)
         m_RedoButton.enabled = false
         
+        
+        
+        let certificate:NSData = NSData(bytes:myCertificate.bytes , length: myCertificate.length)
+        
+        _mathCertificateRegistered = mathView.registerCertificate(certificate);
+        
+        if(_mathCertificateRegistered)
+        {
+            mathView.delegate = self;
+            
+            let mainBundle:NSBundle  = NSBundle.mainBundle();
+            var bundlePath:NSString = mainBundle.pathForResource("MathResources", ofType: "bundle")!
+            bundlePath = bundlePath.stringByAppendingPathComponent("conf")
+            
+            mathView.addSearchDir(bundlePath as String);
+            
+            // The configuration is an asynchronous operation. Callbacks are provided to
+            // monitor the beginning and end of the configuration process.
+            //
+            // "en_US" references the en_US bundle name in the conf/en_US.conf file in your resources.
+            // "si_text" references the configuration name in en_US.conf
+            mathView.configureWithBundle("math", andConfig:"standard");
+            mathView.frame = CGRectMake(0, 0, containerview.frame.size.width, containerview.frame.size.height)
+            containerview.addSubview(mathView)
+            mathView.backgroundColor = UIColor.greenColor()
+            mathView.inkColor = UIColor(red:0.200, green:0.710, blue:0.898, alpha:1.0)
+            
+            
+        }
         
 
     }
@@ -116,6 +173,122 @@ class TeacherMathView: UIView
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func onRedoButton()
+    {
+        mathView.redo()
+    }
+    
+    func onUndoButton()
+    {
+        mathView.undo()
+    }
+    
+    func onBrushButton()
+    {
+        let buttonPosition :CGPoint = m_BrushButton.convertPoint(CGPointZero, toView: self)
+        
+        
+        let colorSelectContoller = colorpopOverViewController()
+        colorSelectContoller.setSelectTab(1);
+        colorSelectContoller.setDelegate(self);
+        colorSelectContoller.setRect(CGRectMake(0,0,400,400));
+        
+        
+        colorSelectContoller.title = "Brush Size & Colour";
+        
+        let navController = UINavigationController(rootViewController:colorSelectContoller)
+        
+        let colorPopoverController = UIPopoverController(contentViewController:navController);
+        colorPopoverController.popoverContentSize = CGSizeMake(400, 400);
+        colorPopoverController.delegate = self;
+        colorSelectContoller.setPopOverController(colorPopoverController);
+        
+        colorPopoverController.presentPopoverFromRect(CGRectMake(buttonPosition.x  + (m_BrushButton.frame.size.width/2),buttonPosition.y,1,1), inView: self, permittedArrowDirections: .Down, animated: true)
+    }
+    
+    func onCancelButton()
+    {
+        self.removeFromSuperview()
+    }
+    
+    
+    
+    func onSendButton()
+    {
+        delegate().delegateShapesImages!(mathView.resultAsImage(), withBinaryData: mathView.serialize(), withtagValue: self.tag, withType: "Equation")
+        self.removeFromSuperview()
+    }
+    
+    func mathViewDidBeginConfiguration(mathView: MAWMathView!)
+    {
+        
+    }
+    
+    func mathViewDidEndConfiguration(mathView: MAWMathView!) {
+        print("Math Widget recognition: \(mathView.resultAsText())");
+    }
+    
+    func mathView(mathView: MAWMathView!, didFailConfigurationWithError error: NSError!)
+    {
+        
+        print("Unable to configure the Math Widget: \(error.localizedDescription)");
+    }
+    
+    func mathViewDidChangeUndoRedoState(mathView: MAWMathView!)
+    {
+        
+        
+        if mathView.canUndo()
+        {
+            m_UndoButton.setImage(UIImage(named:"Undo_Active.png"),forState:.Normal);
+            m_UndoButton.enabled = true
+        }
+        else
+        {
+            m_UndoButton.setImage(UIImage(named:"Undo_Disabled.png"),forState:.Normal);
+            m_UndoButton.enabled = false
+        }
+        
+        
+        
+        if  mathView.canRedo()
+        {
+            m_RedoButton.setImage(UIImage(named:"Redo_Active.png"),forState:.Normal);
+            m_RedoButton.enabled = true
+        }
+        else
+        {
+            m_RedoButton.setImage(UIImage(named:"Redo_Disabled.png"),forState:.Normal);
+            m_RedoButton.enabled = false
+        }
+
+        
+        
+    }
+    
+    // MARK: - Color popover delegate
+    
+    func selectedbrushSize(sender: AnyObject!, withSelectedTab tabTag: Int32)
+    {
+        
+        if let progressView = sender as? UISlider
+        {
+            mathView.inkThickness = CGFloat(progressView.value)
+        }
+        
+        
+    }
+    
+    func selectedColor(sender: AnyObject!, withSelectedTab tabTag: Int32)
+    {
+        if let progressColor = sender as? UIColor
+        {
+            mathView.inkColor = progressColor
+        
+        }
+    }
+
     
     
     

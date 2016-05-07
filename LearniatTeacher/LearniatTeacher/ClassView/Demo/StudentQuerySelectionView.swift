@@ -56,7 +56,6 @@ class StudentQuerySelectionView: UIView,APIManagerDelegate
     {
         
         _currentStudentDetails = studentDetails
-        _delgate = self
         if queryDetails.count > 0
         {
             queryDetails.shuffle()
@@ -96,14 +95,14 @@ class StudentQuerySelectionView: UIView,APIManagerDelegate
             {
                 if let QueryId = refinedDetails.objectForKey("QueryId") as? String
                 {
-                    if delegate().respondsToSelector(#selector(StudentQuerySelectionViewDelegate.delegateStudentQueryRecievedWithId(_:withStudentId:)))
+                    
+                    
+                    
+                    if let StudentId = _currentStudentDetails.objectForKey("StudentId") as? String
                     {
-                        if let StudentId = _currentStudentDetails.objectForKey("StudentId") as? String
-                        {
-                            delegate().delegateStudentQueryRecievedWithId!(QueryId, withStudentId: StudentId)
-                        }
-                        
+                        delegate().delegateStudentQueryRecievedWithId!(QueryId, withStudentId: StudentId)
                     }
+                    
                 }
             }
             

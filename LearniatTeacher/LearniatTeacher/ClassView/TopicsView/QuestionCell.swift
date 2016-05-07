@@ -150,12 +150,12 @@ class QuestionCell: UIView
             }
             
            
-        }
+        
         
         
         if let questionName = details.objectForKey("Name")as? String
         {
-            mQuestionNameLabel.text = "\(questionCout). \(questionName)"
+            mQuestionNameLabel.text = "\(questionCout). \(questionName) (\(topicId))"
             
             height = heightForView(questionName, font: mQuestionNameLabel.font, width: mQuestionNameLabel.frame.size.width)
             
@@ -178,7 +178,7 @@ class QuestionCell: UIView
         self.addSubview(seperatorView)
         
         
-        
+        }
         
         if let QuestonAvgScore = details.objectForKey("QuestonAvgScore")as? NSString
         {

@@ -846,3 +846,28 @@ extension UIButton
             ).instantiateWithOwner(nil, options: nil)[0] as? UIButton
     }
 }
+
+extension UIImage
+{
+    class func imageWithView(view: UIView) -> UIImage
+    {
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.opaque, 0.0)
+        view.drawViewHierarchyInRect(view.bounds, afterScreenUpdates: true)
+        let img = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return img
+    }
+    
+    
+    class func renderUIViewToImage(viewToBeRendered:UIView?) -> UIImage
+    {
+        UIGraphicsBeginImageContextWithOptions((viewToBeRendered?.bounds.size)!, false, 0.0)
+        viewToBeRendered!.drawViewHierarchyInRect(viewToBeRendered!.bounds, afterScreenUpdates: true)
+        viewToBeRendered!.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        
+        let finalImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return finalImage
+    }
+}

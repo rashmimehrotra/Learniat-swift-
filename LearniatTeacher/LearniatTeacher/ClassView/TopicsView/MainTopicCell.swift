@@ -123,7 +123,7 @@ class MainTopicCell: UIView{
         {
             if let CumulativeTime = currentTopicDetails.objectForKey("CumulativeTime")as? String
             {
-                m_MainTopicLabel.text = "\(topicName)(\(CumulativeTime))".capitalizedString
+                m_MainTopicLabel.text = "\(topicName)(\(CumulativeTime)) \(mMainTopicId)".capitalizedString
             }
             else
             {

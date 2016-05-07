@@ -28,4 +28,9 @@
 #import "SZTextView.h"
 #import "PlistDownloder.h"
 #import "PollViewCell.h"
+#import "MyCertificate.h"
+#import <ATKMathWidget/MAWMathWidget.h>
+#import <ATKGeometryWidget/GWGeometryWidget.h>
+#import "SPUserResizableView.h"
+#import "ImageEditorSubView.h"
 #endif /* Swift_Bridging_Header_h */

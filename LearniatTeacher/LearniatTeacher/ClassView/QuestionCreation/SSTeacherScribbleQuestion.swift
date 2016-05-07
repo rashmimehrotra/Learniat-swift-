@@ -16,9 +16,13 @@ import Foundation
 }
 
 
-class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDataSourceDelegate {
+class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDataSourceDelegate, TeacherShapesViewDelegate, ImageEditorSubViewDelegate
+{
     
     
+    var  mTopbarImageView : UIImageView!
+    
+    var mBottomToolBarImageView :UIImageView!
     
     let mSendButton = UIButton()
     
@@ -52,6 +56,8 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
     
     var nameOfImage = ""
     
+    var subCellsTagValue = 1000
+    
     var _delgate: AnyObject!
     
     
@@ -75,7 +81,7 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         
          imageUploading.setDelegate(self)
         
-        let  mTopbarImageView = UIImageView(frame: CGRectMake(0, 0, self.frame.size.width, 70))
+        mTopbarImageView = UIImageView(frame: CGRectMake(0, 0, self.frame.size.width, 70))
         mTopbarImageView.backgroundColor = topbarColor
         self.addSubview(mTopbarImageView)
         mTopbarImageView.userInteractionEnabled = true
@@ -98,10 +104,10 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         
         
         
-        let bottomview = UIImageView(frame: CGRectMake(0, self.frame.size.height - 60, self.frame.size.width, 60))
-        bottomview.backgroundColor = lightGrayTopBar
-        self.addSubview(bottomview)
-        bottomview.userInteractionEnabled = true
+        mBottomToolBarImageView = UIImageView(frame: CGRectMake(0, self.frame.size.height - 60, self.frame.size.width, 60))
+        mBottomToolBarImageView.backgroundColor = lightGrayTopBar
+        self.addSubview(mBottomToolBarImageView)
+        mBottomToolBarImageView.userInteractionEnabled = true
         
         mCancelButton.showsTouchWhenHighlighted = true;
         /* Add Cancel button target Cancel button should deselect all the selected submissions *defect 142 */
@@ -133,7 +139,7 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         
         
         
-        var contanerHeight  = mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + bottomview.frame.size.height + 20
+        var contanerHeight  = mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + mBottomToolBarImageView.frame.size.height + 20
         contanerHeight = self.frame.size.height - contanerHeight
         
         containerview.frame = CGRectMake((self.frame.size.width - (contanerHeight * kAspectRation)) / 2 , mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + 10 ,  contanerHeight * kAspectRation ,contanerHeight)
@@ -146,9 +152,9 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         containerview.clipsToBounds = false;
         
         
-        mScribbleView = SmoothLineView(frame: containerview.frame)
+        mScribbleView = SmoothLineView(frame: CGRectMake(0,0,containerview.frame.size.width, containerview.frame.size.height))
         mScribbleView.delegate = self
-        self.addSubview(mScribbleView);
+        containerview.addSubview(mScribbleView);
         mScribbleView.userInteractionEnabled = true
         mScribbleView.setDrawingColor(blackTextColor);
         mScribbleView.setBrushWidth(5)
@@ -159,21 +165,21 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         
        
        
-        m_UndoButton.frame = CGRectMake(0, 0, bottomview.frame.size.height, bottomview.frame.size.height)
+        m_UndoButton.frame = CGRectMake(0, 0, mBottomToolBarImageView.frame.size.height, mBottomToolBarImageView.frame.size.height)
         m_UndoButton.setImage(UIImage(named:"Undo_Disabled.png"),forState:.Normal);
-        bottomview.addSubview(m_UndoButton);
+        mBottomToolBarImageView.addSubview(m_UndoButton);
         m_UndoButton.imageView?.contentMode = .ScaleAspectFit
         m_UndoButton.addTarget(self, action: #selector(StudentAnnotateView.onUndoButton), forControlEvents: UIControlEvents.TouchUpInside)
         m_UndoButton.enabled = false
         
         bottomtoolSelectedImageView.backgroundColor = UIColor.whiteColor();
-        bottomview.addSubview(bottomtoolSelectedImageView);
+        mBottomToolBarImageView.addSubview(bottomtoolSelectedImageView);
         bottomtoolSelectedImageView.layer.cornerRadius = 10.0;
         
         
-        m_BrushButton.frame = CGRectMake((bottomview.frame.size.width/2) - (bottomview.frame.size.height + 10) ,5, bottomview.frame.size.height ,bottomview.frame.size.height - 10)
+        m_BrushButton.frame = CGRectMake((mBottomToolBarImageView.frame.size.width/2) - (mBottomToolBarImageView.frame.size.height + 10) ,5, mBottomToolBarImageView.frame.size.height ,mBottomToolBarImageView.frame.size.height - 10)
         m_BrushButton.setImage(UIImage(named:"Marker_Selected.png"), forState:.Normal)
-        bottomview.addSubview(m_BrushButton);
+        mBottomToolBarImageView.addSubview(m_BrushButton);
         m_BrushButton.imageView?.contentMode = .ScaleAspectFit
         m_BrushButton.addTarget(self, action: #selector(StudentAnnotateView.onBrushButton), forControlEvents: UIControlEvents.TouchUpInside)
         bottomtoolSelectedImageView.frame = m_BrushButton.frame
@@ -181,16 +187,16 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         
         
         
-        m_EraserButton.frame = CGRectMake((bottomview.frame.size.width/2) + 10  ,5, bottomview.frame.size.height ,bottomview.frame.size.height - 10)
+        m_EraserButton.frame = CGRectMake((mBottomToolBarImageView.frame.size.width/2) + 10  ,5, mBottomToolBarImageView.frame.size.height ,mBottomToolBarImageView.frame.size.height - 10)
         m_EraserButton.setImage(UIImage(named:"Eraser_Unselected.png"), forState:.Normal);
-        bottomview.addSubview(m_EraserButton);
+        mBottomToolBarImageView.addSubview(m_EraserButton);
         m_EraserButton.imageView?.contentMode = .ScaleAspectFit
         m_EraserButton.addTarget(self, action: #selector(StudentAnnotateView.onEraserButton), forControlEvents: UIControlEvents.TouchUpInside)
         
         
-        m_RedoButton.frame = CGRectMake(bottomview.frame.size.width - bottomview.frame.size.height ,0, bottomview.frame.size.height ,bottomview.frame.size.height)
+        m_RedoButton.frame = CGRectMake(mBottomToolBarImageView.frame.size.width - mBottomToolBarImageView.frame.size.height ,0, mBottomToolBarImageView.frame.size.height ,mBottomToolBarImageView.frame.size.height)
         m_RedoButton.setImage(UIImage(named:"Redo_Disabled.png"), forState:.Normal);
-        bottomview.addSubview(m_RedoButton);
+        mBottomToolBarImageView.addSubview(m_RedoButton);
         m_RedoButton.imageView?.contentMode = .ScaleAspectFit
         m_RedoButton.addTarget(self, action: #selector(StudentAnnotateView.onRedoButton), forControlEvents: UIControlEvents.TouchUpInside)
         m_RedoButton.enabled = false
@@ -199,7 +205,7 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         
         
         let  mEquationButton = UIButton(frame: CGRectMake(m_RedoButton.frame.origin.x - 140,  bottomtoolSelectedImageView.frame.origin.y,130 ,bottomtoolSelectedImageView.frame.size.height))
-        bottomview.addSubview(mEquationButton)
+        mBottomToolBarImageView.addSubview(mEquationButton)
         mEquationButton.addTarget(self, action: #selector(SSTeacherScribbleQuestion.onEquationButton), forControlEvents: UIControlEvents.TouchUpInside)
         mEquationButton.imageView?.contentMode = .ScaleAspectFit
         mEquationButton.setTitle("Equation", forState: .Normal)
@@ -217,7 +223,7 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         
         
         let  mShapesButton = UIButton(frame: CGRectMake(mEquationButton.frame.origin.x - 120,  bottomtoolSelectedImageView.frame.origin.y,110 ,bottomtoolSelectedImageView.frame.size.height  ))
-        bottomview.addSubview(mShapesButton)
+        mBottomToolBarImageView.addSubview(mShapesButton)
         mShapesButton.addTarget(self, action: #selector(SSTeacherScribbleQuestion.onShapesButton), forControlEvents: UIControlEvents.TouchUpInside)
         mShapesButton.imageView?.contentMode = .ScaleAspectFit
         mShapesButton.setTitle("Shapes", forState: .Normal)
@@ -267,13 +273,24 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
     func onSendButton()
     {
         
-        sendButtonSpinner.hidden = false
-        sendButtonSpinner.startAnimating()
-        mSendButton.hidden = true
         
         
-        if mScribbleView.curImage != nil
+        let image = UIImage.imageWithView(containerview)
+        
+        
+         let subViews = containerview.subviews.flatMap{ $0 as? ImageEditorSubView }
+        
+        if mQuestionNametextView.text.isEmpty
         {
+            self.makeToast("Please type question name ", duration: 5.0, position: .Bottom)
+        }
+        else if mScribbleView.curImage != nil || subViews.count >= 0
+        {
+            
+            sendButtonSpinner.hidden = false
+            sendButtonSpinner.startAnimating()
+            mSendButton.hidden = true
+
             
             let currentDate = NSDate()
             
@@ -289,7 +306,7 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
             nameOfImage =  nameOfImage.stringByReplacingOccurrencesOfString(" ", withString: "")
             
             
-            imageUploading.uploadImageWithImage(mScribbleView.curImage, withImageName: nameOfImage, withUserId: SSTeacherDataSource.sharedDataSource.currentUserId)
+            imageUploading.uploadImageWithImage(image, withImageName: nameOfImage, withUserId: SSTeacherDataSource.sharedDataSource.currentUserId)
         }
         else
         {
@@ -381,8 +398,10 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         bottomtoolSelectedImageView.frame = m_EraserButton.frame
         m_BrushButton.setImage(UIImage(named:"Marker_Unselected.png"), forState:.Normal)
         m_EraserButton.setImage(UIImage(named:"Eraser_Selected.png"), forState:.Normal)
-        
         mScribbleView.setDrawingTool(kEraserTool)
+        
+        
+        
         
         
         
@@ -399,16 +418,174 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
     func onEquationButton()
     {
         let mathView = TeacherMathView(frame:CGRectMake(0,0,self.frame.size.width, self.frame.size.height))
-        self.addSubview(mathView)
+       
+        mathView.setdelegate(self)
+         self.addSubview(mathView)
     }
     
     func onShapesButton()
     {
+        let shapesView = TeacherShapesView(frame:CGRectMake(0,0,self.frame.size.width, self.frame.size.height))
+        self.addSubview(shapesView)
+        shapesView.setdelegate(self)
+    }
+    
+    
+    // MARK: - Shapes delegate
+    
+    func delegateShapesImages(image: UIImage, withBinaryData binaryData: NSData, withtagValue tagValue: Int, withType type: String) {
+        
+        
+        let imageView = UIImageView()
+        imageView.image = image
+        imageView.contentMode = .ScaleAspectFit;
+        imageView.userInteractionEnabled = true
+        
+        
+        var shapeSize:CGSize = image.size;
+        
+        if (shapeSize.width < 100)
+        {
+            shapeSize = CGSizeMake(100, shapeSize.height);
+        }
+        if (shapeSize.height < 100)
+        {
+            shapeSize = CGSizeMake(shapeSize.width, 100);
+        }
+        
+        
+        imageView.frame = CGRectMake(0,0, shapeSize.width, shapeSize.height);
+        
+        
+        
+        if let shapesImage = containerview.viewWithTag(tagValue) as? ImageEditorSubView
+        {
+             shapesImage.frame = imageView.frame
+            shapesImage.setContentImageView(imageView, withImage: image)
+            shapesImage.setBinaryValue(binaryData)
+            shapesImage.typeString = type
+        }
+        
+        else
+        {
+            let shapesImage = ImageEditorSubView(frame:imageView.frame)
+            containerview.addSubview(shapesImage)
+            shapesImage.setdelegate(self)
+            shapesImage.setContentImageView(imageView, withImage: image)
+            shapesImage.setBinaryValue(binaryData)
+            shapesImage.typeString = type
+            shapesImage.tag = subCellsTagValue
+            subCellsTagValue = subCellsTagValue + 1
+
+        }
+        
+        
+        mTopbarImageView.userInteractionEnabled  = true
+        mBottomToolBarImageView.userInteractionEnabled = true
+        mTopbarImageView.alpha = 1
+        mBottomToolBarImageView.alpha = 1
+
+       
         
     }
     
     
-     // MARK: - popover delegate
+    // MARK: - SPUserResizableView Delegate
+    
+    
+    func delegateEditButtonPressedWithView(editorView: ImageEditorSubView!)
+    {
+        
+        if editorView.typeString == "Shapes"
+        {
+            let shapesView = TeacherShapesView(frame:CGRectMake(0,0,self.frame.size.width, self.frame.size.height))
+            self.addSubview(shapesView)
+            shapesView.setdelegate(self)
+            shapesView.tag = editorView.tag
+            if editorView.getBinarayData() != nil
+            {
+                shapesView.mShapesView.unserialize(editorView.getBinarayData())
+            }
+            
+            mTopbarImageView.userInteractionEnabled  = true
+            mBottomToolBarImageView.userInteractionEnabled = true
+            mTopbarImageView.alpha = 1
+            mBottomToolBarImageView.alpha = 1
+        }
+        else if  editorView.typeString == "Equation"
+        {
+            let shapesView = TeacherMathView(frame:CGRectMake(0,0,self.frame.size.width, self.frame.size.height))
+            self.addSubview(shapesView)
+            shapesView.setdelegate(self)
+            shapesView.tag = editorView.tag
+            if editorView.getBinarayData() != nil
+            {
+                shapesView.mathView.unserialize(editorView.getBinarayData())
+            }
+            
+            mTopbarImageView.userInteractionEnabled  = true
+            mBottomToolBarImageView.userInteractionEnabled = true
+            mTopbarImageView.alpha = 1
+            mBottomToolBarImageView.alpha = 1
+        }
+    }
+    
+    
+    func delegateDeleteDeleteButtonPressedWithView(editorView: ImageEditorSubView!)
+    {
+        editorView.removeFromSuperview()
+        mTopbarImageView.userInteractionEnabled  = true
+        mBottomToolBarImageView.userInteractionEnabled = true
+        mTopbarImageView.alpha = 1
+        mBottomToolBarImageView.alpha = 1
+
+        
+    }
+    
+    
+    func delegateSelectPressedWithView(editorView: ImageEditorSubView!, withSelectedState selectedState: Bool)
+    {
+        
+        
+        
+        
+        let subViews = containerview.subviews.flatMap{ $0 as? ImageEditorSubView }
+        
+        for mSubView in subViews
+        {
+            if mSubView.isKindOfClass(ImageEditorSubView)
+            {
+                mSubView.hideHandles()
+            }
+        }
+        
+        
+        if selectedState == true
+        {
+            mTopbarImageView.userInteractionEnabled  = false
+            mBottomToolBarImageView.userInteractionEnabled = false
+            mTopbarImageView.alpha = 0.2
+            mBottomToolBarImageView.alpha = 0.2
+            
+            
+        }
+        else
+        {
+            mTopbarImageView.userInteractionEnabled  = true
+            mBottomToolBarImageView.userInteractionEnabled = true
+            mTopbarImageView.alpha = 1
+            mBottomToolBarImageView.alpha = 1
+        }
+        
+        
+
+        
+    }
+    
+    
+    
+    
+         // MARK: - popover delegate
     
     func popoverControllerDidDismissPopover(popoverController: UIPopoverController)
     {
