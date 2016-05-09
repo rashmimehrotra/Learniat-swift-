@@ -198,8 +198,23 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
         
         var totalSeatvalue  = 1
         
-        for _ in 0 ..< rowValue
+        for columnIndex in 0 ..< rowValue
         {
+            
+            
+            let backGroundImageView = UIImageView(frame:  CGRectMake(0, postionY - barHeightSpace, mGridContainerView.frame.size.width, barHeight + barHeightSpace) )
+            if (columnIndex%2==0)
+            {
+                backGroundImageView.backgroundColor = darkBackgroundColor
+                
+            }
+            else
+            {
+                backGroundImageView.backgroundColor = lightBackgroundColor
+            }
+            
+            mGridContainerView.addSubview(backGroundImageView)
+            
             
             var positionX :CGFloat = barWidthSpace / 2
             for _ in 0 ..< columnValue

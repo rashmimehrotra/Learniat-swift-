@@ -41,6 +41,8 @@ let kServiceGetSeatAssignment       =   "GetSeatAssignment"
 
 let kServiceSeatAssignment          =   "StudentSeatAssignment"
 
+let  kServiceGetSessionInfo         =   "SessionDetailsInfo"
+
 let kServiceGetQuestion             =   "GetQuestion"
 
 
@@ -170,22 +172,20 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
     // MARK: - API Functions
     
     
-    func getUserState(userId :String, withDelegate Delegate:SSStudentDataSourceDelegate)
+    func getUserState(userId :String, withDelegate delegate:SSStudentDataSourceDelegate)
     {
-        setdelegate(Delegate)
         let manager = APIManager()
         
         
         let urlString = String(format: "%@<Sunstone><Action><Service>GetMyState</Service><UserId>%@</UserId></Action></Sunstone>",URLPrefix,userId)
         
-        manager.downloadDataURL(urlString, withServiceName:kServiceGetMyState, withDelegate: self, withRequestType: eHTTPGetRequest)
+        manager.downloadDataURL(urlString, withServiceName:kServiceGetMyState, withDelegate: self, withRequestType: eHTTPGetRequest , withReturningDelegate:delegate )
     }
     
     
     
-    func LoginWithUserId(userId :String , andPassword Password:String, withDelegate Delegate:SSStudentDataSourceDelegate)
+    func LoginWithUserId(userId :String , andPassword Password:String, withDelegate delegate:SSStudentDataSourceDelegate)
     {
-        setdelegate(Delegate)
         
         
         let manager = APIManager()
@@ -193,105 +193,135 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>Login</Service><UserName>%@</UserName><UserPassword>%@</UserPassword><AppVersion>%@</AppVersion><DeviceId>%@</DeviceId><IsTeacher>0</IsTeacher></Action></Sunstone>",URLPrefix,userId, Password,APP_VERSION,uuidString)
         
-        manager.downloadDataURL(urlString, withServiceName:kServiceUserLogin, withDelegate: self, withRequestType: eHTTPGetRequest)
+        manager.downloadDataURL(urlString, withServiceName:kServiceUserLogin, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
     }
 
     
     
-    func getScheduleOfTheDay(Delegate:SSStudentDataSourceDelegate)
+    func getScheduleOfTheDay(delegate:SSStudentDataSourceDelegate)
     {
-        setdelegate(Delegate)
         
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>GetThisStudentSessions</Service><UserId>%@</UserId></Action></Sunstone>",URLPrefix,currentUserId)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceGetSchedules, withDelegate: self, withRequestType: eHTTPGetRequest)
+        manager.downloadDataURL(urlString, withServiceName: kServiceGetSchedules, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
     
    
     func getGridDesignDetails(roomId :String, WithDelegate delegate:SSStudentDataSourceDelegate)
     {
-        setdelegate(delegate)
         
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>RetrieveGridDesign</Service><RoomId>%@</RoomId></Action></Sunstone>",URLPrefix,roomId)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceGetGridDesign, withDelegate: self, withRequestType: eHTTPGetRequest)
+        manager.downloadDataURL(urlString, withServiceName: kServiceGetGridDesign, withDelegate: self, withRequestType: eHTTPGetRequest,withReturningDelegate: delegate)
         
     }
     
     
     func getSeatAssignmentofSession(sessionId:String,  withDelegate delegate:SSStudentDataSourceDelegate)
     {
-        setdelegate(delegate)
         
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>RetrieveSeatAssignments</Service><SessionId>%@</SessionId></Action></Sunstone>",URLPrefix,sessionId)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceGetSeatAssignment, withDelegate: self, withRequestType: eHTTPGetRequest)
+        manager.downloadDataURL(urlString, withServiceName: kServiceGetSeatAssignment, withDelegate: self, withRequestType: eHTTPGetRequest,withReturningDelegate: delegate)
     }
+    
+    
+    
+    
+    
+    func getUserSessionWithDetails(sessionId:String,  withDelegate delegate:SSStudentDataSourceDelegate)
+    {
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>GetSessionInfo</Service><SessionId>%@</SessionId></Action></Sunstone>",URLPrefix,sessionId)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceGetSessionInfo, withDelegate: self, withRequestType: eHTTPGetRequest,withReturningDelegate: delegate)
+    }
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     func fetchQuestionWithQuestionLogId(questionLogId:String, WithDelegate delegate:SSStudentDataSourceDelegate)
     {
-        setdelegate(delegate)
-        
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>FetchQuestion</Service><QuestionLogId>%@</QuestionLogId></Action></Sunstone>",URLPrefix,questionLogId)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceGetQuestion, withDelegate: self, withRequestType: eHTTPGetRequest)
+        manager.downloadDataURL(urlString, withServiceName: kServiceGetQuestion, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
     }
 
  
     
     
     // MARK: - API Delegate Functions
-    func delegateDidGetServiceResponseWithDetails( dict: NSMutableDictionary!, WIthServiceName serviceName: String!)
-    {
+    func delegateDidGetServiceResponseWithDetails(dict: NSMutableDictionary!, WIthServiceName serviceName: String!, withRetruningDelegate returningDelegate: AnyObject!) {
         
         let refinedDetails = dict.objectForKey(kSunstone)!.objectForKey(kSSAction)!
         if serviceName == kServiceGetMyState
         {
-            if delegate().respondsToSelector(#selector(SSStudentDataSourceDelegate.didGetUserStateWithDetails(_:)))
+            if returningDelegate.respondsToSelector(#selector(SSStudentDataSourceDelegate.didGetUserStateWithDetails(_:)))
             {
-                delegate().didGetUserStateWithDetails!(refinedDetails)
+                returningDelegate.didGetUserStateWithDetails!(refinedDetails)
             }
             
         }
         else if serviceName == kServiceUserLogin
         {
-            if delegate().respondsToSelector(#selector(SSStudentDataSourceDelegate.didGetloginWithDetails(_:)))
+            if returningDelegate.respondsToSelector(#selector(SSStudentDataSourceDelegate.didGetloginWithDetails(_:)))
             {
-                delegate().didGetloginWithDetails!(refinedDetails)
+                returningDelegate.didGetloginWithDetails!(refinedDetails)
             }
         }
         else if serviceName == kServiceGetSchedules
         {
-            if delegate().respondsToSelector(#selector(SSStudentDataSourceDelegate.didGetSchedulesWithDetials(_:)))
+            if returningDelegate.respondsToSelector(#selector(SSStudentDataSourceDelegate.didGetSchedulesWithDetials(_:)))
             {
-                delegate().didGetSchedulesWithDetials!(refinedDetails)
+                returningDelegate.didGetSchedulesWithDetials!(refinedDetails)
             }
         }
         else if serviceName == kServiceGetGridDesign
         {
-            if delegate().respondsToSelector(#selector(SSStudentDataSourceDelegate.didGetGridDesignWithDetails(_:)))
+            if returningDelegate.respondsToSelector(#selector(SSStudentDataSourceDelegate.didGetGridDesignWithDetails(_:)))
             {
-                delegate().didGetGridDesignWithDetails!(refinedDetails)
+                returningDelegate.didGetGridDesignWithDetails!(refinedDetails)
             }
         }
         else if serviceName == kServiceGetSeatAssignment
         {
-            if delegate().respondsToSelector(#selector(SSStudentDataSourceDelegate.didGetSeatAssignmentWithDetails(_:)))
+            if returningDelegate.respondsToSelector(#selector(SSStudentDataSourceDelegate.didGetSeatAssignmentWithDetails(_:)))
             {
-                delegate().didGetSeatAssignmentWithDetails!(refinedDetails)
+                returningDelegate.didGetSeatAssignmentWithDetails!(refinedDetails)
             }
         }
-        
+        else if serviceName == kServiceGetSessionInfo
+        {
+            if returningDelegate.respondsToSelector(#selector(SSStudentDataSourceDelegate.didGetSeatAssignmentWithDetails(_:)))
+            {
+                returningDelegate.didGetSeatAssignmentWithDetails!(refinedDetails)
+            }
+        }
         
     }
     
@@ -300,8 +330,8 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
     
     
     
-    func delegateServiceErrorMessage(message: String!, withServiceName ServiceName: String!, withErrorCode code: String!) {
-    
+    func delegateServiceErrorMessage(message: String!, withServiceName ServiceName: String!, withErrorCode code: String!, withRetruningDelegate returningDelegate: AnyObject!) {
+        
         
         if delegate().respondsToSelector(#selector(SSStudentDataSourceDelegate.didgetErrorMessage(_:WithServiceName:)))
         {

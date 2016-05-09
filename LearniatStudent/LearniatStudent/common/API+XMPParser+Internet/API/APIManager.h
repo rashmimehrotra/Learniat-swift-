@@ -11,6 +11,11 @@
 typedef enum {
     
     eHTTPGetRequest,
+//    eHTTPPostRequest,
+//    eHTTPMultiPartPostRequest,
+//    eHTTPPutRequest,
+//    eHTTPDeleteRequest,
+
 }eHTTPRequestType;
 
 @interface APIManager : NSObject<NSXMLParserDelegate>
@@ -31,11 +36,15 @@ typedef enum {
     
     NSString            *fullresposeString;
     
+    id                  _retruningDelegate;
+    
 }
 
 -   (id) delegate;
 
--(void)downloadDataURL:(NSString *)urlString WithServiceName:(NSString*)serviceName withDelegate:(id)del withRequestType:(eHTTPRequestType)requestType;
+- (id) returingDelegate;
+
+-(void)downloadDataURL:(NSString *)urlString WithServiceName:(NSString*)serviceName withDelegate:(id)del withRequestType:(eHTTPRequestType)requestType withReturningDelegate:(id)returningDelegate;
 
 - (NSMutableDictionary*)parseDataWithString:(NSString*)parsingString;
 
@@ -47,9 +56,9 @@ typedef enum {
 
 // @optional - (void) delegateDidGetServiceErrorMessage:(NSString*)message WithServiewName:(NSString*)serviceName WithRetryController:(APIManager*)manager;
 
- @optional - (void)delegateDidGetServiceResponseWithDetails:(NSMutableDictionary*)dict WIthServiceName:(NSString*)serviceName;
+@optional - (void)delegateDidGetServiceResponseWithDetails:(NSMutableDictionary*)dict WIthServiceName:(NSString*)serviceName withRetruningDelegate:(id)returningDelegate;
 
 
-- (void) delegateServiceErrorMessage:(NSString*)message withServiceName:(NSString*)ServiceName withErrorCode:(NSString*)code;
+- (void) delegateServiceErrorMessage:(NSString*)message withServiceName:(NSString*)ServiceName withErrorCode:(NSString*)code withRetruningDelegate:(id)returningDelegate;
 
 @end

@@ -20,12 +20,18 @@
 }
 
 
--(void)downloadDataURL:(NSString *)urlString WithServiceName:(NSString*)serviceName withDelegate:(id)del withRequestType:(eHTTPRequestType)requestType
+
+- (id) returingDelegate
+{
+    return _retruningDelegate;
+}
+
+-(void)downloadDataURL:(NSString *)urlString WithServiceName:(NSString*)serviceName withDelegate:(id)del withRequestType:(eHTTPRequestType)requestType withReturningDelegate:(id)returningDelegate
 {
 
     _delegate = del;
     
-    
+    _retruningDelegate = returningDelegate;
 //    NSLog(@"API recieved %@",urlString);
 
     currentServiceName=serviceName;
@@ -72,7 +78,7 @@
 
 - (void) retrySameApiAgain
 {
-    [self downloadDataURL:currentUrlString WithServiceName:currentServiceName withDelegate:_delegate withRequestType:currentRequestType];
+    [self downloadDataURL:currentUrlString WithServiceName:currentServiceName withDelegate:_delegate withRequestType:currentRequestType withReturningDelegate:_retruningDelegate];
 }
 
 #pragma mark NSURLConnection Delegate Methods
@@ -96,6 +102,9 @@
     // receivedData is an instance variable declared elsewhere.
     [receivedData appendData:data];
     NSString*   serverResponseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    
+   
     
     if (!serverResponseString)
     {
@@ -130,6 +139,8 @@
         }
     }
     
+//     NSLog(@"%@",serverResponseString);
+    
     if (fullresposeString==nil)
     {
         fullresposeString=serverResponseString;
@@ -161,10 +172,10 @@
 {
         receivedData = nil;
     
-    if([[self delegate] respondsToSelector:@selector(delegateServiceErrorMessage:withServiceName:withErrorCode:)])
+    if([[self delegate] respondsToSelector:@selector(delegateServiceErrorMessage:withServiceName:withErrorCode: withRetruningDelegate:)])
     {
         
-        [[self delegate] delegateServiceErrorMessage:[NSString stringWithFormat:@"%@",[error localizedDescription]] withServiceName:currentServiceName withErrorCode:[NSString stringWithFormat:@"%ld",(long)error.code]];
+        [[self delegate] delegateServiceErrorMessage:[NSString stringWithFormat:@"%@",[error localizedDescription]] withServiceName:currentServiceName withErrorCode:[NSString stringWithFormat:@"%ld",(long)error.code] withRetruningDelegate:_retruningDelegate];
         
 //        [[self delegate] delegateDidGetServiceErrorMessage:[NSString stringWithFormat:@"%@ %@",[error localizedDescription],[[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]] WithServiewName:currentServiceName WithRetryController:self];
     }
@@ -201,9 +212,9 @@
             
         }
         
-        if([[self delegate] respondsToSelector:@selector(delegateDidGetServiceResponseWithDetails:WIthServiceName:)])
+        if([[self delegate] respondsToSelector:@selector(delegateDidGetServiceResponseWithDetails:WIthServiceName:withRetruningDelegate:)])
         {
-            [[self delegate] delegateDidGetServiceResponseWithDetails:parsedDictornary WIthServiceName:currentServiceName];
+            [[self delegate] delegateDidGetServiceResponseWithDetails:parsedDictornary WIthServiceName:currentServiceName withRetruningDelegate:_retruningDelegate];
         }
         
         
@@ -211,10 +222,10 @@
     }
     else
     {
-        if([[self delegate] respondsToSelector:@selector(delegateServiceErrorMessage:withServiceName:withErrorCode:)])
+        if([[self delegate] respondsToSelector:@selector(delegateServiceErrorMessage:withServiceName:withErrorCode: withRetruningDelegate:)])
         {
             
-            [[self delegate] delegateServiceErrorMessage:@"No data found for this API" withServiceName:currentServiceName withErrorCode:@"0"];
+            [[self delegate] delegateServiceErrorMessage:@"No data found for this API" withServiceName:currentServiceName withErrorCode:@"0" withRetruningDelegate:_retruningDelegate];
             
         }
         

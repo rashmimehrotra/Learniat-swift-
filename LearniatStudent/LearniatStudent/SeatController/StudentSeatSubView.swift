@@ -72,7 +72,7 @@ class StudentSeatSubView: UIView,SSStudentDataSourceDelegate
         
         
         
-        refrenceDeskImageView.frame = CGRectMake((self.frame.size.width-(deskSize/1.1))/2, (self.frame.size.height-deskSize)/2,deskSize/1.1,deskSize )
+        refrenceDeskImageView.frame = CGRectMake((self.frame.size.width-deskSize)/2, (self.frame.size.height-deskSize)/2,deskSize,deskSize )
         self.addSubview(refrenceDeskImageView)
         refrenceDeskImageView.backgroundColor = UIColor.clearColor()
         cellWith = refrenceDeskImageView.frame.size.width
@@ -81,11 +81,9 @@ class StudentSeatSubView: UIView,SSStudentDataSourceDelegate
         
         
         
-        mStudentImage.frame = CGRectMake((refrenceDeskImageView.frame.size.width - refrenceDeskImageView.frame.size.width / 1.1)/2, (refrenceDeskImageView.frame.size.width / 3.5) / 8, refrenceDeskImageView.frame.size.width / 3.5, refrenceDeskImageView.frame.size.width / 3.5)
+        mStudentImage.frame = CGRectMake((refrenceDeskImageView.frame.size.width - (refrenceDeskImageView.frame.size.width / 3.5))/2, (refrenceDeskImageView.frame.size.width / 3.5) / 8, refrenceDeskImageView.frame.size.width / 3.5, refrenceDeskImageView.frame.size.width / 3.5)
         refrenceDeskImageView.addSubview(mStudentImage)
         mStudentImage.backgroundColor = UIColor.clearColor()
-        mStudentImage.layer.cornerRadius = mStudentImage.frame.size.width/16;
-        mStudentImage.layer.masksToBounds = true
         
         
         answerDeskImageView.frame = CGRectMake((refrenceDeskImageView.frame.size.width-refrenceDeskImageView.frame.size.width/1.1)/2, (mStudentImage.frame.size.height+cellHeight/8),refrenceDeskImageView.frame.size.width/1.1, refrenceDeskImageView.frame.size.width/1.65)
@@ -148,6 +146,7 @@ class StudentSeatSubView: UIView,SSStudentDataSourceDelegate
                 mBackButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
                 mBackButton.layer.borderColor = UIColor.whiteColor().CGColor
                 mBackButton.layer.borderWidth = 2
+                mBackButton.layer.cornerRadius = mBackButton.frame.size.width / 16
 
                 let  mDoneButton = UIButton()
                 mDoneButton.frame = answerDeskImageView.frame
@@ -163,6 +162,9 @@ class StudentSeatSubView: UIView,SSStudentDataSourceDelegate
             {
                 mStudentImage.contentMode = .ScaleAspectFit
                 mStudentImage.downloadImage(checkedUrl, withFolderType: folderType.ProFilePics)
+                mStudentImage.layer.cornerRadius = mStudentImage.frame.size.width/16;
+                mStudentImage.layer.masksToBounds = true
+                
             }
         }
     }

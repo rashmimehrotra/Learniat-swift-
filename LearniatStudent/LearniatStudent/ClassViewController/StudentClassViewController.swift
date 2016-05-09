@@ -87,12 +87,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         self.view.addSubview(mNoStudentLabel)
         mNoStudentLabel.textColor = UIColor.whiteColor()
         mNoStudentLabel.textAlignment = .Center
-        mNoStudentLabel.hidden = false
-        
-        
-     
-        
-        
+        mNoStudentLabel.hidden = true
     }
     
     

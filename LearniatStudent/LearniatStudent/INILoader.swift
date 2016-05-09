@@ -107,7 +107,9 @@ let kBadgesImage                  =  "/badges"
 
 let whiteBackgroundColor: UIColor = UIColor(red: 246/255.0, green:246/255.0, blue:246/255.0, alpha: 1)
 
-let darkBackgroundColor: UIColor = UIColor(red: 36/255.0, green:68/255.0, blue:99/255.0, alpha: 1)
+let darkBackgroundColor: UIColor = UIColor(red: 36/255.0, green:68/255.0, blue:99/255.0, alpha: 1) // 244463
+
+let lightBackgroundColor: UIColor = UIColor(red: 31/255.0, green:61/255.0, blue:89/255.0, alpha: 1) // 1F3D59
 
 let topbarColor         : UIColor = UIColor(red: 46/255.0, green:88/255.0, blue:128/255.0, alpha: 1)
 
