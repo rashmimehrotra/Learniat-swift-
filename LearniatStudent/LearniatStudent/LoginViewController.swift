@@ -294,6 +294,8 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSStudentDataSou
             NSUserDefaults.standardUserDefaults().setObject(mUserName.text!, forKey: kUserName)
             NSUserDefaults.standardUserDefaults().setObject(mPassword.text!, forKey: kPassword)
             
+            SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateFree, ofSession: "", withDelegate: self)
+            
             performSegueWithIdentifier("LoginSuccessSegue", sender: nil)
         }
         else

@@ -208,6 +208,7 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         
         
          timer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: #selector(SSStudentScheduleViewController.timerAction), userInfo: nil, repeats: true)
+        
     }
    
     deinit {
@@ -215,7 +216,6 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         
         NSNotificationCenter.defaultCenter().removeObserver(foregroundNotification)
     }
-    
     
     func addNumberOfLinesToScrollView()
     {

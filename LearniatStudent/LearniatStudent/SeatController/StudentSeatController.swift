@@ -153,7 +153,7 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
         mActivityIndicatore.stopAnimating()
         mActivityIndicatore.hidden = true
         
-        print(details)
+        
         
         if let Columns = details.objectForKey("Columns") as? String
         {
@@ -251,7 +251,6 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
     
     
     func didGetSeatAssignmentWithDetails(details: AnyObject) {
-        print(details)
         
         if let  Status = details.objectForKey("Status") as? String
         {
@@ -313,7 +312,7 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
     
     func smhDidGetSeatingChangedWithDetails(details: AnyObject)
     {
-        print(details)
+        
         
         for view:AnyObject in mGridContainerView.subviews
         {

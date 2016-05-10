@@ -74,6 +74,13 @@ import Foundation
     
     optional  func smhDidGetSeatingChangedWithDetails(details:AnyObject)
     
+    optional  func smhDidGetVotingMessageWithDetails(details:AnyObject)
+    
+    optional func smhdidReceiveQuestionSentMessage(dict: AnyObject)
+    
+    optional func smhdidReceiveQuestionClearMessage()
+    
+    optional func smhdidReceiveQuestionFreezMessage()
     
     
 }
@@ -217,7 +224,7 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
     func createRoomWithRoomName(roomName: String!, withHistory history:String!)
     {
         MessageManager.sharedMessageHandler().setdelegate(self)
-        MessageManager.sharedMessageHandler().setUpRoom(roomName, withAdminPrivilage: true, withHistoryValue: history)
+        MessageManager.sharedMessageHandler().setUpRoom(roomName, withAdminPrivilage: false, withHistoryValue: history)
     }
     
     
@@ -252,72 +259,118 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
     }
     
     //MARK: chat Messages
-//    func sendAllowVotingToStudents(studentId :String , withValue votingState:String, withSubTopicName subTopicName:String , withSubtopicID subTopicId:String)
-//    {
-//        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
-//        {
-//            let userId           = SSStudentDataSource.sharedDataSource.currentUserId
-//            let msgType             = kAllowVoiting
-//            
-//            
-//            let messageBody = ["VotingValue":votingState,"SubTopicName":subTopicName, "SubTopicId":subTopicId]
-//            
-//            
-//            
-//            let details:NSMutableDictionary = ["From":userId,
-//                "To":studentId,
-//                "Type":msgType,
-//                "Body":messageBody];
-//            
-//            
-//            
-//            let msg = SSMessage()
-//            msg.setMsgDetails( details)
-//            
-//            let xmlBody:String = msg.XMLMessage()
-//            
-//            MessageManager.sharedMessageHandler().sendMessageTo("\(studentId)@\(kBaseXMPPURL)", withContents: xmlBody)
-//        }
-//    }
-//   
-    
-    //MARK: Group   Messages
-//    func sendExtendedTimetoRoom(roomId:String, withClassName className:String, withStartTime StartTime:String, withDelayTime timeDelay:String)
-//    {
-//        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
-//        {
-//            
-//            
-//            let _roomId = "room_\(roomId)@conference.\(kBaseXMPPURL)";
-//            
-//            let userId           = SSStudentDataSource.sharedDataSource.currentUserId
-//            let msgType             = kTimeExtended
-//            
-//            
-//              let messageBody = ["timedelay":timeDelay ,
-//                                "ClassName":className,
-//                                "stratTime":StartTime]
-//            
-//            
-//            
-//            let details:NSMutableDictionary = ["From":userId,
-//                "To":_roomId,
-//                "Type":msgType,
-//                "Body":messageBody];
-//            
-//            
-//            
-//            let msg = SSMessage()
-//            msg.setMsgDetails( details)
-//            
-//            let xmlBody:String = msg.XMLMessage()
-//            
-//            MessageManager.sharedMessageHandler().sendGroupMessageWithBody(xmlBody, withRoomId: _roomId)
-//        }
-//    }
     
     
-   
+    
+    
+    func sendStudentBenchStatus( status:String)
+    {
+        
+        
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true &&  SSStudentDataSource.sharedDataSource.currentTeacherId != nil)
+        {
+            let studentID           = SSStudentDataSource.sharedDataSource.currentUserId
+            let msgType             = kStudentSentBenchState
+            let teacherID           = SSStudentDataSource.sharedDataSource.currentTeacherId
+            
+            
+            let messageBody = [kBenchState:status]
+            
+            
+            
+            
+            let details:NSMutableDictionary = ["From":studentID,
+                                               "To":teacherID,
+                                               "Type":msgType,
+                                               "Body":messageBody];
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
+        }
+    }
+    
+    func sendAcceptQuestionMessageToTeacherforType()
+    {
+        
+        
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true &&  SSStudentDataSource.sharedDataSource.currentTeacherId != nil)
+        {
+            let studentID           = SSStudentDataSource.sharedDataSource.currentUserId
+            let msgType             = kStudentQnAAccept
+            let teacherID           = SSStudentDataSource.sharedDataSource.currentTeacherId
+            
+            
+            let details:NSMutableDictionary = ["From":studentID,
+                                               "To":teacherID,
+                                               "Type":msgType];
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
+        }
+    }
+    
+    
+    
+    func sendDontKnowMessageToTeacher()
+    {
+        
+        
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true &&  SSStudentDataSource.sharedDataSource.currentTeacherId != nil)
+        {
+            let studentID           = SSStudentDataSource.sharedDataSource.currentUserId
+            let msgType             = kDontKnow
+            let teacherID           = SSStudentDataSource.sharedDataSource.currentTeacherId
+            
+            
+            let details:NSMutableDictionary = ["From":studentID,
+                                               "To":teacherID,
+                                               "Type":msgType];
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
+        }
+    }
+    func sendAnswerToQuestionMessageToTeacherWithAnswerString( answerIdString:String)
+    {
+        
+        
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true &&  SSStudentDataSource.sharedDataSource.currentTeacherId != nil)
+        {
+            let studentID           = SSStudentDataSource.sharedDataSource.currentUserId
+            let msgType             = kStudentSendAnswer
+            let teacherID           = SSStudentDataSource.sharedDataSource.currentTeacherId
+            
+            
+            let messageBody = ["AnswerString":answerIdString , "StudentId":studentID]
+            
+            
+            
+            
+            let details:NSMutableDictionary = ["From":studentID,
+                                               "To":teacherID,
+                                               "Type":msgType,
+                                               "Body":messageBody];
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
+        }
+    }
     
     //MARK: Recieve Message
     public func didReceiveMessageWithBody(body: String!)
@@ -332,27 +385,58 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
         }
         
         
-        
-        switch ( message.messageType())
+        if message.messageType() == kTimeExtended
         {
-            case kTimeExtended:
-                if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhDidgetTimeExtendedWithDetails))
+            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhDidgetTimeExtendedWithDetails))
+            {
+                delegate().smhDidgetTimeExtendedWithDetails!(message.messageBody())
+            }
+        }
+        else if message.messageType() == kSeatingChanged
+        {
+            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhDidGetSeatingChangedWithDetails))
+            {
+                delegate().smhDidGetSeatingChangedWithDetails!(message.messageBody())
+            }
+        }
+        else if message.messageType() == kAllowVoiting
+        {
+            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhDidGetVotingMessageWithDetails(_:)))
+            {
+                if message.messageBody() != nil
                 {
-                    delegate().smhDidgetTimeExtendedWithDetails!(message.messageBody())
+                    delegate().smhDidGetVotingMessageWithDetails!(message.messageBody())
                 }
-                break
                 
-            case kSeatingChanged:
-                if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhDidGetSeatingChangedWithDetails))
-                {
-                    delegate().smhDidGetSeatingChangedWithDetails!(message.messageBody())
-                }
-                break
+            }
+        }
 
-            
-        default:
-            break
-            
+        else if message.messageType() == kTeacherQnASubmitted
+        {
+            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhdidReceiveQuestionSentMessage(_:)))
+            {
+                if message.messageBody() != nil
+                {
+                    delegate().smhdidReceiveQuestionSentMessage!(message.messageBody())
+                }
+                
+            }
+        }
+        else if message.messageType() == kTeacherQnADone
+        {
+            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhdidReceiveQuestionClearMessage))
+            {
+                
+                delegate().smhdidReceiveQuestionClearMessage!()
+            }
+        }
+        else if message.messageType() == kTeacherQnAFreeze
+        {
+            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhdidReceiveQuestionFreezMessage))
+            {
+                
+                delegate().smhdidReceiveQuestionFreezMessage!()
+            }
         }
     }
 }

@@ -10,6 +10,24 @@ import Foundation
 import UIKit
 
 
+
+let text                :String         = "Text"
+let MatchColumns        :String         = "Match Columns"
+let MultipleChoice      :String         = "Multiple Choice"
+let MultipleResponse    :String         = "Multiple Response"
+let OverlayScribble     :String         = "Overlay Scribble"
+let FreshScribble       :String         = "Fresh Scribble"
+
+let kQuestionTag                = "Question"
+let kQuestionName               = "Name"
+let kQuestionType               = "QuestionType"
+let kScribble                   = "Scribble"
+let kOptionTagMain              = "Options"
+let kOptionTag                  = "Option"
+
+
+
+
 let onlyMainTopics        = "Only MainTopics"
 let onlySubTopics         = "Only SubTopics"
 let onlyQuestions         = "Only Questions"
@@ -117,7 +135,9 @@ let standard_Green      : UIColor = UIColor(red: 76/255.0, green:217/255.0, blue
 
 let standard_Red        : UIColor = UIColor(red: 255/255.0, green:59/255.0, blue:48/255.0, alpha: 1)
 
-let standard_Yellow     : UIColor = UIColor(red: 255.0/255.0, green: 204.0/255.0, blue: 0/255.0, alpha: 1)  
+let standard_Yellow     : UIColor = UIColor(red: 255.0/255.0, green: 204.0/255.0, blue: 0/255.0, alpha: 1)
+
+let dark_Yellow     : UIColor = UIColor(red: 248/255.0, green: 156/255.0, blue: 31/255.0, alpha: 1) //F89C1F
 
 let standard_TextGrey   : UIColor = UIColor(red: 170/255.0, green:170/255.0, blue:170/255.0, alpha: 1) //AAAAAA
 
@@ -794,4 +814,19 @@ extension String
     
     
     
+}
+extension NSMutableArray
+{
+    func shuffle()
+    {
+        if count < 2
+        {
+            return
+        }
+        for i in 0..<(count - 1)
+        {
+            let j = Int(arc4random_uniform(UInt32(count - i))) + i
+            swap(&self[i], &self[j])
+        }
+    }
 }
