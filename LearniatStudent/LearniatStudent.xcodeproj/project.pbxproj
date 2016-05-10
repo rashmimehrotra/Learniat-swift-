@@ -186,8 +186,6 @@
 		533066F31CCA12590035CCDE /* StudentSeatSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533066F21CCA12590035CCDE /* StudentSeatSubView.swift */; };
 		533066F61CCA14280035CCDE /* LBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 533066F51CCA14280035CCDE /* LBorderView.m */; };
 		533066F91CCA37C80035CCDE /* StudentClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533066F81CCA37C80035CCDE /* StudentClassViewController.swift */; };
-		535B8B161CE19909008B2D7F /* StudentsQueryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535B8B151CE19909008B2D7F /* StudentsQueryView.swift */; };
-		535B8B181CE19915008B2D7F /* StudentQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535B8B171CE19915008B2D7F /* StudentQuestionView.swift */; };
 		535B8B1F1CE1A20F008B2D7F /* Query_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 535B8B191CE1A20F008B2D7F /* Query_Selected.png */; };
 		535B8B201CE1A20F008B2D7F /* Query.png in Resources */ = {isa = PBXBuildFile; fileRef = 535B8B1A1CE1A20F008B2D7F /* Query.png */; };
 		535B8B211CE1A20F008B2D7F /* Questions_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 535B8B1B1CE1A20F008B2D7F /* Questions_Selected.png */; };
@@ -195,10 +193,12 @@
 		535B8B231CE1A20F008B2D7F /* Submission_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 535B8B1D1CE1A20F008B2D7F /* Submission_Selected.png */; };
 		535B8B241CE1A20F008B2D7F /* Submission.png in Resources */ = {isa = PBXBuildFile; fileRef = 535B8B1E1CE1A20F008B2D7F /* Submission.png */; };
 		535B8B261CE1A2A4008B2D7F /* CustomButtonSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535B8B251CE1A2A4008B2D7F /* CustomButtonSubView.swift */; };
-		535B8B281CE1CFA6008B2D7F /* MultipleChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535B8B271CE1CFA6008B2D7F /* MultipleChoiceView.swift */; };
-		535B8B2A1CE1D98A008B2D7F /* multipleResponseOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535B8B291CE1D98A008B2D7F /* multipleResponseOptionView.swift */; };
 		535B8B2D1CE1F8DE008B2D7F /* correct.png in Resources */ = {isa = PBXBuildFile; fileRef = 535B8B2B1CE1F8DE008B2D7F /* correct.png */; };
 		535B8B2E1CE1F8DE008B2D7F /* wrong.png in Resources */ = {isa = PBXBuildFile; fileRef = 535B8B2C1CE1F8DE008B2D7F /* wrong.png */; };
+		53FFD2BF1CE1FC3700A5AA28 /* MultipleChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFD2BC1CE1FC3700A5AA28 /* MultipleChoiceView.swift */; };
+		53FFD2C01CE1FC3700A5AA28 /* multipleResponseOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFD2BD1CE1FC3700A5AA28 /* multipleResponseOptionView.swift */; };
+		53FFD2C11CE1FC3700A5AA28 /* StudentQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFD2BE1CE1FC3700A5AA28 /* StudentQuestionView.swift */; };
+		53FFD2C41CE1FC4A00A5AA28 /* StudentsQueryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFD2C31CE1FC4A00A5AA28 /* StudentsQueryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -545,8 +545,6 @@
 		533066F41CCA14280035CCDE /* LBorderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBorderView.h; sourceTree = "<group>"; };
 		533066F51CCA14280035CCDE /* LBorderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBorderView.m; sourceTree = "<group>"; };
 		533066F81CCA37C80035CCDE /* StudentClassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentClassViewController.swift; sourceTree = "<group>"; };
-		535B8B151CE19909008B2D7F /* StudentsQueryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentsQueryView.swift; sourceTree = "<group>"; };
-		535B8B171CE19915008B2D7F /* StudentQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentQuestionView.swift; sourceTree = "<group>"; };
 		535B8B191CE1A20F008B2D7F /* Query_Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Query_Selected.png; sourceTree = "<group>"; };
 		535B8B1A1CE1A20F008B2D7F /* Query.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Query.png; sourceTree = "<group>"; };
 		535B8B1B1CE1A20F008B2D7F /* Questions_Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Questions_Selected.png; sourceTree = "<group>"; };
@@ -554,10 +552,12 @@
 		535B8B1D1CE1A20F008B2D7F /* Submission_Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Submission_Selected.png; sourceTree = "<group>"; };
 		535B8B1E1CE1A20F008B2D7F /* Submission.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Submission.png; sourceTree = "<group>"; };
 		535B8B251CE1A2A4008B2D7F /* CustomButtonSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButtonSubView.swift; sourceTree = "<group>"; };
-		535B8B271CE1CFA6008B2D7F /* MultipleChoiceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipleChoiceView.swift; sourceTree = "<group>"; };
-		535B8B291CE1D98A008B2D7F /* multipleResponseOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = multipleResponseOptionView.swift; sourceTree = "<group>"; };
 		535B8B2B1CE1F8DE008B2D7F /* correct.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = correct.png; sourceTree = "<group>"; };
 		535B8B2C1CE1F8DE008B2D7F /* wrong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrong.png; sourceTree = "<group>"; };
+		53FFD2BC1CE1FC3700A5AA28 /* MultipleChoiceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipleChoiceView.swift; sourceTree = "<group>"; };
+		53FFD2BD1CE1FC3700A5AA28 /* multipleResponseOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = multipleResponseOptionView.swift; sourceTree = "<group>"; };
+		53FFD2BE1CE1FC3700A5AA28 /* StudentQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentQuestionView.swift; sourceTree = "<group>"; };
+		53FFD2C31CE1FC4A00A5AA28 /* StudentsQueryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentsQueryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1632,12 +1632,28 @@
 			children = (
 				533066F81CCA37C80035CCDE /* StudentClassViewController.swift */,
 				535B8B251CE1A2A4008B2D7F /* CustomButtonSubView.swift */,
-				535B8B171CE19915008B2D7F /* StudentQuestionView.swift */,
-				535B8B271CE1CFA6008B2D7F /* MultipleChoiceView.swift */,
-				535B8B291CE1D98A008B2D7F /* multipleResponseOptionView.swift */,
-				535B8B151CE19909008B2D7F /* StudentsQueryView.swift */,
+				53FFD2C21CE1FC4A00A5AA28 /* QueryView */,
+				53FFD2BB1CE1FC3700A5AA28 /* QuestionViews */,
 			);
 			path = ClassViewController;
+			sourceTree = "<group>";
+		};
+		53FFD2BB1CE1FC3700A5AA28 /* QuestionViews */ = {
+			isa = PBXGroup;
+			children = (
+				53FFD2BE1CE1FC3700A5AA28 /* StudentQuestionView.swift */,
+				53FFD2BC1CE1FC3700A5AA28 /* MultipleChoiceView.swift */,
+				53FFD2BD1CE1FC3700A5AA28 /* multipleResponseOptionView.swift */,
+			);
+			path = QuestionViews;
+			sourceTree = "<group>";
+		};
+		53FFD2C21CE1FC4A00A5AA28 /* QueryView */ = {
+			isa = PBXGroup;
+			children = (
+				53FFD2C31CE1FC4A00A5AA28 /* StudentsQueryView.swift */,
+			);
+			path = QueryView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1772,6 +1788,7 @@
 				5330665C1CC9E5F40035CCDE /* XMPPIQ+JabberRPCResonse.m in Sources */,
 				5330665E1CC9E5F40035CCDE /* XMPPIQ+LastActivity.m in Sources */,
 				533066F61CCA14280035CCDE /* LBorderView.m in Sources */,
+				53FFD2C11CE1FC3700A5AA28 /* StudentQuestionView.swift in Sources */,
 				533066A91CC9E5F40035CCDE /* XMPPMessage+XEP_0333.m in Sources */,
 				533066741CC9E5F40035CCDE /* XMPPvCardTemp.m in Sources */,
 				533066961CC9E5F40035CCDE /* XMPPPresence+XEP_0172.m in Sources */,
@@ -1797,6 +1814,7 @@
 				533066861CC9E5F40035CCDE /* XMPPMessage+XEP_0085.m in Sources */,
 				533066641CC9E5F40035CCDE /* XMPPRoomOccupantCoreDataStorageObject.m in Sources */,
 				5330667C1CC9E5F40035CCDE /* NSXMLElement+XEP_0059.m in Sources */,
+				53FFD2C01CE1FC3700A5AA28 /* multipleResponseOptionView.swift in Sources */,
 				533066B91CC9E5F40035CCDE /* DDTTYLogger.m in Sources */,
 				5330664D1CC9E5F40035CCDE /* XMPPCoreDataStorage.m in Sources */,
 				533066991CC9E5F40035CCDE /* XMPPBlocking.m in Sources */,
@@ -1806,7 +1824,6 @@
 				5330669A1CC9E5F40035CCDE /* XMPPStreamManagementMemoryStorage.m in Sources */,
 				533066AF1CC9E5F40035CCDE /* RFImageToDataTransformer.m in Sources */,
 				533066401CC9E5F40035CCDE /* XMPPXOAuth2Google.m in Sources */,
-				535B8B181CE19915008B2D7F /* StudentQuestionView.swift in Sources */,
 				533066951CC9E5F40035CCDE /* XMPPMessage+XEP_0172.m in Sources */,
 				533066E71CC9EDD90035CCDE /* ScheduleScreenTile.swift in Sources */,
 				533066B31CC9E5F40035CCDE /* XMPPTimer.m in Sources */,
@@ -1829,7 +1846,6 @@
 				533064C81CC9E52E0035CCDE /* Toast.swift in Sources */,
 				533066B81CC9E5F40035CCDE /* DDLog.m in Sources */,
 				533066411CC9E5F40035CCDE /* NSData+XMPP.m in Sources */,
-				535B8B2A1CE1D98A008B2D7F /* multipleResponseOptionView.swift in Sources */,
 				533066421CC9E5F40035CCDE /* NSNumber+XMPP.m in Sources */,
 				533066941CC9E5F40035CCDE /* XMPPvCardAvatarModule.m in Sources */,
 				533066B01CC9E5F40035CCDE /* XMPPIDTracker.m in Sources */,
@@ -1852,14 +1868,12 @@
 				533066781CC9E5F40035CCDE /* XMPPvCardTempEmail.m in Sources */,
 				5330667E1CC9E5F40035CCDE /* XMPPIQ+XEP_0060.m in Sources */,
 				533066561CC9E5F40035CCDE /* XMPPResourceMemoryStorageObject.m in Sources */,
-				535B8B161CE19909008B2D7F /* StudentsQueryView.swift in Sources */,
 				5330666E1CC9E5F40035CCDE /* XMPPRoom.m in Sources */,
 				533066681CC9E5F40035CCDE /* XMPPRoomOccupantHybridMemoryStorageObject.m in Sources */,
 				533066A51CC9E5F40035CCDE /* XMPPMessage+XEP_0280.m in Sources */,
 				533066761CC9E5F40035CCDE /* XMPPvCardTempAdrTypes.m in Sources */,
 				533066611CC9E5F40035CCDE /* XMPPRoom.xcdatamodeld in Sources */,
 				533066841CC9E5F40035CCDE /* NSDate+XMPPDateTimeProfiles.m in Sources */,
-				535B8B281CE1CFA6008B2D7F /* MultipleChoiceView.swift in Sources */,
 				5330665A1CC9E5F40035CCDE /* XMPPSystemInputActivityMonitor.m in Sources */,
 				5330663F1CC9E5F40035CCDE /* XMPPXFacebookPlatformAuthentication.m in Sources */,
 				533066451CC9E5F40035CCDE /* XMPPIQ.m in Sources */,
@@ -1878,12 +1892,14 @@
 				5330669D1CC9E5F40035CCDE /* XMPPAutoPing.m in Sources */,
 				5330663D1CC9E5F40035CCDE /* XMPPPlainAuthentication.m in Sources */,
 				5330663C1CC9E5F40035CCDE /* XMPPDigestMD5Authentication.m in Sources */,
+				53FFD2BF1CE1FC3700A5AA28 /* MultipleChoiceView.swift in Sources */,
 				533066921CC9E5F40035CCDE /* XMPPMessageArchivingCoreDataStorage.m in Sources */,
 				5330666C1CC9E5F40035CCDE /* XMPPMessage+XEP0045.m in Sources */,
 				533066AE1CC9E5F40035CCDE /* GCDMulticastDelegate.m in Sources */,
 				533066551CC9E5F40035CCDE /* XMPPUserCoreDataStorageObject.m in Sources */,
 				533064C61CC9E52E0035CCDE /* NSData+Base64.m in Sources */,
 				5330666A1CC9E5F40035CCDE /* XMPPRoomMessageMemoryStorageObject.m in Sources */,
+				53FFD2C41CE1FC4A00A5AA28 /* StudentsQueryView.swift in Sources */,
 				5330667B1CC9E5F40035CCDE /* XMPPvCardTempTel.m in Sources */,
 				533066A31CC9E5F40035CCDE /* XMPPAttentionModule.m in Sources */,
 				533066661CC9E5F40035CCDE /* XMPPRoomHybridStorage.m in Sources */,
