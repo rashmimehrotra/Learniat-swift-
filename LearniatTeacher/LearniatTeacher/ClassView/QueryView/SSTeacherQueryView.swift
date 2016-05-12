@@ -39,6 +39,8 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
     
     var noSubmissionLabel = UILabel()
     
+    var  queryVolunteerView :SSTeacherVolunteerView!
+    
     override init(frame: CGRect)
     {
         
@@ -237,7 +239,7 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
     {
         SSTeacherMessageHandler.sharedMessageHandler.sendVolunteerVoteStartedMessgeToStudents(SSTeacherDataSource.sharedDataSource.currentLiveSessionId)
         
-        let queryVolunteerView = SSTeacherVolunteerView(frame: CGRectMake(0 , 0 , self.frame.size.width, self.frame.size.height))
+         queryVolunteerView = SSTeacherVolunteerView(frame: CGRectMake(0 , 0 , self.frame.size.width, self.frame.size.height))
         self.addSubview(queryVolunteerView)
         queryVolunteerView.setdelegate(self)
         queryVolunteerView.addQueriesWithDetails(queryDetails)
@@ -263,6 +265,20 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
         }
         
         refreshScrollView()
+    }
+    
+    
+    // MARK: - Query Volunteer  functions
+    
+    func studentRaisedMeeToWithDetial(details:AnyObject)
+    {
+       queryVolunteerView.metooRaisedWithDetails(details)
+    }
+    
+    func studentVolunteerRaisedWithDetails(details:AnyObject)
+    {
+        
+         queryVolunteerView.volunteerRaiserWithDetails(details)
     }
     
     

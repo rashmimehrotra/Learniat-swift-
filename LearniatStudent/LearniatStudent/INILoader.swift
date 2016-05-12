@@ -122,6 +122,7 @@ let kQuestionImage                =  "/questionImage"
 let kBadgesImage                  =  "/badges"
 
 
+let textColor : UIColor     = UIColor(red: 36/255.0, green: 68/255.0, blue: 99/255.0, alpha: 1)
 
 let whiteBackgroundColor: UIColor = UIColor(red: 246/255.0, green:246/255.0, blue:246/255.0, alpha: 1)
 
@@ -156,6 +157,8 @@ let blackTextColor      : UIColor = UIColor(red: 51/255.0, green: 51/255.0, blue
 let topicsLineColor     : UIColor = UIColor(red: 236.0/255.0, green: 233.0/255.0, blue: 233.0/255.0, alpha: 1)
 
 let progressviewBackground    : UIColor = UIColor(red:213/255.0, green: 213/255.0, blue: 213/255.0, alpha: 1)
+
+let RedCellBackground    : UIColor = UIColor(red:255.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 0.6)
 
 
 

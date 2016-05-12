@@ -32,7 +32,7 @@ let kWithDrawSubmission         = "707"
 let kStudentDoubtSubmission		= "215"
 let kReplyToQuery               = "708"
 let kQueryStartedForVolunteer   = "703"
-let keToo                      = "175"
+let kMeToo                      = "175"
 let kIVolunteer                 = "176"
 let kEndVolunteeringSession     = "187"
 let kTeacherReviewDoubt         = "702"
@@ -85,6 +85,10 @@ import Foundation
     
     
     optional func smhDidgetStudentPollWithDetails(optionValue:String)
+    
+    optional func smhDidgetMeTooValueWithDetails(details:AnyObject)
+    
+    optional func smhDidgetVolunteerValueWithDetails(details:AnyObject)
     
     
 }
@@ -975,8 +979,24 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
                 }
             }
             break
+        case kMeToo:
+            
+            if delegate().respondsToSelector(#selector(SSTeacherMessagehandlerDelegate.smhDidgetMeTooValueWithDetails(_:)))
+            {
+                delegate().smhDidgetMeTooValueWithDetails!(message.messageBody())
+                
+            }
+            break
             
             
+        case kIVolunteer:
+            
+            if delegate().respondsToSelector(#selector(SSTeacherMessagehandlerDelegate.smhDidgetVolunteerValueWithDetails(_:)))
+            {
+                delegate().smhDidgetVolunteerValueWithDetails!(message.messageBody())
+                
+            }
+            break
             
             
             

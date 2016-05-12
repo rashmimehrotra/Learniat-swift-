@@ -9,4 +9,7 @@
 #import "SSMessage.h"
 #import "DottedLine.h"
 #import "LBorderView.h"
+#import "SSStudentMatchTheColoumnView.h"
+#import "CustomProgressImageView.h"
+
 #endif

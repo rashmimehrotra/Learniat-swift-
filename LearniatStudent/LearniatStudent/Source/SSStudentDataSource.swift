@@ -105,6 +105,14 @@ let kGetAllModelAnswer                      = "GetAllModelAnswers"
     
     optional func didGetAnswerSentWithDetails(details:AnyObject)
     
+    optional func didGetQuerySentWithDetails(detail:AnyObject)
+    
+    optional func didGetResponseToQueryWithDetails(details:AnyObject)
+    
+    optional func didGetSRQWithDetails(details:AnyObject)
+    
+    optional func didGetvolunteerRegisteredWithDetails(details:AnyObject)
+    
 }
 
 
@@ -289,7 +297,6 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
     func sendObjectvieAnswer(optionsList:String,withQuestionType questionType:String, withQuestionLogId questionLogId:String, withsessionId currentSessionId:String, withDelegate delegate:SSStudentDataSourceDelegate)
     {
         
-        setdelegate(delegate)
         
         let manager = APIManager()
         
@@ -300,6 +307,65 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
     
  
     
+    
+    
+    func sendMTCAnswer(sequenceList:String,withQuestionType questionType:String, withQuestionLogId questionLogId:String, withsessionId currentSessionId:String, withDelegate delegate:SSStudentDataSourceDelegate)
+    {
+        
+        
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>SendAnswer</Service><StudentId>%@</StudentId><Sequence>%@</Sequence><SessionId>%@</SessionId><QuestionLogId>%@</QuestionLogId><QuestionType>%@</QuestionType></Action></Sunstone>",URLPrefix,currentUserId, sequenceList,currentSessionId, questionLogId, questionType )
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceSendAnswer, withDelegate: self, withRequestType: eHTTPGetRequest,withReturningDelegate:delegate)
+    }
+    
+    
+    func sendQueryWithQueryText(queryText:String,withAnonymous isAnonymous:String,withDelegate delegate:SSStudentDataSourceDelegate)
+    {
+        let manager = APIManager()
+        
+        
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>SaveStudentQuery</Service><StudentId>%@</StudentId><SessionId>%@</SessionId><QueryText>%@</QueryText><Anonymous>%@</Anonymous></Action></Sunstone>",URLPrefix,currentUserId,currentLiveSessionId,queryText,isAnonymous)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceSetDoubt, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+    }
+    
+    func getDoubtReplyForDoutId(doubtId:String, withDelegate delegate:SSStudentDataSourceDelegate)
+    {
+        
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>GetQueryResponse</Service><QueryId>%@</QueryId></Action></Sunstone>",URLPrefix,doubtId)
+        
+        manager.downloadDataURL(urlString, withServiceName: kGetResponseToQuery, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+    }
+    
+    func GetSRQWithSessionId(sessionId:String, withDelegate delegate:SSStudentDataSourceDelegate)
+    {
+        
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>FetchSRQ</Service><SessionId>%@</SessionId></Action></Sunstone>",URLPrefix,sessionId)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceFetchSRQ, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+    }
+    
+    
+    func volunteerRegisterwithQueryId(doubtId:String, withDelegate delegate:SSStudentDataSourceDelegate)
+    {
+        
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>VolunteerRegister</Service><StudentId>%@</StudentId><QueryId>%@</QueryId></Action></Sunstone>",URLPrefix,self.currentUserId,doubtId)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceVolunteerRegister, withDelegate: self, withRequestType: eHTTPGetRequest , withReturningDelegate: delegate)
+    }
     
     // MARK: - API Delegate Functions
     func delegateDidGetServiceResponseWithDetails(dict: NSMutableDictionary!, WIthServiceName serviceName: String!, withRetruningDelegate returningDelegate: AnyObject!) {
@@ -365,13 +431,47 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         }
         else if serviceName == kServiceSendAnswer
         {
-            if delegate().respondsToSelector(#selector(SSStudentDataSourceDelegate.didGetAnswerSentWithDetails(_:)))
+            if returningDelegate.respondsToSelector(#selector(SSStudentDataSourceDelegate.didGetAnswerSentWithDetails(_:)))
             {
-                delegate().didGetAnswerSentWithDetails!(refinedDetails)
+                returningDelegate.didGetAnswerSentWithDetails!(refinedDetails)
             }
             
         }
-        
+        else if serviceName == kServiceSetDoubt
+        {
+            if returningDelegate.respondsToSelector(#selector(SSStudentDataSourceDelegate.didGetQuerySentWithDetails(_:)))
+            {
+                returningDelegate.didGetQuerySentWithDetails!(refinedDetails)
+            }
+            
+        }
+        else if serviceName == kGetResponseToQuery
+        {
+            
+            if returningDelegate.respondsToSelector(#selector(SSStudentDataSourceDelegate.didGetResponseToQueryWithDetails(_:)))
+            {
+                returningDelegate.didGetResponseToQueryWithDetails!(refinedDetails)
+            }
+            
+        }
+        else if serviceName == kServiceFetchSRQ
+        {
+            
+            if returningDelegate.respondsToSelector(#selector(SSStudentDataSourceDelegate.didGetSRQWithDetails(_:)))
+            {
+                returningDelegate.didGetSRQWithDetails!(refinedDetails)
+            }
+            
+        }
+        else if serviceName == kServiceVolunteerRegister
+        {
+            
+            if returningDelegate.respondsToSelector(#selector(SSStudentDataSourceDelegate.didGetvolunteerRegisteredWithDetails(_:)))
+            {
+                returningDelegate.didGetvolunteerRegisteredWithDetails!(refinedDetails)
+            }
+            
+        }
     }
     
     

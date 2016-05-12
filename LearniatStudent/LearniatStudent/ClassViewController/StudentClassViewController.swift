@@ -172,7 +172,9 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         
         if let sessionId = sessionDetails.objectForKey(kSessionId) as? String
         {
+            SSStudentDataSource.sharedDataSource.currentLiveSessionId = sessionId
             SSStudentDataSource.sharedDataSource.getUserSessionWithDetails(sessionId, withDelegate: self)
+            
         }
         
         
@@ -463,6 +465,9 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         {
             if VotingValue == "TRUE"
             {
+                
+                mQueryView.queryPresentState(true)
+                
                 if (details.objectForKey("SubTopicName") != nil)
                 {
                     if let SubTopicName = details.objectForKey("SubTopicName") as? String
@@ -482,6 +487,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             }
             else
             {
+                 mQueryView.queryPresentState(false)
                 mSubTopicNamelabel.text = "No subtopic"
             }
         }
@@ -586,6 +592,25 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         mQuestionView.didgetFreezMessageFromTeacher()
     }
     
+    
+    func smhdidRecieveQueryReviewmessage()
+    {
+        mQueryView.teacherReviewQuery()
+    }
+    
+    func smhdidGetQueryFeedBackFromTeacherWithDetials(details: AnyObject)
+    {
+        mQueryView.feedBackSentFromTeacherWithDetiails(details)
+    }
+    
+     func smhdidRecieveQueryOpenedForVotingWithDetails()
+     {
+        mQueryView.VolunteerPresentState(true)
+    }
+    func smhdidRecieveQueryVolunteeringEnded()
+    {
+         mQueryView.VolunteerPresentState(false)
+    }
    
     // MARK: - message handler functions
     func showAlertWithMessage(message:String)

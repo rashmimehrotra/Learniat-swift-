@@ -1566,9 +1566,18 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             {
                 
                
-                if SSTeacherDataSource.sharedDataSource.startedSubTopicId != "" && studentDeskView.StudentState != StudentLiveBackground
+                if studentDeskView.StudentState != StudentLiveBackground
                 {
-                    SSTeacherMessageHandler.sharedMessageHandler.sendAllowVotingToStudents(studentId, withValue: "TRUE", withSubTopicName: mSubTopicsNamelabel.text!, withSubtopicID: SSTeacherDataSource.sharedDataSource.startedSubTopicId)
+                    if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == true
+                    {
+                        SSTeacherMessageHandler.sharedMessageHandler.sendAllowVotingToStudents(studentId, withValue: "TRUE", withSubTopicName: mSubTopicsNamelabel.text!, withSubtopicID: SSTeacherDataSource.sharedDataSource.startedSubTopicId)
+                    }
+//                    else
+//                    {
+//                        SSTeacherMessageHandler.sharedMessageHandler.sendAllowVotingToStudents(studentId, withValue: "FALSE", withSubTopicName: mSubTopicsNamelabel.text!, withSubtopicID: SSTeacherDataSource.sharedDataSource.startedSubTopicId)
+//                    }
+                    
+                    
                 }
                 
                 studentDeskView.setStudentCurrentState(StudentLive)
@@ -1601,21 +1610,25 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         if let studentDeskView  = mClassView.viewWithTag(Int(StudentId)!) as? StundentDeskView
         {
            
-            if let questionType = currentQuestionDetails.objectForKey("Type") as? String
+            if currentQuestionDetails.objectForKey("Type") != nil
             {
-                
-                if (questionType  == "Overlay Scribble"  || questionType == "Fresh Scribble" || questionType  == "Text")
+                if let questionType = currentQuestionDetails.objectForKey("Type") as? String
                 {
-                    studentDeskView.mQuestionStateImage.image = UIImage(named:"StudentWriting.png");
-                }
-                else
-                {
-                     studentDeskView.mQuestionStateImage.image = UIImage(named:"StudentThinking.png");
                     
+                    if (questionType  == "Overlay Scribble"  || questionType == "Fresh Scribble" || questionType  == "Text")
+                    {
+                        studentDeskView.mQuestionStateImage.image = UIImage(named:"StudentWriting.png");
+                    }
+                    else
+                    {
+                        studentDeskView.mQuestionStateImage.image = UIImage(named:"StudentThinking.png");
+                        
+                    }
+                    
+                    studentDeskView.mQuestionStateImage.hidden = false
                 }
-                
-                studentDeskView.mQuestionStateImage.hidden = false
             }
+            
         }
         
     }
@@ -1689,6 +1702,11 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     func smhDidgetStudentQueryWithDetails(queryId: String) {
         
         mQueryView.addQueryWithDetails(queryId)
+        if mQueryView.hidden == false
+        {
+            SSTeacherMessageHandler.sharedMessageHandler.sendQueryRecievedMessageToRoom(currentSessionId)
+        }
+        
     }
     
     func smhDidgetStudentPollWithDetails(optionValue: String)
@@ -1699,6 +1717,17 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             mPollingView.didGetStudentPollValue(optionValue)
         }
         
+    }
+    
+    
+    func smhDidgetMeTooValueWithDetails(details: AnyObject)
+    {
+        mQueryView.studentRaisedMeeToWithDetial(details)
+    }
+    
+    func smhDidgetVolunteerValueWithDetails(details: AnyObject)
+    {
+        mQueryView.studentVolunteerRaisedWithDetails(details)
     }
     
     // MARK: - DeskView delegate functions

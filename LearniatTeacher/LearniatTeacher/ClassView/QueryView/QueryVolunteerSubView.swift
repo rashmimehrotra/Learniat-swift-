@@ -21,6 +21,8 @@ class QueryVolunteerSubView: UIView
     
     var currentReplyDetails :AnyObject!
     
+    var mVolunteersDetailsArray   = NSMutableArray()
+    
     override init(frame: CGRect)
     {
         
@@ -115,6 +117,12 @@ class QueryVolunteerSubView: UIView
     
     func onVonulteerButton()
     {
+        
+    }
+    
+    func setVolunteersDetials(details:AnyObject)
+    {
+        mVolunteersDetailsArray.addObject(details)
         
     }
     

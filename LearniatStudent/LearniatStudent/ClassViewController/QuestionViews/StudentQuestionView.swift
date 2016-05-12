@@ -15,6 +15,8 @@ class StudentQuestionView: UIView
     
     var mMultipleQuestion : MultipleChoiceView!
     
+    var mMatchColumn        :MatchColumnView!
+    
     var currentQuestionType = ""
     
     override init(frame: CGRect)
@@ -61,6 +63,16 @@ class StudentQuestionView: UIView
             self.addSubview(mMultipleQuestion)
             mMultipleQuestion.setQuestionDetails(questionDetails ,withsessionDetails: sessionDetails, withQuestionLogId: _logId)
         }
+        else if QuestionType == MatchColumns
+        {
+            if mMatchColumn != nil{
+                mMatchColumn.removeFromSuperview()
+            }
+            
+            mMatchColumn = MatchColumnView(frame:CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
+            self.addSubview(mMatchColumn)
+            mMatchColumn.setQuestionDetails(questionDetails ,withsessionDetails: sessionDetails, withQuestionLogId: _logId)
+        }
     }
     
     
@@ -70,6 +82,11 @@ class StudentQuestionView: UIView
         if mMultipleQuestion != nil
         {
             mMultipleQuestion.removeFromSuperview()
+        }
+        
+        if mMatchColumn != nil
+        {
+            mMatchColumn.removeFromSuperview()
         }
         noQuestionslabel.hidden = false
         if SSStudentDataSource.sharedDataSource.answerSent == true
@@ -88,6 +105,13 @@ class StudentQuestionView: UIView
             if mMultipleQuestion != nil
             {
                 mMultipleQuestion.FreezMessageFromTeacher()
+            }
+        }
+        else if currentQuestionType == MatchColumns
+        {
+            if mMatchColumn != nil
+            {
+                mMatchColumn.FreezMessageFromTeacher()
             }
         }
         

@@ -195,6 +195,35 @@
 		535B8B261CE1A2A4008B2D7F /* CustomButtonSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535B8B251CE1A2A4008B2D7F /* CustomButtonSubView.swift */; };
 		535B8B2D1CE1F8DE008B2D7F /* correct.png in Resources */ = {isa = PBXBuildFile; fileRef = 535B8B2B1CE1F8DE008B2D7F /* correct.png */; };
 		535B8B2E1CE1F8DE008B2D7F /* wrong.png in Resources */ = {isa = PBXBuildFile; fileRef = 535B8B2C1CE1F8DE008B2D7F /* wrong.png */; };
+		53A482A51CE2F6A900C90451 /* LPRTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A482A41CE2F6A900C90451 /* LPRTableView.swift */; };
+		53A482B31CE31B1A00C90451 /* matchColoumnTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A482AC1CE31B1A00C90451 /* matchColoumnTableViewCell.m */; };
+		53A482B41CE31B1A00C90451 /* NoShadowTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A482AE1CE31B1A00C90451 /* NoShadowTableView.m */; };
+		53A482B51CE31B1A00C90451 /* SSStudentMatchTheColoumnView.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A482B01CE31B1A00C90451 /* SSStudentMatchTheColoumnView.m */; };
+		53A482B61CE31B1A00C90451 /* UIView+SubviewHunting.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A482B21CE31B1A00C90451 /* UIView+SubviewHunting.m */; };
+		53A482B81CE43A3F00C90451 /* MatchColumnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A482B71CE43A3F00C90451 /* MatchColumnView.swift */; };
+		53A482BB1CE44E1E00C90451 /* correctMatch.png in Resources */ = {isa = PBXBuildFile; fileRef = 53A482B91CE44E1E00C90451 /* correctMatch.png */; };
+		53A482BC1CE44E1E00C90451 /* wrongMatch.png in Resources */ = {isa = PBXBuildFile; fileRef = 53A482BA1CE44E1E00C90451 /* wrongMatch.png */; };
+		53A482BE1CE4506A00C90451 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A482BD1CE4506A00C90451 /* CustomTextView.swift */; };
+		53A482C01CE45FA000C90451 /* QuerySubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A482BF1CE45FA000C90451 /* QuerySubview.swift */; };
+		53A482D51CE45FD000C90451 /* indicator1.png in Resources */ = {isa = PBXBuildFile; fileRef = 53A482C31CE45FD000C90451 /* indicator1.png */; };
+		53A482D61CE45FD000C90451 /* indicator10.png in Resources */ = {isa = PBXBuildFile; fileRef = 53A482C41CE45FD000C90451 /* indicator10.png */; };
+		53A482D71CE45FD000C90451 /* indicator11.png in Resources */ = {isa = PBXBuildFile; fileRef = 53A482C51CE45FD000C90451 /* indicator11.png */; };
+		53A482D81CE45FD000C90451 /* indicator12.png in Resources */ = {isa = PBXBuildFile; fileRef = 53A482C61CE45FD000C90451 /* indicator12.png */; };
+		53A482D91CE45FD000C90451 /* indicator2.png in Resources */ = {isa = PBXBuildFile; fileRef = 53A482C71CE45FD000C90451 /* indicator2.png */; };
+		53A482DA1CE45FD000C90451 /* indicator3.png in Resources */ = {isa = PBXBuildFile; fileRef = 53A482C81CE45FD000C90451 /* indicator3.png */; };
+		53A482DB1CE45FD000C90451 /* indicator4.png in Resources */ = {isa = PBXBuildFile; fileRef = 53A482C91CE45FD000C90451 /* indicator4.png */; };
+		53A482DC1CE45FD000C90451 /* indicator5.png in Resources */ = {isa = PBXBuildFile; fileRef = 53A482CA1CE45FD000C90451 /* indicator5.png */; };
+		53A482DD1CE45FD000C90451 /* indicator6.png in Resources */ = {isa = PBXBuildFile; fileRef = 53A482CB1CE45FD000C90451 /* indicator6.png */; };
+		53A482DE1CE45FD000C90451 /* indicator7.png in Resources */ = {isa = PBXBuildFile; fileRef = 53A482CC1CE45FD000C90451 /* indicator7.png */; };
+		53A482DF1CE45FD000C90451 /* indicator8.png in Resources */ = {isa = PBXBuildFile; fileRef = 53A482CD1CE45FD000C90451 /* indicator8.png */; };
+		53A482E01CE45FD000C90451 /* indicator9.png in Resources */ = {isa = PBXBuildFile; fileRef = 53A482CE1CE45FD000C90451 /* indicator9.png */; };
+		53A482E11CE45FD000C90451 /* CustomProgressImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A482D01CE45FD000C90451 /* CustomProgressImageView.m */; };
+		53A482E21CE45FD000C90451 /* ICDMaterialActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A482D21CE45FD000C90451 /* ICDMaterialActivityIndicatorView.m */; };
+		53A482E31CE45FD000C90451 /* UIDownloadBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A482D41CE45FD000C90451 /* UIDownloadBar.m */; };
+		53A482E51CE4741700C90451 /* Thumbs_Up.png in Resources */ = {isa = PBXBuildFile; fileRef = 53A482E41CE4741700C90451 /* Thumbs_Up.png */; };
+		53A482E71CE4893C00C90451 /* StudentVolunteeringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A482E61CE4893C00C90451 /* StudentVolunteeringView.swift */; };
+		53A482E91CE48E0400C90451 /* QRVSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A482E81CE48E0400C90451 /* QRVSubView.swift */; };
+		53A482EB1CE48F1500C90451 /* QRVVolunteerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A482EA1CE48F1500C90451 /* QRVVolunteerView.swift */; };
 		53FFD2BF1CE1FC3700A5AA28 /* MultipleChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFD2BC1CE1FC3700A5AA28 /* MultipleChoiceView.swift */; };
 		53FFD2C01CE1FC3700A5AA28 /* multipleResponseOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFD2BD1CE1FC3700A5AA28 /* multipleResponseOptionView.swift */; };
 		53FFD2C11CE1FC3700A5AA28 /* StudentQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFD2BE1CE1FC3700A5AA28 /* StudentQuestionView.swift */; };
@@ -554,6 +583,42 @@
 		535B8B251CE1A2A4008B2D7F /* CustomButtonSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButtonSubView.swift; sourceTree = "<group>"; };
 		535B8B2B1CE1F8DE008B2D7F /* correct.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = correct.png; sourceTree = "<group>"; };
 		535B8B2C1CE1F8DE008B2D7F /* wrong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrong.png; sourceTree = "<group>"; };
+		53A482A41CE2F6A900C90451 /* LPRTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LPRTableView.swift; sourceTree = "<group>"; };
+		53A482AB1CE31B1A00C90451 /* matchColoumnTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matchColoumnTableViewCell.h; sourceTree = "<group>"; };
+		53A482AC1CE31B1A00C90451 /* matchColoumnTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = matchColoumnTableViewCell.m; sourceTree = "<group>"; };
+		53A482AD1CE31B1A00C90451 /* NoShadowTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoShadowTableView.h; sourceTree = "<group>"; };
+		53A482AE1CE31B1A00C90451 /* NoShadowTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoShadowTableView.m; sourceTree = "<group>"; };
+		53A482AF1CE31B1A00C90451 /* SSStudentMatchTheColoumnView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSStudentMatchTheColoumnView.h; sourceTree = "<group>"; };
+		53A482B01CE31B1A00C90451 /* SSStudentMatchTheColoumnView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSStudentMatchTheColoumnView.m; sourceTree = "<group>"; };
+		53A482B11CE31B1A00C90451 /* UIView+SubviewHunting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SubviewHunting.h"; sourceTree = "<group>"; };
+		53A482B21CE31B1A00C90451 /* UIView+SubviewHunting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SubviewHunting.m"; sourceTree = "<group>"; };
+		53A482B71CE43A3F00C90451 /* MatchColumnView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchColumnView.swift; sourceTree = "<group>"; };
+		53A482B91CE44E1E00C90451 /* correctMatch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = correctMatch.png; sourceTree = "<group>"; };
+		53A482BA1CE44E1E00C90451 /* wrongMatch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrongMatch.png; sourceTree = "<group>"; };
+		53A482BD1CE4506A00C90451 /* CustomTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
+		53A482BF1CE45FA000C90451 /* QuerySubview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuerySubview.swift; sourceTree = "<group>"; };
+		53A482C31CE45FD000C90451 /* indicator1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator1.png; sourceTree = "<group>"; };
+		53A482C41CE45FD000C90451 /* indicator10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator10.png; sourceTree = "<group>"; };
+		53A482C51CE45FD000C90451 /* indicator11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator11.png; sourceTree = "<group>"; };
+		53A482C61CE45FD000C90451 /* indicator12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator12.png; sourceTree = "<group>"; };
+		53A482C71CE45FD000C90451 /* indicator2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator2.png; sourceTree = "<group>"; };
+		53A482C81CE45FD000C90451 /* indicator3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator3.png; sourceTree = "<group>"; };
+		53A482C91CE45FD000C90451 /* indicator4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator4.png; sourceTree = "<group>"; };
+		53A482CA1CE45FD000C90451 /* indicator5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator5.png; sourceTree = "<group>"; };
+		53A482CB1CE45FD000C90451 /* indicator6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator6.png; sourceTree = "<group>"; };
+		53A482CC1CE45FD000C90451 /* indicator7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator7.png; sourceTree = "<group>"; };
+		53A482CD1CE45FD000C90451 /* indicator8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator8.png; sourceTree = "<group>"; };
+		53A482CE1CE45FD000C90451 /* indicator9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator9.png; sourceTree = "<group>"; };
+		53A482CF1CE45FD000C90451 /* CustomProgressImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomProgressImageView.h; sourceTree = "<group>"; };
+		53A482D01CE45FD000C90451 /* CustomProgressImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomProgressImageView.m; sourceTree = "<group>"; };
+		53A482D11CE45FD000C90451 /* ICDMaterialActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICDMaterialActivityIndicatorView.h; sourceTree = "<group>"; };
+		53A482D21CE45FD000C90451 /* ICDMaterialActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICDMaterialActivityIndicatorView.m; sourceTree = "<group>"; };
+		53A482D31CE45FD000C90451 /* UIDownloadBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIDownloadBar.h; sourceTree = "<group>"; };
+		53A482D41CE45FD000C90451 /* UIDownloadBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIDownloadBar.m; sourceTree = "<group>"; };
+		53A482E41CE4741700C90451 /* Thumbs_Up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Thumbs_Up.png; sourceTree = "<group>"; };
+		53A482E61CE4893C00C90451 /* StudentVolunteeringView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentVolunteeringView.swift; sourceTree = "<group>"; };
+		53A482E81CE48E0400C90451 /* QRVSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRVSubView.swift; sourceTree = "<group>"; };
+		53A482EA1CE48F1500C90451 /* QRVVolunteerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRVVolunteerView.swift; sourceTree = "<group>"; };
 		53FFD2BC1CE1FC3700A5AA28 /* MultipleChoiceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipleChoiceView.swift; sourceTree = "<group>"; };
 		53FFD2BD1CE1FC3700A5AA28 /* multipleResponseOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = multipleResponseOptionView.swift; sourceTree = "<group>"; };
 		53FFD2BE1CE1FC3700A5AA28 /* StudentQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentQuestionView.swift; sourceTree = "<group>"; };
@@ -641,6 +706,10 @@
 		533064A71CC9E52E0035CCDE /* common */ = {
 			isa = PBXGroup;
 			children = (
+				53A482BD1CE4506A00C90451 /* CustomTextView.swift */,
+				53A482C11CE45FD000C90451 /* customImageView */,
+				53A482AA1CE31B1A00C90451 /* MatchTheFollowing */,
+				53A482A41CE2F6A900C90451 /* LPRTableView.swift */,
 				533066F41CCA14280035CCDE /* LBorderView.h */,
 				533066F51CCA14280035CCDE /* LBorderView.m */,
 				533066EA1CC9EE750035CCDE /* DottedLine.h */,
@@ -1592,6 +1661,9 @@
 		533066D81CC9E8FE0035CCDE /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				53A482E41CE4741700C90451 /* Thumbs_Up.png */,
+				53A482B91CE44E1E00C90451 /* correctMatch.png */,
+				53A482BA1CE44E1E00C90451 /* wrongMatch.png */,
 				535B8B2B1CE1F8DE008B2D7F /* correct.png */,
 				535B8B2C1CE1F8DE008B2D7F /* wrong.png */,
 				535B8B191CE1A20F008B2D7F /* Query_Selected.png */,
@@ -1638,12 +1710,61 @@
 			path = ClassViewController;
 			sourceTree = "<group>";
 		};
+		53A482AA1CE31B1A00C90451 /* MatchTheFollowing */ = {
+			isa = PBXGroup;
+			children = (
+				53A482AB1CE31B1A00C90451 /* matchColoumnTableViewCell.h */,
+				53A482AC1CE31B1A00C90451 /* matchColoumnTableViewCell.m */,
+				53A482AD1CE31B1A00C90451 /* NoShadowTableView.h */,
+				53A482AE1CE31B1A00C90451 /* NoShadowTableView.m */,
+				53A482AF1CE31B1A00C90451 /* SSStudentMatchTheColoumnView.h */,
+				53A482B01CE31B1A00C90451 /* SSStudentMatchTheColoumnView.m */,
+				53A482B11CE31B1A00C90451 /* UIView+SubviewHunting.h */,
+				53A482B21CE31B1A00C90451 /* UIView+SubviewHunting.m */,
+			);
+			path = MatchTheFollowing;
+			sourceTree = "<group>";
+		};
+		53A482C11CE45FD000C90451 /* customImageView */ = {
+			isa = PBXGroup;
+			children = (
+				53A482C21CE45FD000C90451 /* AnimationIMage */,
+				53A482CF1CE45FD000C90451 /* CustomProgressImageView.h */,
+				53A482D01CE45FD000C90451 /* CustomProgressImageView.m */,
+				53A482D11CE45FD000C90451 /* ICDMaterialActivityIndicatorView.h */,
+				53A482D21CE45FD000C90451 /* ICDMaterialActivityIndicatorView.m */,
+				53A482D31CE45FD000C90451 /* UIDownloadBar.h */,
+				53A482D41CE45FD000C90451 /* UIDownloadBar.m */,
+			);
+			path = customImageView;
+			sourceTree = "<group>";
+		};
+		53A482C21CE45FD000C90451 /* AnimationIMage */ = {
+			isa = PBXGroup;
+			children = (
+				53A482C31CE45FD000C90451 /* indicator1.png */,
+				53A482C41CE45FD000C90451 /* indicator10.png */,
+				53A482C51CE45FD000C90451 /* indicator11.png */,
+				53A482C61CE45FD000C90451 /* indicator12.png */,
+				53A482C71CE45FD000C90451 /* indicator2.png */,
+				53A482C81CE45FD000C90451 /* indicator3.png */,
+				53A482C91CE45FD000C90451 /* indicator4.png */,
+				53A482CA1CE45FD000C90451 /* indicator5.png */,
+				53A482CB1CE45FD000C90451 /* indicator6.png */,
+				53A482CC1CE45FD000C90451 /* indicator7.png */,
+				53A482CD1CE45FD000C90451 /* indicator8.png */,
+				53A482CE1CE45FD000C90451 /* indicator9.png */,
+			);
+			path = AnimationIMage;
+			sourceTree = "<group>";
+		};
 		53FFD2BB1CE1FC3700A5AA28 /* QuestionViews */ = {
 			isa = PBXGroup;
 			children = (
 				53FFD2BE1CE1FC3700A5AA28 /* StudentQuestionView.swift */,
 				53FFD2BC1CE1FC3700A5AA28 /* MultipleChoiceView.swift */,
 				53FFD2BD1CE1FC3700A5AA28 /* multipleResponseOptionView.swift */,
+				53A482B71CE43A3F00C90451 /* MatchColumnView.swift */,
 			);
 			path = QuestionViews;
 			sourceTree = "<group>";
@@ -1652,6 +1773,10 @@
 			isa = PBXGroup;
 			children = (
 				53FFD2C31CE1FC4A00A5AA28 /* StudentsQueryView.swift */,
+				53A482BF1CE45FA000C90451 /* QuerySubview.swift */,
+				53A482E61CE4893C00C90451 /* StudentVolunteeringView.swift */,
+				53A482E81CE48E0400C90451 /* QRVSubView.swift */,
+				53A482EA1CE48F1500C90451 /* QRVVolunteerView.swift */,
 			);
 			path = QueryView;
 			sourceTree = "<group>";
@@ -1717,22 +1842,37 @@
 			files = (
 				533064771CC9DAAE0035CCDE /* LaunchScreen.storyboard in Resources */,
 				535B8B211CE1A20F008B2D7F /* Questions_Selected.png in Resources */,
+				53A482D81CE45FD000C90451 /* indicator12.png in Resources */,
+				53A482D51CE45FD000C90451 /* indicator1.png in Resources */,
 				533064C41CC9E52E0035CCDE /* noInternetIcon.png in Resources */,
 				535B8B2D1CE1F8DE008B2D7F /* correct.png in Resources */,
 				535B8B221CE1A20F008B2D7F /* Questions.png in Resources */,
+				53A482DC1CE45FD000C90451 /* indicator5.png in Resources */,
 				533064C11CC9E52E0035CCDE /* NoInternet.xib in Resources */,
 				535B8B1F1CE1A20F008B2D7F /* Query_Selected.png in Resources */,
+				53A482DA1CE45FD000C90451 /* indicator3.png in Resources */,
+				53A482DE1CE45FD000C90451 /* indicator7.png in Resources */,
 				533066DA1CC9E8FE0035CCDE /* Student_app_icon.png in Resources */,
 				535B8B231CE1A20F008B2D7F /* Submission_Selected.png in Resources */,
+				53A482D61CE45FD000C90451 /* indicator10.png in Resources */,
 				533064741CC9DAAE0035CCDE /* Assets.xcassets in Resources */,
 				535B8B201CE1A20F008B2D7F /* Query.png in Resources */,
+				53A482DD1CE45FD000C90451 /* indicator6.png in Resources */,
+				53A482BC1CE44E1E00C90451 /* wrongMatch.png in Resources */,
+				53A482E51CE4741700C90451 /* Thumbs_Up.png in Resources */,
 				533064721CC9DAAE0035CCDE /* Main.storyboard in Resources */,
+				53A482D91CE45FD000C90451 /* indicator2.png in Resources */,
 				533066BD1CC9E5F40035CCDE /* README.txt in Resources */,
+				53A482D71CE45FD000C90451 /* indicator11.png in Resources */,
+				53A482E01CE45FD000C90451 /* indicator9.png in Resources */,
 				535B8B2E1CE1F8DE008B2D7F /* wrong.png in Resources */,
 				533064C51CC9E52E0035CCDE /* Wrong.png in Resources */,
 				535B8B241CE1A20F008B2D7F /* Submission.png in Resources */,
+				53A482BB1CE44E1E00C90451 /* correctMatch.png in Resources */,
 				533066C21CC9E5F40035CCDE /* build-libidn.sh in Resources */,
+				53A482DF1CE45FD000C90451 /* indicator8.png in Resources */,
 				533066EE1CC9F5210035CCDE /* refresh.png in Resources */,
+				53A482DB1CE45FD000C90451 /* indicator4.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1748,6 +1888,7 @@
 				5330664F1CC9E5F40035CCDE /* XMPPProcessOne.m in Sources */,
 				533066A11CC9E5F40035CCDE /* NSXMLElement+XEP_0203.m in Sources */,
 				533066491CC9E5F40035CCDE /* XMPPParser.m in Sources */,
+				53A482E31CE45FD000C90451 /* UIDownloadBar.m in Sources */,
 				533064821CC9E3270035CCDE /* SSStudentDataSource.swift in Sources */,
 				533066B41CC9E5F40035CCDE /* GCDAsyncSocket.m in Sources */,
 				533066BC1CC9E5F40035CCDE /* DDMultiFormatter.m in Sources */,
@@ -1767,8 +1908,11 @@
 				533066801CC9E5F40035CCDE /* TURNSocket.m in Sources */,
 				5330669E1CC9E5F40035CCDE /* XMPPPing.m in Sources */,
 				533066BA1CC9E5F40035CCDE /* DDContextFilterLogFormatter.m in Sources */,
+				53A482E91CE48E0400C90451 /* QRVSubView.swift in Sources */,
 				533066531CC9E5F40035CCDE /* XMPPRoster.xcdatamodel in Sources */,
 				533066621CC9E5F40035CCDE /* XMPPRoomCoreDataStorage.m in Sources */,
+				53A482BE1CE4506A00C90451 /* CustomTextView.swift in Sources */,
+				53A482A51CE2F6A900C90451 /* LPRTableView.swift in Sources */,
 				533066541CC9E5F40035CCDE /* XMPPRosterCoreDataStorage.m in Sources */,
 				533066751CC9E5F40035CCDE /* XMPPvCardTempAdr.m in Sources */,
 				533066F31CCA12590035CCDE /* StudentSeatSubView.swift in Sources */,
@@ -1780,6 +1924,7 @@
 				5330663A1CC9E5F40035CCDE /* XMPPDeprecatedDigestAuthentication.m in Sources */,
 				533066901CC9E5F40035CCDE /* XMPPMessageArchiving_Contact_CoreDataObject.m in Sources */,
 				533066851CC9E5F40035CCDE /* XMPPDateTimeProfiles.m in Sources */,
+				53A482E71CE4893C00C90451 /* StudentVolunteeringView.swift in Sources */,
 				533066431CC9E5F40035CCDE /* NSXMLElement+XMPP.m in Sources */,
 				5330646D1CC9DAAE0035CCDE /* AppDelegate.swift in Sources */,
 				533066B21CC9E5F40035CCDE /* XMPPStringPrep.m in Sources */,
@@ -1821,11 +1966,13 @@
 				5330647F1CC9E2FC0035CCDE /* INILoader.swift in Sources */,
 				533066A41CC9E5F40035CCDE /* XMPPMessage+XEP_0224.m in Sources */,
 				533064BF1CC9E52E0035CCDE /* APIManager.m in Sources */,
+				53A482B51CE31B1A00C90451 /* SSStudentMatchTheColoumnView.m in Sources */,
 				5330669A1CC9E5F40035CCDE /* XMPPStreamManagementMemoryStorage.m in Sources */,
 				533066AF1CC9E5F40035CCDE /* RFImageToDataTransformer.m in Sources */,
 				533066401CC9E5F40035CCDE /* XMPPXOAuth2Google.m in Sources */,
 				533066951CC9E5F40035CCDE /* XMPPMessage+XEP_0172.m in Sources */,
 				533066E71CC9EDD90035CCDE /* ScheduleScreenTile.swift in Sources */,
+				53A482E11CE45FD000C90451 /* CustomProgressImageView.m in Sources */,
 				533066B31CC9E5F40035CCDE /* XMPPTimer.m in Sources */,
 				533066E91CC9EDD90035CCDE /* SSStudentScheduleViewController.swift in Sources */,
 				5330667A1CC9E5F40035CCDE /* XMPPvCardTempModule.m in Sources */,
@@ -1840,6 +1987,8 @@
 				533066EC1CC9EE750035CCDE /* DottedLine.m in Sources */,
 				533066A01CC9E5F40035CCDE /* XMPPTime.m in Sources */,
 				533066971CC9E5F40035CCDE /* XMPPMessage+XEP_0184.m in Sources */,
+				53A482B31CE31B1A00C90451 /* matchColoumnTableViewCell.m in Sources */,
+				53A482E21CE45FD000C90451 /* ICDMaterialActivityIndicatorView.m in Sources */,
 				533066571CC9E5F40035CCDE /* XMPPRosterMemoryStorage.m in Sources */,
 				533066E81CC9EDD90035CCDE /* SSStudentSchedulePopoverController.swift in Sources */,
 				533066A61CC9E5F40035CCDE /* XMPPMessageCarbons.m in Sources */,
@@ -1858,6 +2007,7 @@
 				533066511CC9E5F40035CCDE /* XMPPGroupCoreDataStorageObject.m in Sources */,
 				533066F91CCA37C80035CCDE /* StudentClassViewController.swift in Sources */,
 				533066391CC9E5F40035CCDE /* XMPPAnonymousAuthentication.m in Sources */,
+				53A482B61CE31B1A00C90451 /* UIView+SubviewHunting.m in Sources */,
 				533066931CC9E5F40035CCDE /* XMPPMessageArchiving.m in Sources */,
 				533066F11CCA0CCF0035CCDE /* StudentSeatController.swift in Sources */,
 				533066AB1CC9E5F40035CCDE /* SSMessage.m in Sources */,
@@ -1879,19 +2029,23 @@
 				533066451CC9E5F40035CCDE /* XMPPIQ.m in Sources */,
 				533066B61CC9E5F40035CCDE /* DDASLLogger.m in Sources */,
 				5330668F1CC9E5F40035CCDE /* XMPPMessageArchiving.xcdatamodeld in Sources */,
+				53A482B81CE43A3F00C90451 /* MatchColumnView.swift in Sources */,
 				533066671CC9E5F40035CCDE /* XMPPRoomMessageHybridCoreDataStorageObject.m in Sources */,
 				533066791CC9E5F40035CCDE /* XMPPvCardTempLabel.m in Sources */,
 				533066581CC9E5F40035CCDE /* XMPPUserMemoryStorageObject.m in Sources */,
+				53A482EB1CE48F1500C90451 /* QRVVolunteerView.swift in Sources */,
 				533066C11CC9E5F40035CCDE /* DDXMLNode.m in Sources */,
 				5330664C1CC9E5F40035CCDE /* XMPPBandwidthMonitor.m in Sources */,
 				5330668E1CC9E5F40035CCDE /* XMPPCapabilities.m in Sources */,
 				5330663B1CC9E5F40035CCDE /* XMPPDeprecatedPlainAuthentication.m in Sources */,
 				533066711CC9E5F40035CCDE /* XMPPvCardCoreDataStorage.m in Sources */,
 				5330663E1CC9E5F40035CCDE /* XMPPSCRAMSHA1Authentication.m in Sources */,
+				53A482B41CE31B1A00C90451 /* NoShadowTableView.m in Sources */,
 				533066B11CC9E5F40035CCDE /* XMPPSRVResolver.m in Sources */,
 				5330669D1CC9E5F40035CCDE /* XMPPAutoPing.m in Sources */,
 				5330663D1CC9E5F40035CCDE /* XMPPPlainAuthentication.m in Sources */,
 				5330663C1CC9E5F40035CCDE /* XMPPDigestMD5Authentication.m in Sources */,
+				53A482C01CE45FA000C90451 /* QuerySubview.swift in Sources */,
 				53FFD2BF1CE1FC3700A5AA28 /* MultipleChoiceView.swift in Sources */,
 				533066921CC9E5F40035CCDE /* XMPPMessageArchivingCoreDataStorage.m in Sources */,
 				5330666C1CC9E5F40035CCDE /* XMPPMessage+XEP0045.m in Sources */,

@@ -230,6 +230,54 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
         }
     }
     
+     // MARK: - Query Volunteer  functions
+    
+    func volunteerRaiserWithDetails(details:AnyObject)
+    {
+        
+        if (details.objectForKey("QueryId") != nil)
+        {
+            if let QueryId = details.objectForKey("QueryId") as? String
+            {
+                if let studentqueryView  = mScrollView.viewWithTag(Int(QueryId)!) as? QueryVolunteerSubView
+                {
+                    let VolunteerValue = studentqueryView.mVolunteerButton.titleLabel?.text
+                    
+                    let value = Int(VolunteerValue!)! + 1
+                    
+                    
+                    studentqueryView.mVolunteerButton.titleLabel!.text = "\(value)"
+                    studentqueryView.setVolunteersDetials(details)
+                    
+                }
+            }
+            
+            
+            
+        }
+        
+    }
+    
+    func metooRaisedWithDetails(details:AnyObject)
+    {
+        if (details.objectForKey("QueryId") != nil)
+        {
+            if let QueryId = details.objectForKey("QueryId") as? String
+            {
+                if let studentqueryView  = mScrollView.viewWithTag(Int(QueryId)!) as? QueryVolunteerSubView
+                {
+                    let VolunteerValue = studentqueryView.mMetooLabel.text
+                    
+                    let value = Int(VolunteerValue!)! + 1
+                    
+                    
+                    studentqueryView.mMetooLabel.text = "\(value)"
+                    
+                }
+            }
+        }
+    }
+    
     
     
 }

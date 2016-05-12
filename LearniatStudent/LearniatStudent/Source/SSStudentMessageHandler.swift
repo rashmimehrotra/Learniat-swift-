@@ -32,7 +32,7 @@ let kWithDrawSubmission         = "707"
 let kStudentDoubtSubmission		= "215"
 let kReplyToQuery               = "708"
 let kQueryStartedForVolunteer   = "703"
-let keToo                      = "175"
+let kMeToo                      = "175"
 let kIVolunteer                 = "176"
 let kEndVolunteeringSession     = "187"
 let kTeacherReviewDoubt         = "702"
@@ -82,6 +82,17 @@ import Foundation
     
     optional func smhdidReceiveQuestionFreezMessage()
     
+    
+    
+    
+    
+    optional func smhdidGetQueryFeedBackFromTeacherWithDetials(details : AnyObject)
+    
+    optional func smhdidRecieveQueryReviewmessage()
+    
+    optional func smhdidRecieveQueryOpenedForVotingWithDetails()
+    
+    optional func smhdidRecieveQueryVolunteeringEnded()
     
 }
 
@@ -372,6 +383,177 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
         }
     }
     
+    func sendDoubtMessageToTeacherWithQueryId(queryId:String)
+    {
+        
+        
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true &&  SSStudentDataSource.sharedDataSource.currentTeacherId != nil)
+        {
+            let studentID           = SSStudentDataSource.sharedDataSource.currentUserId
+            let msgType             = kStudentDoubtSubmission
+            let teacherID           = SSStudentDataSource.sharedDataSource.currentTeacherId
+            
+            
+            let messageBody = queryId
+            
+            
+            
+            
+            let details:NSMutableDictionary = ["From":studentID,
+                                               "To":teacherID,
+                                               "Type" :msgType,
+                                               "Body":messageBody];
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
+        }
+    }
+    
+    
+    func sendWithDrawMessageToTeacher()
+    {
+        
+        
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true &&  SSStudentDataSource.sharedDataSource.currentTeacherId != nil)
+        {
+            let studentID           = SSStudentDataSource.sharedDataSource.currentUserId
+            let msgType             = kWithDrawSubmission
+            let teacherID           = SSStudentDataSource.sharedDataSource.currentTeacherId
+            
+            
+            let details:NSMutableDictionary = ["From":studentID,
+                                               "To":teacherID,
+                                               "Type":msgType];
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
+        }
+    }
+    func sendMeTooMessageToTeacherWithQueryId(queryid:String)
+    {
+        
+        
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true &&  SSStudentDataSource.sharedDataSource.currentTeacherId != nil)
+        {
+            let studentID           = SSStudentDataSource.sharedDataSource.currentUserId
+            let msgType             = kMeToo
+            let teacherID           = SSStudentDataSource.sharedDataSource.currentTeacherId
+            
+            
+            let messageBody = ["QueryId":queryid , "StudentId":studentID, "StudentName":SSStudentDataSource.sharedDataSource.currentUserName]
+            
+            
+            
+            
+            let details:NSMutableDictionary = ["From":studentID,
+                                               "To":teacherID,
+                                               "Type":msgType,
+                                               "Body":messageBody];
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
+        }
+    }
+    
+    func sendIVolunteerMessageToTeacher(queryid:String, withvolunteerId volunteerId:String)
+    {
+        
+        
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true &&  SSStudentDataSource.sharedDataSource.currentTeacherId != nil)
+        {
+            let studentID           = SSStudentDataSource.sharedDataSource.currentUserId
+            let msgType             = kIVolunteer
+            let teacherID           = SSStudentDataSource.sharedDataSource.currentTeacherId
+            
+            
+            let messageBody = ["QueryId":queryid , "StudentId":studentID, "StudentName":SSStudentDataSource.sharedDataSource.currentUserName , "VolunteerId" : volunteerId]
+            
+            
+            
+            let details:NSMutableDictionary = ["From":studentID,
+                                               "To":teacherID,
+                                               "Type":msgType,
+                                               "Body":messageBody];
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
+        }
+    }
+    
+    func sendQueryMeeTooLikedMessagetoTeacherwithOldvote( oldVote:String, withNewVote newvote:String)
+    {
+        
+        
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true &&  SSStudentDataSource.sharedDataSource.currentTeacherId != nil)
+        {
+            let studentID           = SSStudentDataSource.sharedDataSource.currentUserId
+            let msgType             = kVolunteerMeeToLikeAndDislike
+            let teacherID           = SSStudentDataSource.sharedDataSource.currentTeacherId
+            
+            
+            let messageBody = ["oldVote":oldVote , "newVote":newvote]
+            
+            
+            
+            
+            let details:NSMutableDictionary = ["From":studentID,
+                                               "To":teacherID,
+                                               "Type":msgType,
+                                               "Body":messageBody];
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
+        }
+    }
+    func sendQueryVolunteerVotesMessagetoTeacherwithOldvolde( oldVote:String, withNewVote newvote:String)
+    {
+        
+        
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true &&  SSStudentDataSource.sharedDataSource.currentTeacherId != nil)
+        {
+            let studentID           = SSStudentDataSource.sharedDataSource.currentUserId
+            let msgType             = kVolunteerIVolunteerLikeNDislike
+            let teacherID           = SSStudentDataSource.sharedDataSource.currentTeacherId
+            
+            
+            let messageBody = ["oldVote":oldVote , "newVote":newvote]
+            
+            
+            
+            
+            let details:NSMutableDictionary = ["From":studentID,
+                                               "To":teacherID,
+                                               "Type":msgType,
+                                               "Body":messageBody];
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
+        }
+    }
     //MARK: Recieve Message
     public func didReceiveMessageWithBody(body: String!)
     {
@@ -437,6 +619,42 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
                 
                 delegate().smhdidReceiveQuestionFreezMessage!()
             }
+        }
+        else if message.messageType() == kReplyToQuery
+        {
+            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhdidGetQueryFeedBackFromTeacherWithDetials(_:)))
+            {
+                
+                if message.messageBody() != nil
+                {
+                    delegate().smhdidGetQueryFeedBackFromTeacherWithDetials!(message.messageBody())
+                }
+            }
+            
+        }
+        else if message.messageType() == kTeacherReviewDoubt
+        {
+            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhdidRecieveQueryReviewmessage))
+            {
+                delegate().smhdidRecieveQueryReviewmessage!()
+            }
+            
+        }
+        else if message.messageType() == kQueryStartedForVolunteer
+        {
+            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhdidRecieveQueryOpenedForVotingWithDetails))
+            {
+                delegate().smhdidRecieveQueryOpenedForVotingWithDetails!()
+            }
+            
+        }
+        else if message.messageType() == kEndVolunteeringSession
+        {
+            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhdidRecieveQueryVolunteeringEnded))
+            {
+                delegate().smhdidRecieveQueryVolunteeringEnded!()
+            }
+            
         }
     }
 }
