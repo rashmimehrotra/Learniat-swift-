@@ -506,24 +506,30 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
         var _string :String = ""
         var currentDate = NSDate()
         
-        
-        
-        if let subTopicCellView  = mTopicsContainerView.viewWithTag(Int(SSTeacherDataSource.sharedDataSource.startedSubTopicId)!) as? SubTopicCell
+        if SSTeacherDataSource.sharedDataSource.startedSubTopicId != ""
         {
-            
-            currentDate = currentDate.addSeconds(1, withDate: dateFormatter.dateFromString(currentCumulativeiTime)!)
-            _string = dateFormatter.stringFromDate(currentDate)
-            
-            
-            currentCumulativeiTime = _string
-            
-            
-            if let topicName = subTopicCellView.currentSubTopicDetails.objectForKey("Name")as? String
+            if let subTopicCellView  = mTopicsContainerView.viewWithTag(Int(SSTeacherDataSource.sharedDataSource.startedSubTopicId)!) as? SubTopicCell
             {
-                subTopicCellView.m_SubTopicLabel.text = "\(topicName)(\(_string))".capitalizedString
                 
+                currentDate = currentDate.addSeconds(1, withDate: dateFormatter.dateFromString(currentCumulativeiTime)!)
+                _string = dateFormatter.stringFromDate(currentDate)
+                
+                
+                currentCumulativeiTime = _string
+                
+                
+                if let topicName = subTopicCellView.currentSubTopicDetails.objectForKey("Name")as? String
+                {
+                    subTopicCellView.m_SubTopicLabel.text = "\(topicName)(\(_string))".capitalizedString
+                    
+                }
             }
         }
+        else{
+            cumulativeTimer.invalidate()
+        }
+        
+        
     }
     
     

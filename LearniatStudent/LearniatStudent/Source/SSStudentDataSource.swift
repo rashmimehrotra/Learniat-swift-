@@ -147,6 +147,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
     
     var questionsDictonary                  = NSMutableDictionary()
     
+    var QRVQueryDictonary                   = NSMutableDictionary()
     
     var answerSent :Bool                    = false
     

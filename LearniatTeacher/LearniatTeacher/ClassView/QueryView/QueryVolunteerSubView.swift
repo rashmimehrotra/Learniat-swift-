@@ -7,6 +7,17 @@
 //
 
 import Foundation
+@objc protocol QueryVolunteerSubViewDelegate
+{
+    
+    
+    optional func delegateVolunteerButtonPressedWithVolunteersArray(volunteersArray:NSMutableArray, withVolunteerButton volunteerButton:UIButton)
+    
+    
+    
+    
+}
+
 class QueryVolunteerSubView: UIView
 {
     var _delgate: AnyObject!
@@ -22,6 +33,8 @@ class QueryVolunteerSubView: UIView
     var currentReplyDetails :AnyObject!
     
     var mVolunteersDetailsArray   = NSMutableArray()
+    
+    var mmMetooSelectedArray   = NSMutableArray()
     
     override init(frame: CGRect)
     {
@@ -78,16 +91,6 @@ class QueryVolunteerSubView: UIView
         
         
         
-        
-        
-        
-        
-        
-       
-        
-        
-        
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -117,12 +120,28 @@ class QueryVolunteerSubView: UIView
     
     func onVonulteerButton()
     {
-        
+        if mVolunteersDetailsArray.count > 0
+        {
+            
+            delegate().delegateVolunteerButtonPressedWithVolunteersArray!(mVolunteersDetailsArray, withVolunteerButton: mVolunteerButton)
+            
+            mVolunteerButton.setTitle("\(mVolunteersDetailsArray.count)", forState: .Normal)
+        }
+       
+    }
+    
+    func setMeTooSelectedStudents(studentId:String)
+    {
+        mmMetooSelectedArray.addObject(studentId)
+          mMetooLabel.text = "\(mmMetooSelectedArray.count)"
     }
     
     func setVolunteersDetials(details:AnyObject)
     {
         mVolunteersDetailsArray.addObject(details)
+        
+        
+         mVolunteerButton.setTitle("\(mVolunteersDetailsArray.count)", forState: .Normal)
         
     }
     

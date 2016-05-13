@@ -11,11 +11,16 @@ import UIKit
 class QRVVolunteerView: UIView
 {
     
-    
+       
     
     override init(frame: CGRect)
     {
         super.init(frame:frame)
+        
+        
+      
+
+        
         
     }
     
@@ -34,7 +39,6 @@ class QRVVolunteerView: UIView
         self.addSubview(studentImageView)
         studentImageView.layer.cornerRadius = studentImageView.frame.size.width/2
         studentImageView.layer.masksToBounds = true
-//        studentImageView.image = UIImage(named: (INILoader.sharediniLoader.returnImageNameWithImagename("Seat.png")))
         let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_UserProfileImageURL) as! String
         if let checkedUrl = NSURL(string: "\(urlString)/\(studentId)_79px.jpg")
         {

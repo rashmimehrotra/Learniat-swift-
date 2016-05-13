@@ -7,7 +7,7 @@
 //
 
 import Foundation
-class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelegate,QuerySubviewDelegate
+class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelegate,StudentQuerySubViewDelegate
 {
     var mTopbarImageView = UIImageView()
     var mSendButton = UIButton()
@@ -120,29 +120,26 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
     
     func refreshScrollView()
     {
-        
-        
-        currentYPosition = 5
+        var positionY :CGFloat = 10
         var subViews = mQueryScrollView.subviews
+        
         subViews = subViews.reverse()
         
-        for mQuerySubView in subViews
+        
+        for subview in subViews
         {
-            if mQuerySubView.isKindOfClass(QuerySubview)
+            if subview.isKindOfClass(StudentQuerySubView)
             {
-                UIView.animateWithDuration(0.2, animations:
-                    {
-                        mQuerySubView.frame = CGRectMake(mQuerySubView.frame.origin.x ,self.currentYPosition,mQuerySubView.frame.size.width,mQuerySubView.frame.size.height)
+                
+                UIView.animateWithDuration(0.2, animations: {
+                    subview.frame = CGRectMake(subview.frame.origin.x, positionY, subview.frame.size.width,  subview.frame.size.height)
                 })
                 
                 
-                
-                currentYPosition = currentYPosition + mQuerySubView.frame.size.height + 5
+                positionY = positionY + subview.frame.size.height + 10
             }
         }
-        
-        
-        mQueryScrollView.contentSize = CGSizeMake(0, currentYPosition)
+        mQueryScrollView.contentSize = CGSizeMake(0,  positionY )
         
     }
     
@@ -169,13 +166,13 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
     
     func teacherReviewQuery()
     {
-        let subViews = mQueryScrollView.subviews.flatMap{ $0 as? QuerySubview }
+        let subViews = mQueryScrollView.subviews.flatMap{ $0 as? StudentQuerySubView }
         
         for mOptions in subViews
         {
-            if mOptions.isKindOfClass(QuerySubview)
+            if mOptions.isKindOfClass(StudentQuerySubView)
             {
-                mOptions.mWithDrawButton.hidden = true
+                mOptions.mWithdrawButton.hidden = true
             }
         }
 
@@ -192,24 +189,37 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
             if Status == kSuccessString
             {
                 
+              
                 
                 
                 
-                let mQuerySubView = QuerySubview(frame: CGRectMake(10 , 10, self.frame.size.width - 20 ,80))
-                mQueryScrollView.addSubview(mQuerySubView)
-                mQuerySubView.setdelegate(self)
+                let querySubView = StudentQuerySubView(frame:  CGRectMake(10,  10 ,self.frame.size.width-20,80))
+                querySubView.backgroundColor = UIColor.whiteColor()
+                querySubView.layer.shadowColor = UIColor.blackColor().CGColor
+                querySubView.layer.shadowOffset = CGSize(width: 0, height: 3)
+                querySubView.layer.shadowOpacity = 0.3
+                querySubView.layer.shadowRadius = 2
+                querySubView.setdelegate(self)
+                let size = querySubView.getQueryTextSizeWithText(mQueryTextView.mQuestionTextView.text)
+                querySubView.layer.cornerRadius = 2
+                querySubView.frame = CGRectMake(10,  10 ,self.frame.size.width-20,size)
+                mQueryScrollView.addSubview(querySubView)
+                
+                
+                
+                
                 
                 
                 
                 if let QueryId = detail.objectForKey("QueryId") as? String
                 {
-                    mQuerySubView.tag = Int(QueryId)!
-                    mQuerySubView.frame = CGRectMake(0 , 10, self.frame.size.width ,mQuerySubView.setQueryWithDetails(mQueryTextView.mQuestionTextView.text, withQueryId: QueryId))
+                    querySubView.tag = Int(QueryId)!
+                    
                     SSStudentMessageHandler.sharedMessageHandler.sendDoubtMessageToTeacherWithQueryId(QueryId)
                 }
                 
                 
-                currentYPosition = currentYPosition + mQuerySubView.frame.size.height + 5
+                currentYPosition = currentYPosition + querySubView.frame.size.height + 5
                 mQueryScrollView.contentSize = CGSizeMake(0 , currentYPosition)
                 
                 
@@ -241,15 +251,49 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
     {
         print(details)
         
-        if let querySubView = mQueryScrollView.viewWithTag(Int(currentQueryId)!) as? QuerySubview
+        
+        
+        if let querySubView = mQueryScrollView.viewWithTag(Int(currentQueryId)!) as? StudentQuerySubView
         {
-            querySubView.mWithDrawButton.hidden = true
-            querySubView.setQueryReplyWithDetiails(details)
+            querySubView.mWithdrawButton.hidden = true
+            var teacherTextReply = ""
+            
+           if  let _teacherTextReply =  ( details.objectForKey("TeacherReplyText") as? String)
+           {
+                teacherTextReply = _teacherTextReply
+            }
+            if teacherTextReply.isEmpty
+            {
+                teacherTextReply = ""
+            }
+            
+            
+            
+            var badge = "0"
+            
+            if let badgeId = details.objectForKey("BadgeId") as? String
+            {
+                badge = badgeId
+            }
+            
             
             let dismissFlag = ( details.objectForKey("DismissFlag") as! String)
             
+            
+            
+            
+            
             if dismissFlag == "1"
             {
+                if querySubView.isQueryEvaluated() == false
+                {
+                    querySubView.queryState.text = "Cancelled"
+                    querySubView.queryState.hidden = false
+                    querySubView.backgroundColor = UIColor(red: 255/255.0, green: 239/255.0, blue: 238/255.0, alpha: 1)
+                    
+                    
+                }
+                
                 UIView.animateWithDuration(0.2, animations:
                     {
                         
@@ -257,17 +301,43 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
                         self.mQueryTextView.mQuestionTextView.text = ""
                         self.mQueryScrollView.frame = CGRectMake(0, self.mQueryTextView.frame.size.height + self.mQueryTextView.frame.origin.y + 10, self.frame.size.width, self.frame.size.height - (self.mQueryTextView.frame.size.height + self.mQueryTextView.frame.origin.y + 10))
                 })
+
                 
+                    currentQueryId = ""
             }
             else
             {
-                
-                
+                UIView.animateWithDuration(0.2, animations: {
+                    querySubView.frame = CGRectMake(querySubView.frame.origin.x, querySubView.frame.origin.y, querySubView.frame.size.width, querySubView.teacherReplayWithBadgeId(badge, withText: teacherTextReply) )
+                })
+ 
             }
         }
+        
+//        if let querySubView = mQueryScrollView.viewWithTag(Int(currentQueryId)!) as? StudentQuerySubView
+//        {
+//            querySubView.mWithdrawButton.hidden = true
+//            querySubView.setQueryReplyWithDetiails(details)
+//            
+//            let dismissFlag = ( details.objectForKey("DismissFlag") as! String)
+//            
+//            if dismissFlag == "1"
+//            {
+//                
+//                
+//            }
+//            else
+//            {
+//                
+//                
+//            }
+//        }
+        
+        
+        refreshScrollView()
     }
     
-    func delegateWithDrawButtonPressed()
+    func delegateQueryWithDrawnwithQueryId(queryId: Int)
     {
         
         SSStudentMessageHandler.sharedMessageHandler.sendWithDrawMessageToTeacher()
@@ -309,6 +379,7 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
                 {
                     
                     self.mQueryTextView.hidden = false
+                    self.mQueryTextView.mQuestionTextView.text = ""
                     self.mQueryScrollView.frame = CGRectMake(0, self.mQueryTextView.frame.size.height + self.mQueryTextView.frame.origin.y + 10, self.frame.size.width, self.frame.size.height - (self.mQueryTextView.frame.size.height + self.mQueryTextView.frame.origin.y + 10))
             })
             refreshScrollView()
@@ -350,29 +421,13 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
                         
                         let qrvSubView = QRVSubView(frame:  CGRectMake(10,  qrvPositionY ,self.frame.size.width-20,60))
                         
-                        
+                        SSStudentDataSource.sharedDataSource.QRVQueryDictonary.setObject((queryTextListArray[index] as String), forKey: (queryIdListArray[index] as String))
                         
                         let height =  qrvSubView.getQueryTextSizeWithText(queryTextListArray[index] as String)
                         qrvSubView.tag = Int((queryIdListArray[index]) )!
                         qrvSubView.frame = CGRectMake(10,  qrvPositionY ,self.frame.size.width-20,height)
                         
                         qrvSubView.addAllSUbQuerySubViewWithDetails(allowVolunteerFlagArray[index], withQueryId: (queryIdListArray[index]), withQueryText: (queryTextListArray[index] as String), withQuerySize: height - 50,withCount: String(index+1))
-                        
-                        //                        if currentQueryId == (queryIdListArray[index])
-                        //                        {
-                        //                            qrvSubView.VolunteerButton.hidden   = true
-                        //                            qrvSubView.meeTooButton.hidden      = true
-                        //                            qrvSubView.myQuerylabel.hidden   = false
-                        //
-                        //                            queryDetailsDictonary.setObject(meeToPressed, forKey: (queryIdListArray[index]))
-                        //                        }
-                        //                        else
-                        //                        {
-                        //                            qrvSubView.myQuerylabel.hidden   = true
-                        //                            queryDetailsDictonary.setObject(noOptionsSelected, forKey: (queryIdListArray[index]))
-                        //                        }
-                        //
-                        //                        queryTextDetails.setObject((queryTextListArray[index] as String), forKey: (queryIdListArray[index]))
                         
                         mQRVScrollView.addSubview(qrvSubView)
                         qrvSubView.setdelegate(self)
@@ -395,12 +450,92 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
         
     }
     
-    func delegateVonteerPressedWithQueryId(queryId:String)
+    
+    
+    func volunteerClosedWithQueryId(queryId:String, withStudentdID studentId:String)
     {
         
+        if  queryId != ""
+        {
+            
+            
+            
+            
+            if let qrvSubView = mQRVScrollView.viewWithTag(Int(queryId)!) as? QRVSubView
+            {
+                
+                
+                if qrvSubView.numberOfVolunteerResponse <= 0
+                {
+                    qrvSubView.frame = CGRectMake(qrvSubView.frame.origin.x, qrvSubView.frame.origin.y, qrvSubView.frame.size.width, qrvSubView.frame.size.height + 70 )
+                    
+                    changeQRVPositionOfSubView()
+                }
+                
+                
+                
+                
+                
+//                var  totalValue :CGFloat = 0
+//                var currentValue :CGFloat = 0
+//                
+//                if let stringTotalValue = details.objectForKey("TotalMetooCount") as? String
+//                {
+//                    if let n = NSNumberFormatter().numberFromString(stringTotalValue) {
+//                        totalValue = CGFloat(n)
+//                    }
+//                }
+//                
+//                if let stringCurrentValue = details.objectForKey("currentMetooCount") as? String
+//                {
+//                    if let n = NSNumberFormatter().numberFromString(stringCurrentValue) {
+//                        currentValue = CGFloat(n)
+//                    }
+//                }
+//                
+//                
+//                
+//                
+//                
+//                var value = currentValue / totalValue;
+//                value = 1 - value;
+//                
+                
+                
+                qrvSubView.addVolunteerDetailsDotWithStudentid(studentId, WithDecreasingValue: 7 * 100.00)
+                
+            }
+            
+            
+            
+            
+//            if let studentqueryView  = mQRVScrollView.viewWithTag(Int(queryId)!) as? QRVSubView
+//            {
+//                
+//                
+//                studentqueryView.addVolunteerDetailsDotWithStudentid(studentId, WithDecreasingValue: 66)
+//            }
+        }
     }
-    func delegateMeeTooPressedWithQueryId(queryId:String)
+    func changeQRVPositionOfSubView()
     {
+        var positionY :CGFloat = 10
+        let subViews = mQRVScrollView.subviews
+        
+        for subview in subViews
+        {
+            if subview.isKindOfClass(QRVSubView)
+            {
+                
+                UIView.animateWithDuration(0.5, animations: {
+                    subview.frame = CGRectMake(subview.frame.origin.x, positionY, subview.frame.size.width,  subview.frame.size.height)
+                })
+                
+                
+                positionY = positionY + subview.frame.size.height + 10
+            }
+        }
+        mQRVScrollView.contentSize = CGSizeMake(0,  positionY )
         
     }
     

@@ -94,6 +94,10 @@ import Foundation
     
     optional func smhdidRecieveQueryVolunteeringEnded()
     
+    optional func smhDidRecieveQueryAnsweringMessageWithDetails(details:AnyObject)
+    
+    optional func smhdidRecieveQueryVolunteeringClosedMessageWithDetails(details:AnyObject)
+    
 }
 
 public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,MessageManagerDelegate {
@@ -653,6 +657,34 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
             if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhdidRecieveQueryVolunteeringEnded))
             {
                 delegate().smhdidRecieveQueryVolunteeringEnded!()
+            }
+            
+        }
+        else if message.messageType() == kQueryAnswering
+        {
+            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhDidRecieveQueryAnsweringMessageWithDetails(_:)))
+            {
+                
+                if message.messageBody() != nil
+                {
+                   delegate().smhDidRecieveQueryAnsweringMessageWithDetails!(message.messageBody())
+                }
+                
+                
+            }
+            
+        }
+        else if message.messageType() == kQueryCloseVoting
+        {
+            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhdidRecieveQueryVolunteeringClosedMessageWithDetails(_:)))
+            {
+                
+                if message.messageBody() != nil
+                {
+                    delegate().smhdidRecieveQueryVolunteeringClosedMessageWithDetails!(message.messageBody())
+                }
+                
+                
             }
             
         }

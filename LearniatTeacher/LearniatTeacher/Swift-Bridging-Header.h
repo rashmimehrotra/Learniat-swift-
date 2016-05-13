@@ -33,4 +33,5 @@
 #import <ATKGeometryWidget/GWGeometryWidget.h>
 #import "SPUserResizableView.h"
 #import "ImageEditorSubView.h"
+#import "PNChart.h"
 #endif /* Swift_Bridging_Header_h */

@@ -31,6 +31,27 @@
 		4DC2465D1CC2450C00E01CA4 /* LessonPlanSubTopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC2465C1CC2450C00E01CA4 /* LessonPlanSubTopicCell.swift */; };
 		4DC2465F1CC24BFF00E01CA4 /* LessonPlanQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC2465E1CC24BFF00E01CA4 /* LessonPlanQuestionView.swift */; };
 		4DC246611CC24E9100E01CA4 /* LessonPlanQuestionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC246601CC24E9100E01CA4 /* LessonPlanQuestionViewCell.swift */; };
+		53015B761CE58A3C00BB366C /* VolunteerPopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53015B751CE58A3C00BB366C /* VolunteerPopoverController.swift */; };
+		53015B781CE58BBF00BB366C /* VolunteerPopopverCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53015B771CE58BBF00BB366C /* VolunteerPopopverCell.swift */; };
+		53015BA21CE5A53300BB366C /* DynamicFontSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 53015B7E1CE5A53300BB366C /* DynamicFontSize.m */; };
+		53015BA31CE5A53300BB366C /* PNBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 53015B811CE5A53300BB366C /* PNBar.m */; };
+		53015BA41CE5A53300BB366C /* PNBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 53015B831CE5A53300BB366C /* PNBarChart.m */; };
+		53015BA51CE5A53300BB366C /* PNChartLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 53015B871CE5A53300BB366C /* PNChartLabel.m */; };
+		53015BA61CE5A53300BB366C /* PNCircleChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 53015B891CE5A53300BB366C /* PNCircleChart.m */; };
+		53015BA71CE5A53300BB366C /* PNColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 53015B8B1CE5A53300BB366C /* PNColor.m */; };
+		53015BA81CE5A53300BB366C /* PNGenericChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 53015B8D1CE5A53300BB366C /* PNGenericChart.m */; };
+		53015BA91CE5A53300BB366C /* PNLineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 53015B8F1CE5A53300BB366C /* PNLineChart.m */; };
+		53015BAA1CE5A53300BB366C /* PNLineChartData.m in Sources */ = {isa = PBXBuildFile; fileRef = 53015B911CE5A53300BB366C /* PNLineChartData.m */; };
+		53015BAB1CE5A53300BB366C /* PNLineChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 53015B931CE5A53300BB366C /* PNLineChartDataItem.m */; };
+		53015BAC1CE5A53300BB366C /* PNPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 53015B951CE5A53300BB366C /* PNPieChart.m */; };
+		53015BAD1CE5A53300BB366C /* PNPieChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 53015B971CE5A53300BB366C /* PNPieChartDataItem.m */; };
+		53015BAE1CE5A53300BB366C /* PNRadarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 53015B991CE5A53300BB366C /* PNRadarChart.m */; };
+		53015BAF1CE5A53300BB366C /* PNRadarChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 53015B9B1CE5A53300BB366C /* PNRadarChartDataItem.m */; };
+		53015BB01CE5A53300BB366C /* PNScatterChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 53015B9D1CE5A53300BB366C /* PNScatterChart.m */; };
+		53015BB11CE5A53300BB366C /* PNScatterChartData.m in Sources */ = {isa = PBXBuildFile; fileRef = 53015B9F1CE5A53300BB366C /* PNScatterChartData.m */; };
+		53015BB21CE5A53300BB366C /* PNScatterChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 53015BA11CE5A53300BB366C /* PNScatterChartDataItem.m */; };
+		53015BB41CE5A89B00BB366C /* VolunteerAnsweringPopOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53015BB31CE5A89B00BB366C /* VolunteerAnsweringPopOver.swift */; };
+		53015BB61CE5B81500BB366C /* Thumbs_Down.png in Resources */ = {isa = PBXBuildFile; fileRef = 53015BB51CE5B81500BB366C /* Thumbs_Down.png */; };
 		5309C75C1CD9D32600481E0C /* StudentModelAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5309C75B1CD9D32600481E0C /* StudentModelAnswerView.swift */; };
 		5309C75E1CD9D9D600481E0C /* ModelAnswerButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5309C75D1CD9D9D600481E0C /* ModelAnswerButtonView.swift */; };
 		5309C7601CD9DEB200481E0C /* Share.png in Resources */ = {isa = PBXBuildFile; fileRef = 5309C75F1CD9DEB200481E0C /* Share.png */; };
@@ -449,6 +470,46 @@
 		4DC2465C1CC2450C00E01CA4 /* LessonPlanSubTopicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonPlanSubTopicCell.swift; sourceTree = "<group>"; };
 		4DC2465E1CC24BFF00E01CA4 /* LessonPlanQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonPlanQuestionView.swift; sourceTree = "<group>"; };
 		4DC246601CC24E9100E01CA4 /* LessonPlanQuestionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonPlanQuestionViewCell.swift; sourceTree = "<group>"; };
+		53015B751CE58A3C00BB366C /* VolunteerPopoverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolunteerPopoverController.swift; sourceTree = "<group>"; };
+		53015B771CE58BBF00BB366C /* VolunteerPopopverCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolunteerPopopverCell.swift; sourceTree = "<group>"; };
+		53015B7D1CE5A53300BB366C /* DynamicFontSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicFontSize.h; sourceTree = "<group>"; };
+		53015B7E1CE5A53300BB366C /* DynamicFontSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicFontSize.m; sourceTree = "<group>"; };
+		53015B801CE5A53300BB366C /* PNBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNBar.h; sourceTree = "<group>"; };
+		53015B811CE5A53300BB366C /* PNBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNBar.m; sourceTree = "<group>"; };
+		53015B821CE5A53300BB366C /* PNBarChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNBarChart.h; sourceTree = "<group>"; };
+		53015B831CE5A53300BB366C /* PNBarChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNBarChart.m; sourceTree = "<group>"; };
+		53015B841CE5A53300BB366C /* PNChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNChart.h; sourceTree = "<group>"; };
+		53015B851CE5A53300BB366C /* PNChartDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNChartDelegate.h; sourceTree = "<group>"; };
+		53015B861CE5A53300BB366C /* PNChartLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNChartLabel.h; sourceTree = "<group>"; };
+		53015B871CE5A53300BB366C /* PNChartLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNChartLabel.m; sourceTree = "<group>"; };
+		53015B881CE5A53300BB366C /* PNCircleChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNCircleChart.h; sourceTree = "<group>"; };
+		53015B891CE5A53300BB366C /* PNCircleChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNCircleChart.m; sourceTree = "<group>"; };
+		53015B8A1CE5A53300BB366C /* PNColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNColor.h; sourceTree = "<group>"; };
+		53015B8B1CE5A53300BB366C /* PNColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNColor.m; sourceTree = "<group>"; };
+		53015B8C1CE5A53300BB366C /* PNGenericChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNGenericChart.h; sourceTree = "<group>"; };
+		53015B8D1CE5A53300BB366C /* PNGenericChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNGenericChart.m; sourceTree = "<group>"; };
+		53015B8E1CE5A53300BB366C /* PNLineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNLineChart.h; sourceTree = "<group>"; };
+		53015B8F1CE5A53300BB366C /* PNLineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNLineChart.m; sourceTree = "<group>"; };
+		53015B901CE5A53300BB366C /* PNLineChartData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNLineChartData.h; sourceTree = "<group>"; };
+		53015B911CE5A53300BB366C /* PNLineChartData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNLineChartData.m; sourceTree = "<group>"; };
+		53015B921CE5A53300BB366C /* PNLineChartDataItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNLineChartDataItem.h; sourceTree = "<group>"; };
+		53015B931CE5A53300BB366C /* PNLineChartDataItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNLineChartDataItem.m; sourceTree = "<group>"; };
+		53015B941CE5A53300BB366C /* PNPieChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNPieChart.h; sourceTree = "<group>"; };
+		53015B951CE5A53300BB366C /* PNPieChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNPieChart.m; sourceTree = "<group>"; };
+		53015B961CE5A53300BB366C /* PNPieChartDataItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNPieChartDataItem.h; sourceTree = "<group>"; };
+		53015B971CE5A53300BB366C /* PNPieChartDataItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNPieChartDataItem.m; sourceTree = "<group>"; };
+		53015B981CE5A53300BB366C /* PNRadarChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNRadarChart.h; sourceTree = "<group>"; };
+		53015B991CE5A53300BB366C /* PNRadarChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNRadarChart.m; sourceTree = "<group>"; };
+		53015B9A1CE5A53300BB366C /* PNRadarChartDataItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNRadarChartDataItem.h; sourceTree = "<group>"; };
+		53015B9B1CE5A53300BB366C /* PNRadarChartDataItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNRadarChartDataItem.m; sourceTree = "<group>"; };
+		53015B9C1CE5A53300BB366C /* PNScatterChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNScatterChart.h; sourceTree = "<group>"; };
+		53015B9D1CE5A53300BB366C /* PNScatterChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNScatterChart.m; sourceTree = "<group>"; };
+		53015B9E1CE5A53300BB366C /* PNScatterChartData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNScatterChartData.h; sourceTree = "<group>"; };
+		53015B9F1CE5A53300BB366C /* PNScatterChartData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNScatterChartData.m; sourceTree = "<group>"; };
+		53015BA01CE5A53300BB366C /* PNScatterChartDataItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNScatterChartDataItem.h; sourceTree = "<group>"; };
+		53015BA11CE5A53300BB366C /* PNScatterChartDataItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNScatterChartDataItem.m; sourceTree = "<group>"; };
+		53015BB31CE5A89B00BB366C /* VolunteerAnsweringPopOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolunteerAnsweringPopOver.swift; sourceTree = "<group>"; };
+		53015BB51CE5B81500BB366C /* Thumbs_Down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Thumbs_Down.png; sourceTree = "<group>"; };
 		5309C75B1CD9D32600481E0C /* StudentModelAnswerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentModelAnswerView.swift; sourceTree = "<group>"; };
 		5309C75D1CD9D9D600481E0C /* ModelAnswerButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelAnswerButtonView.swift; sourceTree = "<group>"; };
 		5309C75F1CD9DEB200481E0C /* Share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Share.png; sourceTree = "<group>"; };
@@ -1093,9 +1154,61 @@
 			path = SetUpLessonPlan;
 			sourceTree = "<group>";
 		};
+		53015B791CE5A49D00BB366C /* QRV */ = {
+			isa = PBXGroup;
+			children = (
+				53015B7D1CE5A53300BB366C /* DynamicFontSize.h */,
+				53015B7E1CE5A53300BB366C /* DynamicFontSize.m */,
+				53015B7F1CE5A53300BB366C /* PNChart */,
+			);
+			path = QRV;
+			sourceTree = "<group>";
+		};
+		53015B7F1CE5A53300BB366C /* PNChart */ = {
+			isa = PBXGroup;
+			children = (
+				53015B801CE5A53300BB366C /* PNBar.h */,
+				53015B811CE5A53300BB366C /* PNBar.m */,
+				53015B821CE5A53300BB366C /* PNBarChart.h */,
+				53015B831CE5A53300BB366C /* PNBarChart.m */,
+				53015B841CE5A53300BB366C /* PNChart.h */,
+				53015B851CE5A53300BB366C /* PNChartDelegate.h */,
+				53015B861CE5A53300BB366C /* PNChartLabel.h */,
+				53015B871CE5A53300BB366C /* PNChartLabel.m */,
+				53015B881CE5A53300BB366C /* PNCircleChart.h */,
+				53015B891CE5A53300BB366C /* PNCircleChart.m */,
+				53015B8A1CE5A53300BB366C /* PNColor.h */,
+				53015B8B1CE5A53300BB366C /* PNColor.m */,
+				53015B8C1CE5A53300BB366C /* PNGenericChart.h */,
+				53015B8D1CE5A53300BB366C /* PNGenericChart.m */,
+				53015B8E1CE5A53300BB366C /* PNLineChart.h */,
+				53015B8F1CE5A53300BB366C /* PNLineChart.m */,
+				53015B901CE5A53300BB366C /* PNLineChartData.h */,
+				53015B911CE5A53300BB366C /* PNLineChartData.m */,
+				53015B921CE5A53300BB366C /* PNLineChartDataItem.h */,
+				53015B931CE5A53300BB366C /* PNLineChartDataItem.m */,
+				53015B941CE5A53300BB366C /* PNPieChart.h */,
+				53015B951CE5A53300BB366C /* PNPieChart.m */,
+				53015B961CE5A53300BB366C /* PNPieChartDataItem.h */,
+				53015B971CE5A53300BB366C /* PNPieChartDataItem.m */,
+				53015B981CE5A53300BB366C /* PNRadarChart.h */,
+				53015B991CE5A53300BB366C /* PNRadarChart.m */,
+				53015B9A1CE5A53300BB366C /* PNRadarChartDataItem.h */,
+				53015B9B1CE5A53300BB366C /* PNRadarChartDataItem.m */,
+				53015B9C1CE5A53300BB366C /* PNScatterChart.h */,
+				53015B9D1CE5A53300BB366C /* PNScatterChart.m */,
+				53015B9E1CE5A53300BB366C /* PNScatterChartData.h */,
+				53015B9F1CE5A53300BB366C /* PNScatterChartData.m */,
+				53015BA01CE5A53300BB366C /* PNScatterChartDataItem.h */,
+				53015BA11CE5A53300BB366C /* PNScatterChartDataItem.m */,
+			);
+			path = PNChart;
+			sourceTree = "<group>";
+		};
 		531044831CA64296007AE9D5 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				53015BB51CE5B81500BB366C /* Thumbs_Down.png */,
 				53D1C15F1CDCAFC40095B1EB /* Delete.png */,
 				53D1C1601CDCAFC40095B1EB /* dragAndDrop.png */,
 				53D1C1611CDCAFC40095B1EB /* Edit.png */,
@@ -1316,6 +1429,7 @@
 		53676AF71CA63B7F00CADE4D /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				53015B791CE5A49D00BB366C /* QRV */,
 				5330645C1CC8E3A50035CCDE /* CustomTextView */,
 				5360E6C31CBE456D00AFE9FF /* Donart Chart */,
 				5373011E1CB665E300E76753 /* Drawing */,
@@ -2503,6 +2617,9 @@
 				53778B691CBCECE2004E6480 /* SSTeacherVolunteerView.swift */,
 				53778B6B1CBCED72004E6480 /* QueryVolunteerSubView.swift */,
 				53778B6D1CBCF672004E6480 /* VolunteerTopView.swift */,
+				53015B751CE58A3C00BB366C /* VolunteerPopoverController.swift */,
+				53015B771CE58BBF00BB366C /* VolunteerPopopverCell.swift */,
+				53015BB31CE5A89B00BB366C /* VolunteerAnsweringPopOver.swift */,
 			);
 			path = QueryView;
 			sourceTree = "<group>";
@@ -2738,6 +2855,7 @@
 				537302591CB6771200E76753 /* Text_Selected.png in Resources */,
 				537302411CB6771200E76753 /* Checked@2x.png in Resources */,
 				53676D2C1CA63B7F00CADE4D /* build-libidn.sh in Resources */,
+				53015BB61CE5B81500BB366C /* Thumbs_Down.png in Resources */,
 				53B5901D1CB8E02900A69FC1 /* Cb_Like_Enabled.png in Resources */,
 				537302401CB6771200E76753 /* Checked.png in Resources */,
 				537302611CB6771200E76753 /* Undo_Disabled@2x.png in Resources */,
@@ -2754,6 +2872,7 @@
 				53FC04441CAFAE2100D7B941 /* BarView.swift in Sources */,
 				53676CAE1CA63B7F00CADE4D /* XMPPElement.m in Sources */,
 				53676D3A1CA63B7F00CADE4D /* SSTeacherMessageHandler.swift in Sources */,
+				53015BA71CE5A53300BB366C /* PNColor.m in Sources */,
 				53676CDD1CA63B7F00CADE4D /* XMPPvCardTempCoreDataStorageObject.m in Sources */,
 				53676CE01CA63B7F00CADE4D /* XMPPvCardTempAdrTypes.m in Sources */,
 				53676CB91CA63B7F00CADE4D /* XMPPProcessOne.m in Sources */,
@@ -2762,20 +2881,25 @@
 				53676CA21CA63B7F00CADE4D /* Toast.swift in Sources */,
 				53676CD11CA63B7F00CADE4D /* XMPPRoomMessageHybridCoreDataStorageObject.m in Sources */,
 				53676D381CA63B7F00CADE4D /* PreallocateSeatViewController.swift in Sources */,
+				53015BB21CE5A53300BB366C /* PNScatterChartDataItem.m in Sources */,
 				53676CF11CA63B7F00CADE4D /* XMPPSoftwareVersion.m in Sources */,
 				53676D111CA63B7F00CADE4D /* NSXMLElement+XEP_0297.m in Sources */,
 				539945D71CD09AD700007EC7 /* PlistDownloder.m in Sources */,
+				53015BAE1CE5A53300BB366C /* PNRadarChart.m in Sources */,
 				53676CD81CA63B7F00CADE4D /* XMPPRoom.m in Sources */,
 				53CA5A241CB2337D008C42B0 /* AggregateCell.swift in Sources */,
 				5342176D1CDC8D570061A7E7 /* TeacherShapesView.swift in Sources */,
 				53676D2F1CA63B7F00CADE4D /* LoginViewController.swift in Sources */,
+				53015BB01CE5A53300BB366C /* PNScatterChart.m in Sources */,
 				53D1C15B1CDCA8B20095B1EB /* SPUserResizableView.m in Sources */,
 				53676D0B1CA63B7F00CADE4D /* NSXMLElement+XEP_0203.m in Sources */,
 				53676D141CA63B7F00CADE4D /* NSXMLElement+XEP_0335.m in Sources */,
+				53015BA51CE5A53300BB366C /* PNChartLabel.m in Sources */,
 				53676D251CA63B7F00CADE4D /* DDDispatchQueueLogFormatter.m in Sources */,
 				531044AA1CA665E2007AE9D5 /* StundentDeskView.swift in Sources */,
 				53676CEA1CA63B7F00CADE4D /* TURNSocket.m in Sources */,
 				53676D5A1CA63D7A00CADE4D /* MainTopicCell.swift in Sources */,
+				53015BA31CE5A53300BB366C /* PNBar.m in Sources */,
 				53676D591CA63D7A00CADE4D /* SSTeacherClassView.swift in Sources */,
 				53676CEC1CA63B7F00CADE4D /* XMPPMessage+XEP_0066.m in Sources */,
 				4DC246511CC1F6B500E01CA4 /* RatingsPopOverViewController.m in Sources */,
@@ -2818,6 +2942,7 @@
 				53676CBF1CA63B7F00CADE4D /* XMPPUserCoreDataStorageObject.m in Sources */,
 				4DC246501CC1F6B500E01CA4 /* ImageUploading.m in Sources */,
 				5309C7DD1CDA1B9500481E0C /* StudentModelAnswerCell.swift in Sources */,
+				53015BA21CE5A53300BB366C /* DynamicFontSize.m in Sources */,
 				5395672A1CB5281E009B0100 /* SSStarRatingView.m in Sources */,
 				53676CFA1CA63B7F00CADE4D /* XMPPMessageArchiving_Contact_CoreDataObject.m in Sources */,
 				53676D021CA63B7F00CADE4D /* XMPPMessageDeliveryReceipts.m in Sources */,
@@ -2881,6 +3006,7 @@
 				539567221CB4C763009B0100 /* SubmissionMTCView.swift in Sources */,
 				53676D341CA63B7F00CADE4D /* TeacherScheduleViewController.swift in Sources */,
 				53676CD21CA63B7F00CADE4D /* XMPPRoomOccupantHybridMemoryStorageObject.m in Sources */,
+				53015BAC1CE5A53300BB366C /* PNPieChart.m in Sources */,
 				532607971CA90AEC002FF684 /* CustomProgressImageView.m in Sources */,
 				53676D2E1CA63B7F00CADE4D /* INILoader.swift in Sources */,
 				53676D001CA63B7F00CADE4D /* XMPPPresence+XEP_0172.m in Sources */,
@@ -2901,6 +3027,7 @@
 				5326079D1CA917EC002FF684 /* SingleResponceOptionCell.swift in Sources */,
 				53676CE11CA63B7F00CADE4D /* XMPPvCardTempBase.m in Sources */,
 				53676CEB1CA63B7F00CADE4D /* XMPPIQ+XEP_0066.m in Sources */,
+				53015B761CE58A3C00BB366C /* VolunteerPopoverController.swift in Sources */,
 				537301111CB62A2B00E76753 /* SubjectiveStudentContainer.swift in Sources */,
 				53676D031CA63B7F00CADE4D /* XMPPBlocking.m in Sources */,
 				53676CAF1CA63B7F00CADE4D /* XMPPIQ.m in Sources */,
@@ -2912,6 +3039,7 @@
 				4DC246521CC1F6B500E01CA4 /* SSSettingsViewController.m in Sources */,
 				53676CFE1CA63B7F00CADE4D /* XMPPvCardAvatarModule.m in Sources */,
 				4D2A93221CC0C4A9007A1D41 /* SetupGridview.swift in Sources */,
+				53015BAF1CE5A53300BB366C /* PNRadarChartDataItem.m in Sources */,
 				53676D291CA63B7F00CADE4D /* DDXMLDocument.m in Sources */,
 				53676C9D1CA63B7F00CADE4D /* NSData+Base64.m in Sources */,
 				53676CE61CA63B7F00CADE4D /* NSXMLElement+XEP_0059.m in Sources */,
@@ -2926,29 +3054,38 @@
 				53460C3F1CD22C3F00076F85 /* PollCompletedView.swift in Sources */,
 				5309C75E1CD9D9D600481E0C /* ModelAnswerButtonView.swift in Sources */,
 				53676CF21CA63B7F00CADE4D /* XMPPTransports.m in Sources */,
+				53015BAA1CE5A53300BB366C /* PNLineChartData.m in Sources */,
 				53676D071CA63B7F00CADE4D /* XMPPAutoPing.m in Sources */,
+				53015B781CE58BBF00BB366C /* VolunteerPopopverCell.swift in Sources */,
 				53676CED1CA63B7F00CADE4D /* XMPPRegistration.m in Sources */,
 				53676CA31CA63B7F00CADE4D /* XMPPAnonymousAuthentication.m in Sources */,
 				53676CAB1CA63B7F00CADE4D /* NSData+XMPP.m in Sources */,
 				53676CC61CA63B7F00CADE4D /* XMPPIQ+JabberRPCResonse.m in Sources */,
+				53015BB41CE5A89B00BB366C /* VolunteerAnsweringPopOver.swift in Sources */,
 				53676CE91CA63B7F00CADE4D /* XMPPPubSub.m in Sources */,
 				53676CDA1CA63B7F00CADE4D /* XMPPvCardAvatarCoreDataStorageObject.m in Sources */,
 				53676CA81CA63B7F00CADE4D /* XMPPSCRAMSHA1Authentication.m in Sources */,
 				5360E6C61CBE456D00AFE9FF /* DonutChartView.m in Sources */,
 				53676D5B1CA63D7A00CADE4D /* QuestionCell.swift in Sources */,
+				53015BA91CE5A53300BB366C /* PNLineChart.m in Sources */,
 				537D3ECF1CCF25F200D766ED /* LiveQuestionView.swift in Sources */,
+				53015BB11CE5A53300BB366C /* PNScatterChartData.m in Sources */,
 				53676CAA1CA63B7F00CADE4D /* XMPPXOAuth2Google.m in Sources */,
 				53676CC51CA63B7F00CADE4D /* XMPPIQ+JabberRPC.m in Sources */,
+				53015BAD1CE5A53300BB366C /* PNPieChartDataItem.m in Sources */,
 				53676CCB1CA63B7F00CADE4D /* XMPPRoom.xcdatamodeld in Sources */,
 				53676D061CA63B7F00CADE4D /* XMPPStreamManagement.m in Sources */,
 				53778B681CBCBD96004E6480 /* QuerySelectSubView.swift in Sources */,
 				53676CE41CA63B7F00CADE4D /* XMPPvCardTempModule.m in Sources */,
+				53015BA61CE5A53300BB366C /* PNCircleChart.m in Sources */,
 				4DC246571CC217C200E01CA4 /* LessonPlanMainView.swift in Sources */,
 				53676D181CA63B7F00CADE4D /* GCDMulticastDelegate.m in Sources */,
 				53D8CCB11CCE314E00BA838C /* QuestionsView.swift in Sources */,
 				53676CDC1CA63B7F00CADE4D /* XMPPvCardCoreDataStorageObject.m in Sources */,
 				53676CF61CA63B7F00CADE4D /* XMPPCapsCoreDataStorageObject.m in Sources */,
 				53676CA61CA63B7F00CADE4D /* XMPPDigestMD5Authentication.m in Sources */,
+				53015BA81CE5A53300BB366C /* PNGenericChart.m in Sources */,
+				53015BAB1CE5A53300BB366C /* PNLineChartDataItem.m in Sources */,
 				53676D1B1CA63B7F00CADE4D /* XMPPSRVResolver.m in Sources */,
 				53FC04391CAF8CBC00D7B941 /* SSTeacherQueryView.swift in Sources */,
 				53676CBA1CA63B7F00CADE4D /* XMPPReconnect.m in Sources */,
@@ -2974,6 +3111,7 @@
 				53676D1F1CA63B7F00CADE4D /* DDAbstractDatabaseLogger.m in Sources */,
 				53676C971CA63B7F00CADE4D /* InternetTesting.m in Sources */,
 				53676CD41CA63B7F00CADE4D /* XMPPRoomMessageMemoryStorageObject.m in Sources */,
+				53015BA41CE5A53300BB366C /* PNBarChart.m in Sources */,
 				53676CB21CA63B7F00CADE4D /* XMPPModule.m in Sources */,
 				53676CA11CA63B7F00CADE4D /* LBorderView.m in Sources */,
 				53778B661CBCBB1C004E6480 /* SSTeacherQuerySelectView.swift in Sources */,

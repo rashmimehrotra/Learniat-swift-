@@ -54,6 +54,8 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     var waitQuestionTimer                   = NSTimer()
     
     
+    var mStudentQrvAnsweringView           :StudentVolunteeringView!
+    
     var startedTimeUpdatingTimer = NSTimer()
     
     override func viewDidLoad()
@@ -453,6 +455,12 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             classStartedView.hidden = false
              classsBegin()
         }
+        
+        if mStudentQrvAnsweringView != nil
+        {
+            mStudentQrvAnsweringView.removeFromSuperview()
+        }
+
             mNoStudentLabel.hidden = true 
     }
     func smhDidGetVotingMessageWithDetails(details: AnyObject)
@@ -610,6 +618,70 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     func smhdidRecieveQueryVolunteeringEnded()
     {
          mQueryView.VolunteerPresentState(false)
+        if mStudentQrvAnsweringView != nil
+        {
+            mStudentQrvAnsweringView.removeFromSuperview()
+        }
+
+    }
+    
+    
+    func smhDidRecieveQueryAnsweringMessageWithDetails(details: AnyObject)
+    {
+        if details.objectForKey("AnsweringStudentId") != nil
+        {
+            if let AnsweringStudentId = details.objectForKey("AnsweringStudentId") as? String
+            {
+                if AnsweringStudentId == SSStudentDataSource.sharedDataSource.currentUserId
+                {
+                    let _questionAcceptAlert = UIAlertView()
+                    _questionAcceptAlert.title = "Teacher selected you"
+                    _questionAcceptAlert.message = "Please stand up and answer"
+                    _questionAcceptAlert.addButtonWithTitle("OK")
+                    _questionAcceptAlert.show()
+                    _questionAcceptAlert.delegate = self
+                    
+                   
+                }
+                
+                
+                mStudentQrvAnsweringView = StudentVolunteeringView(frame:CGRectMake(0,0,self.view.frame.size.width, self.view.frame.size.height))
+                mStudentQrvAnsweringView.setVolunteeringDetails(details)
+                self.view.addSubview(mStudentQrvAnsweringView)
+                
+                
+
+            }
+        }
+        
+    }
+    
+    
+    func smhdidRecieveQueryVolunteeringClosedMessageWithDetails(details: AnyObject)
+    {
+        if mStudentQrvAnsweringView != nil
+        {
+            mStudentQrvAnsweringView.removeFromSuperview()
+        }
+        
+        if details.objectForKey("QueryId") != nil
+        {
+             if let QueryId = details.objectForKey("QueryId") as? String
+             {
+                
+                if details.objectForKey("StudentId") != nil
+                {
+                    if let StudentId = details.objectForKey("StudentId") as? String
+                    {
+                        
+                        mQueryView.volunteerClosedWithQueryId(QueryId, withStudentdID: StudentId)
+                    }
+                }
+                
+            }
+        }
+       
+        
     }
    
     // MARK: - message handler functions

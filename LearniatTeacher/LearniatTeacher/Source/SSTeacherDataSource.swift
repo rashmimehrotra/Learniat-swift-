@@ -93,6 +93,9 @@ let  kGetAllModelAnswer             =   "GetAllModelAnswers"
 
 let kRecordModelAnswer              =   "RecordModelAnswer"
 
+let kServiceApproveVolunteer        =   "ApproveVolunteer"
+
+let kServiceStopVolunteering        =   "StopVolunteering"
 
 @objc protocol SSTeacherDataSourceDelegate
 {
@@ -244,7 +247,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func getUserState(userId :String, withDelegate delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+        
         let manager = APIManager()
         
         
@@ -257,7 +260,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func LoginWithUserId(userId :String , andPassword Password:String, withDelegate delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+
         
         
         let manager = APIManager()
@@ -272,7 +275,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func getScheduleOfTeacher(delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+
         
         let manager = APIManager()
         
@@ -284,7 +287,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func getMyCurrentSessionOfTeacher(delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+
         
         let manager = APIManager()
         
@@ -296,7 +299,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func updateSessionStateWithSessionId(sessionId:String,WithStatusvalue Status:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+
         
         let manager = APIManager()
         
@@ -308,7 +311,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func getScheduleSummaryWithSessionId(sessionId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+
         
         let manager = APIManager()
         
@@ -320,7 +323,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func extendSessionWithSessionId(sessionId:String, withTime Time:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+
         
         let manager = APIManager()
         
@@ -331,7 +334,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func resetPreallocatedSeatsOfSession(sessionId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+
         
         let manager = APIManager()
         
@@ -342,7 +345,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func getGridDesignDetails(roomId :String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+
         
         let manager = APIManager()
         
@@ -354,7 +357,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func getMaxStudentRegisterdwiRoomId(roomId :String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+
         
         let manager = APIManager()
         
@@ -366,7 +369,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func ConfigureSeatsWithRoomId(roomId :String, withRows rowValue:String, withColumnValue columnValue:String,withRemovedSeats removedSeats:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+
         
         let manager = APIManager()
         
@@ -381,7 +384,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func getSeatAssignmentofSession(sessionId:String,  withDelegate delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+
         
         let manager = APIManager()
         
@@ -392,7 +395,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func getStudentsInfoWithSessionId(sessionId:String,  withDelegate delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+
         
         let manager = APIManager()
         
@@ -403,7 +406,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func SaveSeatAssignmentWithStudentsList(studentsList:String, withSeatsIdList seatIdList:String, withSessionId sessionId:String, withDelegate delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+
         
         let manager = APIManager()
         
@@ -415,7 +418,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func getAllNodesWithClassId(classId:String, withSubjectId subjectId:String, withTopicId topicId:String,withType type:String, withDelegate delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+
         
         let manager = APIManager()
         
@@ -426,7 +429,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func saveLessonPlan(classId:String,  withTopicIdList topicIdList:String, withDelegate delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+
         
         let manager = APIManager()
         
@@ -438,7 +441,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
    
     func startSubTopicWithTopicID(topicId:String,withStudentId studentId:String,withSessionID sessionid:String, withDelegate delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+
         
         let manager = APIManager()
         
@@ -449,7 +452,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func stopSubTopicWithTopicID(topicId:String,withSessionID sessionid:String, withDelegate delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+
         
         let manager = APIManager()
         
@@ -463,7 +466,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func broadcastQuestionWithQuestionId(questionId:String,withSessionID sessionID:String, withDelegate delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+
         
         let manager = APIManager()
         
@@ -474,7 +477,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
 
     func clearQuestionWithQuestionogId(questionLogId:String, withDelegate delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+
         
         let manager = APIManager()
         
@@ -485,7 +488,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func getStudentsAswerWithAnswerId(answerId:String, withDelegate delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+
         
         let manager = APIManager()
         
@@ -496,7 +499,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func getAgregateDrilDownWithOptionId(OptionId:String,WithQuestionLogId QuestionLogId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+
         
         let manager = APIManager()
         
@@ -508,7 +511,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func fetchQuestionWithQuestionLogId(questionLogId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+
         
         let manager = APIManager()
         
@@ -521,7 +524,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func getModelAnswerWithQuestionLogId(questionLogId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+        
         
         let manager = APIManager()
         
@@ -535,9 +538,10 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     
     
+    
     func sendFeedbackToStudentWithDetails(details:AnyObject, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+
         
         let manager = APIManager()
         
@@ -634,7 +638,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func getQueryWithQueryId(QueryId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+
         
         let manager = APIManager()
         
@@ -646,7 +650,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func replyToDoubtWithDetails(details:AnyObject, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+
         
         
         
@@ -712,7 +716,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func saveSelectedVolunteers(QueryIdList:String, withAllowVolunteerList allowVolunteer:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+
         
         let manager = APIManager()
         
@@ -725,7 +729,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func EndVolunteeringSessionwithQueryId(QueryIdList:String, withMeTooList MeTooList:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+
         
         
         let manager = APIManager()
@@ -740,7 +744,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func uploadTeacherScribble(ScribbleId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+
         
         let manager = APIManager()
         
@@ -753,7 +757,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func recordQuestionWithScribbleId(ScribbleId:String,withQuestionName questionName:String,WithType Type:String,withTopicId topicd:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+
         
         let manager = APIManager()
         
@@ -767,7 +771,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func recordModelAnswerwithAssesmentAnswerId(AssesmentAnswerId:String,WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
-        setdelegate(delegate)
+
         
         let manager = APIManager()
         
@@ -775,6 +779,29 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         manager.downloadDataURL(urlString, withServiceName: kRecordModelAnswer, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
     }
+    
+    
+    func sendApporoveVolunteerWithVolunteerId(VolunteerId:String,withstateFlag stateFlag:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>ApproveVolunteer</Service><VolunteerId>%@</VolunteerId><StoppedFlag>%@</StoppedFlag></Action></Sunstone>",URLPrefix,VolunteerId,stateFlag)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceApproveVolunteer, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+    }
+    
+    func StopVolunteeringwithVolunteerId(VolunteerId:String,withthumbsUp ThumbsUpValue:String,withthumbsDown ThumbsDown:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>StopVolunteering</Service><VolunteerId>%@</VolunteerId><ThumbsUpVotes>%@</ThumbsUpVotes><ThumbsDownVotes>%@</ThumbsDownVotes></Action></Sunstone>",URLPrefix,VolunteerId,ThumbsUpValue,ThumbsDown)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceStopVolunteering, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+    }
+    
+    
     
     
     // MARK: - API delegate Functions

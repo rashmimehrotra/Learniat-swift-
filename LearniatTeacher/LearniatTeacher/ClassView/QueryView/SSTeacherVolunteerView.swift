@@ -19,7 +19,7 @@ import Foundation
 }
 
 
-class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDelegate
+class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDelegate, QueryVolunteerSubViewDelegate,UIPopoverControllerDelegate,VolunteerPopoverControllerDelegate,UIPopoverPresentationControllerDelegate, VolunteerAnsweringPopOverDelegate
 {
     var _delgate: AnyObject!
     
@@ -241,12 +241,6 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
             {
                 if let studentqueryView  = mScrollView.viewWithTag(Int(QueryId)!) as? QueryVolunteerSubView
                 {
-                    let VolunteerValue = studentqueryView.mVolunteerButton.titleLabel?.text
-                    
-                    let value = Int(VolunteerValue!)! + 1
-                    
-                    
-                    studentqueryView.mVolunteerButton.titleLabel!.text = "\(value)"
                     studentqueryView.setVolunteersDetials(details)
                     
                 }
@@ -266,17 +260,131 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
             {
                 if let studentqueryView  = mScrollView.viewWithTag(Int(QueryId)!) as? QueryVolunteerSubView
                 {
-                    let VolunteerValue = studentqueryView.mMetooLabel.text
-                    
-                    let value = Int(VolunteerValue!)! + 1
-                    
-                    
-                    studentqueryView.mMetooLabel.text = "\(value)"
-                    
+                   
+                    if let StudentId = details.objectForKey("StudentId") as? String
+                    {
+                         studentqueryView.setMeTooSelectedStudents(StudentId)
+                    }
                 }
             }
         }
     }
+    
+    
+    // MARK: - Query Volunteer subView functions
+    
+    func delegateVolunteerButtonPressedWithVolunteersArray(volunteersArray: NSMutableArray, withVolunteerButton volunteerButton: UIButton) {
+        
+        let buttonPosition :CGPoint = volunteerButton.convertPoint(CGPointZero, toView: self)
+        
+        let questionInfoController = VolunteerPopoverController()
+        
+        
+        questionInfoController.addVolunteerWithDetails(volunteersArray)
+        
+        
+        var height :CGFloat = CGFloat((volunteersArray.count * 60))
+        
+        
+        if height > UIScreen.mainScreen().bounds.height - 100
+        {
+            height = UIScreen.mainScreen().bounds.height - 100
+        }
+        
+        
+        
+        questionInfoController.preferredContentSize = CGSizeMake(300,height)
+        
+        questionInfoController.setdelegate(self)
+        
+        let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+        
+        classViewPopOverController.popoverContentSize = CGSizeMake(300,height);
+        
+        classViewPopOverController.delegate = self;
+        
+        questionInfoController.setPopover(classViewPopOverController)
+        
+        classViewPopOverController.presentPopoverFromRect(CGRect(
+            x:buttonPosition.x ,
+            y:buttonPosition.y + volunteerButton.frame.size.height / 2,
+            width: 1,
+            height: 1), inView: self, permittedArrowDirections: .Right, animated: true)
+    }
+    // MARK: - Volunteer popover delegate functions
+    
+    func delegateGiveAnswerPressedWithVolunteerDetails(volunteerDetails: AnyObject)
+    {
+        
+        if (volunteerDetails.objectForKey("QueryId") != nil)
+        {
+            if let QueryId = volunteerDetails.objectForKey("QueryId") as? String
+            {
+                if let studentqueryView  = mScrollView.viewWithTag(Int(QueryId)!) as? QueryVolunteerSubView
+                {
+                    studentqueryView.backgroundColor = UIColor.whiteColor()
+                    studentqueryView.layer.shadowColor = UIColor.blackColor().CGColor
+                    studentqueryView.layer.shadowOffset = CGSize(width: 0, height: 3)
+                    studentqueryView.layer.shadowOpacity = 0.3
+                    studentqueryView.layer.shadowRadius = 2
+                    if let VolunteerId = volunteerDetails.objectForKey("VolunteerId") as? String
+                    {
+                         SSTeacherDataSource.sharedDataSource.sendApporoveVolunteerWithVolunteerId(VolunteerId, withstateFlag: "1", WithDelegate: self)
+                        
+                    }
+                    
+                   
+                    
+                    
+                    
+                    let buttonPosition :CGPoint = studentqueryView.convertPoint(CGPointZero, toView: self)
+                    
+                    let questionInfoController = VolunteerAnsweringPopOver(frame:CGRectMake(self.frame.size.width - 350 , ((buttonPosition.y + studentqueryView.frame.size.height/2 )) - 130 , 150,260))
+                    questionInfoController.setVolunteerDetails(volunteerDetails)
+                    questionInfoController.setdelegate(self)
+                    self.addSubview(questionInfoController)
+                    questionInfoController.layer.shadowColor = UIColor.blackColor().CGColor
+                    questionInfoController.layer.shadowOffset = CGSize(width: 0, height: 3)
+                    questionInfoController.layer.shadowOpacity = 0.3
+                    questionInfoController.layer.shadowRadius = 2
+                    
+                }
+            }
+        }
+        
+    }
+    
+    func delegateStopVolunteeringPressedWithVolunteerDetails(volunteerDetails: AnyObject, withThummbsUp ThummbsUp: String, withThummbsDown ThummbsDown: String) {
+        
+        if (volunteerDetails.objectForKey("QueryId") != nil)
+        {
+            if let QueryId = volunteerDetails.objectForKey("QueryId") as? String
+            {
+                if let studentqueryView  = mScrollView.viewWithTag(Int(QueryId)!) as? QueryVolunteerSubView
+                {
+                    studentqueryView.backgroundColor = UIColor.clearColor()
+                    studentqueryView.layer.shadowColor = UIColor.clearColor().CGColor
+                    studentqueryView.layer.shadowOffset = CGSize(width: 0, height: 0)
+                    studentqueryView.layer.shadowRadius = 0
+
+                    if let VolunteerId = volunteerDetails.objectForKey("VolunteerId") as? String
+                    {
+                        SSTeacherDataSource.sharedDataSource.StopVolunteeringwithVolunteerId(VolunteerId, withthumbsUp: "0", withthumbsDown: "0", WithDelegate: self)
+                        
+                    }
+                    
+                    if let StudentId = volunteerDetails.objectForKey("StudentId") as? String
+                    {
+                        SSTeacherMessageHandler.sharedMessageHandler.sendQRVClosedMessageToRoom(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, withstudentId: StudentId, withQueryId: QueryId)
+                    }
+                    
+
+                }
+            }
+        }
+        
+    }
+    
     
     
     

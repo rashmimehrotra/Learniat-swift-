@@ -961,6 +961,15 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     func didGetSessionUpdatedWithDetials(details: AnyObject)
     {
         let scheduleScreenView  = TeacherScheduleViewController()
+        SSTeacherDataSource.sharedDataSource.isQuestionSent = false
+        
+        SSTeacherDataSource.sharedDataSource.isSubtopicStarted = false
+        SSTeacherDataSource.sharedDataSource.startedSubTopicId = ""
+        SSTeacherDataSource.sharedDataSource.startedMainTopicId = ""
+        SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.removeAllObjects()
+        SSTeacherDataSource.sharedDataSource.questionsDictonary.removeAllObjects()
+        mStartLabelUpdater.invalidate()
+        
         presentViewController(scheduleScreenView, animated: true, completion: nil)
     }
     

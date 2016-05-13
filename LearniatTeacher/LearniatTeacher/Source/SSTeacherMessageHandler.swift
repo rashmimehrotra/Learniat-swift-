@@ -874,6 +874,75 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
     }
     
     
+    func sendQRVGiveAnswerMessageToRoom(_roomId :String, withstudentId studentId:NSString, withQueryId queryId:String ,withStudentName studentName:String)
+    {
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
+        {
+            
+            
+            let roomId = "room_\(_roomId)@conference.\(kBaseXMPPURL)";
+            
+            let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
+            let msgType             = kQueryAnswering
+            
+            
+            let messageBody = ["QueryId":queryId,
+                               "StudentName":studentName,
+                               "AnsweringStudentId":studentId]
+            
+            
+            
+            let details:NSMutableDictionary = ["From":userId,
+                                               "To":roomId,
+                                               "Type":msgType,
+                                               "Body":messageBody];
+            
+            
+            
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendGroupMessageWithBody(xmlBody, withRoomId: roomId)
+        }
+    }
+    
+    func sendQRVClosedMessageToRoom(_roomId :String, withstudentId studentId:NSString, withQueryId queryId:String)
+    {
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
+        {
+            
+            
+            let roomId = "room_\(_roomId)@conference.\(kBaseXMPPURL)";
+            
+            let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
+            let msgType             = kQueryCloseVoting
+            
+            
+            let messageBody = ["QueryId":queryId,
+                               "StudentId":studentId]
+            
+            
+            
+            let details:NSMutableDictionary = ["From":userId,
+                                               "To":roomId,
+                                               "Type":msgType,
+                                               "Body":messageBody];
+            
+            
+            
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendGroupMessageWithBody(xmlBody, withRoomId: roomId)
+        }
+    }
+    
     //MARK: Recieve Message
     public func didReceiveMessageWithBody(body: String!)
     {

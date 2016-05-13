@@ -13,8 +13,8 @@ import Foundation
 {
     
     
-    optional func delegateVonteerPressedWithQueryId(queryId:String)
-    optional func delegateMeeTooPressedWithQueryId(queryId:String)
+//    optional func delegateVonteerPressedWithQueryId(queryId:String)
+//    optional func delegateMeeTooPressedWithQueryId(queryId:String)
     
 }
 
@@ -86,11 +86,11 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
         
         
         
-       let countLabel = UILabel(frame: CGRectMake(10, 10, 20 , 20))
+       let countLabel = UILabel(frame: CGRectMake(10, 5, 30 , 30))
         self.addSubview(countLabel)
         countLabel.textAlignment = .Center
         countLabel.textColor = UIColor.whiteColor()
-        countLabel.font =  UIFont (name: helveticaRegular, size: 12)
+        countLabel.font =  UIFont (name: helveticaRegular, size: 14)
         countLabel.text = count
         countLabel.backgroundColor = UIColor(red: 255/255.0, green: 204/255.0, blue: 0/255.0, alpha: 1)
         countLabel.layer.cornerRadius = countLabel.frame.size.width/2
@@ -121,8 +121,8 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
         meeTooButton.addTarget(self, action: #selector(QRVSubView.onMeeTooButton), forControlEvents: UIControlEvents.TouchUpInside)
         
 
-        let lineView = UIImageView(frame: CGRectMake(50, 30, (self.frame.size.width-50), 1))
-        lineView.backgroundColor = LineGrayColor
+        let lineView = UIImageView(frame: CGRectMake(50, meeTooButton.frame.origin.y + meeTooButton.frame.size.height + 5, (self.frame.size.width-50), 1))
+        lineView.backgroundColor = topicsLineColor
         self.addSubview(lineView)
         
         
@@ -173,7 +173,7 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
         
         SSStudentDataSource.sharedDataSource.volunteerRegisterwithQueryId((String(self.tag)), withDelegate: self)
         
-        delegate().delegateVonteerPressedWithQueryId!(String(self.tag))
+//        delegate().delegateVonteerPressedWithQueryId!(String(self.tag))
     }
     
     func onMeeTooButton()
@@ -190,7 +190,7 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
         
        
         
-        delegate().delegateMeeTooPressedWithQueryId!(String(self.tag))
+//        delegate().delegateMeeTooPressedWithQueryId!(String(self.tag))
         
     }
     

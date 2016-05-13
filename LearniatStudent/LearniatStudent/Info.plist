@@ -27,6 +27,52 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string></string>
+		<string>Roboto-Black.ttf
+Roboto-BlackItalic.ttf
+Roboto-Bold.ttf
+Roboto-BoldItalic.ttf
+Roboto-Italic.ttf
+Roboto-Light.ttf
+Roboto-LightItalic.ttf
+Roboto-Medium.ttf
+Roboto-MediumItalic.ttf
+Roboto-Regular.ttf
+Roboto-Thin.ttf
+Roboto-ThinItalic.ttf
+RobotoCondensed-Bold.ttf
+RobotoCondensed-BoldItalic.ttf
+RobotoCondensed-Italic.ttf
+RobotoCondensed-Light.ttf
+RobotoCondensed-LightItalic.ttf
+RobotoCondensed-Regular.ttf</string>
+		<string>Roboto-Black.ttf
+Roboto-BlackItalic.ttf
+Roboto-Bold.ttf
+Roboto-BoldItalic.ttf
+Roboto-Italic.ttf
+Roboto-Light.ttf
+Roboto-LightItalic.ttf
+Roboto-Medium.ttf
+Roboto-MediumItalic.ttf
+Roboto-Regular.ttf
+Roboto-Thin.ttf
+Roboto-ThinItalic.ttf
+RobotoCondensed-Bold.ttf
+RobotoCondensed-BoldItalic.ttf
+RobotoCondensed-Italic.ttf
+RobotoCondensed-Light.ttf
+RobotoCondensed-LightItalic.ttf
+RobotoCondensed-Regular.ttf</string>
+		<string>Roboto-BlackItalic.ttf</string>
+		<string>Roboto-Bold.ttf</string>
+		<string>Roboto-BoldItalic.ttf</string>
+		<string>Roboto-Italic.ttf</string>
+		<string>Roboto-Medium.ttf</string>
+		<string>Roboto-Regular.ttf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
