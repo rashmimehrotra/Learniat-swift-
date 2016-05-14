@@ -17,6 +17,8 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
     var currentQueryId      = ""
     var mQRVScrollView      = UIScrollView()
     
+    var isQuerySent           = false
+    
     override init(frame: CGRect)
     {
         super.init(frame: frame)
@@ -87,10 +89,18 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
     
     func onSendButton()
     {
+        
+        
         mSendButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
         mSendButton.enabled = false
         mQueryTextView.mQuestionTextView.resignFirstResponder()
-        SSStudentDataSource.sharedDataSource.sendQueryWithQueryText(mQueryTextView.mQuestionTextView.text, withAnonymous: "0", withDelegate: self)
+        
+        if isQuerySent == false
+        {
+            
+            SSStudentDataSource.sharedDataSource.sendQueryWithQueryText(mQueryTextView.mQuestionTextView.text, withAnonymous: "0", withDelegate: self)
+        }
+      
     }
     
     
@@ -98,12 +108,16 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
     {
         if state == true
         {
-            UIView.animateWithDuration(0.2, animations:
-                {
-                    
-                    self.mQueryTextView.hidden = false
-                    self.mQueryScrollView.frame = CGRectMake(5, self.mQueryTextView.frame.size.height + self.mQueryTextView.frame.origin.y , self.frame.size.width - 10 , self.frame.size.height - (self.mQueryTextView.frame.size.height + self.mQueryTextView.frame.origin.y + 10))
-            })
+            if isQuerySent == false
+            {
+                UIView.animateWithDuration(0.2, animations:
+                    {
+                        
+                        self.mQueryTextView.hidden = false
+                        self.mQueryScrollView.frame = CGRectMake(5, self.mQueryTextView.frame.size.height + self.mQueryTextView.frame.origin.y , self.frame.size.width - 10 , self.frame.size.height - (self.mQueryTextView.frame.size.height + self.mQueryTextView.frame.origin.y + 10))
+                })
+            }
+            
         }
         else
         {
@@ -229,11 +243,14 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
                         self.mQueryTextView.hidden = true
                         self.mQueryScrollView.frame = CGRectMake(0, (self.mTopbarImageView.frame.size.height + self.mTopbarImageView.frame.origin.y), self.frame.size.width, self.frame.size.height - (self.mTopbarImageView.frame.size.height + self.mTopbarImageView.frame.origin.y))
                 })
+                
+                isQuerySent = true
+                
             }
             else
             {
-                mSendButton.enabled = true
-                mSendButton.setTitleColor(standard_Button, forState: .Normal)
+//                mSendButton.enabled = true
+//                mSendButton.setTitleColor(standard_Button, forState: .Normal)
                 self.makeToast("Error in sending query.", duration: 3.0, position: .Bottom)
             }
         }
@@ -294,6 +311,8 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
                     
                 }
                 
+                isQuerySent = false
+                
                 UIView.animateWithDuration(0.2, animations:
                     {
                         
@@ -348,6 +367,7 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
                 self.mQueryTextView.hidden = false
                 self.mQueryScrollView.frame = CGRectMake(0, self.mQueryTextView.frame.size.height + self.mQueryTextView.frame.origin.y + 10, self.frame.size.width, self.frame.size.height - (self.mQueryTextView.frame.size.height + self.mQueryTextView.frame.origin.y + 10))
         })
+         isQuerySent = false
          refreshScrollView()
     }
     
@@ -452,7 +472,7 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
     
     
     
-    func volunteerClosedWithQueryId(queryId:String, withStudentdID studentId:String)
+    func volunteerClosedWithQueryId(queryId:String, withStudentdID studentId:String, withTotalVotes percentage:CGFloat)
     {
         
         if  queryId != ""
@@ -476,33 +496,10 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
                 
                 
                 
-//                var  totalValue :CGFloat = 0
-//                var currentValue :CGFloat = 0
-//                
-//                if let stringTotalValue = details.objectForKey("TotalMetooCount") as? String
-//                {
-//                    if let n = NSNumberFormatter().numberFromString(stringTotalValue) {
-//                        totalValue = CGFloat(n)
-//                    }
-//                }
-//                
-//                if let stringCurrentValue = details.objectForKey("currentMetooCount") as? String
-//                {
-//                    if let n = NSNumberFormatter().numberFromString(stringCurrentValue) {
-//                        currentValue = CGFloat(n)
-//                    }
-//                }
-//                
-//                
-//                
-//                
-//                
-//                var value = currentValue / totalValue;
-//                value = 1 - value;
-//                
                 
                 
-                qrvSubView.addVolunteerDetailsDotWithStudentid(studentId, WithDecreasingValue: 7 * 100.00)
+                
+                qrvSubView.addVolunteerDetailsDotWithStudentid(studentId, WithDecreasingValue: percentage * 100.00)
                 
             }
             

@@ -16,6 +16,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let  lagFreeField = UITextField();
+        window!.addSubview(lagFreeField)
+        lagFreeField.becomeFirstResponder();
+        lagFreeField.resignFirstResponder();
+        lagFreeField.removeFromSuperview()
+        
+        UIApplication.sharedApplication().idleTimerDisabled = true
         return true
     }
 

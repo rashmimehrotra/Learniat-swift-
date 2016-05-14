@@ -21,6 +21,10 @@ class StudentVolunteeringView: UIView,SSStudentDataSourceDelegate
     var mDislikeButton      = UIButton()
     
     var mAnsweringLabel     = UILabel()
+    
+    var oldVote             = "0"
+    
+    var newVote             = "0"
 
     
     override init(frame: CGRect)
@@ -82,14 +86,14 @@ class StudentVolunteeringView: UIView,SSStudentDataSourceDelegate
         mDislikeButton.frame = CGRectMake(10,mQueryLabel.frame.origin.y  + mQueryLabel.frame.size .height + 20 ,self.frame.size.width/4 , 40)
 
         self.addSubview(mDislikeButton)
-        mDislikeButton.addTarget(self, action: #selector(QRVSubView.onVolunteerButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mDislikeButton.addTarget(self, action: #selector(StudentVolunteeringView.onDislikeButton), forControlEvents: UIControlEvents.TouchUpInside)
         mDislikeButton.setImage(UIImage(named: "Unlike_Selected.png"), forState: .Normal)
         mDislikeButton.imageView?.contentMode = .ScaleAspectFit
         
         mLikeButton.frame = CGRectMake(self.frame.size.width - (10 + self.frame.size.width/4),mQueryLabel.frame.origin.y  + mQueryLabel.frame.size .height + 20 ,self.frame.size.width/4 , 40)
         
         self.addSubview(mLikeButton)
-        mLikeButton.addTarget(self, action: #selector(QRVSubView.onVolunteerButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mLikeButton.addTarget(self, action: #selector(StudentVolunteeringView.onLikeButton), forControlEvents: UIControlEvents.TouchUpInside)
         mLikeButton.setImage(UIImage(named: "Like_Selected.png"), forState: .Normal)
         mLikeButton.imageView?.contentMode = .ScaleAspectFit
         
@@ -98,6 +102,28 @@ class StudentVolunteeringView: UIView,SSStudentDataSourceDelegate
     required init?(coder aDecoder: NSCoder)
     {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    func onLikeButton()
+    {
+        newVote = "1"
+        
+        SSStudentMessageHandler.sharedMessageHandler.sendQueryLikedAndDislikeMessagetoTeacherwithNewVote(newVote)
+        mLikeButton.enabled = false
+        mDislikeButton.enabled = true
+        mDislikeButton.setImage(UIImage(named: "Unlike_Selected.png"), forState: .Normal)
+         mLikeButton.setImage(UIImage(named: "Like_Disabled.png"), forState: .Normal)
+    }
+    
+    func onDislikeButton()
+    {
+        newVote = "-1"
+        SSStudentMessageHandler.sharedMessageHandler.sendQueryLikedAndDislikeMessagetoTeacherwithNewVote(newVote)
+        mLikeButton.enabled = true
+        mDislikeButton.enabled = false
+         mLikeButton.setImage(UIImage(named: "Like_Selected.png"), forState: .Normal)
+        mDislikeButton.setImage(UIImage(named: "Unlike_Disabled.png"), forState: .Normal)
     }
     
     
@@ -114,10 +140,15 @@ class StudentVolunteeringView: UIView,SSStudentDataSourceDelegate
                 mStudentImage.contentMode = .ScaleAspectFit
                 mStudentImage.image = UIImage(named: "MikeImage.png")
                 mAnsweringLabel.text = "Please answer the following query"
+               mLikeButton.hidden = true
+                mDislikeButton.hidden = true
+                
             }
             else
             {
                 mAnsweringLabel.text = "Answering query"
+                mLikeButton.hidden = false
+                mDislikeButton.hidden = false
                 let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_UserProfileImageURL) as! String
                 
                 if let checkedUrl = NSURL(string: "\(urlString)/\(StudentId)_79px.jpg")

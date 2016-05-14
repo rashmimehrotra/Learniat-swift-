@@ -39,7 +39,7 @@ let kTeacherReviewDoubt         = "702"
 let kDoubtWithDrawn             = "177"
 let kQueryAnswering             = "182"
 let kQueryCloseVoting           = "185"
-let kVolunteerMeeToLikeAndDislike = "717"
+let kVolunteerVoteSent          = "717"
 let kVolunteerIVolunteerLikeNDislike = "718"
 let kTeacherReplayForVolunteer      = "186"
 let kGiveMeAnswertoStudent          = "181"
@@ -89,6 +89,8 @@ import Foundation
     optional func smhDidgetMeTooValueWithDetails(details:AnyObject)
     
     optional func smhDidgetVolunteerValueWithDetails(details:AnyObject)
+    
+    optional func smhDidgetVoteFromStudentWithStudentId(StudentId:String, withVote newVote:String)
     
     
 }
@@ -909,7 +911,7 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
         }
     }
     
-    func sendQRVClosedMessageToRoom(_roomId :String, withstudentId studentId:NSString, withQueryId queryId:String)
+    func sendQRVClosedMessageToRoom(_roomId :String, withstudentId studentId:NSString, withQueryId queryId:String, withVolunterPercentage totalPercentage:String)
     {
         if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
         {
@@ -922,7 +924,8 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
             
             
             let messageBody = ["QueryId":queryId,
-                               "StudentId":studentId]
+                               "StudentId":studentId,
+                               "totalPercentage":totalPercentage]
             
             
             
@@ -1066,6 +1069,29 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
                 
             }
             break
+            
+        case kVolunteerVoteSent:
+            
+            if delegate().respondsToSelector(#selector(SSTeacherMessagehandlerDelegate.smhDidgetVolunteerValueWithDetails(_:)))
+            {
+                if message.messageBody() != nil
+                {
+                    if (message.messageBody().objectForKey("newVote") != nil)
+                    {
+                        if let newVote = message.messageBody().objectForKey("newVote") as? String
+                        {
+                            delegate().smhDidgetVoteFromStudentWithStudentId!(message.messageFrom(), withVote: newVote)
+                        }
+                        
+                    }
+                    
+                    
+                }
+                
+                
+            }
+            break
+
             
             
             

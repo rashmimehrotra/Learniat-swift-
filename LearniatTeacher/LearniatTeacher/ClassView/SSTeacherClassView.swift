@@ -1739,6 +1739,49 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mQueryView.studentVolunteerRaisedWithDetails(details)
     }
     
+    
+    func smhDidgetVoteFromStudentWithStudentId(StudentId: String, withVote newVote: String)
+    {
+        
+        
+        var totalStudents = 0
+        
+        
+        let subViews = mClassView.subviews.flatMap{ $0 as? StundentDeskView }
+        
+        for subview in subViews
+        {
+            if subview.isKindOfClass(StundentDeskView)
+            {
+                
+                
+                
+                if subview.StudentState == StudentLive || subview.StudentState == StudentLiveBackground
+                {
+                    totalStudents = totalStudents + 1
+                }
+            }
+        }
+        
+        if totalStudents <= 0
+        {
+            totalStudents = 1
+        }
+        else if totalStudents >= 2
+        {
+            totalStudents = totalStudents - 1
+        }
+        
+        
+        mQueryView.studentNewVoteRaised(StudentId, withVote: newVote, withTotalStudents:totalStudents)
+    }
+    
+    
+    
+    
+    
+    
+    
     // MARK: - DeskView delegate functions
     
     func delegateStudentAnswerDownloadedWithDetails(details: AnyObject, withStudentDict studentDict: AnyObject)

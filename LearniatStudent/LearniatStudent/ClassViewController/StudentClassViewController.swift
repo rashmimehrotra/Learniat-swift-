@@ -456,10 +456,13 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
              classsBegin()
         }
         
+        mQueryView.VolunteerPresentState(false)
         if mStudentQrvAnsweringView != nil
         {
             mStudentQrvAnsweringView.removeFromSuperview()
         }
+        
+        
 
             mNoStudentLabel.hidden = true 
     }
@@ -622,6 +625,10 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         {
             mStudentQrvAnsweringView.removeFromSuperview()
         }
+        if questionAcceptAlert.visible == true
+        {
+            questionAcceptAlert.dismissWithClickedButtonIndex(-1, animated: true)
+        }
 
     }
     
@@ -634,12 +641,16 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             {
                 if AnsweringStudentId == SSStudentDataSource.sharedDataSource.currentUserId
                 {
-                    let _questionAcceptAlert = UIAlertView()
-                    _questionAcceptAlert.title = "Teacher selected you"
-                    _questionAcceptAlert.message = "Please stand up and answer"
-                    _questionAcceptAlert.addButtonWithTitle("OK")
-                    _questionAcceptAlert.show()
-                    _questionAcceptAlert.delegate = self
+                    if questionAcceptAlert.visible == true{
+                        questionAcceptAlert.dismissWithClickedButtonIndex(-1, animated: true)
+                    }
+
+                    questionAcceptAlert = UIAlertView()
+                    questionAcceptAlert.title = "Teacher selected you"
+                    questionAcceptAlert.message = "Please stand up and answer"
+                    questionAcceptAlert.addButtonWithTitle("OK")
+                    questionAcceptAlert.show()
+                    questionAcceptAlert.delegate = self
                     
                    
                 }
@@ -664,24 +675,50 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             mStudentQrvAnsweringView.removeFromSuperview()
         }
         
+        
+        if questionAcceptAlert.visible == true{
+            questionAcceptAlert.dismissWithClickedButtonIndex(-1, animated: true)
+        }
+        
+        var totalVotes :CGFloat = 0 ;
+        
+        
         if details.objectForKey("QueryId") != nil
         {
              if let QueryId = details.objectForKey("QueryId") as? String
              {
+                
+                if details.objectForKey("totalPercentage") != nil
+                {
+                    if let _totalVotes = details.objectForKey("totalPercentage") as? String
+                    {
+                        
+                        if let n = NSNumberFormatter().numberFromString(_totalVotes)
+                        {
+                             totalVotes = CGFloat(n)
+                        }
+                        
+                       
+                    }
+                }
+                
+               
+                if totalVotes < 0
+                {
+                    totalVotes = 0
+                }
                 
                 if details.objectForKey("StudentId") != nil
                 {
                     if let StudentId = details.objectForKey("StudentId") as? String
                     {
                         
-                        mQueryView.volunteerClosedWithQueryId(QueryId, withStudentdID: StudentId)
+                        mQueryView.volunteerClosedWithQueryId(QueryId, withStudentdID: StudentId, withTotalVotes:totalVotes)
                     }
                 }
                 
             }
         }
-       
-        
     }
    
     // MARK: - message handler functions

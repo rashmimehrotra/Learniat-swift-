@@ -129,6 +129,17 @@ class QueryVolunteerSubView: UIView
         }
        
     }
+    func removeVolunteerWithDetails(details:AnyObject)
+    {
+        if mVolunteersDetailsArray.containsObject(details)
+        {
+            mVolunteersDetailsArray.removeObject(details)
+        }
+        
+        
+        mVolunteerButton.setTitle("\(mVolunteersDetailsArray.count)", forState: .Normal)
+    }
+    
     
     func setMeTooSelectedStudents(studentId:String)
     {

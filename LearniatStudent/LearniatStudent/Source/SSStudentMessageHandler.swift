@@ -39,7 +39,7 @@ let kTeacherReviewDoubt         = "702"
 let kDoubtWithDrawn             = "177"
 let kQueryAnswering             = "182"
 let kQueryCloseVoting           = "185"
-let kVolunteerMeeToLikeAndDislike = "717"
+let kVolunteerVoteSent          = "717"
 let kVolunteerIVolunteerLikeNDislike = "718"
 let kTeacherReplayForVolunteer      = "186"
 let kGiveMeAnswertoStudent          = "181"
@@ -51,7 +51,6 @@ let kCollaborationOption            = "714"
 let kCloseCollaboration             = "715"
 let kodelAnswerDetails             = "179"
 let kMuteStudent                    = "712"
-
 
 
 
@@ -500,18 +499,18 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
         }
     }
     
-    func sendQueryMeeTooLikedMessagetoTeacherwithOldvote( oldVote:String, withNewVote newvote:String)
+    func sendQueryLikedAndDislikeMessagetoTeacherwithNewVote(newvote:String)
     {
         
         
         if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true &&  SSStudentDataSource.sharedDataSource.currentTeacherId != nil)
         {
             let studentID           = SSStudentDataSource.sharedDataSource.currentUserId
-            let msgType             = kVolunteerMeeToLikeAndDislike
+            let msgType             = kVolunteerVoteSent
             let teacherID           = SSStudentDataSource.sharedDataSource.currentTeacherId
             
             
-            let messageBody = ["oldVote":oldVote , "newVote":newvote]
+            let messageBody = ["newVote":newvote]
             
             
             

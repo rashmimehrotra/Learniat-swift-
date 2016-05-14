@@ -272,14 +272,29 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
     
     func studentRaisedMeeToWithDetial(details:AnyObject)
     {
-       queryVolunteerView.metooRaisedWithDetails(details)
+        if queryVolunteerView != nil
+        {
+            queryVolunteerView.metooRaisedWithDetails(details)
+        }
+       
     }
     
     func studentVolunteerRaisedWithDetails(details:AnyObject)
     {
+        if queryVolunteerView != nil
+        {
+            queryVolunteerView.volunteerRaiserWithDetails(details)
+        }
         
-         queryVolunteerView.volunteerRaiserWithDetails(details)
     }
     
+    
+    func studentNewVoteRaised(studentId:String, withVote vote:String, withTotalStudents totalStudents:Int)
+    {
+        if queryVolunteerView != nil
+        {
+            queryVolunteerView.didGetNewVoteFromStudent(studentId, withNewVote: vote, withTotalStudents: totalStudents)
+        }
+    }
     
 }

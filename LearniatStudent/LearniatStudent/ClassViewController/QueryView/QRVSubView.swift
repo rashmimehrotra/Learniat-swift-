@@ -212,13 +212,13 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
         
         if volunteerView == nil
         {
-            volunteerView = UIView(frame: CGRectMake(queryTextLabel.frame.origin.x, queryTextLabel.frame.origin.y +  queryTextLabel.frame.size.height + 10, queryTextLabel.frame.size.width ,55))
+            volunteerView = UIView(frame: CGRectMake(queryTextLabel.frame.origin.x, queryTextLabel.frame.origin.y +  queryTextLabel.frame.size.height + 5, queryTextLabel.frame.size.width ,55))
             self.addSubview(volunteerView);
             volunteerView.backgroundColor = UIColor.clearColor()
             
             
             let lineView = UIImageView(frame: CGRectMake(0,1, volunteerView.frame.size.width, 1))
-            lineView.backgroundColor = LineGrayColor
+            lineView.backgroundColor = topicsLineColor
             volunteerView.addSubview(lineView)
             
             

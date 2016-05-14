@@ -40,6 +40,8 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
     
     var totalUploadingCount = 0
     
+    var studentVolunteeringPopoverView : VolunteerAnsweringPopOver!
+    
     
     override init(frame: CGRect)
     {
@@ -339,14 +341,18 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
                     
                     let buttonPosition :CGPoint = studentqueryView.convertPoint(CGPointZero, toView: self)
                     
-                    let questionInfoController = VolunteerAnsweringPopOver(frame:CGRectMake(self.frame.size.width - 350 , ((buttonPosition.y + studentqueryView.frame.size.height/2 )) - 130 , 150,260))
-                    questionInfoController.setVolunteerDetails(volunteerDetails)
-                    questionInfoController.setdelegate(self)
-                    self.addSubview(questionInfoController)
-                    questionInfoController.layer.shadowColor = UIColor.blackColor().CGColor
-                    questionInfoController.layer.shadowOffset = CGSize(width: 0, height: 3)
-                    questionInfoController.layer.shadowOpacity = 0.3
-                    questionInfoController.layer.shadowRadius = 2
+                     studentVolunteeringPopoverView = VolunteerAnsweringPopOver(frame:CGRectMake(self.frame.size.width - 350 , ((buttonPosition.y + studentqueryView.frame.size.height/2 )) - 130 , 150,260))
+                    studentVolunteeringPopoverView.setVolunteerDetails(volunteerDetails)
+                    studentVolunteeringPopoverView.setdelegate(self)
+                    self.addSubview(studentVolunteeringPopoverView)
+                    studentVolunteeringPopoverView.layer.shadowColor = UIColor.blackColor().CGColor
+                    studentVolunteeringPopoverView.layer.shadowOffset = CGSize(width: 0, height: 3)
+                    studentVolunteeringPopoverView.layer.shadowOpacity = 0.3
+                    studentVolunteeringPopoverView.layer.shadowRadius = 2
+                    
+                    
+                    studentqueryView.removeVolunteerWithDetails(volunteerDetails)
+                    
                     
                 }
             }
@@ -354,7 +360,8 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
         
     }
     
-    func delegateStopVolunteeringPressedWithVolunteerDetails(volunteerDetails: AnyObject, withThummbsUp ThummbsUp: String, withThummbsDown ThummbsDown: String) {
+    func delegateStopVolunteeringPressedWithVolunteerDetails(volunteerDetails: AnyObject, withThummbsUp ThummbsUp: String, withThummbsDown ThummbsDown: String, withTotalVotes totalVotes: String) {
+        
         
         if (volunteerDetails.objectForKey("QueryId") != nil)
         {
@@ -369,13 +376,32 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
 
                     if let VolunteerId = volunteerDetails.objectForKey("VolunteerId") as? String
                     {
-                        SSTeacherDataSource.sharedDataSource.StopVolunteeringwithVolunteerId(VolunteerId, withthumbsUp: "0", withthumbsDown: "0", WithDelegate: self)
+                        SSTeacherDataSource.sharedDataSource.StopVolunteeringwithVolunteerId(VolunteerId, withthumbsUp: ThummbsUp, withthumbsDown: ThummbsDown, WithDelegate: self)
                         
                     }
                     
+                    
+                    
+                    var totalPercentage :CGFloat = 0
+                    
+                    if Int(totalVotes)! >= Int(ThummbsUp)!
+                    {
+                         totalPercentage = CGFloat(Int(ThummbsUp)!)/CGFloat(Int(totalVotes)!)
+                    }
+                        
+                    else
+                    {
+                        totalPercentage = 1
+                    }
+                    
+                    
+                    
+                    
+                    
+                    
                     if let StudentId = volunteerDetails.objectForKey("StudentId") as? String
                     {
-                        SSTeacherMessageHandler.sharedMessageHandler.sendQRVClosedMessageToRoom(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, withstudentId: StudentId, withQueryId: QueryId)
+                        SSTeacherMessageHandler.sharedMessageHandler.sendQRVClosedMessageToRoom(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, withstudentId: StudentId, withQueryId: QueryId, withVolunterPercentage: "\(totalPercentage)")
                     }
                     
 
@@ -385,6 +411,17 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
         
     }
     
+    
+    
+    
+    func didGetNewVoteFromStudent(studentId:String, withNewVote newVote:String , withTotalStudents totalStudents:Int)
+    {
+        if studentVolunteeringPopoverView != nil
+        {
+            studentVolunteeringPopoverView.sendNewVoteWithStudentId(studentId, withVoteValue: newVote,withTotalStudents: totalStudents)
+        }
+        
+    }
     
     
     

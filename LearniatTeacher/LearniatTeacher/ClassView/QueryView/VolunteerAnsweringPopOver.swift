@@ -13,7 +13,7 @@ import UIKit
 {
     
     
-    optional func delegateStopVolunteeringPressedWithVolunteerDetails(volunteerDetails:AnyObject, withThummbsUp ThummbsUp:String, withThummbsDown ThummbsDown:String)
+    optional func delegateStopVolunteeringPressedWithVolunteerDetails(volunteerDetails:AnyObject, withThummbsUp ThummbsUp:String, withThummbsDown ThummbsDown:String, withTotalVotes totalVotes:String)
     
     
     
@@ -36,6 +36,16 @@ class VolunteerAnsweringPopOver: UIView{
      let mLikeImageLabel = UILabel()
     
     var currentVolunteerDetails    :AnyObject!
+    
+    var votingStudentsDictonary     = NSMutableDictionary()
+    
+    var LikeCount               = 0
+    
+    var disLikeCount            = 0
+    
+    var liveTotalStudents = 0
+    
+    var valueForOneStudent :CGFloat = 1
     
     override init(frame: CGRect)
     {
@@ -139,13 +149,15 @@ class VolunteerAnsweringPopOver: UIView{
     {
         return _Popover
     }
-    func setProgressValueWithPercentagePositive( _positive:CGFloat, withNegetive _negetive:CGFloat)
+    func setProgressValueWithPercentagePositive( _positive:CGFloat, withNegetive _negetive:CGFloat, witTotalVlaue _totalVlaue:CGFloat)
     {
         
         
         var positive = _positive
         
         var negetive = _negetive
+        
+        var totalVlaue = _totalVlaue
         
         if (positive < 0)
         {
@@ -156,12 +168,24 @@ class VolunteerAnsweringPopOver: UIView{
         {
             negetive = 0;
         }
+        
+        if (totalVlaue<0)
+        {
+            totalVlaue = 0;
+        }
     
+        
+        var remainingValue = totalVlaue - ( negetive + positive )
+        
+        if remainingValue <= 0
+        {
+            remainingValue = 0
+        }
         
         
         let items :NSArray = [PNPieChartDataItem(value: positive , color: standard_Green,description: ""),
                               PNPieChartDataItem(value: negetive , color: standard_Red,description: ""),
-                              PNPieChartDataItem(value: (100-(negetive+positive)) , color: lightGrayColor,description: "")]
+                              PNPieChartDataItem(value: (remainingValue) , color: lightGrayColor,description: "")]
         
         
         
@@ -197,11 +221,80 @@ class VolunteerAnsweringPopOver: UIView{
         
     }
     
+    func sendNewVoteWithStudentId(studentId:String, withVoteValue newVote:String, withTotalStudents totalStudents:Int)
+    {
+        
+        
+        liveTotalStudents = totalStudents
+        
+        if (votingStudentsDictonary.objectForKey(studentId) != nil)
+        {
+            
+            
+            valueForOneStudent = 100 / CGFloat(totalStudents)
+            
+            
+            let oldvoteValue = votingStudentsDictonary.objectForKey(studentId) as! String
+            
+            if oldvoteValue == "1"
+            {
+                if newVote == "-1"
+                {
+                    if LikeCount > 0
+                    {
+                        LikeCount = LikeCount - 1
+                    }
+                    
+                    disLikeCount = disLikeCount + 1
+                }
+            }
+            else
+            {
+                if newVote == "1"
+                {
+                    if disLikeCount > 0
+                    {
+                        disLikeCount = disLikeCount - 1
+                    }
+                    
+                    LikeCount = LikeCount + 1
+                }
+            }
+            
+            
+            votingStudentsDictonary.setObject(newVote, forKey: studentId)
+        }
+        else
+        {
+            votingStudentsDictonary.setObject(newVote, forKey: studentId)
+            
+            if newVote == "-1"
+            {
+                disLikeCount = disLikeCount + 1
+            }
+            else if newVote == "1"
+            {
+                LikeCount = LikeCount + 1
+            }
+        }
+        
+        
+        
+        mdislikeImageLabel.text = "\(disLikeCount)";
+        mLikeImageLabel.text = "\(LikeCount)";
+        
+        setProgressValueWithPercentagePositive(CGFloat(LikeCount) * valueForOneStudent, withNegetive: CGFloat(disLikeCount) * valueForOneStudent, witTotalVlaue: CGFloat(totalStudents) * valueForOneStudent)
+        
+        
+        
+        
+    }
+    
     func onStopButton()
     {
         
         
-        delegate().delegateStopVolunteeringPressedWithVolunteerDetails!(currentVolunteerDetails, withThummbsUp: mLikeImageLabel.text!, withThummbsDown: mdislikeImageLabel.text!)
+        delegate().delegateStopVolunteeringPressedWithVolunteerDetails!(currentVolunteerDetails, withThummbsUp: mLikeImageLabel.text!, withThummbsDown: mdislikeImageLabel.text!, withTotalVotes:"\(liveTotalStudents)")
         self.removeFromSuperview()
     }
     
