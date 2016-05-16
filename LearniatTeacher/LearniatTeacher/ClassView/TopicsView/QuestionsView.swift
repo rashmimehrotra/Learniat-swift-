@@ -130,7 +130,7 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
         
         
         questionButtonsView.frame = CGRectMake(0, mTopicsContainerView.frame.size.height + mTopicsContainerView.frame.origin.y, mTopicsContainerView.frame.size.width, 44)
-        self.addSubview(questionButtonsView)
+//        self.addSubview(questionButtonsView)
         questionButtonsView.backgroundColor = UIColor.whiteColor()
         
         
@@ -376,11 +376,11 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
         currentMainTopicsViewHeight = height
         
         
-        mTopicsContainerView.frame = CGRectMake(0, 44, mTopicsContainerView.frame.size.width, height - 88)
+        mTopicsContainerView.frame = CGRectMake(0, 44, mTopicsContainerView.frame.size.width, height - 44)
         
         mTopicsContainerView.contentSize = CGSizeMake(0, positionY + 20)
         
-        questionButtonsView.frame = CGRectMake(0, mTopicsContainerView.frame.size.height + mTopicsContainerView.frame.origin.y, mTopicsContainerView.frame.size.width, 44)
+//        questionButtonsView.frame = CGRectMake(0, mTopicsContainerView.frame.size.height + mTopicsContainerView.frame.origin.y, mTopicsContainerView.frame.size.width, 44)
         
         mActivityIndicator.stopAnimating()
         

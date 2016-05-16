@@ -291,6 +291,9 @@ class QuestionCell: UIView
         mQuestionTypeLabel.frame = CGRectMake(mIndexValuesLabel.frame.origin.x + mIndexValuesLabel.frame.size.width + 15 , mIndexValuesLabel.frame.origin.y, self.frame.size.width / 2, self.frame.size.width / 20)
         
         
+         mDemoLabel.frame = CGRectMake(10 , mQuestionNameLabel.frame.origin.y + mQuestionNameLabel.frame.size.height + 5 , 100, 10)
+        
+        
          mSendButton.frame = CGRectMake(self.frame.size.width - ((self.frame.size.width / 4.5 ) + 10) , mIndexValuesLabel.frame.origin.y, self.frame.size.width / 4.5, self.frame.size.width / 20)
         
         

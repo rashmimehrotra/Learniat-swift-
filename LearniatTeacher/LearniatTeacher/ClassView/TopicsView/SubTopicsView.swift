@@ -497,6 +497,9 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
     }
     
     
+    func delegateShowAlert() {
+         self.makeToast("Please stop current topic to start new topic.", duration: 3.0, position: .Bottom)
+    }
     
     func udpateCumulativeTime()
     {

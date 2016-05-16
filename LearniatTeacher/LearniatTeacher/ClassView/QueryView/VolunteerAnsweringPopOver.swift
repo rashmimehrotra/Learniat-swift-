@@ -293,6 +293,7 @@ class VolunteerAnsweringPopOver: UIView{
     func onStopButton()
     {
         
+         SSTeacherDataSource.sharedDataSource.isVolunteerAnswering = false
         
         delegate().delegateStopVolunteeringPressedWithVolunteerDetails!(currentVolunteerDetails, withThummbsUp: mLikeImageLabel.text!, withThummbsDown: mdislikeImageLabel.text!, withTotalVotes:"\(liveTotalStudents)")
         self.removeFromSuperview()

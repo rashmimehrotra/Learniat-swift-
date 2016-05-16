@@ -161,7 +161,16 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
             }
         }
         
-        mQueryCountLabel.text = "\(queryCount) Query"
+        if queryCount > 1
+        {
+            mQueryCountLabel.text = "\(queryCount) Queries"
+        }
+        
+        else
+        {
+            mQueryCountLabel.text = "\(queryCount) Query"
+        }
+        
         
         if queryCount > 0
         {
@@ -294,6 +303,15 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
         if queryVolunteerView != nil
         {
             queryVolunteerView.didGetNewVoteFromStudent(studentId, withNewVote: vote, withTotalStudents: totalStudents)
+        }
+    }
+    
+    
+    func studentUnderstoodQueryWithId(queryId:String, withStudentId StudentId:String)
+    {
+        if queryVolunteerView != nil
+        {
+            queryVolunteerView.queryUnderstoodMessageFromStudentWithQueryId(queryId,withStudentId: StudentId)
         }
     }
     

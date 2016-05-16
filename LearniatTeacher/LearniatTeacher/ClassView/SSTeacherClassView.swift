@@ -1778,6 +1778,19 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     
     
+    func smhDidgetUnderstoodMessageWithDetails(details: AnyObject, withStudentId StudentId: String)
+    {
+        
+        if details.objectForKey("QueryId") != nil
+        {
+            if let QueryId =  details.objectForKey("QueryId") as? String
+            {
+                mQueryView.studentUnderstoodQueryWithId(QueryId, withStudentId: StudentId)
+            }
+            
+        }
+        
+    }
     
     
     

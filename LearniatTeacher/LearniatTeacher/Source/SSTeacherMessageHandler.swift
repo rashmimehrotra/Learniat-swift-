@@ -53,7 +53,7 @@ let kModelAnswerDetails             = "179"
 let kMuteStudent                    = "712"
 
 
-
+let kQueryUnderstood                 = "1102"
 
 import Foundation
 
@@ -91,6 +91,8 @@ import Foundation
     optional func smhDidgetVolunteerValueWithDetails(details:AnyObject)
     
     optional func smhDidgetVoteFromStudentWithStudentId(StudentId:String, withVote newVote:String)
+    
+     optional func smhDidgetUnderstoodMessageWithDetails(details: AnyObject, withStudentId StudentId:String)
     
     
 }
@@ -1070,6 +1072,9 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
             }
             break
             
+            
+            
+            
         case kVolunteerVoteSent:
             
             if delegate().respondsToSelector(#selector(SSTeacherMessagehandlerDelegate.smhDidgetVolunteerValueWithDetails(_:)))
@@ -1092,6 +1097,14 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
             }
             break
 
+        case kQueryUnderstood:
+            
+            if delegate().respondsToSelector(#selector(SSTeacherMessagehandlerDelegate.smhDidgetUnderstoodMessageWithDetails(_:withStudentId:)))
+            {
+                delegate().smhDidgetUnderstoodMessageWithDetails!(message.messageBody(), withStudentId: message.messageFrom())
+                
+            }
+            break
             
             
             

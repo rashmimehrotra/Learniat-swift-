@@ -143,7 +143,16 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
         
         mScrollView.contentSize = CGSizeMake(0, currentYPosition)
         
-          mQueryCountLabel.text = "\(queryDetails.count) Query"
+        
+        if queryDetails.count > 1
+        {
+            mQueryCountLabel.text = "\(queryDetails.count) Queries"
+        }
+            
+        else
+        {
+            mQueryCountLabel.text = "\(queryDetails.count) Query"
+        }
         
         
     }
@@ -324,6 +333,15 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
             {
                 if let studentqueryView  = mScrollView.viewWithTag(Int(QueryId)!) as? QueryVolunteerSubView
                 {
+                    
+                    
+                    
+                    
+                  
+                    
+                    
+                    
+                    
                     studentqueryView.backgroundColor = UIColor.whiteColor()
                     studentqueryView.layer.shadowColor = UIColor.blackColor().CGColor
                     studentqueryView.layer.shadowOffset = CGSize(width: 0, height: 3)
@@ -336,12 +354,9 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
                     }
                     
                    
-                    
-                    
-                    
                     let buttonPosition :CGPoint = studentqueryView.convertPoint(CGPointZero, toView: self)
                     
-                     studentVolunteeringPopoverView = VolunteerAnsweringPopOver(frame:CGRectMake(self.frame.size.width - 350 , ((buttonPosition.y + studentqueryView.frame.size.height/2 )) - 130 , 150,260))
+                     studentVolunteeringPopoverView = VolunteerAnsweringPopOver(frame:CGRectMake(self.frame.size.width - 350 , (self.frame.size.height - 260)/2 , 150,260))
                     studentVolunteeringPopoverView.setVolunteerDetails(volunteerDetails)
                     studentVolunteeringPopoverView.setdelegate(self)
                     self.addSubview(studentVolunteeringPopoverView)
@@ -424,5 +439,12 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
     }
     
     
+    func queryUnderstoodMessageFromStudentWithQueryId(QueryId:String, withStudentId StudentId:String)
+    {
+        if let studentqueryView  = mScrollView.viewWithTag(Int(QueryId)!) as? QueryVolunteerSubView
+        {
+            studentqueryView.removeMeTooWithStudents(StudentId)
+        }
+    }
     
 }

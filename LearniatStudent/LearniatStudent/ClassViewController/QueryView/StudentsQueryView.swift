@@ -378,6 +378,7 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
         if state == true
         {
             
+            
             let subViews = mQRVScrollView.subviews
             
             for mQuerySubView in subViews
@@ -395,6 +396,9 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
         }
         else
         {
+            
+            isQuerySent = false
+            
             UIView.animateWithDuration(0.2, animations:
                 {
                     

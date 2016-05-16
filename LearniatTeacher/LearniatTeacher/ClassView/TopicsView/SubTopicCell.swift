@@ -18,6 +18,8 @@ import Foundation
     
     optional func delegateSubTopicCellStartedWithDetails(subTopicDetails:AnyObject, witStatedState isStarted:Bool)
     
+    optional func delegateShowAlert()
+    
 }
 
 class SubTopicCell: UIView{
@@ -115,7 +117,7 @@ class SubTopicCell: UIView{
         m_progressView.transform = transform;
         
         
-        mDemoLabel = UILabel(frame: CGRectMake(10 , 0 , 100, 10))
+        mDemoLabel = UILabel(frame: CGRectMake(10 ,  5 , 100, 10))
         mDemoLabel.font = UIFont(name:helveticaMedium, size: 10)
         self.addSubview(mDemoLabel)
         mDemoLabel.textColor = standard_Green
@@ -283,6 +285,11 @@ class SubTopicCell: UIView{
                          delegate().delegateSubTopicCellStartedWithDetails!(currentSubTopicDetails, witStatedState: true)
                     }
                 }
+                else
+                {
+                    delegate().delegateShowAlert!()
+                }
+                
             }
             else
             {

@@ -52,6 +52,8 @@ let kCloseCollaboration             = "715"
 let kodelAnswerDetails             = "179"
 let kMuteStudent                    = "712"
 
+let kQueryUnderstood                 = "1102"
+
 
 
 import Foundation
@@ -557,6 +559,38 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
             MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
         }
     }
+    
+    
+    func sendQueryUnderstoodMessageWithQueryID(QueryId:String)
+    {
+        
+        
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true &&  SSStudentDataSource.sharedDataSource.currentTeacherId != nil)
+        {
+            let studentID           = SSStudentDataSource.sharedDataSource.currentUserId
+            let msgType             = kQueryUnderstood
+            let teacherID           = SSStudentDataSource.sharedDataSource.currentTeacherId
+            
+            
+            let messageBody = ["QueryId":QueryId]
+            
+            
+            
+            
+            let details:NSMutableDictionary = ["From":studentID,
+                                               "To":teacherID,
+                                               "Type":msgType,
+                                               "Body":messageBody];
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
+        }
+    }
+    
     //MARK: Recieve Message
     public func didReceiveMessageWithBody(body: String!)
     {

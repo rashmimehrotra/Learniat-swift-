@@ -143,8 +143,25 @@ class QueryVolunteerSubView: UIView
     
     func setMeTooSelectedStudents(studentId:String)
     {
-        mmMetooSelectedArray.addObject(studentId)
+        if mmMetooSelectedArray.containsObject(studentId) == false
+        {
+            mmMetooSelectedArray.addObject(studentId)
+        }
+        
           mMetooLabel.text = "\(mmMetooSelectedArray.count)"
+    }
+    
+    func removeMeTooWithStudents(studentId:String)
+    {
+        if mmMetooSelectedArray.containsObject(studentId)
+        {
+            mmMetooSelectedArray.removeObject(studentId)
+        }
+        
+        
+        
+        
+       mMetooLabel.text = "\(mmMetooSelectedArray.count)"
     }
     
     func setVolunteersDetials(details:AnyObject)

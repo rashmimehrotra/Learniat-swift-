@@ -114,7 +114,7 @@ class QuerySubview: UIView, SSTeacherDataSourceDelegate
         
         mGoodQueryButton.frame = CGRectMake(mTextReplyButton.frame.origin.x - 150, 0, 150 , 40)
         self.addSubview(mGoodQueryButton)
-        mGoodQueryButton.setTitle("Good query", forState: .Normal)
+        mGoodQueryButton.setTitle("Good Question", forState: .Normal)
         mGoodQueryButton.setTitleColor(standard_Button, forState: .Normal)
         mGoodQueryButton.addTarget(self, action: #selector(QuerySubview.onGoodQueryButton), forControlEvents: UIControlEvents.TouchUpInside)
         

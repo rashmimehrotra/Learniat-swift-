@@ -60,6 +60,14 @@ class VolunteerPopopverCell: UIView
         mGiveAnswerButton.addTarget(self, action: #selector(VolunteerPopopverCell.onGiveAnswerButton), forControlEvents: .TouchUpInside)
         mGiveAnswerButton.backgroundColor = UIColor.clearColor()
 
+        if SSTeacherDataSource.sharedDataSource.isVolunteerAnswering == false
+        {
+            mGiveAnswerButton.hidden = false
+        }
+        else
+        {
+            mGiveAnswerButton.hidden = true
+        }
         
     }
     
@@ -81,7 +89,12 @@ class VolunteerPopopverCell: UIView
     
     func onGiveAnswerButton()
     {
-        delegate().delegateCellPressedWithVolunteerDetails!(currentVolunteerDetails)
+        if SSTeacherDataSource.sharedDataSource.isVolunteerAnswering == false
+        {
+            SSTeacherDataSource.sharedDataSource.isVolunteerAnswering = true
+            delegate().delegateCellPressedWithVolunteerDetails!(currentVolunteerDetails)
+        }
+        
     }
     
     func setVolunteersDetails(volunteersDetails:AnyObject)

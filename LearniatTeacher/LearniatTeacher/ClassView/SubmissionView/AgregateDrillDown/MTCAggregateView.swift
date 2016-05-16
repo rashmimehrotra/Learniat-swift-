@@ -21,6 +21,7 @@ class MTCAggregateView: UIView
         
         studentsScrollview.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)
         self.addSubview(studentsScrollview)
+        studentsScrollview.pagingEnabled = true
         
         
         

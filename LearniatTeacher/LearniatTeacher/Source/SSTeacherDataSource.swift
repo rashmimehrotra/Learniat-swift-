@@ -219,6 +219,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     var taggedTopicIdArray                  = NSMutableArray()
     
+    var isVolunteerAnswering                = false
     
     var isSimulationEnabled   :Bool         = false
     

@@ -33,7 +33,6 @@
 		4DC246611CC24E9100E01CA4 /* LessonPlanQuestionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC246601CC24E9100E01CA4 /* LessonPlanQuestionViewCell.swift */; };
 		53015B761CE58A3C00BB366C /* VolunteerPopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53015B751CE58A3C00BB366C /* VolunteerPopoverController.swift */; };
 		53015B781CE58BBF00BB366C /* VolunteerPopopverCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53015B771CE58BBF00BB366C /* VolunteerPopopverCell.swift */; };
-		53015BA21CE5A53300BB366C /* DynamicFontSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 53015B7E1CE5A53300BB366C /* DynamicFontSize.m */; };
 		53015BA31CE5A53300BB366C /* PNBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 53015B811CE5A53300BB366C /* PNBar.m */; };
 		53015BA41CE5A53300BB366C /* PNBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 53015B831CE5A53300BB366C /* PNBarChart.m */; };
 		53015BA51CE5A53300BB366C /* PNChartLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 53015B871CE5A53300BB366C /* PNChartLabel.m */; };
@@ -472,8 +471,6 @@
 		4DC246601CC24E9100E01CA4 /* LessonPlanQuestionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonPlanQuestionViewCell.swift; sourceTree = "<group>"; };
 		53015B751CE58A3C00BB366C /* VolunteerPopoverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolunteerPopoverController.swift; sourceTree = "<group>"; };
 		53015B771CE58BBF00BB366C /* VolunteerPopopverCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolunteerPopopverCell.swift; sourceTree = "<group>"; };
-		53015B7D1CE5A53300BB366C /* DynamicFontSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicFontSize.h; sourceTree = "<group>"; };
-		53015B7E1CE5A53300BB366C /* DynamicFontSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicFontSize.m; sourceTree = "<group>"; };
 		53015B801CE5A53300BB366C /* PNBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNBar.h; sourceTree = "<group>"; };
 		53015B811CE5A53300BB366C /* PNBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNBar.m; sourceTree = "<group>"; };
 		53015B821CE5A53300BB366C /* PNBarChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNBarChart.h; sourceTree = "<group>"; };
@@ -1157,8 +1154,6 @@
 		53015B791CE5A49D00BB366C /* QRV */ = {
 			isa = PBXGroup;
 			children = (
-				53015B7D1CE5A53300BB366C /* DynamicFontSize.h */,
-				53015B7E1CE5A53300BB366C /* DynamicFontSize.m */,
 				53015B7F1CE5A53300BB366C /* PNChart */,
 			);
 			path = QRV;
@@ -2942,7 +2937,6 @@
 				53676CBF1CA63B7F00CADE4D /* XMPPUserCoreDataStorageObject.m in Sources */,
 				4DC246501CC1F6B500E01CA4 /* ImageUploading.m in Sources */,
 				5309C7DD1CDA1B9500481E0C /* StudentModelAnswerCell.swift in Sources */,
-				53015BA21CE5A53300BB366C /* DynamicFontSize.m in Sources */,
 				5395672A1CB5281E009B0100 /* SSStarRatingView.m in Sources */,
 				53676CFA1CA63B7F00CADE4D /* XMPPMessageArchiving_Contact_CoreDataObject.m in Sources */,
 				53676D021CA63B7F00CADE4D /* XMPPMessageDeliveryReceipts.m in Sources */,
