@@ -17,6 +17,8 @@ class StudentQuestionView: UIView
     
     var mMatchColumn        :MatchColumnView!
     
+     var mScribbleQuestion        :ScribbleQuestionView!
+    
     var currentQuestionType = ""
     
     override init(frame: CGRect)
@@ -72,6 +74,17 @@ class StudentQuestionView: UIView
             mMatchColumn = MatchColumnView(frame:CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
             self.addSubview(mMatchColumn)
             mMatchColumn.setQuestionDetails(questionDetails ,withsessionDetails: sessionDetails, withQuestionLogId: _logId)
+        }
+        else if QuestionType == kOverlayScribble || QuestionType == kFreshScribble
+        {
+            
+            if mScribbleQuestion != nil{
+                mScribbleQuestion.removeFromSuperview()
+            }
+            
+            mScribbleQuestion = ScribbleQuestionView(frame:CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
+            self.addSubview(mScribbleQuestion)
+            mScribbleQuestion.setQuestionDetails(questionDetails ,withsessionDetails: sessionDetails, withQuestionLogId: _logId)
         }
     }
     

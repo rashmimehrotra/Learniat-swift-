@@ -35,6 +35,8 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     var mQueryView          : StudentsQueryView!
     
+    var mOTFView             :StudentOTFView!
+    
     var mSubTopicNamelabel       = UILabel()
     var mQuestionNameLabel       = UILabel()
     
@@ -381,15 +383,21 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         classStartedView.addSubview(mQueryButton)
         mQueryButton.buttonUnSelected()
          mQueryButton.addTarget(self, action: #selector(StudentClassViewController.onQueryButton), forControlEvents: UIControlEvents.TouchUpInside)
+       
         mQueryView = StudentsQueryView(frame:mQuestionView.frame)
          classStartedView.addSubview(mQueryView)
         mQueryView.hidden = true
         
         mSubmissionButton.frame = CGRectMake(10 , mQueryButton.frame.origin.y + mQueryButton.frame.size.height + 20 , 100, 100)
-         mSubmissionButton.setImage("Submission_Selected.png",  _unselectedImageName: "Submission.png", withText: "Submission")
+         mSubmissionButton.setImage("poll_icon_selected.png",  _unselectedImageName: "poll_icon_unselected.png", withText: "OTF")
         classStartedView.addSubview(mSubmissionButton)
         mSubmissionButton.buttonUnSelected()
+         mSubmissionButton.addTarget(self, action: #selector(StudentClassViewController.onOTFButton), forControlEvents: UIControlEvents.TouchUpInside)
         
+        
+        mOTFView = StudentOTFView(frame:mQuestionView.frame)
+        classStartedView.addSubview(mOTFView)
+        mOTFView.hidden = true
         
         
         mSubTopicNamelabel.frame =  CGRectMake(mTeacherName.frame.origin.x + mTeacherName.frame.size.width + 10 , mTeacherName.frame.origin.y, mBottomBarImageView.frame.size.width - (mTeacherName.frame.origin.x + mTeacherName.frame.size.width + 20),mTeacherName.frame.size.height )
@@ -422,6 +430,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     {
         mQuestionView.hidden = false
         mQueryView.hidden = true
+        mOTFView.hidden = true
         mSubmissionButton.buttonUnSelected()
          mQueryButton.buttonUnSelected()
         mQuestionButton.buttonselected()
@@ -432,10 +441,23 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     {
         mQuestionView.hidden = true
         mQueryView.hidden = false
+         mOTFView.hidden = true
         mSubmissionButton.buttonUnSelected()
         mQueryButton.buttonselected()
         mQuestionButton.buttonUnSelected()
     }
+    
+    func onOTFButton()
+    {
+        mQuestionView.hidden = true
+        mQueryView.hidden = true
+        mOTFView.hidden = false
+        mSubmissionButton.buttonselected()
+        mQueryButton.buttonUnSelected()
+        mQuestionButton.buttonUnSelected()
+        
+    }
+    
     
     
     func onBack()
@@ -719,6 +741,16 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                 
             }
         }
+    }
+    
+    func smhDidRecievePollingStartedMessageWithDetails(detials: AnyObject)
+    {
+       mOTFView.didGetPollingStartedWithDetills(detials)
+    }
+    
+    func smhDidGetPollEndedMessageFromteacher()
+    {
+        mOTFView.didGetPollingStopped()
     }
    
     // MARK: - message handler functions

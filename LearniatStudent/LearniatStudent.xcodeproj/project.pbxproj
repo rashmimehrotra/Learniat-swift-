@@ -34,6 +34,12 @@
 		531FB4561CE5EB9B00DC0C6F /* Seat.png in Resources */ = {isa = PBXBuildFile; fileRef = 531FB4551CE5EB9B00DC0C6F /* Seat.png */; };
 		531FB4591CE5EBB900DC0C6F /* ic_thumb_down_red_48dp.png in Resources */ = {isa = PBXBuildFile; fileRef = 531FB4571CE5EBB900DC0C6F /* ic_thumb_down_red_48dp.png */; };
 		531FB45A1CE5EBB900DC0C6F /* ic_thumb_up_green_48dp.png in Resources */ = {isa = PBXBuildFile; fileRef = 531FB4581CE5EBB900DC0C6F /* ic_thumb_up_green_48dp.png */; };
+		532D27FA1CE9B2C7009FDF6A /* StudentOTFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532D27F81CE9B2C7009FDF6A /* StudentOTFView.swift */; };
+		532D27FB1CE9B2C7009FDF6A /* StudentPollingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532D27F91CE9B2C7009FDF6A /* StudentPollingView.swift */; };
+		532D27FD1CE9B581009FDF6A /* PollingSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532D27FC1CE9B580009FDF6A /* PollingSubView.swift */; };
+		532D28001CE9CA9C009FDF6A /* poll_icon_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 532D27FE1CE9CA9C009FDF6A /* poll_icon_selected.png */; };
+		532D28011CE9CA9C009FDF6A /* poll_icon_unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 532D27FF1CE9CA9C009FDF6A /* poll_icon_unselected.png */; };
+		532D28031CE9CF73009FDF6A /* ScribbleQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532D28021CE9CF73009FDF6A /* ScribbleQuestionView.swift */; };
 		5330646D1CC9DAAE0035CCDE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5330646C1CC9DAAE0035CCDE /* AppDelegate.swift */; };
 		5330646F1CC9DAAE0035CCDE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5330646E1CC9DAAE0035CCDE /* LoginViewController.swift */; };
 		533064721CC9DAAE0035CCDE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 533064701CC9DAAE0035CCDE /* Main.storyboard */; };
@@ -285,6 +291,12 @@
 		531FB4551CE5EB9B00DC0C6F /* Seat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Seat.png; sourceTree = "<group>"; };
 		531FB4571CE5EBB900DC0C6F /* ic_thumb_down_red_48dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_thumb_down_red_48dp.png; sourceTree = "<group>"; };
 		531FB4581CE5EBB900DC0C6F /* ic_thumb_up_green_48dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_thumb_up_green_48dp.png; sourceTree = "<group>"; };
+		532D27F81CE9B2C7009FDF6A /* StudentOTFView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentOTFView.swift; sourceTree = "<group>"; };
+		532D27F91CE9B2C7009FDF6A /* StudentPollingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentPollingView.swift; sourceTree = "<group>"; };
+		532D27FC1CE9B580009FDF6A /* PollingSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PollingSubView.swift; sourceTree = "<group>"; };
+		532D27FE1CE9CA9C009FDF6A /* poll_icon_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = poll_icon_selected.png; sourceTree = "<group>"; };
+		532D27FF1CE9CA9C009FDF6A /* poll_icon_unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = poll_icon_unselected.png; sourceTree = "<group>"; };
+		532D28021CE9CF73009FDF6A /* ScribbleQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScribbleQuestionView.swift; sourceTree = "<group>"; };
 		533064691CC9DAAE0035CCDE /* LearniatStudent.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LearniatStudent.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5330646C1CC9DAAE0035CCDE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5330646E1CC9DAAE0035CCDE /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -724,6 +736,16 @@
 				531FB4421CE5EB5B00DC0C6F /* RobotoCondensed-Regular.ttf */,
 			);
 			path = RobotoTTF;
+			sourceTree = "<group>";
+		};
+		532D27F71CE9B2C7009FDF6A /* OTF View */ = {
+			isa = PBXGroup;
+			children = (
+				532D27F81CE9B2C7009FDF6A /* StudentOTFView.swift */,
+				532D27F91CE9B2C7009FDF6A /* StudentPollingView.swift */,
+				532D27FC1CE9B580009FDF6A /* PollingSubView.swift */,
+			);
+			path = "OTF View";
 			sourceTree = "<group>";
 		};
 		533064601CC9DAAE0035CCDE = {
@@ -1740,6 +1762,8 @@
 		533066D81CC9E8FE0035CCDE /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				532D27FE1CE9CA9C009FDF6A /* poll_icon_selected.png */,
+				532D27FF1CE9CA9C009FDF6A /* poll_icon_unselected.png */,
 				531FB4571CE5EBB900DC0C6F /* ic_thumb_down_red_48dp.png */,
 				531FB4581CE5EBB900DC0C6F /* ic_thumb_up_green_48dp.png */,
 				531FB4551CE5EB9B00DC0C6F /* Seat.png */,
@@ -1792,6 +1816,7 @@
 			children = (
 				533066F81CCA37C80035CCDE /* StudentClassViewController.swift */,
 				535B8B251CE1A2A4008B2D7F /* CustomButtonSubView.swift */,
+				532D27F71CE9B2C7009FDF6A /* OTF View */,
 				53FFD2C21CE1FC4A00A5AA28 /* QueryView */,
 				53FFD2BB1CE1FC3700A5AA28 /* QuestionViews */,
 			);
@@ -1850,6 +1875,7 @@
 			isa = PBXGroup;
 			children = (
 				53FFD2BE1CE1FC3700A5AA28 /* StudentQuestionView.swift */,
+				532D28021CE9CF73009FDF6A /* ScribbleQuestionView.swift */,
 				53FFD2BC1CE1FC3700A5AA28 /* MultipleChoiceView.swift */,
 				53FFD2BD1CE1FC3700A5AA28 /* multipleResponseOptionView.swift */,
 				53A482B71CE43A3F00C90451 /* MatchColumnView.swift */,
@@ -1943,6 +1969,7 @@
 				531FB4521CE5EB5B00DC0C6F /* RobotoCondensed-Light.ttf in Resources */,
 				535B8B221CE1A20F008B2D7F /* Questions.png in Resources */,
 				531FB4471CE5EB5B00DC0C6F /* Roboto-Italic.ttf in Resources */,
+				532D28011CE9CA9C009FDF6A /* poll_icon_unselected.png in Resources */,
 				53A482DC1CE45FD000C90451 /* indicator5.png in Resources */,
 				531FB4461CE5EB5B00DC0C6F /* Roboto-BoldItalic.ttf in Resources */,
 				531FB4591CE5EBB900DC0C6F /* ic_thumb_down_red_48dp.png in Resources */,
@@ -1953,6 +1980,7 @@
 				531FB44C1CE5EB5B00DC0C6F /* Roboto-Regular.ttf in Resources */,
 				53A482DA1CE45FD000C90451 /* indicator3.png in Resources */,
 				53A482DE1CE45FD000C90451 /* indicator7.png in Resources */,
+				532D28001CE9CA9C009FDF6A /* poll_icon_selected.png in Resources */,
 				53015BBC1CE5D93C00BB366C /* Like_Selected.png in Resources */,
 				533066DA1CC9E8FE0035CCDE /* Student_app_icon.png in Resources */,
 				535B8B231CE1A20F008B2D7F /* Submission_Selected.png in Resources */,
@@ -2024,13 +2052,16 @@
 				5330669E1CC9E5F40035CCDE /* XMPPPing.m in Sources */,
 				533066BA1CC9E5F40035CCDE /* DDContextFilterLogFormatter.m in Sources */,
 				53A482E91CE48E0400C90451 /* QRVSubView.swift in Sources */,
+				532D28031CE9CF73009FDF6A /* ScribbleQuestionView.swift in Sources */,
 				533066531CC9E5F40035CCDE /* XMPPRoster.xcdatamodel in Sources */,
 				533066621CC9E5F40035CCDE /* XMPPRoomCoreDataStorage.m in Sources */,
+				532D27FA1CE9B2C7009FDF6A /* StudentOTFView.swift in Sources */,
 				53A482BE1CE4506A00C90451 /* CustomTextView.swift in Sources */,
 				53A482A51CE2F6A900C90451 /* LPRTableView.swift in Sources */,
 				533066541CC9E5F40035CCDE /* XMPPRosterCoreDataStorage.m in Sources */,
 				533066751CC9E5F40035CCDE /* XMPPvCardTempAdr.m in Sources */,
 				533066F31CCA12590035CCDE /* StudentSeatSubView.swift in Sources */,
+				532D27FB1CE9B2C7009FDF6A /* StudentPollingView.swift in Sources */,
 				533066B71CC9E5F40035CCDE /* DDFileLogger.m in Sources */,
 				533066721CC9E5F40035CCDE /* XMPPvCardCoreDataStorageObject.m in Sources */,
 				5330666D1CC9E5F40035CCDE /* XMPPMUC.m in Sources */,
@@ -2162,6 +2193,7 @@
 				5330663D1CC9E5F40035CCDE /* XMPPPlainAuthentication.m in Sources */,
 				5330663C1CC9E5F40035CCDE /* XMPPDigestMD5Authentication.m in Sources */,
 				53A482C01CE45FA000C90451 /* QuerySubview.swift in Sources */,
+				532D27FD1CE9B581009FDF6A /* PollingSubView.swift in Sources */,
 				53FFD2BF1CE1FC3700A5AA28 /* MultipleChoiceView.swift in Sources */,
 				533066921CC9E5F40035CCDE /* XMPPMessageArchivingCoreDataStorage.m in Sources */,
 				5330666C1CC9E5F40035CCDE /* XMPPMessage+XEP0045.m in Sources */,

@@ -99,6 +99,10 @@ import Foundation
     
     optional func smhdidRecieveQueryVolunteeringClosedMessageWithDetails(details:AnyObject)
     
+    optional func smhDidRecievePollingStartedMessageWithDetails(detials:AnyObject)
+   
+    optional func smhDidGetPollEndedMessageFromteacher()
+    
 }
 
 public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,MessageManagerDelegate {
@@ -590,6 +594,33 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
             MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
         }
     }
+    func sendPollOptionSelectedWithoptionText(optiontext:String)
+    {
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true &&  SSStudentDataSource.sharedDataSource.currentTeacherId != nil)
+        {
+            let studentID           = SSStudentDataSource.sharedDataSource.currentUserId
+            let msgType             = kSendSelectedPollToTeacher
+            let teacherID           = SSStudentDataSource.sharedDataSource.currentTeacherId
+            
+            
+            let messageBody = ["option":optiontext]
+            
+            
+            
+            
+            let details:NSMutableDictionary = ["From":studentID,
+                                               "To":teacherID,
+                                               "Type":msgType,
+                                               "Body":messageBody];
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
+        }
+    }
     
     //MARK: Recieve Message
     public func didReceiveMessageWithBody(body: String!)
@@ -720,6 +751,28 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
                 
             }
             
+        }
+        else if message.messageType() == kSendPollMessageToStudents
+        {
+            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhDidRecievePollingStartedMessageWithDetails(_:)))
+            {
+                
+                if message.messageBody() != nil
+                {
+                    delegate().smhDidRecievePollingStartedMessageWithDetails!(message.messageBody())
+                }
+                
+                
+            }
+            
+        }
+        else if message.messageType() == kSendPollStoppedToStudent
+        {
+            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhDidGetPollEndedMessageFromteacher))
+            {
+                
+                delegate().smhDidGetPollEndedMessageFromteacher!()
+            }
         }
     }
 }
