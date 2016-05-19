@@ -257,6 +257,9 @@
 		53A482E71CE4893C00C90451 /* StudentVolunteeringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A482E61CE4893C00C90451 /* StudentVolunteeringView.swift */; };
 		53A482E91CE48E0400C90451 /* QRVSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A482E81CE48E0400C90451 /* QRVSubView.swift */; };
 		53A482EB1CE48F1500C90451 /* QRVVolunteerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A482EA1CE48F1500C90451 /* QRVVolunteerView.swift */; };
+		53EEABF31CED9B2D005E4566 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EEABF11CED9B2D005E4566 /* BarView.swift */; };
+		53EEABF41CED9B2D005E4566 /* StudentAnswerGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EEABF21CED9B2D005E4566 /* StudentAnswerGraphView.swift */; };
+		53EEABF71CED9C39005E4566 /* FXLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 53EEABF61CED9C39005E4566 /* FXLabel.m */; };
 		53FFD2BF1CE1FC3700A5AA28 /* MultipleChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFD2BC1CE1FC3700A5AA28 /* MultipleChoiceView.swift */; };
 		53FFD2C01CE1FC3700A5AA28 /* multipleResponseOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFD2BD1CE1FC3700A5AA28 /* multipleResponseOptionView.swift */; };
 		53FFD2C11CE1FC3700A5AA28 /* StudentQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFD2BE1CE1FC3700A5AA28 /* StudentQuestionView.swift */; };
@@ -685,6 +688,10 @@
 		53A482E61CE4893C00C90451 /* StudentVolunteeringView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentVolunteeringView.swift; sourceTree = "<group>"; };
 		53A482E81CE48E0400C90451 /* QRVSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRVSubView.swift; sourceTree = "<group>"; };
 		53A482EA1CE48F1500C90451 /* QRVVolunteerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRVVolunteerView.swift; sourceTree = "<group>"; };
+		53EEABF11CED9B2D005E4566 /* BarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
+		53EEABF21CED9B2D005E4566 /* StudentAnswerGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerGraphView.swift; sourceTree = "<group>"; };
+		53EEABF51CED9C39005E4566 /* FXLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXLabel.h; sourceTree = "<group>"; };
+		53EEABF61CED9C39005E4566 /* FXLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXLabel.m; sourceTree = "<group>"; };
 		53FFD2BC1CE1FC3700A5AA28 /* MultipleChoiceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipleChoiceView.swift; sourceTree = "<group>"; };
 		53FFD2BD1CE1FC3700A5AA28 /* multipleResponseOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = multipleResponseOptionView.swift; sourceTree = "<group>"; };
 		53FFD2BE1CE1FC3700A5AA28 /* StudentQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentQuestionView.swift; sourceTree = "<group>"; };
@@ -807,6 +814,8 @@
 		533064A71CC9E52E0035CCDE /* common */ = {
 			isa = PBXGroup;
 			children = (
+				53EEABF51CED9C39005E4566 /* FXLabel.h */,
+				53EEABF61CED9C39005E4566 /* FXLabel.m */,
 				53A482BD1CE4506A00C90451 /* CustomTextView.swift */,
 				53A482C11CE45FD000C90451 /* customImageView */,
 				53A482AA1CE31B1A00C90451 /* MatchTheFollowing */,
@@ -1814,6 +1823,7 @@
 		533066F71CCA37AE0035CCDE /* ClassViewController */ = {
 			isa = PBXGroup;
 			children = (
+				53EEABF01CED9B2D005E4566 /* GraphView */,
 				533066F81CCA37C80035CCDE /* StudentClassViewController.swift */,
 				535B8B251CE1A2A4008B2D7F /* CustomButtonSubView.swift */,
 				532D27F71CE9B2C7009FDF6A /* OTF View */,
@@ -1869,6 +1879,15 @@
 				53A482CE1CE45FD000C90451 /* indicator9.png */,
 			);
 			path = AnimationIMage;
+			sourceTree = "<group>";
+		};
+		53EEABF01CED9B2D005E4566 /* GraphView */ = {
+			isa = PBXGroup;
+			children = (
+				53EEABF11CED9B2D005E4566 /* BarView.swift */,
+				53EEABF21CED9B2D005E4566 /* StudentAnswerGraphView.swift */,
+			);
+			path = GraphView;
 			sourceTree = "<group>";
 		};
 		53FFD2BB1CE1FC3700A5AA28 /* QuestionViews */ = {
@@ -2029,6 +2048,7 @@
 				533066A81CC9E5F40035CCDE /* XMPPMessage+XEP_0308.m in Sources */,
 				5330646F1CC9DAAE0035CCDE /* LoginViewController.swift in Sources */,
 				5330664F1CC9E5F40035CCDE /* XMPPProcessOne.m in Sources */,
+				53EEABF71CED9C39005E4566 /* FXLabel.m in Sources */,
 				533066A11CC9E5F40035CCDE /* NSXMLElement+XEP_0203.m in Sources */,
 				533066491CC9E5F40035CCDE /* XMPPParser.m in Sources */,
 				53A482E31CE45FD000C90451 /* UIDownloadBar.m in Sources */,
@@ -2098,6 +2118,7 @@
 				533066AC1CC9E5F40035CCDE /* MessageManager.m in Sources */,
 				533066BF1CC9E5F40035CCDE /* DDXMLDocument.m in Sources */,
 				5330665F1CC9E5F40035CCDE /* XMPPLastActivity.m in Sources */,
+				53EEABF31CED9B2D005E4566 /* BarView.swift in Sources */,
 				5330669B1CC9E5F40035CCDE /* XMPPStreamManagementStanzas.m in Sources */,
 				533066631CC9E5F40035CCDE /* XMPPRoomMessageCoreDataStorageObject.m in Sources */,
 				533066881CC9E5F40035CCDE /* XMPPTransports.m in Sources */,
@@ -2204,6 +2225,7 @@
 				53FFD2C41CE1FC4A00A5AA28 /* StudentsQueryView.swift in Sources */,
 				5330667B1CC9E5F40035CCDE /* XMPPvCardTempTel.m in Sources */,
 				533066A31CC9E5F40035CCDE /* XMPPAttentionModule.m in Sources */,
+				53EEABF41CED9B2D005E4566 /* StudentAnswerGraphView.swift in Sources */,
 				533066661CC9E5F40035CCDE /* XMPPRoomHybridStorage.m in Sources */,
 				533066DC1CC9EB0F0035CCDE /* SSStudentMessageHandler.swift in Sources */,
 				533066B51CC9E5F40035CCDE /* DDAbstractDatabaseLogger.m in Sources */,

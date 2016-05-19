@@ -11,5 +11,5 @@
 #import "LBorderView.h"
 #import "SSStudentMatchTheColoumnView.h"
 #import "CustomProgressImageView.h"
-
+#import "FXLabel.h"
 #endif

@@ -21,6 +21,10 @@ class StudentQuestionView: UIView
     
     var currentQuestionType = ""
     
+    var currentOptionsArray         = NSMutableArray()
+    
+    var mSharedGraphView            : StudentAnswerGraphView!
+    
     override init(frame: CGRect)
     {
         super.init(frame: frame)
@@ -61,6 +65,23 @@ class StudentQuestionView: UIView
                 mMultipleQuestion.removeFromSuperview()
             }
             
+            let options = currentQuestionDetails.objectForKey(kOptionTagMain)?.objectForKey(kOptionTag)
+            
+            
+            if options != nil
+            {
+                if (options!.isKindOfClass(NSMutableArray))
+                {
+                    currentOptionsArray = options as! NSMutableArray
+                }
+                else
+                {
+                    currentOptionsArray.addObject(options!)
+                }
+
+            }
+            
+            
             mMultipleQuestion = MultipleChoiceView(frame:CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
             self.addSubview(mMultipleQuestion)
             mMultipleQuestion.setQuestionDetails(questionDetails ,withsessionDetails: sessionDetails, withQuestionLogId: _logId)
@@ -70,6 +91,24 @@ class StudentQuestionView: UIView
             if mMatchColumn != nil{
                 mMatchColumn.removeFromSuperview()
             }
+            
+            
+            let options = currentQuestionDetails.objectForKey(kOptionTagMain)?.objectForKey(kOptionTag)
+            
+            
+            if options != nil
+            {
+                if (options!.isKindOfClass(NSMutableArray))
+                {
+                    currentOptionsArray = options as! NSMutableArray
+                }
+                else
+                {
+                    currentOptionsArray.addObject(options!)
+                }
+                
+            }
+            
             
             mMatchColumn = MatchColumnView(frame:CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
             self.addSubview(mMatchColumn)
@@ -127,7 +166,64 @@ class StudentQuestionView: UIView
                 mMatchColumn.FreezMessageFromTeacher()
             }
         }
+    }
+    
+    func didGetGraphSharedWithDetails(details:AnyObject)
+    {
         
+        if currentQuestionDetails == nil
+        {
+            return
+        }
+        
+        if mSharedGraphView == nil
+        {
+            mSharedGraphView = StudentAnswerGraphView(frame:CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
+            self.addSubview(mSharedGraphView)
+            self.bringSubviewToFront(mSharedGraphView)
+            if (currentQuestionDetails.objectForKey(kQuestionName) as? String) != ""
+            {
+               mSharedGraphView.loadMRQViewWithOPtions(currentOptionsArray, withQuestion: (currentQuestionDetails.objectForKey(kQuestionName) as! String))
+            }
+            else
+            {
+                 mSharedGraphView.loadMRQViewWithOPtions(currentOptionsArray, withQuestion: "")
+            }
+            
+            
+            
+            
+        }
+        
+        
+        
+        var optionsValueDetails = NSMutableDictionary()
+        
+        if let optionsDetails = details.objectForKey("Details") as? NSMutableDictionary
+        {
+            optionsValueDetails = optionsDetails
+            
+        }
+        
+        
+        for index  in 0 ..< currentOptionsArray.count
+        {
+            
+            let optionsDict = currentOptionsArray.objectAtIndex(index)
+            
+            if let optionId = optionsDict.objectForKey("OptionId") as? String
+            {
+                if let value = optionsValueDetails.objectForKey("option_\(optionId)") as? String
+                {
+                    for optionIndex in 0 ..< Int(value)
+                    {
+                        
+                    }
+                }
+            }
+            
+            
+        }
         
     }
     

@@ -752,6 +752,15 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     {
         mOTFView.didGetPollingStopped()
     }
+    
+    
+    func smhDidGetGraphSharedWithDetails(details: AnyObject)
+    {
+        print(details)
+        mQuestionView.didGetGraphSharedWithDetails(details)
+        
+    }
+    
    
     // MARK: - message handler functions
     func showAlertWithMessage(message:String)

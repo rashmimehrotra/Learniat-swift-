@@ -103,6 +103,8 @@ import Foundation
    
     optional func smhDidGetPollEndedMessageFromteacher()
     
+    optional func smhDidGetGraphSharedWithDetails(details:AnyObject)
+    
 }
 
 public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,MessageManagerDelegate {
@@ -772,6 +774,17 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
             {
                 
                 delegate().smhDidGetPollEndedMessageFromteacher!()
+            }
+        }
+        else if message.messageType() == kSharegraph
+        {
+            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhDidGetGraphSharedWithDetails(_:)))
+            {
+                
+                if message.messageBody() != nil
+                {
+                   delegate().smhDidGetGraphSharedWithDetails!(message.messageBody())
+                }
             }
         }
     }
