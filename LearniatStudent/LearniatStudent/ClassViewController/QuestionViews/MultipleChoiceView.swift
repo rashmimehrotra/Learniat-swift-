@@ -121,7 +121,7 @@ class MultipleChoiceView: UIView,SSStudentDataSourceDelegate
             }
             
             
-            optionsArray.shuffle()
+            optionsArray.shuffleValue()
             
             
             var positionY :CGFloat = 10

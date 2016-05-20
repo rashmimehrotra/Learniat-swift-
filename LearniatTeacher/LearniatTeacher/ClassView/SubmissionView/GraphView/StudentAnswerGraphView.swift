@@ -340,7 +340,7 @@ class StudentAnswerGraphView: UIView
             let barView = BarView(frame: CGRectMake(positionX ,lineContainerView.frame.size.height, width ,0))
             lineContainerView.addSubview(barView)
             barView.addTarget(self, action: #selector(StudentAnswerGraphView.onBarButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-            if let optionId = optionDict.objectForKey("OptionId") as? String
+            if let optionId = rightOPtionDict.objectForKey("OptionId") as? String
             {
                 barView.tag = Int(optionId)!
                 

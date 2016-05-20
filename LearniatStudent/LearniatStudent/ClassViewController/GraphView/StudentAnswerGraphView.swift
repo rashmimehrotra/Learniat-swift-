@@ -18,7 +18,7 @@ var kOptionIdIncrementer  = 1000
     
     optional func delegateBarTouchedWithId(optionId: String, withView barButton:BarView)
     
-    optional func delegateShareButtonClickedWithDetails(details:AnyObject)
+    optional func delegateShareButtonClickedWithDetails()
     
 }
 
@@ -65,8 +65,8 @@ class StudentAnswerGraphView: UIView
         questionNamelabel.textAlignment = .Center
         
         
-        shareGraphButton.frame = CGRectMake(self.frame.size.width - 105, 0, 100, 50)
-        shareGraphButton.setImage(UIImage(named:"Sharebutton.png"), forState:.Normal)
+        shareGraphButton.frame = CGRectMake(self.frame.size.width - 50, 10, 40,30)
+        shareGraphButton.setImage(UIImage(named:"wrongMatch.png"), forState:.Normal)
         self.addSubview(shareGraphButton);
         shareGraphButton.imageView?.contentMode = .ScaleAspectFit
         shareGraphButton.addTarget(self, action: #selector(StudentAnswerGraphView.onShareGraph), forControlEvents: UIControlEvents.TouchUpInside)
@@ -365,6 +365,24 @@ class StudentAnswerGraphView: UIView
     }
     
     
+    func increaseMultiplevalu(value:Int , withOptionId optionId:String)
+    {
+        for _ in 0 ..< value
+        {
+            increaseBarValueWithOPtionID(optionId)
+        }
+    }
+    
+    
+    func increaseMTCMultiplevalu(value:Int , withOptionText OptionText:String)
+    {
+        for _ in 0 ..< value
+        {
+            increaseBarValueWithOptionText(OptionText)
+        }
+    }
+    
+    
     
     func increaseBarValueWithOPtionID(optionId:String)
     {
@@ -505,30 +523,32 @@ class StudentAnswerGraphView: UIView
     
     func onShareGraph()
     {
-        let subViews = lineContainerView.subviews.flatMap{ $0 as? BarView }
-        let detailsDictonary = NSMutableDictionary()
-        for subview in subViews
-        {
-            if subview.isKindOfClass(BarView)
-            {
-                
-
-                let  optionsId = subview.tag
-                
-                let valueOfBars = subview.frame.size.height / differenceheight;
-                
-                
-                detailsDictonary.setObject(roundOffNumberWithFloat(Float(valueOfBars)), forKey: "option_\(optionsId)")
-                
-                
-
-                
-            }
-        }
         
-        if delegate().respondsToSelector(#selector(StudentAnswerGraphViewDelegate.delegateShareButtonClickedWithDetails(_:)))
+        
+//        let subViews = lineContainerView.subviews.flatMap{ $0 as? BarView }
+//        let detailsDictonary = NSMutableDictionary()
+//        for subview in subViews
+//        {
+//            if subview.isKindOfClass(BarView)
+//            {
+//                
+//
+//                let  optionsId = subview.tag
+//                
+//                let valueOfBars = subview.frame.size.height / differenceheight;
+//                
+//                
+//                detailsDictonary.setObject(roundOffNumberWithFloat(Float(valueOfBars)), forKey: "option_\(optionsId)")
+//                
+//                
+//
+//                
+//            }
+//        }
+//        
+        if delegate().respondsToSelector(#selector(StudentAnswerGraphViewDelegate.delegateShareButtonClickedWithDetails))
         {
-            delegate().delegateShareButtonClickedWithDetails!(detailsDictonary)
+            delegate().delegateShareButtonClickedWithDetails!()
         }
         
     }

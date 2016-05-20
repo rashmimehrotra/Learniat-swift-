@@ -219,6 +219,111 @@
 		533066F31CCA12590035CCDE /* StudentSeatSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533066F21CCA12590035CCDE /* StudentSeatSubView.swift */; };
 		533066F61CCA14280035CCDE /* LBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 533066F51CCA14280035CCDE /* LBorderView.m */; };
 		533066F91CCA37C80035CCDE /* StudentClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533066F81CCA37C80035CCDE /* StudentClassViewController.swift */; };
+		533254FC1CEDBD2700653C00 /* ATKCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 533254F71CEDBD2700653C00 /* ATKCore.framework */; };
+		533254FD1CEDBD2700653C00 /* ATKGeometry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 533254F81CEDBD2700653C00 /* ATKGeometry.framework */; };
+		533254FE1CEDBD2700653C00 /* ATKGeometryWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 533254F91CEDBD2700653C00 /* ATKGeometryWidget.framework */; };
+		533254FF1CEDBD2700653C00 /* ATKMath.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 533254FA1CEDBD2700653C00 /* ATKMath.framework */; };
+		533255001CEDBD2700653C00 /* ATKMathWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 533254FB1CEDBD2700653C00 /* ATKMathWidget.framework */; };
+		533255031CEDBD4700653C00 /* ATKGeometryWidget.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 533255011CEDBD4700653C00 /* ATKGeometryWidget.bundle */; };
+		533255041CEDBD4700653C00 /* ATKMathWidget.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 533255021CEDBD4700653C00 /* ATKMathWidget.bundle */; };
+		533255071CEDBD7600653C00 /* GeometryResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 533255051CEDBD7600653C00 /* GeometryResources.bundle */; };
+		533255081CEDBD7600653C00 /* MathResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 533255061CEDBD7600653C00 /* MathResources.bundle */; };
+		5332550A1CEDBD8E00653C00 /* css in Resources */ = {isa = PBXBuildFile; fileRef = 533255091CEDBD8E00653C00 /* css */; };
+		533255111CEDBE2300653C00 /* TeacherMathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5332550E1CEDBE2300653C00 /* TeacherMathView.swift */; };
+		533255121CEDBE2300653C00 /* TeacherShapesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5332550F1CEDBE2300653C00 /* TeacherShapesView.swift */; };
+		533255141CEDBE4C00653C00 /* SSStudentFullscreenScribbleQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533255131CEDBE4C00653C00 /* SSStudentFullscreenScribbleQuestion.swift */; };
+		533255191CEDBE8700653C00 /* ImageEditorSubView.m in Sources */ = {isa = PBXBuildFile; fileRef = 533255161CEDBE8700653C00 /* ImageEditorSubView.m */; };
+		5332551A1CEDBE8700653C00 /* ImageUploading.m in Sources */ = {isa = PBXBuildFile; fileRef = 533255181CEDBE8700653C00 /* ImageUploading.m */; };
+		5332551E1CEDBEC500653C00 /* SZTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5332551D1CEDBEC400653C00 /* SZTextView.m */; };
+		533255271CEDBEFB00653C00 /* colorpopOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 533255211CEDBEFB00653C00 /* colorpopOverViewController.m */; };
+		533255281CEDBEFB00653C00 /* SmoothLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 533255231CEDBEFB00653C00 /* SmoothLineView.m */; };
+		533255291CEDBEFB00653C00 /* UIImage-Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 533255261CEDBEFB00653C00 /* UIImage-Extensions.m */; };
+		5332557A1CEDC2A500653C00 /* Dark_Blue_Circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332552C1CEDC2A500653C00 /* Dark_Blue_Circle.png */; };
+		5332557B1CEDC2A500653C00 /* Dark_Blue_Circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332552D1CEDC2A500653C00 /* Dark_Blue_Circle@2x.png */; };
+		5332557C1CEDC2A500653C00 /* Eraser_Selected_AnnotateView.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332552E1CEDC2A500653C00 /* Eraser_Selected_AnnotateView.png */; };
+		5332557D1CEDC2A500653C00 /* Eraser_Selected_AnnotateView@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332552F1CEDC2A500653C00 /* Eraser_Selected_AnnotateView@2x.png */; };
+		5332557E1CEDC2A500653C00 /* Eraser_Selected_scribble.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255301CEDC2A500653C00 /* Eraser_Selected_scribble.png */; };
+		5332557F1CEDC2A500653C00 /* Eraser_Unselected_AnnotateView.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255311CEDC2A500653C00 /* Eraser_Unselected_AnnotateView.png */; };
+		533255801CEDC2A500653C00 /* Eraser_Unselected_AnnotateView@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255321CEDC2A500653C00 /* Eraser_Unselected_AnnotateView@2x.png */; };
+		533255811CEDC2A500653C00 /* Eraser_Unselected_scribble.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255331CEDC2A500653C00 /* Eraser_Unselected_scribble.png */; };
+		533255821CEDC2A500653C00 /* Gray_Circle_scribble.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255341CEDC2A500653C00 /* Gray_Circle_scribble.png */; };
+		533255831CEDC2A500653C00 /* Marker_Selected_AnnotateView.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255351CEDC2A500653C00 /* Marker_Selected_AnnotateView.png */; };
+		533255841CEDC2A500653C00 /* Marker_Selected_AnnotateView@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255361CEDC2A500653C00 /* Marker_Selected_AnnotateView@2x.png */; };
+		533255851CEDC2A500653C00 /* Marker_Selected_scribble.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255371CEDC2A500653C00 /* Marker_Selected_scribble.png */; };
+		533255861CEDC2A500653C00 /* Marker_Unselected_AnnotateView.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255381CEDC2A500653C00 /* Marker_Unselected_AnnotateView.png */; };
+		533255871CEDC2A500653C00 /* Marker_Unselected_AnnotateView@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255391CEDC2A500653C00 /* Marker_Unselected_AnnotateView@2x.png */; };
+		533255881CEDC2A500653C00 /* Marker_Unselected_scribble.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332553A1CEDC2A500653C00 /* Marker_Unselected_scribble.png */; };
+		533255891CEDC2A500653C00 /* Redo_Active_AnnotateView.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332553B1CEDC2A500653C00 /* Redo_Active_AnnotateView.png */; };
+		5332558A1CEDC2A500653C00 /* Redo_Active_AnnotateView@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332553C1CEDC2A500653C00 /* Redo_Active_AnnotateView@2x.png */; };
+		5332558B1CEDC2A500653C00 /* Redo_Disabled_AnnotateView.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332553D1CEDC2A500653C00 /* Redo_Disabled_AnnotateView.png */; };
+		5332558C1CEDC2A500653C00 /* Redo_Disabled_AnnotateView@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332553E1CEDC2A500653C00 /* Redo_Disabled_AnnotateView@2x.png */; };
+		5332558D1CEDC2A500653C00 /* Star_Selected_AnnotateView.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332553F1CEDC2A500653C00 /* Star_Selected_AnnotateView.png */; };
+		5332558E1CEDC2A500653C00 /* Star_Selected_AnnotateView@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255401CEDC2A500653C00 /* Star_Selected_AnnotateView@2x.png */; };
+		5332558F1CEDC2A500653C00 /* Star_Unselected_AnnotateView.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255411CEDC2A500653C00 /* Star_Unselected_AnnotateView.png */; };
+		533255901CEDC2A500653C00 /* Star_Unselected_AnnotateView@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255421CEDC2A500653C00 /* Star_Unselected_AnnotateView@2x.png */; };
+		533255911CEDC2A500653C00 /* Tab_bar_Button_AnnotateView.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255431CEDC2A500653C00 /* Tab_bar_Button_AnnotateView.png */; };
+		533255921CEDC2A500653C00 /* Tab_bar_Button_AnnotateView@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255441CEDC2A500653C00 /* Tab_bar_Button_AnnotateView@2x.png */; };
+		533255931CEDC2A500653C00 /* Tab_bar_Divider_AnnotateView.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255451CEDC2A500653C00 /* Tab_bar_Divider_AnnotateView.png */; };
+		533255941CEDC2A500653C00 /* Tab_bar_Divider_AnnotateView@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255461CEDC2A500653C00 /* Tab_bar_Divider_AnnotateView@2x.png */; };
+		533255951CEDC2A500653C00 /* Text_on_desk.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255471CEDC2A500653C00 /* Text_on_desk.png */; };
+		533255961CEDC2A500653C00 /* Text_Selected_AnnotateView.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255481CEDC2A500653C00 /* Text_Selected_AnnotateView.png */; };
+		533255971CEDC2A500653C00 /* Text_Selected_AnnotateView@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255491CEDC2A500653C00 /* Text_Selected_AnnotateView@2x.png */; };
+		533255981CEDC2A500653C00 /* Text_Unselected_AnnotateView.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332554A1CEDC2A500653C00 /* Text_Unselected_AnnotateView.png */; };
+		533255991CEDC2A500653C00 /* Text_Unselected_AnnotateView@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332554B1CEDC2A500653C00 /* Text_Unselected_AnnotateView@2x.png */; };
+		5332559A1CEDC2A500653C00 /* Tick_mark_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332554C1CEDC2A500653C00 /* Tick_mark_image.png */; };
+		5332559B1CEDC2A500653C00 /* Tick_mark_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332554D1CEDC2A500653C00 /* Tick_mark_image@2x.png */; };
+		5332559C1CEDC2A500653C00 /* Top_bar_Divider_AnnotateView.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332554E1CEDC2A500653C00 /* Top_bar_Divider_AnnotateView.png */; };
+		5332559D1CEDC2A500653C00 /* Top_bar_Divider_AnnotateView@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332554F1CEDC2A500653C00 /* Top_bar_Divider_AnnotateView@2x.png */; };
+		5332559E1CEDC2A500653C00 /* Undo_Active_AnnotateView.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255501CEDC2A500653C00 /* Undo_Active_AnnotateView.png */; };
+		5332559F1CEDC2A500653C00 /* Undo_Active_AnnotateView@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255511CEDC2A500653C00 /* Undo_Active_AnnotateView@2x.png */; };
+		533255A01CEDC2A500653C00 /* Undo_Disabled_AnnotateView.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255521CEDC2A500653C00 /* Undo_Disabled_AnnotateView.png */; };
+		533255A11CEDC2A500653C00 /* Undo_Disabled_AnnotateView@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255531CEDC2A500653C00 /* Undo_Disabled_AnnotateView@2x.png */; };
+		533255A21CEDC2A500653C00 /* Checked.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255541CEDC2A500653C00 /* Checked.png */; };
+		533255A31CEDC2A500653C00 /* Checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255551CEDC2A500653C00 /* Checked@2x.png */; };
+		533255A41CEDC2A500653C00 /* don't-know.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255561CEDC2A500653C00 /* don't-know.png */; };
+		533255A51CEDC2A500653C00 /* Eraser_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255571CEDC2A500653C00 /* Eraser_Selected.png */; };
+		533255A61CEDC2A500653C00 /* Eraser_Selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255581CEDC2A500653C00 /* Eraser_Selected@2x.png */; };
+		533255A71CEDC2A500653C00 /* Eraser_Unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255591CEDC2A500653C00 /* Eraser_Unselected.png */; };
+		533255A81CEDC2A500653C00 /* Eraser_Unselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332555A1CEDC2A500653C00 /* Eraser_Unselected@2x.png */; };
+		533255A91CEDC2A500653C00 /* halfChecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332555B1CEDC2A500653C00 /* halfChecked.png */; };
+		533255AA1CEDC2A500653C00 /* Mark_Model_Not_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332555C1CEDC2A500653C00 /* Mark_Model_Not_Selected.png */; };
+		533255AB1CEDC2A500653C00 /* Mark_Model_Not_Selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332555D1CEDC2A500653C00 /* Mark_Model_Not_Selected@2x.png */; };
+		533255AC1CEDC2A500653C00 /* Mark_Model_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332555E1CEDC2A500653C00 /* Mark_Model_Selected.png */; };
+		533255AD1CEDC2A500653C00 /* Mark_Model_Selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332555F1CEDC2A500653C00 /* Mark_Model_Selected@2x.png */; };
+		533255AE1CEDC2A500653C00 /* Marker_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255601CEDC2A500653C00 /* Marker_Selected.png */; };
+		533255AF1CEDC2A500653C00 /* Marker_Selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255611CEDC2A500653C00 /* Marker_Selected@2x.png */; };
+		533255B01CEDC2A500653C00 /* Marker_Unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255621CEDC2A500653C00 /* Marker_Unselected.png */; };
+		533255B11CEDC2A500653C00 /* Marker_Unselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255631CEDC2A500653C00 /* Marker_Unselected@2x.png */; };
+		533255B21CEDC2A500653C00 /* Rate_Type_Arrow_Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255641CEDC2A500653C00 /* Rate_Type_Arrow_Icon.png */; };
+		533255B31CEDC2A500653C00 /* Rate_Type_Arrow_Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255651CEDC2A500653C00 /* Rate_Type_Arrow_Icon@2x.png */; };
+		533255B41CEDC2A500653C00 /* Redo_Active.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255661CEDC2A500653C00 /* Redo_Active.png */; };
+		533255B51CEDC2A500653C00 /* Redo_Active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255671CEDC2A500653C00 /* Redo_Active@2x.png */; };
+		533255B61CEDC2A500653C00 /* Redo_Disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255681CEDC2A500653C00 /* Redo_Disabled.png */; };
+		533255B71CEDC2A500653C00 /* Redo_Disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255691CEDC2A500653C00 /* Redo_Disabled@2x.png */; };
+		533255B81CEDC2A500653C00 /* Share.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332556A1CEDC2A500653C00 /* Share.png */; };
+		533255B91CEDC2A500653C00 /* Sharebutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332556B1CEDC2A500653C00 /* Sharebutton.png */; };
+		533255BA1CEDC2A500653C00 /* Star_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332556C1CEDC2A500653C00 /* Star_Selected.png */; };
+		533255BB1CEDC2A500653C00 /* Star_Selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332556D1CEDC2A500653C00 /* Star_Selected@2x.png */; };
+		533255BC1CEDC2A500653C00 /* Star_Unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332556E1CEDC2A500653C00 /* Star_Unselected.png */; };
+		533255BD1CEDC2A500653C00 /* Star_Unselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332556F1CEDC2A500653C00 /* Star_Unselected@2x.png */; };
+		533255BE1CEDC2A500653C00 /* Text_on_desk.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255701CEDC2A500653C00 /* Text_on_desk.png */; };
+		533255BF1CEDC2A500653C00 /* Text_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255711CEDC2A500653C00 /* Text_Selected.png */; };
+		533255C01CEDC2A500653C00 /* Text_Selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255721CEDC2A500653C00 /* Text_Selected@2x.png */; };
+		533255C11CEDC2A500653C00 /* Text_Unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255731CEDC2A500653C00 /* Text_Unselected.png */; };
+		533255C21CEDC2A500653C00 /* Text_Unselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255741CEDC2A500653C00 /* Text_Unselected@2x.png */; };
+		533255C31CEDC2A500653C00 /* Unchecked.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255751CEDC2A500653C00 /* Unchecked.png */; };
+		533255C41CEDC2A500653C00 /* Undo_Active.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255761CEDC2A500653C00 /* Undo_Active.png */; };
+		533255C51CEDC2A500653C00 /* Undo_Active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255771CEDC2A500653C00 /* Undo_Active@2x.png */; };
+		533255C61CEDC2A500653C00 /* Undo_Disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255781CEDC2A500653C00 /* Undo_Disabled.png */; };
+		533255C71CEDC2A500653C00 /* Undo_Disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255791CEDC2A500653C00 /* Undo_Disabled@2x.png */; };
+		533255CF1CEDC40600653C00 /* Delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255C81CEDC40600653C00 /* Delete.png */; };
+		533255D01CEDC40600653C00 /* dragAndDrop.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255C91CEDC40600653C00 /* dragAndDrop.png */; };
+		533255D11CEDC40600653C00 /* Edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255CA1CEDC40600653C00 /* Edit.png */; };
+		533255D21CEDC40600653C00 /* Equation.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255CB1CEDC40600653C00 /* Equation.png */; };
+		533255D31CEDC40600653C00 /* Resize.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255CC1CEDC40600653C00 /* Resize.png */; };
+		533255D41CEDC40600653C00 /* Shapes.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255CD1CEDC40600653C00 /* Shapes.png */; };
+		533255D51CEDC40600653C00 /* Text.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255CE1CEDC40600653C00 /* Text.png */; };
+		533255D71CEDC91B00653C00 /* com.mindshiftapps.Learniat-Student.c in Sources */ = {isa = PBXBuildFile; fileRef = 533255D61CEDC91B00653C00 /* com.mindshiftapps.Learniat-Student.c */; };
 		535B8B1F1CE1A20F008B2D7F /* Query_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 535B8B191CE1A20F008B2D7F /* Query_Selected.png */; };
 		535B8B201CE1A20F008B2D7F /* Query.png in Resources */ = {isa = PBXBuildFile; fileRef = 535B8B1A1CE1A20F008B2D7F /* Query.png */; };
 		535B8B211CE1A20F008B2D7F /* Questions_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 535B8B1B1CE1A20F008B2D7F /* Questions_Selected.png */; };
@@ -643,6 +748,118 @@
 		533066F41CCA14280035CCDE /* LBorderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBorderView.h; sourceTree = "<group>"; };
 		533066F51CCA14280035CCDE /* LBorderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBorderView.m; sourceTree = "<group>"; };
 		533066F81CCA37C80035CCDE /* StudentClassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentClassViewController.swift; sourceTree = "<group>"; };
+		533254F71CEDBD2700653C00 /* ATKCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ATKCore.framework; path = LearniatStudent/ATKCore.framework; sourceTree = "<group>"; };
+		533254F81CEDBD2700653C00 /* ATKGeometry.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ATKGeometry.framework; path = LearniatStudent/ATKGeometry.framework; sourceTree = "<group>"; };
+		533254F91CEDBD2700653C00 /* ATKGeometryWidget.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ATKGeometryWidget.framework; path = LearniatStudent/ATKGeometryWidget.framework; sourceTree = "<group>"; };
+		533254FA1CEDBD2700653C00 /* ATKMath.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ATKMath.framework; path = LearniatStudent/ATKMath.framework; sourceTree = "<group>"; };
+		533254FB1CEDBD2700653C00 /* ATKMathWidget.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ATKMathWidget.framework; path = LearniatStudent/ATKMathWidget.framework; sourceTree = "<group>"; };
+		533255011CEDBD4700653C00 /* ATKGeometryWidget.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ATKGeometryWidget.bundle; path = Resource/ATKGeometryWidget.bundle; sourceTree = "<group>"; };
+		533255021CEDBD4700653C00 /* ATKMathWidget.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ATKMathWidget.bundle; path = Resource/ATKMathWidget.bundle; sourceTree = "<group>"; };
+		533255051CEDBD7600653C00 /* GeometryResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GeometryResources.bundle; sourceTree = "<group>"; };
+		533255061CEDBD7600653C00 /* MathResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MathResources.bundle; sourceTree = "<group>"; };
+		533255091CEDBD8E00653C00 /* css */ = {isa = PBXFileReference; lastKnownFileType = folder; path = css; sourceTree = "<group>"; };
+		5332550D1CEDBE2300653C00 /* MyCertificate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCertificate.h; sourceTree = "<group>"; };
+		5332550E1CEDBE2300653C00 /* TeacherMathView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeacherMathView.swift; sourceTree = "<group>"; };
+		5332550F1CEDBE2300653C00 /* TeacherShapesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeacherShapesView.swift; sourceTree = "<group>"; };
+		533255131CEDBE4C00653C00 /* SSStudentFullscreenScribbleQuestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSStudentFullscreenScribbleQuestion.swift; sourceTree = "<group>"; };
+		533255151CEDBE8700653C00 /* ImageEditorSubView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageEditorSubView.h; sourceTree = "<group>"; };
+		533255161CEDBE8700653C00 /* ImageEditorSubView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageEditorSubView.m; sourceTree = "<group>"; };
+		533255171CEDBE8700653C00 /* ImageUploading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageUploading.h; sourceTree = "<group>"; };
+		533255181CEDBE8700653C00 /* ImageUploading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageUploading.m; sourceTree = "<group>"; };
+		5332551C1CEDBEC400653C00 /* SZTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZTextView.h; sourceTree = "<group>"; };
+		5332551D1CEDBEC400653C00 /* SZTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZTextView.m; sourceTree = "<group>"; };
+		533255201CEDBEFB00653C00 /* colorpopOverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = colorpopOverViewController.h; sourceTree = "<group>"; };
+		533255211CEDBEFB00653C00 /* colorpopOverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = colorpopOverViewController.m; sourceTree = "<group>"; };
+		533255221CEDBEFB00653C00 /* SmoothLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmoothLineView.h; sourceTree = "<group>"; };
+		533255231CEDBEFB00653C00 /* SmoothLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmoothLineView.m; sourceTree = "<group>"; };
+		533255251CEDBEFB00653C00 /* UIImage-Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage-Extensions.h"; sourceTree = "<group>"; };
+		533255261CEDBEFB00653C00 /* UIImage-Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage-Extensions.m"; sourceTree = "<group>"; };
+		5332552C1CEDC2A500653C00 /* Dark_Blue_Circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dark_Blue_Circle.png; sourceTree = "<group>"; };
+		5332552D1CEDC2A500653C00 /* Dark_Blue_Circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Dark_Blue_Circle@2x.png"; sourceTree = "<group>"; };
+		5332552E1CEDC2A500653C00 /* Eraser_Selected_AnnotateView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Eraser_Selected_AnnotateView.png; sourceTree = "<group>"; };
+		5332552F1CEDC2A500653C00 /* Eraser_Selected_AnnotateView@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Eraser_Selected_AnnotateView@2x.png"; sourceTree = "<group>"; };
+		533255301CEDC2A500653C00 /* Eraser_Selected_scribble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Eraser_Selected_scribble.png; sourceTree = "<group>"; };
+		533255311CEDC2A500653C00 /* Eraser_Unselected_AnnotateView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Eraser_Unselected_AnnotateView.png; sourceTree = "<group>"; };
+		533255321CEDC2A500653C00 /* Eraser_Unselected_AnnotateView@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Eraser_Unselected_AnnotateView@2x.png"; sourceTree = "<group>"; };
+		533255331CEDC2A500653C00 /* Eraser_Unselected_scribble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Eraser_Unselected_scribble.png; sourceTree = "<group>"; };
+		533255341CEDC2A500653C00 /* Gray_Circle_scribble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gray_Circle_scribble.png; sourceTree = "<group>"; };
+		533255351CEDC2A500653C00 /* Marker_Selected_AnnotateView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Marker_Selected_AnnotateView.png; sourceTree = "<group>"; };
+		533255361CEDC2A500653C00 /* Marker_Selected_AnnotateView@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Marker_Selected_AnnotateView@2x.png"; sourceTree = "<group>"; };
+		533255371CEDC2A500653C00 /* Marker_Selected_scribble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Marker_Selected_scribble.png; sourceTree = "<group>"; };
+		533255381CEDC2A500653C00 /* Marker_Unselected_AnnotateView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Marker_Unselected_AnnotateView.png; sourceTree = "<group>"; };
+		533255391CEDC2A500653C00 /* Marker_Unselected_AnnotateView@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Marker_Unselected_AnnotateView@2x.png"; sourceTree = "<group>"; };
+		5332553A1CEDC2A500653C00 /* Marker_Unselected_scribble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Marker_Unselected_scribble.png; sourceTree = "<group>"; };
+		5332553B1CEDC2A500653C00 /* Redo_Active_AnnotateView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Redo_Active_AnnotateView.png; sourceTree = "<group>"; };
+		5332553C1CEDC2A500653C00 /* Redo_Active_AnnotateView@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Redo_Active_AnnotateView@2x.png"; sourceTree = "<group>"; };
+		5332553D1CEDC2A500653C00 /* Redo_Disabled_AnnotateView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Redo_Disabled_AnnotateView.png; sourceTree = "<group>"; };
+		5332553E1CEDC2A500653C00 /* Redo_Disabled_AnnotateView@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Redo_Disabled_AnnotateView@2x.png"; sourceTree = "<group>"; };
+		5332553F1CEDC2A500653C00 /* Star_Selected_AnnotateView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Star_Selected_AnnotateView.png; sourceTree = "<group>"; };
+		533255401CEDC2A500653C00 /* Star_Selected_AnnotateView@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Star_Selected_AnnotateView@2x.png"; sourceTree = "<group>"; };
+		533255411CEDC2A500653C00 /* Star_Unselected_AnnotateView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Star_Unselected_AnnotateView.png; sourceTree = "<group>"; };
+		533255421CEDC2A500653C00 /* Star_Unselected_AnnotateView@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Star_Unselected_AnnotateView@2x.png"; sourceTree = "<group>"; };
+		533255431CEDC2A500653C00 /* Tab_bar_Button_AnnotateView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tab_bar_Button_AnnotateView.png; sourceTree = "<group>"; };
+		533255441CEDC2A500653C00 /* Tab_bar_Button_AnnotateView@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tab_bar_Button_AnnotateView@2x.png"; sourceTree = "<group>"; };
+		533255451CEDC2A500653C00 /* Tab_bar_Divider_AnnotateView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tab_bar_Divider_AnnotateView.png; sourceTree = "<group>"; };
+		533255461CEDC2A500653C00 /* Tab_bar_Divider_AnnotateView@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tab_bar_Divider_AnnotateView@2x.png"; sourceTree = "<group>"; };
+		533255471CEDC2A500653C00 /* Text_on_desk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Text_on_desk.png; sourceTree = "<group>"; };
+		533255481CEDC2A500653C00 /* Text_Selected_AnnotateView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Text_Selected_AnnotateView.png; sourceTree = "<group>"; };
+		533255491CEDC2A500653C00 /* Text_Selected_AnnotateView@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Text_Selected_AnnotateView@2x.png"; sourceTree = "<group>"; };
+		5332554A1CEDC2A500653C00 /* Text_Unselected_AnnotateView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Text_Unselected_AnnotateView.png; sourceTree = "<group>"; };
+		5332554B1CEDC2A500653C00 /* Text_Unselected_AnnotateView@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Text_Unselected_AnnotateView@2x.png"; sourceTree = "<group>"; };
+		5332554C1CEDC2A500653C00 /* Tick_mark_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tick_mark_image.png; sourceTree = "<group>"; };
+		5332554D1CEDC2A500653C00 /* Tick_mark_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tick_mark_image@2x.png"; sourceTree = "<group>"; };
+		5332554E1CEDC2A500653C00 /* Top_bar_Divider_AnnotateView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Top_bar_Divider_AnnotateView.png; sourceTree = "<group>"; };
+		5332554F1CEDC2A500653C00 /* Top_bar_Divider_AnnotateView@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Top_bar_Divider_AnnotateView@2x.png"; sourceTree = "<group>"; };
+		533255501CEDC2A500653C00 /* Undo_Active_AnnotateView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Undo_Active_AnnotateView.png; sourceTree = "<group>"; };
+		533255511CEDC2A500653C00 /* Undo_Active_AnnotateView@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Undo_Active_AnnotateView@2x.png"; sourceTree = "<group>"; };
+		533255521CEDC2A500653C00 /* Undo_Disabled_AnnotateView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Undo_Disabled_AnnotateView.png; sourceTree = "<group>"; };
+		533255531CEDC2A500653C00 /* Undo_Disabled_AnnotateView@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Undo_Disabled_AnnotateView@2x.png"; sourceTree = "<group>"; };
+		533255541CEDC2A500653C00 /* Checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Checked.png; sourceTree = "<group>"; };
+		533255551CEDC2A500653C00 /* Checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Checked@2x.png"; sourceTree = "<group>"; };
+		533255561CEDC2A500653C00 /* don't-know.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "don't-know.png"; sourceTree = "<group>"; };
+		533255571CEDC2A500653C00 /* Eraser_Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Eraser_Selected.png; sourceTree = "<group>"; };
+		533255581CEDC2A500653C00 /* Eraser_Selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Eraser_Selected@2x.png"; sourceTree = "<group>"; };
+		533255591CEDC2A500653C00 /* Eraser_Unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Eraser_Unselected.png; sourceTree = "<group>"; };
+		5332555A1CEDC2A500653C00 /* Eraser_Unselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Eraser_Unselected@2x.png"; sourceTree = "<group>"; };
+		5332555B1CEDC2A500653C00 /* halfChecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = halfChecked.png; sourceTree = "<group>"; };
+		5332555C1CEDC2A500653C00 /* Mark_Model_Not_Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mark_Model_Not_Selected.png; sourceTree = "<group>"; };
+		5332555D1CEDC2A500653C00 /* Mark_Model_Not_Selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Mark_Model_Not_Selected@2x.png"; sourceTree = "<group>"; };
+		5332555E1CEDC2A500653C00 /* Mark_Model_Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mark_Model_Selected.png; sourceTree = "<group>"; };
+		5332555F1CEDC2A500653C00 /* Mark_Model_Selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Mark_Model_Selected@2x.png"; sourceTree = "<group>"; };
+		533255601CEDC2A500653C00 /* Marker_Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Marker_Selected.png; sourceTree = "<group>"; };
+		533255611CEDC2A500653C00 /* Marker_Selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Marker_Selected@2x.png"; sourceTree = "<group>"; };
+		533255621CEDC2A500653C00 /* Marker_Unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Marker_Unselected.png; sourceTree = "<group>"; };
+		533255631CEDC2A500653C00 /* Marker_Unselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Marker_Unselected@2x.png"; sourceTree = "<group>"; };
+		533255641CEDC2A500653C00 /* Rate_Type_Arrow_Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Rate_Type_Arrow_Icon.png; sourceTree = "<group>"; };
+		533255651CEDC2A500653C00 /* Rate_Type_Arrow_Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rate_Type_Arrow_Icon@2x.png"; sourceTree = "<group>"; };
+		533255661CEDC2A500653C00 /* Redo_Active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Redo_Active.png; sourceTree = "<group>"; };
+		533255671CEDC2A500653C00 /* Redo_Active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Redo_Active@2x.png"; sourceTree = "<group>"; };
+		533255681CEDC2A500653C00 /* Redo_Disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Redo_Disabled.png; sourceTree = "<group>"; };
+		533255691CEDC2A500653C00 /* Redo_Disabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Redo_Disabled@2x.png"; sourceTree = "<group>"; };
+		5332556A1CEDC2A500653C00 /* Share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Share.png; sourceTree = "<group>"; };
+		5332556B1CEDC2A500653C00 /* Sharebutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sharebutton.png; sourceTree = "<group>"; };
+		5332556C1CEDC2A500653C00 /* Star_Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Star_Selected.png; sourceTree = "<group>"; };
+		5332556D1CEDC2A500653C00 /* Star_Selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Star_Selected@2x.png"; sourceTree = "<group>"; };
+		5332556E1CEDC2A500653C00 /* Star_Unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Star_Unselected.png; sourceTree = "<group>"; };
+		5332556F1CEDC2A500653C00 /* Star_Unselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Star_Unselected@2x.png"; sourceTree = "<group>"; };
+		533255701CEDC2A500653C00 /* Text_on_desk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Text_on_desk.png; sourceTree = "<group>"; };
+		533255711CEDC2A500653C00 /* Text_Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Text_Selected.png; sourceTree = "<group>"; };
+		533255721CEDC2A500653C00 /* Text_Selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Text_Selected@2x.png"; sourceTree = "<group>"; };
+		533255731CEDC2A500653C00 /* Text_Unselected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Text_Unselected.png; sourceTree = "<group>"; };
+		533255741CEDC2A500653C00 /* Text_Unselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Text_Unselected@2x.png"; sourceTree = "<group>"; };
+		533255751CEDC2A500653C00 /* Unchecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Unchecked.png; sourceTree = "<group>"; };
+		533255761CEDC2A500653C00 /* Undo_Active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Undo_Active.png; sourceTree = "<group>"; };
+		533255771CEDC2A500653C00 /* Undo_Active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Undo_Active@2x.png"; sourceTree = "<group>"; };
+		533255781CEDC2A500653C00 /* Undo_Disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Undo_Disabled.png; sourceTree = "<group>"; };
+		533255791CEDC2A500653C00 /* Undo_Disabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Undo_Disabled@2x.png"; sourceTree = "<group>"; };
+		533255C81CEDC40600653C00 /* Delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Delete.png; sourceTree = "<group>"; };
+		533255C91CEDC40600653C00 /* dragAndDrop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dragAndDrop.png; sourceTree = "<group>"; };
+		533255CA1CEDC40600653C00 /* Edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Edit.png; sourceTree = "<group>"; };
+		533255CB1CEDC40600653C00 /* Equation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Equation.png; sourceTree = "<group>"; };
+		533255CC1CEDC40600653C00 /* Resize.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Resize.png; sourceTree = "<group>"; };
+		533255CD1CEDC40600653C00 /* Shapes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Shapes.png; sourceTree = "<group>"; };
+		533255CE1CEDC40600653C00 /* Text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Text.png; sourceTree = "<group>"; };
+		533255D61CEDC91B00653C00 /* com.mindshiftapps.Learniat-Student.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "com.mindshiftapps.Learniat-Student.c"; sourceTree = "<group>"; };
 		535B8B191CE1A20F008B2D7F /* Query_Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Query_Selected.png; sourceTree = "<group>"; };
 		535B8B1A1CE1A20F008B2D7F /* Query.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Query.png; sourceTree = "<group>"; };
 		535B8B1B1CE1A20F008B2D7F /* Questions_Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Questions_Selected.png; sourceTree = "<group>"; };
@@ -703,6 +920,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				533254FD1CEDBD2700653C00 /* ATKGeometry.framework in Frameworks */,
+				533254FE1CEDBD2700653C00 /* ATKGeometryWidget.framework in Frameworks */,
+				533254FF1CEDBD2700653C00 /* ATKMath.framework in Frameworks */,
+				533255001CEDBD2700653C00 /* ATKMathWidget.framework in Frameworks */,
 				533066D71CC9E6710035CCDE /* Security.framework in Frameworks */,
 				533066D51CC9E65D0035CCDE /* CoreLocation.framework in Frameworks */,
 				533066D31CC9E6540035CCDE /* SystemConfiguration.framework in Frameworks */,
@@ -714,6 +935,7 @@
 				533066C71CC9E6180035CCDE /* Foundation.framework in Frameworks */,
 				533066C51CC9E60D0035CCDE /* CoreGraphics.framework in Frameworks */,
 				533066C31CC9E5F40035CCDE /* libidn.a in Frameworks */,
+				533254FC1CEDBD2700653C00 /* ATKCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -758,6 +980,11 @@
 		533064601CC9DAAE0035CCDE = {
 			isa = PBXGroup;
 			children = (
+				533254F71CEDBD2700653C00 /* ATKCore.framework */,
+				533254F81CEDBD2700653C00 /* ATKGeometry.framework */,
+				533254F91CEDBD2700653C00 /* ATKGeometryWidget.framework */,
+				533254FA1CEDBD2700653C00 /* ATKMath.framework */,
+				533254FB1CEDBD2700653C00 /* ATKMathWidget.framework */,
 				533066D61CC9E6710035CCDE /* Security.framework */,
 				533066D41CC9E65D0035CCDE /* CoreLocation.framework */,
 				533066D21CC9E6540035CCDE /* SystemConfiguration.framework */,
@@ -784,6 +1011,8 @@
 		5330646B1CC9DAAE0035CCDE /* LearniatStudent */ = {
 			isa = PBXGroup;
 			children = (
+				533255011CEDBD4700653C00 /* ATKGeometryWidget.bundle */,
+				533255021CEDBD4700653C00 /* ATKMathWidget.bundle */,
 				533064A71CC9E52E0035CCDE /* common */,
 				5330646C1CC9DAAE0035CCDE /* AppDelegate.swift */,
 				5330647E1CC9E2FC0035CCDE /* INILoader.swift */,
@@ -814,6 +1043,12 @@
 		533064A71CC9E52E0035CCDE /* common */ = {
 			isa = PBXGroup;
 			children = (
+				5332551F1CEDBEFB00653C00 /* Drawing */,
+				5332551B1CEDBEC400653C00 /* CustomTextView */,
+				533255151CEDBE8700653C00 /* ImageEditorSubView.h */,
+				533255161CEDBE8700653C00 /* ImageEditorSubView.m */,
+				533255171CEDBE8700653C00 /* ImageUploading.h */,
+				533255181CEDBE8700653C00 /* ImageUploading.m */,
 				53EEABF51CED9C39005E4566 /* FXLabel.h */,
 				53EEABF61CED9C39005E4566 /* FXLabel.m */,
 				53A482BD1CE4506A00C90451 /* CustomTextView.swift */,
@@ -1771,6 +2006,17 @@
 		533066D81CC9E8FE0035CCDE /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				533255C81CEDC40600653C00 /* Delete.png */,
+				533255C91CEDC40600653C00 /* dragAndDrop.png */,
+				533255CA1CEDC40600653C00 /* Edit.png */,
+				533255CB1CEDC40600653C00 /* Equation.png */,
+				533255CC1CEDC40600653C00 /* Resize.png */,
+				533255CD1CEDC40600653C00 /* Shapes.png */,
+				533255CE1CEDC40600653C00 /* Text.png */,
+				5332552A1CEDC2A500653C00 /* ScribbleView */,
+				533255091CEDBD8E00653C00 /* css */,
+				533255051CEDBD7600653C00 /* GeometryResources.bundle */,
+				533255061CEDBD7600653C00 /* MathResources.bundle */,
 				532D27FE1CE9CA9C009FDF6A /* poll_icon_selected.png */,
 				532D27FF1CE9CA9C009FDF6A /* poll_icon_unselected.png */,
 				531FB4571CE5EBB900DC0C6F /* ic_thumb_down_red_48dp.png */,
@@ -1833,6 +2079,141 @@
 			path = ClassViewController;
 			sourceTree = "<group>";
 		};
+		5332550B1CEDBE2300653C00 /* FullScreenQuestion */ = {
+			isa = PBXGroup;
+			children = (
+				533255131CEDBE4C00653C00 /* SSStudentFullscreenScribbleQuestion.swift */,
+				533255D61CEDC91B00653C00 /* com.mindshiftapps.Learniat-Student.c */,
+				5332550D1CEDBE2300653C00 /* MyCertificate.h */,
+				5332550E1CEDBE2300653C00 /* TeacherMathView.swift */,
+				5332550F1CEDBE2300653C00 /* TeacherShapesView.swift */,
+			);
+			path = FullScreenQuestion;
+			sourceTree = "<group>";
+		};
+		5332551B1CEDBEC400653C00 /* CustomTextView */ = {
+			isa = PBXGroup;
+			children = (
+				5332551C1CEDBEC400653C00 /* SZTextView.h */,
+				5332551D1CEDBEC400653C00 /* SZTextView.m */,
+			);
+			path = CustomTextView;
+			sourceTree = "<group>";
+		};
+		5332551F1CEDBEFB00653C00 /* Drawing */ = {
+			isa = PBXGroup;
+			children = (
+				533255201CEDBEFB00653C00 /* colorpopOverViewController.h */,
+				533255211CEDBEFB00653C00 /* colorpopOverViewController.m */,
+				533255221CEDBEFB00653C00 /* SmoothLineView.h */,
+				533255231CEDBEFB00653C00 /* SmoothLineView.m */,
+				533255241CEDBEFB00653C00 /* UIImage-Extensions */,
+			);
+			path = Drawing;
+			sourceTree = "<group>";
+		};
+		533255241CEDBEFB00653C00 /* UIImage-Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				533255251CEDBEFB00653C00 /* UIImage-Extensions.h */,
+				533255261CEDBEFB00653C00 /* UIImage-Extensions.m */,
+			);
+			path = "UIImage-Extensions";
+			sourceTree = "<group>";
+		};
+		5332552A1CEDC2A500653C00 /* ScribbleView */ = {
+			isa = PBXGroup;
+			children = (
+				5332552B1CEDC2A500653C00 /* AnnotateView */,
+				533255541CEDC2A500653C00 /* Checked.png */,
+				533255551CEDC2A500653C00 /* Checked@2x.png */,
+				533255561CEDC2A500653C00 /* don't-know.png */,
+				533255571CEDC2A500653C00 /* Eraser_Selected.png */,
+				533255581CEDC2A500653C00 /* Eraser_Selected@2x.png */,
+				533255591CEDC2A500653C00 /* Eraser_Unselected.png */,
+				5332555A1CEDC2A500653C00 /* Eraser_Unselected@2x.png */,
+				5332555B1CEDC2A500653C00 /* halfChecked.png */,
+				5332555C1CEDC2A500653C00 /* Mark_Model_Not_Selected.png */,
+				5332555D1CEDC2A500653C00 /* Mark_Model_Not_Selected@2x.png */,
+				5332555E1CEDC2A500653C00 /* Mark_Model_Selected.png */,
+				5332555F1CEDC2A500653C00 /* Mark_Model_Selected@2x.png */,
+				533255601CEDC2A500653C00 /* Marker_Selected.png */,
+				533255611CEDC2A500653C00 /* Marker_Selected@2x.png */,
+				533255621CEDC2A500653C00 /* Marker_Unselected.png */,
+				533255631CEDC2A500653C00 /* Marker_Unselected@2x.png */,
+				533255641CEDC2A500653C00 /* Rate_Type_Arrow_Icon.png */,
+				533255651CEDC2A500653C00 /* Rate_Type_Arrow_Icon@2x.png */,
+				533255661CEDC2A500653C00 /* Redo_Active.png */,
+				533255671CEDC2A500653C00 /* Redo_Active@2x.png */,
+				533255681CEDC2A500653C00 /* Redo_Disabled.png */,
+				533255691CEDC2A500653C00 /* Redo_Disabled@2x.png */,
+				5332556A1CEDC2A500653C00 /* Share.png */,
+				5332556B1CEDC2A500653C00 /* Sharebutton.png */,
+				5332556C1CEDC2A500653C00 /* Star_Selected.png */,
+				5332556D1CEDC2A500653C00 /* Star_Selected@2x.png */,
+				5332556E1CEDC2A500653C00 /* Star_Unselected.png */,
+				5332556F1CEDC2A500653C00 /* Star_Unselected@2x.png */,
+				533255701CEDC2A500653C00 /* Text_on_desk.png */,
+				533255711CEDC2A500653C00 /* Text_Selected.png */,
+				533255721CEDC2A500653C00 /* Text_Selected@2x.png */,
+				533255731CEDC2A500653C00 /* Text_Unselected.png */,
+				533255741CEDC2A500653C00 /* Text_Unselected@2x.png */,
+				533255751CEDC2A500653C00 /* Unchecked.png */,
+				533255761CEDC2A500653C00 /* Undo_Active.png */,
+				533255771CEDC2A500653C00 /* Undo_Active@2x.png */,
+				533255781CEDC2A500653C00 /* Undo_Disabled.png */,
+				533255791CEDC2A500653C00 /* Undo_Disabled@2x.png */,
+			);
+			path = ScribbleView;
+			sourceTree = "<group>";
+		};
+		5332552B1CEDC2A500653C00 /* AnnotateView */ = {
+			isa = PBXGroup;
+			children = (
+				5332552C1CEDC2A500653C00 /* Dark_Blue_Circle.png */,
+				5332552D1CEDC2A500653C00 /* Dark_Blue_Circle@2x.png */,
+				5332552E1CEDC2A500653C00 /* Eraser_Selected_AnnotateView.png */,
+				5332552F1CEDC2A500653C00 /* Eraser_Selected_AnnotateView@2x.png */,
+				533255301CEDC2A500653C00 /* Eraser_Selected_scribble.png */,
+				533255311CEDC2A500653C00 /* Eraser_Unselected_AnnotateView.png */,
+				533255321CEDC2A500653C00 /* Eraser_Unselected_AnnotateView@2x.png */,
+				533255331CEDC2A500653C00 /* Eraser_Unselected_scribble.png */,
+				533255341CEDC2A500653C00 /* Gray_Circle_scribble.png */,
+				533255351CEDC2A500653C00 /* Marker_Selected_AnnotateView.png */,
+				533255361CEDC2A500653C00 /* Marker_Selected_AnnotateView@2x.png */,
+				533255371CEDC2A500653C00 /* Marker_Selected_scribble.png */,
+				533255381CEDC2A500653C00 /* Marker_Unselected_AnnotateView.png */,
+				533255391CEDC2A500653C00 /* Marker_Unselected_AnnotateView@2x.png */,
+				5332553A1CEDC2A500653C00 /* Marker_Unselected_scribble.png */,
+				5332553B1CEDC2A500653C00 /* Redo_Active_AnnotateView.png */,
+				5332553C1CEDC2A500653C00 /* Redo_Active_AnnotateView@2x.png */,
+				5332553D1CEDC2A500653C00 /* Redo_Disabled_AnnotateView.png */,
+				5332553E1CEDC2A500653C00 /* Redo_Disabled_AnnotateView@2x.png */,
+				5332553F1CEDC2A500653C00 /* Star_Selected_AnnotateView.png */,
+				533255401CEDC2A500653C00 /* Star_Selected_AnnotateView@2x.png */,
+				533255411CEDC2A500653C00 /* Star_Unselected_AnnotateView.png */,
+				533255421CEDC2A500653C00 /* Star_Unselected_AnnotateView@2x.png */,
+				533255431CEDC2A500653C00 /* Tab_bar_Button_AnnotateView.png */,
+				533255441CEDC2A500653C00 /* Tab_bar_Button_AnnotateView@2x.png */,
+				533255451CEDC2A500653C00 /* Tab_bar_Divider_AnnotateView.png */,
+				533255461CEDC2A500653C00 /* Tab_bar_Divider_AnnotateView@2x.png */,
+				533255471CEDC2A500653C00 /* Text_on_desk.png */,
+				533255481CEDC2A500653C00 /* Text_Selected_AnnotateView.png */,
+				533255491CEDC2A500653C00 /* Text_Selected_AnnotateView@2x.png */,
+				5332554A1CEDC2A500653C00 /* Text_Unselected_AnnotateView.png */,
+				5332554B1CEDC2A500653C00 /* Text_Unselected_AnnotateView@2x.png */,
+				5332554C1CEDC2A500653C00 /* Tick_mark_image.png */,
+				5332554D1CEDC2A500653C00 /* Tick_mark_image@2x.png */,
+				5332554E1CEDC2A500653C00 /* Top_bar_Divider_AnnotateView.png */,
+				5332554F1CEDC2A500653C00 /* Top_bar_Divider_AnnotateView@2x.png */,
+				533255501CEDC2A500653C00 /* Undo_Active_AnnotateView.png */,
+				533255511CEDC2A500653C00 /* Undo_Active_AnnotateView@2x.png */,
+				533255521CEDC2A500653C00 /* Undo_Disabled_AnnotateView.png */,
+				533255531CEDC2A500653C00 /* Undo_Disabled_AnnotateView@2x.png */,
+			);
+			path = AnnotateView;
+			sourceTree = "<group>";
+		};
 		53A482AA1CE31B1A00C90451 /* MatchTheFollowing */ = {
 			isa = PBXGroup;
 			children = (
@@ -1893,6 +2274,7 @@
 		53FFD2BB1CE1FC3700A5AA28 /* QuestionViews */ = {
 			isa = PBXGroup;
 			children = (
+				5332550B1CEDBE2300653C00 /* FullScreenQuestion */,
 				53FFD2BE1CE1FC3700A5AA28 /* StudentQuestionView.swift */,
 				532D28021CE9CF73009FDF6A /* ScribbleQuestionView.swift */,
 				53FFD2BC1CE1FC3700A5AA28 /* MultipleChoiceView.swift */,
@@ -1976,65 +2358,155 @@
 			files = (
 				533064771CC9DAAE0035CCDE /* LaunchScreen.storyboard in Resources */,
 				535B8B211CE1A20F008B2D7F /* Questions_Selected.png in Resources */,
+				533255831CEDC2A500653C00 /* Marker_Selected_AnnotateView.png in Resources */,
+				533255871CEDC2A500653C00 /* Marker_Unselected_AnnotateView@2x.png in Resources */,
+				533255A51CEDC2A500653C00 /* Eraser_Selected.png in Resources */,
+				533255AF1CEDC2A500653C00 /* Marker_Selected@2x.png in Resources */,
 				531FB4531CE5EB5B00DC0C6F /* RobotoCondensed-LightItalic.ttf in Resources */,
+				533255A11CEDC2A500653C00 /* Undo_Disabled_AnnotateView@2x.png in Resources */,
+				533255901CEDC2A500653C00 /* Star_Unselected_AnnotateView@2x.png in Resources */,
+				533255D41CEDC40600653C00 /* Shapes.png in Resources */,
 				53A482D81CE45FD000C90451 /* indicator12.png in Resources */,
 				531FB42D1CE5E22600DC0C6F /* MikeImage.png in Resources */,
+				533255861CEDC2A500653C00 /* Marker_Unselected_AnnotateView.png in Resources */,
+				533255821CEDC2A500653C00 /* Gray_Circle_scribble.png in Resources */,
 				53A482D51CE45FD000C90451 /* indicator1.png in Resources */,
+				533255C71CEDC2A500653C00 /* Undo_Disabled@2x.png in Resources */,
+				533255851CEDC2A500653C00 /* Marker_Selected_scribble.png in Resources */,
+				533255951CEDC2A500653C00 /* Text_on_desk.png in Resources */,
+				533255921CEDC2A500653C00 /* Tab_bar_Button_AnnotateView@2x.png in Resources */,
+				533255D11CEDC40600653C00 /* Edit.png in Resources */,
+				5332550A1CEDBD8E00653C00 /* css in Resources */,
 				533064C41CC9E52E0035CCDE /* noInternetIcon.png in Resources */,
+				533255881CEDC2A500653C00 /* Marker_Unselected_scribble.png in Resources */,
+				533255B61CEDC2A500653C00 /* Redo_Disabled.png in Resources */,
+				533255C01CEDC2A500653C00 /* Text_Selected@2x.png in Resources */,
+				5332557A1CEDC2A500653C00 /* Dark_Blue_Circle.png in Resources */,
+				533255071CEDBD7600653C00 /* GeometryResources.bundle in Resources */,
 				53015BBD1CE5D93C00BB366C /* Unlike_Disabled.png in Resources */,
+				533255C41CEDC2A500653C00 /* Undo_Active.png in Resources */,
+				533255801CEDC2A500653C00 /* Eraser_Unselected_AnnotateView@2x.png in Resources */,
 				531FB4441CE5EB5B00DC0C6F /* Roboto-BlackItalic.ttf in Resources */,
+				533255941CEDC2A500653C00 /* Tab_bar_Divider_AnnotateView@2x.png in Resources */,
 				535B8B2D1CE1F8DE008B2D7F /* correct.png in Resources */,
 				53015BBB1CE5D93C00BB366C /* Like_Disabled.png in Resources */,
 				531FB4521CE5EB5B00DC0C6F /* RobotoCondensed-Light.ttf in Resources */,
 				535B8B221CE1A20F008B2D7F /* Questions.png in Resources */,
 				531FB4471CE5EB5B00DC0C6F /* Roboto-Italic.ttf in Resources */,
+				533255B81CEDC2A500653C00 /* Share.png in Resources */,
 				532D28011CE9CA9C009FDF6A /* poll_icon_unselected.png in Resources */,
+				533255C61CEDC2A500653C00 /* Undo_Disabled.png in Resources */,
 				53A482DC1CE45FD000C90451 /* indicator5.png in Resources */,
+				5332558B1CEDC2A500653C00 /* Redo_Disabled_AnnotateView.png in Resources */,
+				5332558C1CEDC2A500653C00 /* Redo_Disabled_AnnotateView@2x.png in Resources */,
 				531FB4461CE5EB5B00DC0C6F /* Roboto-BoldItalic.ttf in Resources */,
+				533255D31CEDC40600653C00 /* Resize.png in Resources */,
 				531FB4591CE5EBB900DC0C6F /* ic_thumb_down_red_48dp.png in Resources */,
+				5332559B1CEDC2A500653C00 /* Tick_mark_image@2x.png in Resources */,
+				533255A71CEDC2A500653C00 /* Eraser_Unselected.png in Resources */,
+				533255961CEDC2A500653C00 /* Text_Selected_AnnotateView.png in Resources */,
 				531FB4481CE5EB5B00DC0C6F /* Roboto-Light.ttf in Resources */,
 				531FB4451CE5EB5B00DC0C6F /* Roboto-Bold.ttf in Resources */,
+				533255891CEDC2A500653C00 /* Redo_Active_AnnotateView.png in Resources */,
 				533064C11CC9E52E0035CCDE /* NoInternet.xib in Resources */,
+				533255BA1CEDC2A500653C00 /* Star_Selected.png in Resources */,
 				535B8B1F1CE1A20F008B2D7F /* Query_Selected.png in Resources */,
+				5332559A1CEDC2A500653C00 /* Tick_mark_image.png in Resources */,
+				533255911CEDC2A500653C00 /* Tab_bar_Button_AnnotateView.png in Resources */,
+				533255031CEDBD4700653C00 /* ATKGeometryWidget.bundle in Resources */,
+				5332557B1CEDC2A500653C00 /* Dark_Blue_Circle@2x.png in Resources */,
 				531FB44C1CE5EB5B00DC0C6F /* Roboto-Regular.ttf in Resources */,
+				533255D51CEDC40600653C00 /* Text.png in Resources */,
+				533255981CEDC2A500653C00 /* Text_Unselected_AnnotateView.png in Resources */,
+				533255AD1CEDC2A500653C00 /* Mark_Model_Selected@2x.png in Resources */,
 				53A482DA1CE45FD000C90451 /* indicator3.png in Resources */,
+				533255991CEDC2A500653C00 /* Text_Unselected_AnnotateView@2x.png in Resources */,
 				53A482DE1CE45FD000C90451 /* indicator7.png in Resources */,
 				532D28001CE9CA9C009FDF6A /* poll_icon_selected.png in Resources */,
 				53015BBC1CE5D93C00BB366C /* Like_Selected.png in Resources */,
 				533066DA1CC9E8FE0035CCDE /* Student_app_icon.png in Resources */,
 				535B8B231CE1A20F008B2D7F /* Submission_Selected.png in Resources */,
 				53A482D61CE45FD000C90451 /* indicator10.png in Resources */,
+				533255AB1CEDC2A500653C00 /* Mark_Model_Not_Selected@2x.png in Resources */,
+				533255B91CEDC2A500653C00 /* Sharebutton.png in Resources */,
+				533255AE1CEDC2A500653C00 /* Marker_Selected.png in Resources */,
+				533255AA1CEDC2A500653C00 /* Mark_Model_Not_Selected.png in Resources */,
+				533255C21CEDC2A500653C00 /* Text_Unselected@2x.png in Resources */,
+				533255A91CEDC2A500653C00 /* halfChecked.png in Resources */,
+				5332559C1CEDC2A500653C00 /* Top_bar_Divider_AnnotateView.png in Resources */,
+				5332559E1CEDC2A500653C00 /* Undo_Active_AnnotateView.png in Resources */,
+				533255931CEDC2A500653C00 /* Tab_bar_Divider_AnnotateView.png in Resources */,
+				533255BE1CEDC2A500653C00 /* Text_on_desk.png in Resources */,
+				533255BB1CEDC2A500653C00 /* Star_Selected@2x.png in Resources */,
+				533255B31CEDC2A500653C00 /* Rate_Type_Arrow_Icon@2x.png in Resources */,
+				5332558E1CEDC2A500653C00 /* Star_Selected_AnnotateView@2x.png in Resources */,
 				533064741CC9DAAE0035CCDE /* Assets.xcassets in Resources */,
 				531FB4501CE5EB5B00DC0C6F /* RobotoCondensed-BoldItalic.ttf in Resources */,
 				535B8B201CE1A20F008B2D7F /* Query.png in Resources */,
+				5332557F1CEDC2A500653C00 /* Eraser_Unselected_AnnotateView.png in Resources */,
+				533255081CEDBD7600653C00 /* MathResources.bundle in Resources */,
+				533255C31CEDC2A500653C00 /* Unchecked.png in Resources */,
+				533255B01CEDC2A500653C00 /* Marker_Unselected.png in Resources */,
 				531FB4541CE5EB5B00DC0C6F /* RobotoCondensed-Regular.ttf in Resources */,
 				53A482DD1CE45FD000C90451 /* indicator6.png in Resources */,
+				533255A41CEDC2A500653C00 /* don't-know.png in Resources */,
+				5332557E1CEDC2A500653C00 /* Eraser_Selected_scribble.png in Resources */,
+				533255971CEDC2A500653C00 /* Text_Selected_AnnotateView@2x.png in Resources */,
 				531FB44D1CE5EB5B00DC0C6F /* Roboto-Thin.ttf in Resources */,
+				533255B11CEDC2A500653C00 /* Marker_Unselected@2x.png in Resources */,
+				5332557D1CEDC2A500653C00 /* Eraser_Selected_AnnotateView@2x.png in Resources */,
 				53A482BC1CE44E1E00C90451 /* wrongMatch.png in Resources */,
 				531FB44F1CE5EB5B00DC0C6F /* RobotoCondensed-Bold.ttf in Resources */,
+				533255C11CEDC2A500653C00 /* Text_Unselected.png in Resources */,
+				533255A01CEDC2A500653C00 /* Undo_Disabled_AnnotateView.png in Resources */,
 				531FB44E1CE5EB5B00DC0C6F /* Roboto-ThinItalic.ttf in Resources */,
 				53A482E51CE4741700C90451 /* Thumbs_Up.png in Resources */,
 				533064721CC9DAAE0035CCDE /* Main.storyboard in Resources */,
+				533255D01CEDC40600653C00 /* dragAndDrop.png in Resources */,
 				53A482D91CE45FD000C90451 /* indicator2.png in Resources */,
+				533255B51CEDC2A500653C00 /* Redo_Active@2x.png in Resources */,
 				533066BD1CC9E5F40035CCDE /* README.txt in Resources */,
+				533255AC1CEDC2A500653C00 /* Mark_Model_Selected.png in Resources */,
+				533255CF1CEDC40600653C00 /* Delete.png in Resources */,
 				531FB4491CE5EB5B00DC0C6F /* Roboto-LightItalic.ttf in Resources */,
+				533255A21CEDC2A500653C00 /* Checked.png in Resources */,
+				533255BD1CEDC2A500653C00 /* Star_Unselected@2x.png in Resources */,
 				531FB4511CE5EB5B00DC0C6F /* RobotoCondensed-Italic.ttf in Resources */,
+				533255BC1CEDC2A500653C00 /* Star_Unselected.png in Resources */,
+				533255A61CEDC2A500653C00 /* Eraser_Selected@2x.png in Resources */,
+				533255BF1CEDC2A500653C00 /* Text_Selected.png in Resources */,
+				533255811CEDC2A500653C00 /* Eraser_Unselected_scribble.png in Resources */,
+				5332557C1CEDC2A500653C00 /* Eraser_Selected_AnnotateView.png in Resources */,
 				53A482D71CE45FD000C90451 /* indicator11.png in Resources */,
+				5332559D1CEDC2A500653C00 /* Top_bar_Divider_AnnotateView@2x.png in Resources */,
 				531FB44A1CE5EB5B00DC0C6F /* Roboto-Medium.ttf in Resources */,
 				53A482E01CE45FD000C90451 /* indicator9.png in Resources */,
 				535B8B2E1CE1F8DE008B2D7F /* wrong.png in Resources */,
+				533255041CEDBD4700653C00 /* ATKMathWidget.bundle in Resources */,
+				5332558F1CEDC2A500653C00 /* Star_Unselected_AnnotateView.png in Resources */,
 				533064C51CC9E52E0035CCDE /* Wrong.png in Resources */,
 				535B8B241CE1A20F008B2D7F /* Submission.png in Resources */,
+				5332558A1CEDC2A500653C00 /* Redo_Active_AnnotateView@2x.png in Resources */,
 				531FB4561CE5EB9B00DC0C6F /* Seat.png in Resources */,
+				533255841CEDC2A500653C00 /* Marker_Selected_AnnotateView@2x.png in Resources */,
 				53015BBE1CE5D93C00BB366C /* Unlike_Selected.png in Resources */,
 				53A482BB1CE44E1E00C90451 /* correctMatch.png in Resources */,
+				533255B71CEDC2A500653C00 /* Redo_Disabled@2x.png in Resources */,
+				533255D21CEDC40600653C00 /* Equation.png in Resources */,
 				533066C21CC9E5F40035CCDE /* build-libidn.sh in Resources */,
 				531FB4431CE5EB5B00DC0C6F /* Roboto-Black.ttf in Resources */,
+				5332559F1CEDC2A500653C00 /* Undo_Active_AnnotateView@2x.png in Resources */,
+				533255B21CEDC2A500653C00 /* Rate_Type_Arrow_Icon.png in Resources */,
 				531FB45A1CE5EBB900DC0C6F /* ic_thumb_up_green_48dp.png in Resources */,
+				533255A31CEDC2A500653C00 /* Checked@2x.png in Resources */,
 				53A482DF1CE45FD000C90451 /* indicator8.png in Resources */,
 				533066EE1CC9F5210035CCDE /* refresh.png in Resources */,
+				5332558D1CEDC2A500653C00 /* Star_Selected_AnnotateView.png in Resources */,
+				533255B41CEDC2A500653C00 /* Redo_Active.png in Resources */,
+				533255C51CEDC2A500653C00 /* Undo_Active@2x.png in Resources */,
 				531FB44B1CE5EB5B00DC0C6F /* Roboto-MediumItalic.ttf in Resources */,
 				53A482DB1CE45FD000C90451 /* indicator4.png in Resources */,
+				533255A81CEDC2A500653C00 /* Eraser_Unselected@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2065,6 +2537,7 @@
 				533066651CC9E5F40035CCDE /* XMPPRoomHybrid.xcdatamodeld in Sources */,
 				533066701CC9E5F40035CCDE /* XMPPvCardAvatarCoreDataStorageObject.m in Sources */,
 				5330665B1CC9E5F40035CCDE /* XMPPIQ+JabberRPC.m in Sources */,
+				5332551E1CEDBEC500653C00 /* SZTextView.m in Sources */,
 				5330667D1CC9E5F40035CCDE /* XMPPResultSet.m in Sources */,
 				533064C31CC9E52E0035CCDE /* Reachability.m in Sources */,
 				533066471CC9E5F40035CCDE /* XMPPMessage.m in Sources */,
@@ -2082,6 +2555,7 @@
 				533066751CC9E5F40035CCDE /* XMPPvCardTempAdr.m in Sources */,
 				533066F31CCA12590035CCDE /* StudentSeatSubView.swift in Sources */,
 				532D27FB1CE9B2C7009FDF6A /* StudentPollingView.swift in Sources */,
+				533255271CEDBEFB00653C00 /* colorpopOverViewController.m in Sources */,
 				533066B71CC9E5F40035CCDE /* DDFileLogger.m in Sources */,
 				533066721CC9E5F40035CCDE /* XMPPvCardCoreDataStorageObject.m in Sources */,
 				5330666D1CC9E5F40035CCDE /* XMPPMUC.m in Sources */,
@@ -2104,6 +2578,7 @@
 				533066741CC9E5F40035CCDE /* XMPPvCardTemp.m in Sources */,
 				533066961CC9E5F40035CCDE /* XMPPPresence+XEP_0172.m in Sources */,
 				535B8B261CE1A2A4008B2D7F /* CustomButtonSubView.swift in Sources */,
+				533255D71CEDC91B00653C00 /* com.mindshiftapps.Learniat-Student.c in Sources */,
 				533064C01CC9E52E0035CCDE /* InternetTesting.m in Sources */,
 				533066771CC9E5F40035CCDE /* XMPPvCardTempBase.m in Sources */,
 				533066521CC9E5F40035CCDE /* XMPPResourceCoreDataStorageObject.m in Sources */,
@@ -2111,6 +2586,7 @@
 				5330667F1CC9E5F40035CCDE /* XMPPPubSub.m in Sources */,
 				533066591CC9E5F40035CCDE /* XMPPRoster.m in Sources */,
 				533066821CC9E5F40035CCDE /* XMPPMessage+XEP_0066.m in Sources */,
+				533255111CEDBE2300653C00 /* TeacherMathView.swift in Sources */,
 				533066C01CC9E5F40035CCDE /* DDXMLElement.m in Sources */,
 				533066981CC9E5F40035CCDE /* XMPPMessageDeliveryReceipts.m in Sources */,
 				533066481CC9E5F40035CCDE /* XMPPModule.m in Sources */,
@@ -2118,6 +2594,7 @@
 				533066AC1CC9E5F40035CCDE /* MessageManager.m in Sources */,
 				533066BF1CC9E5F40035CCDE /* DDXMLDocument.m in Sources */,
 				5330665F1CC9E5F40035CCDE /* XMPPLastActivity.m in Sources */,
+				533255291CEDBEFB00653C00 /* UIImage-Extensions.m in Sources */,
 				53EEABF31CED9B2D005E4566 /* BarView.swift in Sources */,
 				5330669B1CC9E5F40035CCDE /* XMPPStreamManagementStanzas.m in Sources */,
 				533066631CC9E5F40035CCDE /* XMPPRoomMessageCoreDataStorageObject.m in Sources */,
@@ -2143,9 +2620,11 @@
 				53A482E11CE45FD000C90451 /* CustomProgressImageView.m in Sources */,
 				533066B31CC9E5F40035CCDE /* XMPPTimer.m in Sources */,
 				533066E91CC9EDD90035CCDE /* SSStudentScheduleViewController.swift in Sources */,
+				533255191CEDBE8700653C00 /* ImageEditorSubView.m in Sources */,
 				5330667A1CC9E5F40035CCDE /* XMPPvCardTempModule.m in Sources */,
 				533066501CC9E5F40035CCDE /* XMPPReconnect.m in Sources */,
 				533066911CC9E5F40035CCDE /* XMPPMessageArchiving_Message_CoreDataObject.m in Sources */,
+				533255141CEDBE4C00653C00 /* SSStudentFullscreenScribbleQuestion.swift in Sources */,
 				5330669F1CC9E5F40035CCDE /* XMPPAutoTime.m in Sources */,
 				5330668B1CC9E5F40035CCDE /* XMPPCapabilitiesCoreDataStorage.m in Sources */,
 				533066AD1CC9E5F40035CCDE /* DDList.m in Sources */,
@@ -2180,6 +2659,7 @@
 				533066F11CCA0CCF0035CCDE /* StudentSeatController.swift in Sources */,
 				533066AB1CC9E5F40035CCDE /* SSMessage.m in Sources */,
 				533066BB1CC9E5F40035CCDE /* DDDispatchQueueLogFormatter.m in Sources */,
+				5332551A1CEDBE8700653C00 /* ImageUploading.m in Sources */,
 				5330666B1CC9E5F40035CCDE /* XMPPRoomOccupantMemoryStorageObject.m in Sources */,
 				533066461CC9E5F40035CCDE /* XMPPJID.m in Sources */,
 				5330666F1CC9E5F40035CCDE /* XMPPvCard.xcdatamodeld in Sources */,
@@ -2196,6 +2676,7 @@
 				5330663F1CC9E5F40035CCDE /* XMPPXFacebookPlatformAuthentication.m in Sources */,
 				533066451CC9E5F40035CCDE /* XMPPIQ.m in Sources */,
 				533066B61CC9E5F40035CCDE /* DDASLLogger.m in Sources */,
+				533255121CEDBE2300653C00 /* TeacherShapesView.swift in Sources */,
 				5330668F1CC9E5F40035CCDE /* XMPPMessageArchiving.xcdatamodeld in Sources */,
 				53A482B81CE43A3F00C90451 /* MatchColumnView.swift in Sources */,
 				533066671CC9E5F40035CCDE /* XMPPRoomMessageHybridCoreDataStorageObject.m in Sources */,
@@ -2209,6 +2690,7 @@
 				533066711CC9E5F40035CCDE /* XMPPvCardCoreDataStorage.m in Sources */,
 				5330663E1CC9E5F40035CCDE /* XMPPSCRAMSHA1Authentication.m in Sources */,
 				53A482B41CE31B1A00C90451 /* NoShadowTableView.m in Sources */,
+				533255281CEDBEFB00653C00 /* SmoothLineView.m in Sources */,
 				533066B11CC9E5F40035CCDE /* XMPPSRVResolver.m in Sources */,
 				5330669D1CC9E5F40035CCDE /* XMPPAutoPing.m in Sources */,
 				5330663D1CC9E5F40035CCDE /* XMPPPlainAuthentication.m in Sources */,
@@ -2348,6 +2830,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/LearniatStudent",
+				);
 				INFOPLIST_FILE = LearniatStudent/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2355,7 +2841,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/LearniatStudent/common/XMPP/Vendor/libidn",
 				);
-				OTHER_LDFLAGS = "-lxml2";
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-ObjC",
+					"-lstdc++",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mindshiftapps.Learniat-Student";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatStudent/LearniatStudent-Bridging-Header.h";
@@ -2372,6 +2862,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/LearniatStudent",
+				);
 				INFOPLIST_FILE = LearniatStudent/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2379,7 +2873,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/LearniatStudent/common/XMPP/Vendor/libidn",
 				);
-				OTHER_LDFLAGS = "-lxml2";
+				OTHER_LDFLAGS = (
+					"-lxml2",
+					"-ObjC",
+					"-lstdc++",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mindshiftapps.Learniat-Student";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatStudent/LearniatStudent-Bridging-Header.h";

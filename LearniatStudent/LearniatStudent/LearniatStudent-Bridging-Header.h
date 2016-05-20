@@ -12,4 +12,12 @@
 #import "SSStudentMatchTheColoumnView.h"
 #import "CustomProgressImageView.h"
 #import "FXLabel.h"
+#import "MyCertificate.h"
+#import <ATKMathWidget/MAWMathWidget.h>
+#import <ATKGeometryWidget/GWGeometryWidget.h>
+#import "ImageEditorSubView.h"
+#import "ImageUploading.h"
+#import "SZTextView.h"
+#import "SmoothLineView.h"
+#import "colorpopOverViewController.h"
 #endif

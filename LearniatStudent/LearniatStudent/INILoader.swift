@@ -160,7 +160,7 @@ let progressviewBackground    : UIColor = UIColor(red:213/255.0, green: 213/255.
 
 let RedCellBackground    : UIColor = UIColor(red:255.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 0.6)
 
-
+let whiteColor          = UIColor.whiteColor()
 
 
 
@@ -820,7 +820,7 @@ extension String
 }
 extension NSMutableArray
 {
-    func shuffle()
+    func shuffleValue()
     {
         if count < 2
         {
@@ -831,5 +831,30 @@ extension NSMutableArray
             let j = Int(arc4random_uniform(UInt32(count - i))) + i
             swap(&self[i], &self[j])
         }
+    }
+}
+
+extension UIImage
+{
+    class func imageWithView(view: UIView) -> UIImage
+    {
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.opaque, 0.0)
+        view.drawViewHierarchyInRect(view.bounds, afterScreenUpdates: true)
+        let img = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return img
+    }
+    
+    
+    class func renderUIViewToImage(viewToBeRendered:UIView?) -> UIImage
+    {
+        UIGraphicsBeginImageContextWithOptions((viewToBeRendered?.bounds.size)!, false, 0.0)
+        viewToBeRendered!.drawViewHierarchyInRect(viewToBeRendered!.bounds, afterScreenUpdates: true)
+        viewToBeRendered!.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        
+        let finalImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return finalImage
     }
 }

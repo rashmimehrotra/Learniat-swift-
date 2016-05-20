@@ -7,7 +7,7 @@
 //
 
 import Foundation
-class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,SSStudentMessageHandlerDelegate
+class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,SSStudentMessageHandlerDelegate,StudentQuestionViewDelegate,SSStudentFullscreenScribbleQuestionDelegate
 {
     
     var sessionDetails               :AnyObject!
@@ -59,6 +59,9 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     var mStudentQrvAnsweringView           :StudentVolunteeringView!
     
     var startedTimeUpdatingTimer = NSTimer()
+    
+    
+    var mFullScreenView         :SSStudentFullscreenScribbleQuestion!
     
     override func viewDidLoad()
     {
@@ -361,6 +364,31 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     }
     
     
+    // MARK: - Questions delegate 
+    func delegateFullScreenButtonPressedWithOverlayImage(overlay: UIImage)
+    {
+        if mFullScreenView == nil{
+            mFullScreenView = SSStudentFullscreenScribbleQuestion(frame:CGRectMake(0,0,self.view.frame.size.width,self.view.frame.size.height))
+            mFullScreenView.setdelegate(self)
+            self.view.addSubview(mFullScreenView)
+            self.view.bringSubviewToFront(mFullScreenView)
+        }
+        
+        mFullScreenView.hidden = false
+        
+        mFullScreenView.setOverlayImage(overlay)
+    }
+    
+    
+    func delegateFullScreenSendButtonPressedWithImage(writtenImage: UIImage)
+    {
+        mQuestionView.setFullScreenDrawnImage(writtenImage)
+        mFullScreenView.hidden = true
+        
+    }
+    
+    
+    
     
     // MARK: - Loading subViews
     
@@ -374,6 +402,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
          mQuestionButton.addTarget(self, action: #selector(StudentClassViewController.onQuestionButton), forControlEvents: UIControlEvents.TouchUpInside)
         
         mQuestionView = StudentQuestionView(frame:CGRectMake(mQuestionButton.frame.origin.x + mQuestionButton.frame.size.width ,mQuestionButton.frame.origin.y, classStartedView.frame.size.width - (mQuestionButton.frame.origin.x + mQuestionButton.frame.size.width + 10 ) , classStartedView.frame.size.height -  (mQuestionButton.frame.origin.y + mBottomBarImageView.frame.size.height )))
+        mQuestionView.setdelegate(self)
         classStartedView.addSubview(mQuestionView)
         
         
@@ -756,7 +785,6 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     func smhDidGetGraphSharedWithDetails(details: AnyObject)
     {
-        print(details)
         mQuestionView.didGetGraphSharedWithDetails(details)
         
     }

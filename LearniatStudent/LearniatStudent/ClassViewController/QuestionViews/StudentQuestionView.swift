@@ -7,7 +7,20 @@
 //
 
 import Foundation
-class StudentQuestionView: UIView
+
+@objc protocol StudentQuestionViewDelegate
+{
+    
+    optional func delegateFullScreenButtonPressedWithOverlayImage(overlay:UIImage)
+    
+    
+}
+
+
+
+
+
+class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestionViewDelegate
 {
     var noQuestionslabel = UILabel()
     
@@ -24,6 +37,20 @@ class StudentQuestionView: UIView
     var currentOptionsArray         = NSMutableArray()
     
     var mSharedGraphView            : StudentAnswerGraphView!
+    
+    
+    var _delgate: AnyObject!
+    
+    func setdelegate(delegate:AnyObject)
+    {
+        _delgate = delegate;
+    }
+    
+    func   delegate()->AnyObject
+    {
+        return _delgate;
+    }
+    
     
     override init(frame: CGRect)
     {
@@ -51,6 +78,12 @@ class StudentQuestionView: UIView
     
     func setQuestionDetails(questionDetails: AnyObject , withType QuestionType :String, withSessionDetails sessionDetails:AnyObject,withQuestion _logId:String)
     {
+        
+        if mSharedGraphView != nil
+        {
+            mSharedGraphView.removeFromSuperview()
+            mSharedGraphView = nil
+        }
         
         currentQuestionDetails = questionDetails
         currentQuestionType = QuestionType
@@ -123,6 +156,7 @@ class StudentQuestionView: UIView
             
             mScribbleQuestion = ScribbleQuestionView(frame:CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
             self.addSubview(mScribbleQuestion)
+            mScribbleQuestion.setdelegate(self)
             mScribbleQuestion.setQuestionDetails(questionDetails ,withsessionDetails: sessionDetails, withQuestionLogId: _logId)
         }
     }
@@ -140,10 +174,22 @@ class StudentQuestionView: UIView
         {
             mMatchColumn.removeFromSuperview()
         }
+        
+        if mScribbleQuestion != nil
+        {
+            mScribbleQuestion.removeFromSuperview()
+        }
+        
         noQuestionslabel.hidden = false
         if SSStudentDataSource.sharedDataSource.answerSent == true
         {
             self.makeToast("Question cleared by teacher.", duration: 2.0, position: .Bottom)
+        }
+        
+        if mSharedGraphView != nil
+        {
+            mSharedGraphView.removeFromSuperview()
+            mSharedGraphView = nil
         }
         
         
@@ -171,6 +217,8 @@ class StudentQuestionView: UIView
     func didGetGraphSharedWithDetails(details:AnyObject)
     {
         
+        print(details)
+        
         if currentQuestionDetails == nil
         {
             return
@@ -181,46 +229,131 @@ class StudentQuestionView: UIView
             mSharedGraphView = StudentAnswerGraphView(frame:CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
             self.addSubview(mSharedGraphView)
             self.bringSubviewToFront(mSharedGraphView)
-            if (currentQuestionDetails.objectForKey(kQuestionName) as? String) != ""
+            mSharedGraphView.setdelegate(self)
+            
+            
+            
+            
+            if currentQuestionType == MultipleChoice || currentQuestionType == MultipleResponse
             {
-               mSharedGraphView.loadMRQViewWithOPtions(currentOptionsArray, withQuestion: (currentQuestionDetails.objectForKey(kQuestionName) as! String))
+                if (currentQuestionDetails.objectForKey(kQuestionName) as? String) != ""
+                {
+                    mSharedGraphView.loadMRQViewWithOPtions(currentOptionsArray, withQuestion: (currentQuestionDetails.objectForKey(kQuestionName) as! String))
+                }
+                else
+                {
+                    mSharedGraphView.loadMRQViewWithOPtions(currentOptionsArray, withQuestion: "")
+                }
+                
+                
+                
+                
+                var optionsValueDetails = NSMutableDictionary()
+                
+                if let optionsDetails = details.objectForKey("Details") as? NSMutableDictionary
+                {
+                    optionsValueDetails = optionsDetails
+                    
+                }
+                
+                
+                for index  in 0 ..< currentOptionsArray.count
+                {
+                    
+                    let optionsDict = currentOptionsArray.objectAtIndex(index)
+                    
+                    if let optionId = optionsDict.objectForKey("OptionId") as? String
+                    {
+                        if let value = optionsValueDetails.objectForKey("option_\(optionId)") as? String
+                        {
+                            
+                            mSharedGraphView.increaseMultiplevalu(Int(value)!, withOptionId: optionId)
+                            
+                        }
+                    }
+                    
+                    
+                }
+
+                
+                
             }
             else
             {
-                 mSharedGraphView.loadMRQViewWithOPtions(currentOptionsArray, withQuestion: "")
-            }
-            
-            
-            
-            
-        }
-        
-        
-        
-        var optionsValueDetails = NSMutableDictionary()
-        
-        if let optionsDetails = details.objectForKey("Details") as? NSMutableDictionary
-        {
-            optionsValueDetails = optionsDetails
-            
-        }
-        
-        
-        for index  in 0 ..< currentOptionsArray.count
-        {
-            
-            let optionsDict = currentOptionsArray.objectAtIndex(index)
-            
-            if let optionId = optionsDict.objectForKey("OptionId") as? String
-            {
-                if let value = optionsValueDetails.objectForKey("option_\(optionId)") as? String
+                let leftSideArray = NSMutableArray()
+                
+                let RightSideArray = NSMutableArray()
+                
+                for index in 0 ..< currentOptionsArray.count
                 {
-                    for optionIndex in 0 ..< Int(value)
+                    
+                    let optionDict = currentOptionsArray.objectAtIndex(index)
+                    
+                    if let Column = optionDict.objectForKey("Column") as? String
                     {
+                        if Column == "1"
+                        {
+                            leftSideArray.addObject(optionDict)
+                        }
+                        else if Column == "2"
+                        {
+                            RightSideArray.addObject(optionDict)
+                            
+                        }
                         
                     }
                 }
+                
+                
+                
+                if (currentQuestionDetails.objectForKey(kQuestionName) as? String) != ""
+                {
+                    
+                    mSharedGraphView.loadMTCViewWithOPtions(leftSideArray, WithRightSideOptionArray: RightSideArray, withQuestion: (currentQuestionDetails.objectForKey(kQuestionName) as! String))
+                   
+                }
+                else
+                {
+                    mSharedGraphView.loadMTCViewWithOPtions(leftSideArray, WithRightSideOptionArray: RightSideArray, withQuestion: "")
+                }
+                
+                
+                
+                var optionsValueDetails = NSMutableDictionary()
+                
+                if let optionsDetails = details.objectForKey("Details") as? NSMutableDictionary
+                {
+                    optionsValueDetails = optionsDetails
+                    
+                }
+                
+                
+                for index  in 0 ..< currentOptionsArray.count
+                {
+                    
+                    let optionsDict = currentOptionsArray.objectAtIndex(index)
+                    
+                    if let optionId = optionsDict.objectForKey("OptionId") as? String
+                    {
+                        if let value = optionsValueDetails.objectForKey("option_\(optionId)") as? String
+                        {
+                            if let optiontext = optionsDict.objectForKey("OptionText") as? String
+                            {
+                                 mSharedGraphView.increaseMTCMultiplevalu(Int(value)!, withOptionText: optiontext)
+                            }
+                        }
+                    }
+                    
+                    
+                }
+                
+
+                
+                
             }
+           
+            
+            
             
             
         }
@@ -228,4 +361,25 @@ class StudentQuestionView: UIView
     }
     
     
+    func delegateShareButtonClickedWithDetails()
+    {
+        mSharedGraphView.removeFromSuperview()
+        mSharedGraphView = nil
+        
+    }
+    
+    
+    func delegateEditButtonPressedWithOverlayImage(overlay: UIImage)
+    {
+        delegate().delegateFullScreenButtonPressedWithOverlayImage!(overlay)
+    }
+    
+    func setFullScreenDrawnImage(image:UIImage)
+    {
+        if mScribbleQuestion != nil
+        {
+            mScribbleQuestion.setDrawnImage(image)
+        }
+
+    }
 }
