@@ -65,6 +65,7 @@
 @optional- (void) Settings_refreshPicsClicked;
 @optional- (void) Settings_createScribbleQuestion;
 @optional- (void) Settings_createMRQQuestion;
+@optional- (void) Settings_performLogout;
 
 
 @end

@@ -92,12 +92,14 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSou
         
         
         
-        
-        if let password  =  NSUserDefaults.standardUserDefaults().objectForKey(kPassword) as? String
+        if  let userName = NSUserDefaults.standardUserDefaults().objectForKey(kUserName) as? String
         {
-           if  let userName = NSUserDefaults.standardUserDefaults().objectForKey(kUserName) as? String
+             mUserName.text = userName
+            
+            
+           if let password  =  NSUserDefaults.standardUserDefaults().objectForKey(kPassword) as? String
            {
-                mUserName.text = userName
+            
                 mPassword.text  = password
             
                if let userId = NSUserDefaults.standardUserDefaults().objectForKey(kUserId) as? String

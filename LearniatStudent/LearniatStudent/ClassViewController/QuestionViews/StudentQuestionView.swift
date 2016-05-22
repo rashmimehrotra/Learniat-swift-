@@ -20,7 +20,7 @@ import Foundation
 
 
 
-class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestionViewDelegate
+class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestionViewDelegate,SSStudentDataSourceDelegate
 {
     var noQuestionslabel = UILabel()
     
@@ -212,6 +212,13 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
                 mMatchColumn.FreezMessageFromTeacher()
             }
         }
+        else if currentQuestionType == kOverlayScribble || currentQuestionType == kFreshScribble
+        {
+            if mScribbleQuestion != nil
+            {
+                mScribbleQuestion.FreezMessageFromTeacher()
+            }
+        }
     }
     
     func didGetGraphSharedWithDetails(details:AnyObject)
@@ -368,6 +375,13 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
         
     }
     
+    func didgetTeacherEvaluatingMessage()
+    {
+        if mScribbleQuestion != nil{
+            mScribbleQuestion.didGetEvaluatingMessage()
+        }
+    }
+    
     
     func delegateEditButtonPressedWithOverlayImage(overlay: UIImage)
     {
@@ -382,4 +396,33 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
         }
 
     }
+    
+    func getFeedbackDetailsWithId(AssesmentAnswerId:String)
+    {
+        SSStudentDataSource.sharedDataSource.getFeedbackFromTeacherForAssesment(AssesmentAnswerId, withDelegate: self)
+    }
+    func didGetAnswerFeedBackWithDetails(details: AnyObject) {
+        
+        if mScribbleQuestion != nil
+        {
+            mScribbleQuestion.getFeedBackDetails(details)
+        }
+        
+        
+        
+    }
+    
+    
+    func getPeakViewMessage()
+    {
+        if mScribbleQuestion != nil
+        {
+            mScribbleQuestion.getPeakViewMessageFromTeacher()
+        }
+    }
+    
+    func didgetErrorMessage(message: String, WithServiceName serviceName: String) {
+        
+    }
+    
 }

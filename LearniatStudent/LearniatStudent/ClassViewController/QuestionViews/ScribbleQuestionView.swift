@@ -185,8 +185,14 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
     
     func onEditButton()
     {
-        
-        delegate().delegateEditButtonPressedWithOverlayImage!(mOverlayImageView.image!)
+        if mOverlayImageView.image != nil
+        {
+            delegate().delegateEditButtonPressedWithOverlayImage!(mOverlayImageView.image!)
+        }
+        else
+        {
+            delegate().delegateEditButtonPressedWithOverlayImage!(UIImage())
+        }
     }
     
     func onSendButton()
@@ -337,5 +343,162 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         mSendButton.hidden = false
         mEditButton.hidden = false
         
+    }
+    
+    func didGetEvaluatingMessage()
+    {
+        mWithDrawButton.hidden = true
+         mReplyStatusLabelView.text = "Evaluating..."
+    }
+    
+    func getFeedBackDetails(details:AnyObject)
+    {
+        
+        
+        mReplyStatusLabelView.text = "Evaluated"
+        
+        let teacherReplyStatusView = UIImageView(frame:CGRectMake(mWithDrawButton.frame.origin.x, mWithDrawButton.frame.origin.y, mWithDrawButton.frame.size.width, mWithDrawButton.frame.size.height))
+        teacherReplyStatusView.backgroundColor = topbarColor
+        self.addSubview(teacherReplyStatusView)
+        
+        
+        
+        var badgeValue    = 0
+        var starCount   = 0
+        
+        if (details.objectForKey("BadgeId") != nil)
+        {
+            if let badgeId = details.objectForKey("BadgeId") as? String
+            {
+                 badgeValue = Int(badgeId)!
+            }
+        }
+        
+        
+        if (details.objectForKey("Rating") != nil)
+        {
+            if let Rating = details.objectForKey("Rating") as? String
+            {
+                starCount = Int(Rating)!
+            }
+        }
+        
+        
+        if starCount > 0
+        {
+            
+            var width = (teacherReplyStatusView.frame.size.width -  (teacherReplyStatusView.frame.size.height*CGFloat(starCount) ))/2
+            
+            if badgeValue > 0
+            {
+                width = 10
+            }
+            
+            
+            let starBackGround = UIImageView(frame: CGRectMake(width, 0, teacherReplyStatusView.frame.size.height*CGFloat(starCount) , teacherReplyStatusView.frame.size.height))
+            teacherReplyStatusView.addSubview(starBackGround)
+            starBackGround.backgroundColor = UIColor.clearColor()
+            
+            
+            
+            
+            
+            
+            
+            var starWidth = starBackGround.frame.size.height
+            let starSpace = starWidth * 0.2
+            
+            starWidth = starWidth * 0.8
+            
+            var positionX:CGFloat = 0
+            for _ in 0  ..< starCount
+            {
+                let starImage = UIImageView(frame: CGRectMake(positionX,0, starWidth ,starBackGround.frame.size.height))
+                starBackGround.addSubview(starImage)
+                starImage.image = UIImage(named: "Star_Selected.png")
+                starImage.contentMode = .ScaleAspectFit
+                positionX = positionX + starImage.frame.size.width + starSpace
+            }
+            
+            
+            
+            
+            
+            
+            if badgeValue > 0
+            {
+                
+                let badgeImage = UIImageView(frame: CGRectMake(teacherReplyStatusView.frame.size.width - (starWidth + 10) ,0, starWidth ,starBackGround.frame.size.height))
+                teacherReplyStatusView.addSubview(badgeImage)
+                badgeImage.image = UIImage(named: "ic_thumb_up_green_48dp.png")
+
+                
+                
+                let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_Badges) as! String
+               
+                if let checkedUrl = NSURL(string: ("\(urlString)/\(badgeValue).png"))
+                {
+                    badgeImage.contentMode = .ScaleAspectFit
+                    badgeImage.downloadImage(checkedUrl, withFolderType: folderType.badgesImages)
+                }
+                
+                
+                
+            }
+            
+           
+            
+        }
+        
+        
+        if (details.objectForKey("ImagePath") != nil)
+        {
+            if let Scribble = details.objectForKey("ImagePath") as? String
+            {
+                let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_QuestionsImageUrl) as! String
+                
+                if let checkedUrl = NSURL(string: "\(urlString)/\(Scribble).png")
+                {
+                    let teacherImage = UIImageView(frame:mOverlayImageView.frame)
+                    mContainerView.addSubview(teacherImage)
+                    teacherImage.contentMode = .ScaleAspectFit
+                    teacherImage.downloadImage(checkedUrl, withFolderType: folderType.questionImage)
+                }
+            }
+        }
+        
+        
+        
+    }
+    
+    
+    func FreezMessageFromTeacher()
+    {
+        if SSStudentDataSource.sharedDataSource.answerSent == false
+        {
+            onSendButton()
+            
+        }
+    }
+    
+    func getPeakViewMessageFromTeacher()
+    {
+        if mAnswerImage.image != nil
+        {
+            //Now use image to create into NSData format
+            let imageData:NSData = UIImagePNGRepresentation(mAnswerImage.image!)!
+            let strBase64:String = imageData.base64EncodedStringWithOptions(.Encoding64CharacterLineLength)
+            SSStudentMessageHandler.sharedMessageHandler.sendPeakViewMessageToTeacherWithImageData(strBase64)
+
+        }
+        else{
+            let imageData:NSData = UIImagePNGRepresentation(UIImage())!
+            let strBase64:String = imageData.base64EncodedStringWithOptions(.Encoding64CharacterLineLength)
+            SSStudentMessageHandler.sharedMessageHandler.sendPeakViewMessageToTeacherWithImageData(strBase64)
+
+        }
+        
+      
+
     }
 }

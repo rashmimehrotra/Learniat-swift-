@@ -7,7 +7,7 @@
 //
 
 import Foundation
-class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,SSStudentMessageHandlerDelegate,StudentQuestionViewDelegate,SSStudentFullscreenScribbleQuestionDelegate
+class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,SSStudentMessageHandlerDelegate,StudentQuestionViewDelegate,SSStudentFullscreenScribbleQuestionDelegate,UIPopoverControllerDelegate,SSStudentSchedulePopoverControllerDelegate
 {
     
     var sessionDetails               :AnyObject!
@@ -55,6 +55,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     var currentAssessmentAnswerId :String   = String()
     var waitQuestionTimer                   = NSTimer()
     
+     let mClassNameButton  = UIButton()
     
     var mStudentQrvAnsweringView           :StudentVolunteeringView!
     
@@ -76,7 +77,6 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         mTopbarImageView = UIImageView(frame: CGRectMake(0, 0, self.view.frame.size.width, 60))
         mTopbarImageView.backgroundColor = topbarColor
         self.view.addSubview(mTopbarImageView)
-        mTopbarImageView.userInteractionEnabled = true
         mTopbarImageView.userInteractionEnabled = true
         
         let studentImage = UIImageView(frame:CGRectMake(15, 15, mTopbarImageView.frame.size.height - 20 ,mTopbarImageView.frame.size.height - 20))
@@ -112,6 +112,15 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         {
             mClassName.text = ClassName
         }
+        
+        
+       
+        
+        
+        mClassNameButton.frame = CGRectMake((mTopbarImageView.frame.size.width - mClassName.frame.size.width)/2 , 0, mClassName.frame.size.width, mTopbarImageView.frame.size.height )
+        mTopbarImageView.addSubview(mClassNameButton)
+        mClassNameButton.addTarget(self, action: #selector(StudentClassViewController.onClassButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mClassNameButton.backgroundColor = whiteColor
         
         
         
@@ -225,7 +234,34 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
          loadSubview()
         
         
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplicationWillResignActiveNotification, object: nil)
+         notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplicationWillEnterForegroundNotification, object: nil)
+        
     }
+    
+    
+  
+    func appMovedToBackground()
+    {
+        print("App moved to background!")
+        
+         SSStudentMessageHandler.sharedMessageHandler.sendStudentBenchStatus(kUserStateBackGround)
+        SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateBackGround, ofSession:(sessionDetails.objectForKey("SessionId") as! String), withDelegate: self)
+        
+    }
+    
+    func appMovedToForeground()
+    {
+        print("App moved to background!")
+        
+       
+        SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateLive, ofSession:(sessionDetails.objectForKey("SessionId") as! String), withDelegate: self)
+        
+         SSStudentMessageHandler.sharedMessageHandler.sendStudentBenchStatus(kUserStateLive)
+        
+    }
+
     
     func classsBegin()
     {
@@ -251,6 +287,36 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         startedTimeUpdatingTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(StudentClassViewController.startTimeUpdating), userInfo: nil, repeats: true)
         
     }
+    
+    func onClassButton()
+    {
+      
+        
+        
+        let buttonPosition :CGPoint = mClassNameButton.convertPoint(CGPointZero, toView: self.view)
+        
+        let remainingHeight = self.view.frame.size.height - (buttonPosition.y  + mClassNameButton.frame.size.height + mClassNameButton.frame.size.height)
+        
+        
+        let questionInfoController = SSStudentSchedulePopoverController()
+        
+        questionInfoController.setCurrentScreenSize(CGSizeMake(400, remainingHeight))
+        questionInfoController.setdelegate(self)
+        let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+        
+        classViewPopOverController.popoverContentSize = CGSizeMake(400,remainingHeight);
+        classViewPopOverController.delegate = self;
+        questionInfoController.setPopover(classViewPopOverController)
+        classViewPopOverController.presentPopoverFromRect(CGRect(
+            x:buttonPosition.x + mClassNameButton.frame.size.width / 2,
+            y:buttonPosition.y  + mClassNameButton.frame.size.height,
+            width: 1,
+            height: 1), inView: self.view, permittedArrowDirections: .Up, animated: true)
+        
+    }
+    
+    
+    
     
     
     func startTimeUpdating()
@@ -339,7 +405,18 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     func didGetUpdatedUserStateWithDetails(details: AnyObject)
     {
-         SSStudentMessageHandler.sharedMessageHandler.sendStudentBenchStatus(SSStudentDataSource.sharedDataSource.currentUSerState)
+        
+        SSStudentMessageHandler.sharedMessageHandler.sendStudentBenchStatus(SSStudentDataSource.sharedDataSource.currentUSerState)
+        
+        if SSStudentDataSource.sharedDataSource.currentUSerState == kUserStateFree
+        {
+            
+            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let preallotController : SSStudentScheduleViewController = storyboard.instantiateViewControllerWithIdentifier("TeacherScheduleViewController") as! SSStudentScheduleViewController
+            self.presentViewController(preallotController, animated: true, completion: nil)
+        }
+        
+        
     }
     
     
@@ -386,9 +463,15 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         mFullScreenView.hidden = true
         
     }
+    // MARK: - schedule popover delegate
     
     
-    
+    func delegateSessionEnded()
+    {
+        
+         SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateFree, ofSession: (sessionDetails.objectForKey("SessionId") as! String), withDelegate: self)
+        
+    }
     
     // MARK: - Loading subViews
     
@@ -497,6 +580,18 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     // MARK: - message handler functions
     
+    func smhStreamReconnectingWithDelay(delay: Int32) {
+        self.view.makeToast("Reconnecting in \(delay) seconds", duration: 0.5, position: .Bottom)
+
+    }
+    
+    func smhDidReciveAuthenticationState(state: Bool, WithName userName: String)
+    {
+        if state == true{
+            SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateLive, ofSession:(sessionDetails.objectForKey("SessionId") as! String), withDelegate: self)
+        }
+    }
+    
     func smhDidgetTimeExtendedWithDetails(Details: AnyObject)
     {
         
@@ -597,6 +692,11 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                 messageString = "Please hand draw over the picture sent";
                 showAlertWithMessage(messageString)
                 
+                if mFullScreenView != nil
+                {
+                    mFullScreenView.mScribbleView.clearButtonClicked()
+                }
+                
                 
                 
             }
@@ -605,6 +705,10 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                 
                 messageString = "Please sketch your response";
                showAlertWithMessage(messageString)
+                if mFullScreenView != nil
+                {
+                    mFullScreenView.mScribbleView.clearButtonClicked()
+                }
             }
         }
         
@@ -650,8 +754,21 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         
     }
     
-    func smhdidReceiveQuestionFreezMessage() {
-        mQuestionView.didgetFreezMessageFromTeacher()
+    func smhdidReceiveQuestionFreezMessage()
+    {
+        if SSStudentDataSource.sharedDataSource.answerSent == false
+        {
+            if currentQuestionType == kScribble || currentQuestionType == kFreshScribble
+            {
+                if mFullScreenView != nil
+                {
+                    mFullScreenView.onSendButton()
+                    
+                }
+            }
+            mQuestionView.didgetFreezMessageFromTeacher()
+        }
+       
     }
     
     
@@ -789,6 +906,42 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         
     }
     
+    func smhDidGetTeacherReviewMessage()
+    {
+        mQuestionView.didgetTeacherEvaluatingMessage()
+    }
+    
+    func smhDidGetFeedbackForAnswerWithDetils(details: AnyObject)
+    {
+        if (details.objectForKey("AssesmentAnswerId") != nil)
+        {
+          
+            if let AssesmentAnswerId = details.objectForKey("AssesmentAnswerId") as? String
+            {
+                 mQuestionView.getFeedbackDetailsWithId(AssesmentAnswerId)
+            }
+        }
+    }
+    
+    func smhDidGetPeakViewMessage()
+    {
+        if mFullScreenView != nil
+        {
+          let peakImage =   mFullScreenView.getCurrentImage()
+            
+            let imageData:NSData = UIImagePNGRepresentation(peakImage)!
+            let strBase64:String = imageData.base64EncodedStringWithOptions(.Encoding64CharacterLineLength)
+            SSStudentMessageHandler.sharedMessageHandler.sendPeakViewMessageToTeacherWithImageData(strBase64)
+            
+            
+        }
+        else
+        {
+            mQuestionView.getPeakViewMessage()
+        }
+        
+        
+    }
    
     // MARK: - message handler functions
     func showAlertWithMessage(message:String)

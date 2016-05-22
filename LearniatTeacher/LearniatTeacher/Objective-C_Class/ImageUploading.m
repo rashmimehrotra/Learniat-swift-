@@ -69,7 +69,7 @@
                                }
                                else
                                {
-                                   [self errorInUploadingWithName:imageName];
+                                   [self ErrorInUploadingWithName:imageName];
                                }
                                
                            }];
@@ -84,10 +84,10 @@
     [[self delegate] ImageUploadedWithName:imageName];
   
 }
-- (void) errorInUploadingWithName:(NSString*)imageName
+- (void) ErrorInUploadingWithName:(NSString*)imageName
 {
     
-    [[self delegate]errorInUploadingWithName:imageName];
+    [[self delegate]ErrorInUploadingWithName:imageName];
 }
 
 - (UIImage*)getImageWithBadgeId:(int)badgeId

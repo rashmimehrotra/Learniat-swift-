@@ -362,6 +362,8 @@
 		53A482E71CE4893C00C90451 /* StudentVolunteeringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A482E61CE4893C00C90451 /* StudentVolunteeringView.swift */; };
 		53A482E91CE48E0400C90451 /* QRVSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A482E81CE48E0400C90451 /* QRVSubView.swift */; };
 		53A482EB1CE48F1500C90451 /* QRVVolunteerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A482EA1CE48F1500C90451 /* QRVVolunteerView.swift */; };
+		53BFD5991CEF87E600B52B33 /* Star.png in Resources */ = {isa = PBXBuildFile; fileRef = 53BFD5971CEF87E600B52B33 /* Star.png */; };
+		53BFD59A1CEF87E600B52B33 /* Unselected_star.png in Resources */ = {isa = PBXBuildFile; fileRef = 53BFD5981CEF87E600B52B33 /* Unselected_star.png */; };
 		53EEABF31CED9B2D005E4566 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EEABF11CED9B2D005E4566 /* BarView.swift */; };
 		53EEABF41CED9B2D005E4566 /* StudentAnswerGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EEABF21CED9B2D005E4566 /* StudentAnswerGraphView.swift */; };
 		53EEABF71CED9C39005E4566 /* FXLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 53EEABF61CED9C39005E4566 /* FXLabel.m */; };
@@ -905,6 +907,8 @@
 		53A482E61CE4893C00C90451 /* StudentVolunteeringView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentVolunteeringView.swift; sourceTree = "<group>"; };
 		53A482E81CE48E0400C90451 /* QRVSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRVSubView.swift; sourceTree = "<group>"; };
 		53A482EA1CE48F1500C90451 /* QRVVolunteerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRVVolunteerView.swift; sourceTree = "<group>"; };
+		53BFD5971CEF87E600B52B33 /* Star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Star.png; sourceTree = "<group>"; };
+		53BFD5981CEF87E600B52B33 /* Unselected_star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Unselected_star.png; sourceTree = "<group>"; };
 		53EEABF11CED9B2D005E4566 /* BarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		53EEABF21CED9B2D005E4566 /* StudentAnswerGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerGraphView.swift; sourceTree = "<group>"; };
 		53EEABF51CED9C39005E4566 /* FXLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXLabel.h; sourceTree = "<group>"; };
@@ -2006,6 +2010,8 @@
 		533066D81CC9E8FE0035CCDE /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				53BFD5971CEF87E600B52B33 /* Star.png */,
+				53BFD5981CEF87E600B52B33 /* Unselected_star.png */,
 				533255C81CEDC40600653C00 /* Delete.png */,
 				533255C91CEDC40600653C00 /* dragAndDrop.png */,
 				533255CA1CEDC40600653C00 /* Edit.png */,
@@ -2385,6 +2391,7 @@
 				533255071CEDBD7600653C00 /* GeometryResources.bundle in Resources */,
 				53015BBD1CE5D93C00BB366C /* Unlike_Disabled.png in Resources */,
 				533255C41CEDC2A500653C00 /* Undo_Active.png in Resources */,
+				53BFD5991CEF87E600B52B33 /* Star.png in Resources */,
 				533255801CEDC2A500653C00 /* Eraser_Unselected_AnnotateView@2x.png in Resources */,
 				531FB4441CE5EB5B00DC0C6F /* Roboto-BlackItalic.ttf in Resources */,
 				533255941CEDC2A500653C00 /* Tab_bar_Divider_AnnotateView@2x.png in Resources */,
@@ -2396,6 +2403,7 @@
 				533255B81CEDC2A500653C00 /* Share.png in Resources */,
 				532D28011CE9CA9C009FDF6A /* poll_icon_unselected.png in Resources */,
 				533255C61CEDC2A500653C00 /* Undo_Disabled.png in Resources */,
+				53BFD59A1CEF87E600B52B33 /* Unselected_star.png in Resources */,
 				53A482DC1CE45FD000C90451 /* indicator5.png in Resources */,
 				5332558B1CEDC2A500653C00 /* Redo_Disabled_AnnotateView.png in Resources */,
 				5332558C1CEDC2A500653C00 /* Redo_Disabled_AnnotateView@2x.png in Resources */,

@@ -18,7 +18,7 @@ let oneHourDiff :CGFloat = 90.0
 let halfHourMultipleRatio : CGFloat = (oneHourDiff / 2)/(30)
 
 
-class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegate,ScheduleScreenTileDelegate,SSTeacherMessagehandlerDelegate,CustomAlertViewDelegate,ScheduleDetailViewDelegate
+class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegate,ScheduleScreenTileDelegate,SSTeacherMessagehandlerDelegate,CustomAlertViewDelegate,ScheduleDetailViewDelegate,SSSettingsViewControllerDelegate
 {
     var mTeacherImageView: CustomProgressImageView!
    
@@ -28,6 +28,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     
     var mRefreshButton: UIButton!
     
+    var mTeacherImageButton = UIButton()
     
     var mNoSessionLabel: UILabel!
     
@@ -104,7 +105,9 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         mTopbarImageView.userInteractionEnabled = true
         
         
-        
+        mTeacherImageButton.frame = CGRectMake(0, 0, mTopbarImageView.frame.size.height , mTopbarImageView.frame.size.height)
+        mTopbarImageView.addSubview(mTeacherImageButton)
+        mTeacherImageButton.addTarget(self, action: #selector(TeacherScheduleViewController.onTeacherImage), forControlEvents: UIControlEvents.TouchUpInside)
         
         
         mTeacherImageView = CustomProgressImageView(frame: CGRectMake(15, 15, mTopbarImageView.frame.size.height - 20 ,mTopbarImageView.frame.size.height - 20))
@@ -306,6 +309,42 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     }
     
     
+    
+    
+    func onTeacherImage()
+    {
+        
+        
+        let questionInfoController = SSSettingsViewController()
+        questionInfoController.setDelegate(self)
+        
+        questionInfoController.scheduleScrrenTeacherImagePressed();
+        
+        let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+        
+        classViewPopOverController.popoverContentSize = CGSizeMake(310, 145);
+        
+        questionInfoController.setPopOverController(classViewPopOverController)
+        
+        
+        classViewPopOverController.presentPopoverFromRect(CGRect(
+            x:mTeacherImageButton.frame.origin.x ,
+            y:mTeacherImageButton.frame.origin.y + mTeacherImageButton.frame.size.height,
+            width: 1,
+            height: 1), inView: self.view, permittedArrowDirections: .Up, animated: true)
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    }
     
     // MARK: - Returning Functions
     
@@ -573,6 +612,33 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             self.sendTimeExtendMessageWithDetails(currentSessionDetails, withMessage: timeDelayString)
         }
 
+        
+        
+    }
+    
+    func didGetLogOutWithDetails(details: AnyObject)
+    {
+        print(details)
+        
+        if details.objectForKey("Status") != nil
+        {
+            if let status = details.objectForKey("Status") as? String
+            {
+                if status == kSuccessString
+                {
+                     if let password  =  NSUserDefaults.standardUserDefaults().objectForKey(kPassword) as? String
+                     {
+                        NSUserDefaults.standardUserDefaults().removeObjectForKey(kPassword)
+                    }
+                    
+                    activityIndicator.hidden = true
+                    activityIndicator.stopAnimating()
+                    
+                    SSTeacherMessageHandler.sharedMessageHandler.goOffline()
+                    performSegueWithIdentifier("ScheduleToLogin", sender: nil)
+                }
+            }
+        }
         
         
     }
@@ -1265,6 +1331,20 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         }
         
 
+    }
+    
+    func Settings_performLogout()
+    {
+        SSTeacherDataSource.sharedDataSource.logOutTeacherWithDelegate(self)
+        activityIndicator.hidden = false
+        activityIndicator.startAnimating()
+        
+    }
+    
+    func Settings_XmppReconnectButtonClicked() {
+        SSTeacherMessageHandler.sharedMessageHandler.performReconnet()
+        activityIndicator.hidden = false
+        activityIndicator.startAnimating()
     }
     
 }

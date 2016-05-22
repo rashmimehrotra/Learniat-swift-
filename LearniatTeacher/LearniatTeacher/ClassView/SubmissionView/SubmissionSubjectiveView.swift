@@ -1015,8 +1015,10 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         currentTeacherImageURl = name
     }
     
-    func ErrorInUploadingWithName(name: String!)
-    {
+    
+    
+    func ErrorInUploadingWithName(name: String!) {
+        
         sendButtonSpinner.hidden = true
         sendButtonSpinner.stopAnimating()
         mSendButton.hidden = false

@@ -297,6 +297,13 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, T
         
     }
     
+    func getCurrentImage()->UIImage
+    {
+        let image = UIImage.renderUIViewToImage(containerview)
+        
+        return image
+    }
+    
     
     func onUndoButton()
     {

@@ -43,6 +43,7 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <segue destination="2In-rm-84a" kind="presentation" identifier="ScheduleToClassView" id="doA-LQ-7vn"/>
+                        <segue destination="C8f-AP-HYf" kind="presentation" identifier="ScheduleToLogin" id="e0z-Ec-3HO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IKs-Po-FVK" userLabel="First Responder" sceneMemberID="firstResponder"/>

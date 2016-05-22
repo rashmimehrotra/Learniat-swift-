@@ -52,7 +52,8 @@ let kCloseCollaboration             = "715"
 let kModelAnswerDetails             = "179"
 let kMuteStudent                    = "712"
 
-
+let kGetPeakView                    = "704"
+let kSendPeakView                   = "705"
 let kQueryUnderstood                 = "1102"
 
 import Foundation
@@ -94,7 +95,7 @@ import Foundation
     
      optional func smhDidgetUnderstoodMessageWithDetails(details: AnyObject, withStudentId StudentId:String)
     
-    
+    optional func smhDidgetPeakViewWithDetails(details:AnyObject, withStudentId studentId:String)
 }
 
 public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,MessageManagerDelegate {
@@ -185,10 +186,25 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
     
     }
     
+    func goOffline()
+    {
+        MessageManager.sharedMessageHandler().goOffline()
+    }
+    
     func perFormLogout()
     {
         MessageManager.sharedMessageHandler().disconnect()
         
+    }
+    
+    func performReconnet()
+    {
+        
+        if let password  =  NSUserDefaults.standardUserDefaults().objectForKey(kPassword) as? String
+        {
+             MessageManager.sharedMessageHandler().connectWithUserId("\(SSTeacherDataSource.sharedDataSource.currentUserId)@\(kBaseXMPPURL)", withPassword: password)
+        }
+       
     }
    
     func getXmppConnectionStatus()->Bool
@@ -197,6 +213,8 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
         
         return  MessageManager.sharedMessageHandler().xmppStream.isConnected()
     }
+    
+    
     
     func getCurrentUSerName()->String
     {
@@ -432,6 +450,32 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
                 "To":studentId,
                 "Type":msgType,
                 "Body":messageBody];
+            
+            
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendMessageTo("\(studentId)@\(kBaseXMPPURL)", withContents: xmlBody)
+        }
+    }
+    
+    func sendPeakViewMessageToStudentWithId(studentId :String)
+    {
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
+        {
+            
+            
+            
+            let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
+            let msgType             = kGetPeakView
+            
+            
+            let details:NSMutableDictionary = ["From":userId,
+                                               "To":studentId,
+                                               "Type":msgType];
             
             
             
@@ -1106,7 +1150,15 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
             }
             break
             
+        case kSendPeakView:
             
+            if delegate().respondsToSelector(#selector(SSTeacherMessagehandlerDelegate.smhDidgetPeakViewWithDetails(_:withStudentId:)))
+            {
+                delegate().smhDidgetPeakViewWithDetails!(message.messageBody(), withStudentId: message.messageFrom())
+                
+            }
+            break
+
             
         default:
             break

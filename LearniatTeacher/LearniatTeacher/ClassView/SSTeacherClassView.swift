@@ -427,8 +427,14 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
         downloladDemoMasterFileDetails()
         
+        
+        
     }
 
+    
+ 
+  
+    
     func setSessionDetails(details:AnyObject)
     {
         currentSessionDetails = details
@@ -1792,7 +1798,47 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
     }
     
-    
+    func smhDidgetPeakViewWithDetails(details: AnyObject, withStudentId studentId: String) {
+       
+        if details.objectForKey("imageData") != nil
+        {
+           if  let imageData = details.objectForKey("imageData")  as? String
+           {
+            
+            let dataDecoded:NSData = NSData(base64EncodedString: imageData, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+            
+        
+                let decodedimage:UIImage = UIImage(data: dataDecoded)!
+            
+            if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView
+            {
+                let buttonPosition :CGPoint = studentDeskView.convertPoint(CGPointZero, toView: self.view)
+
+                let questionInfoController = SSTeacherPeakViewController()
+                questionInfoController.setStudentDetails(studentDeskView.currentStudentsDict, withPeakImage: decodedimage)
+               
+                let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                
+                classViewPopOverController.popoverContentSize = CGSizeMake(320,300);
+                classViewPopOverController.delegate = self;
+                questionInfoController.setPopover(classViewPopOverController)
+                classViewPopOverController.presentPopoverFromRect(CGRect(
+                    x:buttonPosition.x + studentDeskView.frame.size.height / 2,
+                    y:buttonPosition.y + studentDeskView.frame.size.height / 2,
+                    width: 1,
+                    height: 1), inView: self.view, permittedArrowDirections: [.Right, .Left], animated: true)
+
+            }
+            
+            
+            
+            print(decodedimage)
+            }
+            
+        }
+        
+      
+           }
     
     
     // MARK: - DeskView delegate functions
@@ -2276,7 +2322,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     }
     
     func Settings_XmppReconnectButtonClicked() {
-        
+        SSTeacherMessageHandler.sharedMessageHandler.performReconnet()
     }
     
      // MARK: - SSTeacherSchedulePopoverController Delegate  functions

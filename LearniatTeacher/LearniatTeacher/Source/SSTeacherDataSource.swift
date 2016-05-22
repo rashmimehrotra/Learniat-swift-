@@ -97,6 +97,9 @@ let kServiceApproveVolunteer        =   "ApproveVolunteer"
 
 let kServiceStopVolunteering        =   "StopVolunteering"
 
+let kServiceUserLogout              =    "UserLogout"
+
+
 @objc protocol SSTeacherDataSourceDelegate
 {
     optional func didgetErrorMessage(message:String, WithServiceName serviceName:String)
@@ -162,6 +165,8 @@ let kServiceStopVolunteering        =   "StopVolunteering"
     optional func didGetModelAnswerWithDetails(details:AnyObject)
     
     optional func didGetModelAnswerRecordedWithDetails(details:AnyObject)
+    
+    optional func didGetLogOutWithDetails(details:AnyObject)
 }
 
 
@@ -535,6 +540,18 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     }
 
     
+    
+    func logOutTeacherWithDelegate( delegate:SSTeacherDataSourceDelegate)
+    {
+        
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>Logout</Service><UserId>%@</UserId></Action></Sunstone>",URLPrefix,currentUserId)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceUserLogout, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+    }
+
     
     
     
@@ -1029,6 +1046,13 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
             if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetModelAnswerRecordedWithDetails(_:)))
             {
                 returningDelegate.didGetModelAnswerRecordedWithDetails!(refinedDetails)
+            }
+        }
+        else if serviceName == kServiceUserLogout
+        {
+            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetLogOutWithDetails(_:)))
+            {
+                returningDelegate.didGetLogOutWithDetails!(refinedDetails)
             }
         }
     }

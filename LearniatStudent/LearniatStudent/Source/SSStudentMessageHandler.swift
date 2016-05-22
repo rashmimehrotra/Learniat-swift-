@@ -51,8 +51,9 @@ let kCollaborationOption            = "714"
 let kCloseCollaboration             = "715"
 let kodelAnswerDetails             = "179"
 let kMuteStudent                    = "712"
-
+let kGetPeakView                    = "704"
 let kQueryUnderstood                 = "1102"
+let kSendPeakView                   = "705"
 
 
 
@@ -104,6 +105,13 @@ import Foundation
     optional func smhDidGetPollEndedMessageFromteacher()
     
     optional func smhDidGetGraphSharedWithDetails(details:AnyObject)
+    
+    optional func smhDidGetTeacherReviewMessage()
+    
+    optional func smhDidGetFeedbackForAnswerWithDetils(details:AnyObject)
+    
+    optional func smhDidGetPeakViewMessage()
+    
     
 }
 
@@ -623,6 +631,33 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
             MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
         }
     }
+    func sendPeakViewMessageToTeacherWithImageData(imageData:String)
+    {
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true &&  SSStudentDataSource.sharedDataSource.currentTeacherId != nil)
+        {
+            let studentID           = SSStudentDataSource.sharedDataSource.currentUserId
+            let msgType             = kSendPeakView
+            let teacherID           = SSStudentDataSource.sharedDataSource.currentTeacherId
+            
+            
+            let messageBody = ["imageData":imageData]
+            
+            
+            
+            
+            let details:NSMutableDictionary = ["From":studentID,
+                                               "To":teacherID,
+                                               "Type":msgType,
+                                               "Body":messageBody];
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
+        }
+    }
     
     //MARK: Recieve Message
     public func didReceiveMessageWithBody(body: String!)
@@ -785,6 +820,33 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
                 {
                    delegate().smhDidGetGraphSharedWithDetails!(message.messageBody())
                 }
+            }
+        }
+        else if message.messageType() == kTeacherHandRaiseInReview
+        {
+            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhDidGetTeacherReviewMessage))
+            {
+                
+                delegate().smhDidGetTeacherReviewMessage!()
+            }
+        }
+        else if message.messageType() == kSendFeedBack
+        {
+            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhDidGetFeedbackForAnswerWithDetils(_:)))
+            {
+                if message.messageBody() != nil
+                {
+                    delegate().smhDidGetFeedbackForAnswerWithDetils!(message.messageBody())
+                }
+                
+            }
+        }
+        else if message.messageType() == kGetPeakView
+        {
+            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhDidGetPeakViewMessage))
+            {
+                delegate().smhDidGetPeakViewMessage!()
+                
             }
         }
     }

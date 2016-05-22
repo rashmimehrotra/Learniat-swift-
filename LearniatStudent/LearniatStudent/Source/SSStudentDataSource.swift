@@ -113,6 +113,8 @@ let kGetAllModelAnswer                      = "GetAllModelAnswers"
     
     optional func didGetvolunteerRegisteredWithDetails(details:AnyObject)
     
+    optional func didGetAnswerFeedBackWithDetails(details: AnyObject)
+    
 }
 
 
@@ -379,6 +381,19 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         manager.downloadDataURL(urlString, withServiceName: kServiceVolunteerRegister, withDelegate: self, withRequestType: eHTTPGetRequest , withReturningDelegate: delegate)
     }
     
+    func getFeedbackFromTeacherForAssesment(assesmentId:String, withDelegate delegate:SSStudentDataSourceDelegate)
+    {
+        
+        setdelegate(delegate)
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>GetFeedback</Service><AssessmentAnswerId>%@</AssessmentAnswerId></Action></Sunstone>",URLPrefix,assesmentId)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceGetFeedBack, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+    }
+
+    
     // MARK: - API Delegate Functions
     func delegateDidGetServiceResponseWithDetails(dict: NSMutableDictionary!, WIthServiceName serviceName: String!, withRetruningDelegate returningDelegate: AnyObject!) {
         
@@ -481,6 +496,15 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
             if returningDelegate.respondsToSelector(#selector(SSStudentDataSourceDelegate.didGetvolunteerRegisteredWithDetails(_:)))
             {
                 returningDelegate.didGetvolunteerRegisteredWithDetails!(refinedDetails)
+            }
+            
+        }
+        else if serviceName == kServiceGetFeedBack
+        {
+            
+            if delegate().respondsToSelector(#selector(SSStudentDataSourceDelegate.didGetAnswerFeedBackWithDetails(_:)))
+            {
+                delegate().didGetAnswerFeedBackWithDetails!(refinedDetails)
             }
             
         }

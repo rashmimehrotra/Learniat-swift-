@@ -37,19 +37,19 @@ pullNewProfilePics;
    
     
     
-    setupSitingButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [setupSitingButton addTarget:self action:@selector(onSetUpSeatingButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    setupSitingButton.frame = CGRectMake(10.0,20, 290, 40); //(10.0, 116.0, 258.0, 43.0);
-    [self.view addSubview:setupSitingButton];
-    [setupSitingButton setTitle:@"SetUpSeating" forState:UIControlStateNormal];
-    [setupSitingButton setTitleColor:[UIColor colorWithRed:0.0 green:174.0/255.0 blue:239.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [setupSitingButton setBackgroundColor:[UIColor whiteColor]];
-    
+//    setupSitingButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [setupSitingButton addTarget:self action:@selector(onSetUpSeatingButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+//    setupSitingButton.frame = CGRectMake(10.0,20, 290, 40); //(10.0, 116.0, 258.0, 43.0);
+//    [self.view addSubview:setupSitingButton];
+//    [setupSitingButton setTitle:@"SetUpSeating" forState:UIControlStateNormal];
+//    [setupSitingButton setTitleColor:[UIColor colorWithRed:0.0 green:174.0/255.0 blue:239.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+//    [setupSitingButton setBackgroundColor:[UIColor whiteColor]];
+//    
     
     
     XmppReconnect = [UIButton buttonWithType:UIButtonTypeCustom];
     [XmppReconnect addTarget:self action:@selector(onXmppButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    XmppReconnect.frame = CGRectMake(100.0,80, 200, 40); //(10.0, 116.0, 258.0, 43.0);
+    XmppReconnect.frame = CGRectMake(100.0,20, 200, 40); //(10.0, 116.0, 258.0, 43.0);
     [self.view addSubview:XmppReconnect];
     [XmppReconnect setTitle:@"Xmpp Reconnect" forState:UIControlStateNormal];
     [XmppReconnect setTitleColor:[UIColor colorWithRed:0.0 green:174.0/255.0 blue:239.0/255.0 alpha:1.0] forState:UIControlStateNormal];
@@ -57,7 +57,7 @@ pullNewProfilePics;
     
 
     
-    UILabel *mDiagnosisLabel= [[UILabel alloc] initWithFrame:CGRectMake(10.0, 80, 90, 40)];
+    UILabel *mDiagnosisLabel= [[UILabel alloc] initWithFrame:CGRectMake(10.0, 20, 90, 40)];
     [self.view addSubview:mDiagnosisLabel];
     [mDiagnosisLabel setBackgroundColor:[UIColor whiteColor]];
     mDiagnosisLabel.textAlignment = NSTextAlignmentCenter;
@@ -68,56 +68,56 @@ pullNewProfilePics;
     [mDiagnosisLabel setTextColor:[UIColor colorWithRed:96.0/255.0 green:96.0/255.0 blue:96.0/255.0 alpha:1.0]];
     
     
-    UIView *lineView5 = [[UIView alloc]initWithFrame:CGRectMake(110, 85, 1, 30) ];
-    [lineView5 setBackgroundColor:[UIColor colorWithRed:213.0/255.0 green:213.0/255.0 blue:213.0/255.0 alpha:0.7]];
-    [self.view addSubview:lineView5];
-
+//    UIView *lineView5 = [[UIView alloc]initWithFrame:CGRectMake(110, 85, 1, 30) ];
+//    [lineView5 setBackgroundColor:[UIColor colorWithRed:213.0/255.0 green:213.0/255.0 blue:213.0/255.0 alpha:0.7]];
+//    [self.view addSubview:lineView5];
+//
     
     
     
-    UILabel *addQuestionLable= [[UILabel alloc] initWithFrame:CGRectMake(10.0,140, 90, 120)];
-    [self.view addSubview:addQuestionLable];
-    [addQuestionLable setBackgroundColor:[UIColor whiteColor]];
-    addQuestionLable.textAlignment = NSTextAlignmentCenter;
-    addQuestionLable.numberOfLines=10;
-    addQuestionLable.lineBreakMode= NSLineBreakByTruncatingTail;
-    [addQuestionLable setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
-    [addQuestionLable setText:@"Add Question"];
-    [addQuestionLable setTextColor:[UIColor colorWithRed:96.0/255.0 green:96.0/255.0 blue:96.0/255.0 alpha:1.0]];
-
-    
-    
-    
-    UIButton* multipleChoice = [UIButton buttonWithType:UIButtonTypeCustom];
-    [multipleChoice addTarget:self action:@selector(onCreateMRQQuestion:) forControlEvents:UIControlEventTouchUpInside];
-    multipleChoice.frame = CGRectMake(100.0,140, 200, 40); //(10.0, 116.0, 258.0, 43.0);
-    [self.view addSubview:multipleChoice];
-    [multipleChoice setTitle:@"Multiple Choice" forState:UIControlStateNormal];
-    [multipleChoice setTitleColor:[UIColor colorWithRed:0.0 green:174.0/255.0 blue:239.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [multipleChoice setBackgroundColor:[UIColor whiteColor]];
-    
-    
-    UIButton* matchColumn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [matchColumn addTarget:self action:@selector(onLogoutButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    matchColumn.frame = CGRectMake(100.0,180, 200, 40); //(10.0, 116.0, 258.0, 43.0);
-    [self.view addSubview:matchColumn];
-    [matchColumn setTitle:@"Match column" forState:UIControlStateNormal];
-    [matchColumn setTitleColor:[UIColor colorWithRed:0.0 green:174.0/255.0 blue:239.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [matchColumn setBackgroundColor:[UIColor whiteColor]];
-    
-    UIButton* scribble = [UIButton buttonWithType:UIButtonTypeCustom];
-    [scribble addTarget:self action:@selector(onCreateScribbleQuestion:) forControlEvents:UIControlEventTouchUpInside];
-    scribble.frame = CGRectMake(100.0,220, 200, 40); //(10.0, 116.0, 258.0, 43.0);
-    [self.view addSubview:scribble];
-    [scribble setTitle:@"Scribble" forState:UIControlStateNormal];
-    [scribble setTitleColor:[UIColor colorWithRed:0.0 green:174.0/255.0 blue:239.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [scribble setBackgroundColor:[UIColor whiteColor]];
-    
-    
-    
-    UIView *lineView6 = [[UIView alloc]initWithFrame:CGRectMake(110, 145, 1, 110) ];
-    [lineView6 setBackgroundColor:[UIColor colorWithRed:213.0/255.0 green:213.0/255.0 blue:213.0/255.0 alpha:0.7]];
-    [self.view addSubview:lineView6];
+//    UILabel *addQuestionLable= [[UILabel alloc] initWithFrame:CGRectMake(10.0,140, 90, 120)];
+//    [self.view addSubview:addQuestionLable];
+//    [addQuestionLable setBackgroundColor:[UIColor whiteColor]];
+//    addQuestionLable.textAlignment = NSTextAlignmentCenter;
+//    addQuestionLable.numberOfLines=10;
+//    addQuestionLable.lineBreakMode= NSLineBreakByTruncatingTail;
+//    [addQuestionLable setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
+//    [addQuestionLable setText:@"Add Question"];
+//    [addQuestionLable setTextColor:[UIColor colorWithRed:96.0/255.0 green:96.0/255.0 blue:96.0/255.0 alpha:1.0]];
+//
+//    
+//    
+//    
+//    UIButton* multipleChoice = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [multipleChoice addTarget:self action:@selector(onCreateMRQQuestion:) forControlEvents:UIControlEventTouchUpInside];
+//    multipleChoice.frame = CGRectMake(100.0,140, 200, 40); //(10.0, 116.0, 258.0, 43.0);
+//    [self.view addSubview:multipleChoice];
+//    [multipleChoice setTitle:@"Multiple Choice" forState:UIControlStateNormal];
+//    [multipleChoice setTitleColor:[UIColor colorWithRed:0.0 green:174.0/255.0 blue:239.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+//    [multipleChoice setBackgroundColor:[UIColor whiteColor]];
+//    
+//    
+//    UIButton* matchColumn = [UIButton buttonWithType:UIButtonTypeCustom];
+////    [matchColumn addTarget:self action:@selector(onLogoutButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+//    matchColumn.frame = CGRectMake(100.0,180, 200, 40); //(10.0, 116.0, 258.0, 43.0);
+//    [self.view addSubview:matchColumn];
+//    [matchColumn setTitle:@"Match column" forState:UIControlStateNormal];
+//    [matchColumn setTitleColor:[UIColor colorWithRed:0.0 green:174.0/255.0 blue:239.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+//    [matchColumn setBackgroundColor:[UIColor whiteColor]];
+//    
+//    UIButton* scribble = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [scribble addTarget:self action:@selector(onCreateScribbleQuestion:) forControlEvents:UIControlEventTouchUpInside];
+//    scribble.frame = CGRectMake(100.0,220, 200, 40); //(10.0, 116.0, 258.0, 43.0);
+//    [self.view addSubview:scribble];
+//    [scribble setTitle:@"Scribble" forState:UIControlStateNormal];
+//    [scribble setTitleColor:[UIColor colorWithRed:0.0 green:174.0/255.0 blue:239.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+//    [scribble setBackgroundColor:[UIColor whiteColor]];
+//    
+//    
+//    
+//    UIView *lineView6 = [[UIView alloc]initWithFrame:CGRectMake(110, 145, 1, 110) ];
+//    [lineView6 setBackgroundColor:[UIColor colorWithRed:213.0/255.0 green:213.0/255.0 blue:213.0/255.0 alpha:0.7]];
+//    [self.view addSubview:lineView6];
     
 
     
@@ -126,7 +126,7 @@ pullNewProfilePics;
     
     logoutButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [logoutButton addTarget:self action:@selector(onLogoutButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    logoutButton.frame = CGRectMake(10.0,280, 290, 40); //(10.0, 116.0, 258.0, 43.0);
+    logoutButton.frame = CGRectMake(10.0,85, 290, 40); //(10.0, 116.0, 258.0, 43.0);
     [self.view addSubview:logoutButton];
     [logoutButton setTitle:@"Sign Out" forState:UIControlStateNormal];
     [logoutButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
@@ -559,9 +559,9 @@ pullNewProfilePics;
 	
 	[[self popOverController] dismissPopoverAnimated:YES];
 	
-	[self setPopOverController:nil];
 	
-//	[[self delegate] performLogout];
+	
+	[[self delegate] Settings_performLogout];
 }
 
 /*- Deepak this function is called when SetUpSeatingButton is pressed -*/

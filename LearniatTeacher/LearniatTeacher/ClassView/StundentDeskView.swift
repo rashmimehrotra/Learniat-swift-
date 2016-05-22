@@ -273,7 +273,25 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         refrenceDeskImageView.addSubview(mDoneButton)
         mDoneButton.addTarget(self, action: #selector(StundentDeskView.onDeskPressed), forControlEvents: UIControlEvents.TouchUpInside)
         
+        let longGesture = UITapGestureRecognizer(target: self, action: #selector(StundentDeskView.Long)) //Long function will call when user long press on button.
+        mDoneButton.addGestureRecognizer(longGesture)
+        longGesture.numberOfTapsRequired = 2
         
+      
+        
+        
+    }
+    
+   
+    
+    func Long()
+    {
+        
+        if let StudentId = currentStudentsDict.objectForKey("StudentId") as? String
+        {
+             SSTeacherMessageHandler.sharedMessageHandler.sendPeakViewMessageToStudentWithId(StudentId)
+        }
+      
     }
     
     required init?(coder aDecoder: NSCoder)
