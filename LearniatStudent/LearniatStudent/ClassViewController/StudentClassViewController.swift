@@ -582,6 +582,17 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     // MARK: - message handler functions
     
+    func smhDidRecieveStreamConnectionsState(state: Bool) {
+        if state == false
+        {
+             mstatusImage.backgroundColor = standard_Red
+        }
+        else
+        {
+              mstatusImage.backgroundColor = standard_Green
+        }
+    }
+    
     func smhStreamReconnectingWithDelay(delay: Int32) {
         self.view.makeToast("Reconnecting in \(delay) seconds", duration: 0.5, position: .Bottom)
 
@@ -589,7 +600,8 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     func smhDidReciveAuthenticationState(state: Bool, WithName userName: String)
     {
-        if state == true{
+        if state == true
+        {
             SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateLive, ofSession:(sessionDetails.objectForKey("SessionId") as! String), withDelegate: self)
         }
     }

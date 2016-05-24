@@ -101,10 +101,13 @@ class CustomTextView: UIView,UITextViewDelegate
     func getTextOfCurrentTextView()->String
     {
         
-        if mQuestionTextView.text!.isEmpty
+        if mQuestionTextView.text!.isEmpty || mQuestionTextView.text == currentPlaceHolder
         {
             mQuestionTextView.text = ""
+           
         }
+        
+        mQuestionTextView.resignFirstResponder()
         
         return mQuestionTextView.text!
     }

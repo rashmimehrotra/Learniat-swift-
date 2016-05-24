@@ -76,6 +76,7 @@
 		531044AA1CA665E2007AE9D5 /* StundentDeskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531044A91CA665E2007AE9D5 /* StundentDeskView.swift */; };
 		531044AC1CA66C89007AE9D5 /* lowParticipartion.png in Resources */ = {isa = PBXBuildFile; fileRef = 531044AB1CA66C89007AE9D5 /* lowParticipartion.png */; };
 		531044AF1CA66D6F007AE9D5 /* FXLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 531044AE1CA66D6F007AE9D5 /* FXLabel.m */; };
+		531A683E1CF4587D00D78B08 /* OneStringGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531A683D1CF4587D00D78B08 /* OneStringGraphView.swift */; };
 		532607761CA90779002FF684 /* ScribbleQuestionInfoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532607751CA90779002FF684 /* ScribbleQuestionInfoScreen.swift */; };
 		5326078B1CA90AEC002FF684 /* indicator1.png in Resources */ = {isa = PBXBuildFile; fileRef = 532607791CA90AEC002FF684 /* indicator1.png */; };
 		5326078C1CA90AEC002FF684 /* indicator10.png in Resources */ = {isa = PBXBuildFile; fileRef = 5326077A1CA90AEC002FF684 /* indicator10.png */; };
@@ -534,6 +535,7 @@
 		531044AB1CA66C89007AE9D5 /* lowParticipartion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lowParticipartion.png; sourceTree = "<group>"; };
 		531044AD1CA66D6F007AE9D5 /* FXLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXLabel.h; sourceTree = "<group>"; };
 		531044AE1CA66D6F007AE9D5 /* FXLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXLabel.m; sourceTree = "<group>"; };
+		531A683D1CF4587D00D78B08 /* OneStringGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneStringGraphView.swift; sourceTree = "<group>"; };
 		532607751CA90779002FF684 /* ScribbleQuestionInfoScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScribbleQuestionInfoScreen.swift; sourceTree = "<group>"; };
 		532607791CA90AEC002FF684 /* indicator1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator1.png; sourceTree = "<group>"; };
 		5326077A1CA90AEC002FF684 /* indicator10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = indicator10.png; sourceTree = "<group>"; };
@@ -2631,6 +2633,7 @@
 				537301061CB618D200E76753 /* SubmissionSubjectiveView.swift */,
 				537301081CB6227000E76753 /* SubjectiveLeftSideView.swift */,
 				537301101CB62A2B00E76753 /* SubjectiveStudentContainer.swift */,
+				531A683D1CF4587D00D78B08 /* OneStringGraphView.swift */,
 				533233461CAFE05900971EC7 /* AgregateDrillDown */,
 				53FC04401CAFAE1700D7B941 /* GraphView */,
 			);
@@ -3048,6 +3051,7 @@
 				53676CF81CA63B7F00CADE4D /* XMPPCapabilities.m in Sources */,
 				53676CC31CA63B7F00CADE4D /* XMPPRoster.m in Sources */,
 				53676D331CA63B7F00CADE4D /* ScheduleScreenTile.swift in Sources */,
+				531A683E1CF4587D00D78B08 /* OneStringGraphView.swift in Sources */,
 				53D8CCAD1CCE1A1200BA838C /* MainTopicsView.swift in Sources */,
 				53460C3F1CD22C3F00076F85 /* PollCompletedView.swift in Sources */,
 				5309C75E1CD9D9D600481E0C /* ModelAnswerButtonView.swift in Sources */,

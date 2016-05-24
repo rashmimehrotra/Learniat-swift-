@@ -34,6 +34,8 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
     
     var mTextQuestion               :TextTypeQuestionView!
     
+    var mOneStringQuestionView               :OneStingQuestionView!
+    
     var currentQuestionType = ""
     
     var currentOptionsArray         = NSMutableArray()
@@ -175,6 +177,18 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
             mTextQuestion.setQuestionDetails(questionDetails ,withsessionDetails: sessionDetails, withQuestionLogId: _logId)
             
         }
+        else if QuestionType == OneString
+        {
+            if mOneStringQuestionView != nil{
+                mOneStringQuestionView.removeFromSuperview()
+            }
+            
+            
+            mOneStringQuestionView = OneStingQuestionView(frame:CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
+            self.addSubview(mOneStringQuestionView)
+            mOneStringQuestionView.setdelegate(self)
+            mOneStringQuestionView.setQuestionDetails(questionDetails ,withsessionDetails: sessionDetails, withQuestionLogId: _logId)
+        }
     }
     
     
@@ -199,6 +213,11 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
         if mTextQuestion != nil{
             mTextQuestion.removeFromSuperview()
         }
+        
+        if mOneStringQuestionView != nil{
+            mOneStringQuestionView.removeFromSuperview()
+        }
+        
         
         noQuestionslabel.hidden = false
         if SSStudentDataSource.sharedDataSource.answerSent == true
@@ -246,6 +265,15 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
                 mTextQuestion.FreezMessageFromTeacher()
             }
         }
+        else if currentQuestionType == OneString
+        {
+            if mOneStringQuestionView != nil
+            {
+                mOneStringQuestionView.FreezMessageFromTeacher()
+            }
+        }
+        
+        
     }
     
     func didGetGraphSharedWithDetails(details:AnyObject)
@@ -483,6 +511,14 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
             if mTextQuestion != nil
             {
                 mTextQuestion.getPeakViewMessageFromTeacher()
+            }
+            
+        }
+        else if currentQuestionType == OneString
+        {
+            if mOneStringQuestionView != nil
+            {
+                mOneStringQuestionView.getPeakViewMessageFromTeacher()
             }
             
         }

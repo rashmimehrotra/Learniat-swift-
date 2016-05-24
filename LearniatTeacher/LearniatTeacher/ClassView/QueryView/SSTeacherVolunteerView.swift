@@ -354,7 +354,7 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
                     }
                     
                    
-                    let buttonPosition :CGPoint = studentqueryView.convertPoint(CGPointZero, toView: self)
+//                    let buttonPosition :CGPoint = studentqueryView.convertPoint(CGPointZero, toView: self)
                     
                      studentVolunteeringPopoverView = VolunteerAnsweringPopOver(frame:CGRectMake(self.frame.size.width - 350 , (self.frame.size.height - 260)/2 , 150,260))
                     studentVolunteeringPopoverView.setVolunteerDetails(volunteerDetails)

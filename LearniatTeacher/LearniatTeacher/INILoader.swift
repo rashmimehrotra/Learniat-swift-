@@ -20,6 +20,7 @@ let kText                 = "Text"
 let kMCQ                  = "Multiple Choice"
 let kMRQ                  = "Multiple Response"
 let kMatchColumn          = "Match Columns"
+let OneString           :String         = "One_String"
 
 
 

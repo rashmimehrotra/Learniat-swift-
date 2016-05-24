@@ -156,7 +156,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         self.addSubview(mWithDrawButton)
         mWithDrawButton.setTitle("Withdraw", forState: .Normal)
         mWithDrawButton.setTitleColor(standard_Button, forState: .Normal)
-        mWithDrawButton.addTarget(self, action: #selector(ScribbleQuestionView.onEditButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mWithDrawButton.addTarget(self, action: #selector(ScribbleQuestionView.onWithDrawButton), forControlEvents: UIControlEvents.TouchUpInside)
         mWithDrawButton.layer.borderColor = topicsLineColor.CGColor
         mWithDrawButton.layer.borderWidth = 1
         mWithDrawButton.backgroundColor = whiteColor
@@ -193,6 +193,17 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         {
             delegate().delegateEditButtonPressedWithOverlayImage!(UIImage())
         }
+    }
+    
+    func onWithDrawButton()
+    {
+        mContainerView.hidden = true
+        mEditButton.hidden = false
+        mReplyStatusLabelView.hidden = true
+        mTopbarImageView.hidden = false
+        SSStudentDataSource.sharedDataSource.answerSent = false
+        mWithDrawButton.hidden = true
+        SSStudentMessageHandler.sharedMessageHandler.sendWithDrawMessageToTeacher()
     }
     
     func onSendButton()

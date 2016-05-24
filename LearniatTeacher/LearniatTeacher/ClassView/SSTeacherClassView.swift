@@ -957,6 +957,10 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                         
                         
                     }
+                    else if (questionType  == OneString)
+                    {
+                        mSubmissionView.addOneStringQuestionWithDetails(currentQuestionDetails) 
+                    }
                 }
             }
         }
@@ -1840,6 +1844,25 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
       
            }
     
+    
+    func smhDidgetOneStringAnswerWithDetails(details: AnyObject, withStudentId studentId: String) {
+        
+        if details.objectForKey("OneStringAnswer") != nil
+        {
+            if let OneStringAnswer = details.objectForKey("OneStringAnswer")  as? String
+            {
+                if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView
+                {
+                    studentDeskView.setOneStringAnswerWithText(OneStringAnswer)
+                    mSubmissionView.SetStudentOneStringAnswer(OneStringAnswer, withStudentDict: studentDeskView.currentStudentsDict)
+                }
+                
+                
+                
+            }
+        }
+        
+    }
     
     // MARK: - DeskView delegate functions
     

@@ -54,7 +54,8 @@ let kMuteStudent                    = "712"
 
 let kGetPeakView                    = "704"
 let kSendPeakView                   = "705"
-let kQueryUnderstood                 = "1102"
+let kQueryUnderstood                = "1102"
+let kSendSingleString               = "1101"
 
 import Foundation
 
@@ -96,6 +97,8 @@ import Foundation
      optional func smhDidgetUnderstoodMessageWithDetails(details: AnyObject, withStudentId StudentId:String)
     
     optional func smhDidgetPeakViewWithDetails(details:AnyObject, withStudentId studentId:String)
+    
+    optional func smhDidgetOneStringAnswerWithDetails(details:AnyObject, withStudentId studentId:String)
 }
 
 public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,MessageManagerDelegate {
@@ -1158,6 +1161,16 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
                 
             }
             break
+            
+        case kSendSingleString:
+            
+            if delegate().respondsToSelector(#selector(SSTeacherMessagehandlerDelegate.smhDidgetOneStringAnswerWithDetails(_:withStudentId:)))
+            {
+                delegate().smhDidgetOneStringAnswerWithDetails!(message.messageBody(), withStudentId: message.messageFrom())
+                
+            }
+            break
+
 
             
         default:

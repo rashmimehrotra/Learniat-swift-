@@ -49,11 +49,12 @@ let kSendPollStoppedToStudent       = "721"
 let kCollaborationPing              = "713"
 let kCollaborationOption            = "714"
 let kCloseCollaboration             = "715"
-let kodelAnswerDetails             = "179"
+let kodelAnswerDetails              = "179"
 let kMuteStudent                    = "712"
 let kGetPeakView                    = "704"
-let kQueryUnderstood                 = "1102"
+let kQueryUnderstood                = "1102"
 let kSendPeakView                   = "705"
+let kSendSingleString               = "1101"
 
 
 
@@ -641,6 +642,34 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
             
             
             let messageBody = ["imageData":imageData]
+            
+            
+            
+            
+            let details:NSMutableDictionary = ["From":studentID,
+                                               "To":teacherID,
+                                               "Type":msgType,
+                                               "Body":messageBody];
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
+        }
+    }
+    
+    func sendOneStringAnswerWithAnswer(answerString:String)
+    {
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true &&  SSStudentDataSource.sharedDataSource.currentTeacherId != nil)
+        {
+            let studentID           = SSStudentDataSource.sharedDataSource.currentUserId
+            let msgType             = kSendSingleString
+            let teacherID           = SSStudentDataSource.sharedDataSource.currentTeacherId
+            
+            
+            let messageBody = ["OneStringAnswer":answerString]
             
             
             

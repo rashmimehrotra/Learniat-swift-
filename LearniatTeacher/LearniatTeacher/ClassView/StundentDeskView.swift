@@ -497,6 +497,29 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     }
     
     
+    func setOneStringAnswerWithText(answer:String)
+    {
+        
+        mQuestionStateImage.hidden = true
+        mMiddleStudentName.hidden = true
+        mStudentName.hidden = false
+        
+        mQueryTextLable.hidden = true
+        setStudentCurrentState(StudentLive)
+        answerContainerView.hidden = false
+        
+        if isQueryPresent == true
+        {
+            mDoubtImageview.hidden = false
+            mQueryTextLable.hidden = true
+            
+        }
+
+        
+        currentAnswerState = .AnswerRecieved
+        answerContainerView.addOneStringAnswerWithString(answer)
+    }
+    
     
     
     func onDeskPressed()
@@ -504,7 +527,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         
         if currentAnswerState == .AnswerRecieved
         {
-                            if let questionType = _currentQuestionDetials.objectForKey("Type") as? String
+                if let questionType = _currentQuestionDetials.objectForKey("Type") as? String
                 {
                     
                     if (questionType  == kOverlayScribble  || questionType == kFreshScribble)

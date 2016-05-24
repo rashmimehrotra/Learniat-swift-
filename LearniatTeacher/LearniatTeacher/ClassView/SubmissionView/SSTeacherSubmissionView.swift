@@ -31,6 +31,8 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
     
     var mScribbleSubmissionView : SubmissionSubjectiveView!
     
+    var mOneStringQuestionView : OneStringGraphView!
+    
     var noSubmissionLabel = UILabel()
     
     var mCurrentQuestionDetails:AnyObject!
@@ -126,6 +128,31 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
     }
     
     
+    func addOneStringQuestionWithDetails(details:AnyObject)
+    {
+        if mOneStringQuestionView == nil
+        {
+            
+            mOneStringQuestionView = OneStringGraphView(frame: CGRectMake(0, 0, self.frame.size.width, self.frame.size.height))
+            self.addSubview(mOneStringQuestionView)
+            mOneStringQuestionView.setdelegate(self)
+            
+            if let questionName = (details.objectForKey("Name")) as? String
+            {
+                mOneStringQuestionView.setQuestionName(questionName)
+            }
+            
+            
+            
+        }
+        noSubmissionLabel.hidden = true
+        mOneStringQuestionView.hidden = true
+        mCurrentQuestionDetails = details
+    }
+    
+    
+    
+    
     
     func studentAnswerRecievedWIthDetails(details:AnyObject, withStudentDict studentdict:AnyObject)
     {
@@ -165,6 +192,17 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
         
     }
     
+    
+    func SetStudentOneStringAnswer(studentAnswer:String,withStudentDict studentdict:AnyObject)
+    {
+       
+        if mOneStringQuestionView !=  nil
+        {
+             mOneStringQuestionView.hidden = false
+            mOneStringQuestionView.setOptionWithString(studentAnswer)
+        }
+        
+    }
     
     func studentSubmissionEvaluatedWithDetails(evaluationDetails:AnyObject, withStdentId StudentId:String)
     {
@@ -211,6 +249,11 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
             mScribbleSubmissionView.hidden = true
             mScribbleSubmissionView.questionCleared()
             
+        }
+        
+        if mOneStringQuestionView != nil
+        {
+            mOneStringQuestionView.hidden = true
         }
         
     }

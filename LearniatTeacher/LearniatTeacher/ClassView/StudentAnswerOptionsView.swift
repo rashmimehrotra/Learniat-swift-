@@ -154,6 +154,42 @@ class StudentAnswerOptionsView: UIView
     }
     
     
+    func addOneStringAnswerWithString(answer:String)
+    {   
+        let subViews = self.subviews
+        
+        for subview in subViews
+        {
+            
+            subview.removeFromSuperview()
+            
+        }
+        
+        
+        
+        
+        
+        
+        let studentAnswertext = UILabel(frame: CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
+        self.addSubview(studentAnswertext)
+        
+        var fontHeight = studentAnswertext.frame.size.height/3;
+        
+        if (fontHeight > 16)
+        {
+            fontHeight = 16;
+        }
+        
+        studentAnswertext.font = UIFont(name: helveticaRegular, size: fontHeight)
+        studentAnswertext.textColor = blackTextColor
+        studentAnswertext.lineBreakMode = .ByTruncatingMiddle
+        studentAnswertext.numberOfLines = 10
+        studentAnswertext.textAlignment = .Center
+        studentAnswertext.text = answer
+        
+    }
+    
+    
     func addOptionsWithAnswerDetails(answerDetails: AnyObject, withQuestionDetails questionDetails :AnyObject)
     {
         _currentQuestionDetials = questionDetails
