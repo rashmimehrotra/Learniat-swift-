@@ -302,14 +302,14 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
             if(questionType.isEqualToString(kText))
             {
                 
-                mQuestionTypeLabel.text = "TEXT";
+                mQuestionTypeLabel.text = "\(questionType)";
                 mInfoButton.hidden = true
                 
             }
             else if(questionType.isEqualToString(kOverlayScribble))
             {
                 
-                mQuestionTypeLabel.text = "SCRIBBLE";
+                mQuestionTypeLabel.text = "\(questionType)";
                 mInfoButton.hidden = false
                 
                 
@@ -317,7 +317,7 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
             else if(questionType.isEqualToString(kFreshScribble))
             {
                 
-                mQuestionTypeLabel.text = "FRESH SCRIBBLE";
+                mQuestionTypeLabel.text = "\(questionType)";
                 mInfoButton.hidden = true
                 
                 
@@ -326,7 +326,7 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
             else if(questionType.isEqualToString(kMRQ))
             {
                 
-                mQuestionTypeLabel.text = "MULTIPLE RESPONSE";
+                mQuestionTypeLabel.text = "\(questionType)";
                 mInfoButton.hidden = false
                 
                 
@@ -334,7 +334,7 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
             else if(questionType.isEqualToString(kMCQ))
             {
                 
-                mQuestionTypeLabel.text = "SINGLE RESPONSE";
+                mQuestionTypeLabel.text = "\(questionType)";
                 mInfoButton.hidden = false
                 
                 
@@ -342,7 +342,7 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
             else
             {
                 
-                mQuestionTypeLabel.text = "MATCH COLOUMN";
+                mQuestionTypeLabel.text = "\(questionType)";
                 mInfoButton.hidden = false
                 
             }

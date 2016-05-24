@@ -26,11 +26,13 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
     
     var currentQuestionDetails :AnyObject!
     
-    var mMultipleQuestion : MultipleChoiceView!
+    var mMultipleQuestion           : MultipleChoiceView!
     
-    var mMatchColumn        :MatchColumnView!
+    var mMatchColumn                :MatchColumnView!
     
-     var mScribbleQuestion        :ScribbleQuestionView!
+    var mScribbleQuestion           :ScribbleQuestionView!
+    
+    var mTextQuestion               :TextTypeQuestionView!
     
     var currentQuestionType = ""
     
@@ -159,6 +161,20 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
             mScribbleQuestion.setdelegate(self)
             mScribbleQuestion.setQuestionDetails(questionDetails ,withsessionDetails: sessionDetails, withQuestionLogId: _logId)
         }
+        else if QuestionType == kText
+        {
+            
+            if mTextQuestion != nil{
+                mTextQuestion.removeFromSuperview()
+            }
+            
+            
+            mTextQuestion = TextTypeQuestionView(frame:CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
+            self.addSubview(mTextQuestion)
+            mTextQuestion.setdelegate(self)
+            mTextQuestion.setQuestionDetails(questionDetails ,withsessionDetails: sessionDetails, withQuestionLogId: _logId)
+            
+        }
     }
     
     
@@ -178,6 +194,10 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
         if mScribbleQuestion != nil
         {
             mScribbleQuestion.removeFromSuperview()
+        }
+        
+        if mTextQuestion != nil{
+            mTextQuestion.removeFromSuperview()
         }
         
         noQuestionslabel.hidden = false
@@ -217,6 +237,13 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
             if mScribbleQuestion != nil
             {
                 mScribbleQuestion.FreezMessageFromTeacher()
+            }
+        }
+        else if currentQuestionType == kText
+        {
+            if mTextQuestion != nil
+            {
+                mTextQuestion.FreezMessageFromTeacher()
             }
         }
     }
@@ -377,9 +404,22 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
     
     func didgetTeacherEvaluatingMessage()
     {
-        if mScribbleQuestion != nil{
-            mScribbleQuestion.didGetEvaluatingMessage()
+        if currentQuestionType == kOverlayScribble || currentQuestionType == kFreshScribble
+        {
+            if mScribbleQuestion != nil{
+                mScribbleQuestion.didGetEvaluatingMessage()
+            }
+
         }
+        else if currentQuestionType == kText
+        {
+            if mTextQuestion != nil
+            {
+                mTextQuestion.didGetEvaluatingMessage()
+            }
+
+        }
+        
     }
     
     
@@ -403,11 +443,25 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
     }
     func didGetAnswerFeedBackWithDetails(details: AnyObject) {
         
-        if mScribbleQuestion != nil
-        {
-            mScribbleQuestion.getFeedBackDetails(details)
-        }
+       
         
+        
+        if currentQuestionType == kOverlayScribble || currentQuestionType == kFreshScribble
+        {
+            if mScribbleQuestion != nil
+            {
+                mScribbleQuestion.getFeedBackDetails(details)
+            }
+            
+        }
+        else if currentQuestionType == kText
+        {
+            if mTextQuestion != nil
+            {
+                mTextQuestion.getFeedBackDetails(details)
+            }
+            
+        }
         
         
     }
@@ -415,10 +469,26 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
     
     func getPeakViewMessage()
     {
-        if mScribbleQuestion != nil
+        
+        if currentQuestionType == kOverlayScribble || currentQuestionType == kFreshScribble
         {
-            mScribbleQuestion.getPeakViewMessageFromTeacher()
+            if mScribbleQuestion != nil
+            {
+                mScribbleQuestion.getPeakViewMessageFromTeacher()
+            }
+            
         }
+        else if currentQuestionType == kText
+        {
+            if mTextQuestion != nil
+            {
+                mTextQuestion.getPeakViewMessageFromTeacher()
+            }
+            
+        }
+        
+        
+       
     }
     
     func didgetErrorMessage(message: String, WithServiceName serviceName: String) {

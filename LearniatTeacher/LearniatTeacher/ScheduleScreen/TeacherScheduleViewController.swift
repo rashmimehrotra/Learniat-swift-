@@ -626,7 +626,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             {
                 if status == kSuccessString
                 {
-                     if let password  =  NSUserDefaults.standardUserDefaults().objectForKey(kPassword) as? String
+                     if NSUserDefaults.standardUserDefaults().objectForKey(kPassword) != nil
                      {
                         NSUserDefaults.standardUserDefaults().removeObjectForKey(kPassword)
                     }

@@ -11,6 +11,7 @@
 		53015BBC1CE5D93C00BB366C /* Like_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 53015BB81CE5D93C00BB366C /* Like_Selected.png */; };
 		53015BBD1CE5D93C00BB366C /* Unlike_Disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 53015BB91CE5D93C00BB366C /* Unlike_Disabled.png */; };
 		53015BBE1CE5D93C00BB366C /* Unlike_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 53015BBA1CE5D93C00BB366C /* Unlike_Selected.png */; };
+		530929E31CF2FEE1002CB6B5 /* TextTypeQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530929E21CF2FEE1002CB6B5 /* TextTypeQuestionView.swift */; };
 		531FB42D1CE5E22600DC0C6F /* MikeImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 531FB42C1CE5E22600DC0C6F /* MikeImage.png */; };
 		531FB42F1CE5EAE000DC0C6F /* StudentQuerySubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531FB42E1CE5EAE000DC0C6F /* StudentQuerySubView.swift */; };
 		531FB4431CE5EB5B00DC0C6F /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 531FB4311CE5EB5B00DC0C6F /* Roboto-Black.ttf */; };
@@ -378,6 +379,7 @@
 		53015BB81CE5D93C00BB366C /* Like_Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Like_Selected.png; sourceTree = "<group>"; };
 		53015BB91CE5D93C00BB366C /* Unlike_Disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Unlike_Disabled.png; sourceTree = "<group>"; };
 		53015BBA1CE5D93C00BB366C /* Unlike_Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Unlike_Selected.png; sourceTree = "<group>"; };
+		530929E21CF2FEE1002CB6B5 /* TextTypeQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextTypeQuestionView.swift; sourceTree = "<group>"; };
 		531FB42C1CE5E22600DC0C6F /* MikeImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MikeImage.png; sourceTree = "<group>"; };
 		531FB42E1CE5EAE000DC0C6F /* StudentQuerySubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentQuerySubView.swift; sourceTree = "<group>"; };
 		531FB4311CE5EB5B00DC0C6F /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
@@ -2286,6 +2288,7 @@
 				53FFD2BC1CE1FC3700A5AA28 /* MultipleChoiceView.swift */,
 				53FFD2BD1CE1FC3700A5AA28 /* multipleResponseOptionView.swift */,
 				53A482B71CE43A3F00C90451 /* MatchColumnView.swift */,
+				530929E21CF2FEE1002CB6B5 /* TextTypeQuestionView.swift */,
 			);
 			path = QuestionViews;
 			sourceTree = "<group>";
@@ -2536,6 +2539,7 @@
 				533066B41CC9E5F40035CCDE /* GCDAsyncSocket.m in Sources */,
 				533066BC1CC9E5F40035CCDE /* DDMultiFormatter.m in Sources */,
 				533066E61CC9EDD90035CCDE /* ScheduleScreenLineView.swift in Sources */,
+				530929E31CF2FEE1002CB6B5 /* TextTypeQuestionView.swift in Sources */,
 				533066A71CC9E5F40035CCDE /* NSXMLElement+XEP_0297.m in Sources */,
 				533066441CC9E5F40035CCDE /* XMPPElement.m in Sources */,
 				5330668D1CC9E5F40035CCDE /* XMPPCapsResourceCoreDataStorageObject.m in Sources */,

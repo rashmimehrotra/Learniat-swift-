@@ -120,7 +120,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         mClassNameButton.frame = CGRectMake((mTopbarImageView.frame.size.width - mClassName.frame.size.width)/2 , 0, mClassName.frame.size.width, mTopbarImageView.frame.size.height )
         mTopbarImageView.addSubview(mClassNameButton)
         mClassNameButton.addTarget(self, action: #selector(StudentClassViewController.onClassButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mClassNameButton.backgroundColor = whiteColor
+        mClassNameButton.backgroundColor = UIColor.clearColor()
         
         
         
@@ -236,7 +236,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplicationWillResignActiveNotification, object: nil)
-         notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplicationWillEnterForegroundNotification, object: nil)
+         notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplicationWillEnterForegroundNotification, object: nil)
         
     }
     
@@ -424,6 +424,8 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     {
         currentQuestionDetails = details
         SSStudentMessageHandler.sharedMessageHandler.sendAcceptQuestionMessageToTeacherforType()
+        print(details)
+        
         
         if (details.objectForKey(kQuestionTag)?.objectForKey(kQuestionName) as? String) != ""
         {
@@ -655,6 +657,10 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     {
         
         mQuestionButton.hidden = false
+        if mFullScreenView != nil
+        {
+            mFullScreenView.mScribbleView.clearButtonClicked()
+        }
         
         if let QuestionLogId = dict.objectForKey("QuestionLogId") as? String
         {
@@ -692,23 +698,20 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                 messageString = "Please hand draw over the picture sent";
                 showAlertWithMessage(messageString)
                 
-                if mFullScreenView != nil
-                {
-                    mFullScreenView.mScribbleView.clearButtonClicked()
-                }
-                
-                
-                
             }
             else if dict.objectForKey(kQuestionType) as! String  == FreshScribble
             {
                 
                 messageString = "Please sketch your response";
                showAlertWithMessage(messageString)
-                if mFullScreenView != nil
-                {
-                    mFullScreenView.mScribbleView.clearButtonClicked()
-                }
+               
+            }
+            else if dict.objectForKey(kQuestionType) as! String  == OneString
+            {
+                
+                messageString = "Please type one word answer";
+                showAlertWithMessage(messageString)
+               
             }
         }
         
