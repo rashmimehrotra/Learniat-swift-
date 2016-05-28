@@ -43,6 +43,9 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
     var mSharedGraphView            : StudentAnswerGraphView!
     
     
+   
+    
+    
     var _delgate: AnyObject!
     
     func setdelegate(delegate:AnyObject)
@@ -71,9 +74,9 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
         noQuestionslabel.textColor = topbarColor
         noQuestionslabel.textAlignment = .Center
         
-               
         
         
+              
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -529,6 +532,27 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
     
     func didgetErrorMessage(message: String, WithServiceName serviceName: String) {
         
+    }
+    
+    
+    func modelAnswrMessageRecieved()
+    {
+        if currentQuestionType == kOverlayScribble || currentQuestionType == kFreshScribble
+        {
+            if mScribbleQuestion != nil
+            {
+                mScribbleQuestion.showModelAnswerWithDetails()
+            }
+            
+        }
+        else if currentQuestionType == kText
+        {
+            if mTextQuestion != nil
+            {
+                mTextQuestion.showModelAnswerWithDetails()
+            }
+            
+        }
     }
     
 }

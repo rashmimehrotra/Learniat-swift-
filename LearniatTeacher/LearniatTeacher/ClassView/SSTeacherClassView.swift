@@ -902,6 +902,8 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     func didGetQuestionSentWithDetails(details: AnyObject) {
         
        
+        
+        
         if let QuestionLogId = details.objectForKey("QuestionLogId") as? String
         {
             
@@ -1394,6 +1396,8 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
         
         
+        
+        
         if SSTeacherDataSource.sharedDataSource.isQuestionSent == false
         {
             mShowTopicsView.hidden = true
@@ -1624,6 +1628,12 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     
     func smhDidgetStudentQuestionAccepetedMessageWithStudentId(StudentId: String) {
+        
+        
+        if currentQuestionDetails ==  nil
+        {
+            return
+        }
         
         
         if let studentDeskView  = mClassView.viewWithTag(Int(StudentId)!) as? StundentDeskView
@@ -1870,6 +1880,10 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     {
         
         
+        if currentQuestionDetails ==  nil
+        {
+            return
+        }
         
         
         if let _ = currentQuestionDetails.objectForKey("Type") as? String

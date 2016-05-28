@@ -39,6 +39,11 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
     
     var mAnswerLabel        = UILabel()
     
+    var modelAnswerScrollView = UIScrollView()
+    
+    var isModelAnswerRecieved = false
+
+    
     var _delgate: AnyObject!
     
     func setdelegate(delegate:AnyObject)
@@ -149,11 +154,24 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
         mWithDrawButton.backgroundColor = whiteColor
         mWithDrawButton.hidden = true
 
+        modelAnswerScrollView.frame = CGRectMake(self.frame.size.width - 110, mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height, 110, self.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height));
+        self.addSubview(modelAnswerScrollView)
+        modelAnswerScrollView.hidden = true
+        
+        let longGesture = UITapGestureRecognizer(target: self, action: #selector(ScribbleQuestionView.Long)) //Long function will call when user long press on button.
+        modelAnswerScrollView.addGestureRecognizer(longGesture)
         
         
         
+    }
+    
+    
+    func Long()
+    {
         
-        
+        let modelAnswerFullView = ModelAnswerFullView(frame:CGRectMake(0,0,self.frame.size.width, self.frame.size.height))
+        self.addSubview(modelAnswerFullView)
+        modelAnswerFullView.setModelAnswerDetailsArray(modelAnswerArray, withQuestionName: mQuestionLabel.text!)
         
     }
     
@@ -253,6 +271,11 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
         
         SSStudentDataSource.sharedDataSource.answerSent = true
         mWithDrawButton.hidden = false
+        
+        if isModelAnswerRecieved  == true
+        {
+            SSStudentDataSource.sharedDataSource.getModelAnswerFromTeacherForQuestionLogId(questionLogId, withDelegate: self)
+        }
         
     }
     
@@ -446,6 +469,96 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
     }
     
     
+    func showModelAnswerWithDetails()
+    {
+        if SSStudentDataSource.sharedDataSource.answerSent == true
+        {
+            isModelAnswerRecieved = true
+            SSStudentDataSource.sharedDataSource.getModelAnswerFromTeacherForQuestionLogId(questionLogId, withDelegate: self)
+        }
+        else
+        {
+            isModelAnswerRecieved = true
+        }
+    }
+    func didGetAllModelAnswerWithDetails(details: AnyObject)
+    {
+        if let modelAnswerArray = details.objectForKey("AssessmentAnswerIdList")?.objectForKey("AssessmentAnswerId") as? NSMutableArray
+        {
+            showModelAnswerWithDetailsArray(modelAnswerArray)
+        }
+        else
+        {
+            let testVariable :NSMutableArray = NSMutableArray()
+            testVariable.addObject(details.objectForKey("AssessmentAnswerIdList")!.objectForKey("AssessmentAnswerId")!)
+            showModelAnswerWithDetailsArray(testVariable)
+            
+        }
+        
+    }
+    
+    func showModelAnswerWithDetailsArray(modelAnswersArray:NSMutableArray)
+    {
+        print(modelAnswersArray)
+        
+        
+        let subViews = modelAnswerScrollView.subviews
+        
+        for subview in subViews
+        {
+            if subview.isKindOfClass(ModelAnswerView)
+            {
+                subview.removeFromSuperview()
+            }
+        }
+        
+        
+        modelAnswerScrollView.hidden = false
+        
+        
+        var positionY:CGFloat = 10
+        
+        for index in 0  ..< modelAnswersArray.count
+        {
+            
+            let dict = modelAnswersArray.objectAtIndex(index)
+            
+            let modelAnswer  = ModelAnswerView(frame: CGRectMake(5, positionY, 100, 100))
+            modelAnswerScrollView.addSubview(modelAnswer)
+            if dict.objectForKey("TextAnswer") != nil{
+                if let TextAnswer = dict.objectForKey("TextAnswer") as? String
+                {
+                    modelAnswer.setTextAnswerText(TextAnswer)
+                }
+            }
+            
+            
+            
+            
+            if dict.objectForKey("StudentId") as! String == SSStudentDataSource.sharedDataSource.currentUserId
+            {
+                modelAnswer.backgroundColor = standard_Green
+                modelAnswer.modelAnswerLabel.text = "Your answer selected as model answer"
+                
+            }
+            else
+            {
+                modelAnswer.backgroundColor =  UIColor(red: 0.0/255.0, green: 174.0/255.0, blue: 239.0/255.0, alpha: 1)
+                
+                modelAnswer.modelAnswerLabel.text = "Model Answer"
+            }
+            positionY = positionY + modelAnswer.frame.size.height + 10
+            
+        }
+        
+        modelAnswerScrollView.contentSize = CGSizeMake(0,positionY)
+        mWithDrawButton.hidden = true
+        mTopbarImageView.hidden = true
+        
+        
+    }
+    
+
     
     
 }

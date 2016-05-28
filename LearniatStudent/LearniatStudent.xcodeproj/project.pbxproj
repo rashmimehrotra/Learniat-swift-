@@ -366,6 +366,9 @@
 		53A482EB1CE48F1500C90451 /* QRVVolunteerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A482EA1CE48F1500C90451 /* QRVVolunteerView.swift */; };
 		53BFD5991CEF87E600B52B33 /* Star.png in Resources */ = {isa = PBXBuildFile; fileRef = 53BFD5971CEF87E600B52B33 /* Star.png */; };
 		53BFD59A1CEF87E600B52B33 /* Unselected_star.png in Resources */ = {isa = PBXBuildFile; fileRef = 53BFD5981CEF87E600B52B33 /* Unselected_star.png */; };
+		53D414A01CF76AE70085C38E /* ModelAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4149F1CF76AE70085C38E /* ModelAnswerView.swift */; };
+		53D414A21CF77FDD0085C38E /* ModelAnswerFullView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D414A11CF77FDD0085C38E /* ModelAnswerFullView.swift */; };
+		53D414A41CF780210085C38E /* ModelAnswerFullViewSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D414A31CF780210085C38E /* ModelAnswerFullViewSubView.swift */; };
 		53EEABF31CED9B2D005E4566 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EEABF11CED9B2D005E4566 /* BarView.swift */; };
 		53EEABF41CED9B2D005E4566 /* StudentAnswerGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EEABF21CED9B2D005E4566 /* StudentAnswerGraphView.swift */; };
 		53EEABF71CED9C39005E4566 /* FXLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 53EEABF61CED9C39005E4566 /* FXLabel.m */; };
@@ -913,6 +916,9 @@
 		53A482EA1CE48F1500C90451 /* QRVVolunteerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRVVolunteerView.swift; sourceTree = "<group>"; };
 		53BFD5971CEF87E600B52B33 /* Star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Star.png; sourceTree = "<group>"; };
 		53BFD5981CEF87E600B52B33 /* Unselected_star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Unselected_star.png; sourceTree = "<group>"; };
+		53D4149F1CF76AE70085C38E /* ModelAnswerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelAnswerView.swift; sourceTree = "<group>"; };
+		53D414A11CF77FDD0085C38E /* ModelAnswerFullView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelAnswerFullView.swift; sourceTree = "<group>"; };
+		53D414A31CF780210085C38E /* ModelAnswerFullViewSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelAnswerFullViewSubView.swift; sourceTree = "<group>"; };
 		53EEABF11CED9B2D005E4566 /* BarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		53EEABF21CED9B2D005E4566 /* StudentAnswerGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerGraphView.swift; sourceTree = "<group>"; };
 		53EEABF51CED9C39005E4566 /* FXLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXLabel.h; sourceTree = "<group>"; };
@@ -2287,6 +2293,9 @@
 				5332550B1CEDBE2300653C00 /* FullScreenQuestion */,
 				53FFD2BE1CE1FC3700A5AA28 /* StudentQuestionView.swift */,
 				532D28021CE9CF73009FDF6A /* ScribbleQuestionView.swift */,
+				53D4149F1CF76AE70085C38E /* ModelAnswerView.swift */,
+				53D414A11CF77FDD0085C38E /* ModelAnswerFullView.swift */,
+				53D414A31CF780210085C38E /* ModelAnswerFullViewSubView.swift */,
 				53FFD2BC1CE1FC3700A5AA28 /* MultipleChoiceView.swift */,
 				53FFD2BD1CE1FC3700A5AA28 /* multipleResponseOptionView.swift */,
 				53A482B71CE43A3F00C90451 /* MatchColumnView.swift */,
@@ -2608,6 +2617,7 @@
 				533066891CC9E5F40035CCDE /* NSString+XEP_0106.m in Sources */,
 				533066AC1CC9E5F40035CCDE /* MessageManager.m in Sources */,
 				533066BF1CC9E5F40035CCDE /* DDXMLDocument.m in Sources */,
+				53D414A21CF77FDD0085C38E /* ModelAnswerFullView.swift in Sources */,
 				5330665F1CC9E5F40035CCDE /* XMPPLastActivity.m in Sources */,
 				533255291CEDBEFB00653C00 /* UIImage-Extensions.m in Sources */,
 				53EEABF31CED9B2D005E4566 /* BarView.swift in Sources */,
@@ -2648,6 +2658,7 @@
 				5330669C1CC9E5F40035CCDE /* XMPPStreamManagement.m in Sources */,
 				533066EC1CC9EE750035CCDE /* DottedLine.m in Sources */,
 				533066A01CC9E5F40035CCDE /* XMPPTime.m in Sources */,
+				53D414A41CF780210085C38E /* ModelAnswerFullViewSubView.swift in Sources */,
 				533066971CC9E5F40035CCDE /* XMPPMessage+XEP_0184.m in Sources */,
 				53A482B31CE31B1A00C90451 /* matchColoumnTableViewCell.m in Sources */,
 				53A482E21CE45FD000C90451 /* ICDMaterialActivityIndicatorView.m in Sources */,
@@ -2671,6 +2682,7 @@
 				533066391CC9E5F40035CCDE /* XMPPAnonymousAuthentication.m in Sources */,
 				53A482B61CE31B1A00C90451 /* UIView+SubviewHunting.m in Sources */,
 				533066931CC9E5F40035CCDE /* XMPPMessageArchiving.m in Sources */,
+				53D414A01CF76AE70085C38E /* ModelAnswerView.swift in Sources */,
 				533066F11CCA0CCF0035CCDE /* StudentSeatController.swift in Sources */,
 				533066AB1CC9E5F40035CCDE /* SSMessage.m in Sources */,
 				533066BB1CC9E5F40035CCDE /* DDDispatchQueueLogFormatter.m in Sources */,

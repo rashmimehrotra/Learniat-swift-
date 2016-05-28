@@ -115,6 +115,7 @@ let kGetAllModelAnswer                      = "GetAllModelAnswers"
     
     optional func didGetAnswerFeedBackWithDetails(details: AnyObject)
     
+     optional func didGetAllModelAnswerWithDetails(details:AnyObject)
 }
 
 
@@ -404,6 +405,18 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         manager.downloadDataURL(urlString, withServiceName: kServiceGetFeedBack, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
     }
 
+    func getModelAnswerFromTeacherForQuestionLogId(QuestionLogId:String, withDelegate delegate:SSStudentDataSourceDelegate)
+    {
+        setdelegate(delegate)
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>GetAllModelAnswers</Service><QuestionLogId>%@</QuestionLogId></Action></Sunstone>",URLPrefix,QuestionLogId)
+        
+        manager.downloadDataURL(urlString, withServiceName: kGetAllModelAnswer, withDelegate: self, withRequestType: eHTTPGetRequest,
+                                withReturningDelegate: delegate)
+    }
+    
     
     // MARK: - API Delegate Functions
     func delegateDidGetServiceResponseWithDetails(dict: NSMutableDictionary!, WIthServiceName serviceName: String!, withRetruningDelegate returningDelegate: AnyObject!) {
@@ -515,8 +528,17 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
             
             if delegate().respondsToSelector(#selector(SSStudentDataSourceDelegate.didGetAnswerFeedBackWithDetails(_:)))
             {
-                delegate().didGetAnswerFeedBackWithDetails!(refinedDetails)
+                returningDelegate.didGetAnswerFeedBackWithDetails!(refinedDetails)
             }
+            
+        }
+        else if serviceName == kGetAllModelAnswer
+        {
+            if delegate().respondsToSelector(#selector(SSStudentDataSourceDelegate.didGetAllModelAnswerWithDetails(_:)))
+            {
+                returningDelegate.didGetAllModelAnswerWithDetails!(refinedDetails)
+            }
+            
             
         }
     }

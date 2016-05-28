@@ -957,6 +957,17 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         
         
     }
+    
+    func smhdidRecieveModelAnswerMessageWithDetials(details: AnyObject)
+    {
+        
+        if currentQuestionType == text  || currentQuestionType == OverlayScribble || currentQuestionType == FreshScribble
+        {
+          mQuestionView.modelAnswrMessageRecieved()
+            
+        }
+        
+    }
    
     // MARK: - message handler functions
     func showAlertWithMessage(message:String)

@@ -55,6 +55,7 @@ let kGetPeakView                    = "704"
 let kQueryUnderstood                = "1102"
 let kSendPeakView                   = "705"
 let kSendSingleString               = "1101"
+let kModelAnswerDetails             = "179"
 
 
 
@@ -112,6 +113,8 @@ import Foundation
     optional func smhDidGetFeedbackForAnswerWithDetils(details:AnyObject)
     
     optional func smhDidGetPeakViewMessage()
+    
+    optional func smhdidRecieveModelAnswerMessageWithDetials(details:AnyObject)
     
     
 }
@@ -876,6 +879,16 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
             {
                 delegate().smhDidGetPeakViewMessage!()
                 
+            }
+        }
+        else if message.messageType() == kModelAnswerDetails
+        {
+            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhdidRecieveModelAnswerMessageWithDetials(_:)))
+            {
+                if message.messageBody() != nil
+                {
+                    delegate().smhdidRecieveModelAnswerMessageWithDetials!((message.messageBody()))
+                }
             }
         }
     }
