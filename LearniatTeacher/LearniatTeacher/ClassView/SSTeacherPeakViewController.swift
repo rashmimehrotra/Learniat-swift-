@@ -18,8 +18,12 @@ class SSTeacherPeakViewController: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
+       
         
-        let headerView = UIView(frame: CGRectMake(0, 0, 320, 40))
+        
+        
+        
+        let headerView = UIView(frame: CGRectMake(0, 0, 270, 40))
         headerView.backgroundColor = lightGrayTopBar
         self.view.addSubview(headerView);
         
@@ -63,9 +67,23 @@ class SSTeacherPeakViewController: UIViewController
             headerlabel.text = StudentName
         }
         
-        let overLayImageView = CustomProgressImageView(frame: CGRectMake(0,headerView.frame.origin.y + headerView.frame.size.height ,270,180))
-        self.view.addSubview(overLayImageView)
-        overLayImageView.image = peakImage
+        let overlayimageView =  CustomProgressImageView(frame: CGRectMake(0,headerView.frame.origin.y + headerView.frame.size.height ,headerView.frame.size.width,180))
+        
+        self.view.addSubview(overlayimageView);
+        
+        let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_SCRIBBLE_IMAGE_URL) as! String
+        
+        if let checkedUrl = NSURL(string: "\(urlString)/\(SSTeacherDataSource.sharedDataSource.mOverlayImageName)")
+        {
+            overlayimageView.contentMode = .ScaleAspectFit
+            overlayimageView.downloadImage(checkedUrl, withFolderType: folderType.questionImage,withResizeValue: overlayimageView.frame.size)
+        }
+        
+        
+        
+        let studentImage  = CustomProgressImageView(frame: CGRectMake(0,headerView.frame.origin.y + headerView.frame.size.height ,headerView.frame.size.width,180))
+        self.view.addSubview(studentImage)
+        studentImage.image = peakImage
         
         
         

@@ -54,8 +54,17 @@ class ModelAnswerView: UIView
     }
     
     
-    func setScribbleImageName(scribbleName:String)
+    func setScribbleImageName(scribbleName:String , withOverlayImage overlay:UIImage)
     {
+        
+        
+        let overlayImage = UIImageView(frame:containerView.frame)
+        self.addSubview(overlayImage)
+        overlayImage.contentMode = .ScaleAspectFit
+        overlayImage.image = overlay
+        
+        
+        
         let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_SCRIBBLE_IMAGE_URL) as! String
         
         if let checkedUrl = NSURL(string: "\(urlString)/\(scribbleName)")

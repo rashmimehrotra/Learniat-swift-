@@ -236,6 +236,8 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     var mDemoQuestionsIdArray                   = NSMutableArray()
     
     
+    var mOverlayImageName                       = ""
+    
     func setSubTopicDictonaryWithDict(details:NSMutableArray,withKey key:String)
     {
         subTopicDetailsDictonary.setObject(details, forKey: key)

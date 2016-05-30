@@ -43,6 +43,7 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
     
     var isModelAnswerRecieved = false
 
+     var modelAnswerArray = NSMutableArray()
     
     var _delgate: AnyObject!
     
@@ -169,9 +170,16 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
     func Long()
     {
         
-        let modelAnswerFullView = ModelAnswerFullView(frame:CGRectMake(0,0,self.frame.size.width, self.frame.size.height))
+        let modelAnswerFullView = ModelAnswerFullView(frame:CGRectMake(10,10,self.frame.size.width - 20, self.frame.size.height - 20 ))
         self.addSubview(modelAnswerFullView)
-        modelAnswerFullView.setModelAnswerDetailsArray(modelAnswerArray, withQuestionName: mQuestionLabel.text!)
+        modelAnswerFullView.setModelAnswerDetailsArray(modelAnswerArray, withQuestionName: mQuestionLabel.text!,withOverlayImage: UIImage())
+        
+               
+        
+        modelAnswerFullView.layer.shadowColor = progressviewBackground.CGColor;
+        modelAnswerFullView.layer.shadowOffset = CGSizeMake(0,0);
+        modelAnswerFullView.layer.shadowOpacity = 1;
+        modelAnswerFullView.layer.shadowRadius = 1.0;
         
     }
     
@@ -483,15 +491,32 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
     }
     func didGetAllModelAnswerWithDetails(details: AnyObject)
     {
-        if let modelAnswerArray = details.objectForKey("AssessmentAnswerIdList")?.objectForKey("AssessmentAnswerId") as? NSMutableArray
+        
+        
+        modelAnswerArray.removeAllObjects()
+        
+        
+        let subViews = modelAnswerScrollView.subviews
+        
+        for subview in subViews
         {
-            showModelAnswerWithDetailsArray(modelAnswerArray)
+            if subview.isKindOfClass(ModelAnswerView)
+            {
+                subview.removeFromSuperview()
+            }
+        }
+        
+        if let _modelAnswerArray = details.objectForKey("AssessmentAnswerIdList")?.objectForKey("AssessmentAnswerId") as? NSMutableArray
+        {
+            showModelAnswerWithDetailsArray(_modelAnswerArray)
+            modelAnswerArray = _modelAnswerArray
         }
         else
         {
             let testVariable :NSMutableArray = NSMutableArray()
             testVariable.addObject(details.objectForKey("AssessmentAnswerIdList")!.objectForKey("AssessmentAnswerId")!)
             showModelAnswerWithDetailsArray(testVariable)
+            modelAnswerArray = testVariable
             
         }
         

@@ -631,11 +631,13 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
                         NSUserDefaults.standardUserDefaults().removeObjectForKey(kPassword)
                     }
                     
-                    activityIndicator.hidden = true
-                    activityIndicator.stopAnimating()
                     
                     SSTeacherMessageHandler.sharedMessageHandler.goOffline()
                     performSegueWithIdentifier("ScheduleToLogin", sender: nil)
+                    
+                    activityIndicator.hidden = true
+                    activityIndicator.stopAnimating()
+
                 }
             }
         }
@@ -1027,7 +1029,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     
     func smhStreamReconnectingWithDelay(delay: Int32)
     {
-       self.view.makeToast("Reconnecting in \(delay) seconds", duration: 0.5, position: .Bottom)
+       self.view.makeToast("Reconnecting in \(delay) seconds", duration: 3, position: .Bottom)
         
         activityIndicator.startAnimating()
         activityIndicator.hidden = false

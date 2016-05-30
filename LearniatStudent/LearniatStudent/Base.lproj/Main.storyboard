@@ -39,6 +39,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="ScheduleToLogin" id="FOl-Z0-mf3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8d8-Rj-EGH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

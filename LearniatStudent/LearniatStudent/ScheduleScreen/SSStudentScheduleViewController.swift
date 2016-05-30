@@ -28,6 +28,7 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     
     var mRefreshButton: UIButton!
     
+    var mTeacherImageButton = UIButton()
     
     var mNoSessionLabel: UILabel!
     
@@ -123,6 +124,10 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
             mTeacherImageView.downloadImage(checkedUrl, withFolderType: folderType.ProFilePics)
         }
         
+        
+        mTeacherImageButton.frame = CGRectMake(0, 0, mTopbarImageView.frame.size.height , mTopbarImageView.frame.size.height)
+        mTopbarImageView.addSubview(mTeacherImageButton)
+        mTeacherImageButton.addTarget(self, action: #selector(SSStudentScheduleViewController.onTeacherImage), forControlEvents: UIControlEvents.TouchUpInside)
         
         
         
@@ -469,7 +474,30 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     }
     
     
-    
+    func onTeacherImage()
+    {
+        
+        
+        let questionInfoController = SSSettingsViewController()
+        questionInfoController.setDelegate(self)
+        
+        questionInfoController.scheduleScrrenTeacherImagePressed();
+        
+        let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+        
+        classViewPopOverController.popoverContentSize = CGSizeMake(310, 145);
+        
+        questionInfoController.setPopOverController(classViewPopOverController)
+        
+        
+        classViewPopOverController.presentPopoverFromRect(CGRect(
+            x:mTeacherImageButton.frame.origin.x ,
+            y:mTeacherImageButton.frame.origin.y + mTeacherImageButton.frame.size.height,
+            width: 1,
+            height: 1), inView: self.view, permittedArrowDirections: .Up, animated: true)
+        
+        
+    }
     
     
     
@@ -605,5 +633,47 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
 //       
 //        self.presentViewController(preallotController, animated: true, completion: nil)
     }
+    
+    func Settings_performLogout()
+    {
+        SSStudentDataSource.sharedDataSource.updateStudentStatus(kuserStateSignedOut, ofSession: SSStudentDataSource.sharedDataSource.currentLiveSessionId, withDelegate: self)
+        activityIndicator.hidden = false
+        activityIndicator.startAnimating()
+        
+    }
+    
+    func didGetUpdatedUserStateWithDetails(details: AnyObject)
+    {
+        if details.objectForKey("Status") != nil
+        {
+            if let status = details.objectForKey("Status") as? String
+            {
+                if status == kSuccessString
+                {
+                    if NSUserDefaults.standardUserDefaults().objectForKey(kPassword) != nil
+                    {
+                        NSUserDefaults.standardUserDefaults().removeObjectForKey(kPassword)
+                    }
+                    
+                    
+                    SSStudentMessageHandler.sharedMessageHandler.goOffline()
+                    performSegueWithIdentifier("ScheduleToLogin", sender: nil)
+                    
+                    activityIndicator.hidden = true
+                    activityIndicator.stopAnimating()
+                    
+                }
+            }
+        }
+        
+    }
+    
+    func Settings_XmppReconnectButtonClicked()
+    {
+        SSStudentMessageHandler.sharedMessageHandler.performReconnet()
+        activityIndicator.hidden = false
+        activityIndicator.startAnimating()
+    }
+    
     
 }

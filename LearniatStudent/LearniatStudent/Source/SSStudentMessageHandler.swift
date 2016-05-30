@@ -226,6 +226,25 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
         return MessageManager.sharedMessageHandler().xmppStream.myJID.bare();
     }
     
+    
+    func performReconnet()
+    {
+        
+        if let password  =  NSUserDefaults.standardUserDefaults().objectForKey(kPassword) as? String
+        {
+            MessageManager.sharedMessageHandler().connectWithUserId("\(SSStudentDataSource.sharedDataSource.currentUserId)@\(kBaseXMPPURL)", withPassword: password)
+        }
+        
+    }
+    
+    func goOffline()
+    {
+        MessageManager.sharedMessageHandler().goOffline()
+    }
+    
+   
+    
+    
     //MARK: ..........Delegate
     public func didGetStreamState(state:Bool)
     {

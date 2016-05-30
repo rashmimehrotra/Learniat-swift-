@@ -197,10 +197,25 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
     func Long()
     {
         
-        let modelAnswerFullView = ModelAnswerFullView(frame:CGRectMake(0,0,self.frame.size.width, self.frame.size.height))
+        let modelAnswerFullView = ModelAnswerFullView(frame:CGRectMake(10,10,self.frame.size.width - 20, self.frame.size.height - 20 ))
         self.addSubview(modelAnswerFullView)
-        modelAnswerFullView.setModelAnswerDetailsArray(modelAnswerArray, withQuestionName: mQuestionLabel.text!)
         
+        if mOverlayImageView.image != nil
+        {
+           modelAnswerFullView.setModelAnswerDetailsArray(modelAnswerArray, withQuestionName: mQuestionLabel.text!, withOverlayImage: mOverlayImageView.image!)
+        }
+        else
+        {
+            modelAnswerFullView.setModelAnswerDetailsArray(modelAnswerArray, withQuestionName: mQuestionLabel.text!,withOverlayImage: UIImage())
+        }
+        
+        
+        
+        modelAnswerFullView.layer.shadowColor = progressviewBackground.CGColor;
+        modelAnswerFullView.layer.shadowOffset = CGSizeMake(0,0);
+        modelAnswerFullView.layer.shadowOpacity = 1;
+        modelAnswerFullView.layer.shadowRadius = 1.0;
+
     }
     
     
@@ -384,6 +399,21 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
     
     func didGetAllModelAnswerWithDetails(details: AnyObject)
     {
+        
+        
+        modelAnswerArray.removeAllObjects()
+        
+        
+        let subViews = modelAnswerScrollView.subviews
+        
+        for subview in subViews
+        {
+            if subview.isKindOfClass(ModelAnswerView)
+            {
+                subview.removeFromSuperview()
+            }
+        }
+        
         if let _modelAnswerArray = details.objectForKey("AssessmentAnswerIdList")?.objectForKey("AssessmentAnswerId") as? NSMutableArray
         {
             showModelAnswerWithDetailsArray(_modelAnswerArray)
@@ -438,7 +468,15 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
             {
                 if let ScribbleName = dict.objectForKey("Image") as? String
                 {
-                    modelAnswer.setScribbleImageName(ScribbleName)
+                    if mOverlayImageView.image != nil
+                    {
+                        modelAnswer.setScribbleImageName(ScribbleName, withOverlayImage: mOverlayImageView.image!)
+                    }
+                    else
+                        {
+                            modelAnswer.setScribbleImageName(ScribbleName, withOverlayImage: UIImage())
+                    }
+                    
                 }
             }
             

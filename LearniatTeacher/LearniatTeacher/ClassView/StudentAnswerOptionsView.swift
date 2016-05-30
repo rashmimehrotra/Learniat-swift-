@@ -129,7 +129,7 @@ class StudentAnswerOptionsView: UIView
         
         
         
-        let studentAnswertext = UILabel(frame: CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
+        let studentAnswertext = UILabel(frame: CGRectMake((self.frame.size.width - (self.frame.size.width - 5))/2  ,(self.frame.size.height-(self.frame.size.height - 5 ))/2,self.frame.size.width - 5,self.frame.size.height - 5 ))
         self.addSubview(studentAnswertext)
        
         var fontHeight = studentAnswertext.frame.size.height/3;

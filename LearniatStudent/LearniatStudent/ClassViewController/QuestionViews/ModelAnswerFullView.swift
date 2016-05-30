@@ -16,7 +16,7 @@ class ModelAnswerFullView: UIView{
     
     let shareGraphButton  = UIButton()
     
-    var  var modelAnswerArray = NSMutableArray()
+    var   modelAnswerArray = NSMutableArray()
     override init(frame: CGRect)
     {
         super.init(frame: frame)
@@ -55,7 +55,7 @@ class ModelAnswerFullView: UIView{
     {
         self.removeFromSuperview()
     }
-    func setModelAnswerDetailsArray(modelAnswersArray:NSMutableArray, withQuestionName questionName:String)
+    func setModelAnswerDetailsArray(modelAnswersArray:NSMutableArray, withQuestionName questionName:String , withOverlayImage overlay:UIImage)
     {
         
         mQuestionLabel.text = questionName
@@ -82,7 +82,7 @@ class ModelAnswerFullView: UIView{
             print(dict)
             let modelAnswer  = ModelAnswerFullViewSubView(frame: CGRectMake(0, positionY, modelAnswerScrollView.frame.size.width,modelAnswerScrollView.frame.size.height))
             modelAnswerScrollView.addSubview(modelAnswer)
-           modelAnswer.setModelAnswerDetails(dict)
+           modelAnswer.setModelAnswerDetails(dict,withOverlay:overlay )
             
             
             

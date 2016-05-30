@@ -27,12 +27,12 @@ class ModelAnswerFullViewSubView: UIView
         
         
         
-        studentName.frame = CGRectMake(50, 10, (self.frame.size.width-60), 40)
+        studentName.frame = CGRectMake(60, 10, (self.frame.size.width-60), 40)
         self.addSubview(studentName)
         studentName.numberOfLines = 4
         studentName.lineBreakMode = .ByTruncatingMiddle
         studentName.textAlignment = .Left
-        studentName.text = SSStudentDataSource.sharedDataSource.currentUserName.capitalizedString
+        studentName.text = ""
         studentName.textColor = UIColor(red: 36/255.0, green: 68/255.0, blue: 99/255.0, alpha: 1)
         studentName.font =  UIFont (name: "Roboto-Regular", size: 16)
         
@@ -52,7 +52,7 @@ class ModelAnswerFullViewSubView: UIView
     }
     
     
-    func setModelAnswerDetails(details:AnyObject)
+    func setModelAnswerDetails(details:AnyObject , withOverlay overlaya:UIImage)
     {
         
         if details.objectForKey("StudentId") != nil
@@ -71,6 +71,21 @@ class ModelAnswerFullViewSubView: UIView
             }
         }
         
+        
+        let overlayImageImage = UIImageView(frame:containerView.frame)
+        self.addSubview(overlayImageImage)
+        overlayImageImage.contentMode = .ScaleAspectFit
+        overlayImageImage.image = overlaya
+        
+        
+        
+        if let _StudentName = details.objectForKey("StudentName") as? String
+        {
+            studentName.text = _StudentName.capitalizedString
+        }
+        
+        
+        
         if details.objectForKey("Image") != nil
         {
             if let scribbleName = details.objectForKey("Image") as? String
@@ -79,10 +94,10 @@ class ModelAnswerFullViewSubView: UIView
                 
                 if let checkedUrl = NSURL(string: "\(urlString)/\(scribbleName)")
                 {
-                    let teacherImage = UIImageView(frame:containerView.frame)
-                    self.addSubview(teacherImage)
-                    teacherImage.contentMode = .ScaleAspectFit
-                    teacherImage.downloadImage(checkedUrl, withFolderType: folderType.StudentAnswer, withResizeValue: teacherImage.frame.size)
+                    let answerImage = UIImageView(frame:containerView.frame)
+                    self.addSubview(answerImage)
+                    answerImage.contentMode = .ScaleAspectFit
+                    answerImage.downloadImage(checkedUrl, withFolderType: folderType.StudentAnswer, withResizeValue: answerImage.frame.size)
                 }
             }
             else
@@ -94,7 +109,7 @@ class ModelAnswerFullViewSubView: UIView
                     testAnswerLable.textColor = textColor
                     self.addSubview(testAnswerLable)
                     testAnswerLable.lineBreakMode = NSLineBreakMode.ByTruncatingTail;
-                    testAnswerLable.font = UIFont(name: "Roboto-Regular", size: 12)
+                    testAnswerLable.font = UIFont(name: "Roboto-Regular", size: 16)
                     testAnswerLable.numberOfLines = 10
                     testAnswerLable.backgroundColor = UIColor.whiteColor()
                     containerView.bringSubviewToFront(testAnswerLable)

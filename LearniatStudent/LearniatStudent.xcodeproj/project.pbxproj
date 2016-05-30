@@ -364,6 +364,8 @@
 		53A482E71CE4893C00C90451 /* StudentVolunteeringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A482E61CE4893C00C90451 /* StudentVolunteeringView.swift */; };
 		53A482E91CE48E0400C90451 /* QRVSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A482E81CE48E0400C90451 /* QRVSubView.swift */; };
 		53A482EB1CE48F1500C90451 /* QRVVolunteerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A482EA1CE48F1500C90451 /* QRVVolunteerView.swift */; };
+		53A5521F1CF9A70F0093634A /* SSSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A5521E1CF9A70F0093634A /* SSSettingsViewController.m */; };
+		53A552221CF9A8B70093634A /* PlistDownloder.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A552211CF9A8B70093634A /* PlistDownloder.m */; };
 		53BFD5991CEF87E600B52B33 /* Star.png in Resources */ = {isa = PBXBuildFile; fileRef = 53BFD5971CEF87E600B52B33 /* Star.png */; };
 		53BFD59A1CEF87E600B52B33 /* Unselected_star.png in Resources */ = {isa = PBXBuildFile; fileRef = 53BFD5981CEF87E600B52B33 /* Unselected_star.png */; };
 		53D414A01CF76AE70085C38E /* ModelAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4149F1CF76AE70085C38E /* ModelAnswerView.swift */; };
@@ -914,6 +916,10 @@
 		53A482E61CE4893C00C90451 /* StudentVolunteeringView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentVolunteeringView.swift; sourceTree = "<group>"; };
 		53A482E81CE48E0400C90451 /* QRVSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRVSubView.swift; sourceTree = "<group>"; };
 		53A482EA1CE48F1500C90451 /* QRVVolunteerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRVVolunteerView.swift; sourceTree = "<group>"; };
+		53A5521D1CF9A70F0093634A /* SSSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSSettingsViewController.h; sourceTree = "<group>"; };
+		53A5521E1CF9A70F0093634A /* SSSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSSettingsViewController.m; sourceTree = "<group>"; };
+		53A552201CF9A8B70093634A /* PlistDownloder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlistDownloder.h; sourceTree = "<group>"; };
+		53A552211CF9A8B70093634A /* PlistDownloder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlistDownloder.m; sourceTree = "<group>"; };
 		53BFD5971CEF87E600B52B33 /* Star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Star.png; sourceTree = "<group>"; };
 		53BFD5981CEF87E600B52B33 /* Unselected_star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Unselected_star.png; sourceTree = "<group>"; };
 		53D4149F1CF76AE70085C38E /* ModelAnswerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelAnswerView.swift; sourceTree = "<group>"; };
@@ -1057,6 +1063,10 @@
 		533064A71CC9E52E0035CCDE /* common */ = {
 			isa = PBXGroup;
 			children = (
+				53A552201CF9A8B70093634A /* PlistDownloder.h */,
+				53A552211CF9A8B70093634A /* PlistDownloder.m */,
+				53A5521D1CF9A70F0093634A /* SSSettingsViewController.h */,
+				53A5521E1CF9A70F0093634A /* SSSettingsViewController.m */,
 				5332551F1CEDBEFB00653C00 /* Drawing */,
 				5332551B1CEDBEC400653C00 /* CustomTextView */,
 				533255151CEDBE8700653C00 /* ImageEditorSubView.h */,
@@ -2583,6 +2593,7 @@
 				533066B71CC9E5F40035CCDE /* DDFileLogger.m in Sources */,
 				533066721CC9E5F40035CCDE /* XMPPvCardCoreDataStorageObject.m in Sources */,
 				5330666D1CC9E5F40035CCDE /* XMPPMUC.m in Sources */,
+				53A5521F1CF9A70F0093634A /* SSSettingsViewController.m in Sources */,
 				533066691CC9E5F40035CCDE /* XMPPRoomMemoryStorage.m in Sources */,
 				533066831CC9E5F40035CCDE /* XMPPRegistration.m in Sources */,
 				5330663A1CC9E5F40035CCDE /* XMPPDeprecatedDigestAuthentication.m in Sources */,
@@ -2646,6 +2657,7 @@
 				533066B31CC9E5F40035CCDE /* XMPPTimer.m in Sources */,
 				533066E91CC9EDD90035CCDE /* SSStudentScheduleViewController.swift in Sources */,
 				533255191CEDBE8700653C00 /* ImageEditorSubView.m in Sources */,
+				53A552221CF9A8B70093634A /* PlistDownloder.m in Sources */,
 				5330667A1CC9E5F40035CCDE /* XMPPvCardTempModule.m in Sources */,
 				533066501CC9E5F40035CCDE /* XMPPReconnect.m in Sources */,
 				533066911CC9E5F40035CCDE /* XMPPMessageArchiving_Message_CoreDataObject.m in Sources */,

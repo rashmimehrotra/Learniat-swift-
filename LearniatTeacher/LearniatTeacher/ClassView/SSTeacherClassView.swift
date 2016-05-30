@@ -144,7 +144,10 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     var plistLoader = PlistDownloder()
     
-   
+   var checkingClassEndTime                 = false
+    
+    
+      var mExtTimelabel: UILabel = UILabel();
     
     override func viewDidLoad()
     {
@@ -633,6 +636,17 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                     mStartLabelUpdater.invalidate()
                     delegateSessionEnded()
                 }
+                else if classEndingRemainingTime < 15
+                {
+                    if checkingClassEndTime == false{
+                        checkingClassEndTime = true
+                        SSTeacherDataSource.sharedDataSource.getMyCurrentSessionOfTeacher(self)
+                    }
+                }
+                else
+                {
+                    checkingClassEndTime = false
+                }
             }
             
         }
@@ -922,10 +936,25 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 if let questionType = currentQuestionDetails.objectForKey("Type") as? String
                 {
                     
+//                    print(currentQuestionDetails)
+                    
                     if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
                     {
                         mSubmissionView.addScribbleQuestionWithDetails(currentQuestionDetails)
                        
+                        
+                         if let Scribble = currentQuestionDetails.objectForKey("Scribble") as? String
+                         {
+                            SSTeacherDataSource.sharedDataSource.mOverlayImageName = Scribble
+                        }
+                        else
+                         {
+                            SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
+                        }
+                        
+                        
+                        
+                        
                         if NSUserDefaults.standardUserDefaults().boolForKey("isSimulateMode") == true
                         {
                             demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
@@ -938,6 +967,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                         {
                             demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
                         }
+                        SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
                     }
                     else if (questionType == kMatchColumn)
                     {
@@ -947,6 +977,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                         {
                             demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
                         }
+                        SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
                         
                     }
                     else if (questionType  == kMCQ  || questionType == kMRQ)
@@ -956,12 +987,14 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                         {
                           demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
                         }
+                        SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
                         
                         
                     }
                     else if (questionType  == OneString)
                     {
-                        mSubmissionView.addOneStringQuestionWithDetails(currentQuestionDetails) 
+                        mSubmissionView.addOneStringQuestionWithDetails(currentQuestionDetails)
+                        SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
                     }
                 }
             }
@@ -985,6 +1018,95 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         presentViewController(scheduleScreenView, animated: true, completion: nil)
     }
     
+    func didGetMycurrentSessionWithDetials(details: AnyObject)
+    {
+        print(details)
+        
+        
+        if details.objectForKey("Status") != nil
+        {
+            if let Status = details.objectForKey("Status") as? String
+            {
+                if Status == "There are no active sessions."
+                {
+                    delegateSessionEnded()
+                }
+                else
+                {
+                    if let SessionId = details.objectForKey("SessionId") as? String
+                    {
+                        if SessionId != SSTeacherDataSource.sharedDataSource.currentLiveSessionId
+                        {
+                            delegateSessionEnded()
+                        }
+                        else
+                        {
+                            
+                            let  sessionAlertView = UIAlertController(title: "Session ending", message: "Your class is about to end in 6 mins. Do you want to continue?", preferredStyle: UIAlertControllerStyle.Alert)
+                            
+                            sessionAlertView.addAction(UIAlertAction(title: "End now", style: .Default, handler: { action in
+                                
+                                
+                                SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, WithStatusvalue: kEnded, WithDelegate: self)
+                                
+                                
+                            }))
+                            
+                            sessionAlertView.addAction(UIAlertAction(title: "Continue", style: .Default, handler: { action in
+                                
+                            }))
+                            
+                            self.presentViewController(sessionAlertView, animated: true, completion: nil)
+                            
+                            
+                        }
+                        
+                    }
+                    
+                }
+            }
+            else
+            {
+                if details.objectForKey("SessionId") != nil
+                {
+                    if let SessionId = details.objectForKey("SessionId") as? String
+                    {
+                        if SessionId != SSTeacherDataSource.sharedDataSource.currentLiveSessionId
+                        {
+                            delegateSessionEnded()
+                        }
+                        else
+                        {
+                            
+                             let  sessionAlertView = UIAlertController(title: "Session ending", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+                            
+                            sessionAlertView.addAction(UIAlertAction(title: "End session", style: .Default, handler: { action in
+                                
+                                
+                                SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, WithStatusvalue: kEnded, WithDelegate: self)
+                                
+                                
+                            }))
+                            
+                            sessionAlertView.addAction(UIAlertAction(title: "Dismiss", style: .Default, handler: { action in
+                                
+                            }))
+
+
+                        }
+                        
+                    }
+                    
+                }
+                
+            }
+        }
+        
+    }
+    
+    
+    
+   
     
 // MARK: - seatAssignment functions
     
@@ -1514,6 +1636,10 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mQuestionNamelabel.text = "No active question"
         SSTeacherMessageHandler.sharedMessageHandler.sendClearQuestionMessageWithRoomId("question_\(currentSessionId)")
         mSubmissionView.questionClearedByTeacher()
+        mModelAnswerView.questionClearedByTeacher()
+        mModelAnswerButton.hidden = true
+        mModelAnswerView.hidden = true
+        SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
     }
     
     func delegateDoneButtonPressed()
@@ -1550,7 +1676,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     func smhStreamReconnectingWithDelay(delay: Int32) {
         
-        self.view.makeToast("Reconnecting in \(delay) seconds", duration: 0.5, position: .Bottom)
+        self.view.makeToast("Reconnecting in \(delay) seconds", duration: 2, position: .Bottom)
       
     }
     
@@ -1833,7 +1959,9 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                
                 let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
                 
-                classViewPopOverController.popoverContentSize = CGSizeMake(320,300);
+                questionInfoController.preferredContentSize = CGSizeMake(270,220)
+                
+                classViewPopOverController.popoverContentSize = CGSizeMake(270,220);
                 classViewPopOverController.delegate = self;
                 questionInfoController.setPopover(classViewPopOverController)
                 classViewPopOverController.presentPopoverFromRect(CGRect(
@@ -1843,10 +1971,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                     height: 1), inView: self.view, permittedArrowDirections: [.Right, .Left], animated: true)
 
             }
-            
-            
-            
-            print(decodedimage)
             }
             
         }

@@ -69,11 +69,12 @@ class StudentModelAnswerCell: UIView,SSTeacherDataSourceDelegate
         RemoveButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
         RemoveButton.titleLabel!.font = UIFont(name:helveticaMedium, size: 18)
          RemoveButton.addTarget(self, action: #selector(StudentModelAnswerCell.onRemoveButton), forControlEvents: UIControlEvents.TouchUpInside)
-        let lineView = UIImageView(frame:CGRectMake(0, 55, self.frame.size.width, 1))
+       
+        let lineView = UIImageView(frame:CGRectMake(0, 50, self.frame.size.width, 1))
         lineView.backgroundColor = LineGrayColor
         self.addSubview(lineView)
         
-        answerContainerView.frame = CGRectMake(0, 55, self.frame.size.width, self.frame.size.width / 1.5)
+        answerContainerView.frame = CGRectMake(0, 50, self.frame.size.width, self.frame.size.width / 1.5)
         self.addSubview(answerContainerView)
 
         
@@ -87,6 +88,9 @@ class StudentModelAnswerCell: UIView,SSTeacherDataSourceDelegate
     func setModelAnswerWithDetails(details:AnyObject)
     {
         currentCellDetails = details
+        
+        
+        print(details)
         
         if let StudentId = details.objectForKey("StudentId") as? String
         {
@@ -103,7 +107,7 @@ class StudentModelAnswerCell: UIView,SSTeacherDataSourceDelegate
         
         studentImage.layer.masksToBounds = true
         
-        if let _StudentName = details.objectForKey("Name") as? String
+        if let _StudentName = details.objectForKey("StudentName") as? String
         {
             StudentName.text = _StudentName
         }
@@ -127,12 +131,31 @@ class StudentModelAnswerCell: UIView,SSTeacherDataSourceDelegate
         }
         
         
-        let studentAnswerImage = CustomProgressImageView(frame: CGRectMake(0,0,answerContainerView.frame.size.width,answerContainerView.frame.size.height))
-        answerContainerView.addSubview(studentAnswerImage)
+        if SSTeacherDataSource.sharedDataSource.mOverlayImageName != ""
+        {
+            
+            let studentAnswerImage = CustomProgressImageView(frame: CGRectMake(0,0,answerContainerView.frame.size.width,answerContainerView.frame.size.height))
+            answerContainerView.addSubview(studentAnswerImage)
+            
+            
+            let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_SCRIBBLE_IMAGE_URL) as! String
+            
+            if let checkedUrl = NSURL(string: "\(urlString)/\(SSTeacherDataSource.sharedDataSource.mOverlayImageName)")
+            {
+                studentAnswerImage.contentMode = .ScaleAspectFit
+                studentAnswerImage.downloadImage(checkedUrl, withFolderType: folderType.questionImage,withResizeValue: answerContainerView.frame.size)
+            }
+        }
+        
         
         
         if let Scribble = details.objectForKey("Image") as? String
         {
+            
+            let studentAnswerImage = CustomProgressImageView(frame: CGRectMake(0,0,answerContainerView.frame.size.width,answerContainerView.frame.size.height))
+            answerContainerView.addSubview(studentAnswerImage)
+
+            
             let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_SCRIBBLE_IMAGE_URL) as! String
             
             if let checkedUrl = NSURL(string: "\(urlString)/\(Scribble)")
@@ -140,6 +163,27 @@ class StudentModelAnswerCell: UIView,SSTeacherDataSourceDelegate
                 studentAnswerImage.contentMode = .ScaleAspectFit
                 studentAnswerImage.downloadImage(checkedUrl, withFolderType: folderType.StudentAnswer,withResizeValue: answerContainerView.frame.size)
             }
+        }
+        else if let TextAnswer = details.objectForKey("TextAnswer") as? String
+        {
+            let studentAnswertext = UILabel(frame: CGRectMake((self.frame.size.width - (self.frame.size.width - 5))/2  ,(self.frame.size.height-(self.frame.size.height - 5 ))/2,self.frame.size.width - 5,self.frame.size.height - 5 ))
+            self.addSubview(studentAnswertext)
+            
+            var fontHeight = studentAnswertext.frame.size.height/3;
+            
+            if (fontHeight > 16)
+            {
+                fontHeight = 16;
+            }
+            
+            studentAnswertext.font = UIFont(name: helveticaRegular, size: fontHeight)
+            studentAnswertext.textColor = blackTextColor
+            studentAnswertext.lineBreakMode = .ByTruncatingMiddle
+            studentAnswertext.numberOfLines = 10
+            studentAnswertext.textAlignment = .Center
+            studentAnswertext.text = TextAnswer
+            
+
         }
     }
     

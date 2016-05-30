@@ -20,4 +20,5 @@
 #import "SZTextView.h"
 #import "SmoothLineView.h"
 #import "colorpopOverViewController.h"
+#import "SSSettingsViewController.h"
 #endif

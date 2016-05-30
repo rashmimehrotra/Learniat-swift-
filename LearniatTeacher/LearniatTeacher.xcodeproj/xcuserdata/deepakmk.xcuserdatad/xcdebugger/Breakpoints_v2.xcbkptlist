@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatTeacher/ClassView/SSTeacherClassView.swift"
-            timestampString = "485979181.01066"
+            timestampString = "486122622.204732"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1754"
-            endingLineNumber = "1754"
+            startingLineNumber = "1880"
+            endingLineNumber = "1880"
             landmarkName = "smhDidgetMeTooValueWithDetails(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatTeacher/ClassView/SSTeacherClassView.swift"
-            timestampString = "485979181.01066"
+            timestampString = "486122622.204732"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1758"
-            endingLineNumber = "1758"
+            startingLineNumber = "1884"
+            endingLineNumber = "1884"
             landmarkName = "smhDidgetVolunteerValueWithDetails(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -186,75 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatTeacher/ClassView/SSTeacherClassView.swift"
-            timestampString = "485979181.01066"
+            timestampString = "486122622.204732"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1826"
-            endingLineNumber = "1826"
-            landmarkName = "smhDidgetPeakViewWithDetails(_:withStudentId:)"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "LearniatTeacher.SSTeacherClassView.smhDidgetPeakViewWithDetails (Swift.AnyObject, withStudentId : Swift.String) -&gt; ()"
-                  moduleName = "LearniatTeacher"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/SSTeacherClassView.swift"
-                  timestampString = "485780897.25078"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1817"
-                  endingLineNumber = "1817"
-                  offsetFromSymbolStart = "1176">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "LearniatTeacher.SSTeacherClassView.smhDidgetPeakViewWithDetails (Swift.AnyObject, withStudentId : Swift.String) -&gt; ()"
-                  moduleName = "LearniatTeacher"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/SSTeacherClassView.swift"
-                  timestampString = "485780897.250985"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1817"
-                  endingLineNumber = "1817"
-                  offsetFromSymbolStart = "1660">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/ScheduleScreen/TeacherScheduleViewController.swift"
-            timestampString = "485630460.798548"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "622"
-            endingLineNumber = "622"
-            landmarkName = "didGetLogOutWithDetails(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/ClassView/SSTeacherClassView.swift"
-            timestampString = "485979181.01066"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1861"
-            endingLineNumber = "1861"
+            startingLineNumber = "1985"
+            endingLineNumber = "1985"
             landmarkName = "smhDidgetOneStringAnswerWithDetails(_:withStudentId:)"
             landmarkType = "5">
             <Locations>
@@ -266,11 +202,11 @@
                   moduleName = "LearniatTeacher"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/SSTeacherClassView.swift"
-                  timestampString = "485780897.253294"
+                  timestampString = "486123935.173246"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1852"
-                  endingLineNumber = "1852"
+                  startingLineNumber = "1986"
+                  endingLineNumber = "1986"
                   offsetFromSymbolStart = "264">
                </Location>
                <Location
@@ -281,11 +217,11 @@
                   moduleName = "LearniatTeacher"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/SSTeacherClassView.swift"
-                  timestampString = "485780897.253514"
+                  timestampString = "486123935.173476"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1852"
-                  endingLineNumber = "1852"
+                  startingLineNumber = "1986"
+                  endingLineNumber = "1986"
                   offsetFromSymbolStart = "768">
                </Location>
             </Locations>
@@ -320,6 +256,22 @@
             startingLineNumber = "111"
             endingLineNumber = "111"
             landmarkName = "setOptionWithString(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatTeacher/ClassView/SSTeacherClassView.swift"
+            timestampString = "486122450.556382"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1026"
+            endingLineNumber = "1026"
+            landmarkName = "didGetMycurrentSessionWithDetials(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

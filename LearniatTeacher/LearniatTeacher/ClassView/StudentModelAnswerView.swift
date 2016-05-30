@@ -105,6 +105,10 @@ class StudentModelAnswerView: UIView,SSTeacherDataSourceDelegate,StudentModelAns
             }
         }
         
+        
+        currentPositionY = 10
+        currentViewHeight = 44
+        
          delegate().delegateModelAnswerViewLoadedWithHeight!(44, withCount :0)
         
         SSTeacherMessageHandler.sharedMessageHandler.sendModelAnswerToStudentWithRoomId(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, withQuestionLogId: SSTeacherDataSource.sharedDataSource.currentQuestionLogId)
@@ -162,7 +166,7 @@ class StudentModelAnswerView: UIView,SSTeacherDataSourceDelegate,StudentModelAns
         
         
         
-        mModelAnswerContainerView.contentSize = CGSizeMake(0, currentPositionY)
+        mModelAnswerContainerView.contentSize = CGSizeMake(0, CGFloat(currentModelAnswerArray.count) * ((self.frame.size.width / 1.5) + 70 ))
         
         
         var height :CGFloat = currentViewHeight
@@ -218,11 +222,26 @@ class StudentModelAnswerView: UIView,SSTeacherDataSourceDelegate,StudentModelAns
         mModelAnswerContainerView.frame = CGRectMake(mModelAnswerContainerView.frame.origin.x,mModelAnswerContainerView.frame.origin.y ,mModelAnswerContainerView.frame.size.width,height - 44)
         
         delegate().delegateModelAnswerViewLoadedWithHeight!(height, withCount :subViews.count)
+    }
+    
+    
+    func questionClearedByTeacher()
+    {
+        currentModelAnswerArray.removeAllObjects()
         
-
+        currentPositionY = 10
         
+        let subViews =  mModelAnswerContainerView.subviews.flatMap{ $0 as? StudentModelAnswerCell }
+        for topicCell in subViews
+        {
+            if topicCell.isKindOfClass(StudentModelAnswerCell)
+            {
+                topicCell.removeFromSuperview()
+            }
+        }
         
     }
+    
     
     
 }
