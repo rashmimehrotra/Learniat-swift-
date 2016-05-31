@@ -14,6 +14,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     var mTopbarImageView             :UIImageView           = UIImageView()
     
+    var  studentImage :UIImageView!
     
     var mTeacherImageView: UIImageView!
     
@@ -79,7 +80,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         self.view.addSubview(mTopbarImageView)
         mTopbarImageView.userInteractionEnabled = true
         
-        let studentImage = UIImageView(frame:CGRectMake(15, 15, mTopbarImageView.frame.size.height - 20 ,mTopbarImageView.frame.size.height - 20))
+         studentImage = UIImageView(frame:CGRectMake(15, 15, mTopbarImageView.frame.size.height - 20 ,mTopbarImageView.frame.size.height - 20))
         mTopbarImageView.addSubview(studentImage)
         
         let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_UserProfileImageURL) as! String
@@ -790,6 +791,31 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     func smhdidRecieveQueryReviewmessage()
     {
         mQueryView.teacherReviewQuery()
+    }
+    func smhDidRecieveMutemessageWithDetails(details: AnyObject)
+    {
+        if details.objectForKey("MUTESTATUS") != nil
+        {
+            if let muteState = details.objectForKey("MUTESTATUS") as? String
+            {
+                if muteState == "1"
+                {
+                    studentImage.image = UIImage(named: "StudentMuted.png")
+                }
+                else
+                {
+                    
+                    let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_UserProfileImageURL) as! String
+                    
+                    if let checkedUrl = NSURL(string: "\(urlString)/\(SSStudentDataSource.sharedDataSource.currentUserId)_79px.jpg")
+                    {
+                        studentImage.contentMode = .ScaleAspectFit
+                        studentImage.downloadImage(checkedUrl, withFolderType: folderType.ProFilePics)
+                    }
+                }
+            }
+        }
+        
     }
     
     func smhdidGetQueryFeedBackFromTeacherWithDetials(details: AnyObject)

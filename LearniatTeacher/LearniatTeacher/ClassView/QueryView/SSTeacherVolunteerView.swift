@@ -419,6 +419,10 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
                         SSTeacherMessageHandler.sharedMessageHandler.sendQRVClosedMessageToRoom(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, withstudentId: StudentId, withQueryId: QueryId, withVolunterPercentage: "\(totalPercentage)")
                     }
                     
+                    
+                    studentqueryView.incrementVolunteeredCountwithPercentage(totalPercentage * 100)
+                    
+                    
 
                 }
             }

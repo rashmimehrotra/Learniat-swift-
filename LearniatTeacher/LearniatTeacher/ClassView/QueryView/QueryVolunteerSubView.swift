@@ -36,6 +36,10 @@ class QueryVolunteerSubView: UIView
     
     var mmMetooSelectedArray   = NSMutableArray()
     
+    var mVolunteeredCountScrollview = UIScrollView()
+    
+    var currentVolunteerCount  :CGFloat            = 0
+    
     override init(frame: CGRect)
     {
         
@@ -55,6 +59,12 @@ class QueryVolunteerSubView: UIView
         mVolunteerButton.addTarget(self, action: #selector(QueryVolunteerSubView.onVonulteerButton), forControlEvents: .TouchUpInside)
         mVolunteerButton.backgroundColor = UIColor.clearColor()
 
+        
+        mVolunteeredCountScrollview.frame = CGRectMake(10, mVolunteerButton.frame.size.height - 10, mVolunteerButton.frame.size.width - 20, 10)
+        mVolunteerButton.addSubview(mVolunteeredCountScrollview)
+        
+        
+        
         
         let lineImage1 = UIImageView(frame:CGRectMake(mVolunteerButton.frame.origin.x, 10, 1, self.frame.size.height - 20));
         lineImage1.backgroundColor = progressviewBackground
@@ -172,5 +182,69 @@ class QueryVolunteerSubView: UIView
          mVolunteerButton.setTitle("\(mVolunteersDetailsArray.count)", forState: .Normal)
         
     }
+    
+    
+    func incrementVolunteeredCountwithPercentage(percentage:CGFloat)
+    {
+      
+        
+       let subViews = VolunteeredDotView(frame:CGRectMake(currentVolunteerCount, 0, mVolunteeredCountScrollview.frame.size.height,  mVolunteeredCountScrollview.frame.size.height))
+        mVolunteeredCountScrollview.addSubview(subViews)
+        
+        currentVolunteerCount = currentVolunteerCount +  mVolunteeredCountScrollview.frame.size.height + 2
+        
+        mVolunteeredCountScrollview.contentSize = CGSizeMake(currentVolunteerCount, 0)
+        
+        
+        var dotColor =  UIColor(red: 76.0/255.0, green: 217.0/255.0, blue: 100.0/255.0, alpha: 1)
+        
+        if (percentage<=33)
+        {
+            dotColor = UIColor(red: 255/255.0, green: 59/255.0, blue: 48/255.0, alpha: 1)
+            
+            
+            
+        }
+        else if (percentage>33 && percentage<=66)
+        {
+            
+            dotColor =  UIColor(red: 255/255.0, green: 204.0/255.0, blue: 0.0/255.0, alpha: 1)
+            
+            
+        }
+        else
+        {
+            dotColor =  UIColor(red: 76.0/255.0, green: 217.0/255.0, blue: 100.0/255.0, alpha: 1)
+            
+        }
+        
+        
+        subViews.backgroundColor = dotColor
+        
+        
+//        let subViews = mVolunteeredCountScrollview.subviews.flatMap{ $0 as? VolunteeredDotView }
+//        
+//        for studentqueryView in subViews
+//        {
+//            if studentqueryView.isKindOfClass(VolunteeredDotView)
+//            {
+//                studentqueryView.removeFromSuperview()
+//            }
+//        }
+//        
+//    
+        
+        
+//        var circleWi = mVolunteeredCountScrollview.frame.size.width / ( 10*currentVolunteerCount)
+        
+        
+        
+        
+        
+        
+    }
+    
+    
+    
     
 }

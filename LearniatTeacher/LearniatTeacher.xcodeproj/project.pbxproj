@@ -420,6 +420,7 @@
 		53B5901F1CB8E02900A69FC1 /* Cb_Like_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 53B590191CB8E02900A69FC1 /* Cb_Like_Selected.png */; };
 		53B590201CB8E02900A69FC1 /* Cb_Unlike_Enabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 53B5901A1CB8E02900A69FC1 /* Cb_Unlike_Enabled.png */; };
 		53B590211CB8E02900A69FC1 /* Cb_Unlike_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 53B5901B1CB8E02900A69FC1 /* Cb_Unlike_Selected.png */; };
+		53BC8B421CFC36D800BA56F1 /* VolunteeredDotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC8B411CFC36D800BA56F1 /* VolunteeredDotView.swift */; };
 		53BFD59C1CEFA59300B52B33 /* SSTeacherPeakViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFD59B1CEFA59300B52B33 /* SSTeacherPeakViewController.swift */; };
 		53CA5A221CB230BB008C42B0 /* MRQAggregateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CA5A211CB230BB008C42B0 /* MRQAggregateView.swift */; };
 		53CA5A241CB2337D008C42B0 /* AggregateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CA5A231CB2337D008C42B0 /* AggregateCell.swift */; };
@@ -1057,6 +1058,7 @@
 		53B590191CB8E02900A69FC1 /* Cb_Like_Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cb_Like_Selected.png; sourceTree = "<group>"; };
 		53B5901A1CB8E02900A69FC1 /* Cb_Unlike_Enabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cb_Unlike_Enabled.png; sourceTree = "<group>"; };
 		53B5901B1CB8E02900A69FC1 /* Cb_Unlike_Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cb_Unlike_Selected.png; sourceTree = "<group>"; };
+		53BC8B411CFC36D800BA56F1 /* VolunteeredDotView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolunteeredDotView.swift; sourceTree = "<group>"; };
 		53BFD59B1CEFA59300B52B33 /* SSTeacherPeakViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSTeacherPeakViewController.swift; sourceTree = "<group>"; };
 		53CA5A211CB230BB008C42B0 /* MRQAggregateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MRQAggregateView.swift; sourceTree = "<group>"; };
 		53CA5A231CB2337D008C42B0 /* AggregateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AggregateCell.swift; sourceTree = "<group>"; };
@@ -2616,6 +2618,7 @@
 				53778B671CBCBD96004E6480 /* QuerySelectSubView.swift */,
 				53778B691CBCECE2004E6480 /* SSTeacherVolunteerView.swift */,
 				53778B6B1CBCED72004E6480 /* QueryVolunteerSubView.swift */,
+				53BC8B411CFC36D800BA56F1 /* VolunteeredDotView.swift */,
 				53778B6D1CBCF672004E6480 /* VolunteerTopView.swift */,
 				53015B751CE58A3C00BB366C /* VolunteerPopoverController.swift */,
 				53015B771CE58BBF00BB366C /* VolunteerPopopverCell.swift */,
@@ -2971,6 +2974,7 @@
 				537301071CB618D200E76753 /* SubmissionSubjectiveView.swift in Sources */,
 				53576E8D1CD72AC2003AB9C9 /* StudentPollingView.swift in Sources */,
 				53676C951CA63B7F00CADE4D /* AppDelegate.swift in Sources */,
+				53BC8B421CFC36D800BA56F1 /* VolunteeredDotView.swift in Sources */,
 				4D2A93201CC0C4A9007A1D41 /* SetupClassCell.swift in Sources */,
 				53676CCC1CA63B7F00CADE4D /* XMPPRoomCoreDataStorage.m in Sources */,
 				537301261CB665E300E76753 /* SmoothLineView.m in Sources */,

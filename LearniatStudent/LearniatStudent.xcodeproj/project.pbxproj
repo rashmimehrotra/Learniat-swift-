@@ -308,7 +308,6 @@
 		533255BB1CEDC2A500653C00 /* Star_Selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332556D1CEDC2A500653C00 /* Star_Selected@2x.png */; };
 		533255BC1CEDC2A500653C00 /* Star_Unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332556E1CEDC2A500653C00 /* Star_Unselected.png */; };
 		533255BD1CEDC2A500653C00 /* Star_Unselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5332556F1CEDC2A500653C00 /* Star_Unselected@2x.png */; };
-		533255BE1CEDC2A500653C00 /* Text_on_desk.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255701CEDC2A500653C00 /* Text_on_desk.png */; };
 		533255BF1CEDC2A500653C00 /* Text_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255711CEDC2A500653C00 /* Text_Selected.png */; };
 		533255C01CEDC2A500653C00 /* Text_Selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255721CEDC2A500653C00 /* Text_Selected@2x.png */; };
 		533255C11CEDC2A500653C00 /* Text_Unselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255731CEDC2A500653C00 /* Text_Unselected.png */; };
@@ -366,6 +365,7 @@
 		53A482EB1CE48F1500C90451 /* QRVVolunteerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A482EA1CE48F1500C90451 /* QRVVolunteerView.swift */; };
 		53A5521F1CF9A70F0093634A /* SSSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A5521E1CF9A70F0093634A /* SSSettingsViewController.m */; };
 		53A552221CF9A8B70093634A /* PlistDownloder.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A552211CF9A8B70093634A /* PlistDownloder.m */; };
+		53BC8B401CFC318800BA56F1 /* StudentMuted.png in Resources */ = {isa = PBXBuildFile; fileRef = 53BC8B3F1CFC318800BA56F1 /* StudentMuted.png */; };
 		53BFD5991CEF87E600B52B33 /* Star.png in Resources */ = {isa = PBXBuildFile; fileRef = 53BFD5971CEF87E600B52B33 /* Star.png */; };
 		53BFD59A1CEF87E600B52B33 /* Unselected_star.png in Resources */ = {isa = PBXBuildFile; fileRef = 53BFD5981CEF87E600B52B33 /* Unselected_star.png */; };
 		53D414A01CF76AE70085C38E /* ModelAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4149F1CF76AE70085C38E /* ModelAnswerView.swift */; };
@@ -920,6 +920,7 @@
 		53A5521E1CF9A70F0093634A /* SSSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSSettingsViewController.m; sourceTree = "<group>"; };
 		53A552201CF9A8B70093634A /* PlistDownloder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlistDownloder.h; sourceTree = "<group>"; };
 		53A552211CF9A8B70093634A /* PlistDownloder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlistDownloder.m; sourceTree = "<group>"; };
+		53BC8B3F1CFC318800BA56F1 /* StudentMuted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StudentMuted.png; sourceTree = "<group>"; };
 		53BFD5971CEF87E600B52B33 /* Star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Star.png; sourceTree = "<group>"; };
 		53BFD5981CEF87E600B52B33 /* Unselected_star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Unselected_star.png; sourceTree = "<group>"; };
 		53D4149F1CF76AE70085C38E /* ModelAnswerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelAnswerView.swift; sourceTree = "<group>"; };
@@ -2030,6 +2031,7 @@
 		533066D81CC9E8FE0035CCDE /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				53BC8B3F1CFC318800BA56F1 /* StudentMuted.png */,
 				53BFD5971CEF87E600B52B33 /* Star.png */,
 				53BFD5981CEF87E600B52B33 /* Unselected_star.png */,
 				533255C81CEDC40600653C00 /* Delete.png */,
@@ -2469,7 +2471,6 @@
 				5332559C1CEDC2A500653C00 /* Top_bar_Divider_AnnotateView.png in Resources */,
 				5332559E1CEDC2A500653C00 /* Undo_Active_AnnotateView.png in Resources */,
 				533255931CEDC2A500653C00 /* Tab_bar_Divider_AnnotateView.png in Resources */,
-				533255BE1CEDC2A500653C00 /* Text_on_desk.png in Resources */,
 				533255BB1CEDC2A500653C00 /* Star_Selected@2x.png in Resources */,
 				533255B31CEDC2A500653C00 /* Rate_Type_Arrow_Icon@2x.png in Resources */,
 				5332558E1CEDC2A500653C00 /* Star_Selected_AnnotateView@2x.png in Resources */,
@@ -2504,6 +2505,7 @@
 				531FB4491CE5EB5B00DC0C6F /* Roboto-LightItalic.ttf in Resources */,
 				533255A21CEDC2A500653C00 /* Checked.png in Resources */,
 				533255BD1CEDC2A500653C00 /* Star_Unselected@2x.png in Resources */,
+				53BC8B401CFC318800BA56F1 /* StudentMuted.png in Resources */,
 				531FB4511CE5EB5B00DC0C6F /* RobotoCondensed-Italic.ttf in Resources */,
 				533255BC1CEDC2A500653C00 /* Star_Unselected.png in Resources */,
 				533255A61CEDC2A500653C00 /* Eraser_Selected@2x.png in Resources */,

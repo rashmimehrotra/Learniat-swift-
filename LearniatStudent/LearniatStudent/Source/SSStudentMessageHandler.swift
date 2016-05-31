@@ -116,6 +116,8 @@ import Foundation
     
     optional func smhdidRecieveModelAnswerMessageWithDetials(details:AnyObject)
     
+    optional func smhDidRecieveMutemessageWithDetails(details:AnyObject)
+    
     
 }
 
@@ -907,6 +909,16 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
                 if message.messageBody() != nil
                 {
                     delegate().smhdidRecieveModelAnswerMessageWithDetials!((message.messageBody()))
+                }
+            }
+        }
+        else if message.messageType() == kMuteStudent
+        {
+            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhDidRecieveMutemessageWithDetails(_:)))
+            {
+                if message.messageBody() != nil
+                {
+                    delegate().smhDidRecieveMutemessageWithDetails!((message.messageBody()))
                 }
             }
         }

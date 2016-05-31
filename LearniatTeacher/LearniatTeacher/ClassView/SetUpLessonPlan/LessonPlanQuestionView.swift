@@ -77,7 +77,7 @@ class LessonPlanQuestionView: UIView,SSTeacherDataSourceDelegate,UIGestureRecogn
 
         
         
-        questionButtonsView.frame = CGRectMake(100, mTopicsContainerView.frame.size.height + mTopicsContainerView.frame.origin.y, mTopicsContainerView.frame.size.width, 44)
+//        questionButtonsView.frame = CGRectMake(100, mTopicsContainerView.frame.size.height + mTopicsContainerView.frame.origin.y, mTopicsContainerView.frame.size.width, 44)
         self.addSubview(questionButtonsView)
         questionButtonsView.backgroundColor = UIColor.whiteColor()
         questionButtonsView.layer.shadowColor = UIColor.blackColor().CGColor

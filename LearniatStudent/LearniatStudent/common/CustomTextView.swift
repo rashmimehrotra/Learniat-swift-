@@ -22,7 +22,7 @@ class CustomTextView: UIView,UITextViewDelegate
 {
     
     
-    let mQuestionTextView       = UITextView()
+    let mQuestionTextView       = SZTextView()
     
     var currentPlaceHolder      = ""
     
@@ -60,9 +60,9 @@ class CustomTextView: UIView,UITextViewDelegate
         mQuestionTextView.delegate = self
         mQuestionTextView.font =  UIFont(name: helveticaMedium, size: 18);
         mQuestionTextView.textAlignment = .Left
-        
-        mQuestionTextView.text = "Placeholder"
-        mQuestionTextView.textColor = UIColor.lightGrayColor()
+        mQuestionTextView.placeholder = ""
+        mQuestionTextView.placeholderTextColor = lightGrayColor
+        mQuestionTextView.textColor = blackTextColor
         
         
         mQuestionTextView.selectedTextRange = mQuestionTextView.textRangeFromPosition(mQuestionTextView.beginningOfDocument, toPosition: mQuestionTextView.beginningOfDocument)
@@ -78,9 +78,9 @@ class CustomTextView: UIView,UITextViewDelegate
     func setPlaceHolder(_placeHolder:String, withStartSting _startString:String)
     {
         
-        mQuestionTextView.text = _placeHolder
+//        mQuestionTextView.text = _placeHolder
         currentPlaceHolder = _placeHolder
-       
+       mQuestionTextView.placeholder = currentPlaceHolder
         StartText = _startString
         
     }
@@ -112,21 +112,21 @@ class CustomTextView: UIView,UITextViewDelegate
         return mQuestionTextView.text!
     }
     
-    
-    func textViewDidBeginEditing(textView: UITextView) {
-        if textView.textColor == UIColor.lightGrayColor() {
-            textView.text = nil
-            textView.textColor = blackTextColor
-        }
-    }
-    
-    func textViewDidEndEditing(textView: UITextView) {
-        if textView.text.isEmpty {
-            textView.text = currentPlaceHolder
-            textView.textColor = UIColor.lightGrayColor()
-        }
-    }
-   
+//    
+//    func textViewDidBeginEditing(textView: UITextView) {
+//        if textView.textColor == UIColor.lightGrayColor() {
+//            textView.text = nil
+//            textView.textColor = blackTextColor
+//        }
+//    }
+//    
+//    func textViewDidEndEditing(textView: UITextView) {
+//        if textView.text.isEmpty {
+//            textView.text = currentPlaceHolder
+//            textView.textColor = UIColor.lightGrayColor()
+//        }
+//    }
+//   
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         
         // Combine the textView text and the replacement text to
