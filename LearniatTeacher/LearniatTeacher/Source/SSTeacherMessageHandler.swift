@@ -527,6 +527,40 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
     }
     
     
+    func sendEndSessionMessageToRoom(roomId:String)
+    {
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
+        {
+            
+            let messageBody = ["RoomName":roomId]
+            
+
+            
+            let _roomId = "room_\(roomId)@conference.\(kBaseXMPPURL)";
+            
+            let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
+            let msgType             = kTeacherEndsSession
+            
+            
+            
+            
+            let details:NSMutableDictionary = ["From":userId,
+                                               "To":_roomId,
+                                               "Type":msgType,
+                                               "Body":messageBody];
+            
+            
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendGroupMessageWithBody(xmlBody, withRoomId: _roomId)
+        }
+    }
+    
+    
     func sendSeatingChangedtoRoom(_roomId:String, withSeatName seatName:String, withRoomName roomName:String)
     {
         if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)

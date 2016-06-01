@@ -19,7 +19,7 @@ import Foundation
 }
 
 
-class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDelegate, QueryVolunteerSubViewDelegate,UIPopoverControllerDelegate,VolunteerPopoverControllerDelegate,UIPopoverPresentationControllerDelegate, VolunteerAnsweringPopOverDelegate
+class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDelegate, QueryVolunteerSubViewDelegate,UIPopoverControllerDelegate,VolunteerPopoverControllerDelegate,UIPopoverPresentationControllerDelegate, VolunteerAnsweringPopOverDelegate,VolunteerTopViewDelegate
 {
     var _delgate: AnyObject!
     
@@ -74,6 +74,7 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
         
         let mQuerySubView = VolunteerTopView(frame: CGRectMake(10 , mTopImageView.frame.size.height + mTopImageView.frame.origin.y + 10, self.frame.size.width - 20 ,20))
         self.addSubview(mQuerySubView)
+        mQuerySubView.setdelegate(self)
         
         
         mScrollView = UIScrollView()
@@ -125,7 +126,7 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
             if let queryText = queryDict.objectForKey("QueryText") as? String
             {
                 
-               mQuerySubView.mQueryLabel.text = "\(index + 1).\(queryText)"
+               mQuerySubView.mQueryLabel.text = "\(queryText)"
             }
             
             
@@ -451,4 +452,35 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
         }
     }
     
+    
+    
+     // MARK: - Volunteer Topview delegate functions
+    
+    
+    func delegateQueryButtonPressed()
+    {
+        
+        let queryArray = NSMutableArray()
+        
+        let subViews = mScrollView.subviews.flatMap{ $0 as? QueryVolunteerSubView }
+        
+        for mQuerySubView in subViews
+        {
+            if mQuerySubView.isKindOfClass(QueryVolunteerSubView)
+            {
+               queryArray.addObject(mQuerySubView.mQueryLabel.text!)
+            }
+        }
+    }
+    
+    func delegateMetooButtonPressed()
+    {
+        
+        
+    }
+    
+    func delegateVolunteerButtonPressed()
+    {
+        
+    }
 }

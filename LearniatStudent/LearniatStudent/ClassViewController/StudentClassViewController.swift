@@ -441,6 +441,8 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         
         mQuestionView.setQuestionDetails(currentQuestionDetails.objectForKey(kQuestionTag)!, withType: currentQuestionType, withSessionDetails: sessionDetails, withQuestion: currentQuestionLogId)
         
+        mQuestionButton.newEventRaised()
+        
     }
     
     
@@ -627,6 +629,13 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
 
             mNoStudentLabel.hidden = true 
     }
+    
+    func smhDidGetSessionEndMessageWithDetails(details: AnyObject)
+    {
+        SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateFree, ofSession: (sessionDetails.objectForKey("SessionId") as! String), withDelegate: self)
+        
+    }
+    
     func smhDidGetVotingMessageWithDetails(details: AnyObject)
     {
         
@@ -726,6 +735,13 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                 showAlertWithMessage(messageString)
                
             }
+            else if dict.objectForKey(kQuestionType) as! String  == One_word
+            {
+                
+                messageString = "Please type one word answer";
+                showAlertWithMessage(messageString)
+                
+            }
         }
         
         
@@ -742,7 +758,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     {
         mQuestionView.questionCleared()
         mQuestionNameLabel.text = "No active question"
-        
+       
 
 //        SSStudentDataSource.sharedDataSource.getGraspIndexwithTopicId(currentSubTopicId, withSessionId: (sessionDetails.objectForKey("SessionId") as! String), withDelegate: self)
        
@@ -765,6 +781,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         {
             SSStudentDataSource.sharedDataSource.answerSent = false
         }
+         mQuestionButton.newEventRaised()
         
         
         
@@ -782,8 +799,12 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                     
                 }
             }
-            mQuestionView.didgetFreezMessageFromTeacher()
+           
         }
+        
+         mQuestionView.didgetFreezMessageFromTeacher()
+        
+         mQuestionButton.newEventRaised()
        
     }
     
@@ -791,6 +812,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     func smhdidRecieveQueryReviewmessage()
     {
         mQueryView.teacherReviewQuery()
+        mQueryButton.newEventRaised()
     }
     func smhDidRecieveMutemessageWithDetails(details: AnyObject)
     {
@@ -821,15 +843,18 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     func smhdidGetQueryFeedBackFromTeacherWithDetials(details: AnyObject)
     {
         mQueryView.feedBackSentFromTeacherWithDetiails(details)
+        mQueryButton.newEventRaised()
     }
     
      func smhdidRecieveQueryOpenedForVotingWithDetails()
      {
         mQueryView.VolunteerPresentState(true)
+        mQueryButton.newEventRaised()
     }
     func smhdidRecieveQueryVolunteeringEnded()
     {
          mQueryView.VolunteerPresentState(false)
+        mQueryButton.newEventRaised()
         if mStudentQrvAnsweringView != nil
         {
             mStudentQrvAnsweringView.removeFromSuperview()
@@ -923,6 +948,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                     {
                         
                         mQueryView.volunteerClosedWithQueryId(QueryId, withStudentdID: StudentId, withTotalVotes:totalVotes)
+                        mQueryButton.newEventRaised()
                     }
                 }
                 
@@ -933,11 +959,13 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     func smhDidRecievePollingStartedMessageWithDetails(detials: AnyObject)
     {
        mOTFView.didGetPollingStartedWithDetills(detials)
+        mSubmissionButton.newEventRaised()
     }
     
     func smhDidGetPollEndedMessageFromteacher()
     {
         mOTFView.didGetPollingStopped()
+        mSubmissionButton.newEventRaised()
     }
     
     
@@ -945,11 +973,13 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     {
         mQuestionView.didGetGraphSharedWithDetails(details)
         
+         mQuestionButton.newEventRaised()
     }
     
     func smhDidGetTeacherReviewMessage()
     {
         mQuestionView.didgetTeacherEvaluatingMessage()
+         mQuestionButton.newEventRaised()
     }
     
     func smhDidGetFeedbackForAnswerWithDetils(details: AnyObject)
@@ -960,6 +990,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             if let AssesmentAnswerId = details.objectForKey("AssesmentAnswerId") as? String
             {
                  mQuestionView.getFeedbackDetailsWithId(AssesmentAnswerId)
+                 mQuestionButton.newEventRaised()
             }
         }
     }
@@ -990,6 +1021,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         if currentQuestionType == text  || currentQuestionType == OverlayScribble || currentQuestionType == FreshScribble
         {
           mQuestionView.modelAnswrMessageRecieved()
+             mQuestionButton.newEventRaised()
             
         }
         

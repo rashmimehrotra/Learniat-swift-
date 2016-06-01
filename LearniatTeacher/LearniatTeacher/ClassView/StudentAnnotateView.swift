@@ -135,7 +135,7 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         mSendButton.frame = CGRectMake(mTopbarImageView.frame.size.width - 100 , 0, 100 , mTopbarImageView.frame.size.height );
         mTopbarImageView.addSubview(mSendButton);
         mSendButton.setTitle("Send", forState:.Normal);
-        mSendButton.setTitleColor(UIColor.whiteColor(), forState:.Normal);
+        mSendButton.setTitleColor(UIColor.lightGrayColor(), forState:.Normal);
         mSendButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20);
         mSendButton.enabled = false
         mSendButton.highlighted = false;
@@ -650,7 +650,7 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
             if ((givenStarRatings > 0 ) || (givenBadgeId > 0) || givenTextReply != "")
             {
                 mSendButton.enabled = true;
-                mSendButton.setTitleColor(standard_Button, forState:.Normal);
+                mSendButton.setTitleColor(whiteColor, forState:.Normal);
             }
             else
             {

@@ -33,6 +33,8 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
     
     var mOneStringQuestionView : OneStringGraphView!
     
+    var mOneWordQuestionView : OnewordAnswerView!
+    
     var noSubmissionLabel = UILabel()
     
     var mCurrentQuestionDetails:AnyObject!
@@ -146,11 +148,33 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
             
         }
         noSubmissionLabel.hidden = true
-        mOneStringQuestionView.hidden = true
+        mOneStringQuestionView.hidden = false
         mCurrentQuestionDetails = details
     }
     
     
+    
+    func addOneWordQuestionViewWithDetails(details:AnyObject)
+    {
+        if mOneWordQuestionView == nil
+        {
+            
+            mOneWordQuestionView = OnewordAnswerView(frame: CGRectMake(0, 0, self.frame.size.width, self.frame.size.height))
+            self.addSubview(mOneWordQuestionView)
+            mOneWordQuestionView.setdelegate(self)
+            
+            if let questionName = (details.objectForKey("Name")) as? String
+            {
+                mOneWordQuestionView.setQuestionName(questionName)
+            }
+            
+            
+            
+        }
+        noSubmissionLabel.hidden = true
+        mOneWordQuestionView.hidden = false
+        mCurrentQuestionDetails = details
+    }
     
     
     
@@ -204,6 +228,19 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
         
     }
     
+    
+    func SetStudentOneWordAnswer(studentAnswer:String,withStudentDict studentdict:AnyObject)
+    {
+        
+        if mOneWordQuestionView !=  nil
+        {
+            mOneWordQuestionView.hidden = false
+            mOneWordQuestionView.setOptionWithString(studentAnswer)
+        }
+        
+    }
+    
+    
     func studentSubmissionEvaluatedWithDetails(evaluationDetails:AnyObject, withStdentId StudentId:String)
     {
         if mScribbleSubmissionView != nil
@@ -254,6 +291,16 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
         if mOneStringQuestionView != nil
         {
             mOneStringQuestionView.hidden = true
+            mOneStringQuestionView.removeFromSuperview()
+            mOneStringQuestionView = nil
+        }
+        
+        if mOneWordQuestionView != nil
+        {
+            mOneWordQuestionView.hidden = true
+            mOneWordQuestionView.removeFromSuperview()
+            mOneWordQuestionView = nil
+            
         }
         
     }

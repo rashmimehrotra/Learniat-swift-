@@ -243,6 +243,76 @@
     
 }
 
+
+
+- (void) addTextViewWithDoneButtonWithQueryId:(NSString*)queryId
+{
+    NSArray *viewsToRemove = [self.view subviews];
+    for (UIView *v in viewsToRemove)
+    {
+        [v removeFromSuperview];
+    }
+    
+    currentQueryId = queryId;
+    topView = [[UIView alloc]initWithFrame:CGRectMake(0,0,300, 40)];
+    [topView setBackgroundColor:[UIColor whiteColor]];
+    [self.view addSubview:topView];
+    topView.layer.shadowColor = [UIColor colorWithRed:213.0/255.0 green:213.0/255.0 blue:213.0/255.0 alpha:0.5].CGColor;
+    topView.layer.shadowOffset = CGSizeMake(1, 1);
+    topView.layer.shadowOpacity = 0.5;
+    topView.layer.shadowRadius = 0.5;
+    topView.clipsToBounds = NO;
+    
+    
+    
+    UIButton* CnacelButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [CnacelButton setTitle:@"Done" forState:UIControlStateNormal];
+    [CnacelButton setTitleColor:[UIColor colorWithRed:0 green:174.0/255.0 blue:239.0/255.0 alpha:1.0] forState:UIControlStateNormal];;
+    [CnacelButton setShowsTouchWhenHighlighted:YES];
+    [CnacelButton setAdjustsImageWhenHighlighted:NO];
+    [CnacelButton addTarget:self action:@selector(onDoneButton) forControlEvents:UIControlEventTouchUpInside];
+    CnacelButton.frame = CGRectMake(200, 0, 100, 40);
+    [topView addSubview:CnacelButton];
+    
+    
+    topviewLabel= [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 40)];
+    [topviewLabel setText:@"Rate with text"];
+    [self.view addSubview:topviewLabel];
+    [topviewLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18]];
+    topviewLabel.textAlignment= NSTextAlignmentLeft;
+    
+    
+    mTextView = [[UITextView alloc] initWithFrame:CGRectMake(0,40,300,60)];
+    [mTextView setEditable:YES];
+    [mTextView setUserInteractionEnabled:YES];
+    [mTextView setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.5]];
+    [self.view addSubview:mTextView];
+    mTextView.autocorrectionType = UITextAutocorrectionTypeYes;
+    mTextView.text = @"";
+    mTextView.textColor = [UIColor blackColor];
+    [mTextView setBackgroundColor:[UIColor colorWithRed:238.0/255.0 green:238.0/255.0 blue:238.0/255.0 alpha:1.0]];
+    
+    
+}
+
+
+- (void) onDoneButton
+{
+    if ([mTextView.text  isEqual: @""])
+    {
+         [[self popOverController]dismissPopoverAnimated:true];
+    }
+    else
+    {
+        [[self delegate]delegatePopoverDoneButtonPressedWithText:mTextView.text withQueryID:currentQueryId];
+         [[self popOverController]dismissPopoverAnimated:true];
+    }
+    
+    
+    
+   
+}
+
 - (void) addTextViewWithStudentId:(int)studentId withIndexPath:(int)indexPath
 {
     m_indexPath=indexPath;

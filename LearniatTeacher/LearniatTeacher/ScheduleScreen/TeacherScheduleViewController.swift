@@ -1181,7 +1181,10 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     }
     func delegateConfigureGridPressedWithDetails(details: AnyObject)
     {
-        self.allocateSeatsWithDetails(details)
+            let gridView = SetupGridview()
+            gridView.setCurrentSessionDetails(details)
+            presentViewController(gridView, animated: true, completion: nil)
+
     }
     func delegateCancelClassPressedWithDetails(details: AnyObject)
     {
@@ -1262,9 +1265,13 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     func allocateSeatsWithDetails(details:AnyObject)
     {
         
-        let gridView = SetupGridview()
-        gridView.setCurrentSessionDetails(details)
-        presentViewController(gridView, animated: true, completion: nil)
+        
+        
+        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let preallotController : PreallocateSeatViewController = storyboard.instantiateViewControllerWithIdentifier("PreallocateSeatViewController") as! PreallocateSeatViewController
+        
+        preallotController.setCurrentSessionDetails(details)
+        self.presentViewController(preallotController, animated: true, completion: nil)
         
     }
     

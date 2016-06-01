@@ -15,7 +15,7 @@ import Foundation
     
     optional func delegateGoodQueryButtonPressedWithDetails(queryDetails:AnyObject)
     
-    optional func delegateTextReplyButtonPressedWithDetails(queryDetails:AnyObject)
+    optional func delegateTextReplyButtonPressedWithDetails(queryDetails:AnyObject, withButton textButton:UIButton)
     
     optional func delegateDismissButtonPressedWithDetails(queryDetails:AnyObject)
     
@@ -259,16 +259,23 @@ class QuerySubview: UIView, SSTeacherDataSourceDelegate
     func onTextReplyButton()
     {
         
-        mTextReplyButton.enabled = false
-        mTextReplyButton.setTitleColor(blackTextColor, forState: .Normal)
-
         
-        if delegate().respondsToSelector(#selector(QuerySubviewDelegate.delegateTextReplyButtonPressedWithDetails(_:)))
+        if delegate().respondsToSelector(#selector(QuerySubviewDelegate.delegateTextReplyButtonPressedWithDetails(_:withButton:)))
         {
-            delegate().delegateTextReplyButtonPressedWithDetails!(currentQueryDetails)
+            delegate().delegateTextReplyButtonPressedWithDetails!(currentQueryDetails, withButton: mTextReplyButton)
         }
     }
 
+    
+    func textReplySentWithText(text:String)
+    {
+        mTextReplyButton.enabled = false
+        mTextReplyButton.setTitleColor(lightGrayColor, forState: .Normal)
+        currentQueryDetails.setObject(text, forKey: "TeacherReplyText")
+        SSTeacherDataSource.sharedDataSource.replyToDoubtWithDetails(currentQueryDetails, WithDelegate: self)
+        
+
+    }
     
     func onDismissButton()
     {

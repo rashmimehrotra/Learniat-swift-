@@ -76,6 +76,8 @@ import Foundation
     
     optional  func smhDidgetTimeExtendedWithDetails(Details:AnyObject)
     
+     optional func smhDidGetSessionEndMessageWithDetails(details:AnyObject)
+    
     optional  func smhDidGetSeatingChangedWithDetails(details:AnyObject)
     
     optional  func smhDidGetVotingMessageWithDetails(details:AnyObject)
@@ -730,6 +732,13 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
             if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhDidgetTimeExtendedWithDetails))
             {
                 delegate().smhDidgetTimeExtendedWithDetails!(message.messageBody())
+            }
+        }
+        else if message.messageType() == kTeacherEndsSession
+        {
+            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhDidGetSessionEndMessageWithDetails(_:)))
+            {
+                delegate().smhDidGetSessionEndMessageWithDetails!(message.messageBody())
             }
         }
         else if message.messageType() == kSeatingChanged

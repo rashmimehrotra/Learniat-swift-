@@ -22,7 +22,9 @@ import Foundation
     
     optional func delegateScribbleQuestionWithSubtopicId(subTopicID:String)
     
-     optional func delegateTopicsSizeChangedWithHeight(height:CGFloat)
+    optional func delegateTopicsSizeChangedWithHeight(height:CGFloat)
+    
+    optional func delegateQuizmodePressedwithQuestions(questionArray:NSMutableArray)
     
     
 }
@@ -130,7 +132,7 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
         
         
         questionButtonsView.frame = CGRectMake(0, mTopicsContainerView.frame.size.height + mTopicsContainerView.frame.origin.y, mTopicsContainerView.frame.size.width, 44)
-//        self.addSubview(questionButtonsView)
+        self.addSubview(questionButtonsView)
         questionButtonsView.backgroundColor = UIColor.whiteColor()
         
         
@@ -138,13 +140,13 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
         questionButtonsView.addSubview(mScribbleButton)
         mScribbleButton.addTarget(self, action: #selector(QuestionsView.onScribbleButton), forControlEvents: UIControlEvents.TouchUpInside)
         mScribbleButton.setTitleColor(standard_Button, forState: .Normal)
-        mScribbleButton.setTitle("Scribble", forState: .Normal)
+        mScribbleButton.setTitle("Quiz mode", forState: .Normal)
         mScribbleButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
         mScribbleButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
         
         
         let  mMatchColumn = UIButton(frame: CGRectMake(220,  0, 160 ,mTopbarImageView.frame.size.height))
-        questionButtonsView.addSubview(mMatchColumn)
+//        questionButtonsView.addSubview(mMatchColumn)
         mMatchColumn.addTarget(self, action: #selector(QuestionsView.onMTCButton), forControlEvents: UIControlEvents.TouchUpInside)
         mMatchColumn.setTitleColor(standard_Button, forState: .Normal)
         mMatchColumn.setTitle("MTC", forState: .Normal)
@@ -153,7 +155,7 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
         
         
         let  mMRQ = UIButton(frame: CGRectMake(mTopbarImageView.frame.size.width - 180 ,  0, 160 ,mTopbarImageView.frame.size.height))
-        questionButtonsView.addSubview(mMRQ)
+//        questionButtonsView.addSubview(mMRQ)
         mMRQ.addTarget(self, action: #selector(QuestionsView.onMRQButton), forControlEvents: UIControlEvents.TouchUpInside)
         mMRQ.setTitleColor(standard_Button, forState: .Normal)
         mMRQ.setTitle("MRQ", forState: .Normal)
@@ -376,11 +378,11 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
         currentMainTopicsViewHeight = height
         
         
-        mTopicsContainerView.frame = CGRectMake(0, 44, mTopicsContainerView.frame.size.width, height - 44)
+        mTopicsContainerView.frame = CGRectMake(0, 44, mTopicsContainerView.frame.size.width, height - 88)
         
         mTopicsContainerView.contentSize = CGSizeMake(0, positionY + 20)
         
-//        questionButtonsView.frame = CGRectMake(0, mTopicsContainerView.frame.size.height + mTopicsContainerView.frame.origin.y, mTopicsContainerView.frame.size.width, 44)
+       questionButtonsView.frame = CGRectMake(0, mTopicsContainerView.frame.size.height + mTopicsContainerView.frame.origin.y, mTopicsContainerView.frame.size.width, 44)
         
         mActivityIndicator.stopAnimating()
         
@@ -427,6 +429,9 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
                 delegate().delegateScribbleQuestionWithSubtopicId!(currentSubTopicId)
                 
             }
+            
+            
+            
         }
         else
         {
@@ -434,6 +439,22 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
         }
         
         
+    }
+    
+    func onQuizmode()
+    {
+        if isCurrentSubtopicStarted == true
+        {
+            
+              if let currentMainTopicDetails = questionsDetailsDictonary[currentSubTopicId]
+              {
+                if delegate().respondsToSelector(#selector(QuestionsViewDelegate.delegateQuizmodePressedwithQuestions(_:)))
+                {
+                    delegate().delegateQuizmodePressedwithQuestions!(currentMainTopicDetails)
+                    
+                }
+            }
+        }
     }
     
     

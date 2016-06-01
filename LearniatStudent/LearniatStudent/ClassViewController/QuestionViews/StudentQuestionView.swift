@@ -180,7 +180,7 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
             mTextQuestion.setQuestionDetails(questionDetails ,withsessionDetails: sessionDetails, withQuestionLogId: _logId)
             
         }
-        else if QuestionType == OneString
+        else if QuestionType == OneString  || QuestionType == One_word
         {
             if mOneStringQuestionView != nil{
                 mOneStringQuestionView.removeFromSuperview()
@@ -268,7 +268,7 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
                 mTextQuestion.FreezMessageFromTeacher()
             }
         }
-        else if currentQuestionType == OneString
+        else if currentQuestionType == OneString || currentQuestionType == One_word
         {
             if mOneStringQuestionView != nil
             {
@@ -517,7 +517,7 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
             }
             
         }
-        else if currentQuestionType == OneString
+        else if currentQuestionType == OneString || currentQuestionType == One_word
         {
             if mOneStringQuestionView != nil
             {

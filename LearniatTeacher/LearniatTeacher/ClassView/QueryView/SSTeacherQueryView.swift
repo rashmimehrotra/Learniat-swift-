@@ -23,7 +23,7 @@ import Foundation
 
 
 
-class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelegate,SSTeacherQuerySelectViewDelegate,SSTeacherVolunteerViewDelegate
+class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelegate,SSTeacherQuerySelectViewDelegate,SSTeacherVolunteerViewDelegate,UIPopoverControllerDelegate,RatingsPopOverViewControllerDelegate
 {
     var _delgate: AnyObject!
     
@@ -190,9 +190,36 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
     }
     
     
-    func delegateTextReplyButtonPressedWithDetails(queryDetails: AnyObject) {
+    func delegateTextReplyButtonPressedWithDetails(queryDetails: AnyObject, withButton textButton: UIButton) {
+        
+        
+        
+         
+        let _ratingsPopoverController = RatingsPopOverViewController()
+        if let QueryId = queryDetails.objectForKey("QueryId") as? String
+        {
+             _ratingsPopoverController.addTextViewWithDoneButtonWithQueryId(QueryId)
+        }
+       
+        let navController = UINavigationController(rootViewController: _ratingsPopoverController)
+        
+        _ratingsPopoverController.setDelegate(self)
+        
+        let PopoverControllerRatings = UIPopoverController(contentViewController: navController)
+        PopoverControllerRatings.popoverContentSize = CGSizeMake(300,100);
+        PopoverControllerRatings.delegate = self;
+        navController.navigationBarHidden = true;
+        _ratingsPopoverController.setPopOverController(PopoverControllerRatings)
+        
+        let buttonPosition :CGPoint = textButton.convertPoint(CGPointZero, toView: self)
+        
+        PopoverControllerRatings.presentPopoverFromRect(CGRectMake(buttonPosition.x + (textButton.frame.size.width / 2) ,buttonPosition.y + textButton.frame.size.height  , 1, 1), inView: self, permittedArrowDirections: .Up, animated: true)
+        
         
     }
+    
+    
+    
     
     
     func delegateDismissButtonPressedWithDetails(queryDetails: AnyObject) {
@@ -217,6 +244,8 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
        
         refreshScrollView()
     }
+    
+    
     
     
     func onSocialRankingButton()
@@ -312,6 +341,16 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
         if queryVolunteerView != nil
         {
             queryVolunteerView.queryUnderstoodMessageFromStudentWithQueryId(queryId,withStudentId: StudentId)
+        }
+    }
+    
+    // MARK: - Query Volunteer  functions
+    
+    func delegatePopoverDoneButtonPressedWithText(text: String!, withQueryID queryId: String!)
+    {
+        if let studentqueryView  = mScrollView.viewWithTag(Int(queryId)!) as? QuerySubview
+        {
+            studentqueryView.textReplySentWithText(text)
         }
     }
     

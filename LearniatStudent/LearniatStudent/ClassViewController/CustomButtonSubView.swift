@@ -22,6 +22,10 @@ class CustomButtonSubView: UIButton
     
     var unSelectedColor     = UIColor()
     
+    var eventBubble         = UILabel()
+    
+    var eventValue      = 0
+    
     override init(frame: CGRect)
     {
         super.init(frame: frame)
@@ -60,6 +64,20 @@ class CustomButtonSubView: UIButton
         selectedImage = UIImage(named: _selectedImageName)!
         
         unSelectedImage = UIImage(named: _unselectedImageName)!
+        
+        
+        
+        
+        eventBubble.frame =  CGRectMake(self.frame.size.width - 25, 0, 20, 20)
+        eventBubble.backgroundColor = standard_Red
+        self.addSubview(eventBubble)
+        eventBubble.layer.cornerRadius = eventBubble.frame.size.width / 2
+        eventBubble.textColor = whiteColor
+        eventBubble.layer.masksToBounds = true
+        eventBubble.textAlignment = .Center
+        eventBubble.font = UIFont(name:helveticaMedium, size: 16)
+        eventBubble.hidden = true
+        
     }
     
     
@@ -68,6 +86,8 @@ class CustomButtonSubView: UIButton
         buttonImage.image = selectedImage
         buttonLabel.textColor = standard_Yellow
         self.backgroundColor = UIColor(red: 29/255.0, green: 54/255.0, blue: 79/255.0, alpha: 1)
+        eventBubble.hidden = true
+        eventValue = 0
     }
     
     
@@ -76,6 +96,24 @@ class CustomButtonSubView: UIButton
         buttonImage.image = unSelectedImage
         buttonLabel.textColor = UIColor.whiteColor()
         self.backgroundColor = UIColor.clearColor()
+    }
+    
+    
+    func newEventRaised()
+    {
+        
+        
+        if buttonImage.image == unSelectedImage
+        {
+            eventValue = eventValue + 1
+             eventBubble.hidden = false
+            eventBubble.text = "\(eventValue)"
+        }
+        else
+        {
+            eventValue = 0
+             eventBubble.hidden = true
+        }
     }
     
 }

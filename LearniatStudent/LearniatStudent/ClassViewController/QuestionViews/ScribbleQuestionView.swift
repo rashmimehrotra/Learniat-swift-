@@ -185,6 +185,10 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         modelAnswerScrollView.hidden = true
         modelAnswerScrollView.userInteractionEnabled = true
         
+        
+        
+        
+        
         let longGesture = UITapGestureRecognizer(target: self, action: #selector(ScribbleQuestionView.Long)) //Long function will call when user long press on button.
         modelAnswerScrollView.addGestureRecognizer(longGesture)
         longGesture.numberOfTapsRequired = 1
@@ -210,11 +214,19 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         }
         
         
-        
-        modelAnswerFullView.layer.shadowColor = progressviewBackground.CGColor;
-        modelAnswerFullView.layer.shadowOffset = CGSizeMake(0,0);
-        modelAnswerFullView.layer.shadowOpacity = 1;
         modelAnswerFullView.layer.shadowRadius = 1.0;
+        
+        modelAnswerFullView.layer.shadowColor = UIColor.blackColor().CGColor
+        modelAnswerFullView.layer.shadowOpacity = 0.3
+        modelAnswerFullView.layer.shadowOffset = CGSizeZero
+        modelAnswerFullView.layer.shadowRadius = 10
+
+        
+        
+//        modelAnswerFullView.layer.shadowColor = progressviewBackground.CGColor;
+//        modelAnswerFullView.layer.shadowOffset = CGSizeMake(0,0);
+//        modelAnswerFullView.layer.shadowOpacity = 1;
+//        modelAnswerFullView.layer.shadowRadius = 1.0;
 
     }
     

@@ -74,8 +74,8 @@ class AutoSeatAllocate: UIViewController,SSTeacherDataSourceDelegate
         
         let  mAutomatically = UIButton(frame: CGRectMake(mDonebutton.frame.origin.x  - (mTopbarImageView.frame.size.height * 2), 0,mTopbarImageView.frame.size.height * 2,mTopbarImageView.frame.size.height ))
         mTopbarImageView.addSubview(mAutomatically)
-        mAutomatically.setTitle("Edit seats", forState: .Normal)
-        mAutomatically.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        mAutomatically.setTitle("Configure grid", forState: .Normal)
+        mAutomatically.setTitleColor(whiteColor, forState: .Normal)
         mAutomatically.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
         mAutomatically.addTarget(self, action: #selector(AutoSeatAllocate.onEditSeat), forControlEvents: UIControlEvents.TouchUpInside)
         
@@ -286,7 +286,10 @@ class AutoSeatAllocate: UIViewController,SSTeacherDataSourceDelegate
     
     func onEditSeat()
     {
-        
+        let gridView = SetupGridview()
+        gridView.setCurrentSessionDetails(currentSessionDetails)
+        presentViewController(gridView, animated: true, completion: nil)
+
     }
     
     func onDone()

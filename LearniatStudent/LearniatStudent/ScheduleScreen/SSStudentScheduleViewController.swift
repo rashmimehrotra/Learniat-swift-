@@ -604,6 +604,12 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         delegateRefreshSchedule()
     }
     
+    func smhDidGetSessionEndMessageWithDetails(details: AnyObject)
+    {
+        delegateRefreshSchedule()
+        
+    }
+    
     
      // MARK: - Extra functions
     

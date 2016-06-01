@@ -175,11 +175,18 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
         modelAnswerFullView.setModelAnswerDetailsArray(modelAnswerArray, withQuestionName: mQuestionLabel.text!,withOverlayImage: UIImage())
         
                
-        
-        modelAnswerFullView.layer.shadowColor = progressviewBackground.CGColor;
-        modelAnswerFullView.layer.shadowOffset = CGSizeMake(0,0);
-        modelAnswerFullView.layer.shadowOpacity = 1;
         modelAnswerFullView.layer.shadowRadius = 1.0;
+        
+        modelAnswerFullView.layer.shadowColor = UIColor.blackColor().CGColor
+        modelAnswerFullView.layer.shadowOpacity = 0.3
+        modelAnswerFullView.layer.shadowOffset = CGSizeZero
+        modelAnswerFullView.layer.shadowRadius = 10
+
+        
+//        modelAnswerFullView.layer.shadowColor = progressviewBackground.CGColor;
+//        modelAnswerFullView.layer.shadowOffset = CGSizeMake(0,0);
+//        modelAnswerFullView.layer.shadowOpacity = 1;
+//        modelAnswerFullView.layer.shadowRadius = 1.0;
         
     }
     

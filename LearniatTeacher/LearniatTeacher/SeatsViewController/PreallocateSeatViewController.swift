@@ -64,7 +64,7 @@ class PreallocateSeatViewController: UIViewController,SSTeacherDataSourceDelegat
         let  mManually = UIButton(frame: CGRectMake(mTopbarImageView.frame.size.width - (mTopbarImageView.frame.size.height * 2), 0,mTopbarImageView.frame.size.height * 2,mTopbarImageView.frame.size.height ))
         mTopbarImageView.addSubview(mManually)
         mManually.setTitle("Manually", forState: .Normal)
-        mManually.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        mManually.setTitleColor(lightGrayColor, forState: .Normal)
         mManually.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
         mManually.addTarget(self, action: #selector(PreallocateSeatViewController.onManually), forControlEvents: UIControlEvents.TouchUpInside)
         

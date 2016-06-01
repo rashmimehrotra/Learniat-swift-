@@ -996,6 +996,11 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                         mSubmissionView.addOneStringQuestionWithDetails(currentQuestionDetails)
                         SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
                     }
+                    else if (questionType  == One_word)
+                    {
+                        mSubmissionView.addOneWordQuestionViewWithDetails(currentQuestionDetails)
+                        SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
+                    }
                 }
             }
         }
@@ -1005,6 +1010,12 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     func didGetSessionUpdatedWithDetials(details: AnyObject)
     {
+        
+        
+        
+        
+        SSTeacherMessageHandler.sharedMessageHandler.sendEndSessionMessageToRoom(currentSessionId)
+        
         let scheduleScreenView  = TeacherScheduleViewController()
         SSTeacherDataSource.sharedDataSource.isQuestionSent = false
         
@@ -1513,6 +1524,14 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
 // MARK: - Question delegate functions
     
+    
+    func delegateQuizmodePressedwithQuestions(questionArray: NSMutableArray)
+    {
+//        mShowTopicsView
+        
+    }
+    
+    
     func delegateQuestionSentWithQuestionDetails(questionDetails: AnyObject) {
         
         
@@ -1988,7 +2007,25 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView
                 {
                     studentDeskView.setOneStringAnswerWithText(OneStringAnswer)
-                    mSubmissionView.SetStudentOneStringAnswer(OneStringAnswer, withStudentDict: studentDeskView.currentStudentsDict)
+                    
+                    
+                    if currentQuestionDetails.objectForKey("Type") != nil
+                    {
+                        if let questionType = currentQuestionDetails.objectForKey("Type") as? String
+                        {
+                            if questionType == OneString
+                            {
+                                mSubmissionView.SetStudentOneStringAnswer(OneStringAnswer, withStudentDict: studentDeskView.currentStudentsDict)
+                            }
+                            else if questionType == One_word
+                            {
+                                mSubmissionView.SetStudentOneWordAnswer(OneStringAnswer, withStudentDict: studentDeskView.currentStudentsDict)
+                            }
+                            
+                        }
+                    }
+                    
+                    
                 }
                 
                 

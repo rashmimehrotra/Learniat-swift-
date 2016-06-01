@@ -167,7 +167,7 @@ pullNewProfilePics;
     manualResignButton.frame = CGRectMake(100.0,81, 200, 40); //(10.0, 116.0, 258.0, 43.0);
     [self.view addSubview:manualResignButton];
     [manualResignButton setTitle:@"Manual" forState:UIControlStateNormal];
-    [manualResignButton setTitleColor:[UIColor colorWithRed:0.0 green:174.0/255.0 blue:239.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [manualResignButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     [manualResignButton setBackgroundColor:[UIColor whiteColor]];
     
     

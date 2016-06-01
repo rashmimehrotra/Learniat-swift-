@@ -7,7 +7,7 @@
 //
 
 import Foundation
-class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SSStudentMessageHandlerDelegate,StudentSeatSubViewDelegate
+class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SSStudentMessageHandlerDelegate,StudentSeatSubViewDelegate,UIPopoverControllerDelegate,SSStudentSchedulePopoverControllerDelegate
 {
     
     var sessionDetails               :AnyObject!
@@ -33,7 +33,7 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
     var seatsRemovedArray   = [String]()
     
     
-    
+    let mClassNameButton  = UIButton()
     
     override func viewDidLoad()
     {
@@ -130,8 +130,41 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
             SSStudentDataSource.sharedDataSource.getGridDesignDetails(roomId, WithDelegate: self)
         }
         
+        mClassNameButton.frame = CGRectMake((mTopbarImageView.frame.size.width - mPreallocateSeats.frame.size.width)/2 , 0, mPreallocateSeats.frame.size.width, mTopbarImageView.frame.size.height )
+        mTopbarImageView.addSubview(mClassNameButton)
+        mClassNameButton.addTarget(self, action: #selector(StudentSeatViewController.onClassButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mClassNameButton.backgroundColor = UIColor.clearColor()
+
+        
     }
     
+    
+    func onClassButton()
+    {
+        
+        
+        
+        let buttonPosition :CGPoint = mClassNameButton.convertPoint(CGPointZero, toView: self.view)
+        
+        let remainingHeight = self.view.frame.size.height - (buttonPosition.y  + mClassNameButton.frame.size.height + mClassNameButton.frame.size.height)
+        
+        
+        let questionInfoController = SSStudentSchedulePopoverController()
+        
+        questionInfoController.setCurrentScreenSize(CGSizeMake(400, remainingHeight))
+        questionInfoController.setdelegate(self)
+        let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+        
+        classViewPopOverController.popoverContentSize = CGSizeMake(400,remainingHeight);
+        classViewPopOverController.delegate = self;
+        questionInfoController.setPopover(classViewPopOverController)
+        classViewPopOverController.presentPopoverFromRect(CGRect(
+            x:buttonPosition.x + mClassNameButton.frame.size.width / 2,
+            y:buttonPosition.y  + mClassNameButton.frame.size.height,
+            width: 1,
+            height: 1), inView: self.view, permittedArrowDirections: .Up, animated: true)
+        
+    }
     
     
     func setCurrentSessionDetails(details: AnyObject)
@@ -345,6 +378,23 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
     {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    
+    func smhDidGetSessionEndMessageWithDetails(details: AnyObject)
+    {
+        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let preallotController : SSStudentScheduleViewController = storyboard.instantiateViewControllerWithIdentifier("TeacherScheduleViewController") as! SSStudentScheduleViewController
+        self.presentViewController(preallotController, animated: true, completion: nil)
+    }
    
+    // MARK: - Leave class delegate handler
+    
+    func delegateSessionEnded()
+    {
+        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let preallotController : SSStudentScheduleViewController = storyboard.instantiateViewControllerWithIdentifier("TeacherScheduleViewController") as! SSStudentScheduleViewController
+        self.presentViewController(preallotController, animated: true, completion: nil)
+        
+    }
     
 }

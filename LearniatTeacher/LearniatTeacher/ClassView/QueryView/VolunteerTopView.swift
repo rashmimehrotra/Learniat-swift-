@@ -8,15 +8,30 @@
 
 import Foundation
 
+@objc protocol VolunteerTopViewDelegate
+{
+    
+    
+    optional func delegateMetooButtonPressed()
+  
+    optional func delegateVolunteerButtonPressed()
+    
+    optional func delegateQueryButtonPressed()
+    
+    
+    
+    
+    
+}
 class VolunteerTopView: UIView
 {
     var _delgate: AnyObject!
     
     var currentQueryDetails:AnyObject!
     
-    var mQueryLabel         = UILabel()
+    var mQueryLabel         = UIButton()
     
-    var mMetooLabel         = UILabel()
+    var mMetooLabel         = UIButton()
     
     var mVolunteerButton     = UIButton()
     
@@ -39,7 +54,7 @@ class VolunteerTopView: UIView
         mVolunteerButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
         mVolunteerButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 14)
         mVolunteerButton.backgroundColor = UIColor.clearColor()
-        
+        mVolunteerButton.addTarget(self, action: #selector(VolunteerTopView.onVolunteerButton), forControlEvents: .TouchUpInside)
         
         let lineImage1 = UIImageView(frame:CGRectMake(mVolunteerButton.frame.origin.x, 5, 1, self.frame.size.height - 10));
         lineImage1.backgroundColor = progressviewBackground
@@ -48,13 +63,13 @@ class VolunteerTopView: UIView
         
         
         mMetooLabel.frame = CGRectMake((lineImage1.frame.origin.x - lineImage1.frame.size.width)  - mVolunteerButton.frame.size.width , 0, mVolunteerButton.frame.size.width, self.frame.size.height)
-        mMetooLabel.text = "Me-Too"
-        mMetooLabel.textColor =  UIColor.lightGrayColor()
+        mMetooLabel.setTitle("Me-Too", forState: .Normal)
+        mMetooLabel.setTitleColor( UIColor.lightGrayColor(), forState: .Normal)
+        mMetooLabel.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
+        mMetooLabel.titleLabel?.font = UIFont(name: helveticaRegular, size: 14)
+        mMetooLabel.backgroundColor = UIColor.clearColor()
         self.addSubview(mMetooLabel)
-        mMetooLabel.font = UIFont(name: helveticaRegular, size: 14)
-        
-        mMetooLabel.textAlignment = .Center
-        
+        mVolunteerButton.addTarget(self, action: #selector(VolunteerTopView.onMetooButton), forControlEvents: .TouchUpInside)
         
         
         let lineImage = UIImageView(frame:CGRectMake(mMetooLabel.frame.origin.x, 5, 1, self.frame.size.height - 10));
@@ -65,16 +80,13 @@ class VolunteerTopView: UIView
         
         
         mQueryLabel.frame = CGRectMake(10 ,0,lineImage.frame.origin.x - 20  , self.frame.size.height)
-        mQueryLabel.textAlignment = .Left;
-        mQueryLabel.textColor = UIColor.lightGrayColor()
         self.addSubview(mQueryLabel)
         mQueryLabel.backgroundColor = UIColor.clearColor()
-        mQueryLabel.font = UIFont(name: helveticaRegular, size: 14)
-        mQueryLabel.lineBreakMode = .ByTruncatingMiddle
-        mQueryLabel.numberOfLines = 1
-        mQueryLabel.textAlignment = .Left
-        mQueryLabel.text = "Query"
-        
+        mQueryLabel.setTitle("Query", forState: .Normal)
+        mQueryLabel.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
+        mQueryLabel.titleLabel?.font = UIFont(name: helveticaRegular, size: 14)
+        mQueryLabel.setTitleColor( UIColor.lightGrayColor(), forState: .Normal)
+        mQueryLabel.addTarget(self, action: #selector(VolunteerTopView.onQueryButton), forControlEvents: .TouchUpInside)
         
         
         
@@ -91,4 +103,33 @@ class VolunteerTopView: UIView
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    func setdelegate(delegate:AnyObject)
+    {
+        _delgate = delegate;
+    }
+    
+    func   delegate()->AnyObject
+    {
+        return _delgate;
+    }
+    
+    
+    func onVolunteerButton()
+    {
+        delegate().delegateVolunteerButtonPressed!()
+    }
+    
+    func onMetooButton()
+    {
+        delegate().delegateMetooButtonPressed!()
+    }
+    
+    func onQueryButton()
+    {
+        delegate().delegateQueryButtonPressed!()
+    }
+
+    
 }

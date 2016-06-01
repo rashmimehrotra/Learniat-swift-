@@ -93,7 +93,7 @@ class SSStudentSchedulePopoverController: UIViewController,SSStudentDataSourceDe
         let  mEndClassButton = UIButton(frame: CGRectMake(0, _currentScreenSize.height - 50 , _currentScreenSize.width, 50))
         mEndClassButton.addTarget(self, action: #selector(SSStudentSchedulePopoverController.onEndSession), forControlEvents: UIControlEvents.TouchUpInside)
         mEndClassButton.setTitleColor(standard_Red, forState: .Normal)
-        mEndClassButton.setTitle("End class", forState: .Normal)
+        mEndClassButton.setTitle("Leave class", forState: .Normal)
         mEndClassButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
         mEndClassButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
         self.view.addSubview(mEndClassButton)

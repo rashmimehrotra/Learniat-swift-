@@ -23,6 +23,7 @@
     
     id                              _delgate;
     id                              popoverController;
+    NSString                        *currentQueryId;
 
 }
 - (void) addStartRatingwithStarValue:(int)startValue withtext:(NSString*)text;
@@ -40,11 +41,15 @@
 
 - (void) setPopOverController:(id) pop;
 - (id) popOverController;
+- (void) addTextViewWithDoneButtonWithQueryId:(NSString*)queryId;
 
 @end
 
-@protocol ratingsPopover <NSObject>
+@protocol RatingsPopOverViewControllerDelegate <NSObject>
 
-- (void) sendDoubtReplaywithStudentId:(NSString*)studentId withIndexPathValue:(NSString*)indexPathValue witText:(NSString*)text;
-- (void) dismissPopoverAnimated;
+@optional - (void) sendDoubtReplaywithStudentId:(NSString*)studentId withIndexPathValue:(NSString*)indexPathValue witText:(NSString*)text;
+@optional - (void) dismissPopoverAnimated;
+@optional - (void) delegatePopoverDoneButtonPressedWithText:(NSString*)text withQueryID:(NSString*)queryId;
+
+
 @end

@@ -477,12 +477,17 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
         {
             cumulativeTimer.invalidate()
             
-            if let subTopicCellView  = mTopicsContainerView.viewWithTag(Int(SSTeacherDataSource.sharedDataSource.startedSubTopicId)!) as? SubTopicCell
+            if SSTeacherDataSource.sharedDataSource.startedSubTopicId != ""
             {
-                subTopicCellView.startButton.setTitle("Resume", forState: .Normal)
-               subTopicCellView.startButton.setTitleColor(standard_Green, forState: .Normal)
-
+                
+                if let subTopicCellView  = mTopicsContainerView.viewWithTag(Int(SSTeacherDataSource.sharedDataSource.startedSubTopicId)!) as? SubTopicCell
+                {
+                    subTopicCellView.startButton.setTitle("Resume", forState: .Normal)
+                    subTopicCellView.startButton.setTitleColor(standard_Green, forState: .Normal)
+                    
+                }
             }
+            
             
            
             

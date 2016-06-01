@@ -21,7 +21,7 @@ let kMCQ                  = "Multiple Choice"
 let kMRQ                  = "Multiple Response"
 let kMatchColumn          = "Match Columns"
 let OneString           :String         = "One_String"
-
+let One_word           :String         = "One word"
 
 
 let KCorretValue            = "4"
