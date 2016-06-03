@@ -415,6 +415,7 @@
 		539945D71CD09AD700007EC7 /* PlistDownloder.m in Sources */ = {isa = PBXBuildFile; fileRef = 539945D61CD09AD700007EC7 /* PlistDownloder.m */; };
 		539945D91CD0A54B00007EC7 /* StudentQueryDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539945D81CD0A54B00007EC7 /* StudentQueryDemo.swift */; };
 		539945DB1CD0A56100007EC7 /* StudentQuerySelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539945DA1CD0A56100007EC7 /* StudentQuerySelectionView.swift */; };
+		539FB61D1D00396700D3C5B1 /* QuizmodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539FB61C1D00396700D3C5B1 /* QuizmodeCell.swift */; };
 		53A3B1C91CDDAE870031E92A /* css in Resources */ = {isa = PBXBuildFile; fileRef = 53A3B1C81CDDAE870031E92A /* css */; };
 		53B5901C1CB8E02900A69FC1 /* Cb_Like_Disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 53B590161CB8E02900A69FC1 /* Cb_Like_Disabled.png */; };
 		53B5901D1CB8E02900A69FC1 /* Cb_Like_Enabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 53B590171CB8E02900A69FC1 /* Cb_Like_Enabled.png */; };
@@ -1055,6 +1056,7 @@
 		539945D61CD09AD700007EC7 /* PlistDownloder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlistDownloder.m; sourceTree = "<group>"; };
 		539945D81CD0A54B00007EC7 /* StudentQueryDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentQueryDemo.swift; sourceTree = "<group>"; };
 		539945DA1CD0A56100007EC7 /* StudentQuerySelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentQuerySelectionView.swift; sourceTree = "<group>"; };
+		539FB61C1D00396700D3C5B1 /* QuizmodeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizmodeCell.swift; sourceTree = "<group>"; };
 		53A3B1C81CDDAE870031E92A /* css */ = {isa = PBXFileReference; lastKnownFileType = folder; path = css; sourceTree = "<group>"; };
 		53B590161CB8E02900A69FC1 /* Cb_Like_Disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cb_Like_Disabled.png; sourceTree = "<group>"; };
 		53B590171CB8E02900A69FC1 /* Cb_Like_Enabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cb_Like_Enabled.png; sourceTree = "<group>"; };
@@ -2463,8 +2465,9 @@
 				53D8CCAE1CCE1DF300BA838C /* SubTopicsView.swift */,
 				53676D581CA63D7A00CADE4D /* SubTopicCell.swift */,
 				53D8CCB01CCE314E00BA838C /* QuestionsView.swift */,
-				5367E2EE1CFEF11C00E4FD23 /* QuizModeView.swift */,
 				53676D541CA63D7A00CADE4D /* QuestionCell.swift */,
+				5367E2EE1CFEF11C00E4FD23 /* QuizModeView.swift */,
+				539FB61C1D00396700D3C5B1 /* QuizmodeCell.swift */,
 				537D3ECE1CCF25F200D766ED /* LiveQuestionView.swift */,
 				532607741CA90760002FF684 /* QuestionInfoScreen */,
 			);
@@ -2910,6 +2913,7 @@
 				531044AA1CA665E2007AE9D5 /* StundentDeskView.swift in Sources */,
 				53676CEA1CA63B7F00CADE4D /* TURNSocket.m in Sources */,
 				53676D5A1CA63D7A00CADE4D /* MainTopicCell.swift in Sources */,
+				539FB61D1D00396700D3C5B1 /* QuizmodeCell.swift in Sources */,
 				53015BA31CE5A53300BB366C /* PNBar.m in Sources */,
 				53676D591CA63D7A00CADE4D /* SSTeacherClassView.swift in Sources */,
 				53676CEC1CA63B7F00CADE4D /* XMPPMessage+XEP_0066.m in Sources */,

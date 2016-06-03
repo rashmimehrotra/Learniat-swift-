@@ -136,12 +136,12 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
         questionButtonsView.backgroundColor = UIColor.whiteColor()
         
         
-        let  mScribbleButton = UIButton(frame: CGRectMake(20,  0, 160 ,mTopbarImageView.frame.size.height))
+        let  mScribbleButton = UIButton(frame: CGRectMake(20,  0, questionButtonsView.frame.size.width ,mTopbarImageView.frame.size.height))
         questionButtonsView.addSubview(mScribbleButton)
-        mScribbleButton.addTarget(self, action: #selector(QuestionsView.onScribbleButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mScribbleButton.addTarget(self, action: #selector(QuestionsView.onQuizmode), forControlEvents: UIControlEvents.TouchUpInside)
         mScribbleButton.setTitleColor(standard_Button, forState: .Normal)
         mScribbleButton.setTitle("Quiz mode", forState: .Normal)
-        mScribbleButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
+        mScribbleButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
         mScribbleButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
         
         

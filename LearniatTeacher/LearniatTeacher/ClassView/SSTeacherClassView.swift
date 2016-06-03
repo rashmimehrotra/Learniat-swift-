@@ -1527,7 +1527,16 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     func delegateQuizmodePressedwithQuestions(questionArray: NSMutableArray)
     {
-//        mShowTopicsView
+        
+        
+        
+        let mQuizMode = QuizModeView(frame:CGRectMake(0,0,mShowTopicsView.frame.size.width,mShowTopicsView.frame.size.height))
+        mShowTopicsView.addSubview(mQuizMode)
+        mQuizMode.setQuestionWithDetails(questionArray)
+    
+        
+        
+        
         
     }
     
