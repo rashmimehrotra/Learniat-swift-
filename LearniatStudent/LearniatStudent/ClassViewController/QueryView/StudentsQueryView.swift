@@ -428,6 +428,8 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
         }
 
         
+        print(details)
+        
         if let allowVolunteerFlagList = details.objectForKey("AllowVolunteerFlag") as? String
         {
             if let queryIdList = details.objectForKey("QueryIdList") as? String
@@ -435,37 +437,58 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
                 if let queryTextList = details.objectForKey("QueryText") as? String
                 {
                     
-                    let allowVolunteerFlagArray:Array = allowVolunteerFlagList.componentsSeparatedByString(";;;")
-                    let queryIdListArray:Array = queryIdList.componentsSeparatedByString(";;;")
-                    let queryTextListArray:Array = queryTextList.componentsSeparatedByString(";;;")
-                    
-                    var qrvPositionY :CGFloat = 10
-                    for index in 0  ..< allowVolunteerFlagArray.count
+                    if let StudentNameList = details.objectForKey("StudentName") as? String
                     {
+                       
                         
-                        let qrvSubView = QRVSubView(frame:  CGRectMake(10,  qrvPositionY ,self.frame.size.width-20,60))
+                        let allowVolunteerFlagArray:Array = allowVolunteerFlagList.componentsSeparatedByString(";;;")
+                        let queryIdListArray:Array = queryIdList.componentsSeparatedByString(";;;")
+                        let queryTextListArray:Array = queryTextList.componentsSeparatedByString(";;;")
+                        let studentNameListArray:Array = StudentNameList.componentsSeparatedByString(";;;")
                         
-                        SSStudentDataSource.sharedDataSource.QRVQueryDictonary.setObject((queryTextListArray[index] as String), forKey: (queryIdListArray[index] as String))
-                        
-                        let height =  qrvSubView.getQueryTextSizeWithText(queryTextListArray[index] as String)
-                        qrvSubView.tag = Int((queryIdListArray[index]) )!
-                        qrvSubView.frame = CGRectMake(10,  qrvPositionY ,self.frame.size.width-20,height)
-                        
-                        qrvSubView.addAllSUbQuerySubViewWithDetails(allowVolunteerFlagArray[index], withQueryId: (queryIdListArray[index]), withQueryText: (queryTextListArray[index] as String), withQuerySize: height - 50,withCount: String(index+1))
-                        
-                        mQRVScrollView.addSubview(qrvSubView)
-                        qrvSubView.setdelegate(self)
-                        qrvSubView.backgroundColor = UIColor.whiteColor()
-                        qrvSubView.layer.shadowColor = UIColor.blackColor().CGColor
-                        qrvSubView.layer.shadowOffset = CGSize(width: 0, height: 3)
-                        qrvSubView.layer.shadowOpacity = 0.3
-                        qrvSubView.layer.shadowRadius = 2
-                        qrvSubView.layer.cornerRadius = 2
-                        
-                        qrvPositionY = qrvPositionY + qrvSubView.frame.height + 10
-                        
+                        var qrvPositionY :CGFloat = 10
+                        for index in 0  ..< allowVolunteerFlagArray.count
+                        {
+                            
+                            let qrvSubView = QRVSubView(frame:  CGRectMake(10,  qrvPositionY ,self.frame.size.width-20,60))
+                            
+                            SSStudentDataSource.sharedDataSource.QRVQueryDictonary.setObject((queryTextListArray[index] as String), forKey: (queryIdListArray[index] as String))
+                            
+                            let height =  qrvSubView.getQueryTextSizeWithText(queryTextListArray[index] as String)
+                            qrvSubView.tag = Int((queryIdListArray[index]) )!
+                            qrvSubView.frame = CGRectMake(10,  qrvPositionY ,self.frame.size.width-20,height)
+                            
+                            
+                            if let studentName = studentNameListArray[index] as? String
+                            {
+                                if studentName.capitalizedString == SSStudentDataSource.sharedDataSource.currentUserName.capitalizedString
+                                {
+                                    qrvSubView.addAllSUbQuerySubViewWithDetails(allowVolunteerFlagArray[index], withQueryId: (queryIdListArray[index]), withQueryText: (queryTextListArray[index] as String), withQuerySize: height - 50,withCount: String(index+1), withMyQuery:true)
+                                }
+                                else
+                                {
+                                    qrvSubView.addAllSUbQuerySubViewWithDetails(allowVolunteerFlagArray[index], withQueryId: (queryIdListArray[index]), withQueryText: (queryTextListArray[index] as String), withQuerySize: height - 50,withCount: String(index+1), withMyQuery:false)
+                                }
+                            }
+                            
+
+                            
+                            mQRVScrollView.addSubview(qrvSubView)
+                            qrvSubView.setdelegate(self)
+                            qrvSubView.backgroundColor = UIColor.whiteColor()
+                            qrvSubView.layer.shadowColor = UIColor.blackColor().CGColor
+                            qrvSubView.layer.shadowOffset = CGSize(width: 0, height: 3)
+                            qrvSubView.layer.shadowOpacity = 0.3
+                            qrvSubView.layer.shadowRadius = 2
+                            qrvSubView.layer.cornerRadius = 2
+                            
+                            qrvPositionY = qrvPositionY + qrvSubView.frame.height + 10
+                            
+                        }
+                        mQRVScrollView.contentSize = CGSizeMake(0, qrvPositionY)
                     }
-                    mQRVScrollView.contentSize = CGSizeMake(0, qrvPositionY)
+                    
+                  
                     
                 }
             }

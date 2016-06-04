@@ -598,6 +598,8 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     func smhStreamReconnectingWithDelay(delay: Int32) {
         self.view.makeToast("Reconnecting in \(delay) seconds", duration: 0.5, position: .Bottom)
+        
+        AppDelegate.sharedDataSource.showReconnecting()
 
     }
     
@@ -606,6 +608,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         if state == true
         {
             SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateLive, ofSession:(sessionDetails.objectForKey("SessionId") as! String), withDelegate: self)
+             AppDelegate.sharedDataSource.hideReconnecting()
         }
     }
     
@@ -1041,7 +1044,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             questionAcceptAlert = UIAlertView()
             questionAcceptAlert.title = "Received a question"
             questionAcceptAlert.message = message
-            questionAcceptAlert.addButtonWithTitle("Wait")
+//            questionAcceptAlert.addButtonWithTitle("Wait")
             questionAcceptAlert.addButtonWithTitle("Accept")
             questionAcceptAlert.show()
             questionAcceptAlert.delegate = self
@@ -1060,15 +1063,19 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     {
         if alertView.tag == 1011
         {
-            if (buttonIndex == 0)
-            {
-                waitQuestionTimer = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector: #selector(StudentClassViewController.waitForQuestion), userInfo: nil, repeats: true)
-            }
-            else
-            {
-                SSStudentDataSource.sharedDataSource.fetchQuestionWithQuestionLogId(currentQuestionLogId, WithDelegate: self)
-                waitQuestionTimer.invalidate()
-            }
+//            if (buttonIndex == 0)
+//            {
+//                waitQuestionTimer = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector: #selector(StudentClassViewController.waitForQuestion), userInfo: nil, repeats: true)
+//            }
+//            else
+//            {
+//              
+//            }
+            
+            
+            SSStudentDataSource.sharedDataSource.fetchQuestionWithQuestionLogId(currentQuestionLogId, WithDelegate: self)
+            waitQuestionTimer.invalidate()
+            
         }
     }
     

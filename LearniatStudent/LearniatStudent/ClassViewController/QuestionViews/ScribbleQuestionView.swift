@@ -663,6 +663,9 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
             onSendButton()
             
         }
+        
+        mReplyStatusLabelView.hidden = false
+        mReplyStatusLabelView.text = "Frozen"
     }
     
     func getPeakViewMessageFromTeacher()
@@ -676,9 +679,8 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
 
         }
         else{
-            let imageData:NSData = UIImagePNGRepresentation(UIImage())!
-            let strBase64:String = imageData.base64EncodedStringWithOptions(.Encoding64CharacterLineLength)
-            SSStudentMessageHandler.sharedMessageHandler.sendPeakViewMessageToTeacherWithImageData(strBase64)
+            
+            SSStudentMessageHandler.sharedMessageHandler.sendPeakViewMessageToTeacherWithImageData(" ")
 
         }
     }

@@ -12,11 +12,11 @@ import Foundation
 {
     
     
-    optional func delegateMetooButtonPressed()
+    optional func delegateMetooButtonPressedWithAscending(Isascending:Bool)
   
-    optional func delegateVolunteerButtonPressed()
+    optional func delegateVolunteerButtonPressedWithAscending(Isascending:Bool)
     
-    optional func delegateQueryButtonPressed()
+    optional func delegateQueryButtonPressedWithAscending(Isascending:Bool)
     
     
     
@@ -69,7 +69,7 @@ class VolunteerTopView: UIView
         mMetooLabel.titleLabel?.font = UIFont(name: helveticaRegular, size: 14)
         mMetooLabel.backgroundColor = UIColor.clearColor()
         self.addSubview(mMetooLabel)
-        mVolunteerButton.addTarget(self, action: #selector(VolunteerTopView.onMetooButton), forControlEvents: .TouchUpInside)
+        mMetooLabel.addTarget(self, action: #selector(VolunteerTopView.onMetooButton), forControlEvents: .TouchUpInside)
         
         
         let lineImage = UIImageView(frame:CGRectMake(mMetooLabel.frame.origin.x, 5, 1, self.frame.size.height - 10));
@@ -85,7 +85,7 @@ class VolunteerTopView: UIView
         mQueryLabel.setTitle("Query", forState: .Normal)
         mQueryLabel.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
         mQueryLabel.titleLabel?.font = UIFont(name: helveticaRegular, size: 14)
-        mQueryLabel.setTitleColor( UIColor.lightGrayColor(), forState: .Normal)
+        mQueryLabel.setTitleColor( blackTextColor, forState: .Normal)
         mQueryLabel.addTarget(self, action: #selector(VolunteerTopView.onQueryButton), forControlEvents: .TouchUpInside)
         
         
@@ -118,17 +118,50 @@ class VolunteerTopView: UIView
     
     func onVolunteerButton()
     {
-        delegate().delegateVolunteerButtonPressed!()
+        
+        if mVolunteerButton.currentTitleColor == blackTextColor
+        {
+            delegate().delegateVolunteerButtonPressedWithAscending!(true)
+             mVolunteerButton.setTitleColor(lightGrayColor, forState: .Normal)
+        }
+        else
+        {
+            delegate().delegateVolunteerButtonPressedWithAscending!(false)
+             mVolunteerButton.setTitleColor(blackTextColor, forState: .Normal)
+        }
+        
+        
     }
     
     func onMetooButton()
     {
-        delegate().delegateMetooButtonPressed!()
+        if mMetooLabel.currentTitleColor == blackTextColor
+        {
+            delegate().delegateMetooButtonPressedWithAscending!(true)
+            mMetooLabel.setTitleColor(lightGrayColor, forState: .Normal)
+            
+        }
+        else
+        {
+            delegate().delegateMetooButtonPressedWithAscending!(false)
+            mMetooLabel.setTitleColor(blackTextColor, forState: .Normal)
+        }
+        
     }
     
     func onQueryButton()
     {
-        delegate().delegateQueryButtonPressed!()
+        if mQueryLabel.currentTitleColor == blackTextColor
+        {
+            delegate().delegateQueryButtonPressedWithAscending!(true)
+            mQueryLabel.setTitleColor(lightGrayColor, forState: .Normal)
+        }
+        else
+        {
+            delegate().delegateQueryButtonPressedWithAscending!(false)
+            mQueryLabel.setTitleColor(blackTextColor, forState: .Normal)
+        }
+        
     }
 
     

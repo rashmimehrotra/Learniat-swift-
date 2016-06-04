@@ -334,11 +334,19 @@ class MultipleChoiceView: UIView,SSStudentDataSourceDelegate
             if selectedOptions.count > 0
             {
                 onSendButton()
+                
+                
             }
             else
             {
                 onDontKnowButton()
             }
+            
+            
+            
+            mReplyStatusLabelView.hidden = false
+            mReplyStatusLabelView.text = "Frozen"
+            
         }
         
 

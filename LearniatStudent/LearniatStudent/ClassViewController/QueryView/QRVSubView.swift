@@ -73,7 +73,7 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
     
     
     
-    func addAllSUbQuerySubViewWithDetails(AllowVolunteer:String, withQueryId queryId:String, withQueryText queryText:String, withQuerySize height:CGFloat, withCount count:String)
+    func addAllSUbQuerySubViewWithDetails(AllowVolunteer:String, withQueryId queryId:String, withQueryText queryText:String, withQuerySize height:CGFloat, withCount count:String , withMyQuery isMyQuery:Bool)
     {
         
         self.tag = Int(queryId)!
@@ -113,8 +113,7 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
         self.addSubview(lineView)
 
         
-        
-        if AllowVolunteer == "1"
+        if AllowVolunteer == "1" && isMyQuery == false
         {
             VolunteerButton.frame = CGRectMake(positionXofButtons,lineView.frame.origin.y + lineView.frame.size.height + 5 ,120, 30)
             VolunteerButton.setTitle("I VOLUNTEER", forState: .Normal)

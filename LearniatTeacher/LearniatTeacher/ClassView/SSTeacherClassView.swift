@@ -149,6 +149,8 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
       var mExtTimelabel: UILabel = UILabel();
     
+    private var foregroundNotification: NSObjectProtocol!
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -158,6 +160,15 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
         self.view.setNeedsLayout()
         self.view.layoutIfNeeded()
+        
+        
+        foregroundNotification = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationWillEnterForegroundNotification, object: nil, queue: NSOperationQueue.mainQueue()) {
+            [unowned self] notification in
+            SSTeacherDataSource.sharedDataSource.getMyCurrentSessionOfTeacher(self)
+        }
+        
+        
+        
         
         demoQuestionAnswerView.setdelegate(self)
         
@@ -1053,22 +1064,71 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                         else
                         {
                             
-                            let  sessionAlertView = UIAlertController(title: "Session ending", message: "Your class is about to end in 6 mins. Do you want to continue?", preferredStyle: UIAlertControllerStyle.Alert)
                             
-                            sessionAlertView.addAction(UIAlertAction(title: "End now", style: .Default, handler: { action in
-                                
-                                
-                                SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, WithStatusvalue: kEnded, WithDelegate: self)
-                                
-                                
-                            }))
                             
-                            sessionAlertView.addAction(UIAlertAction(title: "Continue", style: .Default, handler: { action in
+                            if let StartTime = currentSessionDetails.objectForKey("StartTime") as? String
+                            {
                                 
-                            }))
-                            
-                            self.presentViewController(sessionAlertView, animated: true, completion: nil)
-                            
+                                var _string :String = ""
+                                let currentDate = NSDate()
+                                
+                                _string = _string.stringFromTimeInterval(currentDate.timeIntervalSinceDate(dateFormatter.dateFromString(StartTime)!)).fullString
+                                mStartTimeLabel.text = "Started: \(_string)"
+                                
+                                
+                                
+                                if let  EndTime = currentSessionDetails.objectForKey("EndTime") as? String
+                                {
+                                    
+                                    var totalminutesRemaining = currentDate.minutesDiffernceBetweenDates(dateFormatter.dateFromString(StartTime)!, endDate: dateFormatter.dateFromString(EndTime )!)
+                                    
+                                    totalminutesRemaining = totalminutesRemaining * 60
+                                    
+                                    
+                                    
+                                    var minutesRemaining = currentDate.minutesDiffernceBetweenDates(dateFormatter.dateFromString(StartTime )!, endDate:currentDate )
+                                    
+                                    
+                                    minutesRemaining = minutesRemaining * 60
+                                    
+                                    
+                                    let progressValue :CGFloat = CGFloat(minutesRemaining) / CGFloat(totalminutesRemaining)
+                                    mRemainingTimeProgressBar.progress = Float(progressValue)
+                                    
+                                    
+                                    let classEndingRemainingTime = currentDate.minutesDiffernceBetweenDates(currentDate, endDate:dateFormatter.dateFromString(EndTime )! )
+                                    
+                                    if classEndingRemainingTime <= 0
+                                    {
+                                        mStartLabelUpdater.invalidate()
+                                        delegateSessionEnded()
+                                    }
+                                    else if classEndingRemainingTime < 15
+                                    {
+                                        let  sessionAlertView = UIAlertController(title: "Session ending", message: "Your class is about to end in 6 mins. Do you want to continue?", preferredStyle: UIAlertControllerStyle.Alert)
+                                        
+                                        sessionAlertView.addAction(UIAlertAction(title: "End now", style: .Default, handler: { action in
+                                            
+                                            
+                                            SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, WithStatusvalue: kEnded, WithDelegate: self)
+                                            
+                                            
+                                        }))
+                                        
+                                        sessionAlertView.addAction(UIAlertAction(title: "Continue", style: .Default, handler: { action in
+                                            
+                                        }))
+                                        
+                                        self.presentViewController(sessionAlertView, animated: true, completion: nil)
+                                        
+                                    }
+                                    else
+                                    {
+                                        checkingClassEndTime = false
+                                    }
+                                }
+                                
+                            }
                             
                         }
                         
@@ -1563,7 +1623,23 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 {
                     mQuestionNamelabel.text = questionName
                 }
+                
+                
+                
+                
+                
             }
+            
+            let subViews = mClassView.subviews.flatMap{ $0 as? StundentDeskView }
+            
+            for subview in subViews
+            {
+                if subview.isKindOfClass(StundentDeskView)
+                {
+                    subview.setCurrentQuestionDetails(questionDetails)
+                }
+            }
+            
 
         }
         else
@@ -1702,9 +1778,20 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
 // MARK: - message handler delegate
     
+    
+    func smhDidReciveAuthenticationState(state: Bool, WithName userName: String)
+    {
+        if state == true
+        {
+            AppDelegate.sharedDataSource.hideReconnecting()
+        }
+    }
+    
     func smhStreamReconnectingWithDelay(delay: Int32) {
         
         self.view.makeToast("Reconnecting in \(delay) seconds", duration: 2, position: .Bottom)
+        
+        AppDelegate.sharedDataSource.showReconnecting()
       
     }
     
@@ -1975,8 +2062,12 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             
             let dataDecoded:NSData = NSData(base64EncodedString: imageData, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
             
-        
-                let decodedimage:UIImage = UIImage(data: dataDecoded)!
+            var decodedimage:UIImage = UIImage()
+            if dataDecoded.length > 0
+            {
+                decodedimage = UIImage(data: dataDecoded)!
+            }
+            
             
             if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView
             {

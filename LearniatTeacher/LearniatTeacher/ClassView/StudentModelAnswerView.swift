@@ -169,6 +169,9 @@ class StudentModelAnswerView: UIView,SSTeacherDataSourceDelegate,StudentModelAns
         mModelAnswerContainerView.contentSize = CGSizeMake(0, CGFloat(currentModelAnswerArray.count) * ((self.frame.size.width / 1.5) + 70 ))
         
         
+        mModelAnswerContainerView.contentOffset = CGPoint(x: 0, y: 0)
+        
+        
         var height :CGFloat = currentViewHeight
         
         

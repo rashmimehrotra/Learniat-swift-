@@ -436,6 +436,10 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
             onSendButton()
             
         }
+        
+        mReplyStatusLabel.hidden = false
+        mReplyStatusLabel.text = "Frozen"
+        
     }
     
     func getPeakViewMessageFromTeacher()

@@ -15,7 +15,7 @@ class QuizmodeCell: UIView
     let checkBoxImage       = UIImageView()
     var  isSelected             = true
     var m_checkBoxButton :UIButton!
-    
+    var currentQuestionDetails  :AnyObject!
     override init(frame: CGRect)
     {
         
@@ -61,6 +61,10 @@ class QuizmodeCell: UIView
     
     func setQuestionDict(details:AnyObject)
     {
+        
+        currentQuestionDetails = details
+        
+        
         if let questionName = details.objectForKey("Name")as? String
         {
             m_MainTopicLabel.text = "\(questionName)"

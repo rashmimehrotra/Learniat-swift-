@@ -142,6 +142,10 @@ class MatchColumnView: UIView,SSStudentDataSourceDelegate
             
         }
         mMatchColumnTableView.FreezMessageFromTeacher()
+       
+        mReplyStatusLabelView.hidden = false
+        mReplyStatusLabelView.text = "Frozen"
+        
     }
     
     // MARK: - datasource delegate Functions

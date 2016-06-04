@@ -19,7 +19,7 @@ class QuizModeView: UIView
     override init(frame: CGRect)
     {
         super.init(frame: frame)
-        self.backgroundColor = whiteBackgroundColor
+        self.backgroundColor = standard_Green
         
         
         
@@ -74,6 +74,25 @@ class QuizModeView: UIView
     
     func onSendButton()
     {
+        
+//        let questionLogIdList = NSMutableArray()
+//        
+//        let subViews = mQuestionsView.subviews.flatMap{ $0 as? QuizmodeCell }
+//        
+//        for mQuerySubView in subViews
+//        {
+//            if mQuerySubView.isKindOfClass(QuizmodeCell)
+//            {
+//                if mQuerySubView.isSelected == true
+//                {
+////                    questionLogIdList.addObject(<#T##anObject: AnyObject##AnyObject#>)
+//                }
+//            }
+//        }
+//
+//        
+        
+        
         self.removeFromSuperview()
     }
     

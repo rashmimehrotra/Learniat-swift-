@@ -423,6 +423,16 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
             
         }
         
+        if SSStudentDataSource.sharedDataSource.answerSent == true
+        {
+            mSharedGraphView.hidden = false
+        }
+        else
+        {
+            mSharedGraphView.hidden = true
+        }
+        
+        
     }
     
     

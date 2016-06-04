@@ -587,6 +587,7 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         
         activityIndicator.stopAnimating()
         activityIndicator.hidden = true
+        AppDelegate.sharedDataSource.hideReconnecting()
     }
     
     func smhStreamReconnectingWithDelay(delay: Int32)
@@ -595,6 +596,8 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         
         activityIndicator.startAnimating()
         activityIndicator.hidden = false
+        AppDelegate.sharedDataSource.showReconnecting()
+        
     }
     
     

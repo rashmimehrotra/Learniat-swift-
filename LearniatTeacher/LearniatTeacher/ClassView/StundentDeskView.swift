@@ -287,10 +287,25 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     func Long()
     {
         
-        if let StudentId = currentStudentsDict.objectForKey("StudentId") as? String
+        if mQuestionStateImage.hidden == false
         {
-             SSTeacherMessageHandler.sharedMessageHandler.sendPeakViewMessageToStudentWithId(StudentId)
+            if let questionType = _currentQuestionDetials.objectForKey("Type") as? String
+            {
+                
+                if (questionType  == kOverlayScribble  || questionType == kFreshScribble || questionType == kText)
+                {
+                    
+                    if let StudentId = currentStudentsDict.objectForKey("StudentId") as? String
+                    {
+                        SSTeacherMessageHandler.sharedMessageHandler.sendPeakViewMessageToStudentWithId(StudentId)
+                    }
+                }
+            }
         }
+        
+        
+        
+       
       
     }
     
@@ -401,6 +416,11 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     }
     
     // MARK: - Student Answers functions
+    
+    func setCurrentQuestionDetails(questionDetails:AnyObject)
+    {
+         _currentQuestionDetials = questionDetails
+    }
     
     func studentSentAnswerWithAnswerString(answerString:String, withQuestionDetails details:AnyObject)
     {

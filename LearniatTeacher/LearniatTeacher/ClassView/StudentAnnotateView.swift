@@ -332,7 +332,7 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         if let overlayImage = _currentQuestionDetials.objectForKey("Scribble") as? String
         {
             let overlayimageView = CustomProgressImageView()
-            overlayimageView.frame = containerview.frame
+            overlayimageView.frame = CGRectMake(0, 0, containerview.frame.size.width, containerview.frame.size.height)
             containerview.addSubview(overlayimageView);
 
             if overlayImage != ""
@@ -705,7 +705,7 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
     func lineDrawnChanged()
     {
         mSendButton.enabled = true;
-        mSendButton.setTitleColor(standard_Button, forState:.Normal);
+        mSendButton.setTitleColor(whiteColor, forState:.Normal);
     }
     
     // MARK: - Star view delegate
@@ -716,7 +716,7 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         if givenStarRatings > 0
         {
             mSendButton.enabled = true;
-            mSendButton.setTitleColor(standard_Button, forState:.Normal);
+            mSendButton.setTitleColor(whiteColor, forState:.Normal);
         }
         
         

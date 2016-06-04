@@ -1019,12 +1019,16 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
         activityIndicator.stopAnimating()
         activityIndicator.hidden = true
+        
+        
     }
     
     func smhDidReciveAuthenticationState(state: Bool, WithName userName: String) {
         
         activityIndicator.stopAnimating()
         activityIndicator.hidden = true
+        
+        AppDelegate.sharedDataSource.hideReconnecting()
     }
     
     func smhStreamReconnectingWithDelay(delay: Int32)
@@ -1033,6 +1037,9 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
         activityIndicator.startAnimating()
         activityIndicator.hidden = false
+        
+        AppDelegate.sharedDataSource.showReconnecting()
+        
     }
     
     

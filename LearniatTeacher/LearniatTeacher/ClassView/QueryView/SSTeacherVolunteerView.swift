@@ -42,6 +42,8 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
     
     var studentVolunteeringPopoverView : VolunteerAnsweringPopOver!
     
+    var metooMaxCount           = 0
+    var volunteerMaxCount       = 0
     
     override init(frame: CGRect)
     {
@@ -255,6 +257,10 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
                 {
                     studentqueryView.setVolunteersDetials(details)
                     
+                    if volunteerMaxCount < studentqueryView.mVolunteersDetailsArray.count
+                    {
+                        volunteerMaxCount = studentqueryView.mVolunteersDetailsArray.count
+                    }
                 }
             }
             
@@ -276,6 +282,11 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
                     if let StudentId = details.objectForKey("StudentId") as? String
                     {
                          studentqueryView.setMeTooSelectedStudents(StudentId)
+                        
+                        if metooMaxCount < studentqueryView.mmMetooSelectedArray.count
+                        {
+                            metooMaxCount = studentqueryView.mmMetooSelectedArray.count
+                        }
                     }
                 }
             }
@@ -457,10 +468,11 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
      // MARK: - Volunteer Topview delegate functions
     
     
-    func delegateQueryButtonPressed()
+    func delegateQueryButtonPressedWithAscending(Isascending: Bool)
     {
         
-        let queryArray = NSMutableArray()
+        
+        var currentY:CGFloat = 10
         
         let subViews = mScrollView.subviews.flatMap{ $0 as? QueryVolunteerSubView }
         
@@ -468,19 +480,160 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
         {
             if mQuerySubView.isKindOfClass(QueryVolunteerSubView)
             {
-               queryArray.addObject(mQuerySubView.mQueryLabel.text!)
+                UIView.animateWithDuration(0.5, animations:
+                    {
+                        mQuerySubView.frame = CGRectMake(mQuerySubView.frame.origin.x , currentY, mQuerySubView.frame.size.width ,mQuerySubView.frame.size.height)
+                })
+                
+                
+
+                
+                    currentY = currentY + mQuerySubView.frame.size.height + 10
+                
+                
+                
             }
         }
     }
     
-    func delegateMetooButtonPressed()
-    {
+    func delegateMetooButtonPressedWithAscending(Isascending: Bool) {
+        
+         var currentY:CGFloat = 10
+        
+        if Isascending == true
+        {
+            for index in 0 ..< metooMaxCount+1
+            {
+                
+                let subViews = mScrollView.subviews.flatMap{ $0 as? QueryVolunteerSubView }
+                
+                for mQuerySubView in subViews
+                {
+                    if mQuerySubView.isKindOfClass(QueryVolunteerSubView)
+                    {
+                        if mQuerySubView.mmMetooSelectedArray.count == index
+                        {
+                            
+                            UIView.animateWithDuration(0.5, animations:
+                                {
+                                    mQuerySubView.frame = CGRectMake(mQuerySubView.frame.origin.x , currentY, mQuerySubView.frame.size.width ,mQuerySubView.frame.size.height)
+                            })
+                            
+                            
+                            
+                            currentY = currentY + mQuerySubView.frame.size.height + 10
+                        }
+                        
+                        
+                    }
+                }
+            }
+        }
+        else
+        {
+            
+            
+            
+            for index in (0 ..< metooMaxCount+1).reverse()
+            {
+                
+                let subViews = mScrollView.subviews.flatMap{ $0 as? QueryVolunteerSubView }
+                
+                for mQuerySubView in subViews
+                {
+                    if mQuerySubView.isKindOfClass(QueryVolunteerSubView)
+                    {
+                        if mQuerySubView.mmMetooSelectedArray.count == index
+                        {
+                            
+                            UIView.animateWithDuration(0.5, animations:
+                                {
+                                    mQuerySubView.frame = CGRectMake(mQuerySubView.frame.origin.x , currentY, mQuerySubView.frame.size.width ,mQuerySubView.frame.size.height)
+                            })
+                            
+                            
+                            
+                            currentY = currentY + mQuerySubView.frame.size.height + 10
+                        }
+                        
+                        
+                    }
+                }
+            }
+        }
+        
+        
         
         
     }
     
-    func delegateVolunteerButtonPressed()
+    func delegateVolunteerButtonPressedWithAscending(Isascending: Bool)
     {
+        
+        var currentY:CGFloat = 10
+        
+        if Isascending == true
+        {
+            for index in 0 ..< volunteerMaxCount+1
+            {
+                
+                let subViews = mScrollView.subviews.flatMap{ $0 as? QueryVolunteerSubView }
+                
+                for mQuerySubView in subViews
+                {
+                    if mQuerySubView.isKindOfClass(QueryVolunteerSubView)
+                    {
+                        if mQuerySubView.mVolunteersDetailsArray.count == index
+                        {
+                            
+                            UIView.animateWithDuration(0.5, animations:
+                                {
+                                    mQuerySubView.frame = CGRectMake(mQuerySubView.frame.origin.x , currentY, mQuerySubView.frame.size.width ,mQuerySubView.frame.size.height)
+                            })
+                            
+                            
+                            
+                            currentY = currentY + mQuerySubView.frame.size.height + 10
+                        }
+                        
+                        
+                    }
+                }
+            }
+        }
+        else{
+            
+            
+            for index in (0 ..< volunteerMaxCount+1).reverse()
+            {
+                
+                let subViews = mScrollView.subviews.flatMap{ $0 as? QueryVolunteerSubView }
+                
+                for mQuerySubView in subViews
+                {
+                    if mQuerySubView.isKindOfClass(QueryVolunteerSubView)
+                    {
+                        if mQuerySubView.mVolunteersDetailsArray.count == index
+                        {
+                            
+                            UIView.animateWithDuration(0.5, animations:
+                                {
+                                    mQuerySubView.frame = CGRectMake(mQuerySubView.frame.origin.x , currentY, mQuerySubView.frame.size.width ,mQuerySubView.frame.size.height)
+                            })
+                            
+                            
+                            
+                            currentY = currentY + mQuerySubView.frame.size.height + 10
+                        }
+                        
+                        
+                    }
+                }
+            }
+            
+        }
+        
+        
         
     }
 }

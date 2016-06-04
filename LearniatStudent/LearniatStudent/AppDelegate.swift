@@ -14,6 +14,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
 
+    
+    internal  static let sharedDataSource = AppDelegate()
+    
+    var interntDownImageView : UIImageView!
+    
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -50,5 +56,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+    
+    func showReconnecting()
+    {
+        
+        
+        if  let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate,
+            let window = appDelegate.window
+        {
+            
+            if interntDownImageView == nil{
+                
+                interntDownImageView = UIImageView()
+                
+                interntDownImageView.frame = CGRectMake(0, 0, window.frame.size.width, 20)
+                window.addSubview(interntDownImageView)
+                interntDownImageView.backgroundColor = standard_Red
+                
+                window.bringSubviewToFront(interntDownImageView)
+            }
+            
+        }
+        
+        if interntDownImageView != nil
+        {
+            interntDownImageView.hidden = false
+        }
+        
+        
+    }
+    
+    
+    func hideReconnecting()
+    {
+        if interntDownImageView != nil
+        {
+            interntDownImageView.hidden = true
+        }
+    }
+    
+    
+    
+    
 }
 
