@@ -190,6 +190,8 @@ class QueryVolunteerSubView: UIView
         
        let subViews = VolunteeredDotView(frame:CGRectMake(currentVolunteerCount, 0, mVolunteeredCountScrollview.frame.size.height,  mVolunteeredCountScrollview.frame.size.height))
         mVolunteeredCountScrollview.addSubview(subViews)
+        subViews.layer.cornerRadius = subViews.frame.size.width/2
+        
         
         currentVolunteerCount = currentVolunteerCount +  mVolunteeredCountScrollview.frame.size.height + 2
         

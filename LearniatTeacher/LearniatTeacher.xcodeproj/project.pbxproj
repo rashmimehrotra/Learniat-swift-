@@ -51,6 +51,24 @@
 		53015BB21CE5A53300BB366C /* PNScatterChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 53015BA11CE5A53300BB366C /* PNScatterChartDataItem.m */; };
 		53015BB41CE5A89B00BB366C /* VolunteerAnsweringPopOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53015BB31CE5A89B00BB366C /* VolunteerAnsweringPopOver.swift */; };
 		53015BB61CE5B81500BB366C /* Thumbs_Down.png in Resources */ = {isa = PBXBuildFile; fileRef = 53015BB51CE5B81500BB366C /* Thumbs_Down.png */; };
+		530441721D0962E70032D378 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 530441601D0962E70032D378 /* Roboto-Black.ttf */; };
+		530441731D0962E70032D378 /* Roboto-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 530441611D0962E70032D378 /* Roboto-BlackItalic.ttf */; };
+		530441741D0962E70032D378 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 530441621D0962E70032D378 /* Roboto-Bold.ttf */; };
+		530441751D0962E70032D378 /* Roboto-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 530441631D0962E70032D378 /* Roboto-BoldItalic.ttf */; };
+		530441761D0962E70032D378 /* Roboto-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 530441641D0962E70032D378 /* Roboto-Italic.ttf */; };
+		530441771D0962E70032D378 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 530441651D0962E70032D378 /* Roboto-Light.ttf */; };
+		530441781D0962E70032D378 /* Roboto-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 530441661D0962E70032D378 /* Roboto-LightItalic.ttf */; };
+		530441791D0962E70032D378 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 530441671D0962E70032D378 /* Roboto-Medium.ttf */; };
+		5304417A1D0962E70032D378 /* Roboto-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 530441681D0962E70032D378 /* Roboto-MediumItalic.ttf */; };
+		5304417B1D0962E70032D378 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 530441691D0962E70032D378 /* Roboto-Regular.ttf */; };
+		5304417C1D0962E70032D378 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5304416A1D0962E70032D378 /* Roboto-Thin.ttf */; };
+		5304417D1D0962E70032D378 /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5304416B1D0962E70032D378 /* Roboto-ThinItalic.ttf */; };
+		5304417E1D0962E70032D378 /* RobotoCondensed-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5304416C1D0962E70032D378 /* RobotoCondensed-Bold.ttf */; };
+		5304417F1D0962E70032D378 /* RobotoCondensed-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5304416D1D0962E70032D378 /* RobotoCondensed-BoldItalic.ttf */; };
+		530441801D0962E70032D378 /* RobotoCondensed-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5304416E1D0962E70032D378 /* RobotoCondensed-Italic.ttf */; };
+		530441811D0962E70032D378 /* RobotoCondensed-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5304416F1D0962E70032D378 /* RobotoCondensed-Light.ttf */; };
+		530441821D0962E70032D378 /* RobotoCondensed-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 530441701D0962E70032D378 /* RobotoCondensed-LightItalic.ttf */; };
+		530441831D0962E70032D378 /* RobotoCondensed-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 530441711D0962E70032D378 /* RobotoCondensed-Regular.ttf */; };
 		530720E11D027F08001C85F6 /* Icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = 530720D11D027F08001C85F6 /* Icon-120.png */; };
 		530720E21D027F08001C85F6 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 530720D21D027F08001C85F6 /* Icon-72.png */; };
 		530720E31D027F08001C85F6 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 530720D31D027F08001C85F6 /* Icon-72@2x.png */; };
@@ -529,6 +547,24 @@
 		53015BA11CE5A53300BB366C /* PNScatterChartDataItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNScatterChartDataItem.m; sourceTree = "<group>"; };
 		53015BB31CE5A89B00BB366C /* VolunteerAnsweringPopOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolunteerAnsweringPopOver.swift; sourceTree = "<group>"; };
 		53015BB51CE5B81500BB366C /* Thumbs_Down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Thumbs_Down.png; sourceTree = "<group>"; };
+		530441601D0962E70032D378 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
+		530441611D0962E70032D378 /* Roboto-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BlackItalic.ttf"; sourceTree = "<group>"; };
+		530441621D0962E70032D378 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
+		530441631D0962E70032D378 /* Roboto-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BoldItalic.ttf"; sourceTree = "<group>"; };
+		530441641D0962E70032D378 /* Roboto-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Italic.ttf"; sourceTree = "<group>"; };
+		530441651D0962E70032D378 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
+		530441661D0962E70032D378 /* Roboto-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-LightItalic.ttf"; sourceTree = "<group>"; };
+		530441671D0962E70032D378 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		530441681D0962E70032D378 /* Roboto-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-MediumItalic.ttf"; sourceTree = "<group>"; };
+		530441691D0962E70032D378 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		5304416A1D0962E70032D378 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
+		5304416B1D0962E70032D378 /* Roboto-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-ThinItalic.ttf"; sourceTree = "<group>"; };
+		5304416C1D0962E70032D378 /* RobotoCondensed-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoCondensed-Bold.ttf"; sourceTree = "<group>"; };
+		5304416D1D0962E70032D378 /* RobotoCondensed-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoCondensed-BoldItalic.ttf"; sourceTree = "<group>"; };
+		5304416E1D0962E70032D378 /* RobotoCondensed-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoCondensed-Italic.ttf"; sourceTree = "<group>"; };
+		5304416F1D0962E70032D378 /* RobotoCondensed-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoCondensed-Light.ttf"; sourceTree = "<group>"; };
+		530441701D0962E70032D378 /* RobotoCondensed-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoCondensed-LightItalic.ttf"; sourceTree = "<group>"; };
+		530441711D0962E70032D378 /* RobotoCondensed-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoCondensed-Regular.ttf"; sourceTree = "<group>"; };
 		530720D11D027F08001C85F6 /* Icon-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-120.png"; sourceTree = "<group>"; };
 		530720D21D027F08001C85F6 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		530720D31D027F08001C85F6 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
@@ -1244,6 +1280,31 @@
 			path = PNChart;
 			sourceTree = "<group>";
 		};
+		5304415F1D0962E70032D378 /* RobotoTTF */ = {
+			isa = PBXGroup;
+			children = (
+				530441601D0962E70032D378 /* Roboto-Black.ttf */,
+				530441611D0962E70032D378 /* Roboto-BlackItalic.ttf */,
+				530441621D0962E70032D378 /* Roboto-Bold.ttf */,
+				530441631D0962E70032D378 /* Roboto-BoldItalic.ttf */,
+				530441641D0962E70032D378 /* Roboto-Italic.ttf */,
+				530441651D0962E70032D378 /* Roboto-Light.ttf */,
+				530441661D0962E70032D378 /* Roboto-LightItalic.ttf */,
+				530441671D0962E70032D378 /* Roboto-Medium.ttf */,
+				530441681D0962E70032D378 /* Roboto-MediumItalic.ttf */,
+				530441691D0962E70032D378 /* Roboto-Regular.ttf */,
+				5304416A1D0962E70032D378 /* Roboto-Thin.ttf */,
+				5304416B1D0962E70032D378 /* Roboto-ThinItalic.ttf */,
+				5304416C1D0962E70032D378 /* RobotoCondensed-Bold.ttf */,
+				5304416D1D0962E70032D378 /* RobotoCondensed-BoldItalic.ttf */,
+				5304416E1D0962E70032D378 /* RobotoCondensed-Italic.ttf */,
+				5304416F1D0962E70032D378 /* RobotoCondensed-Light.ttf */,
+				530441701D0962E70032D378 /* RobotoCondensed-LightItalic.ttf */,
+				530441711D0962E70032D378 /* RobotoCondensed-Regular.ttf */,
+			);
+			path = RobotoTTF;
+			sourceTree = "<group>";
+		};
 		530720D01D027F08001C85F6 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
@@ -1270,6 +1331,7 @@
 		531044831CA64296007AE9D5 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				5304415F1D0962E70032D378 /* RobotoTTF */,
 				530720D01D027F08001C85F6 /* Icons */,
 				53015BB51CE5B81500BB366C /* Thumbs_Down.png */,
 				53D1C15F1CDCAFC40095B1EB /* Delete.png */,
@@ -2776,6 +2838,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5304417F1D0962E70032D378 /* RobotoCondensed-BoldItalic.ttf in Resources */,
 				531044981CA64296007AE9D5 /* Blue_Alert.png in Resources */,
 				53B5901F1CB8E02900A69FC1 /* Cb_Like_Selected.png in Resources */,
 				537302601CB6771200E76753 /* Undo_Disabled.png in Resources */,
@@ -2788,6 +2851,7 @@
 				5373022E1CB6771200E76753 /* Star_Unselected_AnnotateView.png in Resources */,
 				537302261CB6771200E76753 /* Marker_Unselected_AnnotateView@2x.png in Resources */,
 				53676AEF1CA63B2200CADE4D /* LaunchScreen.storyboard in Resources */,
+				5304417C1D0962E70032D378 /* Roboto-Thin.ttf in Resources */,
 				5373022A1CB6771200E76753 /* Redo_Disabled_AnnotateView.png in Resources */,
 				5309C7601CD9DEB200481E0C /* Share.png in Resources */,
 				537302341CB6771200E76753 /* Text_Selected_AnnotateView.png in Resources */,
@@ -2804,6 +2868,7 @@
 				537302461CB6771200E76753 /* halfChecked.png in Resources */,
 				531044A51CA64296007AE9D5 /* 70.png in Resources */,
 				531044A61CA64296007AE9D5 /* 80.png in Resources */,
+				5304417A1D0962E70032D378 /* Roboto-MediumItalic.ttf in Resources */,
 				534217731CDC8F1F0061A7E7 /* ATKGeometryWidget.bundle in Resources */,
 				537302371CB6771200E76753 /* Text_Unselected_AnnotateView@2x.png in Resources */,
 				537302381CB6771200E76753 /* Tick_mark_image.png in Resources */,
@@ -2834,6 +2899,7 @@
 				537302571CB6771200E76753 /* Star_Unselected.png in Resources */,
 				530720E41D027F08001C85F6 /* Icon-76.png in Resources */,
 				537302281CB6771200E76753 /* Redo_Active_AnnotateView.png in Resources */,
+				5304417D1D0962E70032D378 /* Roboto-ThinItalic.ttf in Resources */,
 				531044991CA64296007AE9D5 /* CalendarBubbleRed.png in Resources */,
 				530720E51D027F08001C85F6 /* Icon-76@2x.png in Resources */,
 				537302191CB6771200E76753 /* Dark_Blue_Circle.png in Resources */,
@@ -2848,11 +2914,13 @@
 				53D1C1681CDCB30F0095B1EB /* Resize.png in Resources */,
 				531044AC1CA66C89007AE9D5 /* lowParticipartion.png in Resources */,
 				53909C6F1CBB73E500E8A1C0 /* Mute_red.png in Resources */,
+				5304417E1D0962E70032D378 /* RobotoCondensed-Bold.ttf in Resources */,
 				537302361CB6771200E76753 /* Text_Unselected_AnnotateView.png in Resources */,
 				5377E4381CAB8F1400A11E59 /* X.png in Resources */,
 				5360E6C01CBDFD7000AFE9FF /* Text_on_desk.png in Resources */,
 				537302321CB6771200E76753 /* Tab_bar_Divider_AnnotateView.png in Resources */,
 				537302481CB6771200E76753 /* Mark_Model_Not_Selected@2x.png in Resources */,
+				530441741D0962E70032D378 /* Roboto-Bold.ttf in Resources */,
 				5373024C1CB6771200E76753 /* Marker_Selected@2x.png in Resources */,
 				5373024B1CB6771200E76753 /* Marker_Selected.png in Resources */,
 				53909C6D1CBB73E500E8A1C0 /* Dismissed.png in Resources */,
@@ -2863,6 +2931,7 @@
 				530720E71D027F08001C85F6 /* Icon-iPad-Spotlight-iOS7@2x.png in Resources */,
 				5373022D1CB6771200E76753 /* Star_Selected_AnnotateView@2x.png in Resources */,
 				5373021D1CB6771200E76753 /* Eraser_Selected_scribble.png in Resources */,
+				530441731D0962E70032D378 /* Roboto-BlackItalic.ttf in Resources */,
 				537302301CB6771200E76753 /* Tab_bar_Button_AnnotateView.png in Resources */,
 				5373025F1CB6771200E76753 /* Undo_Active@2x.png in Resources */,
 				531044A11CA64296007AE9D5 /* 30.png in Resources */,
@@ -2870,12 +2939,14 @@
 				537302421CB6771200E76753 /* Eraser_Selected.png in Resources */,
 				537302201CB6771200E76753 /* Eraser_Unselected_scribble.png in Resources */,
 				537302541CB6771200E76753 /* Redo_Disabled@2x.png in Resources */,
+				530441791D0962E70032D378 /* Roboto-Medium.ttf in Resources */,
 				530720EA1D027F08001C85F6 /* Icon-Small@2x.png in Resources */,
 				5373025A1CB6771200E76753 /* Text_Selected@2x.png in Resources */,
 				537302241CB6771200E76753 /* Marker_Selected_scribble.png in Resources */,
 				530720E11D027F08001C85F6 /* Icon-120.png in Resources */,
 				5326078F1CA90AEC002FF684 /* indicator2.png in Resources */,
 				53D1C1651CDCAFC40095B1EB /* Edit.png in Resources */,
+				530441721D0962E70032D378 /* Roboto-Black.ttf in Resources */,
 				537302491CB6771200E76753 /* Mark_Model_Selected.png in Resources */,
 				5310449A1CA64296007AE9D5 /* infoButton.png in Resources */,
 				5373023B1CB6771200E76753 /* Top_bar_Divider_AnnotateView@2x.png in Resources */,
@@ -2883,6 +2954,7 @@
 				531044A01CA64296007AE9D5 /* 20.png in Resources */,
 				53D1C1631CDCAFC40095B1EB /* Delete.png in Resources */,
 				53909C701CBB73E500E8A1C0 /* Thumbs_Up.png in Resources */,
+				530441751D0962E70032D378 /* Roboto-BoldItalic.ttf in Resources */,
 				5373021F1CB6771200E76753 /* Eraser_Unselected_AnnotateView@2x.png in Resources */,
 				537302501CB6771200E76753 /* Rate_Type_Arrow_Icon@2x.png in Resources */,
 				5373021A1CB6771200E76753 /* Dark_Blue_Circle@2x.png in Resources */,
@@ -2903,16 +2975,20 @@
 				5373025B1CB6771200E76753 /* Text_Unselected.png in Resources */,
 				5373023F1CB6771200E76753 /* Undo_Disabled_AnnotateView@2x.png in Resources */,
 				532607901CA90AEC002FF684 /* indicator3.png in Resources */,
+				530441821D0962E70032D378 /* RobotoCondensed-LightItalic.ttf in Resources */,
 				53676AEA1CA63B2100CADE4D /* Main.storyboard in Resources */,
 				5310449E1CA64296007AE9D5 /* 10.png in Resources */,
 				5373021B1CB6771200E76753 /* Eraser_Selected_AnnotateView.png in Resources */,
 				537302511CB6771200E76753 /* Redo_Active.png in Resources */,
+				530441761D0962E70032D378 /* Roboto-Italic.ttf in Resources */,
 				53B590201CB8E02900A69FC1 /* Cb_Unlike_Enabled.png in Resources */,
 				4D2A93271CC0C986007A1D41 /* Add.png in Resources */,
 				537302531CB6771200E76753 /* Redo_Disabled.png in Resources */,
 				537302521CB6771200E76753 /* Redo_Active@2x.png in Resources */,
+				530441811D0962E70032D378 /* RobotoCondensed-Light.ttf in Resources */,
 				5310449D1CA64296007AE9D5 /* 00.png in Resources */,
 				4D496D471CDB5F9B00233E25 /* Shapes.png in Resources */,
+				530441781D0962E70032D378 /* Roboto-LightItalic.ttf in Resources */,
 				5326078C1CA90AEC002FF684 /* indicator10.png in Resources */,
 				531044971CA64296007AE9D5 /* Alert_Icon.png in Resources */,
 				5342176B1CDC834A0061A7E7 /* ATKMathWidget.bundle in Resources */,
@@ -2924,6 +3000,7 @@
 				5326078B1CA90AEC002FF684 /* indicator1.png in Resources */,
 				537302311CB6771200E76753 /* Tab_bar_Button_AnnotateView@2x.png in Resources */,
 				537302211CB6771200E76753 /* Gray_Circle_scribble.png in Resources */,
+				530441831D0962E70032D378 /* RobotoCondensed-Regular.ttf in Resources */,
 				531044A81CA64296007AE9D5 /* Teacher _app_icon.png in Resources */,
 				530720EF1D027F08001C85F6 /* iTunesArtwork in Resources */,
 				537302471CB6771200E76753 /* Mark_Model_Not_Selected.png in Resources */,
@@ -2935,12 +3012,15 @@
 				530720F01D027F08001C85F6 /* iTunesArtwork@2x in Resources */,
 				53676C9C1CA63B7F00CADE4D /* Wrong.png in Resources */,
 				537302591CB6771200E76753 /* Text_Selected.png in Resources */,
+				530441771D0962E70032D378 /* Roboto-Light.ttf in Resources */,
 				537302411CB6771200E76753 /* Checked@2x.png in Resources */,
 				53676D2C1CA63B7F00CADE4D /* build-libidn.sh in Resources */,
+				5304417B1D0962E70032D378 /* Roboto-Regular.ttf in Resources */,
 				53015BB61CE5B81500BB366C /* Thumbs_Down.png in Resources */,
 				53B5901D1CB8E02900A69FC1 /* Cb_Like_Enabled.png in Resources */,
 				530720E31D027F08001C85F6 /* Icon-72@2x.png in Resources */,
 				537302401CB6771200E76753 /* Checked.png in Resources */,
+				530441801D0962E70032D378 /* RobotoCondensed-Italic.ttf in Resources */,
 				530720ED1D027F08001C85F6 /* Icon.png in Resources */,
 				530720EC1D027F08001C85F6 /* Icon-Spotlight-iOS7@2x.png in Resources */,
 				537302611CB6771200E76753 /* Undo_Disabled@2x.png in Resources */,

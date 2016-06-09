@@ -38,6 +38,10 @@ let helveticaBold         = "HelveticaNeue-Bold"
 let HelveticaNeueThin     = "HelveticaNeue-Thin"
 
 
+let RobotRegular            =  "Roboto-Regular"
+let RobotItalic             =   "Roboto-Italic"
+
+
 let kClassName      = "ClassName"
 
 let kEndTime        = "EndTime"

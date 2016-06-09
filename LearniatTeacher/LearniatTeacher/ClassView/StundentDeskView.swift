@@ -191,12 +191,12 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         
         var fontHeight = mQueryTextLable.frame.size.height/3;
         
-        if (fontHeight > 16)
+        if (fontHeight > 14)
         {
-            fontHeight = 16;
+            fontHeight = 14;
         }
         
-        mQueryTextLable.font = UIFont(name: helveticaRegular, size: fontHeight)
+        mQueryTextLable.font = UIFont(name: RobotItalic, size: fontHeight)
         mQueryTextLable.textColor = blackTextColor
         mQueryTextLable.lineBreakMode = .ByTruncatingMiddle
         mQueryTextLable.numberOfLines = 10
@@ -216,13 +216,13 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         mStudentName.hidden = true
         
         fontHeight = mStudentName.frame.size.height/1.3;
-        if (fontHeight>16)
+        if (fontHeight>14)
         {
-            fontHeight = 16;
+            fontHeight = 14;
         }
         
-        mStudentName.font = UIFont(name: helveticaRegular, size: fontHeight)
-
+        mStudentName.font = UIFont(name: RobotRegular, size: fontHeight)
+        mMiddleStudentName.font = UIFont(name: RobotRegular, size: fontHeight)
         
         mMiddleStudentName.frame = mDeskFrame
         refrenceDeskImageView.addSubview(mMiddleStudentName)

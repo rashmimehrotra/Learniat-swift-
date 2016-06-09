@@ -144,107 +144,28 @@ pullNewProfilePics;
 
 - (void) ClassViewTopicsButtonSettingsButtonPressed
 {
+    
     UIView *baseView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 280, 43.0)];
     baseView.backgroundColor = [UIColor colorWithRed:248.0/255.0 green:248.0/255.0 blue:248.0/255.0 alpha:1.0];
     self.view = baseView;
     [self.navigationController.navigationBar setHidden:YES];
     
     
-
-    setupTopicsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [setupTopicsButton addTarget:self action:@selector(onSetupTopicsButton:) forControlEvents:UIControlEventTouchUpInside];
-    setupTopicsButton.frame = CGRectMake(10.0,20, 290, 40); //(10.0, 116.0, 258.0, 43.0);
-    [self.view addSubview:setupTopicsButton];
-    [setupTopicsButton setTitle:@"Setup Topics" forState:UIControlStateNormal];
-    [setupTopicsButton setTitleColor:[UIColor colorWithRed:0.0 green:174.0/255.0 blue:239.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [setupTopicsButton setBackgroundColor:[UIColor whiteColor]];
     
     
-    
-    
-    manualResignButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [manualResignButton addTarget:self action:@selector(onManualResignClicked:) forControlEvents:UIControlEventTouchUpInside];
-    manualResignButton.frame = CGRectMake(100.0,81, 200, 40); //(10.0, 116.0, 258.0, 43.0);
-    [self.view addSubview:manualResignButton];
-    [manualResignButton setTitle:@"Manual" forState:UIControlStateNormal];
-    [manualResignButton setTitleColor:[UIColor colorWithRed:0.0 green:174.0/255.0 blue:239.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [manualResignButton setBackgroundColor:[UIColor whiteColor]];
-    
-    
-    UIView *lineView1 = [[UIView alloc]initWithFrame:CGRectMake(110, 121, 180, 1) ];
-    [lineView1 setBackgroundColor:[UIColor colorWithRed:213.0/255.0 green:213.0/255.0 blue:213.0/255.0 alpha:0.7]];
-    [self.view addSubview:lineView1];
-    
-    
-    
-    
-    randomReassignButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [randomReassignButton addTarget:self action:@selector(onRandomReasignClicked:) forControlEvents:UIControlEventTouchUpInside];
-    randomReassignButton.frame = CGRectMake(100.0,122, 200, 40); //(10.0, 116.0, 258.0, 43.0);
-    [self.view addSubview:randomReassignButton];
-    [randomReassignButton setTitle:@"Random" forState:UIControlStateNormal];
-    [randomReassignButton setTitleColor:[UIColor colorWithRed:0.0 green:174.0/255.0 blue:239.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [randomReassignButton setBackgroundColor:[UIColor whiteColor]];
-    
-    
-    UIView *lineView2 = [[UIView alloc]initWithFrame:CGRectMake(110, 162, 180, 1) ];
-    [lineView2 setBackgroundColor:[UIColor colorWithRed:213.0/255.0 green:213.0/255.0 blue:213.0/255.0 alpha:0.7]];
-    [self.view addSubview:lineView2];
-
-    
-    
-    
-    
-    alphabeticalReassignButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [alphabeticalReassignButton addTarget:self action:@selector(onAlphabeticalReassignClicked:) forControlEvents:UIControlEventTouchUpInside];
-    alphabeticalReassignButton.frame = CGRectMake(100.0,163, 200, 40); //(10.0, 116.0, 258.0, 43.0);
-    [self.view addSubview:alphabeticalReassignButton];
-    [alphabeticalReassignButton setTitle:@"Alphabetical" forState:UIControlStateNormal];
-    [alphabeticalReassignButton setTitleColor:[UIColor colorWithRed:0.0 green:174.0/255.0 blue:239.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [alphabeticalReassignButton setBackgroundColor:[UIColor whiteColor]];
-    
-    
-      
-    
-    
-    UILabel *mResignLabel= [[UILabel alloc] initWithFrame:CGRectMake(10.0, 81, 89, 122)];
-    [self.view addSubview:mResignLabel];
-    [mResignLabel setBackgroundColor:[UIColor whiteColor]];
-    mResignLabel.textAlignment = NSTextAlignmentCenter;
-    mResignLabel.numberOfLines=10;
-    mResignLabel.lineBreakMode= NSLineBreakByTruncatingTail;
-    [mResignLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
-    [mResignLabel setText:@"Reassign \n seats"];
-    [mResignLabel setTextColor:[UIColor colorWithRed:96.0/255.0 green:96.0/255.0 blue:96.0/255.0 alpha:1.0]];
-    
-    
-    UIView *lineView3 = [[UIView alloc]initWithFrame:CGRectMake(100, 91, 1, 102) ];
-    [lineView3 setBackgroundColor:[UIColor colorWithRed:213.0/255.0 green:213.0/255.0 blue:213.0/255.0 alpha:0.7]];
-    [self.view addSubview:lineView3];
-    
-
-    
-    
-    
-    
-    testPingButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [testPingButton addTarget:self action:@selector(onTestPingButton:) forControlEvents:UIControlEventTouchUpInside];
-    testPingButton.frame = CGRectMake(100.0,223, 200, 40); //(10.0, 116.0, 258.0, 43.0);
-    [self.view addSubview:testPingButton];
-    [testPingButton setTitle:@"Test Ping" forState:UIControlStateNormal];
-    [testPingButton setTitleColor:[UIColor colorWithRed:0.0 green:174.0/255.0 blue:239.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [testPingButton setBackgroundColor:[UIColor whiteColor]];
-
-    
-    
-    UIView *lineView4 = [[UIView alloc]initWithFrame:CGRectMake(110, 263, 180, 1) ];
-    [lineView4 setBackgroundColor:[UIColor colorWithRed:213.0/255.0 green:213.0/255.0 blue:213.0/255.0 alpha:0.7]];
-    [self.view addSubview:lineView4];
+    //    setupSitingButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    [setupSitingButton addTarget:self action:@selector(onSetUpSeatingButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    //    setupSitingButton.frame = CGRectMake(10.0,20, 290, 40); //(10.0, 116.0, 258.0, 43.0);
+    //    [self.view addSubview:setupSitingButton];
+    //    [setupSitingButton setTitle:@"SetUpSeating" forState:UIControlStateNormal];
+    //    [setupSitingButton setTitleColor:[UIColor colorWithRed:0.0 green:174.0/255.0 blue:239.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+    //    [setupSitingButton setBackgroundColor:[UIColor whiteColor]];
+    //
     
     
     XmppReconnect = [UIButton buttonWithType:UIButtonTypeCustom];
     [XmppReconnect addTarget:self action:@selector(onXmppButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    XmppReconnect.frame = CGRectMake(100.0,264, 200, 40); //(10.0, 116.0, 258.0, 43.0);
+    XmppReconnect.frame = CGRectMake(100.0,20, 200, 40); //(10.0, 116.0, 258.0, 43.0);
     [self.view addSubview:XmppReconnect];
     [XmppReconnect setTitle:@"Xmpp Reconnect" forState:UIControlStateNormal];
     [XmppReconnect setTitleColor:[UIColor colorWithRed:0.0 green:174.0/255.0 blue:239.0/255.0 alpha:1.0] forState:UIControlStateNormal];
@@ -252,11 +173,7 @@ pullNewProfilePics;
     
     
     
-    
-    
-    
-    
-    UILabel *mDiagnosisLabel= [[UILabel alloc] initWithFrame:CGRectMake(10.0, 223, 89, 81)];
+    UILabel *mDiagnosisLabel= [[UILabel alloc] initWithFrame:CGRectMake(10.0, 20, 90, 40)];
     [self.view addSubview:mDiagnosisLabel];
     [mDiagnosisLabel setBackgroundColor:[UIColor whiteColor]];
     mDiagnosisLabel.textAlignment = NSTextAlignmentCenter;
@@ -266,76 +183,6 @@ pullNewProfilePics;
     [mDiagnosisLabel setText:@" Diagnostics"];
     [mDiagnosisLabel setTextColor:[UIColor colorWithRed:96.0/255.0 green:96.0/255.0 blue:96.0/255.0 alpha:1.0]];
     
-    
-    UIView *lineView5 = [[UIView alloc]initWithFrame:CGRectMake(100, 233, 1, 61) ];
-    [lineView5 setBackgroundColor:[UIColor colorWithRed:213.0/255.0 green:213.0/255.0 blue:213.0/255.0 alpha:0.7]];
-    [self.view addSubview:lineView5];
-
-    
-    
-    
-    UILabel *mTextAnswerLabel= [[UILabel alloc] initWithFrame:CGRectMake(10.0,324, 290, 40)];
-    [self.view addSubview:mTextAnswerLabel];
-    [mTextAnswerLabel setBackgroundColor:[UIColor whiteColor]];
-    mTextAnswerLabel.textAlignment = NSTextAlignmentLeft;
-    mTextAnswerLabel.numberOfLines=10;
-    mTextAnswerLabel.lineBreakMode= NSLineBreakByTruncatingTail;
-    [mTextAnswerLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
-    [mTextAnswerLabel setText:@"  Simulate mode"];
-    [mTextAnswerLabel setTextColor:[UIColor colorWithRed:96.0/255.0 green:96.0/255.0 blue:96.0/255.0 alpha:1.0]];
-    
-    
-    UISwitch *mySwitch = [[UISwitch alloc] initWithFrame:CGRectMake(240, 328, 0, 0)];
-    [mySwitch addTarget:self action:@selector(onSimulateSwitch:) forControlEvents:UIControlEventValueChanged];
-    [self.view addSubview:mySwitch];
-    
-//    PlistDownloder * downloder = [[PlistDownloder alloc] init];
-//    
-//    
-//    
-//   id  dict =  [downloder returnDictonarywithUrl:[NSURL URLWithString:@"http://54.251.104.13/Demo/SimulationPlist.plist"]];
-//    
-//    if (dict != nil)
-//    {   NSString* string = [dict objectForKey:@"IsSimulation"];
-//        
-//        if ([string  isEqualToString:@"1"])
-//        {
-//            mySwitch.enabled = true;
-//            [mTextAnswerLabel setTextColor:[UIColor colorWithRed:96.0/255.0 green:96.0/255.0 blue:96.0/255.0 alpha:1.0]];
-//            
-//        }
-//        else{
-//            mySwitch.enabled = false;
-//            [mySwitch setOn:NO];
-//            [mTextAnswerLabel setTextColor:[UIColor lightGrayColor]];
-//        }
-//    }
-//    else
-//    {
-//        mySwitch.enabled = false;
-//        [mySwitch setOn:NO];
-//        [mTextAnswerLabel setTextColor:[UIColor lightGrayColor]];
-//    }
-    
-    
-    NSUserDefaults* defaults=[NSUserDefaults standardUserDefaults];
-    
-    
-    if([defaults boolForKey:@"isSimulateMode"])
-    {
-        [mySwitch setOn:YES animated:YES];
-    }
-    
-    
-    
-    
-    pullNewProfilePics = [UIButton buttonWithType:UIButtonTypeCustom];
-    [pullNewProfilePics addTarget:self action:@selector(onrefreshPics:) forControlEvents:UIControlEventTouchUpInside];
-    pullNewProfilePics.frame = CGRectMake(10.0,384, 290, 40); //(10.0, 116.0, 258.0, 43.0);
-    [self.view addSubview:pullNewProfilePics];
-    [pullNewProfilePics setTitle:@"Refresh pics" forState:UIControlStateNormal];
-    [pullNewProfilePics setTitleColor:[UIColor colorWithRed:0.0 green:174.0/255.0 blue:239.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [pullNewProfilePics setBackgroundColor:[UIColor whiteColor]];
 }
 
 

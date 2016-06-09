@@ -57,6 +57,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     var waitQuestionTimer                   = NSTimer()
     
      let mClassNameButton  = UIButton()
+    let mTeacherImageButton = UIButton()
     
     var mStudentQrvAnsweringView           :StudentVolunteeringView!
     
@@ -100,7 +101,13 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
 
         
         
+        
+        mTeacherImageButton.frame = CGRectMake(0, 0, mTopbarImageView.frame.size.height , mTopbarImageView.frame.size.height)
+        mTopbarImageView.addSubview(mTeacherImageButton)
+        mTeacherImageButton.addTarget(self, action: #selector(StudentClassViewController.onTeacherImage), forControlEvents: UIControlEvents.TouchUpInside)
+        
 
+        
         
         mClassName = UILabel(frame: CGRectMake(mTopbarImageView.frame.size.width/2 - 100 , 15, 500, 20))
         mClassName.font = UIFont(name:helveticaRegular, size: 20)
@@ -241,6 +248,31 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         
     }
     
+    
+    func onTeacherImage()
+    {
+        
+        
+        let questionInfoController = SSSettingsViewController()
+        questionInfoController.setDelegate(self)
+        
+        questionInfoController.ClassViewTopicsButtonSettingsButtonPressed();
+        
+        let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+        
+        classViewPopOverController.popoverContentSize = CGSizeMake(310, 80);
+        
+        questionInfoController.setPopOverController(classViewPopOverController)
+        
+        
+        classViewPopOverController.presentPopoverFromRect(CGRect(
+            x:mTeacherImageButton.frame.origin.x ,
+            y:mTeacherImageButton.frame.origin.y + mTeacherImageButton.frame.size.height,
+            width: 1,
+            height: 1), inView: self.view, permittedArrowDirections: .Up, animated: true)
+        
+        
+    }
     
   
     func appMovedToBackground()
@@ -1084,6 +1116,11 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         
     }
 
+    func Settings_XmppReconnectButtonClicked()
+    {
+        SSStudentMessageHandler.sharedMessageHandler.performReconnet()
+      
+    }
     
     
     

@@ -134,12 +134,12 @@ class StudentAnswerOptionsView: UIView
        
         var fontHeight = studentAnswertext.frame.size.height/3;
         
-        if (fontHeight > 16)
+        if (fontHeight > 14)
         {
-            fontHeight = 16;
+            fontHeight = 14;
         }
 
-        studentAnswertext.font = UIFont(name: helveticaRegular, size: fontHeight)
+        studentAnswertext.font = UIFont(name: RobotItalic, size: fontHeight)
         studentAnswertext.textColor = blackTextColor
         studentAnswertext.lineBreakMode = .ByTruncatingMiddle
         studentAnswertext.numberOfLines = 10
@@ -175,12 +175,12 @@ class StudentAnswerOptionsView: UIView
         
         var fontHeight = studentAnswertext.frame.size.height/3;
         
-        if (fontHeight > 16)
+        if (fontHeight > 14)
         {
-            fontHeight = 16;
+            fontHeight = 14;
         }
         
-        studentAnswertext.font = UIFont(name: helveticaRegular, size: fontHeight)
+        studentAnswertext.font = UIFont(name: RobotItalic, size: fontHeight)
         studentAnswertext.textColor = blackTextColor
         studentAnswertext.lineBreakMode = .ByTruncatingMiddle
         studentAnswertext.numberOfLines = 10
@@ -694,12 +694,12 @@ class StudentAnswerOptionsView: UIView
             
             var fontHeight = studentAnswertext.frame.size.height/3;
             
-            if (fontHeight > 16)
+            if (fontHeight > 14)
             {
-                fontHeight = 16;
+                fontHeight = 14;
             }
             
-            studentAnswertext.font = UIFont(name: helveticaRegular, size: fontHeight)
+            studentAnswertext.font = UIFont(name: RobotItalic, size: fontHeight)
             studentAnswertext.textColor = UIColor.whiteColor()
             studentAnswertext.lineBreakMode = .ByTruncatingMiddle
             studentAnswertext.numberOfLines = 10
@@ -719,12 +719,12 @@ class StudentAnswerOptionsView: UIView
                 
                 var fontHeight = modelAnswerLabel.frame.size.height/1.2;
                 
-                if (fontHeight > 16)
+                if (fontHeight > 14)
                 {
-                    fontHeight = 16;
+                    fontHeight = 14;
                 }
                 
-                modelAnswerLabel.font = UIFont(name: helveticaRegular, size: fontHeight)
+                modelAnswerLabel.font = UIFont(name: RobotItalic, size: fontHeight)
                 modelAnswerLabel.textColor = UIColor.whiteColor()
                 modelAnswerLabel.lineBreakMode = .ByTruncatingMiddle
                 modelAnswerLabel.numberOfLines = 10

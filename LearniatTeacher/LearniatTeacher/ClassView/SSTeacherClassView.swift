@@ -1107,7 +1107,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                                         mStartLabelUpdater.invalidate()
                                         delegateSessionEnded()
                                     }
-                                    else if classEndingRemainingTime < 15
+                                    else if classEndingRemainingTime < 6
                                     {
                                         let  sessionAlertView = UIAlertController(title: "Session ending", message: "Your class is about to end in 6 mins. Do you want to continue?", preferredStyle: UIAlertControllerStyle.Alert)
                                         
