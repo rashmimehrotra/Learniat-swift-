@@ -106,7 +106,7 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
         
         
         let currentDate = NSDate()
-        mCurrentTimeLine = CurrentTimeLineView(frame: CGRectMake(30, 0 , self.view.frame.size.width-30, 10))
+        mCurrentTimeLine = CurrentTimeLineView(frame: CGRectMake(0, 0 , self.view.frame.size.width-30, 10))
         mScrollView.addSubview(mCurrentTimeLine)
         mCurrentTimeLine.addToCurrentTimewithHours(getPositionWithHour(currentDate.hour(), withMinute: currentDate.minute()))
         mScrollView.contentOffset = CGPointMake(0,mCurrentTimeLine.frame.origin.y-self.view.frame.size.height/3);
@@ -290,7 +290,7 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
             let StartPositionOfTile = getPositionWithHour(startDate.hourValue(), withMinute: startDate.minuteValue())
             
             
-            let scheduleTileView = ScheduleScreenTile(frame: CGRectMake(75, StartPositionOfTile, self.view.frame.size.width-85, totalSize))
+            let scheduleTileView = ScheduleScreenTile(frame: CGRectMake(85, StartPositionOfTile, self.view.frame.size.width-95, totalSize))
             mScrollView.addSubview(scheduleTileView)
             scheduleTileView.setdelegate(self)
             

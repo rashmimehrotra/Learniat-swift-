@@ -642,14 +642,15 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 
                 let classEndingRemainingTime = currentDate.minutesDiffernceBetweenDates(currentDate, endDate:dateFormatter.dateFromString(EndTime )! )
                 
-                if classEndingRemainingTime <= 0
+                if classEndingRemainingTime <= 12
                 {
                     mStartLabelUpdater.invalidate()
                     delegateSessionEnded()
                 }
                 else if classEndingRemainingTime < 15
                 {
-                    if checkingClassEndTime == false{
+                    if checkingClassEndTime == false
+                    {
                         checkingClassEndTime = true
                         SSTeacherDataSource.sharedDataSource.getMyCurrentSessionOfTeacher(self)
                     }
@@ -1007,11 +1008,11 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                         mSubmissionView.addOneStringQuestionWithDetails(currentQuestionDetails)
                         SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
                     }
-                    else if (questionType  == One_word)
-                    {
-                        mSubmissionView.addOneWordQuestionViewWithDetails(currentQuestionDetails)
-                        SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
-                    }
+//                    else if
+//                    {
+//                        mSubmissionView.addOneWordQuestionViewWithDetails(currentQuestionDetails)
+//                        SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
+//                    }
                 }
             }
         }
@@ -1026,8 +1027,11 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
         
         SSTeacherMessageHandler.sharedMessageHandler.sendEndSessionMessageToRoom(currentSessionId)
+
         
-        let scheduleScreenView  = TeacherScheduleViewController()
+         performSegueWithIdentifier("ClassViewToSchedule", sender: nil)
+        
+        //        let scheduleScreenView  = TeacherScheduleViewController()
         SSTeacherDataSource.sharedDataSource.isQuestionSent = false
         
         SSTeacherDataSource.sharedDataSource.isSubtopicStarted = false
@@ -1037,7 +1041,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         SSTeacherDataSource.sharedDataSource.questionsDictonary.removeAllObjects()
         mStartLabelUpdater.invalidate()
         
-        presentViewController(scheduleScreenView, animated: true, completion: nil)
+//       self.presentViewController(scheduleScreenView, animated: true, completion: nil)
     }
     
     func didGetMycurrentSessionWithDetials(details: AnyObject)
@@ -1460,7 +1464,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     func delegateSubTopicBackButtonPressed()
     {
-        mainTopicsView.getTopicsDetailswithStartedMaintopicId("")
+        mainTopicsView.getTopicsDetailswithStartedMaintopicId(SSTeacherDataSource.sharedDataSource.startedMainTopicId)
         
         hideAllViewInTopicsView()
         mainTopicsView.hidden = false
@@ -2117,19 +2121,10 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                             {
                                 mSubmissionView.SetStudentOneStringAnswer(OneStringAnswer, withStudentDict: studentDeskView.currentStudentsDict)
                             }
-                            else if questionType == One_word
-                            {
-                                mSubmissionView.SetStudentOneWordAnswer(OneStringAnswer, withStudentDict: studentDeskView.currentStudentsDict)
-                            }
                             
                         }
                     }
-                    
-                    
                 }
-                
-                
-                
             }
         }
         

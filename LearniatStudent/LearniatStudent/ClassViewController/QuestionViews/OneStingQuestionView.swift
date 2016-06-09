@@ -164,23 +164,23 @@ class OneStingQuestionView: UIView,SSStudentDataSourceDelegate
     {
         if  mAnswerTextView.getTextOfCurrentTextView() != ""
         {
-            sendButtonSpinner.hidden = false
-            sendButtonSpinner.startAnimating()
-          
-            mReplyStatusLabel.frame = CGRectMake((self.frame.size.width - (mTopbarImageView.frame.size.height * 2)) / 2, 0, mTopbarImageView.frame.size.height * 2, mTopbarImageView.frame.size.height / 1.5)
-            
-            mReplyStatusLabel.hidden = false
-            
-            mReplyStatusLabel.text = "Reply sent"
-            
-            mTopbarImageView.hidden = true
-            mAnswerTextView.hidden = true
-            mAnswerLabel.text =  mAnswerTextView.getTextOfCurrentTextView().removeWhitespace().capitalizedString
-            
-            
+//            sendButtonSpinner.hidden = false
+//            sendButtonSpinner.startAnimating()
+//          
+//            mReplyStatusLabel.frame = CGRectMake((self.frame.size.width - (mTopbarImageView.frame.size.height * 2)) / 2, 0, mTopbarImageView.frame.size.height * 2, mTopbarImageView.frame.size.height / 1.5)
+//            
+//            mReplyStatusLabel.hidden = false
+//            
+//            mReplyStatusLabel.text = "Reply sent"
+//            
+//            mTopbarImageView.hidden = true
+//            mAnswerTextView.hidden = true
+//            mAnswerLabel.text =  mAnswerTextView.getTextOfCurrentTextView().removeWhitespace().capitalizedString
+//            
+//            
             SSStudentMessageHandler.sharedMessageHandler.sendOneStringAnswerWithAnswer(mAnswerTextView.getTextOfCurrentTextView().removeWhitespace().capitalizedString)
-            mAnswerTextView.hidden = true
-            mContainerView.hidden = false
+//            mAnswerTextView.hidden = true
+//            mContainerView.hidden = false
             
            
             

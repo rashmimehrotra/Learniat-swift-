@@ -116,7 +116,22 @@ class MainTopicCell: UIView{
         {
             mMainTopicId = topicId
             self.tag = Int(topicId)!
+            
+            
+             if SSTeacherDataSource.sharedDataSource.startedMainTopicId == topicId && SSTeacherDataSource.sharedDataSource.isSubtopicStarted == true
+             {
+                m_MainTopicLabel.textColor = standard_Green
+            }
+            else
+             {
+                m_MainTopicLabel.textColor = blackTextColor
+            }
+            
         }
+        
+        
+        
+        
         
         
         if let topicName = currentTopicDetails.objectForKey("Name")as? String

@@ -84,6 +84,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <segue destination="jVR-tN-eqI" kind="presentation" identifier="ClassViewToSchedule" id="oyv-Uq-CL0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lsw-Wm-ghK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -109,6 +112,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="N82-LX-9VO"/>
+        <segue reference="oyv-Uq-CL0"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -7,6 +7,18 @@
 //
 
 import Foundation
+
+@objc protocol OnewordAnswerViewDelegate
+{
+    
+    optional func delegateGraphButtonPressed()
+    
+    
+    
+}
+
+
+
 class OnewordAnswerView: UIView
 {
     
@@ -19,6 +31,10 @@ class OnewordAnswerView: UIView
     var OldString = ""
     
     var _delgate: AnyObject!
+    
+    var graphButton = UIButton()
+    
+    var currentOptionsArray  = NSMutableArray()
     
     func setdelegate(delegate:AnyObject)
     {
@@ -36,13 +52,19 @@ class OnewordAnswerView: UIView
         super.init(frame: frame)
         
         
-        questionNamelabel.frame =  CGRectMake(10,10,self.frame.size.width - 50 ,40)
+        
+        graphButton.frame = CGRectMake(self.frame.size.width - 130 , 10, 120, 40)
+        self.addSubview(graphButton)
+        graphButton.backgroundColor = standard_Button
+        graphButton.setTitleColor(whiteColor, forState: .Normal)
+        graphButton.setTitle("Graph", forState: .Normal)
+        graphButton.addTarget(self, action: #selector(OnewordAnswerView.onGraphButton), forControlEvents: UIControlEvents.TouchUpInside)
+        
+        questionNamelabel.frame =  CGRectMake(10,10,self.frame.size.width - 130 ,40)
         self.addSubview(questionNamelabel)
-        questionNamelabel.font = UIFont (name: helveticaMedium, size: 18)
+        questionNamelabel.font = UIFont (name: helveticaRegular, size: 18)
         questionNamelabel.textColor = blackTextColor
         questionNamelabel.textAlignment = .Center
-        
-
         
         
         wordCloudLabel.frame = CGRectMake(10, questionNamelabel.frame.size.height + questionNamelabel.frame.origin.y + 10  , self.frame.size.width - 20 , self.frame.size.height - (questionNamelabel.frame.size.height + questionNamelabel.frame.origin.y + 20))
@@ -52,9 +74,35 @@ class OnewordAnswerView: UIView
 
     }
     
-    func setQuestionName(questionName :String)
+    func setQuestionName(questionName :String, withDetails details:AnyObject)
     {
         questionNamelabel.text = questionName
+        
+        
+        currentOptionsArray.removeAllObjects()
+        
+        if let options = details.objectForKey("Options")
+        {
+            if let classCheckingVariable = options.objectForKey("Option")
+            {
+                if classCheckingVariable.isKindOfClass(NSMutableArray)
+                {
+                    currentOptionsArray = classCheckingVariable as! NSMutableArray
+                }
+                else
+                {
+                    currentOptionsArray.addObject(details.objectForKey("Options")!.objectForKey("Option")!)
+                    
+                }
+            }
+        }
+        
+        
+    }
+    
+    func onGraphButton()
+    {
+        delegate().delegateGraphButtonPressed!()
     }
     
     func setOptionWithString(studentWord:String)

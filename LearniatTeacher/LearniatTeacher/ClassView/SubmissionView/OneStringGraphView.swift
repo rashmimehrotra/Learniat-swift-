@@ -8,6 +8,18 @@
 
 import Foundation
 
+
+@objc protocol OneStringGraphViewDelegate
+{
+    
+    optional func delegateWordCloudButtonPressed()
+    
+    
+    
+}
+
+
+
 class OneStringGraphView: UIView
 {
     
@@ -31,6 +43,11 @@ class OneStringGraphView: UIView
     
     var _delgate: AnyObject!
     
+    var currentOptionsArray  = NSMutableArray()
+    
+    
+    var wordCloudButton = UIButton()
+    
     func setdelegate(delegate:AnyObject)
     {
         _delgate = delegate;
@@ -46,7 +63,16 @@ class OneStringGraphView: UIView
     {
         super.init(frame: frame)
         
-        questionNamelabel.frame =  CGRectMake(10,10,self.frame.size.width - 50 ,40)
+        
+        wordCloudButton.frame = CGRectMake(self.frame.size.width - 130 , 10, 120, 40)
+        self.addSubview(wordCloudButton)
+        wordCloudButton.backgroundColor = standard_Button
+        wordCloudButton.setTitleColor(whiteColor, forState: .Normal)
+        wordCloudButton.setTitle("Word cloud", forState: .Normal)
+        wordCloudButton.addTarget(self, action: #selector(OneStringGraphView.onWordCloudButton), forControlEvents: UIControlEvents.TouchUpInside)
+
+        
+        questionNamelabel.frame =  CGRectMake(10,10,self.frame.size.width - 130 ,40)
         self.addSubview(questionNamelabel)
         questionNamelabel.font = UIFont (name: helveticaRegular, size: 18)
         questionNamelabel.textColor = blackTextColor
@@ -96,14 +122,44 @@ class OneStringGraphView: UIView
         
     }
     
+    
+    func onWordCloudButton()
+    {
+        delegate().delegateWordCloudButtonPressed!()
+    }
+    
     required init?(coder aDecoder: NSCoder)
     {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setQuestionName(questionName :String)
+    func setQuestionName(questionName :String, withDetails details:AnyObject)
     {
          questionNamelabel.text = questionName
+        
+        
+        print(details)
+        currentOptionsArray.removeAllObjects()
+        
+        if let options = details.objectForKey("Options")
+        {
+            if let classCheckingVariable = options.objectForKey("Option")
+            {
+                if classCheckingVariable.isKindOfClass(NSMutableArray)
+                {
+                    currentOptionsArray = classCheckingVariable as! NSMutableArray
+                }
+                else
+                {
+                    currentOptionsArray.addObject(details.objectForKey("Options")!.objectForKey("Option")!)
+                    
+                }
+            }
+        }
+        
+        
+        
+        
     }
     
     func setOptionWithString(optionString:String)
@@ -128,7 +184,19 @@ class OneStringGraphView: UIView
             optionsScrollView.addSubview(barView)
 //            barView.addTarget(self, action: #selector(StudentAnswerGraphView.onBarButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             barView.tag = OptionIdValue
-             barView.setBarColor( standard_Green)
+            
+            print(currentOptionsArray)
+            
+            if currentOptionsArray.containsObject(optionString)
+            {
+                 barView.setBarColor( standard_Green)
+            }
+            else
+            {
+                 barView.setBarColor( lightGrayColor)
+            }
+            
+            
              barView.increasePresentValue()
             
             var presentValue:CGFloat = CGFloat(barView.presentValue)

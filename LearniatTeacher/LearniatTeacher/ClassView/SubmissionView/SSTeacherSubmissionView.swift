@@ -21,7 +21,7 @@ import Foundation
     
 }
 
-class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjectiveViewDelegate
+class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjectiveViewDelegate,OneStringGraphViewDelegate,OnewordAnswerViewDelegate
 {
     var _delgate: AnyObject!
     
@@ -141,21 +141,10 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
             
             if let questionName = (details.objectForKey("Name")) as? String
             {
-                mOneStringQuestionView.setQuestionName(questionName)
+                mOneStringQuestionView.setQuestionName(questionName , withDetails:details )
             }
-            
-            
-            
         }
-        noSubmissionLabel.hidden = true
-        mOneStringQuestionView.hidden = false
-        mCurrentQuestionDetails = details
-    }
-    
-    
-    
-    func addOneWordQuestionViewWithDetails(details:AnyObject)
-    {
+        
         if mOneWordQuestionView == nil
         {
             
@@ -165,15 +154,27 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
             
             if let questionName = (details.objectForKey("Name")) as? String
             {
-                mOneWordQuestionView.setQuestionName(questionName)
+                mOneWordQuestionView.setQuestionName(questionName, withDetails:details)
             }
             
             
             
         }
+        mOneWordQuestionView.hidden = true
+        
         noSubmissionLabel.hidden = true
-        mOneWordQuestionView.hidden = false
+        mOneStringQuestionView.hidden = false
         mCurrentQuestionDetails = details
+    }
+    
+    
+    
+    func addOneWordQuestionViewWithDetails(details:AnyObject)
+    {
+        
+//        noSubmissionLabel.hidden = true
+//        mOneWordQuestionView.hidden = false
+//        mCurrentQuestionDetails = details
     }
     
     
@@ -222,24 +223,20 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
        
         if mOneStringQuestionView !=  nil
         {
-             mOneStringQuestionView.hidden = false
+//             mOneStringQuestionView.hidden = false
             mOneStringQuestionView.setOptionWithString(studentAnswer)
         }
         
-    }
-    
-    
-    func SetStudentOneWordAnswer(studentAnswer:String,withStudentDict studentdict:AnyObject)
-    {
+        
         
         if mOneWordQuestionView !=  nil
         {
-            mOneWordQuestionView.hidden = false
+//            mOneWordQuestionView.hidden = false
             mOneWordQuestionView.setOptionWithString(studentAnswer)
         }
+
         
     }
-    
     
     func studentSubmissionEvaluatedWithDetails(evaluationDetails:AnyObject, withStdentId StudentId:String)
     {
@@ -335,6 +332,42 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
             delegate().delegateTeacherEvaluatedReplyWithDetails!(evaluationDetails, withStudentId: studentId)
         }
     }
+    
+    
+    // MARK: - Graph or  wordCloud delegate
+    
+    
+    func delegateGraphButtonPressed()
+    {
+        if mOneStringQuestionView !=  nil
+        {
+             mOneStringQuestionView.hidden = false
+           
+        }
+        
+        if mOneWordQuestionView !=  nil
+        {
+            mOneWordQuestionView.hidden = true
+            
+        }
+    }
+    
+    func delegateWordCloudButtonPressed()
+    {
+        if mOneWordQuestionView !=  nil
+        {
+            mOneWordQuestionView.hidden = false
+            
+        }
+        
+        if mOneStringQuestionView !=  nil
+        {
+            mOneStringQuestionView.hidden = true
+            
+        }
+        
+    }
+    
     
     
     

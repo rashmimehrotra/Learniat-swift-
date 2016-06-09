@@ -738,7 +738,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                 showAlertWithMessage(messageString)
                
             }
-            else if dict.objectForKey(kQuestionType) as! String  == One_word
+            else if dict.objectForKey(kQuestionType) as! String  == TextAuto
             {
                 
                 messageString = "Please type one word answer";

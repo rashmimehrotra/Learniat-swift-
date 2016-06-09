@@ -121,26 +121,6 @@ class MainTopicsView: UIView, SSTeacherDataSourceDelegate,MainTopicCellDelegate
     
     func getTopicsDetailswithStartedMaintopicId(topicId:String)
     {
-        startedmainTopicId = topicId
-        
-        
-        if SSTeacherDataSource.sharedDataSource.startedMainTopicId != ""
-        {
-            if let subTopicCellView  = mTopicsContainerView.viewWithTag(Int(SSTeacherDataSource.sharedDataSource.startedMainTopicId)!) as? MainTopicCell
-            {
-                
-                if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == true
-                {
-                  subTopicCellView.m_MainTopicLabel.textColor = standard_Green
-                }
-                else
-                {
-                    subTopicCellView.m_MainTopicLabel.textColor = blackTextColor
-                }
-                
-            }
-
-        }
         
         
         if mMaintopicsDetails.count <= 0
@@ -170,6 +150,25 @@ class MainTopicsView: UIView, SSTeacherDataSourceDelegate,MainTopicCellDelegate
                 
             }
         }
+        
+        if SSTeacherDataSource.sharedDataSource.startedMainTopicId != ""
+        {
+            if let subTopicCellView  = mTopicsContainerView.viewWithTag(Int(SSTeacherDataSource.sharedDataSource.startedMainTopicId)!) as? MainTopicCell
+            {
+                
+                if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == true
+                {
+                    subTopicCellView.m_MainTopicLabel.textColor = standard_Green
+                }
+                else
+                {
+                    subTopicCellView.m_MainTopicLabel.textColor = blackTextColor
+                }
+                
+            }
+            
+        }
+        
         
         
     }

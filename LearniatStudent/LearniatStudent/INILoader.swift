@@ -18,7 +18,7 @@ let MultipleResponse    :String         = "Multiple Response"
 let OverlayScribble     :String         = "Overlay Scribble"
 let FreshScribble       :String         = "Fresh Scribble"
 let OneString           :String         = "One_String"
-let One_word           :String         = "One word"
+let TextAuto            :String         = "Text_Auto"
 
 let kQuestionTag                = "Question"
 let kQuestionName               = "Name"

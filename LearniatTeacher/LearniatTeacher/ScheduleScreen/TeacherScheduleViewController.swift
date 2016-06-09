@@ -67,6 +67,18 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     
      private var foregroundNotification: NSObjectProtocol!
     
+    
+    override func viewDidAppear(animated: Bool)
+    {
+        super.viewDidAppear(animated)
+        
+        SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
+        activityIndicator.hidden = false
+        activityIndicator.startAnimating()
+        
+        
+    }
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
