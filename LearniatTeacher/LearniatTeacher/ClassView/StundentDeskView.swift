@@ -213,7 +213,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         mStudentName.allowOrphans = true;
         mStudentName.textAlignment = .Center;
         mStudentName.contentMode = .Center;
-        mStudentName.hidden = true
+        mStudentName.hidden = false
         
         fontHeight = mStudentName.frame.size.height/1.3;
         if (fontHeight>14)
@@ -225,9 +225,9 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         mMiddleStudentName.font = UIFont(name: RobotRegular, size: fontHeight)
         
         mMiddleStudentName.frame = mDeskFrame
-        refrenceDeskImageView.addSubview(mMiddleStudentName)
+//        refrenceDeskImageView.addSubview(mMiddleStudentName)
         mMiddleStudentName.backgroundColor = UIColor.clearColor();
-        mMiddleStudentName.hidden = false
+        mMiddleStudentName.hidden = true
         mMiddleStudentName.textAlignment = .Center;
         mMiddleStudentName.numberOfLines=10;
         mMiddleStudentName.lineBreakMode = .ByTruncatingMiddle
@@ -443,8 +443,8 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         currentAnswerState = .AnswerDontKnow
         
         mQuestionStateImage.hidden = true
-        mMiddleStudentName.hidden = true
-        mStudentName.hidden = false
+//        mMiddleStudentName.hidden = true
+//        mStudentName.hidden = false
         mQueryTextLable.hidden = true
         
         answerContainerView.hidden = false
@@ -460,8 +460,8 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     func didGetStudentsAnswerWithDetails(details: AnyObject)
     {
         mQuestionStateImage.hidden = true
-        mMiddleStudentName.hidden = true
-        mStudentName.hidden = false
+//        mMiddleStudentName.hidden = true
+//        mStudentName.hidden = false
         _currentAnswerDetails = details
         mQueryTextLable.hidden = true
         setStudentCurrentState(StudentLive)
@@ -521,8 +521,8 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     {
         
         mQuestionStateImage.hidden = true
-        mMiddleStudentName.hidden = true
-        mStudentName.hidden = false
+//        mMiddleStudentName.hidden = true
+//        mStudentName.hidden = false
         
         mQueryTextLable.hidden = true
         setStudentCurrentState(StudentLive)
@@ -583,7 +583,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
                         }
                         
                     }
-                    else
+                    else if (questionType == kMCQ) || (questionType == kMRQ)
                     {
                         if delegate().respondsToSelector(#selector(StundentDeskViewDelegate.delegateStudentCellPressedWithViewAnswerOptions(_:withStudentId:)))
                         {
@@ -637,14 +637,14 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
             mDoubtImageview.hidden = true
             mQueryTextLable.hidden = false
             
-            mStudentName.hidden = false
-            mMiddleStudentName.hidden = true
+//            mStudentName.hidden = false
+//            mMiddleStudentName.hidden = true
 
         }
         else
         {
-            mStudentName.hidden = true
-            mMiddleStudentName.hidden = false
+//            mStudentName.hidden = true
+//            mMiddleStudentName.hidden = false
 
         }
         
@@ -673,8 +673,8 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
             mDoubtImageview.hidden = true
             mQueryTextLable.hidden = false
             
-            mStudentName.hidden = false
-            mMiddleStudentName.hidden = true
+//            mStudentName.hidden = false
+//            mMiddleStudentName.hidden = true
 
 
             
@@ -696,8 +696,8 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         
         if currentAnswerState == .AnswerCleared
         {
-            mStudentName.hidden = true
-            mMiddleStudentName.hidden = false
+//            mStudentName.hidden = true
+//            mMiddleStudentName.hidden = false
         }
         
     }

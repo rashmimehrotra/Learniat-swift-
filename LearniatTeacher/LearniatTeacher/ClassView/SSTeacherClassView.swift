@@ -642,12 +642,12 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 
                 let classEndingRemainingTime = currentDate.minutesDiffernceBetweenDates(currentDate, endDate:dateFormatter.dateFromString(EndTime )! )
                 
-                if classEndingRemainingTime <= 12
+                if classEndingRemainingTime <= 4
                 {
                     mStartLabelUpdater.invalidate()
                     delegateSessionEnded()
                 }
-                else if classEndingRemainingTime < 15
+                else if classEndingRemainingTime < 6
                 {
                     if checkingClassEndTime == false
                     {
@@ -1003,7 +1003,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                         
                         
                     }
-                    else if (questionType  == OneString)
+                    else if (questionType  == OneString) || questionType  == TextAuto
                     {
                         mSubmissionView.addOneStringQuestionWithDetails(currentQuestionDetails)
                         SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
@@ -1113,8 +1113,10 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                                         
                                         sessionAlertView.addAction(UIAlertAction(title: "End now", style: .Default, handler: { action in
                                             
+                                            sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
                                             
                                             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, WithStatusvalue: kEnded, WithDelegate: self)
+                                            
                                             
                                             
                                         }))
@@ -2117,7 +2119,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                     {
                         if let questionType = currentQuestionDetails.objectForKey("Type") as? String
                         {
-                            if questionType == OneString
+                            if questionType == OneString || questionType  == TextAuto
                             {
                                 mSubmissionView.SetStudentOneStringAnswer(OneStringAnswer, withStudentDict: studentDeskView.currentStudentsDict)
                             }

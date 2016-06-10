@@ -162,7 +162,7 @@ class OneStringGraphView: UIView
         
     }
     
-    func setOptionWithString(optionString:String)
+    func setOptionWithString(optionString:String, withCheckingState state:Bool)
     {
         if optionIdDictionary.objectForKey(optionString) == nil
         {
@@ -187,7 +187,9 @@ class OneStringGraphView: UIView
             
             print(currentOptionsArray)
             
-            if currentOptionsArray.containsObject(optionString)
+            
+            
+            if currentOptionsArray.containsObject(optionString) && state == true
             {
                  barView.setBarColor( standard_Green)
             }

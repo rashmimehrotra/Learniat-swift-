@@ -226,25 +226,25 @@ pullNewProfilePics;
     
     
     
-    
-    testPingButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [testPingButton addTarget:self action:@selector(onTestPingButton:) forControlEvents:UIControlEventTouchUpInside];
-    testPingButton.frame = CGRectMake(100.0,223, 200, 40); //(10.0, 116.0, 258.0, 43.0);
-    [self.view addSubview:testPingButton];
-    [testPingButton setTitle:@"Test Ping" forState:UIControlStateNormal];
-    [testPingButton setTitleColor:[UIColor colorWithRed:0.0 green:174.0/255.0 blue:239.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [testPingButton setBackgroundColor:[UIColor whiteColor]];
-
-    
-    
-    UIView *lineView4 = [[UIView alloc]initWithFrame:CGRectMake(110, 263, 180, 1) ];
-    [lineView4 setBackgroundColor:[UIColor colorWithRed:213.0/255.0 green:213.0/255.0 blue:213.0/255.0 alpha:0.7]];
-    [self.view addSubview:lineView4];
-    
+//    
+//    testPingButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [testPingButton addTarget:self action:@selector(onTestPingButton:) forControlEvents:UIControlEventTouchUpInside];
+//    testPingButton.frame = CGRectMake(100.0,223, 200, 40); //(10.0, 116.0, 258.0, 43.0);
+//    [self.view addSubview:testPingButton];
+//    [testPingButton setTitle:@"Test Ping" forState:UIControlStateNormal];
+//    [testPingButton setTitleColor:[UIColor colorWithRed:0.0 green:174.0/255.0 blue:239.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+//    [testPingButton setBackgroundColor:[UIColor whiteColor]];
+//
+//    
+//    
+//    UIView *lineView4 = [[UIView alloc]initWithFrame:CGRectMake(110, 263, 180, 1) ];
+//    [lineView4 setBackgroundColor:[UIColor colorWithRed:213.0/255.0 green:213.0/255.0 blue:213.0/255.0 alpha:0.7]];
+//    [self.view addSubview:lineView4];
+//    
     
     XmppReconnect = [UIButton buttonWithType:UIButtonTypeCustom];
     [XmppReconnect addTarget:self action:@selector(onXmppButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    XmppReconnect.frame = CGRectMake(100.0,264, 200, 40); //(10.0, 116.0, 258.0, 43.0);
+    XmppReconnect.frame = CGRectMake(100.0,223, 200, 80); //(10.0, 116.0, 258.0, 43.0);
     [self.view addSubview:XmppReconnect];
     [XmppReconnect setTitle:@"Xmpp Reconnect" forState:UIControlStateNormal];
     [XmppReconnect setTitleColor:[UIColor colorWithRed:0.0 green:174.0/255.0 blue:239.0/255.0 alpha:1.0] forState:UIControlStateNormal];
@@ -262,7 +262,7 @@ pullNewProfilePics;
     mDiagnosisLabel.textAlignment = NSTextAlignmentCenter;
     mDiagnosisLabel.numberOfLines=10;
     mDiagnosisLabel.lineBreakMode= NSLineBreakByTruncatingTail;
-    [mDiagnosisLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
+    [mDiagnosisLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:15]];
     [mDiagnosisLabel setText:@" Diagnostics"];
     [mDiagnosisLabel setTextColor:[UIColor colorWithRed:96.0/255.0 green:96.0/255.0 blue:96.0/255.0 alpha:1.0]];
     

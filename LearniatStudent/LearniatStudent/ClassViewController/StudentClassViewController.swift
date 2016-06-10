@@ -626,9 +626,15 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         {
               mstatusImage.backgroundColor = standard_Green
         }
+        AppDelegate.sharedDataSource.hideReconnecting()
+        
     }
     
-    func smhStreamReconnectingWithDelay(delay: Int32) {
+
+    
+    
+    func smhStreamReconnectingWithDelay(delay: Int32)
+    {
         self.view.makeToast("Reconnecting in \(delay) seconds", duration: 0.5, position: .Bottom)
         
         AppDelegate.sharedDataSource.showReconnecting()
