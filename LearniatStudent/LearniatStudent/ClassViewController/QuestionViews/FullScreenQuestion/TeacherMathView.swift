@@ -78,7 +78,7 @@ class TeacherMathView: UIView,MAWMathViewDelegate,UIPopoverControllerDelegate
         mTopbarImageView.addSubview(mDoneButton)
         mDoneButton.addTarget(self, action: #selector(TeacherMathView.onSendButton), forControlEvents: UIControlEvents.TouchUpInside)
         mDoneButton.setTitleColor(standard_Button, forState: .Normal)
-        mDoneButton.setTitle("Send", forState: .Normal)
+        mDoneButton.setTitle("Done", forState: .Normal)
         mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
         mDoneButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
         

@@ -339,7 +339,6 @@
 		533255D31CEDC40600653C00 /* Resize.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255CC1CEDC40600653C00 /* Resize.png */; };
 		533255D41CEDC40600653C00 /* Shapes.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255CD1CEDC40600653C00 /* Shapes.png */; };
 		533255D51CEDC40600653C00 /* Text.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255CE1CEDC40600653C00 /* Text.png */; };
-		533255D71CEDC91B00653C00 /* com.mindshiftapps.Learniat-Student.c in Sources */ = {isa = PBXBuildFile; fileRef = 533255D61CEDC91B00653C00 /* com.mindshiftapps.Learniat-Student.c */; };
 		535B8B1F1CE1A20F008B2D7F /* Query_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 535B8B191CE1A20F008B2D7F /* Query_Selected.png */; };
 		535B8B201CE1A20F008B2D7F /* Query.png in Resources */ = {isa = PBXBuildFile; fileRef = 535B8B1A1CE1A20F008B2D7F /* Query.png */; };
 		535B8B211CE1A20F008B2D7F /* Questions_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 535B8B1B1CE1A20F008B2D7F /* Questions_Selected.png */; };
@@ -389,6 +388,7 @@
 		53EEABF31CED9B2D005E4566 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EEABF11CED9B2D005E4566 /* BarView.swift */; };
 		53EEABF41CED9B2D005E4566 /* StudentAnswerGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EEABF21CED9B2D005E4566 /* StudentAnswerGraphView.swift */; };
 		53EEABF71CED9C39005E4566 /* FXLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 53EEABF61CED9C39005E4566 /* FXLabel.m */; };
+		53F2CD841D0BE14900C1DCCC /* com.mindshiftapps.LearniatStudent.c in Sources */ = {isa = PBXBuildFile; fileRef = 53F2CD831D0BE14900C1DCCC /* com.mindshiftapps.LearniatStudent.c */; };
 		53FFD2BF1CE1FC3700A5AA28 /* MultipleChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFD2BC1CE1FC3700A5AA28 /* MultipleChoiceView.swift */; };
 		53FFD2C01CE1FC3700A5AA28 /* multipleResponseOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFD2BD1CE1FC3700A5AA28 /* multipleResponseOptionView.swift */; };
 		53FFD2C11CE1FC3700A5AA28 /* StudentQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFD2BE1CE1FC3700A5AA28 /* StudentQuestionView.swift */; };
@@ -900,7 +900,6 @@
 		533255CC1CEDC40600653C00 /* Resize.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Resize.png; sourceTree = "<group>"; };
 		533255CD1CEDC40600653C00 /* Shapes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Shapes.png; sourceTree = "<group>"; };
 		533255CE1CEDC40600653C00 /* Text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Text.png; sourceTree = "<group>"; };
-		533255D61CEDC91B00653C00 /* com.mindshiftapps.Learniat-Student.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "com.mindshiftapps.Learniat-Student.c"; sourceTree = "<group>"; };
 		535B8B191CE1A20F008B2D7F /* Query_Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Query_Selected.png; sourceTree = "<group>"; };
 		535B8B1A1CE1A20F008B2D7F /* Query.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Query.png; sourceTree = "<group>"; };
 		535B8B1B1CE1A20F008B2D7F /* Questions_Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Questions_Selected.png; sourceTree = "<group>"; };
@@ -960,6 +959,7 @@
 		53EEABF21CED9B2D005E4566 /* StudentAnswerGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerGraphView.swift; sourceTree = "<group>"; };
 		53EEABF51CED9C39005E4566 /* FXLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXLabel.h; sourceTree = "<group>"; };
 		53EEABF61CED9C39005E4566 /* FXLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXLabel.m; sourceTree = "<group>"; };
+		53F2CD831D0BE14900C1DCCC /* com.mindshiftapps.LearniatStudent.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = com.mindshiftapps.LearniatStudent.c; sourceTree = "<group>"; };
 		53FFD2BC1CE1FC3700A5AA28 /* MultipleChoiceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipleChoiceView.swift; sourceTree = "<group>"; };
 		53FFD2BD1CE1FC3700A5AA28 /* multipleResponseOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = multipleResponseOptionView.swift; sourceTree = "<group>"; };
 		53FFD2BE1CE1FC3700A5AA28 /* StudentQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentQuestionView.swift; sourceTree = "<group>"; };
@@ -2164,7 +2164,7 @@
 			isa = PBXGroup;
 			children = (
 				533255131CEDBE4C00653C00 /* SSStudentFullscreenScribbleQuestion.swift */,
-				533255D61CEDC91B00653C00 /* com.mindshiftapps.Learniat-Student.c */,
+				53F2CD831D0BE14900C1DCCC /* com.mindshiftapps.LearniatStudent.c */,
 				5332550D1CEDBE2300653C00 /* MyCertificate.h */,
 				5332550E1CEDBE2300653C00 /* TeacherMathView.swift */,
 				5332550F1CEDBE2300653C00 /* TeacherShapesView.swift */,
@@ -2683,7 +2683,6 @@
 				533066741CC9E5F40035CCDE /* XMPPvCardTemp.m in Sources */,
 				533066961CC9E5F40035CCDE /* XMPPPresence+XEP_0172.m in Sources */,
 				535B8B261CE1A2A4008B2D7F /* CustomButtonSubView.swift in Sources */,
-				533255D71CEDC91B00653C00 /* com.mindshiftapps.Learniat-Student.c in Sources */,
 				533064C01CC9E52E0035CCDE /* InternetTesting.m in Sources */,
 				533066771CC9E5F40035CCDE /* XMPPvCardTempBase.m in Sources */,
 				533066521CC9E5F40035CCDE /* XMPPResourceCoreDataStorageObject.m in Sources */,
@@ -2725,6 +2724,7 @@
 				533066E71CC9EDD90035CCDE /* ScheduleScreenTile.swift in Sources */,
 				53A482E11CE45FD000C90451 /* CustomProgressImageView.m in Sources */,
 				533066B31CC9E5F40035CCDE /* XMPPTimer.m in Sources */,
+				53F2CD841D0BE14900C1DCCC /* com.mindshiftapps.LearniatStudent.c in Sources */,
 				533066E91CC9EDD90035CCDE /* SSStudentScheduleViewController.swift in Sources */,
 				533255191CEDBE8700653C00 /* ImageEditorSubView.m in Sources */,
 				53A552221CF9A8B70093634A /* PlistDownloder.m in Sources */,
@@ -2956,7 +2956,7 @@
 					"-ObjC",
 					"-lstdc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mindshiftapps.Learniat-Student";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.LearniatStudent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatStudent/LearniatStudent-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -2988,7 +2988,7 @@
 					"-ObjC",
 					"-lstdc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.mindshiftapps.Learniat-Student";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.LearniatStudent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatStudent/LearniatStudent-Bridging-Header.h";
 				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";

@@ -832,7 +832,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     {
         if SSStudentDataSource.sharedDataSource.answerSent == false
         {
-            if currentQuestionType == kScribble || currentQuestionType == kFreshScribble
+            if currentQuestionType == kOverlayScribble || currentQuestionType == kFreshScribble
             {
                 if mFullScreenView != nil
                 {

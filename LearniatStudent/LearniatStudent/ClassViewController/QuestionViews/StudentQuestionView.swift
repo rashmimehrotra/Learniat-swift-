@@ -86,6 +86,8 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
     func setQuestionDetails(questionDetails: AnyObject , withType QuestionType :String, withSessionDetails sessionDetails:AnyObject,withQuestion _logId:String)
     {
         
+        SSStudentDataSource.sharedDataSource.answerSent = false
+        
         if mSharedGraphView != nil
         {
             mSharedGraphView.removeFromSuperview()

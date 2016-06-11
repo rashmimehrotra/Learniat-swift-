@@ -265,7 +265,7 @@ class SubjectiveStudentContainer: UIView
         {
             
             
-            studentSubmissionLabel.text = TextAnswer
+            studentSubmissionLabel.text = " \(TextAnswer)"
             studentSubmissionLabel.hidden = false
             
             

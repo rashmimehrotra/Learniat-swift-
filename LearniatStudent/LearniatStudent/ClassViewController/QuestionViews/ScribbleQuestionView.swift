@@ -250,12 +250,15 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
     
     func onWithDrawButton()
     {
-        mContainerView.hidden = true
+        mContainerView.hidden = false
         mEditButton.hidden = false
         mReplyStatusLabelView.hidden = true
         mTopbarImageView.hidden = false
         SSStudentDataSource.sharedDataSource.answerSent = false
         mWithDrawButton.hidden = true
+        sendButtonSpinner.hidden = true
+        sendButtonSpinner.stopAnimating()
+        mSendButton.hidden = false
         SSStudentMessageHandler.sharedMessageHandler.sendWithDrawMessageToTeacher()
     }
     
@@ -272,7 +275,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
             sendButtonSpinner.startAnimating()
             mSendButton.hidden = true
             mEditButton.hidden = true
-            mWithDrawButton.hidden = false
+            mWithDrawButton.hidden = true
             
             let currentDateString = dateFormatter.stringFromDate(currentDate)
             
@@ -393,7 +396,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         
         mEditButton.hidden = true
         
-        mWithDrawButton.hidden = true
+        mWithDrawButton.hidden = false
         
         SSStudentDataSource.sharedDataSource.answerSent = true
         mWithDrawButton.hidden = false

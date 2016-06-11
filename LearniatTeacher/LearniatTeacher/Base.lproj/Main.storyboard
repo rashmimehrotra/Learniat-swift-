@@ -8,7 +8,7 @@
         <!--Login View Controller-->
         <scene sceneID="J1R-Q4-iZh">
             <objects>
-                <viewController id="C8f-AP-HYf" customClass="LoginViewController" customModule="LearniatTeacher" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="C8f-AP-HYf" customClass="LoginViewController" customModule="Learniat_Teacher" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="AQO-CM-dMw"/>
                         <viewControllerLayoutGuide type="bottom" id="PAm-DW-hJF"/>
@@ -30,7 +30,7 @@
         <!--Teacher Schedule View Controller-->
         <scene sceneID="Zga-5M-CXj">
             <objects>
-                <viewController storyboardIdentifier="TeacherScheduleViewController" id="jVR-tN-eqI" customClass="TeacherScheduleViewController" customModule="LearniatTeacher" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TeacherScheduleViewController" id="jVR-tN-eqI" customClass="TeacherScheduleViewController" customModule="Learniat_Teacher" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ho6-DZ-0rR"/>
                         <viewControllerLayoutGuide type="bottom" id="rUh-0z-EdB"/>
@@ -53,7 +53,7 @@
         <!--Auto Seat Allocate-->
         <scene sceneID="VtL-Cs-idF">
             <objects>
-                <viewController storyboardIdentifier="AutoSeatAllocate" id="uJg-UK-o7V" customClass="AutoSeatAllocate" customModule="LearniatTeacher" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AutoSeatAllocate" id="uJg-UK-o7V" customClass="AutoSeatAllocate" customModule="Learniat_Teacher" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0VO-ZB-qyd"/>
                         <viewControllerLayoutGuide type="bottom" id="1B6-21-Ece"/>
@@ -74,7 +74,7 @@
         <!--Teacher Class View-->
         <scene sceneID="4Lm-hQ-xwF">
             <objects>
-                <viewController storyboardIdentifier="SSTeacherClassView" id="2In-rm-84a" customClass="SSTeacherClassView" customModule="LearniatTeacher" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SSTeacherClassView" id="2In-rm-84a" customClass="SSTeacherClassView" customModule="Learniat_Teacher" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="oHj-gL-ChN"/>
                         <viewControllerLayoutGuide type="bottom" id="td7-dK-2xX"/>
@@ -95,7 +95,7 @@
         <!--Preallocate Seat View Controller-->
         <scene sceneID="ui9-S0-ZWw">
             <objects>
-                <viewController storyboardIdentifier="PreallocateSeatViewController" id="C5C-Ko-rkd" customClass="PreallocateSeatViewController" customModule="LearniatTeacher" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PreallocateSeatViewController" id="C5C-Ko-rkd" customClass="PreallocateSeatViewController" customModule="Learniat_Teacher" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ups-Eh-nYb"/>
                         <viewControllerLayoutGuide type="bottom" id="Mls-AO-yQO"/>
