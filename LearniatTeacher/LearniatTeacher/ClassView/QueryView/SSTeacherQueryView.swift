@@ -94,6 +94,14 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
         return _delgate;
     }
     
+    func queryWithDrawnWithQueryId(queryId:String)
+    {
+        if let studentqueryView  = mScrollView.viewWithTag(Int(queryId)!) as? QuerySubview
+        {
+            studentqueryView.removeFromSuperview()
+        }
+        refreshScrollView()
+    }
     
     func addQueryWithDetails(QueryId:String)
     {
@@ -285,19 +293,28 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
     }
     
     
-    func delegateVolunteerSessionEnded()
-    {
+    func delegateVolunteerSessionEndedWithRemainingqueries(queryIdArray: NSMutableArray) {
+        
         
         let subViews = mScrollView.subviews.flatMap{ $0 as? QuerySubview }
         for studentqueryView in subViews
         {
             if studentqueryView.isKindOfClass(QuerySubview)
             {
-                if delegate().respondsToSelector(#selector(SSTeacherQueryViewDelegate.delegateQueryDeletedWithDetails(_:)))
+                if queryIdArray.containsObject("\(studentqueryView.tag)")
                 {
-                    delegate().delegateQueryDeletedWithDetails!(studentqueryView.currentQueryDetails)
-                     studentqueryView.removeFromSuperview()
+                    
                 }
+                else
+                {
+                    if delegate().respondsToSelector(#selector(SSTeacherQueryViewDelegate.delegateQueryDeletedWithDetails(_:)))
+                    {
+                        delegate().delegateQueryDeletedWithDetails!(studentqueryView.currentQueryDetails)
+                        studentqueryView.removeFromSuperview()
+                    }
+                }
+                
+                
                 
             }
         }

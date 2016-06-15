@@ -1985,6 +1985,17 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
     }
     
+    func smhDidgetQueryWithdrawnWithDetails(queryId: String, withStudentId studentId: String) {
+        
+        if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView
+        {
+            newQueryRecieved.removeObject(studentId)
+            studentDeskView.queryDismissed()
+            mQueryView.queryWithDrawnWithQueryId(queryId)
+            
+        }
+    }
+    
     func smhDidgetStudentPollWithDetails(optionValue: String)
     {
         

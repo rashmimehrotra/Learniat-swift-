@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatTeacher/ClassView/QueryView/SSTeacherVolunteerView.swift"
-            timestampString = "486717843.536366"
+            timestampString = "487662877.57277"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "502"
-            endingLineNumber = "502"
-            landmarkName = "delegateMetooButtonPressedWithAscending(_:)"
+            startingLineNumber = "277"
+            endingLineNumber = "277"
+            landmarkName = "endVolunteeringSession()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/ClassView/QueryView/SSTeacherVolunteerView.swift"
-            timestampString = "486718070.59978"
+            filePath = "LearniatTeacher/Source/SSTeacherDataSource.swift"
+            timestampString = "487661681.147685"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "540"
-            endingLineNumber = "540"
-            landmarkName = "delegateMetooButtonPressedWithAscending(_:)"
+            startingLineNumber = "746"
+            endingLineNumber = "746"
+            landmarkName = "dismissQuerySelectedForVolunteerWithQueryId(_:withStudentId:WithDelegate:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,220 +41,44 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/ClassView/SubmissionView/SSTeacherSubmissionView.swift"
-            timestampString = "487272897.37003"
+            filePath = "LearniatTeacher/ClassView/QueryView/SSTeacherQueryView.swift"
+            timestampString = "487668140.565405"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "370"
-            endingLineNumber = "370"
-            landmarkName = "delegateWordCloudButtonPressed()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/ClassView/SubmissionView/OneStringGraphView.swift"
-            timestampString = "487272897.37003"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
-            landmarkName = "setOptionWithString(_:withCheckingState:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/ClassView/SubmissionView/OneStringGraphView.swift"
-            timestampString = "486999918.54549"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
-            landmarkName = "setQuestionName(_:withDetails:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/ClassView/SubmissionView/SSTeacherSubmissionView.swift"
-            timestampString = "486999989.842424"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
-            landmarkName = "addOneStringQuestionWithDetails(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/ClassView/SSTeacherClassView.swift"
-            timestampString = "487275187.141316"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "655"
-            endingLineNumber = "655"
-            landmarkName = "updateStartLabelTime()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/ClassView/SSTeacherClassView.swift"
-            timestampString = "487275344.95945"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2628"
-            endingLineNumber = "2628"
-            landmarkName = "delegateSessionEnded()"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
+            landmarkName = "queryWithDrawnWithQueryId(_:)"
             landmarkType = "5">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "LearniatTeacher.SSTeacherClassView.delegateSessionEnded () -&gt; ()"
-                  moduleName = "LearniatTeacher"
+                  symbolName = "Learniat_Teacher.SSTeacherQueryView.queryWithDrawnWithQueryId (Swift.String) -&gt; ()"
+                  moduleName = "Learniat Teacher"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/SSTeacherClassView.swift"
-                  timestampString = "487275121.69339"
+                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/QueryView/SSTeacherQueryView.swift"
+                  timestampString = "487668183.63425"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "2626"
-                  endingLineNumber = "2626"
-                  offsetFromSymbolStart = "24">
+                  startingLineNumber = "99"
+                  endingLineNumber = "99"
+                  offsetFromSymbolStart = "42">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "LearniatTeacher.SSTeacherClassView.delegateSessionEnded () -&gt; ()"
-                  moduleName = "LearniatTeacher"
+                  symbolName = "Learniat_Teacher.SSTeacherQueryView.queryWithDrawnWithQueryId (Swift.String) -&gt; ()"
+                  moduleName = "Learniat Teacher"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/SSTeacherClassView.swift"
-                  timestampString = "487275121.693604"
+                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/QueryView/SSTeacherQueryView.swift"
+                  timestampString = "487668183.634485"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "2626"
-                  endingLineNumber = "2626"
-                  offsetFromSymbolStart = "679">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/ClassView/SSTeacherClassView.swift"
-            timestampString = "487061277.043741"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1035"
-            endingLineNumber = "1035"
-            landmarkName = "didGetSessionUpdatedWithDetials(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/ClassView/TopicsView/MainTopicsView.swift"
-            timestampString = "487062950.930322"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
-            landmarkName = "getTopicsDetailswithStartedMaintopicId(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/ClassView/TopicsView/MainTopicsView.swift"
-            timestampString = "487063358.321917"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
-            landmarkName = "getTopicsDetailswithStartedMaintopicId(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/ClassView/TopicsView/MainTopicCell.swift"
-            timestampString = "487063207.751536"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
-            landmarkName = "setMainTopicDetails(_:)"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "LearniatTeacher.MainTopicCell.setMainTopicDetails (Swift.AnyObject) -&gt; ()"
-                  moduleName = "LearniatTeacher"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/TopicsView/MainTopicCell.swift"
-                  timestampString = "487275121.697812"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "115"
-                  endingLineNumber = "115"
-                  offsetFromSymbolStart = "80">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "LearniatTeacher.MainTopicCell.setMainTopicDetails (Swift.AnyObject) -&gt; ()"
-                  moduleName = "LearniatTeacher"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/TopicsView/MainTopicCell.swift"
-                  timestampString = "487275121.698081"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "115"
-                  endingLineNumber = "115"
-                  offsetFromSymbolStart = "850">
+                  startingLineNumber = "99"
+                  endingLineNumber = "99"
+                  offsetFromSymbolStart = "552">
                </Location>
             </Locations>
          </BreakpointContent>

@@ -800,6 +800,12 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         mQuestionView.questionCleared()
         mQuestionNameLabel.text = "No active question"
        
+        if mFullScreenView != nil
+        {
+            mFullScreenView.removeFromSuperview()
+            mFullScreenView = nil
+        }
+
 
 //        SSStudentDataSource.sharedDataSource.getGraspIndexwithTopicId(currentSubTopicId, withSessionId: (sessionDetails.objectForKey("SessionId") as! String), withDelegate: self)
        

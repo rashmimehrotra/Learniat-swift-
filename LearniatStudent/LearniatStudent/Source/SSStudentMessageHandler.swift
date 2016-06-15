@@ -460,6 +460,37 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
     }
     
     
+    func sendDoubtWithdrwanFromStudentWithQueryId(queryId:String)
+    {
+        
+        
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true &&  SSStudentDataSource.sharedDataSource.currentTeacherId != nil)
+        {
+            let studentID           = SSStudentDataSource.sharedDataSource.currentUserId
+            let msgType             = kDoubtWithDrawn
+            let teacherID           = SSStudentDataSource.sharedDataSource.currentTeacherId
+            
+            
+            let messageBody = queryId
+            
+            
+            
+            
+            let details:NSMutableDictionary = ["From":studentID,
+                                               "To":teacherID,
+                                               "Type":msgType,
+                                               "Body":messageBody];
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.XMLMessage()
+            
+            MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
+        }
+    }
+    
+    
     func sendWithDrawMessageToTeacher()
     {
         

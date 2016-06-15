@@ -417,6 +417,19 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
                                 withReturningDelegate: delegate)
     }
     
+    func withDrawQueryWithQueryId(queryId:String, withDelegate delegate:SSStudentDataSourceDelegate)
+    {
+        
+        setdelegate(delegate)
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>WithdrawStudentSubmission</Service><QueryId>%@</QueryId></Action></Sunstone>",URLPrefix,queryId)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceWithDrawQuery, withDelegate: self, withRequestType: eHTTPGetRequest,withReturningDelegate: delegate)
+    }
+    
+    
     
     // MARK: - API Delegate Functions
     func delegateDidGetServiceResponseWithDetails(dict: NSMutableDictionary!, WIthServiceName serviceName: String!, withRetruningDelegate returningDelegate: AnyObject!) {

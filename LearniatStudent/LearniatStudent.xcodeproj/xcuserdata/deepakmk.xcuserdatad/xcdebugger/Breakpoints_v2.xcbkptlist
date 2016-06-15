@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatStudent/Source/SSStudentDataSource.swift"
-            timestampString = "485978631.473517"
+            timestampString = "487667829.838425"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "520"
-            endingLineNumber = "520"
+            startingLineNumber = "533"
+            endingLineNumber = "533"
             landmarkName = "delegateDidGetServiceResponseWithDetails(_:WIthServiceName:withRetruningDelegate:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatStudent/ClassViewController/QueryView/QRVSubView.swift"
-            timestampString = "486705805.439409"
+            timestampString = "487501505.303899"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "241"
-            endingLineNumber = "241"
+            startingLineNumber = "254"
+            endingLineNumber = "254"
             landmarkName = "didGetvolunteerRegisteredWithDetails(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatStudent/Source/SSStudentMessageHandler.swift"
-            timestampString = "486456531.334247"
+            timestampString = "487667829.838425"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "520"
-            endingLineNumber = "520"
+            startingLineNumber = "551"
+            endingLineNumber = "551"
             landmarkName = "sendIVolunteerMessageToTeacher(_:withvolunteerId:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -186,12 +186,12 @@
                   moduleName = "LearniatStudent"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatStudent/LearniatStudent/ClassViewController/GraphView/StudentAnswerGraphView.swift"
-                  timestampString = "487319275.273623"
+                  timestampString = "487668035.163442"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "455"
                   endingLineNumber = "455"
-                  offsetFromSymbolStart = "552">
+                  offsetFromSymbolStart = "700">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -201,12 +201,12 @@
                   moduleName = "LearniatStudent"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatStudent/LearniatStudent/ClassViewController/GraphView/StudentAnswerGraphView.swift"
-                  timestampString = "487319275.274027"
+                  timestampString = "487668035.163676"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "455"
                   endingLineNumber = "455"
-                  offsetFromSymbolStart = "912">
+                  offsetFromSymbolStart = "1196">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -249,54 +249,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LearniatStudent/ClassViewController/QueryView/StudentsQueryView.swift"
-            timestampString = "486705187.480075"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "431"
-            endingLineNumber = "431"
-            landmarkName = "didGetSRQWithDetails(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatStudent/ClassViewController/QueryView/QRVSubView.swift"
-            timestampString = "486705579.504032"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
-            landmarkName = "addAllSUbQuerySubViewWithDetails(_:withQueryId:withQueryText:withQuerySize:withCount:withMyQuery:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatStudent/ClassViewController/QueryView/StudentsQueryView.swift"
-            timestampString = "486705609.523229"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "462"
-            endingLineNumber = "462"
-            landmarkName = "didGetSRQWithDetails(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "LearniatStudent/ClassViewController/QuestionViews/ScribbleQuestionView.swift"
             timestampString = "487318315.106635"
             startingColumnNumber = "9223372036854775807"
@@ -314,11 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatStudent/Source/SSStudentMessageHandler.swift"
-            timestampString = "486712153.517542"
+            timestampString = "487667829.838425"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "666"
-            endingLineNumber = "666"
+            startingLineNumber = "697"
+            endingLineNumber = "697"
             landmarkName = "sendPeakViewMessageToTeacherWithImageData(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -346,12 +298,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatStudent/ClassViewController/StudentClassViewController.swift"
-            timestampString = "487319187.138668"
+            timestampString = "487320776.70513"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "833"
-            endingLineNumber = "833"
+            startingLineNumber = "839"
+            endingLineNumber = "839"
             landmarkName = "smhdidReceiveQuestionFreezMessage()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatStudent/ClassViewController/QueryView/StudentsQueryView.swift"
+            timestampString = "487665884.418917"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "511"
+            endingLineNumber = "511"
+            landmarkName = "volunteerClosedWithQueryId(_:withStudentdID:withTotalVotes:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

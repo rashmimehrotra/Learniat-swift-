@@ -190,6 +190,19 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
                 self.meeTooButton.enabled = false
                 self.meeTooButton.frame = CGRectMake(50,self.meeTooButton.frame.origin.y,self.meeTooButton.frame.size.width,self.meeTooButton.frame.size.height)
         })
+        
+        
+        
+        let underStoodButton = UIButton()
+        
+        underStoodButton.frame = CGRectMake(meeTooButton.frame.origin.x + meeTooButton.frame.size.width + 20 ,meeTooButton.frame.origin.y ,meeTooButton.frame.size.width * 2 ,meeTooButton.frame.size.height)
+        underStoodButton.setTitle("UNDERSTOOD", forState: .Normal)
+        underStoodButton.contentHorizontalAlignment = .Left
+        self.addSubview(underStoodButton)
+        underStoodButton.setTitleColor(standard_Button, forState: .Normal)
+        underStoodButton.titleLabel?.font = UIFont (name: helveticaRegular, size: 16)
+        underStoodButton.addTarget(self, action: #selector(QRVSubView.onUnderStoodButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        
         SSStudentMessageHandler.sharedMessageHandler.sendMeTooMessageToTeacherWithQueryId(String(self.tag))
         
     }
@@ -271,18 +284,18 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
             volunteerView.addSubview(volunteerScrollView)
             
             
-            if currentSelectionState ==  "Me-Too Selected"
-            {
-                let underStoodButton = UIButton()
-                
-                underStoodButton.frame = CGRectMake(meeTooButton.frame.origin.x + meeTooButton.frame.size.width + 20 ,meeTooButton.frame.origin.y ,meeTooButton.frame.size.width * 2 ,meeTooButton.frame.size.height)
-                underStoodButton.setTitle("UNDERSTOOD", forState: .Normal)
-                underStoodButton.contentHorizontalAlignment = .Left
-                self.addSubview(underStoodButton)
-                underStoodButton.setTitleColor(standard_Button, forState: .Normal)
-                underStoodButton.titleLabel?.font = UIFont (name: helveticaRegular, size: 16)
-                underStoodButton.addTarget(self, action: #selector(QRVSubView.onUnderStoodButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-            }
+//            if currentSelectionState ==  "Me-Too Selected"
+//            {
+//                let underStoodButton = UIButton()
+//                
+//                underStoodButton.frame = CGRectMake(meeTooButton.frame.origin.x + meeTooButton.frame.size.width + 20 ,meeTooButton.frame.origin.y ,meeTooButton.frame.size.width * 2 ,meeTooButton.frame.size.height)
+//                underStoodButton.setTitle("UNDERSTOOD", forState: .Normal)
+//                underStoodButton.contentHorizontalAlignment = .Left
+//                self.addSubview(underStoodButton)
+//                underStoodButton.setTitleColor(standard_Button, forState: .Normal)
+//                underStoodButton.titleLabel?.font = UIFont (name: helveticaRegular, size: 16)
+//                underStoodButton.addTarget(self, action: #selector(QRVSubView.onUnderStoodButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+//            }
             
         }
         

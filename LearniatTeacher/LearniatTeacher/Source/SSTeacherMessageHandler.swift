@@ -86,6 +86,7 @@ import Foundation
     
     optional func smhDidgetStudentQueryWithDetails(queryId:String)
     
+    optional func smhDidgetQueryWithdrawnWithDetails(queryId:String, withStudentId studentId:String)
     
     optional func smhDidgetStudentPollWithDetails(optionValue:String)
     
@@ -1237,8 +1238,19 @@ public class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Me
                 
             }
             break
-
-
+            
+        case kDoubtWithDrawn:
+            
+            if delegate().respondsToSelector(#selector(SSTeacherMessagehandlerDelegate.smhDidgetQueryWithdrawnWithDetails(_:withStudentId:)))
+            {
+                if let queryID = message.messageBody() as? String
+                {
+                    delegate().smhDidgetQueryWithdrawnWithDetails!(queryID, withStudentId: message.messageFrom())
+                }
+                
+                
+            }
+            break
             
         default:
             break

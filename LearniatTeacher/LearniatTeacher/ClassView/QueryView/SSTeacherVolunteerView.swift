@@ -13,7 +13,7 @@ import Foundation
 {
     
     
-    optional func delegateVolunteerSessionEnded()
+    optional func delegateVolunteerSessionEndedWithRemainingqueries(queryIdArray:NSMutableArray)
     
     
 }
@@ -44,6 +44,8 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
     
     var metooMaxCount           = 0
     var volunteerMaxCount       = 0
+    
+    var remianingQueryIdArray       = NSMutableArray()
     
     override init(frame: CGRect)
     {
@@ -85,6 +87,8 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
         
 
         
+//        SSTeacherDataSource.sharedDataSource.GetSRQWithSessionId(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, withDelegate: self)
+        
         
     }
     
@@ -109,6 +113,57 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
     
     
     
+    func didGetSRQWithDetails(details: AnyObject)
+    {
+        
+         currentYPosition  = 10
+        
+//        let subViews = mScrollView.subviews
+//        
+//        for mQuerySubView in subViews
+//        {
+//            if mQuerySubView.isKindOfClass(QueryVolunteerSubView)
+//            {
+//                mQuerySubView.removeFromSuperview()
+//            }
+//        }
+//        
+//        
+//        
+//        if let allowVolunteerFlagList = details.objectForKey("AllowVolunteerFlag") as? String
+//        {
+//            if let queryIdList = details.objectForKey("QueryIdList") as? String
+//            {
+//                if let queryTextList = details.objectForKey("QueryText") as? String
+//                {
+//                    
+//                    if let StudentNameList = details.objectForKey("StudentName") as? String
+//                    {
+//                        
+//                        
+//                        let allowVolunteerFlagArray:Array = allowVolunteerFlagList.componentsSeparatedByString(";;;")
+//                        let queryIdListArray:Array = queryIdList.componentsSeparatedByString(";;;")
+//                        let queryTextListArray:Array = queryTextList.componentsSeparatedByString(";;;")
+//                        
+//                        for index in 0  ..< allowVolunteerFlagArray.count
+//                        {
+//                            
+//                            let qrvSubView = QueryVolunteerSubView(frame: CGRectMake(10 , currentYPosition, self.frame.size.width - 20 ,80))
+//                            
+//                           qrvSubView.setQueryText((queryTextListArray[index] as String), withQueryId: (queryIdListArray[index] as String), withStudentId: <#T##String#>)
+//                            mScrollView.addSubview(qrvSubView)
+//                            qrvSubView.setdelegate(self)
+//                            currentYPosition = currentYPosition + qrvSubView.frame.height + 10
+//                            
+//                        }
+//                        mScrollView.contentSize = CGSizeMake(0, currentYPosition)
+//                    }
+//                }
+//            }
+//        }
+        
+    }
+    
     
     func addQueriesWithDetails(queryDetails:NSMutableArray)
     {
@@ -128,7 +183,7 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
             if let queryText = queryDict.objectForKey("QueryText") as? String
             {
                 
-               mQuerySubView.mQueryLabel.text = "\(queryText)"
+               mQuerySubView.mQueryLabel.text = "\(index+1). \(queryText)"
             }
             
             
@@ -186,19 +241,45 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
         
         let meTooCountList  = NSMutableArray()
         
+        remianingQueryIdArray.removeAllObjects()
+        
         let subViews = mScrollView.subviews.flatMap{ $0 as? QueryVolunteerSubView }
         
         for mQuerySubView in subViews
         {
             if mQuerySubView.isKindOfClass(QueryVolunteerSubView)
             {
-                if let QueryId = mQuerySubView.currentQueryDetails.objectForKey("QueryId") as? String
+               
+                
+                
+                if mQuerySubView.mMetooLabel.text! != "0"
                 {
-                   mQueryIdList.addObject(QueryId)
+                    if let QueryId = mQuerySubView.currentQueryDetails.objectForKey("QueryId") as? String
+                    {
+                        mQueryIdList.addObject(QueryId)
+                        remianingQueryIdArray.addObject(QueryId)
+                    }
+                    
+                     meTooCountList.addObject(mQuerySubView.mMetooLabel.text!)
+                    
+                    
+                    
+                    
                 }
-                
-                meTooCountList.addObject(mQuerySubView.mMetooLabel.text!)
-                
+                else
+                {
+                    
+                    if let QueryId = mQuerySubView.currentQueryDetails.objectForKey("QueryId") as? String
+                    {
+                        if let StudentId = mQuerySubView.currentQueryDetails.objectForKey("StudentId") as? String
+                        {
+                            SSTeacherDataSource.sharedDataSource.dismissQuerySelectedForVolunteerWithQueryId(QueryId, withStudentId: StudentId, WithDelegate: self)
+                            
+                            
+                        }
+                        
+                    }
+                }
             }
         }
         
@@ -211,8 +292,6 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
         
         
         
-        
-        
     }
     
     func didGetVolunteeringEndedWithDetails(details: AnyObject)
@@ -220,11 +299,11 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
        
         SSTeacherMessageHandler.sharedMessageHandler.sendEndVolunteeringMessagetoStudent(SSTeacherDataSource.sharedDataSource.currentLiveSessionId)
         
-        if delegate().respondsToSelector(#selector(SSTeacherVolunteerViewDelegate.delegateVolunteerSessionEnded))
+        if delegate().respondsToSelector(#selector(SSTeacherVolunteerViewDelegate.delegateVolunteerSessionEndedWithRemainingqueries(_:)))
         {
             
             
-            delegate().delegateVolunteerSessionEnded!()
+            delegate().delegateVolunteerSessionEndedWithRemainingqueries!(remianingQueryIdArray)
             self.removeFromSuperview()
         }
 
@@ -242,6 +321,11 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
         {
             alertView.dismissWithClickedButtonIndex(buttonIndex, animated: true)
         }
+    }
+    
+    func didGetQueryRespondedWithDetails(details: AnyObject)
+    {
+        print(details)
     }
     
      // MARK: - Query Volunteer  functions
@@ -440,6 +524,7 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
             }
         }
         
+
     }
     
     

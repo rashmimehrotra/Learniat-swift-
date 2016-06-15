@@ -97,7 +97,9 @@ let kServiceApproveVolunteer        =   "ApproveVolunteer"
 
 let kServiceStopVolunteering        =   "StopVolunteering"
 
-let kServiceUserLogout              =    "UserLogout"
+let kServiceUserLogout              =   "UserLogout"
+
+let kServiceFetchSRQ                =   "FetchSRQ"
 
 
 @objc protocol SSTeacherDataSourceDelegate
@@ -167,6 +169,8 @@ let kServiceUserLogout              =    "UserLogout"
     optional func didGetModelAnswerRecordedWithDetails(details:AnyObject)
     
     optional func didGetLogOutWithDetails(details:AnyObject)
+    
+    optional func didGetSRQWithDetails(details:AnyObject)
 }
 
 
@@ -734,6 +738,28 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     }
     
     
+    func dismissQuerySelectedForVolunteerWithQueryId(queryId:String, withStudentId StudentId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>RespondToQuery</Service><QueryId>%@</QueryId><DismissFlag>1</DismissFlag><StudentId>%@</StudentId></Action></Sunstone>",URLPrefix,queryId,StudentId)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceReplyToQuery, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+    }
+    
+    func GetSRQWithSessionId(sessionId:String, withDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>FetchSRQ</Service><SessionId>%@</SessionId></Action></Sunstone>",URLPrefix,sessionId)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceFetchSRQ, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+    }
+    
+    
+    
     func saveSelectedVolunteers(QueryIdList:String, withAllowVolunteerList allowVolunteer:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
 
@@ -1057,9 +1083,17 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
                 returningDelegate.didGetLogOutWithDetails!(refinedDetails)
             }
         }
+        else if serviceName == kServiceFetchSRQ
+        {
+            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetSRQWithDetails(_:)))
+            {
+                returningDelegate.didGetSRQWithDetails!(refinedDetails)
+            }
+            
+        }
     }
     
-    
+
     
     
     
