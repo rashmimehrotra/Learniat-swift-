@@ -135,6 +135,4 @@ class StudentAnswerDemo: UIView,StudentAnswerSelectionViewDelegate
             }
         }
     }
-    
-    
 }

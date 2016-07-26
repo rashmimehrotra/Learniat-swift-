@@ -186,12 +186,12 @@
                   moduleName = "LearniatStudent"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatStudent/LearniatStudent/ClassViewController/GraphView/StudentAnswerGraphView.swift"
-                  timestampString = "487668035.163442"
+                  timestampString = "490950264.830299"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "455"
                   endingLineNumber = "455"
-                  offsetFromSymbolStart = "700">
+                  offsetFromSymbolStart = "552">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -201,12 +201,12 @@
                   moduleName = "LearniatStudent"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatStudent/LearniatStudent/ClassViewController/GraphView/StudentAnswerGraphView.swift"
-                  timestampString = "487668035.163676"
+                  timestampString = "490950264.830516"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "455"
                   endingLineNumber = "455"
-                  offsetFromSymbolStart = "1196">
+                  offsetFromSymbolStart = "912">
                </Location>
             </Locations>
          </BreakpointContent>
