@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D06408D1D0BD3AD00945EE4 /* ATKCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D06408C1D0BD3AD00945EE4 /* ATKCore.framework */; };
 		4D0A7FC81CCF783B001AA119 /* StudentAnswerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0A7FC71CCF783B001AA119 /* StudentAnswerDemo.swift */; };
 		4D0A7FCA1CCF79C6001AA119 /* StudentAnswerSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0A7FC91CCF79C6001AA119 /* StudentAnswerSelectionView.swift */; };
 		4D2A93201CC0C4A9007A1D41 /* SetupClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2A931D1CC0C4A9007A1D41 /* SetupClassCell.swift */; };
@@ -136,7 +137,6 @@
 		5330645F1CC8E3A50035CCDE /* SZTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5330645E1CC8E3A50035CCDE /* SZTextView.m */; };
 		533233331CAFD2CE00971EC7 /* SubmissionMRQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533233321CAFD2CE00971EC7 /* SubmissionMRQView.swift */; };
 		533233481CAFE09C00971EC7 /* SSTeacherAggregatePopOverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533233471CAFE09C00971EC7 /* SSTeacherAggregatePopOverController.swift */; };
-		534217621CDC81D90061A7E7 /* ATKCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5342175F1CDC81D80061A7E7 /* ATKCore.framework */; };
 		534217631CDC81D90061A7E7 /* ATKMath.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 534217601CDC81D80061A7E7 /* ATKMath.framework */; };
 		534217641CDC81D90061A7E7 /* ATKMathWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 534217611CDC81D90061A7E7 /* ATKMathWidget.framework */; };
 		534217661CDC81ED0061A7E7 /* MathResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 534217651CDC81ED0061A7E7 /* MathResources.bundle */; };
@@ -484,6 +484,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D06408C1D0BD3AD00945EE4 /* ATKCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ATKCore.framework; path = LearniatTeacher/ATKCore.framework; sourceTree = "<group>"; };
 		4D0A7FC71CCF783B001AA119 /* StudentAnswerDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerDemo.swift; sourceTree = "<group>"; };
 		4D0A7FC91CCF79C6001AA119 /* StudentAnswerSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerSelectionView.swift; sourceTree = "<group>"; };
 		4D2A931D1CC0C4A9007A1D41 /* SetupClassCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetupClassCell.swift; sourceTree = "<group>"; };
@@ -639,7 +640,6 @@
 		5330645E1CC8E3A50035CCDE /* SZTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZTextView.m; sourceTree = "<group>"; };
 		533233321CAFD2CE00971EC7 /* SubmissionMRQView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionMRQView.swift; sourceTree = "<group>"; };
 		533233471CAFE09C00971EC7 /* SSTeacherAggregatePopOverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSTeacherAggregatePopOverController.swift; sourceTree = "<group>"; };
-		5342175F1CDC81D80061A7E7 /* ATKCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ATKCore.framework; path = LearniatTeacher/ATKCore.framework; sourceTree = "<group>"; };
 		534217601CDC81D80061A7E7 /* ATKMath.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ATKMath.framework; path = LearniatTeacher/ATKMath.framework; sourceTree = "<group>"; };
 		534217611CDC81D90061A7E7 /* ATKMathWidget.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ATKMathWidget.framework; path = LearniatTeacher/ATKMathWidget.framework; sourceTree = "<group>"; };
 		534217651CDC81ED0061A7E7 /* MathResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MathResources.bundle; sourceTree = "<group>"; };
@@ -1183,7 +1183,7 @@
 				53676D401CA63C6900CADE4D /* UIKit.framework in Frameworks */,
 				53676D3E1CA63C6300CADE4D /* Foundation.framework in Frameworks */,
 				53676D3C1CA63C5B00CADE4D /* CoreGraphics.framework in Frameworks */,
-				534217621CDC81D90061A7E7 /* ATKCore.framework in Frameworks */,
+				4D06408D1D0BD3AD00945EE4 /* ATKCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1505,9 +1505,9 @@
 		53676AD81CA63B2000CADE4D = {
 			isa = PBXGroup;
 			children = (
+				4D06408C1D0BD3AD00945EE4 /* ATKCore.framework */,
 				5342176E1CDC8EF90061A7E7 /* ATKGeometry.framework */,
 				5342176F1CDC8EF90061A7E7 /* ATKGeometryWidget.framework */,
-				5342175F1CDC81D80061A7E7 /* ATKCore.framework */,
 				534217601CDC81D80061A7E7 /* ATKMath.framework */,
 				534217611CDC81D90061A7E7 /* ATKMathWidget.framework */,
 				53676D4D1CA63CAB00CADE4D /* Security.framework */,
