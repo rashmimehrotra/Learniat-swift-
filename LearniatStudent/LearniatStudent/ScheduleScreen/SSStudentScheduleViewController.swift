@@ -64,7 +64,7 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     
     var sessionUpdatedLive          :Bool = false
     
-    
+    var mAppVersionNumber               = UILabel();
     
      private var foregroundNotification: NSObjectProtocol!
     
@@ -158,12 +158,30 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         
         
         
+        
+        
+        
+        
         mRefreshButton = UIButton(frame: CGRectMake(mTopbarImageView.frame.size.width - mTopbarImageView.frame.size.height, 0,mTopbarImageView.frame.size.height,mTopbarImageView.frame.size.height ))
         mRefreshButton.setImage(UIImage(named: "refresh.png"), forState: .Normal)
         mTopbarImageView.addSubview(mRefreshButton)
         mRefreshButton.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
         mRefreshButton.addTarget(self, action: #selector(SSStudentScheduleViewController.onRefreshButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         mRefreshButton.hidden = false
+        
+        
+        
+        mAppVersionNumber = UILabel(frame: CGRectMake(mRefreshButton.frame.origin.x - (mRefreshButton.frame.size.width + 10), 0,mTopbarImageView.frame.size.height,mTopbarImageView.frame.size.height ))
+        
+        mTopbarImageView.addSubview(mAppVersionNumber)
+        
+        
+        if let version = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String {
+            mAppVersionNumber.text = version
+        }
+        
+        
+        
         
         
         activityIndicator.frame = CGRectMake(mRefreshButton.frame.origin.x - 60,  0,mTopbarImageView.frame.size.height,mTopbarImageView.frame.size.height)

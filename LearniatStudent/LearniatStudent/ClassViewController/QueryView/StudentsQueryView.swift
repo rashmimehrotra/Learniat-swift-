@@ -255,11 +255,31 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
 //                mSendButton.enabled = true
 //                mSendButton.setTitleColor(standard_Button, forState: .Normal)
                 self.makeToast("Error in sending query.", duration: 3.0, position: .Bottom)
+                
+                UIView.animateWithDuration(0.2, animations:
+                    {
+                        
+                        self.mQueryTextView.hidden = false
+                        self.mTopbarImageView.hidden = false
+                        self.mQueryScrollView.frame = CGRectMake(5, self.mQueryTextView.frame.size.height + self.mQueryTextView.frame.origin.y , self.frame.size.width - 10 , self.frame.size.height - (self.mQueryTextView.frame.size.height + self.mQueryTextView.frame.origin.y + 10))
+                })
+                
             }
         }
         else
         {
             self.makeToast("Error in sending query.", duration: 3.0, position: .Bottom)
+            
+            
+            UIView.animateWithDuration(0.2, animations:
+                {
+                    
+                    self.mQueryTextView.hidden = false
+                    self.mTopbarImageView.hidden = false
+                    self.mQueryScrollView.frame = CGRectMake(5, self.mQueryTextView.frame.size.height + self.mQueryTextView.frame.origin.y , self.frame.size.width - 10 , self.frame.size.height - (self.mQueryTextView.frame.size.height + self.mQueryTextView.frame.origin.y + 10))
+            })
+            
+            
         }
         
         refreshScrollView()
