@@ -385,7 +385,8 @@
 		53D414A01CF76AE70085C38E /* ModelAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4149F1CF76AE70085C38E /* ModelAnswerView.swift */; };
 		53D414A21CF77FDD0085C38E /* ModelAnswerFullView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D414A11CF77FDD0085C38E /* ModelAnswerFullView.swift */; };
 		53D414A41CF780210085C38E /* ModelAnswerFullViewSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D414A31CF780210085C38E /* ModelAnswerFullViewSubView.swift */; };
-		53EA24891D4C73C10046C8B4 /* Icon-167.png in Resources */ = {isa = PBXBuildFile; fileRef = 53EA24881D4C73C10046C8B4 /* Icon-167.png */; };
+		53EA248C1D4C77DB0046C8B4 /* Icon-83.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 53EA248A1D4C77DB0046C8B4 /* Icon-83.5.png */; };
+		53EA248D1D4C77DB0046C8B4 /* Icon-83.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53EA248B1D4C77DB0046C8B4 /* Icon-83.5@2x.png */; };
 		53EEABF31CED9B2D005E4566 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EEABF11CED9B2D005E4566 /* BarView.swift */; };
 		53EEABF41CED9B2D005E4566 /* StudentAnswerGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EEABF21CED9B2D005E4566 /* StudentAnswerGraphView.swift */; };
 		53EEABF71CED9C39005E4566 /* FXLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 53EEABF61CED9C39005E4566 /* FXLabel.m */; };
@@ -956,7 +957,8 @@
 		53D4149F1CF76AE70085C38E /* ModelAnswerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelAnswerView.swift; sourceTree = "<group>"; };
 		53D414A11CF77FDD0085C38E /* ModelAnswerFullView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelAnswerFullView.swift; sourceTree = "<group>"; };
 		53D414A31CF780210085C38E /* ModelAnswerFullViewSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelAnswerFullViewSubView.swift; sourceTree = "<group>"; };
-		53EA24881D4C73C10046C8B4 /* Icon-167.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-167.png"; sourceTree = "<group>"; };
+		53EA248A1D4C77DB0046C8B4 /* Icon-83.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-83.5.png"; sourceTree = "<group>"; };
+		53EA248B1D4C77DB0046C8B4 /* Icon-83.5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-83.5@2x.png"; sourceTree = "<group>"; };
 		53EEABF11CED9B2D005E4566 /* BarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		53EEABF21CED9B2D005E4566 /* StudentAnswerGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerGraphView.swift; sourceTree = "<group>"; };
 		53EEABF51CED9C39005E4566 /* FXLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXLabel.h; sourceTree = "<group>"; };
@@ -998,7 +1000,8 @@
 		530720B11D027E5E001C85F6 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
-				53EA24881D4C73C10046C8B4 /* Icon-167.png */,
+				53EA248A1D4C77DB0046C8B4 /* Icon-83.5.png */,
+				53EA248B1D4C77DB0046C8B4 /* Icon-83.5@2x.png */,
 				530720B21D027E5E001C85F6 /* Icon-120.png */,
 				530720B31D027E5E001C85F6 /* Icon-72.png */,
 				530720B41D027E5E001C85F6 /* Icon-72@2x.png */,
@@ -2447,6 +2450,7 @@
 			files = (
 				533064771CC9DAAE0035CCDE /* LaunchScreen.storyboard in Resources */,
 				535B8B211CE1A20F008B2D7F /* Questions_Selected.png in Resources */,
+				53EA248C1D4C77DB0046C8B4 /* Icon-83.5.png in Resources */,
 				533255831CEDC2A500653C00 /* Marker_Selected_AnnotateView.png in Resources */,
 				533255871CEDC2A500653C00 /* Marker_Unselected_AnnotateView@2x.png in Resources */,
 				533255A51CEDC2A500653C00 /* Eraser_Selected.png in Resources */,
@@ -2495,6 +2499,7 @@
 				53A482DC1CE45FD000C90451 /* indicator5.png in Resources */,
 				5332558B1CEDC2A500653C00 /* Redo_Disabled_AnnotateView.png in Resources */,
 				5332558C1CEDC2A500653C00 /* Redo_Disabled_AnnotateView@2x.png in Resources */,
+				53EA248D1D4C77DB0046C8B4 /* Icon-83.5@2x.png in Resources */,
 				531FB4461CE5EB5B00DC0C6F /* Roboto-BoldItalic.ttf in Resources */,
 				533255D31CEDC40600653C00 /* Resize.png in Resources */,
 				531FB4591CE5EBB900DC0C6F /* ic_thumb_down_red_48dp.png in Resources */,
@@ -2591,7 +2596,6 @@
 				5332558A1CEDC2A500653C00 /* Redo_Active_AnnotateView@2x.png in Resources */,
 				531FB4561CE5EB9B00DC0C6F /* Seat.png in Resources */,
 				533255841CEDC2A500653C00 /* Marker_Selected_AnnotateView@2x.png in Resources */,
-				53EA24891D4C73C10046C8B4 /* Icon-167.png in Resources */,
 				53015BBE1CE5D93C00BB366C /* Unlike_Selected.png in Resources */,
 				53A482BB1CE44E1E00C90451 /* correctMatch.png in Resources */,
 				533255B71CEDC2A500653C00 /* Redo_Disabled@2x.png in Resources */,
@@ -2942,7 +2946,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Mindshift Applications & Solutions Pvt. Ltd. (C744MS63KY)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: deepak mk (862RK2T33X)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2962,7 +2966,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.LearniatStudent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "870aeae1-4d0c-4a12-b196-ec1f4dc2b529";
+				PROVISIONING_PROFILE = "95d3328e-4d6b-41bf-b8ad-cfdf363fec9c";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatStudent/LearniatStudent-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
@@ -2975,7 +2979,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Mindshift Applications & Solutions Pvt. Ltd. (C744MS63KY)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: deepak mk (862RK2T33X)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2995,7 +2999,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.LearniatStudent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "870aeae1-4d0c-4a12-b196-ec1f4dc2b529";
+				PROVISIONING_PROFILE = "95d3328e-4d6b-41bf-b8ad-cfdf363fec9c";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatStudent/LearniatStudent-Bridging-Header.h";
 				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 			};

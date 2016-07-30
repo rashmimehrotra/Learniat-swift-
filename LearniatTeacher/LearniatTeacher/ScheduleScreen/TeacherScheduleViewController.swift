@@ -48,6 +48,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     
     let dateFormatter = NSDateFormatter()
     
+    var mAppVersionNumber               = UILabel();
     
     var mExtTimelabel: UILabel = UILabel();
 
@@ -173,6 +174,16 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         mRefreshButton.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
         mRefreshButton.addTarget(self, action: #selector(TeacherScheduleViewController.onRefreshButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         mRefreshButton.hidden = false
+        
+        
+        mAppVersionNumber = UILabel(frame: CGRectMake(mRefreshButton.frame.origin.x - (mRefreshButton.frame.size.width + 10), 0,mTopbarImageView.frame.size.height,mTopbarImageView.frame.size.height ))
+        
+        mTopbarImageView.addSubview(mAppVersionNumber)
+        mAppVersionNumber.textAlignment = .Left
+        mAppVersionNumber.textColor = UIColor.whiteColor()
+        if let version = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String {
+            mAppVersionNumber.text = "V = \(version)"
+        }
         
         
         activityIndicator.frame = CGRectMake(mRefreshButton.frame.origin.x - 60,  0,mTopbarImageView.frame.size.height,mTopbarImageView.frame.size.height)

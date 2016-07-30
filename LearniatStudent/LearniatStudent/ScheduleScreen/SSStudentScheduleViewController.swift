@@ -174,10 +174,10 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         mAppVersionNumber = UILabel(frame: CGRectMake(mRefreshButton.frame.origin.x - (mRefreshButton.frame.size.width + 10), 0,mTopbarImageView.frame.size.height,mTopbarImageView.frame.size.height ))
         
         mTopbarImageView.addSubview(mAppVersionNumber)
-        
-        
+        mAppVersionNumber.textAlignment = .Left
+        mAppVersionNumber.textColor = UIColor.whiteColor()
         if let version = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String {
-            mAppVersionNumber.text = version
+            mAppVersionNumber.text = "V = \(version)"
         }
         
         
