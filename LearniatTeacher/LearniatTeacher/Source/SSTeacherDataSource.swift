@@ -31,7 +31,7 @@ let APP_VERSION                     =   "1.6"
 
 let kServiceGetMyState              =   "GetMyState"
 
-let kServiceUserLogin               =   "UserLogin"
+let kServiceUserLogin               =   "Login"
 
 let kServiceGetSchedules            =   "GetMyTodaysSessions"
 
@@ -41,21 +41,21 @@ let kServiceUpdateSessionState      =   "UpdateSessionState"
 
 let kServiceExtendTime              =   "ExtendSessionTime"
 
-let kServiceGetScheduleSummary      =   "ScheduleSessionSummary"
+let kServiceGetScheduleSummary      =   "ClassSessionSummary"
 
 let kServiceResetSeatAssignment		=   "ResetSeatAssignment"
 
-let kServiceGetGridDesign           =   "GetGridDesign"
+let kServiceGetGridDesign           =   "RetrieveGridDesign"
 
 let kGetStudentsSessionInfo         =   "GetStudentsSessionInfo"
 
-let kServiceGetSeatAssignment       =   "GetSeatAssignment"
+let kServiceGetSeatAssignment       =   "RetrieveSeatAssignments"
 
 let kServiceSeatAssignment          =   "StudentSeatAssignment"
 
 let kServiceGetAllNodes				=   "GetAllNodes"
 
-let kServiceSaveLessonPlan			=    "SaveLessonPlan"
+let kServiceSaveLessonPlan			=   "RecordLessonPlan"
 
 let kServiceStartTopic              =   "SetCurrentTopic"
 
@@ -71,9 +71,9 @@ let kServiceAgregateDrillDown       =   "RetrieveAggregateDrillDown"
 
 let kServiceSendFeedback            =   "SendFeedback"
 
-let kServiceGetDoubt                =   "GetDoubts"
+let kServiceGetDoubt                =   "RetrieveStudentQuery"
 
-let kServiceReplyToQuery            =   "ReplyToQuery"
+let kServiceReplyToQuery            =   "RespondToQuery"
 
 let kServiceSaveSelectedQueries     =   "SaveSelectedQueries"
 
@@ -87,7 +87,7 @@ let kuploadTeacherScribble          =   "UploadTeacherScribble"
 
 let kRecordQuestion                 =   "RecordQuestion"
 
-let kServiceGetQuestion             =   "GetQuestion"
+let kServiceGetQuestion             =   "FetchQuestion"
 
 let  kGetAllModelAnswer             =   "GetAllModelAnswers"
 
@@ -97,9 +97,13 @@ let kServiceApproveVolunteer        =   "ApproveVolunteer"
 
 let kServiceStopVolunteering        =   "StopVolunteering"
 
-let kServiceUserLogout              =   "UserLogout"
+let kServiceUserLogout              =   "Logout"
 
 let kServiceFetchSRQ                =   "FetchSRQ"
+
+let kServiceMuteStudent             =   "MuteStudent"
+
+let kServiceGetAllRooms             =   "GetAllRooms"
 
 
 @objc protocol SSTeacherDataSourceDelegate

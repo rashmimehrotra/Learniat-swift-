@@ -24,10 +24,16 @@ let OneString             = "One_String"
 let TextAuto              = "Text_Auto"
 
 
-
+/* These values are hardcoded for collaboration and not used in current project */
 let KCorretValue            = "4"
+
 let kWrongvalue             = "5"
+
 let kMissedValue            = "6"
+
+/*-----*/
+
+
 
 let helveticaRegular      = "HelveticaNeue"
 
@@ -38,8 +44,9 @@ let helveticaBold         = "HelveticaNeue-Bold"
 let HelveticaNeueThin     = "HelveticaNeue-Thin"
 
 
-let RobotRegular            =  "Roboto-Regular"
-let RobotItalic             =   "Roboto-Italic"
+let RobotRegular           =  "Roboto-Regular"
+
+let RobotItalic             = "Roboto-Italic"
 
 
 let kClassName      = "ClassName"
