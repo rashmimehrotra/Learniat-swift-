@@ -271,7 +271,14 @@ extern const NSTimeInterval XMPPStreamTimeoutNone;
 **/
 @property (readwrite, assign) BOOL enableBackgroundingOnSocket;
 
+
+
+
 #endif
+
+
+@property (assign, readwrite) BOOL preferIPv6;
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark State

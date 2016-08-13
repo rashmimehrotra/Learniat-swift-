@@ -40,6 +40,7 @@ class StudentQueryDemo: UIView, StudentQuerySelectionViewDelegate
     var plistLoader = PlistDownloder()
     
     var totalStudentsCount = 0
+    var mTotalQueriesCount = 0
     
     override init(frame: CGRect)
     {
@@ -115,6 +116,7 @@ class StudentQueryDemo: UIView, StudentQuerySelectionViewDelegate
             
             if demoQueriesArray.count > 0
             {
+                mTotalQueriesCount = demoQueriesArray.count - 1
                 let currentStudentsDict = notLiveStudentsDetails.objectAtIndex(totalStudentsCount)
                 let studentsQuery = StudentQuerySelectionView()
                 studentsQuery.setdelegate(self)
@@ -134,22 +136,29 @@ class StudentQueryDemo: UIView, StudentQuerySelectionViewDelegate
                 delegate().smhDidgetStudentQueryWithDetails!(queryId)
             }
             
-            if totalStudentsCount >= 0
+            if mTotalQueriesCount > 0
             {
-                if totalStudentsCount < notLiveStudentsDetails.count
+                if totalStudentsCount >= 0
                 {
-                    let currentStudentsDict = notLiveStudentsDetails.objectAtIndex(totalStudentsCount)
-                    let studentsQuery = StudentQuerySelectionView()
-                    studentsQuery.setdelegate(self)
-                    studentsQuery.setQueryWithDetails(demoQueriesArray, withStudentDetails: currentStudentsDict)
-                    
-                    totalStudentsCount = totalStudentsCount - 1
-                }
-                else
-                {
-                    totalStudentsCount = notLiveStudentsDetails.count - 1
+                    if totalStudentsCount < notLiveStudentsDetails.count
+                    {
+                        let currentStudentsDict = notLiveStudentsDetails.objectAtIndex(totalStudentsCount)
+                        let studentsQuery = StudentQuerySelectionView()
+                        studentsQuery.setdelegate(self)
+                        studentsQuery.setQueryWithDetails(demoQueriesArray, withStudentDetails: currentStudentsDict)
+                        
+                        totalStudentsCount = totalStudentsCount - 1
+                        mTotalQueriesCount = mTotalQueriesCount - 1
+                    }
+                    else
+                    {
+                        totalStudentsCount = notLiveStudentsDetails.count - 1
+                        mTotalQueriesCount = mTotalQueriesCount - 1
+                    }
                 }
             }
+            
+            
         }
         
     }

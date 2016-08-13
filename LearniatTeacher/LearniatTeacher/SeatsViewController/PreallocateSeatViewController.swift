@@ -6,6 +6,13 @@
 //  Copyright © 2016 Mindshift. All rights reserved.
 //
 
+
+/*
+    This class is used to display the grid selected by teacher with selected and deleted seats.
+ */
+
+
+
 import Foundation
 
 class PreallocateSeatViewController: UIViewController,SSTeacherDataSourceDelegate

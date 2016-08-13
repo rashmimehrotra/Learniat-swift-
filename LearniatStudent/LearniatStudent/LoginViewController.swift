@@ -27,7 +27,6 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSStudentDataSou
         
         self.view.backgroundColor = darkBackgroundColor
         
-        
         let appLogo = UIImageView(frame: CGRectMake((self.view.frame.size.width - 80 )/2, 80, 80, 80))
         appLogo.image = UIImage(named:"Student_app_icon.png")
         self.view.addSubview(appLogo)

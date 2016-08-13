@@ -6,6 +6,19 @@
 //  Copyright © 2016 mindShiftApps. All rights reserved.
 //
 
+
+/* 
+ 
+ This class is called after the grid is created
+ 
+	1. Fire Api “GetMaxStudentsRegistered” Api when user enter to this viewController.
+	
+    2. when user taps on add or remove button in each cell then check remaining calculate remaining cell count is greater than maxStudents if is it less then show alert
+ */
+ 
+ 
+
+
 import Foundation
 import UIKit
 class SetUpClassRoom: UIViewController,SetupClassCellDelegate,SSTeacherDataSourceDelegate

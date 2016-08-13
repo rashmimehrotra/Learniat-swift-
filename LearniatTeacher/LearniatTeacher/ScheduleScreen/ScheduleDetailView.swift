@@ -6,6 +6,14 @@
 //  Copyright © 2016 Mindshift. All rights reserved.
 //
 
+
+/*
+    When user press on any session  in TeacherScheduleViewController then show session details with half screen using “ScheduleDetailView” using "ClassSessionSummary" API return value.
+ */
+ 
+
+
+
 import Foundation
 
 

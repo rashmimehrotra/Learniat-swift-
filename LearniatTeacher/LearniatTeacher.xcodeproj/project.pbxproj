@@ -474,6 +474,7 @@
 		53D8CCAD1CCE1A1200BA838C /* MainTopicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D8CCAC1CCE1A1200BA838C /* MainTopicsView.swift */; };
 		53D8CCAF1CCE1DF300BA838C /* SubTopicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D8CCAE1CCE1DF300BA838C /* SubTopicsView.swift */; };
 		53D8CCB11CCE314E00BA838C /* QuestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D8CCB01CCE314E00BA838C /* QuestionsView.swift */; };
+		53D90E021D5DB1EB0096F2AF /* ReadMe in Resources */ = {isa = PBXBuildFile; fileRef = 53D90E011D5DB1EB0096F2AF /* ReadMe */; };
 		53E5BBAB1CAE3B7D00358ED8 /* StudentThinking.png in Resources */ = {isa = PBXBuildFile; fileRef = 53E5BBA81CAE3B7D00358ED8 /* StudentThinking.png */; };
 		53E5BBAC1CAE3B7D00358ED8 /* StudentWriting.png in Resources */ = {isa = PBXBuildFile; fileRef = 53E5BBA91CAE3B7D00358ED8 /* StudentWriting.png */; };
 		53E5BBAE1CAE80F400358ED8 /* StudentAnswerOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E5BBAD1CAE80F400358ED8 /* StudentAnswerOptionsView.swift */; };
@@ -1154,6 +1155,7 @@
 		53D8CCAC1CCE1A1200BA838C /* MainTopicsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTopicsView.swift; sourceTree = "<group>"; };
 		53D8CCAE1CCE1DF300BA838C /* SubTopicsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubTopicsView.swift; sourceTree = "<group>"; };
 		53D8CCB01CCE314E00BA838C /* QuestionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionsView.swift; sourceTree = "<group>"; };
+		53D90E011D5DB1EB0096F2AF /* ReadMe */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReadMe; sourceTree = "<group>"; };
 		53E5BBA81CAE3B7D00358ED8 /* StudentThinking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StudentThinking.png; sourceTree = "<group>"; };
 		53E5BBA91CAE3B7D00358ED8 /* StudentWriting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StudentWriting.png; sourceTree = "<group>"; };
 		53E5BBAD1CAE80F400358ED8 /* StudentAnswerOptionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerOptionsView.swift; sourceTree = "<group>"; };
@@ -1522,6 +1524,7 @@
 				53676D3B1CA63C5B00CADE4D /* CoreGraphics.framework */,
 				53676AE31CA63B2000CADE4D /* LearniatTeacher */,
 				53676AE21CA63B2000CADE4D /* Products */,
+				53D90E011D5DB1EB0096F2AF /* ReadMe */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1546,7 +1549,7 @@
 				53676D501CA63D7A00CADE4D /* ClassView */,
 				53676C871CA63B7F00CADE4D /* ScheduleScreen */,
 				53676C8D1CA63B7F00CADE4D /* SeatsViewController */,
-				53676C921CA63B7F00CADE4D /* Source */,
+				53676C921CA63B7F00CADE4D /* Main Source */,
 				531044831CA64296007AE9D5 /* Resource */,
 				53676AE81CA63B2100CADE4D /* Main.storyboard */,
 				53676AEB1CA63B2100CADE4D /* Assets.xcassets */,
@@ -2547,12 +2550,13 @@
 			path = SeatsViewController;
 			sourceTree = "<group>";
 		};
-		53676C921CA63B7F00CADE4D /* Source */ = {
+		53676C921CA63B7F00CADE4D /* Main Source */ = {
 			isa = PBXGroup;
 			children = (
 				53676C931CA63B7F00CADE4D /* SSTeacherDataSource.swift */,
 				53676C941CA63B7F00CADE4D /* SSTeacherMessageHandler.swift */,
 			);
+			name = "Main Source";
 			path = Source;
 			sourceTree = "<group>";
 		};
@@ -2954,6 +2958,7 @@
 				530720E11D027F08001C85F6 /* Icon-120.png in Resources */,
 				5326078F1CA90AEC002FF684 /* indicator2.png in Resources */,
 				53D1C1651CDCAFC40095B1EB /* Edit.png in Resources */,
+				53D90E021D5DB1EB0096F2AF /* ReadMe in Resources */,
 				530441721D0962E70032D378 /* Roboto-Black.ttf in Resources */,
 				537302491CB6771200E76753 /* Mark_Model_Selected.png in Resources */,
 				5310449A1CA64296007AE9D5 /* infoButton.png in Resources */,

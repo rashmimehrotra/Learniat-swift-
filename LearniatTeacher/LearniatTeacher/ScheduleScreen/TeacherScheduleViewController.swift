@@ -8,7 +8,29 @@
 
 
 
-
+/*
+ 
+ TeacherScheduleViewController details
+ 
+ After login success with Learniat and xmpp server we are navigating to this class.
+	
+	Class Logic
+	
+	1. Fire “GetMyTodaysSessions” Api.
+	
+	2. If “GetMyTodaysSessions” Api returned no schedules then display label returned text in Api.
+ 
+	3.  If “GetMyTodaysSessions” Api returned session details then add each session with details.
+	
+	4. For displaying session details use “ScheduleScreenTile” class where you can pass all the vales of sessions.
+	
+	5. Show sessions in the form of calendar and update session current time.
+	
+	6. When user press on any session then show session details with half screen using  “ScheduleDetailView” using "ClassSessionSummary" API return value.
+ 
+	7. Check for start time ad end time of each session and show warnings of session.
+ 
+ */
 
 import Foundation
 import UIKit

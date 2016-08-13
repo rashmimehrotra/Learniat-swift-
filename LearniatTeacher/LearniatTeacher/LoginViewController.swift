@@ -6,6 +6,20 @@
 //  Copyright © 2016 Mindshift. All rights reserved.
 //
 
+/* 
+ In This class We are trying to connect learniat server as well as Xmpp server
+ 
+	onLoginButton : When button pressed we are disabling all textField and 	fire API “Login”
+ 
+	If the status is success returned from “Login” Api we are trying to connect XMPP with UserId returned from Api and password
+ 
+	If Xmpp is also connected then we are showing schedule screen
+
+*/
+
+
+
+
 import UIKit
 
 class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSourceDelegate,SSTeacherMessagehandlerDelegate

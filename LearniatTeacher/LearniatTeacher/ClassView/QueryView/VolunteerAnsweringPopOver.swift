@@ -214,25 +214,21 @@ class VolunteerAnsweringPopOver: UIView{
                      SSTeacherMessageHandler.sharedMessageHandler.sendQRVGiveAnswerMessageToRoom(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, withstudentId: StudentId, withQueryId: QueryId, withStudentName: StudentName)
                 }
             }
-            
-           
-            
         }
         
     }
+    
+    
     
     func sendNewVoteWithStudentId(studentId:String, withVoteValue newVote:String, withTotalStudents totalStudents:Int)
     {
         
         
-        liveTotalStudents = totalStudents
+        liveTotalStudents = totalStudents - 1
         
         if (votingStudentsDictonary.objectForKey(studentId) != nil)
         {
-            
-            
             valueForOneStudent = 100 / CGFloat(totalStudents)
-            
             
             let oldvoteValue = votingStudentsDictonary.objectForKey(studentId) as! String
             

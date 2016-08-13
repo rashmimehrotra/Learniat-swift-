@@ -18,6 +18,7 @@ import Foundation
 class StudentSeatSubView: UIView,SSStudentDataSourceDelegate
 {
     
+    
     var currentStudentDetails :AnyObject!
     
     var cellWith : CGFloat = 0

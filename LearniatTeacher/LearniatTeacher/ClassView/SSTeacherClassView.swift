@@ -9,9 +9,17 @@
 //
 
 
-/* NOTE
-1.Chnaged live session startTime when teacher begin class
-
+/*
+    When teacher begin calss we will navigate to SSTeacherClassView controller.
+ 
+ 
+ This is the main view controller for learniat teacher app
+ 
+	1. It contain queryView, submissionView and class view tabs
+	2. ClassView  : It contains all students desk where each student response is 	captured. Response like query or any answers form student or student current 	state Etc
+    3. Create Room in Xmpp for each class and in student side join room automatically with sessionId.
+    4.
+ 
 */
 
 
@@ -1187,7 +1195,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
 // MARK: - seatAssignment functions
     
-    
+    /// This function is used to arrange Grid using the details returned by API "RetrieveGridDesign"
     func arrangegridWithDetails(details:AnyObject)
     {
         var columnValue         = 1
@@ -1286,6 +1294,8 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
 
     }
     
+    
+    // This function is used to arrange seates according to details returned by API
     func arranageSeatsWithDetails(details:AnyObject)
     {
         

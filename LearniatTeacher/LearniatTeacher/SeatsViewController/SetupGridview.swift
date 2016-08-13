@@ -6,6 +6,22 @@
 //  Copyright © 2016 mindShiftApps. All rights reserved.
 //
 
+
+/* 
+    This class is called when user taps on configure grid button
+ 
+	1. Fire Api “GetMaxStudentsRegistered” Api when user enter to this viewController.
+	
+	2. “GetMaxStudentsRegistered” Api returns number of max students, Using this calculate grid size required and automatically increase the size of the grid 	expander.
+	
+	3. If user taps on Done button then check if the grid configured is greater than total number of students returned in Api then fire Api “ConfigureGrid” 	with number of rows and columns
+ 
+ */
+ 
+
+
+
+
 import Foundation
 import UIKit
 import Darwin

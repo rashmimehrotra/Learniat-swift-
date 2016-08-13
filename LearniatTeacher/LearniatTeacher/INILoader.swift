@@ -10,6 +10,18 @@ import Foundation
 import UIKit
 
 
+
+
+/* 
+ 
+ Feature 
+ Functionality
+ Linkages
+ 
+ 
+ 
+ */
+
 let onlyMainTopics        = "Only MainTopics"
 let onlySubTopics         = "Only SubTopics"
 let onlyQuestions         = "Only Questions"
@@ -26,7 +38,9 @@ let TextAuto              = "Text_Auto"
 
 
 let KCorretValue            = "4"
+
 let kWrongvalue             = "5"
+
 let kMissedValue            = "6"
 
 let helveticaRegular      = "HelveticaNeue"
@@ -39,6 +53,7 @@ let HelveticaNeueThin     = "HelveticaNeue-Thin"
 
 
 let RobotRegular            =  "Roboto-Regular"
+
 let RobotItalic             =   "Roboto-Italic"
 
 
@@ -148,16 +163,14 @@ let pollCellBackgroundColor     = UIColor(red: 235/255.0, green:235/255.0, blue:
 
 
 let scheduledColor : UIColor = UIColor(red: 246/255.0, green:246/255.0, blue:246/255.0, alpha: 1)
+
 let scheduledBorderColor : UIColor = UIColor(red: 153/255.0, green:153/255.0, blue:153/255.0, alpha: 1)
 
 let OpenedColor : UIColor = UIColor(red: 229.0/255.0, green:243.0/255.0, blue:231.0/255.0, alpha: 1)
+
 let OpenedBorderColor : UIColor = UIColor(red: 76/255.0, green:217/255.0, blue:100/255.0, alpha: 1)
 
-
-
 let CancelledBorderColor : UIColor = UIColor(red: 255/255.0, green:59/255.0, blue:48/255.0, alpha: 1)
-
-
 
 let LiveColor : UIColor = UIColor(red: 0/255.0, green:204/255.0, blue:0/255.0, alpha: 1)
 
@@ -335,7 +348,7 @@ class INILoader: NSObject
 
 
 
-// MARK: - ImageView Extension
+// MARK: - Functionality Async download of image
 
 extension CustomProgressImageView
 {
@@ -797,8 +810,13 @@ extension Int
         return Int(mini + arc4random_uniform(maxi - mini)) - offset
     }
 }
+
+// MARK: - Feature  OneWord
+
 extension String
 {
+    
+    
     
     func getAttributeText(fullString:String, withSubString searchstring :String) -> NSMutableAttributedString
     {
@@ -816,6 +834,7 @@ extension String
     }
     
     
+    // MARK: - Lesson plan search 
     func isAttributeFound(fullString:String, withSubString searchstring :String) -> Bool
     {
         var isFound = false
@@ -839,7 +858,7 @@ extension String
 
 
 
-
+// MARK: -
 
 
 extension UIButton
@@ -853,6 +872,7 @@ extension UIButton
     }
 }
 
+// MARK: -
 extension UIImage
 {
     class func imageWithView(view: UIView) -> UIImage

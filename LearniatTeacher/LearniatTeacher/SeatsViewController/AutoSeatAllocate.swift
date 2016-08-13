@@ -6,6 +6,18 @@
 //  Copyright © 2016 Mindshift. All rights reserved.
 //
 
+
+
+/*
+ 
+ This class is used to allocate seats alphabetically.
+ 1. Using grid details create seats by saving all the values of grid to each seat
+ 2. Fire “GetStudentsSessionInfo” Api to get all students details and assign each students to cell alphabetically
+ 3. After assigning each student to seats when user press on Done button Fire Api “StudentSeatAssignment” with seat Id with corresponding student Id
+ 
+ */
+
+
 import Foundation
 class AutoSeatAllocate: UIViewController,SSTeacherDataSourceDelegate
 {
