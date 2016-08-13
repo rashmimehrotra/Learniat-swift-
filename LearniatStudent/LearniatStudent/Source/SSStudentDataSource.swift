@@ -36,49 +36,49 @@ let URLPrefix                       =   "http://54.251.104.13/Jupiter/sun.php?ap
 
 let APP_VERSION                     =   "1.6"
 
-let kServiceGetMyState                      = "GetMyState"
+let kServiceGetMyState                      =   "GetMyState"
 
-let kServiceUserLogin                       = "UserLogin"
+let kServiceUserLogin                       =   "Login"
 
-let kServiceGetThisStudentSessions          = "GetThisStudentSessions"
+let kServiceGetThisStudentSessions          =   "GetThisStudentSessions"
 
-let kServiceGetGridDesign                   = "GetGridDesign"
+let kServiceGetGridDesign                   =   "GetGridDesign"
 
-let kServiceUserLogOut                      = "UserLogout"
+let kServiceUserLogOut                      =   "UserLogout"
 
-let kServiceGetSeatAssignment               = "GetSeatAssignment"
+let kServiceGetSeatAssignment               =   "RetrieveSeatAssignments"
 
-let kServiceUpdateUserStatus                = "UpdateUserStatus"
+let kServiceUpdateUserStatus                =   "UpdateUserStatus"
 
-let kServiceGetSessionInfo                  = "SessionDetailsInfo"
+let kServiceGetSessionInfo                  =   "GetSessionInfo"
 
-let kServiceGetQuestion                     = "GetQuestion"
+let kServiceGetQuestion                     =   "FetchQuestion"
 
-let kServiceSendAnswer                      = "SendAnswer"
+let kServiceSendAnswer                      =   "SendAnswer"
 
-let kGetEntityState                         = "GetState"
+let kGetEntityState                         =   "GetState"
 
-let kServiceGetGraspIndex                   = "GetGraspIndex"
+let kServiceGetGraspIndex                   =   "GetGraspIndex"
 
-let kServiceGetPiOfStudent                  = "GetParticipationIndex"
+let kServiceGetPiOfStudent                  =   "GetParticipationIndex"
 
-let kServiceGetFeedBack                     = "GetFeedback"
+let kServiceGetFeedBack                     =   "GetFeedback"
 
-let kServiceWithDraw                        = "WithdrawStudentSubmission"
+let kServiceWithDraw                        =   "WithdrawStudentSubmission"
 
-let kServiceSetDoubt						= "SetDoubt"
+let kServiceSetDoubt						=   "SaveStudentQuery"
 
-let kGetResponseToQuery                     = "GetResponseToQuery"
+let kGetResponseToQuery                     =   "GetQueryResponse"
 
-let kServiceFetchSRQ                        = "FetchSRQ"
+let kServiceFetchSRQ                        =   "FetchSRQ"
 
-let kServiceVolunteerRegister               = "VolunteerRegister"
+let kServiceVolunteerRegister               =   "VolunteerRegister"
 
-let kServiceWithDrawQuery                   = "WithdrawQuery"
+let kServiceWithDrawQuery                   =   "WithdrawQuery"
 
-let kRecordSuggestion                       = "RecordSuggestion"
+let kRecordSuggestion                       =   "RecordSuggestion"
 
-let kGetAllModelAnswer                      = "GetAllModelAnswers"
+let kGetAllModelAnswer                      =   "GetAllModelAnswers"
 
 
 
