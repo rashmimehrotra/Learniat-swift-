@@ -60,7 +60,7 @@ class SingleResponceOption : UIViewController
         }
         else
         {
-            headerlabel.text = "Multiple Response"
+            headerlabel.text = kMRQ
         }
         
         

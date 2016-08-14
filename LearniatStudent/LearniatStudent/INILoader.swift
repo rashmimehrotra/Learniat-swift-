@@ -10,15 +10,19 @@ import Foundation
 import UIKit
 
 
-
-let text                :String         = "Text"
-let MatchColumns        :String         = "Match Columns"
 let MultipleChoice      :String         = "Multiple Choice"
 let MultipleResponse    :String         = "Multiple Response"
+let MatchColumns        :String         = "Match Columns"
 let OverlayScribble     :String         = "Overlay Scribble"
 let FreshScribble       :String         = "Fresh Scribble"
-let OneString           :String         = "One_String"
-let TextAuto            :String         = "Text_Auto"
+let text                :String         = "Text"
+let Polling             :String         = "Poll"   // Development Over Api Pending
+let SoreFinger          :String         = "Sore finger"     // Pending
+let Sequencing          :String         = "Sequencing"      //Pending
+let OneString           :String         = "Word map"        //Design Pending APi Pending
+let TextAuto            :String         = "One string"      // Pending
+
+
 
 let kQuestionTag                = "Question"
 let kQuestionName               = "Name"
@@ -766,6 +770,14 @@ extension String
     {
         return self.replace(" ", replacement: "")
     }
+    
+    func removeSpecialCharsFromString() -> String {
+        let okayChars : Set<Character> =
+            Set("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ1234567890".characters)
+        return String(self.characters.filter {okayChars.contains($0) })
+    }
+    
+    
     
     func hourValue() -> Int
     {

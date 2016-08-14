@@ -39,6 +39,7 @@ class OneStingQuestionView: UIView,SSStudentDataSourceDelegate
     var mAnswerLabel        = UILabel()
 
     
+
     var _delgate: AnyObject!
     
     func setdelegate(delegate:AnyObject)
@@ -123,6 +124,7 @@ class OneStingQuestionView: UIView,SSStudentDataSourceDelegate
         mAnswerLabel.numberOfLines = 100
         mAnswerLabel.lineBreakMode = .ByWordWrapping
         mAnswerLabel.textColor = topbarColor
+        mAnswerLabel.textAlignment = .Center
         
         mAnswerTextView = CustomTextView(frame:CGRectMake((self.frame.size.width - (remainingHeight * 1.5))/2 ,mQuestionLabel.frame.size.height + mQuestionLabel.frame.origin.y , remainingHeight * 1.5 , 160))
         self.addSubview(mAnswerTextView)
@@ -175,18 +177,89 @@ class OneStingQuestionView: UIView,SSStudentDataSourceDelegate
             
             mTopbarImageView.hidden = true
             mAnswerTextView.hidden = true
-            mAnswerLabel.text =  mAnswerTextView.getTextOfCurrentTextView().removeWhitespace().capitalizedString
+            mAnswerLabel.text =  mAnswerTextView.getTextOfCurrentTextView().removeWhitespace().removeSpecialCharsFromString().capitalizedString
             
-            
-            SSStudentMessageHandler.sharedMessageHandler.sendOneStringAnswerWithAnswer(mAnswerTextView.getTextOfCurrentTextView().removeWhitespace().capitalizedString)
-            mAnswerTextView.hidden = true
+           
+                      mAnswerTextView.hidden = true
             mContainerView.hidden = false
+            
+             SSStudentDataSource.sharedDataSource.sendTextAnswer(mAnswerTextView.getTextOfCurrentTextView().removeWhitespace().removeSpecialCharsFromString().capitalizedString, withQuestionType: currentQuestionType, withQuestionLogId: questionLogId, withsessionId: (sessionDetails.objectForKey("SessionId") as! String), withDelegate: self)
             
            
             
         }
         
         
+    }
+    
+    
+    func didGetAnswerSentWithDetails(details: AnyObject)
+    {
+         SSStudentDataSource.sharedDataSource.answerSent = true
+        SSStudentMessageHandler.sharedMessageHandler.sendOneStringAnswerWithAnswer(mAnswerTextView.getTextOfCurrentTextView().removeWhitespace().removeSpecialCharsFromString().capitalizedString)
+        
+        if  let AssessmentAnswerId =  details.objectForKey("AssessmentAnswerId") as? String
+        {
+            
+            if currentQuestionType == TextAuto
+            {
+                
+                var isAnswerCorrect :Bool = false
+                
+                let options = currentQuestionDetails.objectForKey(kOptionTagMain)?.objectForKey(kOptionTag)
+               
+                 var currentOptionsArray         = NSMutableArray()
+                if options != nil
+                {
+                    
+                    if (options!.isKindOfClass(NSMutableArray))
+                    {
+                        currentOptionsArray = options as! NSMutableArray
+                    }
+                    else
+                    {
+                        currentOptionsArray.addObject(options!)
+                    }
+                    
+                }
+                
+                
+                
+                for index in currentOptionsArray
+                {
+                    if let optionText = index.objectForKey("OptionText") as? String
+                    {
+                        if optionText.removeWhitespace().removeSpecialCharsFromString().capitalizedString == mAnswerTextView.getTextOfCurrentTextView().removeWhitespace().removeSpecialCharsFromString().capitalizedString
+                        {
+                            isAnswerCorrect = true
+                            break
+                            
+                        }
+                    }
+                }
+                
+                if isAnswerCorrect == true
+                {
+                     SSStudentDataSource.sharedDataSource.updateStudentAnswerScoreWithAssessmentAnswerId(AssessmentAnswerId, withRating: "5", WithDelegate: self)
+                }
+                else
+                {
+                     SSStudentDataSource.sharedDataSource.updateStudentAnswerScoreWithAssessmentAnswerId(AssessmentAnswerId, withRating: "1", WithDelegate: self)
+                }
+                
+                
+                
+                
+            }
+            
+            
+            
+           
+        }
+        
+        
+        
+
     }
     
     func onDontKnowButton()
@@ -198,7 +271,7 @@ class OneStingQuestionView: UIView,SSStudentDataSourceDelegate
         mReplyStatusLabel.text = "Don't Know"
         mTopbarImageView.hidden = true
         mAnswerTextView.hidden = true
-        mAnswerLabel.text =  mAnswerTextView.getTextOfCurrentTextView().removeWhitespace()
+        mAnswerLabel.text =  mAnswerTextView.getTextOfCurrentTextView().removeWhitespace().removeSpecialCharsFromString().capitalizedString
         
         SSStudentDataSource.sharedDataSource.answerSent = true
     }
@@ -209,6 +282,63 @@ class OneStingQuestionView: UIView,SSStudentDataSourceDelegate
             onSendButton()
             
         }
+        
+        
+        if currentQuestionType == TextAuto
+        {
+            
+            var isAnswerCorrect :Bool = false
+            
+            let options = currentQuestionDetails.objectForKey(kOptionTagMain)?.objectForKey(kOptionTag)
+            
+            var currentOptionsArray         = NSMutableArray()
+            if options != nil
+            {
+                
+                if (options!.isKindOfClass(NSMutableArray))
+                {
+                    currentOptionsArray = options as! NSMutableArray
+                }
+                else
+                {
+                    currentOptionsArray.addObject(options!)
+                }
+                
+            }
+            
+            
+            
+            for index in currentOptionsArray
+            {
+                if let optionText = index.objectForKey("OptionText") as? String
+                {
+                    if optionText.removeWhitespace().removeSpecialCharsFromString().capitalizedString == mAnswerTextView.getTextOfCurrentTextView().removeWhitespace().removeSpecialCharsFromString().capitalizedString
+                    {
+                        isAnswerCorrect = true
+                        break
+                        
+                    }
+                }
+            }
+            
+            if isAnswerCorrect == true
+            {
+                mAnswerLabel.textColor = whiteColor
+                mContainerView.backgroundColor = standard_Green
+                mContainerView.layer.borderWidth = 0
+            }
+            else
+            {
+                mAnswerLabel.textColor = whiteColor
+                mContainerView.backgroundColor = standard_Red
+                mContainerView.layer.borderWidth = 0
+            }
+            
+            
+            addCorrectAnswerWithArray(currentOptionsArray)
+            
+        }
+        
     }
     
     func getPeakViewMessageFromTeacher()
@@ -255,5 +385,49 @@ class OneStingQuestionView: UIView,SSStudentDataSourceDelegate
         label.sizeToFit()
         return label.frame.height
     }
+    
+    
+    
+    func addCorrectAnswerWithArray(correctAnswersArray:NSMutableArray)
+    {
+       
+        let mCorrectAnswersScrollView = UIScrollView(frame: CGRectMake(mContainerView.frame.origin.x, mContainerView.frame.origin.y + mContainerView.frame.size.height + 30 ,mContainerView.frame.size.width ,self.frame.size.height - ( mContainerView.frame.origin.y + mContainerView.frame.size.height + 30)))
+        self.addSubview(mCorrectAnswersScrollView)
+        
+        
+        let correctOptionsLabel = UILabel(frame: CGRectMake(0,10 ,mCorrectAnswersScrollView.frame.size.width ,30))
+        mCorrectAnswersScrollView.addSubview(correctOptionsLabel)
+        correctOptionsLabel.numberOfLines = 100
+        correctOptionsLabel.lineBreakMode = .ByWordWrapping
+        
+        correctOptionsLabel.text = "Correct options are :"
+        correctOptionsLabel.textAlignment = .Center
+        
+        
+        
+        var currentYPOsition = correctOptionsLabel.frame.origin.y + correctOptionsLabel.frame.size.height + 10
+        for index in correctAnswersArray
+        {
+            if let optionText = index.objectForKey("OptionText") as? String
+            {
+                
+                let OptionsLabel = UILabel(frame: CGRectMake(0,currentYPOsition ,mCorrectAnswersScrollView.frame.size.width ,30))
+                mCorrectAnswersScrollView.addSubview(OptionsLabel)
+                OptionsLabel.numberOfLines = 100
+                OptionsLabel.lineBreakMode = .ByWordWrapping
+                OptionsLabel.textAlignment = .Center
+                OptionsLabel.text = "\(optionText.removeWhitespace().removeSpecialCharsFromString().capitalizedString)"
+                currentYPOsition = currentYPOsition + OptionsLabel.frame.size.height + 10
+                OptionsLabel.textColor = whiteColor
+                OptionsLabel.backgroundColor = standard_Green
+                
+                
+            }
+        }
+        
+        mCorrectAnswersScrollView.contentSize = CGSizeMake(0, currentYPOsition)
+        
+    }
+    
     
 }

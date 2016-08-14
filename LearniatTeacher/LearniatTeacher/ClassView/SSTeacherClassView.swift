@@ -923,13 +923,82 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         arranageSeatsWithDetails(details)
     }
     
+    func didGetAllGraspIndexWithDetails(details: AnyObject)
+    {
+        
+        print(details)
+        
+        
+        if let studentsdetails = details.objectForKey("Students")?.objectForKey("Student") as? NSMutableArray
+        {
+            for index in studentsdetails
+            {
+                
+                if let graspIndex =  index.objectForKey("GraspIndex") as? String
+                {
+                    if let StudentId = index.objectForKey("StudentId") as? String
+                    {
+                        if let studentDeskView  = mClassView.viewWithTag(Int(StudentId)!) as? StundentDeskView
+                        {
+                            studentDeskView.setProgressValue(Float(graspIndex)!)
+                        }
+                        
+                    }
+                }
+                
+            }
+        }
+        
+        
+        
+        
+        
+
+    }
     
     func didGetSubtopicStartedWithDetails(details: AnyObject)
     {
-        if NSUserDefaults.standardUserDefaults().boolForKey("isSimulateMode") == true
+        
+        
+        
+        
+
+        if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == true
         {
-            demoQueryView.sendDummyQueriesWithStudentDetails(StudentsDetailsArray)
+            if NSUserDefaults.standardUserDefaults().boolForKey("isSimulateMode") == true
+            {
+                demoQueryView.sendDummyQueriesWithStudentDetails(StudentsDetailsArray)
+            }
+            
+            SSTeacherDataSource.sharedDataSource.getGraspIndexOfAllStudentsWithTopic(SSTeacherDataSource.sharedDataSource.startedSubTopicId, withSessionID: currentSessionId, withDelegate: self)
+            
+            
+                    let subViews = mClassView.subviews.flatMap{ $0 as? StundentDeskView }
+            
+                    for subview in subViews
+                    {
+                        if subview.isKindOfClass(StundentDeskView)
+                        {
+                            subview.setNewSubTopicStarted(true)
+                        }
+                    }
+            
         }
+        else
+        {
+            let subViews = mClassView.subviews.flatMap{ $0 as? StundentDeskView }
+            
+            for subview in subViews
+            {
+                if subview.isKindOfClass(StundentDeskView)
+                {
+                    subview.setNewSubTopicStarted(false)
+                }
+            }
+        }
+        
+        
+       
         
     }
     
@@ -1027,6 +1096,13 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
     }
     
+    func didGetQuestionClearedWithDetails(details:AnyObject)
+    {
+        print(details)
+        
+        SSTeacherDataSource.sharedDataSource.getGraspIndexOfAllStudentsWithTopic(SSTeacherDataSource.sharedDataSource.startedSubTopicId, withSessionID: currentSessionId, withDelegate: self)
+        
+    }
     
     func didGetSessionUpdatedWithDetials(details: AnyObject)
     {
@@ -1508,6 +1584,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                     
                     
                     SSTeacherMessageHandler.sharedMessageHandler.sendAllowVotingToRoom(currentSessionId, withValue: "TRUE", withSubTopicName: mSubTopicsNamelabel.text!, withSubtopicID: topicId)
+                    
                 }
 
             }
@@ -1525,6 +1602,9 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 }
                 
                 SSTeacherMessageHandler.sharedMessageHandler.sendAllowVotingToRoom(currentSessionId, withValue: "FALSE", withSubTopicName: subTopicName, withSubtopicID: subTopicId)
+                
+                
+               
                 
                 mSubTopicsNamelabel.text = "\(mainTopicName)"
             }
@@ -1709,6 +1789,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         SSTeacherDataSource.sharedDataSource.isQuestionSent = false
         
         questionTopicsView.clearQuestionTopicId(SSTeacherDataSource.sharedDataSource.startedSubTopicId)
+        
         subTopicsView.clearSubTopicDetailsWithMainTopicId(mainTopicId)
         
         
@@ -1716,6 +1797,11 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         {
             SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.removeObjectForKey(mainTopicId)
         }
+        
+        
+        
+        
+        
         
         
         newSubmissionRecieved.removeAllObjects()
@@ -1846,6 +1932,9 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
         if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView
         {
+            
+             studentDeskView.setNewSubTopicStarted(false)
+            
             if Int(state) == kStudentLive
             {
                 
@@ -1866,11 +1955,18 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 
                 studentDeskView.setStudentCurrentState(StudentLive)
                 
+                if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == true
+                {
+                    studentDeskView.setNewSubTopicStarted(true)
+                }
+                
+                
                 
             }
             else if Int(state) == kStudentSignedOut
             {
                 studentDeskView.setStudentCurrentState(StudentSignedout)
+                
             }
             else if Int(state) == kStudentLeaveSession
             {
@@ -1879,6 +1975,11 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             else if Int(state) == kStudentLivebackground
             {
                 studentDeskView.setStudentCurrentState(StudentLiveBackground)
+                
+                if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == true
+                {
+                    studentDeskView.setNewSubTopicStarted(true)
+                }
             }
             else
             {
@@ -1905,7 +2006,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 if let questionType = currentQuestionDetails.objectForKey("Type") as? String
                 {
                     
-                    if (questionType  == "Overlay Scribble"  || questionType == "Fresh Scribble" || questionType  == "Text")
+                    if (questionType  == kOverlayScribble  || questionType == kFreshScribble || questionType  == kText)
                     {
                         studentDeskView.mQuestionStateImage.image = UIImage(named:"StudentWriting.png");
                     }

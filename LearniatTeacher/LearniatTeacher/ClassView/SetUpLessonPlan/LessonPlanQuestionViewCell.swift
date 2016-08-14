@@ -38,6 +38,8 @@ class LessonPlanQuestionViewCell: UIView
     
     var currentQuestionDetails :AnyObject!
     
+     var  isSelected             = true
+    
     func setdelegate(delegate:AnyObject)
     {
         _delgate = delegate;
@@ -57,13 +59,13 @@ class LessonPlanQuestionViewCell: UIView
         self.backgroundColor = whiteBackgroundColor
         
         
-//        m_checkBoxButton = UIButton(frame:CGRectMake(0, 0, self.frame.size.width ,self.frame.size.height - 10));
-//        self.addSubview(m_checkBoxButton);
+        m_checkBoxButton = UIButton(frame:CGRectMake(0, 0, self.frame.size.width/2 ,self.frame.size.height));
+        self.addSubview(m_checkBoxButton);
        
         checkBoxImage.frame = CGRectMake(10  , 10,20,20)
         checkBoxImage.image = UIImage(named:"Checked.png");
         self.addSubview(checkBoxImage);
-//        m_checkBoxButton.addTarget(self, action: #selector(LessonPlanSubTopicCell.checkMarkPressed), forControlEvents: UIControlEvents.TouchUpInside)
+        m_checkBoxButton.addTarget(self, action: #selector(LessonPlanQuestionViewCell.checkMarkPressed), forControlEvents: UIControlEvents.TouchUpInside)
 
         
         
@@ -143,9 +145,9 @@ class LessonPlanQuestionViewCell: UIView
         
         
         
-        if var QuestonAvgScore = details.objectForKey("QuestonAvgScore")as? NSString
+        if let QuestonAvgScore = details.objectForKey("QuestonAvgScore")as? NSString
         {
-            QuestonAvgScore = String(format: "%02d", QuestonAvgScore.intValue)
+//            QuestonAvgScore = String(format: "%02d", QuestonAvgScore.intValue)
             
             let questionAverage = QuestonAvgScore.floatValue * 100.0
             
@@ -263,7 +265,7 @@ class LessonPlanQuestionViewCell: UIView
         
         mInfoButtonImage.frame = CGRectMake(self.frame.size.width - ((self.frame.size.width / 15 ) + 10) ,mQuestionNameLabel.frame.origin.y + mQuestionNameLabel.frame.size.height + 5, self.frame.size.width / 15, self.frame.size.width / 20)
         
-        mInfoButtonButton.frame = CGRectMake(0 ,0, self.frame.size.width, height)
+        mInfoButtonButton.frame = CGRectMake(self.frame.size.width/2 ,0, self.frame.size.width/2, height)
         
         return height
         
@@ -291,6 +293,21 @@ class LessonPlanQuestionViewCell: UIView
             
             
         }
+    }
+    
+    func checkMarkPressed()
+    {
+        if isSelected == true
+        {
+            checkBoxImage.image = UIImage(named:"Unchecked.png");
+            isSelected = false
+        }
+        else
+        {
+            checkBoxImage.image = UIImage(named:"Checked.png");
+            isSelected = true
+        }
+        
     }
     
 }

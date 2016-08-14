@@ -257,7 +257,7 @@ class LessonPlanQuestionView: UIView,SSTeacherDataSourceDelegate,UIGestureRecogn
         
         if let questionType = questionDetails.objectForKey("Type") as? String
         {
-            if questionType == "Overlay Scribble"
+            if questionType == kOverlayScribble
             {
                 let questionInfoController = ScribbleQuestionInfoScreen()
                 questionInfoController.setdelegate(self)
@@ -278,7 +278,7 @@ class LessonPlanQuestionView: UIView,SSTeacherDataSourceDelegate,UIGestureRecogn
                     width: 1,
                     height: 1), inView: self, permittedArrowDirections: .Right, animated: true)
             }
-            else if questionType == "Multiple Response" || questionType == "Multiple Choice"
+            else if questionType == kMRQ || questionType == kMCQ || questionType == TextAuto
             {
                 let questionInfoController = SingleResponceOption()
                 
@@ -299,7 +299,7 @@ class LessonPlanQuestionView: UIView,SSTeacherDataSourceDelegate,UIGestureRecogn
                     width: 1,
                     height: 1), inView: self, permittedArrowDirections: .Right, animated: true)
             }
-            else if questionType == "Match Columns"
+            else if questionType == kMatchColumn
             {
                 let questionInfoController = MatchColumnOption()
                 questionInfoController.setdelegate(self)

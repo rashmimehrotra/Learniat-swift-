@@ -236,20 +236,11 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         
         
         
-        mProgressView.frame = CGRectMake((mStudentImage.frame.size.width+mStudentImage.frame.size.width/4),   mStudentImage.frame.size.height-mStudentImage.frame.size.height/8,   refrenceDeskImageView.frame.size.width-mStudentImage.frame.size.width-mStudentImage.frame.size.width/2,mStudentImage.frame.size.width/8);
-        refrenceDeskImageView.addSubview(mProgressView);
-        mProgressView.progressTintColor  = standard_Red
-        mProgressView.trackTintColor = UIColor(red: 213/255.0, green:213/255.0, blue:213/255.0, alpha: 1)
-        mProgressView.hidden = true
-        let transform = CGAffineTransformMakeScale(1.0, 3.2);
-        mProgressView.transform = transform;
-        mProgressView.layer.cornerRadius = mProgressView.frame.size.height/2;
-        mProgressView.layer.masksToBounds = true;
         
         
         
         
-        let questionStateView = UIView(frame:CGRectMake(refrenceDeskImageView.frame.size.width-cellHeight/1.9, (refrenceDeskImageView.frame.size.width/3.5)/8, cellHeight/3,cellHeight/3));
+        let questionStateView = UIView(frame:CGRectMake(answerDeskImageView.frame.size.width-(mStudentImage.frame.size.height/2), mStudentImage.frame.origin.y, mStudentImage.frame.size.height/2,mStudentImage.frame.size.height/2));
         refrenceDeskImageView.addSubview(questionStateView)
         questionStateView.backgroundColor = UIColor.clearColor()
         
@@ -265,6 +256,23 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         mDoubtImageview.backgroundColor = UIColor.clearColor()
        mDoubtImageview.hidden = true
         mDoubtImageview.image  = UIImage(named:"Query.png");
+        
+        
+        
+        mProgressView.frame = CGRectMake((mStudentImage.frame.size.width + mStudentImage.frame.origin.x + 5),
+                                         mStudentImage.frame.size.height - mStudentImage.frame.size.height/8,
+                                         answerDeskImageView.frame.size.width - (mStudentImage.frame.size.width + mStudentImage.frame.origin.x),
+                                         mStudentImage.frame.size.width/8);
+        
+        refrenceDeskImageView.addSubview(mProgressView);
+        mProgressView.progressTintColor  = standard_Red
+        mProgressView.trackTintColor = UIColor(red: 213/255.0, green:213/255.0, blue:213/255.0, alpha: 1)
+        mProgressView.hidden = true
+        let transform = CGAffineTransformMakeScale(1.0, 3.2);
+        mProgressView.transform = transform;
+        mProgressView.layer.cornerRadius = mProgressView.frame.size.height/2;
+        mProgressView.layer.masksToBounds = true;
+
         
         
         
@@ -416,6 +424,51 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     }
     
     // MARK: - Student Answers functions
+    func setNewSubTopicStarted(isStarted:Bool)
+    {
+        
+        
+        
+        if isStarted == true
+        {
+            
+            if StudentState == StudentLive || StudentState == StudentLiveBackground
+             {
+                     mProgressView.hidden = false
+            }
+           
+        }
+        else
+        {
+            mProgressView.hidden =  true
+        }
+        
+        
+    }
+    
+    
+    func setProgressValue(progressValue :Float)
+    {
+        
+        if progressValue < 33
+        {
+            mProgressView.progressTintColor = standard_Red
+        }
+        else if progressValue >= 33 && progressValue < 66
+        {
+            mProgressView.progressTintColor = standard_Yellow
+        }
+        else
+        {
+            mProgressView.progressTintColor = standard_Green
+        }
+        
+        
+        
+        
+        mProgressView.progress = Float(progressValue) / 100
+    }
+    
     
     func setCurrentQuestionDetails(questionDetails:AnyObject)
     {

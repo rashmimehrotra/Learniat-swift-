@@ -132,7 +132,7 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
         
         
         questionButtonsView.frame = CGRectMake(0, mTopicsContainerView.frame.size.height + mTopicsContainerView.frame.origin.y, mTopicsContainerView.frame.size.width, 44)
-        self.addSubview(questionButtonsView)
+//        self.addSubview(questionButtonsView)
         questionButtonsView.backgroundColor = UIColor.whiteColor()
         
         
@@ -339,6 +339,7 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
         {
             let currentTopicDetails = mMaintopicsDetails.objectAtIndex(index)
             
+            print(currentTopicDetails)
             
             let topicCell = QuestionCell(frame: CGRectMake(0  , positionY, mTopicsContainerView.frame.size.width, 60))
             topicCell.setdelegate(self)
@@ -378,11 +379,11 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
         currentMainTopicsViewHeight = height
         
         
-        mTopicsContainerView.frame = CGRectMake(0, 44, mTopicsContainerView.frame.size.width, height - 88)
+        mTopicsContainerView.frame = CGRectMake(0, 44, mTopicsContainerView.frame.size.width, height - 44)
         
         mTopicsContainerView.contentSize = CGSizeMake(0, positionY + 20)
         
-       questionButtonsView.frame = CGRectMake(0, mTopicsContainerView.frame.size.height + mTopicsContainerView.frame.origin.y, mTopicsContainerView.frame.size.width, 44)
+//       questionButtonsView.frame = CGRectMake(0, mTopicsContainerView.frame.size.height + mTopicsContainerView.frame.origin.y, mTopicsContainerView.frame.size.width, 44)
         
         mActivityIndicator.stopAnimating()
         
@@ -493,7 +494,7 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
         
         if let questionType = questionDetails.objectForKey("Type") as? String
         {
-            if questionType == "Overlay Scribble"
+            if questionType == kOverlayScribble
             {
                 let questionInfoController = ScribbleQuestionInfoScreen()
                 questionInfoController.setdelegate(self)
@@ -514,7 +515,7 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
                     width: 1,
                     height: 1), inView: self, permittedArrowDirections: .Right, animated: true)
             }
-            else if questionType == "Multiple Response" || questionType == "Multiple Choice"
+            else if questionType == kMRQ || questionType == kMCQ || questionType == TextAuto
             {
                 let questionInfoController = SingleResponceOption()
                 
@@ -535,7 +536,7 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
                     width: 1,
                     height: 1), inView: self, permittedArrowDirections: .Right, animated: true)
             }
-            else if questionType == "Match Columns"
+            else if questionType == kMatchColumn
             {
                 let questionInfoController = MatchColumnOption()
                 questionInfoController.setdelegate(self)

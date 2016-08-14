@@ -413,7 +413,7 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
         
         var QuestonAvgScore = currentQuestionDetails.objectForKey("QuestonAvgScore")as? NSString
         
-        QuestonAvgScore = String(format: "%02d", QuestonAvgScore!.intValue)
+        QuestonAvgScore = String(format: "%02d", QuestonAvgScore!.floatValue)
         
         let NumberOfResponses = currentQuestionDetails.objectForKey("NumberOfResponses")as? String
         
@@ -440,7 +440,7 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
         
         if let questionType = currentQuestionDetails.objectForKey("Type") as? String
         {
-            if questionType == "Overlay Scribble"
+            if questionType == kOverlayScribble
             {
                 let questionInfoController = ScribbleQuestionInfoScreen()
                 questionInfoController.setdelegate(self)
@@ -461,7 +461,7 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
                     width: 1,
                     height: 1), inView: self, permittedArrowDirections: .Right, animated: true)
             }
-            else if questionType == "Multiple Response" || questionType == "Multiple Choice"
+            else if questionType == kMRQ || questionType == kMCQ
             {
                 let questionInfoController = SingleResponceOption()
                 
@@ -482,7 +482,7 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
                     width: 1,
                     height: 1), inView: self, permittedArrowDirections: .Right, animated: true)
             }
-            else if questionType == "Match Columns"
+            else if questionType == kMatchColumn
             {
                 let questionInfoController = MatchColumnOption()
                 questionInfoController.setdelegate(self)

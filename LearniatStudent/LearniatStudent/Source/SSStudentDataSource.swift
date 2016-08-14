@@ -76,9 +76,11 @@ let kServiceVolunteerRegister               =   "VolunteerRegister"
 
 let kServiceWithDrawQuery                   =   "WithdrawQuery"
 
-let kRecordSuggestion                       =   "RecordSuggestion"
+let kRecordSuggestion                       =   "RecordSuggestion" // DEV Pending 
 
 let kGetAllModelAnswer                      =   "GetAllModelAnswers"
+
+let kServiceSendFeedback                    =   "SendFeedback"
 
 
 
@@ -275,7 +277,16 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
     
     
     
-    
+    func updateStudentAnswerScoreWithAssessmentAnswerId(assessmentId:String,withRating ratings:String, WithDelegate delegate:SSStudentDataSourceDelegate)
+    {
+        
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>SendFeedback</Service><AssessmentAnswerIdList>%@</AssessmentAnswerIdList><TeacherId>%@</TeacherId><Rating>%@</Rating><StudentId>%@</StudentId><ModelAnswerFlag>0</ModelAnswerFlag></Action></Sunstone>",URLPrefix,assessmentId,currentTeacherId,ratings,currentUserId)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceSendFeedback, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+    }
     
     
     

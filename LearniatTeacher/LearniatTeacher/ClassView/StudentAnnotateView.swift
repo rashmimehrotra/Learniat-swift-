@@ -448,7 +448,7 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
     func onTextButton()
     {
         
-        selectedtab = "Text"
+        selectedtab = kText
         
         _ratingsPopoverController.addTextviewwithtext(givenTextReply, withtopviewText:"Rate with Text")
         let navController = UINavigationController(rootViewController: _ratingsPopoverController)

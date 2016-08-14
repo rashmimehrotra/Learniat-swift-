@@ -3450,7 +3450,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.learniatTeacher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "95d3328e-4d6b-41bf-b8ad-cfdf363fec9c";
+				PROVISIONING_PROFILE = "bf448ed6-d1b3-431e-8bf1-ff016bbac1a5";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatTeacher/Swift-Bridging-Header.h";
 				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 			};
@@ -3482,7 +3482,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.learniatTeacher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "95d3328e-4d6b-41bf-b8ad-cfdf363fec9c";
+				PROVISIONING_PROFILE = "bf448ed6-d1b3-431e-8bf1-ff016bbac1a5";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatTeacher/Swift-Bridging-Header.h";
 				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 			};

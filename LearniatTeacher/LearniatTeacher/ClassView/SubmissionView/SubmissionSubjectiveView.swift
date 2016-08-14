@@ -513,7 +513,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     func onTextButton()
     {
         
-        selectedtab = "Text"
+        selectedtab = kText
         
         _ratingsPopoverController.addTextviewwithtext(givenTextReply, withtopviewText:"Rate with Text")
         let navController = UINavigationController(rootViewController: _ratingsPopoverController)

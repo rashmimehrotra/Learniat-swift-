@@ -222,9 +222,7 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
     {
        
         if mOneStringQuestionView !=  nil
-        {
-//             mOneStringQuestionView.hidden = false
-            
+        {            
             if let questionType = mCurrentQuestionDetails.objectForKey("Type") as? String
             {
                 if (questionType  == kOverlayScribble  || questionType == kFreshScribble)

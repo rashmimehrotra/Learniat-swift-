@@ -107,6 +107,8 @@ let kServiceMuteStudent             =   "MuteStudent"
 
 let kServiceGetAllRooms             =   "GetAllRooms"
 
+let kServiceGetGraspIndex           =   "GetAllStudentIndex"
+
 
 @objc protocol SSTeacherDataSourceDelegate
 {
@@ -177,6 +179,8 @@ let kServiceGetAllRooms             =   "GetAllRooms"
     optional func didGetLogOutWithDetails(details:AnyObject)
     
     optional func didGetSRQWithDetails(details:AnyObject)
+    
+    optional func didGetAllGraspIndexWithDetails(details:AnyObject)
 }
 
 
@@ -480,6 +484,16 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     }
     
     
+    func getGraspIndexOfAllStudentsWithTopic(topicId:String,withSessionID sessionid:String, withDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>GetAllStudentIndex</Service><TopicId>%@</TopicId><SessionId>%@</SessionId></Action></Sunstone>",URLPrefix,topicId,sessionid)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceGetGraspIndex, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+    }
     
     
     func broadcastQuestionWithQuestionId(questionId:String,withSessionID sessionID:String, withDelegate delegate:SSTeacherDataSourceDelegate)
@@ -965,11 +979,18 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
                 returningDelegate.didGetAllNodesWithDetails!(refinedDetails)
             }
         }
-        else if serviceName == kServiceStartTopic
+        else if serviceName == kServiceStartTopic || serviceName == kServiceStopTopic
         {
             if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetSubtopicStartedWithDetails(_:)))
             {
                 returningDelegate.didGetSubtopicStartedWithDetails!(refinedDetails)
+            }
+        }
+        else if serviceName == kServiceGetGraspIndex
+        {
+            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetAllGraspIndexWithDetails(_:)))
+            {
+                returningDelegate.didGetAllGraspIndexWithDetails!(refinedDetails)
             }
         }
         else if serviceName == kServiceBroadcastQuestion

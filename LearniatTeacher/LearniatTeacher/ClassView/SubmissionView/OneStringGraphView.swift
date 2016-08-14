@@ -168,7 +168,7 @@ class OneStringGraphView: UIView
         {
             optionIdDictionary.setObject("\(OptionIdValue)", forKey: optionString)
             
-            let optionsLabel = FXLabel(frame: CGRectMake(positionX , lineContainerView.frame.size.height + 5, 70 ,optionsScrollView.frame.size.height - (lineContainerView.frame.size.height + 10)));
+            let optionsLabel = FXLabel(frame: CGRectMake(positionX , lineContainerView.frame.size.height + 5, 100 ,optionsScrollView.frame.size.height - (lineContainerView.frame.size.height + 10)));
             optionsScrollView.addSubview(optionsLabel)
             optionsLabel.lineBreakMode = .ByTruncatingMiddle;
             optionsLabel.numberOfLines = 5;
@@ -180,23 +180,30 @@ class OneStringGraphView: UIView
             optionsLabel.text = optionString
             
             
-            let barView = BarView(frame: CGRectMake(positionX ,lineContainerView.frame.size.height, 70 ,0))
+            let barView = BarView(frame: CGRectMake(positionX ,lineContainerView.frame.size.height, optionsLabel.frame.size.width ,0))
             optionsScrollView.addSubview(barView)
 //            barView.addTarget(self, action: #selector(StudentAnswerGraphView.onBarButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             barView.tag = OptionIdValue
             
             print(currentOptionsArray)
             
+             barView.setBarColor( lightGrayColor)
+            
+            for index in currentOptionsArray
+            {
+                if let optionText = index.objectForKey("OptionText") as? String
+                {
+                    if optionText.removeWhitespace().removeSpecialCharsFromString().capitalizedString == optionString.removeWhitespace().removeSpecialCharsFromString().capitalizedString
+                    {
+                        barView.setBarColor( standard_Green)
+                        break
+                        
+                    }
+                }
+            }
             
             
-            if currentOptionsArray.containsObject(optionString) && state == true
-            {
-                 barView.setBarColor( standard_Green)
-            }
-            else
-            {
-                 barView.setBarColor( lightGrayColor)
-            }
+            
             
             
              barView.increasePresentValue()

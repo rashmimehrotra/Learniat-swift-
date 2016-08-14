@@ -32,8 +32,10 @@ let kText                 = "Text"
 let kMCQ                  = "Multiple Choice"
 let kMRQ                  = "Multiple Response"
 let kMatchColumn          = "Match Columns"
-let OneString             = "One_String"
-let TextAuto              = "Text_Auto"
+let OneString             = "Word map"
+let TextAuto              = "One string"
+let SoreFinger            = "Sore finger"
+let Polling               = "Poll"
 
 
 /* These values are hardcoded for collaboration and not used in current project */
@@ -44,6 +46,11 @@ let kWrongvalue             = "5"
 let kMissedValue            = "6"
 
 /*-----*/
+
+
+let kOptionTagMain              = "Options"
+let kOptionTag                  = "Option"
+
 
 
 
@@ -747,6 +754,21 @@ extension NSDate
 extension String
 {
     
+    
+    func replace(string:String, replacement:String) -> String {
+        return self.stringByReplacingOccurrencesOfString(string, withString: replacement, options: NSStringCompareOptions.LiteralSearch, range: nil)
+    }
+    
+    func removeWhitespace() -> String
+    {
+        return self.replace(" ", replacement: "")
+    }
+    
+    func removeSpecialCharsFromString() -> String {
+        let okayChars : Set<Character> =
+            Set("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ1234567890".characters)
+        return String(self.characters.filter {okayChars.contains($0) })
+    }
     
     
     // MARK - FUNC013	Get hour value from string

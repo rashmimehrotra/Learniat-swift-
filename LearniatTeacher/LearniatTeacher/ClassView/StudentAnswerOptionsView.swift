@@ -215,17 +215,17 @@ class StudentAnswerOptionsView: UIView
         
         if let Type = _currentQuestionDetials.objectForKey("Type") as? String
         {
-            if Type == "Multiple Choice"
+            if Type == kMCQ
             {
                 
                 addSingleResponseQuestionAnswerWithDetails(answerDetails,withQuestionOptionsArray: optionArray)
             }
-            else if Type == "Multiple Response"
+            else if Type == kMRQ
             {
                 
                 addMultipleResponseQuestionAnswerWithDetails(answerDetails,withQuestionOptionsArray: optionArray)
             }
-            else if Type == "Match Columns"
+            else if Type == kMatchColumn
             {
                 
                 addMatchColumnQuestionAnswerWithDetails(answerDetails)
