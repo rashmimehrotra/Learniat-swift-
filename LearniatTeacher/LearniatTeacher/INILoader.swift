@@ -352,7 +352,7 @@ class INILoader: NSObject
 
 
 
-// MARK: - Functionality Async download of image
+ // MARK: - FUNC001	Download Image from Url In Async Mode
 
 extension CustomProgressImageView
 {
@@ -361,6 +361,10 @@ extension CustomProgressImageView
             completion(data: data, response: response, error: error)
             }.resume()
     }
+    
+    
+   
+    
     
     func downloadImage(url: NSURL, withFolderType type:folderType)
     {
@@ -459,6 +463,9 @@ extension CustomProgressImageView
         
     }
     
+    
+    // MARK: - FUNC002	Resize Image
+    
     func resizeImage(image: UIImage, newSize: CGSize) -> UIImage {
         
         UIGraphicsBeginImageContext(newSize)
@@ -475,7 +482,7 @@ extension CustomProgressImageView
     
 }
 
-// MARK: - UILabel Extension
+// MARK: - FUNC003	Lable text Vertical allignment
 
 class UIVerticalAlignLabel: UILabel {
     
@@ -554,6 +561,9 @@ class UIVerticalAlignLabel: UILabel {
 // MARK: - View Extension
 extension UIView {
     
+    
+    // MARK: - FUNC004	Dashed Borders
+    
     func addDashedBorder() {
         let _border = CAShapeLayer();
         _border.path = UIBezierPath(roundedRect: self.bounds, cornerRadius:3).CGPath;
@@ -578,6 +588,7 @@ extension UIView {
         
     }
     
+    // MARK: - FUNC005	Add Shadow to view
     func addShadowToView()
     {
         self.layer.shadowColor = UIColor.blackColor().CGColor
@@ -637,6 +648,8 @@ extension NSDate
         NSLog("(Current Hour = \(currentDate.hour())) (Current Minute = \(currentDate.minute())) (Current Short Time String = \(currentDate.toShortTimeString()))")
     }
     
+    // MARK: - FUNC006	Get days between two dates
+    
     func daysBetweenDate(startDate: NSDate, endDate: NSDate) -> Int
     {
         let calendar = NSCalendar.currentCalendar()
@@ -647,6 +660,7 @@ extension NSDate
     }
     
     
+    // MARK: - FUNC007	Minutes and seconds difference betweeen two dates
     func minutesAndSecondsDiffernceBetweenDates(startDate: NSDate, endDate: NSDate) -> (minutes:Int, second:Int)
     {
         let calendar = NSCalendar.currentCalendar()
@@ -658,7 +672,7 @@ extension NSDate
         return (minutesComponents.minute ,secondComponents.second)
     }
     
-    
+    // MARK: - FUNC008	Minutes difference betweeen two dates
     func minutesDiffernceBetweenDates(startDate: NSDate, endDate: NSDate) -> (Int)
     {
         let calendar = NSCalendar.currentCalendar()
@@ -672,7 +686,7 @@ extension NSDate
     
     
     
-    
+    // MARK: - FUNC009	Greater than given date
     func isGreaterThanDate(dateToCompare: NSDate) -> Bool {
         //Declare Variables
         var isGreater = false
@@ -686,6 +700,7 @@ extension NSDate
         return isGreater
     }
     
+    // MARK: - FUNC010	Lesser than given date
     func isLessThanDate(dateToCompare: NSDate) -> Bool {
         //Declare Variables
         var isLess = false
@@ -699,6 +714,8 @@ extension NSDate
         return isLess
     }
     
+    
+    // MARK: - FUNC011	Equal to given date
     func equalToDate(dateToCompare: NSDate) -> Bool {
         //Declare Variables
         var isEqualTo = false
@@ -712,7 +729,7 @@ extension NSDate
         return isEqualTo
     }
     
-    
+    // MARK: - FUNC012	Add seconds to date
     func addSeconds(seconds: Int , withDate _toDate:NSDate) -> NSDate!
     {
         let comps = NSDateComponents()
@@ -732,7 +749,7 @@ extension String
     
     
     
-    
+    // MARK - FUNC013	Get hour value from string
     func hourValue() -> Int
     {
         let mainString :NSArray = self.componentsSeparatedByString(" ")
@@ -745,7 +762,7 @@ extension String
         return Int(hourValue)!
         
     }
-    
+    // MARK: - FUNC014	Get minute value from string
     func minuteValue()->Int
     {
         let mainString :NSArray = self.componentsSeparatedByString(" ")
@@ -758,6 +775,7 @@ extension String
         return Int(hourValue)!
     }
     
+    // MARK: - FUNC015	Get second value from string
     func secondValue()->Int
     {
         let mainString :NSArray = self.componentsSeparatedByString(" ")
@@ -780,7 +798,7 @@ extension String
         return ( hours, minutes, seconds,String(format: "%02d:%02d:%02d", hours, minutes, seconds))
     }
     
-    
+    // MARK: - FUNC016	Get height of view of given String
     
     func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat
     {
@@ -821,7 +839,7 @@ extension String
 {
     
     
-    
+    // MARK: - FUNC017	Get attributed Text
     func getAttributeText(fullString:String, withSubString searchstring :String) -> NSMutableAttributedString
     {
         let attributedString = NSMutableAttributedString(string: fullString as String)
@@ -838,7 +856,7 @@ extension String
     }
     
     
-    // MARK: - Lesson plan search 
+    // MARK: - FUNC018	Is Given string found in Full string
     func isAttributeFound(fullString:String, withSubString searchstring :String) -> Bool
     {
         var isFound = false
@@ -876,9 +894,11 @@ extension UIButton
     }
 }
 
-// MARK: -
+// MARK: - IMAGE VIEW FUNCTIONS
 extension UIImage
 {
+   // MARK: - FUNC019	Render View to image
+    
     class func imageWithView(view: UIView) -> UIImage
     {
         UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.opaque, 0.0)
