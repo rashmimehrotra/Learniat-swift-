@@ -63,7 +63,9 @@ let kServiceStopTopic               =   "StopTopic"
 
 let kServiceBroadcastQuestion		=   "BroadcastQuestion"
 
-let kServiceClearQuestion           =   "ClearQuestion"
+let kServiceClearQuestion           =   "EndQuestionInstance"
+
+let kServiceFreezQuestion           =   "CloseQuestionResponse"
 
 let kServiceRetrieveStudentAnswer   =   "RetrieveStudentAnswer"
 
@@ -491,21 +493,31 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         manager.downloadDataURL(urlString, withServiceName: kServiceBroadcastQuestion, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
     }
 
-    func clearQuestionWithQuestionogId(questionLogId:String, withDelegate delegate:SSTeacherDataSourceDelegate)
+    func clearQuestionWithQuestionogId(questionLogId:String,withTopicId topicId:String, withSessionId sessionId:String, withDelegate delegate:SSTeacherDataSourceDelegate)
     {
 
         
         let manager = APIManager()
         
-        let urlString = String(format: "%@<Sunstone><Action><Service>ClearQuestion</Service><QuestionId>%@</QuestionId></Action></Sunstone>",URLPrefix,questionLogId)
+        let urlString = String(format: "%@<Sunstone><Action><Service>EndQuestionInstance</Service><QuestionLogId>%@</QuestionLogId><TopicId>%@</TopicId><StudentId>%@</StudentId></Action></Sunstone>",URLPrefix,questionLogId,topicId,sessionId)
         
         manager.downloadDataURL(urlString, withServiceName: kServiceClearQuestion, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
+    
+    func freezQuestionWithQuestionogId(questionLogId:String,withTopicId topicId:String, withSessionId sessionId:String, withDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>CloseQuestionResponse</Service><QuestionLogId>%@</QuestionLogId><TopicId>%@</TopicId><SessionId>%@</SessionId></Action></Sunstone>",URLPrefix,questionLogId,topicId,sessionId)
+        
+        manager.downloadDataURL(urlString, withServiceName: kServiceFreezQuestion, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+    }
+    
     func getStudentsAswerWithAnswerId(answerId:String, withDelegate delegate:SSTeacherDataSourceDelegate)
     {
-
-        
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>RetrieveStudentAnswer</Service><AssessmentAnswerId>%@</AssessmentAnswerId></Action></Sunstone>",URLPrefix,answerId)

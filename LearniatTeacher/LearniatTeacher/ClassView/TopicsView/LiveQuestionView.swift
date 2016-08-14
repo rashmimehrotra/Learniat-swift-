@@ -18,6 +18,8 @@ import Foundation
     
     optional func delegateTopicsButtonPressed()
     
+    optional func delegateFreezQuestion()
+    
 }
 
 
@@ -422,6 +424,14 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
         
         mFreezbutton.enabled = false
         mFreezbutton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
+        
+        
+        if delegate().respondsToSelector(#selector(LiveQuestionViewDelegate.delegateFreezQuestion))
+        {
+            delegate().delegateFreezQuestion!()
+        }
+
+        
         
     }
     

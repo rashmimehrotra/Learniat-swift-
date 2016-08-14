@@ -1702,7 +1702,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
         
         
-        SSTeacherDataSource.sharedDataSource.clearQuestionWithQuestionogId(SSTeacherDataSource.sharedDataSource.currentQuestionLogId, withDelegate: self)
+        SSTeacherDataSource.sharedDataSource.clearQuestionWithQuestionogId(SSTeacherDataSource.sharedDataSource.currentQuestionLogId,withTopicId: SSTeacherDataSource.sharedDataSource.startedSubTopicId,withSessionId: currentSessionId,withDelegate: self)
         
         
         
@@ -1760,6 +1760,10 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mModelAnswerButton.hidden = true
         mModelAnswerView.hidden = true
         SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
+    }
+    
+    func delegateFreezQuestion() {
+          SSTeacherDataSource.sharedDataSource.freezQuestionWithQuestionogId(SSTeacherDataSource.sharedDataSource.currentQuestionLogId,withTopicId: SSTeacherDataSource.sharedDataSource.startedSubTopicId,withSessionId: currentSessionId,withDelegate: self)
     }
     
     func delegateDoneButtonPressed()
