@@ -164,9 +164,9 @@ class OneStringGraphView: UIView
     
     func setOptionWithString(optionString:String, withCheckingState state:Bool)
     {
-        if optionIdDictionary.objectForKey(optionString) == nil
+        if optionIdDictionary.objectForKey(optionString.removeWhitespace().removeSpecialCharsFromString().capitalizedString) == nil
         {
-            optionIdDictionary.setObject("\(OptionIdValue)", forKey: optionString)
+            optionIdDictionary.setObject("\(OptionIdValue)", forKey: optionString.removeWhitespace().removeSpecialCharsFromString().capitalizedString)
             
             let optionsLabel = FXLabel(frame: CGRectMake(positionX , lineContainerView.frame.size.height + 5, 100 ,optionsScrollView.frame.size.height - (lineContainerView.frame.size.height + 10)));
             optionsScrollView.addSubview(optionsLabel)
@@ -231,9 +231,9 @@ class OneStringGraphView: UIView
         }
         else
         {
-          if  let optionString = optionIdDictionary.objectForKey(optionString) as? String
+          if  let optionStringValue = optionIdDictionary.objectForKey((optionString.removeWhitespace().removeSpecialCharsFromString().capitalizedString)) as? String
           {
-                let optionValue = Int(optionString)
+                let optionValue = Int(optionStringValue)
                 if let answerBar  = self.viewWithTag(optionValue!) as? BarView
                 {
                     answerBar.increasePresentValue()

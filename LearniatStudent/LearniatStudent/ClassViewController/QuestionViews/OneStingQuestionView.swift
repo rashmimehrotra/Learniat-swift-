@@ -177,7 +177,7 @@ class OneStingQuestionView: UIView,SSStudentDataSourceDelegate
             
             mTopbarImageView.hidden = true
             mAnswerTextView.hidden = true
-            mAnswerLabel.text =  mAnswerTextView.getTextOfCurrentTextView().removeWhitespace().removeSpecialCharsFromString().capitalizedString
+            mAnswerLabel.text =  mAnswerTextView.getTextOfCurrentTextView()
             
            
                       mAnswerTextView.hidden = true
@@ -196,7 +196,7 @@ class OneStingQuestionView: UIView,SSStudentDataSourceDelegate
     func didGetAnswerSentWithDetails(details: AnyObject)
     {
          SSStudentDataSource.sharedDataSource.answerSent = true
-        SSStudentMessageHandler.sharedMessageHandler.sendOneStringAnswerWithAnswer(mAnswerTextView.getTextOfCurrentTextView().removeWhitespace().removeSpecialCharsFromString().capitalizedString)
+        SSStudentMessageHandler.sharedMessageHandler.sendOneStringAnswerWithAnswer(mAnswerTextView.getTextOfCurrentTextView())
         
         if  let AssessmentAnswerId =  details.objectForKey("AssessmentAnswerId") as? String
         {
@@ -271,7 +271,7 @@ class OneStingQuestionView: UIView,SSStudentDataSourceDelegate
         mReplyStatusLabel.text = "Don't Know"
         mTopbarImageView.hidden = true
         mAnswerTextView.hidden = true
-        mAnswerLabel.text =  mAnswerTextView.getTextOfCurrentTextView().removeWhitespace().removeSpecialCharsFromString().capitalizedString
+        mAnswerLabel.text =  mAnswerTextView.getTextOfCurrentTextView()
         
         SSStudentDataSource.sharedDataSource.answerSent = true
     }
@@ -416,7 +416,7 @@ class OneStingQuestionView: UIView,SSStudentDataSourceDelegate
                 OptionsLabel.numberOfLines = 100
                 OptionsLabel.lineBreakMode = .ByWordWrapping
                 OptionsLabel.textAlignment = .Center
-                OptionsLabel.text = "\(optionText.removeWhitespace().removeSpecialCharsFromString().capitalizedString)"
+                OptionsLabel.text = "\(optionText.capitalizedString)"
                 currentYPOsition = currentYPOsition + OptionsLabel.frame.size.height + 10
                 OptionsLabel.textColor = whiteColor
                 OptionsLabel.backgroundColor = standard_Green
