@@ -7,6 +7,30 @@
 //
 
 import Foundation
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l <= r
+  default:
+    return !(rhs < lhs)
+  }
+}
+
 
 
 
@@ -14,11 +38,11 @@ import Foundation
 {
     
     
-    optional func delegateQuestionButtonPressedWithID(subTopicId:String, withSubTopicName subTopicName:String)
+    @objc optional func delegateQuestionButtonPressedWithID(_ subTopicId:String, withSubTopicName subTopicName:String)
     
-    optional func delegateSubTopicCellStartedWithDetails(subTopicDetails:AnyObject, witStatedState isStarted:Bool)
+    @objc optional func delegateSubTopicCellStartedWithDetails(_ subTopicDetails:AnyObject, witStatedState isStarted:Bool)
     
-    optional func delegateShowAlert()
+    @objc optional func delegateShowAlert()
     
 }
 
@@ -49,7 +73,7 @@ class SubTopicCell: UIView{
     
     
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -68,61 +92,61 @@ class SubTopicCell: UIView{
         
         self.backgroundColor = whiteBackgroundColor
         
-        let seperatorView = UIView(frame: CGRectMake(0 ,self.frame.size.height - 1 , self.frame.size.width,1))
+        let seperatorView = UIView(frame: CGRect(x: 0 ,y: self.frame.size.height - 1 , width: self.frame.size.width,height: 1))
         seperatorView.backgroundColor = topicsLineColor;
         self.addSubview(seperatorView)
         
         
         
         
-        m_graspImageView.frame = CGRectMake(10, (self.frame.size.height - 22)/2 , 34,22)
+        m_graspImageView.frame = CGRect(x: 10, y: (self.frame.size.height - 22)/2 , width: 34,height: 22)
         self.addSubview(m_graspImageView)
         m_graspImageView.image = UIImage(named: "00.png")
         //        m_graspImageView.backgroundColor = standard_Button
         
-        m_SubTopicLabel = UILabel(frame: CGRectMake(m_graspImageView.frame.size.width + m_graspImageView.frame.origin.x + 5 , 0 , self.frame.size.width / 2, self.frame.size.height))
+        m_SubTopicLabel = UILabel(frame: CGRect(x: m_graspImageView.frame.size.width + m_graspImageView.frame.origin.x + 5 , y: 0 , width: self.frame.size.width / 2, height: self.frame.size.height))
         m_SubTopicLabel.font = UIFont(name:helveticaMedium, size: 18)
         self.addSubview(m_SubTopicLabel)
         m_SubTopicLabel.textColor = blackTextColor
-        m_SubTopicLabel.textAlignment = .Left
-        m_SubTopicLabel.lineBreakMode = .ByTruncatingMiddle
+        m_SubTopicLabel.textAlignment = .left
+        m_SubTopicLabel.lineBreakMode = .byTruncatingMiddle
         
         
         
-        startButton.frame = CGRectMake(m_SubTopicLabel.frame.origin.x + m_SubTopicLabel.frame.size.width  , 0 ,self.frame.size.width / 5  ,self.frame.size.height)
+        startButton.frame = CGRect(x: m_SubTopicLabel.frame.origin.x + m_SubTopicLabel.frame.size.width  , y: 0 ,width: self.frame.size.width / 5  ,height: self.frame.size.height)
         self.addSubview(startButton)
-        startButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
-        startButton.setTitleColor(standard_Green, forState: .Normal)
-        startButton.setTitle("Start", forState: .Normal)
+        startButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
+        startButton.setTitleColor(standard_Green, for: UIControlState())
+        startButton.setTitle("Start", for: UIControlState())
         startButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
-        startButton.addTarget(self, action: #selector(SubTopicCell.onStartButton), forControlEvents: UIControlEvents.TouchUpInside)
+        startButton.addTarget(self, action: #selector(SubTopicCell.onStartButton), for: UIControlEvents.touchUpInside)
         
         
         
-        mQuestionsButton.frame = CGRectMake(self.frame.size.width - (self.frame.size.width / 5 + 10) , 0 ,self.frame.size.width / 5  ,self.frame.size.height)
+        mQuestionsButton.frame = CGRect(x: self.frame.size.width - (self.frame.size.width / 5 + 10) , y: 0 ,width: self.frame.size.width / 5  ,height: self.frame.size.height)
         self.addSubview(mQuestionsButton)
-        mQuestionsButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
-        mQuestionsButton.setTitleColor(standard_Button_Disabled, forState: .Normal)
-        mQuestionsButton.setTitle("No questions", forState: .Normal)
+        mQuestionsButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
+        mQuestionsButton.setTitleColor(standard_Button_Disabled, for: UIControlState())
+        mQuestionsButton.setTitle("No questions", for: UIControlState())
         mQuestionsButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
-        mQuestionsButton.addTarget(self, action: #selector(SubTopicCell.onQuestionsButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mQuestionsButton.enabled = false
-        mQuestionsButton.titleLabel!.lineBreakMode = .ByTruncatingMiddle
+        mQuestionsButton.addTarget(self, action: #selector(SubTopicCell.onQuestionsButton), for: UIControlEvents.touchUpInside)
+        mQuestionsButton.isEnabled = false
+        mQuestionsButton.titleLabel!.lineBreakMode = .byTruncatingMiddle
         
-        m_progressView.userInteractionEnabled = false;
+        m_progressView.isUserInteractionEnabled = false;
         self.addSubview(m_progressView)
-        m_progressView.frame  = CGRectMake(10, self.frame.size.height - 10, self.frame.size.width - 20 , 1)
+        m_progressView.frame  = CGRect(x: 10, y: self.frame.size.height - 10, width: self.frame.size.width - 20 , height: 1)
         m_progressView.progressTintColor = standard_Button;
-        let transform: CGAffineTransform = CGAffineTransformMakeScale(1.0, 1.5);
+        let transform: CGAffineTransform = CGAffineTransform(scaleX: 1.0, y: 1.5);
         m_progressView.transform = transform;
         
         
-        mDemoLabel = UILabel(frame: CGRectMake(10 ,  5 , 100, 10))
+        mDemoLabel = UILabel(frame: CGRect(x: 10 ,  y: 5 , width: 100, height: 10))
         mDemoLabel.font = UIFont(name:helveticaMedium, size: 10)
         self.addSubview(mDemoLabel)
         mDemoLabel.textColor = standard_Green
-        mDemoLabel.textAlignment = .Left
-        mDemoLabel.lineBreakMode = .ByTruncatingMiddle
+        mDemoLabel.textAlignment = .left
+        mDemoLabel.lineBreakMode = .byTruncatingMiddle
         mDemoLabel.text = "Simulation"
 
         
@@ -133,38 +157,38 @@ class SubTopicCell: UIView{
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setSubTopicDetails(currentTopicDetails:AnyObject)
+    func setSubTopicDetails(_ currentTopicDetails:AnyObject)
     {
         
         currentSubTopicDetails = currentTopicDetails
         
-        if let topicId = currentTopicDetails.objectForKey("Id")as? String
+        if let topicId = currentTopicDetails.object(forKey: "Id")as? String
         {
             if SSTeacherDataSource.sharedDataSource.mDemoQuerySubTopicsArray.count>0
             {
-               if SSTeacherDataSource.sharedDataSource.mDemoQuerySubTopicsArray.containsObject(topicId)
+               if SSTeacherDataSource.sharedDataSource.mDemoQuerySubTopicsArray.contains(topicId)
                {
-                    if NSUserDefaults.standardUserDefaults().boolForKey("isSimulateMode") == true
+                    if UserDefaults.standard.bool(forKey: "isSimulateMode") == true
                     {
-                       mDemoLabel.hidden = false
+                       mDemoLabel.isHidden = false
                 }
                 else
                     {
-                         mDemoLabel.hidden = true
+                         mDemoLabel.isHidden = true
                 }
                 
                 
                 }
                 else
                {
-                    mDemoLabel.hidden = true
+                    mDemoLabel.isHidden = true
                 }
                 
                 
             }
             else
             {
-                mDemoLabel.hidden = true
+                mDemoLabel.isHidden = true
             }
             
             mSubTopicId = topicId
@@ -172,48 +196,48 @@ class SubTopicCell: UIView{
         }
         
         
-        if let topicName = currentTopicDetails.objectForKey("Name")as? String
+        if let topicName = currentTopicDetails.object(forKey: "Name")as? String
         {
-            if let CumulativeTime = currentTopicDetails.objectForKey("CumulativeTime")as? String
+            if let CumulativeTime = currentTopicDetails.object(forKey: "CumulativeTime")as? String
             {
-                m_SubTopicLabel.text = "\(topicName)(\(CumulativeTime)) \(mSubTopicId)".capitalizedString
+                m_SubTopicLabel.text = "\(topicName)(\(CumulativeTime)) \(mSubTopicId)".capitalized
             }
             else
             {
-                m_SubTopicLabel.text = "\(topicName)".capitalizedString
+                m_SubTopicLabel.text = "\(topicName)".capitalized
             }
         }
         
         
-        if let QuestionCount = currentTopicDetails.objectForKey("QuestionCount") as? String
+        if let QuestionCount = currentTopicDetails.object(forKey: "QuestionCount") as? String
         {
             
-            mQuestionsButton.setTitleColor(standard_Button_Disabled, forState: .Normal)
-            mQuestionsButton.enabled = false
+            mQuestionsButton.setTitleColor(standard_Button_Disabled, for: UIControlState())
+            mQuestionsButton.isEnabled = false
 
             
             if Int(QuestionCount) <= 0
             {
-                mQuestionsButton.setTitle("No questions", forState: .Normal)
+                mQuestionsButton.setTitle("No questions", for: UIControlState())
             }
             else if Int(QuestionCount) == 1
             {
-                mQuestionsButton.setTitle("\(QuestionCount) Question", forState: .Normal)
-                mQuestionsButton.setTitleColor(standard_Button, forState: .Normal)
-                mQuestionsButton.enabled = true
+                mQuestionsButton.setTitle("\(QuestionCount) Question", for: UIControlState())
+                mQuestionsButton.setTitleColor(standard_Button, for: UIControlState())
+                mQuestionsButton.isEnabled = true
 
             }
             else
             {
-                mQuestionsButton.setTitle("\(QuestionCount) Questions", forState: .Normal)
-                mQuestionsButton.setTitleColor(standard_Button, forState: .Normal)
-                mQuestionsButton.enabled = true
+                mQuestionsButton.setTitle("\(QuestionCount) Questions", for: UIControlState())
+                mQuestionsButton.setTitleColor(standard_Button, for: UIControlState())
+                mQuestionsButton.isEnabled = true
 
             }
         }
         
         
-        if let giValue = currentTopicDetails.objectForKey("GraspIndex") as? NSString
+        if let giValue = currentTopicDetails.object(forKey: "GraspIndex") as? NSString
         {
             var graspIndexValue = giValue.integerValue
             
@@ -237,7 +261,7 @@ class SubTopicCell: UIView{
         }
         
         
-        if let PercentageStarted = currentTopicDetails.objectForKey("PercentageStarted") as? NSString
+        if let PercentageStarted = currentTopicDetails.object(forKey: "PercentageStarted") as? NSString
         {
             var percentageValue :Float =  PercentageStarted.floatValue
             
@@ -250,9 +274,9 @@ class SubTopicCell: UIView{
     
     func onQuestionsButton()
     {
-        if delegate().respondsToSelector(#selector(SubTopicCellDelegate.delegateQuestionButtonPressedWithID(_:withSubTopicName:)))
+        if delegate().responds(to: #selector(SubTopicCellDelegate.delegateQuestionButtonPressedWithID(_:withSubTopicName:)))
         {
-            if let topicName = currentSubTopicDetails.objectForKey("Name")as? String
+            if let topicName = currentSubTopicDetails.object(forKey: "Name")as? String
             {
                 delegate().delegateQuestionButtonPressedWithID!(mSubTopicId, withSubTopicName: topicName)
             }
@@ -262,7 +286,7 @@ class SubTopicCell: UIView{
     
     func onStartButton()
     {
-        if delegate().respondsToSelector(#selector(SubTopicCellDelegate.delegateSubTopicCellStartedWithDetails(_:witStatedState:)))
+        if delegate().responds(to: #selector(SubTopicCellDelegate.delegateSubTopicCellStartedWithDetails(_:witStatedState:)))
         {
             
             if startButton.titleLabel?.text == "Start" || startButton.titleLabel?.text == "Resume"
@@ -270,14 +294,14 @@ class SubTopicCell: UIView{
                 
                 if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
                 {
-                    if let topicId = currentSubTopicDetails.objectForKey("Id")as? String
+                    if let topicId = currentSubTopicDetails.object(forKey: "Id")as? String
                     {
                         SSTeacherDataSource.sharedDataSource.isSubtopicStarted = true
 
                         SSTeacherDataSource.sharedDataSource.startedSubTopicId = topicId
                         
                         
-                        if let topicName = currentSubTopicDetails.objectForKey("Name")as? String
+                        if let topicName = currentSubTopicDetails.object(forKey: "Name")as? String
                         {
                              SSTeacherDataSource.sharedDataSource.startedSubTopicName = topicName
                         }

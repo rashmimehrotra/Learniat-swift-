@@ -150,9 +150,9 @@ let standard_TextGrey   : UIColor = UIColor(red: 170/255.0, green:170/255.0, blu
 
 let standard_Button     : UIColor = UIColor(red: 0/255.0, green:174/255.0, blue:239/255.0, alpha: 1)
 
-let standard_Button_Disabled     : UIColor = UIColor.lightGrayColor()
+let standard_Button_Disabled     : UIColor = UIColor.lightGray
 
-let lightGrayColor      : UIColor = UIColor.lightGrayColor()
+let lightGrayColor      : UIColor = UIColor.lightGray
 
 let lightGrayTopBar     : UIColor = UIColor(red: 238/255.0, green:238/255.0, blue:238/255.0, alpha: 1) //EEEEEE
 
@@ -166,7 +166,7 @@ let progressviewBackground    : UIColor = UIColor(red:213/255.0, green: 213/255.
 
 let RedCellBackground    : UIColor = UIColor(red:255.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 0.6)
 
-let whiteColor          = UIColor.whiteColor()
+let whiteColor          = UIColor.white
 
 
 
@@ -192,8 +192,8 @@ let EndedColor : UIColor = UIColor(red:152.0/255.0, green:180.0/255.0, blue:207.
 
 enum folderType
 {
-    case ProFilePics
-    case StudentAnswer
+    case proFilePics
+    case studentAnswer
     case questionImage
     case badgesImages
 }
@@ -206,27 +206,27 @@ class INILoader: NSObject
     func loadNewFileFromServer()
     {
         
-        let defaults = NSUserDefaults.standardUserDefaults()
+        let defaults = UserDefaults.standard
         
         
         
         
         
         
-        if let url = NSURL(string: kINIPath)
+        if let url = URL(string: kINIPath)
         {
             do {
-                let contents = try NSString(contentsOfURL: url, usedEncoding: nil)
+                let contents = try NSString(contentsOf: url, usedEncoding: nil)
                 
                 
-                let datavalue = contents.componentsSeparatedByString("\n")
+                let datavalue = contents.components(separatedBy: "\n")
                 
                 
                 for index in 0 ..< datavalue.count
                 {
                     let string = datavalue[index]
-                    let fullValueDetails = string.componentsSeparatedByString(" ")
-                    defaults.setObject(fullValueDetails.last!, forKey: fullValueDetails.first!)
+                    let fullValueDetails = string.components(separatedBy: " ")
+                    defaults.set(fullValueDetails.last!, forKey: fullValueDetails.first!)
                     
                 }
                 createFolderStracture()
@@ -246,19 +246,19 @@ class INILoader: NSObject
     func createFolderStracture()
     {
         
-        var pngPath = NSTemporaryDirectory().stringByAppendingString(kQuestionImage)
+        var pngPath = NSTemporaryDirectory() + kQuestionImage
         
         
         // Check if the directory already exists
         var isDir :ObjCBool = false
-        var exists :Bool = NSFileManager.defaultManager().fileExistsAtPath(pngPath, isDirectory: &isDir)
+        var exists :Bool = FileManager.default.fileExists(atPath: pngPath, isDirectory: &isDir)
         
         if (!exists)
         {
             // Directory does not exist so create it
             
             do {
-                try NSFileManager.defaultManager().createDirectoryAtPath(pngPath, withIntermediateDirectories: true, attributes: nil)
+                try FileManager.default.createDirectory(atPath: pngPath, withIntermediateDirectories: true, attributes: nil)
             } catch let error as NSError {
                 NSLog("Unable to create directory \(error.debugDescription)")
             }
@@ -268,9 +268,9 @@ class INILoader: NSObject
         
         
         
-        pngPath = NSTemporaryDirectory().stringByAppendingString(kStudentAnswerImages)
+        pngPath = NSTemporaryDirectory() + kStudentAnswerImages
         
-        exists = NSFileManager.defaultManager().fileExistsAtPath(pngPath, isDirectory: &isDir)
+        exists = FileManager.default.fileExists(atPath: pngPath, isDirectory: &isDir)
         // Check if the directory already exists
         
         if (!exists)
@@ -278,7 +278,7 @@ class INILoader: NSObject
             // Directory does not exist so create it
             
             do {
-                try NSFileManager.defaultManager().createDirectoryAtPath(pngPath, withIntermediateDirectories: true, attributes: nil)
+                try FileManager.default.createDirectory(atPath: pngPath, withIntermediateDirectories: true, attributes: nil)
             } catch let error as NSError {
                 NSLog("Unable to create directory \(error.debugDescription)")
             }
@@ -287,9 +287,9 @@ class INILoader: NSObject
         
         
         
-        pngPath = NSTemporaryDirectory().stringByAppendingString(kProFIlePics)
+        pngPath = NSTemporaryDirectory() + kProFIlePics
         
-        exists = NSFileManager.defaultManager().fileExistsAtPath(pngPath, isDirectory: &isDir)
+        exists = FileManager.default.fileExists(atPath: pngPath, isDirectory: &isDir)
         // Check if the directory already exists
         
         if (!exists)
@@ -297,7 +297,7 @@ class INILoader: NSObject
             // Directory does not exist so create it
             
             do {
-                try NSFileManager.defaultManager().createDirectoryAtPath(pngPath, withIntermediateDirectories: true, attributes: nil)
+                try FileManager.default.createDirectory(atPath: pngPath, withIntermediateDirectories: true, attributes: nil)
             } catch let error as NSError {
                 NSLog("Unable to create directory \(error.debugDescription)")
             }
@@ -307,9 +307,9 @@ class INILoader: NSObject
         
         
         
-        pngPath = NSTemporaryDirectory().stringByAppendingString(kBadgesImage)
+        pngPath = NSTemporaryDirectory() + kBadgesImage
         
-        exists = NSFileManager.defaultManager().fileExistsAtPath(pngPath, isDirectory: &isDir)
+        exists = FileManager.default.fileExists(atPath: pngPath, isDirectory: &isDir)
         // Check if the directory already exists
         
         if (!exists)
@@ -317,7 +317,7 @@ class INILoader: NSObject
             // Directory does not exist so create it
             
             do {
-                try NSFileManager.defaultManager().createDirectoryAtPath(pngPath, withIntermediateDirectories: true, attributes: nil)
+                try FileManager.default.createDirectory(atPath: pngPath, withIntermediateDirectories: true, attributes: nil)
             } catch let error as NSError {
                 NSLog("Unable to create directory \(error.debugDescription)")
             }
@@ -330,7 +330,7 @@ class INILoader: NSObject
             
             
             
-            let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_Badges) as! String
+            let urlString = UserDefaults.standard.object(forKey: k_INI_Badges) as! String
             
             let str = String("\(urlString)/\(i).png")
             
@@ -340,16 +340,16 @@ class INILoader: NSObject
             
             
             
-            if let checkedUrl = NSURL(string: str)
+            if let checkedUrl = URL(string: str!)
             {
                 
-                let data = NSData(contentsOfURL: checkedUrl) //make sure your image in this url does exist, otherwise unwrap in a if let
+                let data = try? Data(contentsOf: checkedUrl) //make sure your image in this url does exist, otherwise unwrap in a if let
                 
-                if let imageData = data as NSData? {
+                if let imageData = data as Data? {
                     
                     let imagePathString = String("/badges/\(i).png");
-                    let imagePath =  NSTemporaryDirectory().stringByAppendingString(imagePathString)
-                    imageData.writeToFile(imagePath, atomically: true)
+                    let imagePath =  NSTemporaryDirectory() + imagePathString!
+                    try? imageData.write(to: URL(fileURLWithPath: imagePath), options: [.atomic])
                 }
             }
         }
@@ -361,60 +361,50 @@ class INILoader: NSObject
 
 // MARK: - ImageView Extension
 
-extension UIImageView
+extension CustomProgressImageView
 {
-    func getDataFromUrl(url:NSURL, completion: ((data: NSData?, response: NSURLResponse?, error: NSError? ) -> Void)) {
+    func getDataFromUrl(_ url:URL, completion: @escaping ((_ data: Data?, _ response: URLResponse?, _ error: NSError? ) -> Void)) {
       
         
         
-        NSURLSession.sharedSession().dataTaskWithURL(url)
-        { (data, response, error) in
-            completion(data: data, response: response, error: error)
-            }.resume()
+//        URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+//            completion(data, response, error)
+//            })        
+//.resume()
     }
     
-    func downloadImage(url: NSURL, withFolderType type:folderType)
+    func downloadImage(_ url: URL, withFolderType type:folderType)
     {
         
         
         
         
-        var pngPath = NSTemporaryDirectory().stringByAppendingString(kQuestionImage)
+        var pngPath = NSTemporaryDirectory() + kQuestionImage
         switch type
         {
-        case .ProFilePics:
-            pngPath = NSTemporaryDirectory().stringByAppendingString(kProFIlePics)
+        case .proFilePics:
+            pngPath = NSTemporaryDirectory() + kProFIlePics
             break
             
-        case .StudentAnswer:
-            pngPath = NSTemporaryDirectory().stringByAppendingString(kStudentAnswerImages)
+        case .studentAnswer:
+            pngPath = NSTemporaryDirectory() + kStudentAnswerImages
             break
             
         case .questionImage:
-            pngPath = NSTemporaryDirectory().stringByAppendingString(kQuestionImage)
+            pngPath = NSTemporaryDirectory() + kQuestionImage
             break
         case .badgesImages:
-            pngPath = NSTemporaryDirectory().stringByAppendingString(kBadgesImage)
+            pngPath = NSTemporaryDirectory() + kBadgesImage
             break
         }
         
-        pngPath = pngPath.stringByAppendingString("/\(url.lastPathComponent ?? "")")
+        pngPath = pngPath + "/\(url.lastPathComponent )"
+        
         var isDir :ObjCBool = false
-        let exists :Bool = NSFileManager.defaultManager().fileExistsAtPath(pngPath, isDirectory: &isDir)
+        let exists :Bool = FileManager.default.fileExists(atPath: pngPath, isDirectory: &isDir)
         if !exists
         {
-            
-            getDataFromUrl(url) { (data, response, error)  in
-                dispatch_async(dispatch_get_main_queue())
-                    { () -> Void in
-                        guard let data = data where error == nil else { return }
-                        
-                        
-                        self.image = UIImage(data: data)
-                        self.layer.masksToBounds = true
-                        data.writeToFile(pngPath, atomically: true)
-                }
-            }
+            setImageWith(url, withSavingPath: pngPath, withPlaceHolderName: "", withBorderRequired: false, with: UIColor.clear)
         }
         else
         {
@@ -422,85 +412,75 @@ extension UIImageView
             self.layer.masksToBounds = true
         }
         
+        //        setImageWithUrl(url, withSavingPath: pngPath, withPlaceHolderName: "", withBorderRequired: false, withColor: UIColor.clearColor())
         
         
         
     }
     
     
-    func downloadImage(url: NSURL, withFolderType type:folderType, withResizeValue newSize:CGSize)
+    func downloadImage(_ url: URL, withFolderType type:folderType, withResizeValue newSize:CGSize)
     {
         
         
         
         
-        var pngPath = NSTemporaryDirectory().stringByAppendingString(kQuestionImage)
+        var pngPath = NSTemporaryDirectory() + kQuestionImage
         switch type
         {
-        case .ProFilePics:
-            pngPath = NSTemporaryDirectory().stringByAppendingString(kProFIlePics)
+        case .proFilePics:
+            pngPath = NSTemporaryDirectory() + kProFIlePics
             break
             
-        case .StudentAnswer:
-            pngPath = NSTemporaryDirectory().stringByAppendingString(kStudentAnswerImages)
+        case .studentAnswer:
+            pngPath = NSTemporaryDirectory() + kStudentAnswerImages
             break
             
         case .questionImage:
-            pngPath = NSTemporaryDirectory().stringByAppendingString(kQuestionImage)
+            pngPath = NSTemporaryDirectory() + kQuestionImage
             break
         case .badgesImages:
-            pngPath = NSTemporaryDirectory().stringByAppendingString(kBadgesImage)
+            pngPath = NSTemporaryDirectory() + kBadgesImage
             break
         }
-        pngPath = pngPath.stringByAppendingString("/\(url.lastPathComponent ?? "")")
+        pngPath = pngPath + "/\(url.lastPathComponent )"
+        
+        
         var isDir :ObjCBool = false
-        let exists :Bool = NSFileManager.defaultManager().fileExistsAtPath(pngPath, isDirectory: &isDir)
+        let exists :Bool = FileManager.default.fileExists(atPath: pngPath, isDirectory: &isDir)
         if !exists
         {
-            
-            getDataFromUrl(url) { (data, response, error)  in
-                dispatch_async(dispatch_get_main_queue())
-                    { () -> Void in
-                        guard let data = data where error == nil else { return }
-                        
-                        
-                       
-                        data.writeToFile(pngPath, atomically: true)
-                        
-                        
-                        if let image = UIImage(data: data)
-                        {
-                            self.image = self.resizeImage(image, newSize: newSize)
-                        }
-                        
-                        self.layer.masksToBounds = true
-                        
-                }
-            }
+            setImageWith(url, withSavingPath: pngPath, withPlaceHolderName: "", withBorderRequired: false, with: UIColor.clear)
         }
         else
         {
+            if newSize.height < 100
+            {
+                self.image = self.resizeImage( UIImage(contentsOfFile: pngPath)!, newSize: newSize)
+            }
+            else
+            {
+                self.image = UIImage(contentsOfFile: pngPath)
+            }
             
-            self.image = self.resizeImage(UIImage(contentsOfFile: pngPath)!, newSize: newSize)
             self.layer.masksToBounds = true
         }
         
         
         
-        
     }
     
-    func resizeImage(image: UIImage, newSize: CGSize) -> UIImage {
+    func resizeImage(_ image: UIImage, newSize: CGSize) -> UIImage {
         
         UIGraphicsBeginImageContext(newSize)
         
-        image.drawInRect(CGRectMake(0, 0, newSize.width, newSize.height))
+        image.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
         
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         
         UIGraphicsEndImageContext()
         
-        return newImage
+        return newImage!
     }
 
     
@@ -511,26 +491,26 @@ extension UIImageView
 class UIVerticalAlignLabel: UILabel {
     
     enum VerticalAlignment : Int {
-        case VerticalAlignmentTop = 0
-        case VerticalAlignmentMiddle = 1
-        case VerticalAlignmentBottom = 2
+        case verticalAlignmentTop = 0
+        case verticalAlignmentMiddle = 1
+        case verticalAlignmentBottom = 2
     }
     
     enum horizontalAlignment : Int {
-        case Left = 0
-        case Middle = 1
-        case Right = 2
+        case left = 0
+        case middle = 1
+        case right = 2
     }
 
     
-    var verticalAlignment : VerticalAlignment = .VerticalAlignmentTop {
+    var verticalAlignment : VerticalAlignment = .verticalAlignmentTop {
         didSet {
             setNeedsDisplay()
         }
     }
     
     
-    var _horizontalAlignment : horizontalAlignment = .Middle
+    var _horizontalAlignment : horizontalAlignment = .middle
         {
         didSet {
             setNeedsDisplay()
@@ -550,33 +530,33 @@ class UIVerticalAlignLabel: UILabel {
     
     
     
-    override func textRectForBounds(bounds: CGRect, limitedToNumberOfLines: Int) -> CGRect {
+    override func textRect(forBounds bounds: CGRect, limitedToNumberOfLines: Int) -> CGRect {
         
-        let rect = super.textRectForBounds(bounds, limitedToNumberOfLines: limitedToNumberOfLines)
+        let rect = super.textRect(forBounds: bounds, limitedToNumberOfLines: limitedToNumberOfLines)
         
         switch(verticalAlignment)
         {
-        case .VerticalAlignmentTop:
+        case .verticalAlignmentTop:
             
             
-            return CGRectMake(bounds.origin.x, bounds.origin.y, rect.size.width, rect.size.height)
+            return CGRect(x: bounds.origin.x, y: bounds.origin.y, width: rect.size.width, height: rect.size.height)
             
         
-        case .VerticalAlignmentMiddle:
+        case .verticalAlignmentMiddle:
             
-            return CGRectMake(bounds.origin.x, bounds.origin.y + (bounds.size.height - rect.size.height) / 2, rect.size.width, rect.size.height)
+            return CGRect(x: bounds.origin.x, y: bounds.origin.y + (bounds.size.height - rect.size.height) / 2, width: rect.size.width, height: rect.size.height)
        
-        case .VerticalAlignmentBottom:
-            return CGRectMake(bounds.origin.x, bounds.origin.y + (bounds.size.height - rect.size.height), rect.size.width, rect.size.height)
+        case .verticalAlignmentBottom:
+            return CGRect(x: bounds.origin.x, y: bounds.origin.y + (bounds.size.height - rect.size.height), width: rect.size.width, height: rect.size.height)
       
         }
     }
     
-    override func drawTextInRect(rect: CGRect) {
-        let r = self.textRectForBounds(rect, limitedToNumberOfLines: self.numberOfLines)
+    override func drawText(in rect: CGRect) {
+        let r = self.textRect(forBounds: rect, limitedToNumberOfLines: self.numberOfLines)
         
         
-        super.drawTextInRect(r)
+        super.drawText(in: r)
     }
     
     
@@ -587,9 +567,9 @@ extension UIView {
     
     func addDashedBorder() {
         let _border = CAShapeLayer();
-        _border.path = UIBezierPath(roundedRect: self.bounds, cornerRadius:3).CGPath;
+        _border.path = UIBezierPath(roundedRect: self.bounds, cornerRadius:3).cgPath;
         _border.frame = self.bounds;
-        _border.strokeColor = UIColor(red: 153.0/255.0, green: 153.0/255.0, blue: 153.0/255.0, alpha: 1).CGColor;
+        _border.strokeColor = UIColor(red: 153.0/255.0, green: 153.0/255.0, blue: 153.0/255.0, alpha: 1).cgColor;
         _border.fillColor = nil;
         _border.lineDashPattern = [5, 10];
         self.layer.addSublayer(_border)
@@ -598,11 +578,11 @@ extension UIView {
     
     
     
-    func addToCurrentTimewithHours(position: CGFloat)
+    func addToCurrentTimewithHours(_ position: CGFloat)
     {
-        UIView.animateWithDuration(0.5, animations:
+        UIView.animate(withDuration: 0.5, animations:
             {
-            self.frame = CGRectMake(self.frame.origin.x, position - 2.5, self.frame.size.width, self.frame.size.height)
+            self.frame = CGRect(x: self.frame.origin.x, y: position - 2.5, width: self.frame.size.width, height: self.frame.size.height)
         })
 
         
@@ -611,45 +591,45 @@ extension UIView {
     
     func addShadowToView()
     {
-        self.layer.shadowColor = UIColor.blackColor().CGColor
+        self.layer.shadowColor = UIColor.black.cgColor
         self.layer.shadowOpacity = 0.4
-        self.layer.shadowOffset = CGSizeZero
+        self.layer.shadowOffset = CGSize.zero
         self.layer.shadowRadius = 10
     }
 }
 
 // MARK: - date Extension
-extension NSDate
+extension Date
 {
     func hour() -> Int
     {
         //Get Hour
-        let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components(.Hour, fromDate: self)
+        let calendar = Calendar.current
+        let components = (calendar as NSCalendar).components(.hour, from: self)
         let hour = components.hour
         
         //Return Hour
-        return hour
+        return hour!
     }
     
     
     func minute() -> Int
     {
         //Get Minute
-        let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components(.Minute, fromDate: self)
+        let calendar = Calendar.current
+        let components = (calendar as NSCalendar).components(.minute, from: self)
         let minute = components.minute
         
         //Return Minute
-        return minute
+        return minute!
     }
     
     func toShortTimeString() -> String
     {
         //Get Short Time String
-        let formatter = NSDateFormatter()
-        formatter.timeStyle = .ShortStyle
-        let timeString = formatter.stringFromDate(self)
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        let timeString = formatter.string(from: self)
         
         //Return Short Time String
         return timeString
@@ -662,54 +642,54 @@ extension NSDate
     
     func dateDiff()
     {
-        let currentDate = NSDate()
+        let currentDate = Date()
         
         //Test Extensions in Log
         NSLog("(Current Hour = \(currentDate.hour())) (Current Minute = \(currentDate.minute())) (Current Short Time String = \(currentDate.toShortTimeString()))")
     }
     
-    func daysBetweenDate(startDate: NSDate, endDate: NSDate) -> Int
+    func daysBetweenDate(_ startDate: Date, endDate: Date) -> Int
     {
-        let calendar = NSCalendar.currentCalendar()
+        let calendar = Calendar.current
         
-        let components = calendar.components([.Day], fromDate: startDate, toDate: endDate, options: [])
+        let components = (calendar as NSCalendar).components([.day], from: startDate, to: endDate, options: [])
         
-        return components.day
+        return components.day!
     }
     
     
-    func minutesAndSecondsDiffernceBetweenDates(startDate: NSDate, endDate: NSDate) -> (minutes:Int, second:Int)
+    func minutesAndSecondsDiffernceBetweenDates(_ startDate: Date, endDate: Date) -> (minutes:Int, second:Int)
     {
-        let calendar = NSCalendar.currentCalendar()
+        let calendar = Calendar.current
         
-        let minutesComponents = calendar.components([.Minute], fromDate: startDate, toDate: endDate, options: [])
+        let minutesComponents = (calendar as NSCalendar).components([.minute], from: startDate, to: endDate, options: [])
         
-        let secondComponents = calendar.components([.Second], fromDate: startDate, toDate: endDate, options: [])
+        let secondComponents = (calendar as NSCalendar).components([.second], from: startDate, to: endDate, options: [])
         
-        return (minutesComponents.minute ,secondComponents.second)
+        return (minutesComponents.minute! ,secondComponents.second!)
     }
     
     
-    func minutesDiffernceBetweenDates(startDate: NSDate, endDate: NSDate) -> (Int)
+    func minutesDiffernceBetweenDates(_ startDate: Date, endDate: Date) -> (Int)
     {
-        let calendar = NSCalendar.currentCalendar()
+        let calendar = Calendar.current
         
-        let minutesComponents = calendar.components([.Minute], fromDate: startDate, toDate: endDate, options: [])
+        let minutesComponents = (calendar as NSCalendar).components([.minute], from: startDate, to: endDate, options: [])
         
         
-        return (minutesComponents.minute )
+        return (minutesComponents.minute )!
     }
     
     
     
     
     
-    func isGreaterThanDate(dateToCompare: NSDate) -> Bool {
+    func isGreaterThanDate(_ dateToCompare: Date) -> Bool {
         //Declare Variables
         var isGreater = false
         
         //Compare Values
-        if self.compare(dateToCompare) == NSComparisonResult.OrderedDescending {
+        if self.compare(dateToCompare) == ComparisonResult.orderedDescending {
             isGreater = true
         }
         
@@ -717,12 +697,12 @@ extension NSDate
         return isGreater
     }
     
-    func isLessThanDate(dateToCompare: NSDate) -> Bool {
+    func isLessThanDate(_ dateToCompare: Date) -> Bool {
         //Declare Variables
         var isLess = false
         
         //Compare Values
-        if self.compare(dateToCompare) == NSComparisonResult.OrderedAscending {
+        if self.compare(dateToCompare) == ComparisonResult.orderedAscending {
             isLess = true
         }
         
@@ -730,12 +710,12 @@ extension NSDate
         return isLess
     }
     
-    func equalToDate(dateToCompare: NSDate) -> Bool {
+    func equalToDate(_ dateToCompare: Date) -> Bool {
         //Declare Variables
         var isEqualTo = false
         
         //Compare Values
-        if self.compare(dateToCompare) == NSComparisonResult.OrderedSame {
+        if self.compare(dateToCompare) == ComparisonResult.orderedSame {
             isEqualTo = true
         }
         
@@ -744,15 +724,15 @@ extension NSDate
     }
     
     
-    func addSeconds(seconds: Int , withDate _toDate:NSDate) -> NSDate!
+    func addSeconds(_ seconds: Int , withDate _toDate:Date) -> Date!
     {
-        let comps = NSDateComponents()
+        var comps = DateComponents()
         
         comps.second = seconds
         
-        let cal = NSCalendar.currentCalendar()
+        let cal = Calendar.current
         
-        let r = cal.dateByAddingComponents(comps, toDate: _toDate, options: [])
+        let r = (cal as NSCalendar).date(byAdding: comps, to: _toDate, options: [])
 
         return r
     }
@@ -762,8 +742,8 @@ extension String
 {
     
     
-    func replace(string:String, replacement:String) -> String {
-        return self.stringByReplacingOccurrencesOfString(string, withString: replacement, options: NSStringCompareOptions.LiteralSearch, range: nil)
+    func replace(_ string:String, replacement:String) -> String {
+        return self.replacingOccurrences(of: string, with: replacement, options: NSString.CompareOptions.literal, range: nil)
     }
     
     func removeWhitespace() -> String
@@ -781,12 +761,12 @@ extension String
     
     func hourValue() -> Int
     {
-        let mainString :NSArray = self.componentsSeparatedByString(" ")
+        let mainString = self.components(separatedBy: " ")
         
-        let timeString = mainString.lastObject!
+        let timeString = mainString.last!
         
         
-        let hourValue :String = (timeString.componentsSeparatedByString(":") as NSArray).firstObject! as! String
+        let hourValue :String = ((timeString as AnyObject).components(separatedBy: ":") as NSArray).firstObject! as! String
         
         return Int(hourValue)!
         
@@ -794,29 +774,29 @@ extension String
     
     func minuteValue()->Int
     {
-        let mainString :NSArray = self.componentsSeparatedByString(" ")
+        let mainString  = self.components(separatedBy: " ")
         
-        let timeString = mainString.lastObject!
+        let timeString = mainString.last!
         
         
-        let hourValue :String = (timeString.componentsSeparatedByString(":") as NSArray).objectAtIndex(1) as! String
+        let hourValue :String = ((timeString as AnyObject).components(separatedBy: ":") as NSArray).object(at: 1) as! String
         
         return Int(hourValue)!
     }
     
     func secondValue()->Int
     {
-        let mainString :NSArray = self.componentsSeparatedByString(" ")
+        let mainString  = self.components(separatedBy: " ")
         
-        let timeString = mainString.lastObject!
+        let timeString = mainString.last!
         
         
-        let hourValue :String = (timeString.componentsSeparatedByString(":") as NSArray).lastObject! as! String
+        let hourValue :String = ((timeString as AnyObject).components(separatedBy: ":") as NSArray).lastObject! as! String
         
         return Int(hourValue)!
     }
     
-    func stringFromTimeInterval(interval: NSTimeInterval) -> (hour: Int, minutes: Int, seconds: Int , fullString: String) {
+    func stringFromTimeInterval(_ interval: TimeInterval) -> (hour: Int, minutes: Int, seconds: Int , fullString: String) {
         let interval = Int(interval)
         let seconds = interval % 60
         let minutes = (interval / 60) % 60
@@ -828,17 +808,30 @@ extension String
     
     
     
-    func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat
+    func heightForView(_ text:String, font:UIFont, width:CGFloat) -> CGFloat
     {
-        let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max))
+        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
         label.numberOfLines = 0
-        label.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.font = font
         label.text = text
         
         label.sizeToFit()
         return label.frame.height
     }
+    
+    func widthForView(_ text:String, font:UIFont, height:CGFloat) -> CGFloat
+    {
+        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: CGFloat.greatestFiniteMagnitude, height:height ))
+        label.numberOfLines = 0
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
+        label.font = font
+        label.text = text
+        
+        label.sizeToFit()
+        return label.frame.width
+    }
+
     
     
     
@@ -861,25 +854,51 @@ extension NSMutableArray
 
 extension UIImage
 {
-    class func imageWithView(view: UIView) -> UIImage
+    class func imageWithView(_ view: UIView) -> UIImage
     {
-        UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.opaque, 0.0)
-        view.drawViewHierarchyInRect(view.bounds, afterScreenUpdates: true)
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.isOpaque, 0.0)
+        view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
         let img = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return img
+        return img!
     }
     
     
-    class func renderUIViewToImage(viewToBeRendered:UIView?) -> UIImage
+    class func renderUIViewToImage(_ viewToBeRendered:UIView?) -> UIImage
     {
         UIGraphicsBeginImageContextWithOptions((viewToBeRendered?.bounds.size)!, false, 0.0)
-        viewToBeRendered!.drawViewHierarchyInRect(viewToBeRendered!.bounds, afterScreenUpdates: true)
-        viewToBeRendered!.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        viewToBeRendered!.drawHierarchy(in: viewToBeRendered!.bounds, afterScreenUpdates: true)
+        viewToBeRendered!.layer.render(in: UIGraphicsGetCurrentContext()!)
         
         let finalImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         
-        return finalImage
+        return finalImage!
     }
 }
+
+extension UIButton
+{
+    func loadingIndicator(show: Bool) {
+        let tag = 9876
+        if show {
+            let indicator = UIActivityIndicatorView()
+            let buttonHeight = self.bounds.size.height
+            let buttonWidth = self.bounds.size.width
+            indicator.center = CGPoint(x: buttonWidth/2, y: buttonHeight/2)
+            indicator.tag = tag
+            self.addSubview(indicator)
+            indicator.startAnimating()
+            indicator.color = standard_TextGrey
+        } else {
+            if let indicator = self.viewWithTag(tag) as? UIActivityIndicatorView {
+                indicator.stopAnimating()
+                indicator.removeFromSuperview()
+            }
+        }
+    }
+}
+
+
+
+

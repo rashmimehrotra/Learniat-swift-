@@ -11,7 +11,7 @@ import Foundation
 @objc protocol CustomTextViewDelegate
 {
     
-    optional func delegateTextViewTextChanged(chnagedText:String)
+    @objc optional func delegateTextViewTextChanged(_ chnagedText:String)
     
     
 }
@@ -30,7 +30,7 @@ class CustomTextView: UIView,UITextViewDelegate
     
     var _delgate: AnyObject!
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -47,35 +47,35 @@ class CustomTextView: UIView,UITextViewDelegate
         
         
        
-       self.backgroundColor = UIColor.whiteColor()
+       self.backgroundColor = UIColor.white
         
-        self.layer.borderColor = topicsLineColor.CGColor
+        self.layer.borderColor = topicsLineColor.cgColor
         self.layer.borderWidth = 1
         self.layer.cornerRadius = 5
         
         
         
-        mQuestionTextView.frame = CGRectMake(10, 10, self.frame.size.width - 20, self.frame.size.height - 20)
+        mQuestionTextView.frame = CGRect(x: 10, y: 10, width: self.frame.size.width - 20, height: self.frame.size.height - 20)
         self.addSubview(mQuestionTextView)
         mQuestionTextView.delegate = self
         mQuestionTextView.font =  UIFont(name: helveticaMedium, size: 18);
-        mQuestionTextView.textAlignment = .Left
+        mQuestionTextView.textAlignment = .left
         mQuestionTextView.placeholder = ""
         mQuestionTextView.placeholderTextColor = lightGrayColor
         mQuestionTextView.textColor = blackTextColor
         
         
-        mQuestionTextView.selectedTextRange = mQuestionTextView.textRangeFromPosition(mQuestionTextView.beginningOfDocument, toPosition: mQuestionTextView.beginningOfDocument)
+        mQuestionTextView.selectedTextRange = mQuestionTextView.textRange(from: mQuestionTextView.beginningOfDocument, to: mQuestionTextView.beginningOfDocument)
         
         
-        let mStartButton = UIButton(frame:CGRectMake(0, 0, self.frame.size.width,self.frame.size.height))
+        let mStartButton = UIButton(frame:CGRect(x: 0, y: 0, width: self.frame.size.width,height: self.frame.size.height))
         self.addSubview(mStartButton)
-        mStartButton.addTarget(self, action: #selector(CustomTextView.onSelfButton), forControlEvents: .TouchUpInside)
+        mStartButton.addTarget(self, action: #selector(CustomTextView.onSelfButton), for: .touchUpInside)
 
     }
     
     
-    func setPlaceHolder(_placeHolder:String, withStartSting _startString:String)
+    func setPlaceHolder(_ _placeHolder:String, withStartSting _startString:String)
     {
         
 //        mQuestionTextView.text = _placeHolder
@@ -127,13 +127,13 @@ class CustomTextView: UIView,UITextViewDelegate
 //        }
 //    }
 //   
-    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
         // Combine the textView text and the replacement text to
         // create the updated text string
-        let currentText:NSString = textView.text
+        let currentText:NSString = textView.text as NSString
         
-        if currentText == currentPlaceHolder
+        if currentText as String == currentPlaceHolder
         {
             delegate().delegateTextViewTextChanged!("")
         }
@@ -143,7 +143,7 @@ class CustomTextView: UIView,UITextViewDelegate
         }
         
         
-        let updatedText = currentText.stringByReplacingCharactersInRange(range, withString:text)
+        let updatedText = currentText.replacingCharacters(in: range, with:text)
         
         // If updated text view will be empty, add the placeholder
         // and set the cursor to the beginning of the text view
@@ -151,9 +151,9 @@ class CustomTextView: UIView,UITextViewDelegate
         {
             
             textView.text = currentPlaceHolder
-            textView.textColor = UIColor.lightGrayColor()
+            textView.textColor = UIColor.lightGray
             
-            textView.selectedTextRange = textView.textRangeFromPosition(textView.beginningOfDocument, toPosition: textView.beginningOfDocument)
+            textView.selectedTextRange = textView.textRange(from: textView.beginningOfDocument, to: textView.beginningOfDocument)
             
             return false
         }
@@ -162,7 +162,7 @@ class CustomTextView: UIView,UITextViewDelegate
             // length of the replacement string is greater than 0, clear
             // the text view and set its color to black to prepare for
             // the user's entry
-        else if textView.textColor == UIColor.lightGrayColor() && !text.isEmpty
+        else if textView.textColor == UIColor.lightGray && !text.isEmpty
         {
             textView.text = nil
             textView.textColor = blackTextColor

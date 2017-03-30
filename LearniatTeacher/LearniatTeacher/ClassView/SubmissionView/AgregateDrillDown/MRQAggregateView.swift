@@ -19,9 +19,9 @@ class MRQAggregateView: UIView
         
         super.init(frame:frame)
         
-        studentsScrollview.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)
+        studentsScrollview.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height)
         self.addSubview(studentsScrollview)
-      studentsScrollview.userInteractionEnabled = true
+      studentsScrollview.isUserInteractionEnabled = true
         
         
         
@@ -38,7 +38,7 @@ class MRQAggregateView: UIView
     
     
     
-    func showAggregateWithDetails(details:AnyObject) -> CGFloat
+    func showAggregateWithDetails(_ details:AnyObject) -> CGFloat
     {
         
         
@@ -54,31 +54,31 @@ class MRQAggregateView: UIView
 
         
         
-        var studentIdArray      = [NSString]()
-        var studentNameArray    = [NSString]()
-        var participationArray  = [NSString]()
-        var graspIndexArray     = [NSString]()
+        var studentIdArray      = [String]()
+        var studentNameArray    = [String]()
+        var participationArray  = [String]()
+        var graspIndexArray     = [String]()
         
         
         
         
-        if let StudentId = details.objectForKey("StudentId") as? NSString
+        if let StudentId = details.object(forKey: "StudentId") as? NSString
         {
-            studentIdArray = StudentId.componentsSeparatedByString(";;;")
+            studentIdArray =  StudentId.components(separatedBy: ";;;")
             
-            if let StudentName = details.objectForKey("StudentName") as? NSString
+            if let StudentName = details.object(forKey: "StudentName") as? NSString
             {
-                studentNameArray = StudentName.componentsSeparatedByString(";;;")
+                studentNameArray = StudentName.components(separatedBy: ";;;")
             }
             
-            if let GraspIndex = details.objectForKey("GraspIndex") as? NSString
+            if let GraspIndex = details.object(forKey: "GraspIndex") as? NSString
             {
-                graspIndexArray = GraspIndex.componentsSeparatedByString(";;;")
+                graspIndexArray = GraspIndex.components(separatedBy: ";;;")
             }
             
-            if let ParticipationIndex = details.objectForKey("ParticipationIndex") as? NSString
+            if let ParticipationIndex = details.object(forKey: "ParticipationIndex") as? NSString
             {
-                participationArray = ParticipationIndex.componentsSeparatedByString(";;;")
+                participationArray = ParticipationIndex.components(separatedBy: ";;;")
             }
         }
         
@@ -92,12 +92,12 @@ class MRQAggregateView: UIView
         var height :CGFloat = CGFloat((studentIdArray.count * 70))
         
         
-        if height > UIScreen.mainScreen().bounds.height - 100
+        if height > UIScreen.main.bounds.height - 100
         {
-            height = UIScreen.mainScreen().bounds.height - 100
+            height = UIScreen.main.bounds.height - 100
         }
         
-        studentsScrollview.frame = CGRectMake(0, 0, self.frame.size.width, height)
+        studentsScrollview.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: height)
 
         
         
@@ -109,9 +109,9 @@ class MRQAggregateView: UIView
             let graspIndex = graspIndexArray[index]
             
             
-            let agregateCell = AggregateCell(frame: CGRectMake(10,positionY,studentsScrollview.frame.size.width - 20,70))
+            let agregateCell = AggregateCell(frame: CGRect(x: 10,y: positionY,width: studentsScrollview.frame.size.width - 20,height: 70))
             studentsScrollview.addSubview(agregateCell)
-            agregateCell.addStudentId(studentId, withName: studentName, withgraspLevel: graspIndex, withParticipation: participationIndex.floatValue)
+            agregateCell.addStudentId(studentId as NSString, withName: studentName as NSString, withgraspLevel: graspIndex as NSString, withParticipation: Float(participationIndex)!)
             
             positionY = positionY + agregateCell.frame.size.height
             
@@ -119,7 +119,7 @@ class MRQAggregateView: UIView
         }
         
         
-        studentsScrollview.contentSize = CGSizeMake(0, positionY)
+        studentsScrollview.contentSize = CGSize(width: 0, height: positionY)
         
         return height
         

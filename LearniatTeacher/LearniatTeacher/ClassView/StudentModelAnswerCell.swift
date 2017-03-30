@@ -12,7 +12,7 @@ import Foundation
 {
     
     
-    optional func delegateModelAnswerRemovedWithAssesmentAnswerId(assesmentAnswerID:String)
+    @objc optional func delegateModelAnswerRemovedWithAssesmentAnswerId(_ assesmentAnswerID:String)
     
     
 }
@@ -33,7 +33,7 @@ class StudentModelAnswerCell: UIView,SSTeacherDataSourceDelegate
     
     var _delgate: AnyObject!
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -48,33 +48,33 @@ class StudentModelAnswerCell: UIView,SSTeacherDataSourceDelegate
     {
         super.init(frame: frame)
         
-        studentImage.frame = CGRectMake(10, 5, 40, 40)
+        studentImage.frame = CGRect(x: 10, y: 5, width: 40, height: 40)
         self.addSubview(studentImage)
         
         
-        StudentName.frame = CGRectMake(55, 5, 120, 40)
-        StudentName.backgroundColor = UIColor.clearColor();
-        StudentName.hidden = false
-        StudentName.textAlignment = .Left;
+        StudentName.frame = CGRect(x: 55, y: 5, width: 120, height: 40)
+        StudentName.backgroundColor = UIColor.clear;
+        StudentName.isHidden = false
+        StudentName.textAlignment = .left;
         StudentName.numberOfLines=10;
-        StudentName.lineBreakMode = .ByTruncatingMiddle
+        StudentName.lineBreakMode = .byTruncatingMiddle
         StudentName.textColor = blackTextColor
         
         
-        RemoveButton.frame = CGRectMake(self.frame.size.width  -   110  , 5, 100 ,40)
-        RemoveButton.backgroundColor = UIColor.clearColor()
+        RemoveButton.frame = CGRect(x: self.frame.size.width  -   110  , y: 5, width: 100 ,height: 40)
+        RemoveButton.backgroundColor = UIColor.clear
         self.addSubview(RemoveButton)
-        RemoveButton.setTitle("Remove", forState: .Normal)
-        RemoveButton.setTitleColor(standard_Button, forState: .Normal)
-        RemoveButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        RemoveButton.setTitle("Remove", for: UIControlState())
+        RemoveButton.setTitleColor(standard_Button, for: UIControlState())
+        RemoveButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         RemoveButton.titleLabel!.font = UIFont(name:helveticaMedium, size: 18)
-         RemoveButton.addTarget(self, action: #selector(StudentModelAnswerCell.onRemoveButton), forControlEvents: UIControlEvents.TouchUpInside)
+         RemoveButton.addTarget(self, action: #selector(StudentModelAnswerCell.onRemoveButton), for: UIControlEvents.touchUpInside)
        
-        let lineView = UIImageView(frame:CGRectMake(0, 50, self.frame.size.width, 1))
+        let lineView = UIImageView(frame:CGRect(x: 0, y: 50, width: self.frame.size.width, height: 1))
         lineView.backgroundColor = LineGrayColor
         self.addSubview(lineView)
         
-        answerContainerView.frame = CGRectMake(0, 50, self.frame.size.width, self.frame.size.width / 1.5)
+        answerContainerView.frame = CGRect(x: 0, y: 50, width: self.frame.size.width, height: self.frame.size.width / 1.5)
         self.addSubview(answerContainerView)
 
         
@@ -85,21 +85,21 @@ class StudentModelAnswerCell: UIView,SSTeacherDataSourceDelegate
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setModelAnswerWithDetails(details:AnyObject)
+    func setModelAnswerWithDetails(_ details:AnyObject)
     {
         currentCellDetails = details
         
         
         print(details)
         
-        if let StudentId = details.objectForKey("StudentId") as? String
+        if let StudentId = details.object(forKey: "StudentId") as? String
         {
-            let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_UserProfileImageURL) as! String
+            let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
             
-            if let checkedUrl = NSURL(string: "\(urlString)/\(StudentId)_79px.jpg")
+            if let checkedUrl = URL(string: "\(urlString)/\(StudentId)_79px.jpg")
             {
-                studentImage.contentMode = .ScaleAspectFit
-                studentImage.downloadImage(checkedUrl, withFolderType: folderType.ProFilePics)
+                studentImage.contentMode = .scaleAspectFit
+                studentImage.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
             }
         }
         
@@ -107,24 +107,24 @@ class StudentModelAnswerCell: UIView,SSTeacherDataSourceDelegate
         
         studentImage.layer.masksToBounds = true
         
-        if let _StudentName = details.objectForKey("StudentName") as? String
+        if let _StudentName = details.object(forKey: "StudentName") as? String
         {
             StudentName.text = _StudentName
         }
 
         
         
-        if let TeacherScribble = details.objectForKey("TeacherScribble") as? String
+        if let TeacherScribble = details.object(forKey: "TeacherScribble") as? String
         {
-            let overLayImage = CustomProgressImageView(frame: CGRectMake(0,0,answerContainerView.frame.size.width,answerContainerView.frame.size.height))
+            let overLayImage = CustomProgressImageView(frame: CGRect(x: 0,y: 0,width: answerContainerView.frame.size.width,height: answerContainerView.frame.size.height))
             answerContainerView.addSubview(overLayImage)
             
             
-            let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_QuestionsImageUrl) as! String
+            let urlString = UserDefaults.standard.object(forKey: k_INI_QuestionsImageUrl) as! String
             
-            if let checkedUrl = NSURL(string: "\(urlString)/\(TeacherScribble)")
+            if let checkedUrl = URL(string: "\(urlString)/\(TeacherScribble)")
             {
-                overLayImage.contentMode = .ScaleAspectFit
+                overLayImage.contentMode = .scaleAspectFit
                 overLayImage.downloadImage(checkedUrl, withFolderType: folderType.questionImage,withResizeValue: answerContainerView.frame.size)
             }
             
@@ -134,39 +134,39 @@ class StudentModelAnswerCell: UIView,SSTeacherDataSourceDelegate
         if SSTeacherDataSource.sharedDataSource.mOverlayImageName != ""
         {
             
-            let studentAnswerImage = CustomProgressImageView(frame: CGRectMake(0,0,answerContainerView.frame.size.width,answerContainerView.frame.size.height))
+            let studentAnswerImage = CustomProgressImageView(frame: CGRect(x: 0,y: 0,width: answerContainerView.frame.size.width,height: answerContainerView.frame.size.height))
             answerContainerView.addSubview(studentAnswerImage)
             
             
-            let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_SCRIBBLE_IMAGE_URL) as! String
+            let urlString = UserDefaults.standard.object(forKey: k_INI_SCRIBBLE_IMAGE_URL) as! String
             
-            if let checkedUrl = NSURL(string: "\(urlString)/\(SSTeacherDataSource.sharedDataSource.mOverlayImageName)")
+            if let checkedUrl = URL(string: "\(urlString)/\(SSTeacherDataSource.sharedDataSource.mOverlayImageName)")
             {
-                studentAnswerImage.contentMode = .ScaleAspectFit
+                studentAnswerImage.contentMode = .scaleAspectFit
                 studentAnswerImage.downloadImage(checkedUrl, withFolderType: folderType.questionImage,withResizeValue: answerContainerView.frame.size)
             }
         }
         
         
         
-        if let Scribble = details.objectForKey("Image") as? String
+        if let Scribble = details.object(forKey: "Image") as? String
         {
             
-            let studentAnswerImage = CustomProgressImageView(frame: CGRectMake(0,0,answerContainerView.frame.size.width,answerContainerView.frame.size.height))
+            let studentAnswerImage = CustomProgressImageView(frame: CGRect(x: 0,y: 0,width: answerContainerView.frame.size.width,height: answerContainerView.frame.size.height))
             answerContainerView.addSubview(studentAnswerImage)
 
             
-            let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_SCRIBBLE_IMAGE_URL) as! String
+            let urlString = UserDefaults.standard.object(forKey: k_INI_SCRIBBLE_IMAGE_URL) as! String
             
-            if let checkedUrl = NSURL(string: "\(urlString)/\(Scribble)")
+            if let checkedUrl = URL(string: "\(urlString)/\(Scribble)")
             {
-                studentAnswerImage.contentMode = .ScaleAspectFit
-                studentAnswerImage.downloadImage(checkedUrl, withFolderType: folderType.StudentAnswer,withResizeValue: answerContainerView.frame.size)
+                studentAnswerImage.contentMode = .scaleAspectFit
+                studentAnswerImage.downloadImage(checkedUrl, withFolderType: folderType.studentAnswer,withResizeValue: answerContainerView.frame.size)
             }
         }
-        else if let TextAnswer = details.objectForKey("TextAnswer") as? String
+        else if let TextAnswer = details.object(forKey: "TextAnswer") as? String
         {
-            let studentAnswertext = UILabel(frame: CGRectMake((self.frame.size.width - (self.frame.size.width - 5))/2  ,(self.frame.size.height-(self.frame.size.height - 5 ))/2,self.frame.size.width - 5,self.frame.size.height - 5 ))
+            let studentAnswertext = UILabel(frame: CGRect(x: (self.frame.size.width - (self.frame.size.width - 5))/2  ,y: (self.frame.size.height-(self.frame.size.height - 5 ))/2,width: self.frame.size.width - 5,height: self.frame.size.height - 5 ))
             self.addSubview(studentAnswertext)
             
             var fontHeight = studentAnswertext.frame.size.height/3;
@@ -178,9 +178,9 @@ class StudentModelAnswerCell: UIView,SSTeacherDataSourceDelegate
             
             studentAnswertext.font = UIFont(name: helveticaRegular, size: fontHeight)
             studentAnswertext.textColor = blackTextColor
-            studentAnswertext.lineBreakMode = .ByTruncatingMiddle
+            studentAnswertext.lineBreakMode = .byTruncatingMiddle
             studentAnswertext.numberOfLines = 10
-            studentAnswertext.textAlignment = .Center
+            studentAnswertext.textAlignment = .center
             studentAnswertext.text = TextAnswer
             
 
@@ -191,7 +191,7 @@ class StudentModelAnswerCell: UIView,SSTeacherDataSourceDelegate
     {
         self.removeFromSuperview()
         
-        if let  AssessmentAnswerId = currentCellDetails.objectForKey("AssessmentAnswerId") as? String
+        if let  AssessmentAnswerId = currentCellDetails.object(forKey: "AssessmentAnswerId") as? String
         {
             delegate().delegateModelAnswerRemovedWithAssesmentAnswerId!(AssessmentAnswerId)
             

@@ -11,7 +11,7 @@ import Foundation
 @objc protocol SubmissionMTCViewDelegate
 {
     
-    optional func delegateOptionTouchedWithId(optionId: String, withView barButton: BarView)
+    @objc optional func delegateOptionTouchedWithId(_ optionId: String, withView barButton: BarView)
     
     
 }
@@ -29,7 +29,7 @@ class SubmissionMTCView: UIView,StudentAnswerGraphViewDelegate
     
     var currentQuestionOptionsArray = NSMutableArray()
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -51,24 +51,21 @@ class SubmissionMTCView: UIView,StudentAnswerGraphViewDelegate
         fatalError("init(coder:) has not been implemented")
     }
     
-    func addGraphViewforWithQuestionDetails(_currentQuestionDetials:AnyObject)
+    func addGraphViewforWithQuestionDetails(_ _currentQuestionDetials:AnyObject)
     {
         
         var optionArray = NSMutableArray()
         
-        if let options = _currentQuestionDetials.objectForKey("Options")
+        if let options = _currentQuestionDetials.object(forKey: "Options")
         {
-            if let classCheckingVariable = options.objectForKey("Option")
+            if let classCheckingVariable = (options as AnyObject).object(forKey: "Option") as? NSMutableArray
             {
-                if classCheckingVariable.isKindOfClass(NSMutableArray)
-                {
-                    optionArray = classCheckingVariable as! NSMutableArray
-                }
-                else
-                {
-                    optionArray.addObject(_currentQuestionDetials.objectForKey("Options")!.objectForKey("Option")!)
-                    
-                }
+                optionArray = classCheckingVariable
+            }
+            else
+            {
+                optionArray.add((_currentQuestionDetials.object(forKey: "Options")! as AnyObject).object(forKey: "Option")!)
+                
             }
         }
         
@@ -84,7 +81,7 @@ class SubmissionMTCView: UIView,StudentAnswerGraphViewDelegate
         
         if studentGraphView == nil
         {
-            studentGraphView = StudentAnswerGraphView(frame: CGRectMake(0, 0, self.frame.size.width, self.frame.size.height))
+            studentGraphView = StudentAnswerGraphView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
             self.addSubview(studentGraphView)
             studentGraphView.setdelegate(self)
         }
@@ -98,24 +95,24 @@ class SubmissionMTCView: UIView,StudentAnswerGraphViewDelegate
         for index in 0 ..< optionArray.count
         {
             
-            let optionDict = optionArray.objectAtIndex(index)
+            let optionDict = optionArray.object(at: index)
             
-            if let Column = optionDict.objectForKey("Column") as? String
+            if let Column = (optionDict as AnyObject).object(forKey: "Column") as? String
             {
                 if Column == "1"
                 {
-                    leftSideArray.addObject(optionDict)
+                    leftSideArray.add(optionDict)
                 }
                 else if Column == "2"
                 {
-                    RightSideArray.addObject(optionDict)
+                    RightSideArray.add(optionDict)
                     
                 }
                 
             }
         }
         
-        if let questionName = (_currentQuestionDetials.objectForKey("Name")) as? String
+        if let questionName = (_currentQuestionDetials.object(forKey: "Name")) as? String
         {
             studentGraphView.loadMTCViewWithOPtions(leftSideArray,WithRightSideOptionArray: RightSideArray, withQuestion: questionName)
         }
@@ -125,23 +122,20 @@ class SubmissionMTCView: UIView,StudentAnswerGraphViewDelegate
         }
         
     }
-    func didgetStudentsAnswerWithDetails(details:AnyObject)
+    func didgetStudentsAnswerWithDetails(_ details:AnyObject)
     {
         
         var studentAnsweOptions = NSMutableArray()
-        if let options = details.objectForKey("Options")
+        if let options = details.object(forKey: "Options")
         {
-            if let classCheckingVariable = options.objectForKey("Option")
+            if let classCheckingVariable = (options as AnyObject).object(forKey: "Option") as? NSMutableArray
             {
-                if classCheckingVariable.isKindOfClass(NSMutableArray)
-                {
-                    studentAnsweOptions = classCheckingVariable as! NSMutableArray
-                }
-                else
-                {
-                    studentAnsweOptions.addObject(details.objectForKey("Options")!.objectForKey("Option")!)
-                    
-                }
+                 studentAnsweOptions = classCheckingVariable
+            }
+            else
+            {
+                studentAnsweOptions.add((details.object(forKey: "Options")! as AnyObject).object(forKey: "Option")!)
+                
             }
         }
         
@@ -149,16 +143,16 @@ class SubmissionMTCView: UIView,StudentAnswerGraphViewDelegate
         
         for answerIndex in 0 ..< studentAnsweOptions.count
         {
-            let answerOptiondict = studentAnsweOptions.objectAtIndex(answerIndex)
+            let answerOptiondict = studentAnsweOptions.object(at: answerIndex)
             
             
-            if let OldSequence = answerOptiondict.objectForKey("OldSequence") as? String
+            if let OldSequence = (answerOptiondict as AnyObject).object(forKey: "OldSequence") as? String
             {
-                if let Sequence = answerOptiondict.objectForKey("Sequence") as? String
+                if let Sequence = (answerOptiondict as AnyObject).object(forKey: "Sequence") as? String
                 {
                     if OldSequence == Sequence
                     {
-                        if let rightOptionText = (answerOptiondict.objectForKey("OptionText")) as? String
+                        if let rightOptionText = ((answerOptiondict as AnyObject).object(forKey: "OptionText")) as? String
                          {
                             studentGraphView.increaseBarValueWithOptionText(rightOptionText)
                         }
@@ -185,16 +179,16 @@ class SubmissionMTCView: UIView,StudentAnswerGraphViewDelegate
     }
     // MARK: - GraphView delegate
     
-    func delegateBarTouchedWithId(optionId: String, withView barButton: BarView) {
+    func delegateBarTouchedWithId(_ optionId: String, withView barButton: BarView) {
         
-        if delegate().respondsToSelector(#selector(SubmissionMTCViewDelegate.delegateOptionTouchedWithId(_:withView:)))
+        if delegate().responds(to: #selector(SubmissionMTCViewDelegate.delegateOptionTouchedWithId(_:withView:)))
         {
             delegate().delegateOptionTouchedWithId!(optionId,withView:barButton)
         }
         
     }
     
-    func delegateShareButtonClickedWithDetails(details: AnyObject)
+    func delegateShareButtonClickedWithDetails(_ details: AnyObject)
     {
          SSTeacherMessageHandler.sharedMessageHandler.shareGraphtoiPhoneStudentId("question_\(SSTeacherDataSource.sharedDataSource.currentLiveSessionId)", withDetails: details)
         

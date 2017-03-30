@@ -12,7 +12,7 @@ import Foundation
 {
     
     
-    optional func delegateModelAnswerViewLoadedWithHeight(height:CGFloat , withCount modelCount:Int)
+    @objc optional func delegateModelAnswerViewLoadedWithHeight(_ height:CGFloat , withCount modelCount:Int)
     
 
 }
@@ -22,7 +22,7 @@ class StudentModelAnswerView: UIView,SSTeacherDataSourceDelegate,StudentModelAns
     
     var _delgate: AnyObject!
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -33,7 +33,7 @@ class StudentModelAnswerView: UIView,SSTeacherDataSourceDelegate,StudentModelAns
     }
     
     
-    var mActivityIndicator  = UIActivityIndicatorView(activityIndicatorStyle:.Gray)
+    var mActivityIndicator  = UIActivityIndicatorView(activityIndicatorStyle:.gray)
     
     
     var currentModelAnswerArray = NSMutableArray()
@@ -48,41 +48,41 @@ class StudentModelAnswerView: UIView,SSTeacherDataSourceDelegate,StudentModelAns
     {
           super.init(frame:frame)
         
-        let mTopbarImageView = UIImageView(frame: CGRectMake(0, 0, self.frame.size.width, 44))
+        let mTopbarImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 44))
         mTopbarImageView.backgroundColor = lightGrayTopBar
         self.addSubview(mTopbarImageView)
-        mTopbarImageView.userInteractionEnabled = true
+        mTopbarImageView.isUserInteractionEnabled = true
         
         
         
-        let seperatorView = UIView(frame: CGRectMake(0 ,mTopbarImageView.frame.size.height - 1 , mTopbarImageView.frame.size.width,1))
+        let seperatorView = UIView(frame: CGRect(x: 0 ,y: mTopbarImageView.frame.size.height - 1 , width: mTopbarImageView.frame.size.width,height: 1))
         seperatorView.backgroundColor = LineGrayColor;
         mTopbarImageView.addSubview(seperatorView)
         
         let mTopicName = UILabel()
-        mTopicName.frame = CGRectMake(10, 0 , 150, mTopbarImageView.frame.size.height)
+        mTopicName.frame = CGRect(x: 10, y: 0 , width: 150, height: mTopbarImageView.frame.size.height)
         mTopicName.font = UIFont(name:helveticaMedium, size: 18)
         mTopbarImageView.addSubview(mTopicName)
-        mTopicName.textColor = UIColor.blackColor()
+        mTopicName.textColor = UIColor.black
         mTopicName.text = "Model answer"
-        mTopicName.textAlignment = .Left
+        mTopicName.textAlignment = .left
         
-        let  mDoneButton = UIButton(frame: CGRectMake(mTopbarImageView.frame.size.width - 210,  0, 200 ,mTopbarImageView.frame.size.height))
+        let  mDoneButton = UIButton(frame: CGRect(x: mTopbarImageView.frame.size.width - 210,  y: 0, width: 200 ,height: mTopbarImageView.frame.size.height))
         mTopbarImageView.addSubview(mDoneButton)
-        mDoneButton.addTarget(self, action: #selector(StudentModelAnswerView.onSendAllButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mDoneButton.setTitleColor(standard_Button, forState: .Normal)
-        mDoneButton.setTitle("Send all", forState: .Normal)
-        mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        mDoneButton.addTarget(self, action: #selector(StudentModelAnswerView.onSendAllButton), for: UIControlEvents.touchUpInside)
+        mDoneButton.setTitleColor(standard_Button, for: UIControlState())
+        mDoneButton.setTitle("Send all", for: UIControlState())
+        mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         mDoneButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
         
-        mActivityIndicator.frame = CGRectMake(mTopicName.frame.origin.x + mTopicName.frame.size.width, 0, mTopbarImageView.frame.size.height,mTopbarImageView.frame.size.height)
+        mActivityIndicator.frame = CGRect(x: mTopicName.frame.origin.x + mTopicName.frame.size.width, y: 0, width: mTopbarImageView.frame.size.height,height: mTopbarImageView.frame.size.height)
         mTopbarImageView.addSubview(mActivityIndicator)
         mActivityIndicator.hidesWhenStopped = true
         mActivityIndicator.stopAnimating()
         
         
         
-        mModelAnswerContainerView.frame = CGRectMake(0,  mTopbarImageView.frame.size.height ,self.frame.size.width,self.frame.size.height -  mTopbarImageView.frame.size.height )
+        mModelAnswerContainerView.frame = CGRect(x: 0,  y: mTopbarImageView.frame.size.height ,width: self.frame.size.width,height: self.frame.size.height -  mTopbarImageView.frame.size.height )
         self.addSubview(mModelAnswerContainerView)
         mModelAnswerContainerView.backgroundColor = lightGrayTopBar
         
@@ -99,7 +99,7 @@ class StudentModelAnswerView: UIView,SSTeacherDataSourceDelegate,StudentModelAns
         let subViews =  mModelAnswerContainerView.subviews.flatMap{ $0 as? StudentModelAnswerCell }
         for topicCell in subViews
         {
-            if topicCell.isKindOfClass(StudentModelAnswerCell)
+            if topicCell.isKind(of: StudentModelAnswerCell.self)
             {
                 topicCell.removeFromSuperview()
             }
@@ -111,50 +111,45 @@ class StudentModelAnswerView: UIView,SSTeacherDataSourceDelegate,StudentModelAns
         
          delegate().delegateModelAnswerViewLoadedWithHeight!(44, withCount :0)
         
-        SSTeacherMessageHandler.sharedMessageHandler.sendModelAnswerToStudentWithRoomId(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, withQuestionLogId: SSTeacherDataSource.sharedDataSource.currentQuestionLogId)
+        SSTeacherMessageHandler.sharedMessageHandler.sendModelAnswerToStudentWithRoomId(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, withQuestionLogId: SSTeacherDataSource.sharedDataSource.currentQuestionLogId as NSString)
         
     }
     
     
-    func newModelAnswerAddedWithQuestionLogId(questionLogId:String)
+    func newModelAnswerAddedWithQuestionLogId(_ questionLogId:String)
     {
         mActivityIndicator.startAnimating()
         SSTeacherDataSource.sharedDataSource.getModelAnswerWithQuestionLogId(questionLogId, WithDelegate: self)
     }
     
-    func didGetModelAnswerWithDetails(details: AnyObject)
+    func didGetModelAnswerWithDetails(_ details: AnyObject)
     {
 
         mActivityIndicator.stopAnimating()
         var mModelAnswerDetails = NSMutableArray()
         
-        let classCheckingVariable = details.objectForKey("AssessmentAnswerIdList")!.objectForKey("AssessmentAnswerId")!
-        
-        if classCheckingVariable.isKindOfClass(NSMutableArray)
-        {
-            mModelAnswerDetails = classCheckingVariable as! NSMutableArray
+       if let classCheckingVariable = (details.object(forKey: "AssessmentAnswerIdList")! as AnyObject).object(forKey: "AssessmentAnswerId") as? NSMutableArray
+       {
+            mModelAnswerDetails = classCheckingVariable
         }
         else
-        {
-            mModelAnswerDetails.addObject(details.objectForKey("AssessmentAnswerIdList")!.objectForKey("AssessmentAnswerId")!)
-            
+       {
+            mModelAnswerDetails.add((details.object(forKey: "AssessmentAnswerIdList")! as AnyObject).object(forKey: "AssessmentAnswerId")!)
         }
-        
-        
         
         
         
         for index  in 0 ..< mModelAnswerDetails.count
         {
-            let object = mModelAnswerDetails.objectAtIndex(index)
+            let object = mModelAnswerDetails.object(at: index)
             
-            if let  AssessmentAnswerId = object.objectForKey("AssessmentAnswerId") as? String
+            if let  AssessmentAnswerId = (object as AnyObject).object(forKey: "AssessmentAnswerId") as? String
             {
-                if currentModelAnswerArray.containsObject(AssessmentAnswerId) == false
+                if currentModelAnswerArray.contains(AssessmentAnswerId) == false
                 {
-                    currentModelAnswerArray.addObject(AssessmentAnswerId)
-                    let modelAnswerCell = StudentModelAnswerCell(frame:CGRectMake(0,currentPositionY,self.frame.size.width,(self.frame.size.width / 1.5) + 70 ))
-                    modelAnswerCell.setModelAnswerWithDetails(object)
+                    currentModelAnswerArray.add(AssessmentAnswerId)
+                    let modelAnswerCell = StudentModelAnswerCell(frame:CGRect(x: 0,y: currentPositionY,width: self.frame.size.width,height: (self.frame.size.width / 1.5) + 70 ))
+                    modelAnswerCell.setModelAnswerWithDetails(object as AnyObject)
                     mModelAnswerContainerView.addSubview(modelAnswerCell)
                     modelAnswerCell.setdelegate(self)
                     currentPositionY = currentPositionY + modelAnswerCell.frame.size.height + 1
@@ -166,7 +161,7 @@ class StudentModelAnswerView: UIView,SSTeacherDataSourceDelegate,StudentModelAns
         
         
         
-        mModelAnswerContainerView.contentSize = CGSizeMake(0, CGFloat(currentModelAnswerArray.count) * ((self.frame.size.width / 1.5) + 70 ))
+        mModelAnswerContainerView.contentSize = CGSize(width: 0, height: CGFloat(currentModelAnswerArray.count) * ((self.frame.size.width / 1.5) + 70 ))
         
         
         mModelAnswerContainerView.contentOffset = CGPoint(x: 0, y: 0)
@@ -175,14 +170,14 @@ class StudentModelAnswerView: UIView,SSTeacherDataSourceDelegate,StudentModelAns
         var height :CGFloat = currentViewHeight
         
         
-        if height > UIScreen.mainScreen().bounds.height - 100
+        if height > UIScreen.main.bounds.height - 100
         {
-            height = UIScreen.mainScreen().bounds.height - 100
+            height = UIScreen.main.bounds.height - 100
         }
         
         
         
-         mModelAnswerContainerView.frame = CGRectMake(mModelAnswerContainerView.frame.origin.x,mModelAnswerContainerView.frame.origin.y ,mModelAnswerContainerView.frame.size.width,height - 44)
+         mModelAnswerContainerView.frame = CGRect(x: mModelAnswerContainerView.frame.origin.x,y: mModelAnswerContainerView.frame.origin.y ,width: mModelAnswerContainerView.frame.size.width,height: height - 44)
         
         let subViews =  mModelAnswerContainerView.subviews.flatMap{ $0 as? StudentModelAnswerCell }
         
@@ -190,18 +185,18 @@ class StudentModelAnswerView: UIView,SSTeacherDataSourceDelegate,StudentModelAns
         
     }
     
-    func delegateModelAnswerRemovedWithAssesmentAnswerId(assesmentAnswerID: String)
+    func delegateModelAnswerRemovedWithAssesmentAnswerId(_ assesmentAnswerID: String)
     {
         var currentYPosition :CGFloat = 0
         currentViewHeight = 44
         let subViews =  mModelAnswerContainerView.subviews.flatMap{ $0 as? StudentModelAnswerCell }
         for topicCell in subViews
         {
-            if topicCell.isKindOfClass(StudentModelAnswerCell)
+            if topicCell.isKind(of: StudentModelAnswerCell.self)
             {
-                UIView.animateWithDuration(0.2, animations:
+                UIView.animate(withDuration: 0.2, animations:
                     {
-                        topicCell.frame = CGRectMake(topicCell.frame.origin.x ,currentYPosition,topicCell.frame.size.width,topicCell.frame.size.height)
+                        topicCell.frame = CGRect(x: topicCell.frame.origin.x ,y: currentYPosition,width: topicCell.frame.size.width,height: topicCell.frame.size.height)
                         
                 })
                 
@@ -210,19 +205,19 @@ class StudentModelAnswerView: UIView,SSTeacherDataSourceDelegate,StudentModelAns
             }
         }
         
-        mModelAnswerContainerView.contentSize = CGSizeMake(0, currentYPosition)
+        mModelAnswerContainerView.contentSize = CGSize(width: 0, height: currentYPosition)
         
         var height :CGFloat = currentViewHeight
         
         
-        if height > UIScreen.mainScreen().bounds.height - 140
+        if height > UIScreen.main.bounds.height - 140
         {
-            height = UIScreen.mainScreen().bounds.height - 140
+            height = UIScreen.main.bounds.height - 140
         }
         
         
         
-        mModelAnswerContainerView.frame = CGRectMake(mModelAnswerContainerView.frame.origin.x,mModelAnswerContainerView.frame.origin.y ,mModelAnswerContainerView.frame.size.width,height - 44)
+        mModelAnswerContainerView.frame = CGRect(x: mModelAnswerContainerView.frame.origin.x,y: mModelAnswerContainerView.frame.origin.y ,width: mModelAnswerContainerView.frame.size.width,height: height - 44)
         
         delegate().delegateModelAnswerViewLoadedWithHeight!(height, withCount :subViews.count)
     }
@@ -237,7 +232,7 @@ class StudentModelAnswerView: UIView,SSTeacherDataSourceDelegate,StudentModelAns
         let subViews =  mModelAnswerContainerView.subviews.flatMap{ $0 as? StudentModelAnswerCell }
         for topicCell in subViews
         {
-            if topicCell.isKindOfClass(StudentModelAnswerCell)
+            if topicCell.isKind(of: StudentModelAnswerCell.self)
             {
                 topicCell.removeFromSuperview()
             }

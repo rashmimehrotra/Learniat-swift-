@@ -10,7 +10,7 @@ import Foundation
 class SSTeacherAggregatePopOverController: UIViewController, SSTeacherDataSourceDelegate
 {
     
-    var activityIndicator  = UIActivityIndicatorView(activityIndicatorStyle:.Gray)
+    var activityIndicator  = UIActivityIndicatorView(activityIndicatorStyle:.gray)
     
     var mMrqAgregateView : MRQAggregateView!
     
@@ -19,7 +19,7 @@ class SSTeacherAggregatePopOverController: UIViewController, SSTeacherDataSource
     var cureentQuestionType  = ""
     
     var _delgate: AnyObject!
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -37,9 +37,9 @@ class SSTeacherAggregatePopOverController: UIViewController, SSTeacherDataSource
         // Do any additional setup after loading the view, typically from a nib.
         self.view.backgroundColor = whiteBackgroundColor
         
-        activityIndicator.frame = CGRectMake(150, 0,100,100)
+        activityIndicator.frame = CGRect(x: 150, y: 0,width: 100,height: 100)
         self.view.addSubview(activityIndicator)
-        activityIndicator.hidden = false
+        activityIndicator.isHidden = false
         activityIndicator.startAnimating()
         
         self.view.backgroundColor = whiteBackgroundColor
@@ -48,7 +48,7 @@ class SSTeacherAggregatePopOverController: UIViewController, SSTeacherDataSource
     }
     
     
-    func AggregateDrillDownWithOptionId(optionId:String, withQuestionDetails questionDetails:AnyObject, withQuestionLogId questionLogId:String, withQuestionTye type:String)
+    func AggregateDrillDownWithOptionId(_ optionId:String, withQuestionDetails questionDetails:AnyObject, withQuestionLogId questionLogId:String, withQuestionTye type:String)
     {
         cureentQuestionType = type
         SSTeacherDataSource.sharedDataSource.getAgregateDrilDownWithOptionId(optionId, WithQuestionLogId: questionLogId, WithDelegate: self)
@@ -58,7 +58,7 @@ class SSTeacherAggregatePopOverController: UIViewController, SSTeacherDataSource
     
     
     
-    func didGetAgregateDrillDownWithDetails(details: AnyObject)
+    func didGetAgregateDrillDownWithDetails(_ details: AnyObject)
     {
 
         
@@ -77,11 +77,11 @@ class SSTeacherAggregatePopOverController: UIViewController, SSTeacherDataSource
         {
             if mMtcAgregateView == nil
             {
-                mMtcAgregateView = MTCAggregateView(frame: CGRectMake(0, 0,400,70))
+                mMtcAgregateView = MTCAggregateView(frame: CGRect(x: 0, y: 0,width: 400,height: 70))
                 self.view.addSubview(mMtcAgregateView)
             }
             
-            mMtcAgregateView.frame = CGRectMake(0, 0,400,mMtcAgregateView.showAggregateWithDetails(details))
+            mMtcAgregateView.frame = CGRect(x: 0, y: 0,width: 400,height: mMtcAgregateView.showAggregateWithDetails(details))
             
             self.preferredContentSize = CGSize(width: 400, height: mMtcAgregateView.frame.size.height)
         }
@@ -89,12 +89,12 @@ class SSTeacherAggregatePopOverController: UIViewController, SSTeacherDataSource
         {
             if mMrqAgregateView == nil
             {
-                mMrqAgregateView = MRQAggregateView(frame: CGRectMake(0, 0,400,70))
+                mMrqAgregateView = MRQAggregateView(frame: CGRect(x: 0, y: 0,width: 400,height: 70))
                 self.view.addSubview(mMrqAgregateView)
             }
             
             
-            mMrqAgregateView.frame = CGRectMake(0, 0,400,mMrqAgregateView.showAggregateWithDetails(details))
+            mMrqAgregateView.frame = CGRect(x: 0, y: 0,width: 400,height: mMrqAgregateView.showAggregateWithDetails(details))
             
             
             self.preferredContentSize = CGSize(width: 400, height: mMrqAgregateView.frame.size.height)

@@ -11,7 +11,7 @@ import Foundation
 {
     
     
-    optional func delegateVolunteerButtonPressedWithVolunteersArray(volunteersArray:NSMutableArray, withVolunteerButton volunteerButton:UIButton)
+    @objc optional func delegateVolunteerButtonPressedWithVolunteersArray(_ volunteersArray:NSMutableArray, withVolunteerButton volunteerButton:UIButton)
     
     
     
@@ -45,59 +45,59 @@ class QueryVolunteerSubView: UIView
         
         super.init(frame:frame)
         
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clear
         
         
         
         
-        mVolunteerButton.frame = CGRectMake(self.frame.size.width - 100, 0, 100, self.frame.size.height)
-        mVolunteerButton.setTitle("0", forState: .Normal)
+        mVolunteerButton.frame = CGRect(x: self.frame.size.width - 100, y: 0, width: 100, height: self.frame.size.height)
+        mVolunteerButton.setTitle("0", for: UIControlState())
         self.addSubview(mVolunteerButton)
-        mVolunteerButton.setTitleColor(standard_Button, forState: .Normal)
-        mVolunteerButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
+        mVolunteerButton.setTitleColor(standard_Button, for: UIControlState())
+        mVolunteerButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
         mVolunteerButton.titleLabel?.font = UIFont(name: HelveticaNeueThin, size: 50)
-        mVolunteerButton.addTarget(self, action: #selector(QueryVolunteerSubView.onVonulteerButton), forControlEvents: .TouchUpInside)
-        mVolunteerButton.backgroundColor = UIColor.clearColor()
+        mVolunteerButton.addTarget(self, action: #selector(QueryVolunteerSubView.onVonulteerButton), for: .touchUpInside)
+        mVolunteerButton.backgroundColor = UIColor.clear
 
         
-        mVolunteeredCountScrollview.frame = CGRectMake(10, mVolunteerButton.frame.size.height - 10, mVolunteerButton.frame.size.width - 20, 10)
+        mVolunteeredCountScrollview.frame = CGRect(x: 10, y: mVolunteerButton.frame.size.height - 10, width: mVolunteerButton.frame.size.width - 20, height: 10)
         mVolunteerButton.addSubview(mVolunteeredCountScrollview)
         
         
         
         
-        let lineImage1 = UIImageView(frame:CGRectMake(mVolunteerButton.frame.origin.x, 10, 1, self.frame.size.height - 20));
+        let lineImage1 = UIImageView(frame:CGRect(x: mVolunteerButton.frame.origin.x, y: 10, width: 1, height: self.frame.size.height - 20));
         lineImage1.backgroundColor = progressviewBackground
         self.addSubview(lineImage1);
         
         
         
-        mMetooLabel.frame = CGRectMake((lineImage1.frame.origin.x - lineImage1.frame.size.width)  - mVolunteerButton.frame.size.width , 0, mVolunteerButton.frame.size.width, self.frame.size.height)
+        mMetooLabel.frame = CGRect(x: (lineImage1.frame.origin.x - lineImage1.frame.size.width)  - mVolunteerButton.frame.size.width , y: 0, width: mVolunteerButton.frame.size.width, height: self.frame.size.height)
         mMetooLabel.text = "0"
         mMetooLabel.textColor = blackTextColor
         self.addSubview(mMetooLabel)
         mMetooLabel.font = UIFont(name: HelveticaNeueThin, size: 50)
         
-        mMetooLabel.textAlignment = .Center
+        mMetooLabel.textAlignment = .center
 
         
         
-        let lineImage = UIImageView(frame:CGRectMake(mMetooLabel.frame.origin.x, 10, 1, self.frame.size.height - 20));
+        let lineImage = UIImageView(frame:CGRect(x: mMetooLabel.frame.origin.x, y: 10, width: 1, height: self.frame.size.height - 20));
         lineImage.backgroundColor = progressviewBackground
         self.addSubview(lineImage);
 
         
         
         
-        mQueryLabel.frame = CGRectMake(10 ,0,lineImage.frame.origin.x - 20  , self.frame.size.height)
-        mQueryLabel.textAlignment = .Left;
+        mQueryLabel.frame = CGRect(x: 10 ,y: 0,width: lineImage.frame.origin.x - 20  , height: self.frame.size.height)
+        mQueryLabel.textAlignment = .left;
         mQueryLabel.textColor = blackTextColor
         self.addSubview(mQueryLabel)
-        mQueryLabel.backgroundColor = UIColor.clearColor()
+        mQueryLabel.backgroundColor = UIColor.clear
         mQueryLabel.font = UIFont(name: helveticaRegular, size: 18)
-        mQueryLabel.lineBreakMode = .ByTruncatingMiddle
+        mQueryLabel.lineBreakMode = .byTruncatingMiddle
         mQueryLabel.numberOfLines = 1
-        mQueryLabel.textAlignment = .Left
+        mQueryLabel.textAlignment = .left
         
         
         
@@ -108,7 +108,7 @@ class QueryVolunteerSubView: UIView
     }
     
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -119,7 +119,7 @@ class QueryVolunteerSubView: UIView
     }
     
     
-    func setQueryWithDetails(details:AnyObject)
+    func setQueryWithDetails(_ details:AnyObject)
     {
         currentQueryDetails = details
         print(details)
@@ -136,37 +136,37 @@ class QueryVolunteerSubView: UIView
             
             delegate().delegateVolunteerButtonPressedWithVolunteersArray!(mVolunteersDetailsArray, withVolunteerButton: mVolunteerButton)
             
-            mVolunteerButton.setTitle("\(mVolunteersDetailsArray.count)", forState: .Normal)
+            mVolunteerButton.setTitle("\(mVolunteersDetailsArray.count)", for: UIControlState())
         }
        
     }
-    func removeVolunteerWithDetails(details:AnyObject)
+    func removeVolunteerWithDetails(_ details:AnyObject)
     {
-        if mVolunteersDetailsArray.containsObject(details)
+        if mVolunteersDetailsArray.contains(details)
         {
-            mVolunteersDetailsArray.removeObject(details)
+            mVolunteersDetailsArray.remove(details)
         }
         
         
-        mVolunteerButton.setTitle("\(mVolunteersDetailsArray.count)", forState: .Normal)
+        mVolunteerButton.setTitle("\(mVolunteersDetailsArray.count)", for: UIControlState())
     }
     
     
-    func setMeTooSelectedStudents(studentId:String)
+    func setMeTooSelectedStudents(_ studentId:String)
     {
-        if mmMetooSelectedArray.containsObject(studentId) == false
+        if mmMetooSelectedArray.contains(studentId) == false
         {
-            mmMetooSelectedArray.addObject(studentId)
+            mmMetooSelectedArray.add(studentId)
         }
         
           mMetooLabel.text = "\(mmMetooSelectedArray.count)"
     }
     
-    func removeMeTooWithStudents(studentId:String)
+    func removeMeTooWithStudents(_ studentId:String)
     {
-        if mmMetooSelectedArray.containsObject(studentId)
+        if mmMetooSelectedArray.contains(studentId)
         {
-            mmMetooSelectedArray.removeObject(studentId)
+            mmMetooSelectedArray.remove(studentId)
         }
         
         
@@ -175,21 +175,21 @@ class QueryVolunteerSubView: UIView
        mMetooLabel.text = "\(mmMetooSelectedArray.count)"
     }
     
-    func setVolunteersDetials(details:AnyObject)
+    func setVolunteersDetials(_ details:AnyObject)
     {
-        mVolunteersDetailsArray.addObject(details)
+        mVolunteersDetailsArray.add(details)
         
         
-         mVolunteerButton.setTitle("\(mVolunteersDetailsArray.count)", forState: .Normal)
+         mVolunteerButton.setTitle("\(mVolunteersDetailsArray.count)", for: UIControlState())
         
     }
     
     
-    func incrementVolunteeredCountwithPercentage(percentage:CGFloat)
+    func incrementVolunteeredCountwithPercentage(_ percentage:CGFloat)
     {
       
         
-       let subViews = VolunteeredDotView(frame:CGRectMake(currentVolunteerCount, 0, mVolunteeredCountScrollview.frame.size.height,  mVolunteeredCountScrollview.frame.size.height))
+       let subViews = VolunteeredDotView(frame:CGRect(x: currentVolunteerCount, y: 0, width: mVolunteeredCountScrollview.frame.size.height,  height: mVolunteeredCountScrollview.frame.size.height))
         mVolunteeredCountScrollview.addSubview(subViews)
         subViews.layer.cornerRadius = subViews.frame.size.width/2
         subViews.layer.masksToBounds = true
@@ -197,7 +197,7 @@ class QueryVolunteerSubView: UIView
         
         currentVolunteerCount = currentVolunteerCount +  mVolunteeredCountScrollview.frame.size.height + 2
         
-        mVolunteeredCountScrollview.contentSize = CGSizeMake(currentVolunteerCount, 0)
+        mVolunteeredCountScrollview.contentSize = CGSize(width: currentVolunteerCount, height: 0)
         
         
         var dotColor =  UIColor(red: 76.0/255.0, green: 217.0/255.0, blue: 100.0/255.0, alpha: 1)

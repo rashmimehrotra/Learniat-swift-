@@ -11,7 +11,7 @@ import Foundation
 @objc protocol SSTeacherSchedulePopoverControllerDelegate
 {
     
-    optional func delegateSessionEnded()
+    @objc optional func delegateSessionEnded()
     
     
 }
@@ -21,7 +21,6 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
     
     var _delgate: AnyObject!
     
-    var _Popover:AnyObject!
     
     var _currentScreenSize = CGSize()
     
@@ -33,10 +32,10 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
     
     var mCurrentTimeLine :CurrentTimeLineView!
     
-    var timer = NSTimer()
+    var timer = Timer()
     
     
-    override func viewWillDisappear(animated: Bool)
+    override func viewWillDisappear(_ animated: Bool)
     {
         
          timer.invalidate()
@@ -53,12 +52,12 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
         self.view.setNeedsLayout()
         self.view.layoutIfNeeded()
         
-        let  mTopbarImageView = UIImageView(frame: CGRectMake(0, 0, _currentScreenSize.width, 50))
-        mTopbarImageView.backgroundColor = UIColor.whiteColor()
+        let  mTopbarImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: _currentScreenSize.width, height: 50))
+        mTopbarImageView.backgroundColor = UIColor.white
         self.view.addSubview(mTopbarImageView)
-        mTopbarImageView.userInteractionEnabled = true
+        mTopbarImageView.isUserInteractionEnabled = true
         
-        let mTodaysSchedule = UILabel(frame: CGRectMake((mTopbarImageView.frame.size.width - 200)/2, 0, 200, mTopbarImageView.frame.size.height))
+        let mTodaysSchedule = UILabel(frame: CGRect(x: (mTopbarImageView.frame.size.width - 200)/2, y: 0, width: 200, height: mTopbarImageView.frame.size.height))
         mTodaysSchedule.font = UIFont(name:helveticaRegular, size: 20)
         mTodaysSchedule.text = "Today's schedule"
         mTopbarImageView.addSubview(mTodaysSchedule)
@@ -66,54 +65,54 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
         
         
         
-        let  mDoneButton = UIButton(frame: CGRectMake(mTopbarImageView.frame.size.width - 120, 0, 100, 40))
-        mDoneButton.addTarget(self, action: #selector(SSTeacherSchedulePopoverController.onDoneButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mDoneButton.setTitleColor(standard_Button, forState: .Normal)
-        mDoneButton.setTitle("Done", forState: .Normal)
-        mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        let  mDoneButton = UIButton(frame: CGRect(x: mTopbarImageView.frame.size.width - 120, y: 0, width: 100, height: 40))
+        mDoneButton.addTarget(self, action: #selector(SSTeacherSchedulePopoverController.onDoneButton), for: UIControlEvents.touchUpInside)
+        mDoneButton.setTitleColor(standard_Button, for: UIControlState())
+        mDoneButton.setTitle("Done", for: UIControlState())
+        mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         mDoneButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
         mTopbarImageView.addSubview(mDoneButton)
         
 
-         activityIndicator  =  UIActivityIndicatorView(activityIndicatorStyle:.Gray)
-        activityIndicator.frame = CGRectMake(mDoneButton.frame.origin.x - 40,  0,mTopbarImageView.frame.size.height,mTopbarImageView.frame.size.height)
+         activityIndicator  =  UIActivityIndicatorView(activityIndicatorStyle:.gray)
+        activityIndicator.frame = CGRect(x: mDoneButton.frame.origin.x - 40,  y: 0,width: mTopbarImageView.frame.size.height,height: mTopbarImageView.frame.size.height)
         mTopbarImageView.addSubview(activityIndicator)
-        activityIndicator.hidden = true
+        activityIndicator.isHidden = true
         
         
         
-        mScrollView = UIScrollView(frame: CGRectMake(0,mTopbarImageView.frame.size.height,_currentScreenSize.width,_currentScreenSize.height - (mTopbarImageView.frame.size.height * 2)))
-        mScrollView.backgroundColor = UIColor.clearColor()
+        mScrollView = UIScrollView(frame: CGRect(x: 0,y: mTopbarImageView.frame.size.height,width: _currentScreenSize.width,height: _currentScreenSize.height - (mTopbarImageView.frame.size.height * 2)))
+        mScrollView.backgroundColor = UIColor.clear
         self.view.addSubview(mScrollView)
         
         
           addNumberOfLinesToScrollView()
         
         
-        let  mEndClassButton = UIButton(frame: CGRectMake(0, _currentScreenSize.height - 50 , _currentScreenSize.width, 50))
-        mEndClassButton.addTarget(self, action: #selector(SSTeacherSchedulePopoverController.onEndSession), forControlEvents: UIControlEvents.TouchUpInside)
-        mEndClassButton.setTitleColor(standard_Red, forState: .Normal)
-        mEndClassButton.setTitle("End class", forState: .Normal)
-        mEndClassButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
+        let  mEndClassButton = UIButton(frame: CGRect(x: 0, y: _currentScreenSize.height - 50 , width: _currentScreenSize.width, height: 50))
+        mEndClassButton.addTarget(self, action: #selector(SSTeacherSchedulePopoverController.onEndSession), for: UIControlEvents.touchUpInside)
+        mEndClassButton.setTitleColor(standard_Red, for: UIControlState())
+        mEndClassButton.setTitle("End class", for: UIControlState())
+        mEndClassButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
         mEndClassButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
         self.view.addSubview(mEndClassButton)
-        mEndClassButton.backgroundColor = UIColor.whiteColor()
+        mEndClassButton.backgroundColor = UIColor.white
         
         
         SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
-        activityIndicator.hidden = false
+        activityIndicator.isHidden = false
         activityIndicator.startAnimating()
         
         
-        let currentDate = NSDate()
-        mCurrentTimeLine = CurrentTimeLineView(frame: CGRectMake(0, 0 , self.view.frame.size.width-30, 10))
+        let currentDate = Date()
+        mCurrentTimeLine = CurrentTimeLineView(frame: CGRect(x: 0, y: 0 , width: self.view.frame.size.width-30, height: 10))
         mScrollView.addSubview(mCurrentTimeLine)
         mCurrentTimeLine.addToCurrentTimewithHours(getPositionWithHour(currentDate.hour(), withMinute: currentDate.minute()))
-        mScrollView.contentOffset = CGPointMake(0,mCurrentTimeLine.frame.origin.y-self.view.frame.size.height/3);
+        mScrollView.contentOffset = CGPoint(x: 0,y: mCurrentTimeLine.frame.origin.y-self.view.frame.size.height/3);
         
         
         
-        timer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: #selector(SSTeacherSchedulePopoverController.timerAction), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(SSTeacherSchedulePopoverController.timerAction), userInfo: nil, repeats: true)
         
         
         
@@ -130,7 +129,7 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
         
          for index in 0 ..< 24
         {
-            let hourlabel = UILabel(frame: CGRectMake(10, positionY-15,50,30))
+            let hourlabel = UILabel(frame: CGRect(x: 10, y: positionY-15,width: 50,height: 30))
             mScrollView.addSubview(hourlabel)
             hourlabel.textColor = standard_TextGrey
             if index == 0
@@ -151,12 +150,12 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
                 hourValue = hourValue+1
             }
             hourlabel.font = UIFont (name: helveticaRegular, size: 16)
-            hourlabel.textAlignment = NSTextAlignment.Right
+            hourlabel.textAlignment = NSTextAlignment.right
             
             
             
             let hourLineView = ScheduleScreenLineView()
-            hourLineView.frame = CGRectMake(70, positionY, self.view.frame.size.width-70, 1)
+            hourLineView.frame = CGRect(x: 70, y: positionY, width: self.view.frame.size.width-70, height: 1)
             positionsArray[String("\(index)")] = positionY
             mScrollView.addSubview(hourLineView)
             
@@ -166,26 +165,26 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
             if index != 24
             {
                 let halfHourLineView =  DottedLine()
-                halfHourLineView.frame = CGRectMake(75, positionY + (oneHourDiff/2), self.view.frame.size.width-80, 2)
+                halfHourLineView.frame = CGRect(x: 75, y: positionY + (oneHourDiff/2), width: self.view.frame.size.width-80, height: 2)
                 
                 mScrollView.addSubview(halfHourLineView)
-                halfHourLineView.drawDashedBorderAroundViewWithColor(UIColor(red: 153/255.0, green: 153/255.0, blue: 153/255.0, alpha: 1))
+                halfHourLineView.drawDashedBorderAroundView(with: UIColor(red: 153/255.0, green: 153/255.0, blue: 153/255.0, alpha: 1))
                 positionY = positionY + oneHourDiff
             }
             
             
         }
         
-        mScrollView.contentSize = CGSizeMake(0, positionY + oneHourDiff / 2 )
+        mScrollView.contentSize = CGSize(width: 0, height: positionY + oneHourDiff / 2 )
     }
     
     
-    func setCurrentScreenSize(size:CGSize)
+    func setCurrentScreenSize(_ size:CGSize)
     {
         _currentScreenSize = size
     }
    
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -195,29 +194,31 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
         return _delgate;
     }
     
-    func setPopover(popover:AnyObject)
+    
+    var _Popover:UIPopoverController!
+    
+    func setPopover(_ popover:UIPopoverController)
     {
         _Popover = popover
     }
     
-    func popover()-> AnyObject
+    func popover()-> UIPopoverController
     {
         return _Popover
     }
     
     
-    
     func onDoneButton()
     {
-        popover().dismissPopoverAnimated(true)
+       popover().dismiss(animated: true)
     }
     
     
     func onEndSession()
     {
-        popover().dismissPopoverAnimated(true)
+       popover().dismiss(animated: true)
         
-        if delegate().respondsToSelector(#selector(SSTeacherSchedulePopoverControllerDelegate.delegateSessionEnded))
+        if delegate().responds(to: #selector(SSTeacherSchedulePopoverControllerDelegate.delegateSessionEnded))
         {
             delegate().delegateSessionEnded!()
         }
@@ -225,7 +226,7 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
     
     func timerAction()
     {
-        let currentDate = NSDate()
+        let currentDate = Date()
         
         let currentHour = (currentDate.hour())
         
@@ -235,43 +236,41 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
     
     // MARK: - Teacher datasource Error
     
-    func didgetErrorMessage(message: String, WithServiceName serviceName: String)
+    func didgetErrorMessage(_ message: String, WithServiceName serviceName: String)
     {
-        self.view.makeToast(message, duration: 5.0, position: .Bottom)
+        self.view.makeToast(message, duration: 5.0, position: .bottom)
         
-        activityIndicator.hidden = true
+        activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
         
     }
     
     // MARK: - Teacher datasource Delegate
     
-    func didGetSchedulesWithDetials(details: AnyObject)
+    func didGetSchedulesWithDetials(_ details: AnyObject)
     {
         var sessionDetailsArray = NSMutableArray()
         
-        if let statusString = details.objectForKey("Status") as? String
+        if let statusString = details.object(forKey: "Status") as? String
         {
             if statusString == kSuccessString
             {
                
-                mScrollView.hidden = false
+                mScrollView.isHidden = false
                 
-                let classCheckingVariable = details.objectForKey(kSessions)!.objectForKey(kSubSession)!
-                
-                if classCheckingVariable.isKindOfClass(NSMutableArray)
+                if let classCheckingVariable = (details.object(forKey: kSessions)! as AnyObject).object(forKey: kSubSession) as? NSMutableArray
                 {
-                    sessionDetailsArray = classCheckingVariable as! NSMutableArray
+                       sessionDetailsArray = classCheckingVariable
                 }
                 else
                 {
-                    sessionDetailsArray.addObject(details.objectForKey(kSessions)!.objectForKey(kSubSession)!)
+                    sessionDetailsArray.add((details.object(forKey: kSessions)! as AnyObject).object(forKey: kSubSession)!)
                     
                 }
             }
             else
             {
-                               mScrollView.hidden = true
+                               mScrollView.isHidden = true
             }
         }
         
@@ -282,23 +281,23 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
         
         for index in 0 ..< sessionDetailsArray.count
         {
-            let dict = sessionDetailsArray.objectAtIndex(index)
+            let dict = sessionDetailsArray.object(at: index)
             
-            let startDate :String = (dict.objectForKey(kStartTime) as! String)
-            let endDate = (dict.objectForKey(kEndTime) as! String!)
-            let totalSize = getSizeOfCalendarEvernWithStarthour(startDate.hourValue(), withstartMinute: startDate.minuteValue(), withEndHour: endDate.hourValue(), withEndMinute: endDate.minuteValue())
+            let startDate :String = ((dict as AnyObject).object(forKey: kStartTime) as! String)
+            let endDate = ((dict as AnyObject).object(forKey: kEndTime) as! String!)
+            let totalSize = getSizeOfCalendarEvernWithStarthour(startDate.hourValue(), withstartMinute: startDate.minuteValue(), withEndHour: (endDate?.hourValue())!, withEndMinute: (endDate?.minuteValue())!)
             let StartPositionOfTile = getPositionWithHour(startDate.hourValue(), withMinute: startDate.minuteValue())
             
             
-            let scheduleTileView = ScheduleScreenTile(frame: CGRectMake(85, StartPositionOfTile, self.view.frame.size.width-95, totalSize))
+            let scheduleTileView = ScheduleScreenTile(frame: CGRect(x: 85, y: StartPositionOfTile, width: self.view.frame.size.width-95, height: totalSize))
             mScrollView.addSubview(scheduleTileView)
             scheduleTileView.setdelegate(self)
             
             
-            let sessionid = dict.objectForKey(kSessionId) as! String
+            let sessionid = (dict as AnyObject).object(forKey: kSessionId) as! String
             
             scheduleTileView.tag = Int(sessionid)!
-            scheduleTileView.setCurrentSessionDetails(dict)
+            scheduleTileView.setCurrentSessionDetails(dict as AnyObject)
            
             
             
@@ -307,16 +306,16 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
         
         
         
-        let currentDate = NSDate()
+        let currentDate = Date()
         let currentHour = (currentDate.hour())
         mCurrentTimeLine.addToCurrentTimewithHours(getPositionWithHour(currentHour, withMinute: currentDate.minute()))
-        UIView.animateWithDuration(0.5, animations: {
-            self.mScrollView.contentOffset = CGPointMake(0,self.mCurrentTimeLine.frame.origin.y - self.view.frame.size.height/3);
+        UIView.animate(withDuration: 0.5, animations: {
+            self.mScrollView.contentOffset = CGPoint(x: 0,y: self.mCurrentTimeLine.frame.origin.y - self.view.frame.size.height/3);
         })
         
         
         
-            activityIndicator.hidden = true
+            activityIndicator.isHidden = true
             activityIndicator.stopAnimating()
         
         
@@ -325,7 +324,7 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
     
     // MARK: - Returning Functions
     
-    func getPositionWithHour(_hour : Int, withMinute minute:Int) -> CGFloat
+    func getPositionWithHour(_ _hour : Int, withMinute minute:Int) -> CGFloat
     {
         //        hour = hour
         
@@ -346,7 +345,7 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
     
     
     
-    func getSizeOfCalendarEvernWithStarthour(startHour: Int, withstartMinute startMinute:Int, withEndHour endHour:Int, withEndMinute endMinute:Int) -> CGFloat
+    func getSizeOfCalendarEvernWithStarthour(_ startHour: Int, withstartMinute startMinute:Int, withEndHour endHour:Int, withEndMinute endMinute:Int) -> CGFloat
     {
         
         let startPosition = getPositionWithHour(startHour, withMinute: startMinute)

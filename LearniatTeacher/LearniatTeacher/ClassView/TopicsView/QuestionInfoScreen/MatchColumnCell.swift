@@ -26,22 +26,22 @@ class MatchColumnCell: UIView
         
         
         
-        leftOptionsLabel.frame = CGRectMake(10, 0, 220, self.frame.size.height);
-        leftOptionsLabel.textAlignment = .Center;
+        leftOptionsLabel.frame = CGRect(x: 10, y: 0, width: 220, height: self.frame.size.height);
+        leftOptionsLabel.textAlignment = .center;
         leftOptionsLabel.text = "leftOption"
         self.addSubview(leftOptionsLabel)
-        leftOptionsLabel.lineBreakMode = .ByTruncatingMiddle
+        leftOptionsLabel.lineBreakMode = .byTruncatingMiddle
         
         leftOptionsLabel.font = UIFont(name: helveticaRegular, size: 20)
         leftOptionsLabel.numberOfLines = 10;
         leftOptionsLabel.textColor  = blackTextColor
         
         
-        rightOptionsLabel.frame = CGRectMake(self.frame.size.width - 10, 20, 220, self.frame.size.height -  40 );
-        rightOptionsLabel.textAlignment = .Center;
+        rightOptionsLabel.frame = CGRect(x: self.frame.size.width - 10, y: 20, width: 220, height: self.frame.size.height -  40 );
+        rightOptionsLabel.textAlignment = .center;
         rightOptionsLabel.text = "leftOption"
         self.addSubview(rightOptionsLabel)
-        rightOptionsLabel.lineBreakMode = .ByTruncatingMiddle
+        rightOptionsLabel.lineBreakMode = .byTruncatingMiddle
         rightOptionsLabel.font = UIFont(name: helveticaRegular, size: 20)
         
         rightOptionsLabel.numberOfLines = 10;
@@ -50,9 +50,9 @@ class MatchColumnCell: UIView
 
         
         _optionValueImageView = UIImageView()
-        _optionValueImageView.frame = CGRectMake(240, (self.frame.size.height-25)/2, 20, 20);
+        _optionValueImageView.frame = CGRect(x: 240, y: (self.frame.size.height-25)/2, width: 20, height: 20);
         self.addSubview(_optionValueImageView);
-        _optionValueImageView.contentMode = .ScaleAspectFit
+        _optionValueImageView.contentMode = .scaleAspectFit
         
         
     }
@@ -61,9 +61,9 @@ class MatchColumnCell: UIView
         fatalError("init(coder:) has not been implemented")
     }
     
-    func getHeightWithDetails(leftOptiondetails:AnyObject, withRightOptionDetails rightOptionsDetails:AnyObject)->CGFloat
+    func getHeightWithDetails(_ leftOptiondetails:AnyObject, withRightOptionDetails rightOptionsDetails:AnyObject)->CGFloat
     {
-        if let OptionText = leftOptiondetails.objectForKey("OptionText") as? String
+        if let OptionText = leftOptiondetails.object(forKey: "OptionText") as? String
         {
             leftOptionsLabel.text = OptionText
         }
@@ -72,7 +72,7 @@ class MatchColumnCell: UIView
             leftOptionsLabel.text = ""
         }
         
-        if let OptionText = rightOptionsDetails.objectForKey("OptionText") as? String
+        if let OptionText = rightOptionsDetails.object(forKey: "OptionText") as? String
         {
             rightOptionsLabel.text = OptionText
         }
@@ -106,21 +106,21 @@ class MatchColumnCell: UIView
     
     func changeFrameWithSize()
     {
-        leftOptionsLabel.frame = CGRectMake(10, 20, 220, self.frame.size.height -  40 );
-        _optionValueImageView.frame = CGRectMake(240, (self.frame.size.height-25)/2, 20, 20);
-        rightOptionsLabel.frame = CGRectMake(self.frame.size.width - 230, 20, 220, self.frame.size.height -  40 );
+        leftOptionsLabel.frame = CGRect(x: 10, y: 20, width: 220, height: self.frame.size.height -  40 );
+        _optionValueImageView.frame = CGRect(x: 240, y: (self.frame.size.height-25)/2, width: 20, height: 20);
+        rightOptionsLabel.frame = CGRect(x: self.frame.size.width - 230, y: 20, width: 220, height: self.frame.size.height -  40 );
     }
     
-    func checkCorretAnswer(isAnswer:Bool)
+    func checkCorretAnswer(_ isAnswer:Bool)
     {
        
     }
     
-    func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat
+    func heightForView(_ text:String, font:UIFont, width:CGFloat) -> CGFloat
     {
-        let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max))
+        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
         label.numberOfLines = 0
-        label.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.font = font
         label.text = text
         

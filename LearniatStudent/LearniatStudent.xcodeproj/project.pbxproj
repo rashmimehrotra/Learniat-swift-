@@ -236,18 +236,7 @@
 		533066F31CCA12590035CCDE /* StudentSeatSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533066F21CCA12590035CCDE /* StudentSeatSubView.swift */; };
 		533066F61CCA14280035CCDE /* LBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 533066F51CCA14280035CCDE /* LBorderView.m */; };
 		533066F91CCA37C80035CCDE /* StudentClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533066F81CCA37C80035CCDE /* StudentClassViewController.swift */; };
-		533254FC1CEDBD2700653C00 /* ATKCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 533254F71CEDBD2700653C00 /* ATKCore.framework */; };
-		533254FD1CEDBD2700653C00 /* ATKGeometry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 533254F81CEDBD2700653C00 /* ATKGeometry.framework */; };
-		533254FE1CEDBD2700653C00 /* ATKGeometryWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 533254F91CEDBD2700653C00 /* ATKGeometryWidget.framework */; };
-		533254FF1CEDBD2700653C00 /* ATKMath.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 533254FA1CEDBD2700653C00 /* ATKMath.framework */; };
-		533255001CEDBD2700653C00 /* ATKMathWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 533254FB1CEDBD2700653C00 /* ATKMathWidget.framework */; };
-		533255031CEDBD4700653C00 /* ATKGeometryWidget.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 533255011CEDBD4700653C00 /* ATKGeometryWidget.bundle */; };
-		533255041CEDBD4700653C00 /* ATKMathWidget.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 533255021CEDBD4700653C00 /* ATKMathWidget.bundle */; };
-		533255071CEDBD7600653C00 /* GeometryResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 533255051CEDBD7600653C00 /* GeometryResources.bundle */; };
-		533255081CEDBD7600653C00 /* MathResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 533255061CEDBD7600653C00 /* MathResources.bundle */; };
 		5332550A1CEDBD8E00653C00 /* css in Resources */ = {isa = PBXBuildFile; fileRef = 533255091CEDBD8E00653C00 /* css */; };
-		533255111CEDBE2300653C00 /* TeacherMathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5332550E1CEDBE2300653C00 /* TeacherMathView.swift */; };
-		533255121CEDBE2300653C00 /* TeacherShapesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5332550F1CEDBE2300653C00 /* TeacherShapesView.swift */; };
 		533255141CEDBE4C00653C00 /* SSStudentFullscreenScribbleQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533255131CEDBE4C00653C00 /* SSStudentFullscreenScribbleQuestion.swift */; };
 		533255191CEDBE8700653C00 /* ImageEditorSubView.m in Sources */ = {isa = PBXBuildFile; fileRef = 533255161CEDBE8700653C00 /* ImageEditorSubView.m */; };
 		5332551A1CEDBE8700653C00 /* ImageUploading.m in Sources */ = {isa = PBXBuildFile; fileRef = 533255181CEDBE8700653C00 /* ImageUploading.m */; };
@@ -339,6 +328,7 @@
 		533255D31CEDC40600653C00 /* Resize.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255CC1CEDC40600653C00 /* Resize.png */; };
 		533255D41CEDC40600653C00 /* Shapes.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255CD1CEDC40600653C00 /* Shapes.png */; };
 		533255D51CEDC40600653C00 /* Text.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255CE1CEDC40600653C00 /* Text.png */; };
+		53362BFF1E42FE1A00413262 /* StudentCollaborationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53362BFE1E42FE1A00413262 /* StudentCollaborationView.swift */; };
 		535B8B1F1CE1A20F008B2D7F /* Query_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 535B8B191CE1A20F008B2D7F /* Query_Selected.png */; };
 		535B8B201CE1A20F008B2D7F /* Query.png in Resources */ = {isa = PBXBuildFile; fileRef = 535B8B1A1CE1A20F008B2D7F /* Query.png */; };
 		535B8B211CE1A20F008B2D7F /* Questions_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 535B8B1B1CE1A20F008B2D7F /* Questions_Selected.png */; };
@@ -390,7 +380,6 @@
 		53EEABF31CED9B2D005E4566 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EEABF11CED9B2D005E4566 /* BarView.swift */; };
 		53EEABF41CED9B2D005E4566 /* StudentAnswerGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EEABF21CED9B2D005E4566 /* StudentAnswerGraphView.swift */; };
 		53EEABF71CED9C39005E4566 /* FXLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 53EEABF61CED9C39005E4566 /* FXLabel.m */; };
-		53F2CD841D0BE14900C1DCCC /* com.mindshiftapps.LearniatStudent.c in Sources */ = {isa = PBXBuildFile; fileRef = 53F2CD831D0BE14900C1DCCC /* com.mindshiftapps.LearniatStudent.c */; };
 		53FFD2BF1CE1FC3700A5AA28 /* MultipleChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFD2BC1CE1FC3700A5AA28 /* MultipleChoiceView.swift */; };
 		53FFD2C01CE1FC3700A5AA28 /* multipleResponseOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFD2BD1CE1FC3700A5AA28 /* multipleResponseOptionView.swift */; };
 		53FFD2C11CE1FC3700A5AA28 /* StudentQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFD2BE1CE1FC3700A5AA28 /* StudentQuestionView.swift */; };
@@ -791,19 +780,7 @@
 		533066F41CCA14280035CCDE /* LBorderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBorderView.h; sourceTree = "<group>"; };
 		533066F51CCA14280035CCDE /* LBorderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBorderView.m; sourceTree = "<group>"; };
 		533066F81CCA37C80035CCDE /* StudentClassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentClassViewController.swift; sourceTree = "<group>"; };
-		533254F71CEDBD2700653C00 /* ATKCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ATKCore.framework; path = LearniatStudent/ATKCore.framework; sourceTree = "<group>"; };
-		533254F81CEDBD2700653C00 /* ATKGeometry.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ATKGeometry.framework; path = LearniatStudent/ATKGeometry.framework; sourceTree = "<group>"; };
-		533254F91CEDBD2700653C00 /* ATKGeometryWidget.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ATKGeometryWidget.framework; path = LearniatStudent/ATKGeometryWidget.framework; sourceTree = "<group>"; };
-		533254FA1CEDBD2700653C00 /* ATKMath.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ATKMath.framework; path = LearniatStudent/ATKMath.framework; sourceTree = "<group>"; };
-		533254FB1CEDBD2700653C00 /* ATKMathWidget.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ATKMathWidget.framework; path = LearniatStudent/ATKMathWidget.framework; sourceTree = "<group>"; };
-		533255011CEDBD4700653C00 /* ATKGeometryWidget.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ATKGeometryWidget.bundle; path = Resource/ATKGeometryWidget.bundle; sourceTree = "<group>"; };
-		533255021CEDBD4700653C00 /* ATKMathWidget.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ATKMathWidget.bundle; path = Resource/ATKMathWidget.bundle; sourceTree = "<group>"; };
-		533255051CEDBD7600653C00 /* GeometryResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GeometryResources.bundle; sourceTree = "<group>"; };
-		533255061CEDBD7600653C00 /* MathResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MathResources.bundle; sourceTree = "<group>"; };
 		533255091CEDBD8E00653C00 /* css */ = {isa = PBXFileReference; lastKnownFileType = folder; path = css; sourceTree = "<group>"; };
-		5332550D1CEDBE2300653C00 /* MyCertificate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCertificate.h; sourceTree = "<group>"; };
-		5332550E1CEDBE2300653C00 /* TeacherMathView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeacherMathView.swift; sourceTree = "<group>"; };
-		5332550F1CEDBE2300653C00 /* TeacherShapesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeacherShapesView.swift; sourceTree = "<group>"; };
 		533255131CEDBE4C00653C00 /* SSStudentFullscreenScribbleQuestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSStudentFullscreenScribbleQuestion.swift; sourceTree = "<group>"; };
 		533255151CEDBE8700653C00 /* ImageEditorSubView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageEditorSubView.h; sourceTree = "<group>"; };
 		533255161CEDBE8700653C00 /* ImageEditorSubView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageEditorSubView.m; sourceTree = "<group>"; };
@@ -902,6 +879,7 @@
 		533255CC1CEDC40600653C00 /* Resize.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Resize.png; sourceTree = "<group>"; };
 		533255CD1CEDC40600653C00 /* Shapes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Shapes.png; sourceTree = "<group>"; };
 		533255CE1CEDC40600653C00 /* Text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Text.png; sourceTree = "<group>"; };
+		53362BFE1E42FE1A00413262 /* StudentCollaborationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentCollaborationView.swift; sourceTree = "<group>"; };
 		535B8B191CE1A20F008B2D7F /* Query_Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Query_Selected.png; sourceTree = "<group>"; };
 		535B8B1A1CE1A20F008B2D7F /* Query.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Query.png; sourceTree = "<group>"; };
 		535B8B1B1CE1A20F008B2D7F /* Questions_Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Questions_Selected.png; sourceTree = "<group>"; };
@@ -963,7 +941,6 @@
 		53EEABF21CED9B2D005E4566 /* StudentAnswerGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerGraphView.swift; sourceTree = "<group>"; };
 		53EEABF51CED9C39005E4566 /* FXLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXLabel.h; sourceTree = "<group>"; };
 		53EEABF61CED9C39005E4566 /* FXLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXLabel.m; sourceTree = "<group>"; };
-		53F2CD831D0BE14900C1DCCC /* com.mindshiftapps.LearniatStudent.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = com.mindshiftapps.LearniatStudent.c; sourceTree = "<group>"; };
 		53FFD2BC1CE1FC3700A5AA28 /* MultipleChoiceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipleChoiceView.swift; sourceTree = "<group>"; };
 		53FFD2BD1CE1FC3700A5AA28 /* multipleResponseOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = multipleResponseOptionView.swift; sourceTree = "<group>"; };
 		53FFD2BE1CE1FC3700A5AA28 /* StudentQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentQuestionView.swift; sourceTree = "<group>"; };
@@ -975,10 +952,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				533254FD1CEDBD2700653C00 /* ATKGeometry.framework in Frameworks */,
-				533254FE1CEDBD2700653C00 /* ATKGeometryWidget.framework in Frameworks */,
-				533254FF1CEDBD2700653C00 /* ATKMath.framework in Frameworks */,
-				533255001CEDBD2700653C00 /* ATKMathWidget.framework in Frameworks */,
 				533066D71CC9E6710035CCDE /* Security.framework in Frameworks */,
 				533066D51CC9E65D0035CCDE /* CoreLocation.framework in Frameworks */,
 				533066D31CC9E6540035CCDE /* SystemConfiguration.framework in Frameworks */,
@@ -990,7 +963,6 @@
 				533066C71CC9E6180035CCDE /* Foundation.framework in Frameworks */,
 				533066C51CC9E60D0035CCDE /* CoreGraphics.framework in Frameworks */,
 				533066C31CC9E5F40035CCDE /* libidn.a in Frameworks */,
-				533254FC1CEDBD2700653C00 /* ATKCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1050,6 +1022,7 @@
 			isa = PBXGroup;
 			children = (
 				532D27F81CE9B2C7009FDF6A /* StudentOTFView.swift */,
+				53362BFE1E42FE1A00413262 /* StudentCollaborationView.swift */,
 				532D27F91CE9B2C7009FDF6A /* StudentPollingView.swift */,
 				532D27FC1CE9B580009FDF6A /* PollingSubView.swift */,
 			);
@@ -1059,11 +1032,6 @@
 		533064601CC9DAAE0035CCDE = {
 			isa = PBXGroup;
 			children = (
-				533254F71CEDBD2700653C00 /* ATKCore.framework */,
-				533254F81CEDBD2700653C00 /* ATKGeometry.framework */,
-				533254F91CEDBD2700653C00 /* ATKGeometryWidget.framework */,
-				533254FA1CEDBD2700653C00 /* ATKMath.framework */,
-				533254FB1CEDBD2700653C00 /* ATKMathWidget.framework */,
 				533066D61CC9E6710035CCDE /* Security.framework */,
 				533066D41CC9E65D0035CCDE /* CoreLocation.framework */,
 				533066D21CC9E6540035CCDE /* SystemConfiguration.framework */,
@@ -1090,8 +1058,6 @@
 		5330646B1CC9DAAE0035CCDE /* LearniatStudent */ = {
 			isa = PBXGroup;
 			children = (
-				533255011CEDBD4700653C00 /* ATKGeometryWidget.bundle */,
-				533255021CEDBD4700653C00 /* ATKMathWidget.bundle */,
 				533064A71CC9E52E0035CCDE /* common */,
 				5330646C1CC9DAAE0035CCDE /* AppDelegate.swift */,
 				5330647E1CC9E2FC0035CCDE /* INILoader.swift */,
@@ -2102,8 +2068,6 @@
 				533255CE1CEDC40600653C00 /* Text.png */,
 				5332552A1CEDC2A500653C00 /* ScribbleView */,
 				533255091CEDBD8E00653C00 /* css */,
-				533255051CEDBD7600653C00 /* GeometryResources.bundle */,
-				533255061CEDBD7600653C00 /* MathResources.bundle */,
 				532D27FE1CE9CA9C009FDF6A /* poll_icon_selected.png */,
 				532D27FF1CE9CA9C009FDF6A /* poll_icon_unselected.png */,
 				531FB4571CE5EBB900DC0C6F /* ic_thumb_down_red_48dp.png */,
@@ -2170,10 +2134,6 @@
 			isa = PBXGroup;
 			children = (
 				533255131CEDBE4C00653C00 /* SSStudentFullscreenScribbleQuestion.swift */,
-				53F2CD831D0BE14900C1DCCC /* com.mindshiftapps.LearniatStudent.c */,
-				5332550D1CEDBE2300653C00 /* MyCertificate.h */,
-				5332550E1CEDBE2300653C00 /* TeacherMathView.swift */,
-				5332550F1CEDBE2300653C00 /* TeacherShapesView.swift */,
 			);
 			path = FullScreenQuestion;
 			sourceTree = "<group>";
@@ -2422,6 +2382,8 @@
 					533064681CC9DAAE0035CCDE = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = C744MS63KY;
+						LastSwiftMigration = 0820;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -2477,7 +2439,6 @@
 				533255B61CEDC2A500653C00 /* Redo_Disabled.png in Resources */,
 				533255C01CEDC2A500653C00 /* Text_Selected@2x.png in Resources */,
 				5332557A1CEDC2A500653C00 /* Dark_Blue_Circle.png in Resources */,
-				533255071CEDBD7600653C00 /* GeometryResources.bundle in Resources */,
 				53015BBD1CE5D93C00BB366C /* Unlike_Disabled.png in Resources */,
 				533255C41CEDC2A500653C00 /* Undo_Active.png in Resources */,
 				53BFD5991CEF87E600B52B33 /* Star.png in Resources */,
@@ -2516,7 +2477,6 @@
 				5332559A1CEDC2A500653C00 /* Tick_mark_image.png in Resources */,
 				533255911CEDC2A500653C00 /* Tab_bar_Button_AnnotateView.png in Resources */,
 				530720C41D027E5E001C85F6 /* Icon-76.png in Resources */,
-				533255031CEDBD4700653C00 /* ATKGeometryWidget.bundle in Resources */,
 				5332557B1CEDC2A500653C00 /* Dark_Blue_Circle@2x.png in Resources */,
 				531FB44C1CE5EB5B00DC0C6F /* Roboto-Regular.ttf in Resources */,
 				533255D51CEDC40600653C00 /* Text.png in Resources */,
@@ -2549,7 +2509,6 @@
 				531FB4501CE5EB5B00DC0C6F /* RobotoCondensed-BoldItalic.ttf in Resources */,
 				535B8B201CE1A20F008B2D7F /* Query.png in Resources */,
 				5332557F1CEDC2A500653C00 /* Eraser_Unselected_AnnotateView.png in Resources */,
-				533255081CEDBD7600653C00 /* MathResources.bundle in Resources */,
 				533255C31CEDC2A500653C00 /* Unchecked.png in Resources */,
 				533255B01CEDC2A500653C00 /* Marker_Unselected.png in Resources */,
 				531FB4541CE5EB5B00DC0C6F /* RobotoCondensed-Regular.ttf in Resources */,
@@ -2589,7 +2548,6 @@
 				531FB44A1CE5EB5B00DC0C6F /* Roboto-Medium.ttf in Resources */,
 				53A482E01CE45FD000C90451 /* indicator9.png in Resources */,
 				535B8B2E1CE1F8DE008B2D7F /* wrong.png in Resources */,
-				533255041CEDBD4700653C00 /* ATKMathWidget.bundle in Resources */,
 				5332558F1CEDC2A500653C00 /* Star_Unselected_AnnotateView.png in Resources */,
 				533064C51CC9E52E0035CCDE /* Wrong.png in Resources */,
 				535B8B241CE1A20F008B2D7F /* Submission.png in Resources */,
@@ -2679,6 +2637,7 @@
 				533066851CC9E5F40035CCDE /* XMPPDateTimeProfiles.m in Sources */,
 				53A482E71CE4893C00C90451 /* StudentVolunteeringView.swift in Sources */,
 				533066431CC9E5F40035CCDE /* NSXMLElement+XMPP.m in Sources */,
+				53362BFF1E42FE1A00413262 /* StudentCollaborationView.swift in Sources */,
 				5330646D1CC9DAAE0035CCDE /* AppDelegate.swift in Sources */,
 				533066B21CC9E5F40035CCDE /* XMPPStringPrep.m in Sources */,
 				533066AA1CC9E5F40035CCDE /* NSXMLElement+XEP_0335.m in Sources */,
@@ -2698,7 +2657,6 @@
 				5330667F1CC9E5F40035CCDE /* XMPPPubSub.m in Sources */,
 				533066591CC9E5F40035CCDE /* XMPPRoster.m in Sources */,
 				533066821CC9E5F40035CCDE /* XMPPMessage+XEP_0066.m in Sources */,
-				533255111CEDBE2300653C00 /* TeacherMathView.swift in Sources */,
 				533066C01CC9E5F40035CCDE /* DDXMLElement.m in Sources */,
 				533066981CC9E5F40035CCDE /* XMPPMessageDeliveryReceipts.m in Sources */,
 				533066481CC9E5F40035CCDE /* XMPPModule.m in Sources */,
@@ -2732,7 +2690,6 @@
 				533066E71CC9EDD90035CCDE /* ScheduleScreenTile.swift in Sources */,
 				53A482E11CE45FD000C90451 /* CustomProgressImageView.m in Sources */,
 				533066B31CC9E5F40035CCDE /* XMPPTimer.m in Sources */,
-				53F2CD841D0BE14900C1DCCC /* com.mindshiftapps.LearniatStudent.c in Sources */,
 				533066E91CC9EDD90035CCDE /* SSStudentScheduleViewController.swift in Sources */,
 				533255191CEDBE8700653C00 /* ImageEditorSubView.m in Sources */,
 				53A552221CF9A8B70093634A /* PlistDownloder.m in Sources */,
@@ -2794,7 +2751,6 @@
 				5330663F1CC9E5F40035CCDE /* XMPPXFacebookPlatformAuthentication.m in Sources */,
 				533066451CC9E5F40035CCDE /* XMPPIQ.m in Sources */,
 				533066B61CC9E5F40035CCDE /* DDASLLogger.m in Sources */,
-				533255121CEDBE2300653C00 /* TeacherShapesView.swift in Sources */,
 				5330668F1CC9E5F40035CCDE /* XMPPMessageArchiving.xcdatamodeld in Sources */,
 				53A482B81CE43A3F00C90451 /* MatchColumnView.swift in Sources */,
 				533066671CC9E5F40035CCDE /* XMPPRoomMessageHybridCoreDataStorageObject.m in Sources */,
@@ -2947,6 +2903,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: deepak mk (862RK2T33X)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: deepak mk (862RK2T33X)";
+				DEVELOPMENT_TEAM = C744MS63KY;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2966,9 +2924,11 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.LearniatStudent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bf448ed6-d1b3-431e-8bf1-ff016bbac1a5";
+				PROVISIONING_PROFILE = "ddd4186b-af15-48e8-bedb-19aafceaa67d";
+				PROVISIONING_PROFILE_SPECIFIER = "Learniat Student";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatStudent/LearniatStudent-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 			};
 			name = Debug;
@@ -2980,6 +2940,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: deepak mk (862RK2T33X)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: deepak mk (862RK2T33X)";
+				DEVELOPMENT_TEAM = C744MS63KY;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2999,8 +2961,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.LearniatStudent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bf448ed6-d1b3-431e-8bf1-ff016bbac1a5";
+				PROVISIONING_PROFILE = "ddd4186b-af15-48e8-bedb-19aafceaa67d";
+				PROVISIONING_PROFILE_SPECIFIER = "Learniat Student";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatStudent/LearniatStudent-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 			};
 			name = Release;

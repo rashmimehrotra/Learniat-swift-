@@ -333,7 +333,7 @@ pullNewProfilePics;
     [pullNewProfilePics addTarget:self action:@selector(onrefreshPics:) forControlEvents:UIControlEventTouchUpInside];
     pullNewProfilePics.frame = CGRectMake(10.0,384, 290, 40); //(10.0, 116.0, 258.0, 43.0);
     [self.view addSubview:pullNewProfilePics];
-    [pullNewProfilePics setTitle:@"Refresh pics" forState:UIControlStateNormal];
+    [pullNewProfilePics setTitle:@"Refresh" forState:UIControlStateNormal];
     [pullNewProfilePics setTitleColor:[UIColor colorWithRed:0.0 green:174.0/255.0 blue:239.0/255.0 alpha:1.0] forState:UIControlStateNormal];
     [pullNewProfilePics setBackgroundColor:[UIColor whiteColor]];
 }
@@ -643,7 +643,7 @@ pullNewProfilePics;
    [[self popOverController] dismissPopoverAnimated:YES];
     
     
-//    [[self delegate] refreshPicsClicked];
+   [[self delegate] Settings_refreshPicsClicked];
 }
 
 - (void) onCreateScribbleQuestion:(id) sender

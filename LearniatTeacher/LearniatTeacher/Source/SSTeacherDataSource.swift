@@ -28,10 +28,11 @@ let URLPrefix                       =   "http://54.251.104.13/Jupiter/sun.php?ap
 
 let APP_VERSION                     =   "1.6"
 
+let kServiceUserLogin               =   "Login"
 
 let kServiceGetMyState              =   "GetMyState"
 
-let kServiceUserLogin               =   "Login"
+let kGetStudentsState               =   "GetStudentsState"
 
 let kServiceGetSchedules            =   "GetMyTodaysSessions"
 
@@ -63,7 +64,7 @@ let kServiceStopTopic               =   "StopTopic"
 
 let kServiceBroadcastQuestion		=   "BroadcastQuestion"
 
-let kServiceClearQuestion           =   "EndQuestionInstance"
+let kServiceEndQuestionInstance     =   "EndQuestionInstance"
 
 let kServiceFreezQuestion           =   "CloseQuestionResponse"
 
@@ -89,6 +90,8 @@ let kuploadTeacherScribble          =   "UploadTeacherScribble"
 
 let kRecordQuestion                 =   "RecordQuestion"
 
+let kUpdateRecordedQuestion         =   "UpdateRecordedQuestion"
+
 let kServiceGetQuestion             =   "FetchQuestion"
 
 let  kGetAllModelAnswer             =   "GetAllModelAnswers"
@@ -109,78 +112,98 @@ let kServiceGetAllRooms             =   "GetAllRooms"
 
 let kServiceGetGraspIndex           =   "GetAllStudentIndex"
 
+let kFetchCategory                  =   "FetchCategory"
+
+let kCreateCategory                 =   "CreateCategory"
+
+let kSelectCategory                 =   "SelectCategory"
+
+let kSaveSuggestionState            =   "SaveSuggestionState"
+
 
 @objc protocol SSTeacherDataSourceDelegate
 {
-    optional func didgetErrorMessage(message:String, WithServiceName serviceName:String)
+    @objc optional func didgetErrorMessage(_ message:String, WithServiceName serviceName:String)
     
-    optional func didGetUserStateWithDetails(details:AnyObject)
+    @objc optional func didGetUserStateWithDetails(_ details:AnyObject)
     
-    optional func didGetloginWithDetails(details:AnyObject)
+    @objc optional func didGetStudentsStateWithDetails(_ details:AnyObject)
     
-    optional func didGetSchedulesWithDetials(details:AnyObject)
+    @objc optional func didGetloginWithDetails(_ details:AnyObject)
     
-    optional func didGetMycurrentSessionWithDetials(details:AnyObject)
+    @objc optional func didGetSchedulesWithDetials(_ details:AnyObject)
     
-    optional func didGetSessionUpdatedWithDetials(details:AnyObject)
+    @objc optional func didGetMycurrentSessionWithDetials(_ details:AnyObject)
     
-    optional func didGetSessionSummaryDetials(details:AnyObject)
+    @objc optional func didGetSessionUpdatedWithDetials(_ details:AnyObject)
     
-    optional func didGetSessionExtendedDetials(details:AnyObject)
+    @objc optional func didGetSessionSummaryDetials(_ details:AnyObject)
     
-    optional func didGetSeatsRestWithDetials(details:AnyObject)
+    @objc optional func didGetSessionExtendedDetials(_ details:AnyObject)
     
-    optional func didGetMaxStudentsRegistedWithDetails(details:AnyObject)
+    @objc optional func didGetSeatsRestWithDetials(_ details:AnyObject)
     
-    optional func didGetGridDesignWithDetails(details:AnyObject)
+    @objc optional func didGetMaxStudentsRegistedWithDetails(_ details:AnyObject)
     
-    optional func didGetSeatsConfiguredWithDetails(details:AnyObject)
+    @objc optional func didGetGridDesignWithDetails(_ details:AnyObject)
     
-    optional func didGetSeatAssignmentWithDetails(details:AnyObject)
+    @objc optional func didGetSeatsConfiguredWithDetails(_ details:AnyObject)
     
-    optional func didGetStudentsInfoWithDetails(details:AnyObject)
+    @objc optional func didGetSeatAssignmentWithDetails(_ details:AnyObject)
     
-    optional func didGetSeatAssignmentSavedWithDetails(details:AnyObject)
+    @objc optional func didGetStudentsInfoWithDetails(_ details:AnyObject)
     
-    optional func didGetAllNodesWithDetails(details:AnyObject)
+    @objc optional func didGetSeatAssignmentSavedWithDetails(_ details:AnyObject)
     
-    optional func didGetSubtopicStartedWithDetails(details:AnyObject)
+    @objc optional func didGetAllNodesWithDetails(_ details:AnyObject)
     
-    optional func didGetQuestionSentWithDetails(details:AnyObject)
+    @objc optional func didGetSubtopicStartedWithDetails(_ details:AnyObject)
     
-    optional func didGetQuestionClearedWithDetails(details:AnyObject)
+    @objc optional func didGetQuestionSentWithDetails(_ details:AnyObject)
     
-    optional func didGetStudentsAnswerWithDetails(details:AnyObject)
+    @objc optional func didGetQuestionClearedWithDetails(_ details:AnyObject)
     
-    optional func didGetAgregateDrillDownWithDetails(details:AnyObject)
+    @objc optional func didGetStudentsAnswerWithDetails(_ details:AnyObject)
     
-    optional func didGetFeedbackSentWithDetails(details:AnyObject)
+    @objc optional func didGetAgregateDrillDownWithDetails(_ details:AnyObject)
     
-    optional func didGetQueryWithDetails(details:AnyObject)
+    @objc optional func didGetFeedbackSentWithDetails(_ details:AnyObject)
     
-    optional func didGetQueryRespondedWithDetails(details:AnyObject)
+    @objc optional func didGetQueryWithDetails(_ details:AnyObject)
     
-    optional func didGetSaveSelectedQueryWithDetails(details:AnyObject)
+    @objc optional func didGetQueryRespondedWithDetails(_ details:AnyObject)
     
-    optional func didGetVolunteeringEndedWithDetails(details:AnyObject)
+    @objc optional func didGetSaveSelectedQueryWithDetails(_ details:AnyObject)
     
-    optional func didGetLessonPlanSavedWithdetails(details:AnyObject)
+    @objc optional func didGetVolunteeringEndedWithDetails(_ details:AnyObject)
     
-    optional func didGetScribbleUploadedWithDetaisl(details:AnyObject)
+    @objc optional func didGetLessonPlanSavedWithdetails(_ details:AnyObject)
     
-    optional func didGetQuestionRecordedWithDetaisl(details:AnyObject)
+    @objc optional func didGetScribbleUploadedWithDetaisl(_ details:AnyObject)
     
-    optional func didGetQuestionWithDetails(details:AnyObject)
+    @objc optional func didGetQuestionRecordedWithDetaisl(_ details:AnyObject)
     
-    optional func didGetModelAnswerWithDetails(details:AnyObject)
+    @objc optional func didGetQuestionRecordedUpdatedWithDetaisl(_ details:AnyObject)
     
-    optional func didGetModelAnswerRecordedWithDetails(details:AnyObject)
+    @objc optional func didGetQuestionWithDetails(_ details:AnyObject)
     
-    optional func didGetLogOutWithDetails(details:AnyObject)
+    @objc optional func didGetModelAnswerWithDetails(_ details:AnyObject)
     
-    optional func didGetSRQWithDetails(details:AnyObject)
+    @objc optional func didGetModelAnswerRecordedWithDetails(_ details:AnyObject)
     
-    optional func didGetAllGraspIndexWithDetails(details:AnyObject)
+    @objc optional func didGetLogOutWithDetails(_ details:AnyObject)
+    
+    @objc optional func didGetSRQWithDetails(_ details:AnyObject)
+    
+    @objc optional func didGetAllGraspIndexWithDetails(_ details:AnyObject)
+    
+    @objc optional func didGetCategoryFetchedWithDetails(_ details:AnyObject)
+    
+    @objc optional func didGetCategoryCreatedWithDetails(_ details:AnyObject)
+    
+    @objc optional func didGetCategorySelectedWithDetails(_ details:AnyObject)
+    
+     @objc optional func didGetSaveSuggestionStateWithDetails(_ details:AnyObject)
 }
 
 
@@ -196,12 +219,12 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     // MARK: - delegate Functions
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
     
-    func   delegate()->AnyObject
+    func   getDelegate()->AnyObject
     {
         return _delgate;
     }
@@ -252,14 +275,14 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     var mOverlayImageName                       = ""
     
-    func setSubTopicDictonaryWithDict(details:NSMutableArray,withKey key:String)
+    func setSubTopicDictonaryWithDict(_ details:NSMutableArray,withKey key:String)
     {
-        subTopicDetailsDictonary.setObject(details, forKey: key)
+        subTopicDetailsDictonary.setObject(details, forKey: key as NSCopying)
     }
     
-    func setQuestionDictonaryWithDict(details:NSMutableArray,withKey key:String)
+    func setQuestionDictonaryWithDict(_ details:NSMutableArray,withKey key:String)
     {
-        questionsDictonary.setObject(details, forKey: key)
+        questionsDictonary.setObject(details, forKey: key as NSCopying)
     }
     
     
@@ -267,7 +290,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     // MARK: - API Functions
     
     
-    func getUserState(userId :String, withDelegate delegate:SSTeacherDataSourceDelegate)
+    func getUserState(_ userId :String, withDelegate delegate:SSTeacherDataSourceDelegate)
     {
         
         let manager = APIManager()
@@ -275,27 +298,40 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>GetMyState</Service><UserId>%@</UserId></Action></Sunstone>",URLPrefix,userId)
         
-        manager.downloadDataURL(urlString, withServiceName:kServiceGetMyState, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName:kServiceGetMyState, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
+    }
+    
+    
+    func getStudentsState(_ SessionID :String, withDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        
+        let manager = APIManager()
+        let uuidString:String = UIDevice.current.identifierForVendor!.uuidString
+
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>GetStudentsState</Service><SessionId>%@</SessionId><UserId>%@</UserId><UUID>%@</UUID></Action></Sunstone>",URLPrefix,SessionID,SSTeacherDataSource.sharedDataSource.currentUserId,uuidString)
+        
+        manager.downloadDataURL(urlString, withServiceName:kGetStudentsState, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
     
     
-    func LoginWithUserId(userId :String , andPassword Password:String, withDelegate delegate:SSTeacherDataSourceDelegate)
+    func LoginWithUserId(_ userId :String , andPassword Password:String, withDelegate delegate:SSTeacherDataSourceDelegate)
     {
 
         
         
         let manager = APIManager()
-        let uuidString:String = UIDevice.currentDevice().identifierForVendor!.UUIDString
+        let uuidString:String = UIDevice.current.identifierForVendor!.uuidString
         
         let urlString = String(format: "%@<Sunstone><Action><Service>Login</Service><UserName>%@</UserName><UserPassword>%@</UserPassword><AppVersion>%@</AppVersion><DeviceId>%@</DeviceId><IsTeacher>1</IsTeacher></Action></Sunstone>",URLPrefix,userId, Password,APP_VERSION,uuidString)
         
-        manager.downloadDataURL(urlString, withServiceName:kServiceUserLogin, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName:kServiceUserLogin, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
 
     
     
-    func getScheduleOfTeacher(delegate:SSTeacherDataSourceDelegate)
+    func getScheduleOfTeacher(_ delegate:SSTeacherDataSourceDelegate)
     {
 
         
@@ -303,11 +339,11 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>GetMyTodaysSessions</Service><UserId>%@</UserId></Action></Sunstone>",URLPrefix,currentUserId)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceGetSchedules, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceGetSchedules, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
     
-    func getMyCurrentSessionOfTeacher(delegate:SSTeacherDataSourceDelegate)
+    func getMyCurrentSessionOfTeacher(_ delegate:SSTeacherDataSourceDelegate)
     {
 
         
@@ -315,11 +351,11 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>GetMyCurrentSession</Service><UserId>%@</UserId></Action></Sunstone>",URLPrefix,currentUserId)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceGetMyCurrentSession, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceGetMyCurrentSession, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
     
-    func updateSessionStateWithSessionId(sessionId:String,WithStatusvalue Status:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    func updateSessionStateWithSessionId(_ sessionId:String,WithStatusvalue Status:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
 
         
@@ -327,11 +363,11 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>UpdateSessionState</Service><SessionId>%@</SessionId><StatusId>%@</StatusId></Action></Sunstone>",URLPrefix,sessionId,Status)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceUpdateSessionState, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceUpdateSessionState, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
     
-    func getScheduleSummaryWithSessionId(sessionId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    func getScheduleSummaryWithSessionId(_ sessionId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
 
         
@@ -339,11 +375,11 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>ClassSessionSummary</Service><SessionId>%@</SessionId></Action></Sunstone>",URLPrefix,sessionId)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceGetScheduleSummary, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceGetScheduleSummary, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
 
     
-    func extendSessionWithSessionId(sessionId:String, withTime Time:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    func extendSessionWithSessionId(_ sessionId:String, withTime Time:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
 
         
@@ -351,10 +387,10 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>ExtendSessionTime</Service><SessionId>%@</SessionId><MinutesExtended>%@</MinutesExtended></Action></Sunstone>",URLPrefix,sessionId,Time)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceExtendTime, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceExtendTime, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
-    func resetPreallocatedSeatsOfSession(sessionId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    func resetPreallocatedSeatsOfSession(_ sessionId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
 
         
@@ -362,10 +398,10 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>ResetSeatAssignment</Service><SessionId>%@</SessionId></Action></Sunstone>",URLPrefix,sessionId)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceResetSeatAssignment, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceResetSeatAssignment, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
-    func getGridDesignDetails(roomId :String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    func getGridDesignDetails(_ roomId :String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
 
         
@@ -373,11 +409,11 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>RetrieveGridDesign</Service><RoomId>%@</RoomId></Action></Sunstone>",URLPrefix,roomId)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceGetGridDesign, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceGetGridDesign, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
         
     }
     
-    func getMaxStudentRegisterdwiRoomId(roomId :String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    func getMaxStudentRegisterdwiRoomId(_ roomId :String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
 
         
@@ -385,11 +421,11 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>GetMaxStudentsRegistered</Service><RoomId>%@</RoomId></Action></Sunstone>",URLPrefix,roomId)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceGetMaxStudentRegisterd, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceGetMaxStudentRegisterd, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
         
     }
     
-    func ConfigureSeatsWithRoomId(roomId :String, withRows rowValue:String, withColumnValue columnValue:String,withRemovedSeats removedSeats:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    func ConfigureSeatsWithRoomId(_ roomId :String, withRows rowValue:String, withColumnValue columnValue:String,withRemovedSeats removedSeats:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
 
         
@@ -397,14 +433,14 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>ConfigureGrid</Service><RoomId>%@</RoomId><Rows>%@</Rows><Columns>%@</Columns><SeatsRemoved>%@</SeatsRemoved></Action></Sunstone>",URLPrefix,roomId,rowValue,columnValue,removedSeats)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceConfigureGrid, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceConfigureGrid, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
         
     }
     
     
     
     
-    func getSeatAssignmentofSession(sessionId:String,  withDelegate delegate:SSTeacherDataSourceDelegate)
+    func getSeatAssignmentofSession(_ sessionId:String,  withDelegate delegate:SSTeacherDataSourceDelegate)
     {
 
         
@@ -412,10 +448,10 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>RetrieveSeatAssignments</Service><SessionId>%@</SessionId></Action></Sunstone>",URLPrefix,sessionId)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceGetSeatAssignment, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceGetSeatAssignment, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
-    func getStudentsInfoWithSessionId(sessionId:String,  withDelegate delegate:SSTeacherDataSourceDelegate)
+    func getStudentsInfoWithSessionId(_ sessionId:String,  withDelegate delegate:SSTeacherDataSourceDelegate)
     {
 
         
@@ -423,10 +459,10 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>GetStudentsSessionInfo</Service><SessionId>%@</SessionId></Action></Sunstone>",URLPrefix,sessionId)
         
-        manager.downloadDataURL(urlString, withServiceName: kGetStudentsSessionInfo, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kGetStudentsSessionInfo, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
-    func SaveSeatAssignmentWithStudentsList(studentsList:String, withSeatsIdList seatIdList:String, withSessionId sessionId:String, withDelegate delegate:SSTeacherDataSourceDelegate)
+    func SaveSeatAssignmentWithStudentsList(_ studentsList:String, withSeatsIdList seatIdList:String, withSessionId sessionId:String, withDelegate delegate:SSTeacherDataSourceDelegate)
     {
 
         
@@ -434,11 +470,11 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>StudentSeatAssignment</Service><SessionId>%@</SessionId><StudentIdList>%@</StudentIdList><SeatIdList>%@</SeatIdList><StatusId>9</StatusId></Action></Sunstone>",URLPrefix,sessionId,studentsList,seatIdList)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceSeatAssignment, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceSeatAssignment, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
     
-    func getAllNodesWithClassId(classId:String, withSubjectId subjectId:String, withTopicId topicId:String,withType type:String, withDelegate delegate:SSTeacherDataSourceDelegate)
+    func getAllNodesWithClassId(_ classId:String, withSubjectId subjectId:String, withTopicId topicId:String,withType type:String, withDelegate delegate:SSTeacherDataSourceDelegate)
     {
 
         
@@ -446,10 +482,10 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>GetAllNodes</Service><ClassId>%@</ClassId><SubjectId>%@</SubjectId><TopicId>%@</TopicId><Type>%@</Type></Action></Sunstone>",URLPrefix,classId,subjectId,topicId,type)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceGetAllNodes, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceGetAllNodes, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
-    func saveLessonPlan(classId:String,  withTopicIdList topicIdList:String, withDelegate delegate:SSTeacherDataSourceDelegate)
+    func saveLessonPlan(_ classId:String,  withTopicIdList topicIdList:String, withDelegate delegate:SSTeacherDataSourceDelegate)
     {
 
         
@@ -457,11 +493,11 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>RecordLessonPlan</Service><TeacherId>%@</TeacherId><ClassId>%@</ClassId><TopicIdList>%@</TopicIdList></Action></Sunstone>",URLPrefix,currentUserId,classId,topicIdList)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceSaveLessonPlan, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceSaveLessonPlan, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
    
-    func startSubTopicWithTopicID(topicId:String,withStudentId studentId:String,withSessionID sessionid:String, withDelegate delegate:SSTeacherDataSourceDelegate)
+    func startSubTopicWithTopicID(_ topicId:String,withStudentId studentId:String,withSessionID sessionid:String, withDelegate delegate:SSTeacherDataSourceDelegate)
     {
 
         
@@ -469,10 +505,10 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>SetCurrentTopic</Service><TopicId>%@</TopicId><SessionId>%@</SessionId><StudentId>%@</StudentId></Action></Sunstone>",URLPrefix,topicId,sessionid,studentId)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceStartTopic, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceStartTopic, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
-    func stopSubTopicWithTopicID(topicId:String,withSessionID sessionid:String, withDelegate delegate:SSTeacherDataSourceDelegate)
+    func stopSubTopicWithTopicID(_ topicId:String,withSessionID sessionid:String, withDelegate delegate:SSTeacherDataSourceDelegate)
     {
 
         
@@ -480,11 +516,11 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>StopTopic</Service><TopicId>%@</TopicId><SessionId>%@</SessionId></Action></Sunstone>",URLPrefix,topicId,sessionid)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceStopTopic, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceStopTopic, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
     
-    func getGraspIndexOfAllStudentsWithTopic(topicId:String,withSessionID sessionid:String, withDelegate delegate:SSTeacherDataSourceDelegate)
+    func getGraspIndexOfAllStudentsWithTopic(_ topicId:String,withSessionID sessionid:String, withDelegate delegate:SSTeacherDataSourceDelegate)
     {
         
         
@@ -492,11 +528,11 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>GetAllStudentIndex</Service><TopicId>%@</TopicId><SessionId>%@</SessionId></Action></Sunstone>",URLPrefix,topicId,sessionid)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceGetGraspIndex, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceGetGraspIndex, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
     
-    func broadcastQuestionWithQuestionId(questionId:String,withSessionID sessionID:String, withDelegate delegate:SSTeacherDataSourceDelegate)
+    func broadcastQuestionWithQuestionId(_ questionId:String,withSessionID sessionID:String, withDelegate delegate:SSTeacherDataSourceDelegate)
     {
 
         
@@ -504,10 +540,10 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>BroadcastQuestion</Service><QuestionId>%@</QuestionId><SessionId>%@</SessionId></Action></Sunstone>",URLPrefix,questionId,sessionID)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceBroadcastQuestion, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceBroadcastQuestion, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
 
-    func clearQuestionWithQuestionogId(questionLogId:String,withTopicId topicId:String, withSessionId sessionId:String, withDelegate delegate:SSTeacherDataSourceDelegate)
+    func clearQuestionWithQuestionogId(_ questionLogId:String,withTopicId topicId:String, withSessionId sessionId:String, withDelegate delegate:SSTeacherDataSourceDelegate)
     {
 
         
@@ -515,11 +551,11 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>EndQuestionInstance</Service><QuestionLogId>%@</QuestionLogId><TopicId>%@</TopicId><StudentId>%@</StudentId></Action></Sunstone>",URLPrefix,questionLogId,topicId,sessionId)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceClearQuestion, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceEndQuestionInstance, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
     
-    func freezQuestionWithQuestionogId(questionLogId:String,withTopicId topicId:String, withSessionId sessionId:String, withDelegate delegate:SSTeacherDataSourceDelegate)
+    func freezQuestionWithQuestionogId(_ questionLogId:String,withTopicId topicId:String, withSessionId sessionId:String, withDelegate delegate:SSTeacherDataSourceDelegate)
     {
         
         
@@ -527,19 +563,19 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>CloseQuestionResponse</Service><QuestionLogId>%@</QuestionLogId><TopicId>%@</TopicId><SessionId>%@</SessionId></Action></Sunstone>",URLPrefix,questionLogId,topicId,sessionId)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceFreezQuestion, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceFreezQuestion, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
-    func getStudentsAswerWithAnswerId(answerId:String, withDelegate delegate:SSTeacherDataSourceDelegate)
+    func getStudentsAswerWithAnswerId(_ answerId:String, withDelegate delegate:SSTeacherDataSourceDelegate)
     {
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>RetrieveStudentAnswer</Service><AssessmentAnswerId>%@</AssessmentAnswerId></Action></Sunstone>",URLPrefix,answerId)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceRetrieveStudentAnswer, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceRetrieveStudentAnswer, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
-    func getAgregateDrilDownWithOptionId(OptionId:String,WithQuestionLogId QuestionLogId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    func getAgregateDrilDownWithOptionId(_ OptionId:String,WithQuestionLogId QuestionLogId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
 
         
@@ -547,24 +583,24 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>RetrieveAggregateDrillDown</Service><QuestionLogId>%@</QuestionLogId><OptionId>%@</OptionId></Action></Sunstone>",URLPrefix,QuestionLogId,OptionId)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceAgregateDrillDown, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceAgregateDrillDown, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
     
-    func fetchQuestionWithQuestionLogId(questionLogId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    func fetchQuestionWithQuestionLogId(_ questionId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
 
         
         let manager = APIManager()
         
-        let urlString = String(format: "%@<Sunstone><Action><Service>FetchQuestion</Service><QuestionLogId>%@</QuestionLogId></Action></Sunstone>",URLPrefix,questionLogId)
+        let urlString = String(format: "%@<Sunstone><Action><Service>FetchQuestion</Service><QuestionId>%@</QuestionId></Action></Sunstone>",URLPrefix,questionId)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceGetQuestion, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceGetQuestion, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
 
     
     
-    func getModelAnswerWithQuestionLogId(questionLogId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    func getModelAnswerWithQuestionLogId(_ questionLogId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
         
         
@@ -572,12 +608,12 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>GetAllModelAnswers</Service><QuestionLogId>%@</QuestionLogId></Action></Sunstone>",URLPrefix,questionLogId)
         
-        manager.downloadDataURL(urlString, withServiceName: kGetAllModelAnswer, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kGetAllModelAnswer, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
 
     
     
-    func logOutTeacherWithDelegate( delegate:SSTeacherDataSourceDelegate)
+    func logOutTeacherWithDelegate( _ delegate:SSTeacherDataSourceDelegate)
     {
         
         
@@ -585,7 +621,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>Logout</Service><UserId>%@</UserId></Action></Sunstone>",URLPrefix,currentUserId)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceUserLogout, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceUserLogout, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
 
     
@@ -593,7 +629,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     
     
-    func sendFeedbackToStudentWithDetails(details:AnyObject, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    func sendFeedbackToStudentWithDetails(_ details:AnyObject, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
 
         
@@ -617,17 +653,17 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         
         
-        if let  AssessmentAnswerId = details.objectForKey("AssessmentAnswerId") as? String
+        if let  AssessmentAnswerId = details.object(forKey: "AssessmentAnswerId") as? String
         {
             assessmentId  = AssessmentAnswerId
         }
         
-        if let  BadgeId = details.objectForKey("BadgeId") as? String
+        if let  BadgeId = details.object(forKey: "BadgeId") as? String
         {
             badgeId  = BadgeId
         }
         
-        if let  _ModelAnswerFlag = details.objectForKey("ModelAnswerFlag") as? String
+        if let  _ModelAnswerFlag = details.object(forKey: "ModelAnswerFlag") as? String
         {
             if _ModelAnswerFlag == "true"
             {
@@ -640,22 +676,22 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
             
         }
         
-        if let  Rating = details.objectForKey("Rating") as? String
+        if let  Rating = details.object(forKey: "Rating") as? String
         {
             ratings  = Rating
         }
         
-        if let  StudentId = details.objectForKey("StudentId") as? String
+        if let  StudentId = details.object(forKey: "StudentId") as? String
         {
             studentId  = StudentId
         }
         
-        if let  _imageUrl = details.objectForKey("imageUrl") as? String
+        if let  _imageUrl = details.object(forKey: "imageUrl") as? String
         {
             imageUrl  = _imageUrl
         }
         
-        if let  _textRating = details.objectForKey("textRating") as? String
+        if let  _textRating = details.object(forKey: "textRating") as? String
         {
             textRating  = _textRating
         }
@@ -666,7 +702,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>SendFeedback</Service><AssessmentAnswerIdList>%@</AssessmentAnswerIdList><TeacherId>%@</TeacherId><URL>%@</URL><Rating>%@</Rating><TextRating>%@</TextRating><BadgeId>%@</BadgeId><StudentId>%@</StudentId><ModelAnswerFlag>%@</ModelAnswerFlag></Action></Sunstone>",URLPrefix,assessmentId,currentUserId,imageUrl,ratings,textRating,badgeId,studentId,modelAnswerFalg)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceSendFeedback, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceSendFeedback, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
     
@@ -690,7 +726,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
 //    
     
     
-    func getQueryWithQueryId(QueryId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    func getQueryWithQueryId(_ QueryId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
 
         
@@ -698,11 +734,11 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>RetrieveStudentQuery</Service><QueryId>%@</QueryId></Action></Sunstone>",URLPrefix,QueryId)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceGetDoubt, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceGetDoubt, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
     
-    func replyToDoubtWithDetails(details:AnyObject, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    func replyToDoubtWithDetails(_ details:AnyObject, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
 
         
@@ -724,28 +760,28 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         
         
-        if let  _QueryId = details.objectForKey("QueryId") as? String
+        if let  _QueryId = details.object(forKey: "QueryId") as? String
         {
             QueryId  = _QueryId
         }
         
-        if let  _TeacherReplyText = details.objectForKey("TeacherReplyText") as? String
+        if let  _TeacherReplyText = details.object(forKey: "TeacherReplyText") as? String
         {
             TeacherReplyText  = _TeacherReplyText
         }
         
         
-        if let  _BadgeId = details.objectForKey("GoodQuery") as? String
+        if let  _BadgeId = details.object(forKey: "GoodQuery") as? String
         {
             BadgeId  = _BadgeId
         }
         
-        if let  _DismissFlag = details.objectForKey("DismissFlag") as? String
+        if let  _DismissFlag = details.object(forKey: "DismissFlag") as? String
         {
             DismissFlag  = _DismissFlag
         }
         
-        if let  _StudentId = details.objectForKey("StudentId") as? String
+        if let  _StudentId = details.object(forKey: "StudentId") as? String
         {
             StudentId  = _StudentId
         }
@@ -764,20 +800,23 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>RespondToQuery</Service><QueryId>%@</QueryId><TeacherReplyText>%@</TeacherReplyText><BadgeId>%@</BadgeId><DismissFlag>%@</DismissFlag><StudentId>%@</StudentId></Action></Sunstone>",URLPrefix,QueryId,TeacherReplyText,BadgeId,DismissFlag,StudentId)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceReplyToQuery, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceReplyToQuery, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
     
-    func dismissQuerySelectedForVolunteerWithQueryId(queryId:String, withStudentId StudentId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    
+    
+    
+    func dismissQuerySelectedForVolunteerWithQueryId(_ queryId:String, withStudentId StudentId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>RespondToQuery</Service><QueryId>%@</QueryId><DismissFlag>1</DismissFlag><StudentId>%@</StudentId></Action></Sunstone>",URLPrefix,queryId,StudentId)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceReplyToQuery, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceReplyToQuery, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
-    func GetSRQWithSessionId(sessionId:String, withDelegate delegate:SSTeacherDataSourceDelegate)
+    func GetSRQWithSessionId(_ sessionId:String, withDelegate delegate:SSTeacherDataSourceDelegate)
     {
         
         
@@ -785,12 +824,12 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>FetchSRQ</Service><SessionId>%@</SessionId></Action></Sunstone>",URLPrefix,sessionId)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceFetchSRQ, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceFetchSRQ, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
     
     
-    func saveSelectedVolunteers(QueryIdList:String, withAllowVolunteerList allowVolunteer:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    func saveSelectedVolunteers(_ QueryIdList:String, withAllowVolunteerList allowVolunteer:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
 
         
@@ -798,12 +837,12 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>SaveSelectedQueries</Service><QueryIdList>%@</QueryIdList><AllowVolunteerFlag>%@</AllowVolunteerFlag></Action></Sunstone>",URLPrefix,QueryIdList,allowVolunteer)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceSaveSelectedQueries, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceSaveSelectedQueries, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
     
     
-    func EndVolunteeringSessionwithQueryId(QueryIdList:String, withMeTooList MeTooList:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    func EndVolunteeringSessionwithQueryId(_ QueryIdList:String, withMeTooList MeTooList:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
 
         
@@ -812,13 +851,13 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>EndVolunteeringSession</Service><SessionId>%@</SessionId><QueryIdList>%@</QueryIdList><MeTooCountList>%@</MeTooCountList></Action></Sunstone>",URLPrefix,currentLiveSessionId,QueryIdList,MeTooList)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceEndVolunteeringSession, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceEndVolunteeringSession, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
     
     
     
-    func uploadTeacherScribble(ScribbleId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    func uploadTeacherScribble(_ ScribbleId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
 
         
@@ -828,10 +867,10 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>UploadTeacherScribble</Service><ImagePath>%@</ImagePath><TeacherId>%@</TeacherId></Action></Sunstone>",URLPrefix,ScribbleId,currentUserId)
         
-        manager.downloadDataURL(urlString, withServiceName: kuploadTeacherScribble, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kuploadTeacherScribble, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
-    func recordQuestionWithScribbleId(ScribbleId:String,withQuestionName questionName:String,WithType Type:String,withTopicId topicd:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    func recordQuestionWithScribbleId(_ ScribbleId:String,withQuestionName questionName:String,WithType Type:String,withTopicId topicd:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
 
         
@@ -841,11 +880,23 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>RecordQuestion</Service><SessionId>%@</SessionId><QuestionType>%@</QuestionType><TopicId>%@</TopicId><TeacherId>%@</TeacherId><ScribbleId>%@</ScribbleId><QuestionTitle>%@</QuestionTitle></Action></Sunstone>",URLPrefix,currentLiveSessionId,Type,topicd,currentUserId,ScribbleId,questionName)
         
-        manager.downloadDataURL(urlString, withServiceName: kRecordQuestion, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kRecordQuestion, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
+    }
+    
+    func updateRecorededQuestionWithQuestionLogId(_ questionLogId:String, withQuestionName QuestionName:String, withQuestionOptions QuestionOptions:String, withAnswerStates answerStates:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>UpdateRecordedQuestion</Service><QuestionId>%@</QuestionId><QuestionTitle>%@</QuestionTitle><ElementId>%@</ElementId><IsAnswer>%@</IsAnswer><Column></Column><Sequence></Sequence></Action></Sunstone>",URLPrefix,questionLogId, QuestionName, QuestionOptions, answerStates)
+        
+        manager.downloadDataURL(urlString, withServiceName: kUpdateRecordedQuestion, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
+        
     }
     
     
-    func recordModelAnswerwithAssesmentAnswerId(AssesmentAnswerId:String,WithDelegate delegate:SSTeacherDataSourceDelegate)
+    
+    func recordModelAnswerwithAssesmentAnswerId(_ AssesmentAnswerId:String,WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
 
         
@@ -853,278 +904,380 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         let urlString = String(format: "%@<Sunstone><Action><Service>RecordModelAnswer</Service><AssessmentAnswerId>%@</AssessmentAnswerId></Action></Sunstone>",URLPrefix,AssesmentAnswerId)
         
-        manager.downloadDataURL(urlString, withServiceName: kRecordModelAnswer, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kRecordModelAnswer, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
     
-    func sendApporoveVolunteerWithVolunteerId(VolunteerId:String,withstateFlag stateFlag:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    func sendApporoveVolunteerWithVolunteerId(_ VolunteerId:String,withstateFlag stateFlag:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
         
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>ApproveVolunteer</Service><VolunteerId>%@</VolunteerId><StoppedFlag>%@</StoppedFlag></Action></Sunstone>",URLPrefix,VolunteerId,stateFlag)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceApproveVolunteer, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceApproveVolunteer, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
-    func StopVolunteeringwithVolunteerId(VolunteerId:String,withthumbsUp ThumbsUpValue:String,withthumbsDown ThumbsDown:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    func StopVolunteeringwithVolunteerId(_ VolunteerId:String,withthumbsUp ThumbsUpValue:String,withthumbsDown ThumbsDown:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
         
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>StopVolunteering</Service><VolunteerId>%@</VolunteerId><ThumbsUpVotes>%@</ThumbsUpVotes><ThumbsDownVotes>%@</ThumbsDownVotes></Action></Sunstone>",URLPrefix,VolunteerId,ThumbsUpValue,ThumbsDown)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceStopVolunteering, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: delegate)
+        manager.downloadDataURL(urlString, withServiceName: kServiceStopVolunteering, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
+    }
+    
+    func FetchCategoryWithName(InputCategoryname :String, withTopicId topicId:String , WithDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        let uuidString:String = UIDevice.current.identifierForVendor!.uuidString
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>FetchCategory</Service><InputCategory>%@</InputCategory><TopicId>%@</TopicId><UserId>%@</UserId><UUID>%@</UUID></Action></Sunstone>",URLPrefix,InputCategoryname,topicId,SSTeacherDataSource.sharedDataSource.currentUserId,uuidString)
+        
+        manager.downloadDataURL(urlString, withServiceName: kFetchCategory, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
+        
+
+    }
+    
+    func sendCategoryWithName(category:String,withDescrpition CategoryDescription:String, withTopicID topicId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        
+        let uuidString:String = UIDevice.current.identifierForVendor!.uuidString
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>CreateCategory</Service><CategoryTitle>%@</CategoryTitle><CategoryDescription>%@</CategoryDescription><TopicId>%@</TopicId><UserId>%@</UserId><UUID>%@</UUID></Action></Sunstone>",URLPrefix,category,CategoryDescription,topicId,SSTeacherDataSource.sharedDataSource.currentUserId,uuidString)
+        
+        manager.downloadDataURL(urlString, withServiceName: kCreateCategory, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
+        
+        
     }
     
     
+    func selectCategoryWithCategoryID(categoryId:String,WithDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        
+        
+        let uuidString:String = UIDevice.current.identifierForVendor!.uuidString
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>SelectCategory</Service><CategoryId>%@</CategoryId><UserId>%@</UserId><DeviceId></DeviceId><UUID></UUID></Action></Sunstone>",URLPrefix,categoryId,SSTeacherDataSource.sharedDataSource.currentUserId,uuidString)
+        
+        manager.downloadDataURL(urlString, withServiceName: kSelectCategory, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
+        
+    }
+    
+    func SaveSuggestionStateWithSuggestions(Sugguestion:String, withState State:String,WithDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        let uuidString:String = UIDevice.current.identifierForVendor!.uuidString
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>SaveSuggestionState</Service><SuggestionId>%@</SuggestionId><SuggestionState>%@</SuggestionState><UserId>%@</UserId><DeviceId>%@</DeviceId><UUID>%@</UUID></Action></Sunstone>",URLPrefix,Sugguestion,State,SSTeacherDataSource.sharedDataSource.currentUserId,uuidString,uuidString)
+        
+        manager.downloadDataURL(urlString, withServiceName: kSaveSuggestionState, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
+    }
     
     
     // MARK: - API delegate Functions
-    func delegateDidGetServiceResponseWithDetails(dict: NSMutableDictionary!, WIthServiceName serviceName: String!, withRetruningDelegate returningDelegate: AnyObject!)
+    func delegateDidGetServiceResponse(withDetails dict: NSMutableDictionary!, wIthServiceName serviceName: String!, withRetruningDelegate returningDelegate: Any!)
     {
         
-        let refinedDetails = dict.objectForKey(kSunstone)!.objectForKey(kSSAction)!
+        let refinedDetails = (dict.object(forKey: kSunstone)! as AnyObject).object(forKey: kSSAction)!
+        
+        let mReturningDelegate = returningDelegate as AnyObject
+        
+        
         if serviceName == kServiceGetMyState
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetUserStateWithDetails(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetUserStateWithDetails(_:)))
             {
-                returningDelegate.didGetUserStateWithDetails!(refinedDetails)
+                mReturningDelegate.didGetUserStateWithDetails!(refinedDetails as AnyObject)
+            }
+            
+        }
+        else if serviceName == kGetStudentsState
+        {
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetStudentsStateWithDetails(_:)))
+            {
+                mReturningDelegate.didGetStudentsStateWithDetails!(refinedDetails as AnyObject)
             }
             
         }
         else if serviceName == kServiceUserLogin
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetloginWithDetails(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetloginWithDetails(_:)))
             {
-                returningDelegate.didGetloginWithDetails!(refinedDetails)
+                mReturningDelegate.didGetloginWithDetails!(refinedDetails as AnyObject)
             }
         }
         else if serviceName == kServiceGetSchedules
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetSchedulesWithDetials(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetSchedulesWithDetials(_:)))
             {
-                returningDelegate.didGetSchedulesWithDetials!(refinedDetails)
+                mReturningDelegate.didGetSchedulesWithDetials!(refinedDetails as AnyObject)
             }
         }
         else if serviceName == kServiceGetMyCurrentSession
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetMycurrentSessionWithDetials(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetMycurrentSessionWithDetials(_:)))
             {
-                returningDelegate.didGetMycurrentSessionWithDetials!(refinedDetails)
+                mReturningDelegate.didGetMycurrentSessionWithDetials!(refinedDetails as AnyObject)
             }
         }
         else if serviceName == kServiceGetScheduleSummary
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetSessionSummaryDetials(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetSessionSummaryDetials(_:)))
             {
-                returningDelegate.didGetSessionSummaryDetials!(refinedDetails)
+                mReturningDelegate.didGetSessionSummaryDetials!(refinedDetails as AnyObject)
             }
         }
         else if serviceName == kServiceUpdateSessionState
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetSessionUpdatedWithDetials(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetSessionUpdatedWithDetials(_:)))
             {
-                returningDelegate.didGetSessionUpdatedWithDetials!(refinedDetails)
+                mReturningDelegate.didGetSessionUpdatedWithDetials!(refinedDetails as AnyObject)
             }
         }
         else if serviceName == kServiceExtendTime
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetSessionExtendedDetials(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetSessionExtendedDetials(_:)))
             {
-                returningDelegate.didGetSessionExtendedDetials!(refinedDetails)
+                mReturningDelegate.didGetSessionExtendedDetials!(refinedDetails as AnyObject)
             }
         }
         else if serviceName == kServiceResetSeatAssignment
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetSeatsRestWithDetials(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetSeatsRestWithDetials(_:)))
             {
-                returningDelegate.didGetSeatsRestWithDetials!(refinedDetails)
+                mReturningDelegate.didGetSeatsRestWithDetials!(refinedDetails as AnyObject)
             }
         }
         
         else if serviceName == kServiceGetGridDesign
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetGridDesignWithDetails(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetGridDesignWithDetails(_:)))
             {
-                returningDelegate.didGetGridDesignWithDetails!(refinedDetails)
+                mReturningDelegate.didGetGridDesignWithDetails!(refinedDetails as AnyObject)
             }
         }
             
         else if serviceName == kServiceGetSeatAssignment
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetSeatAssignmentWithDetails(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetSeatAssignmentWithDetails(_:)))
             {
-                returningDelegate.didGetSeatAssignmentWithDetails!(refinedDetails)
+                mReturningDelegate.didGetSeatAssignmentWithDetails!(refinedDetails as AnyObject)
             }
         }
         else if serviceName == kGetStudentsSessionInfo
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetStudentsInfoWithDetails(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetStudentsInfoWithDetails(_:)))
             {
-                returningDelegate.didGetStudentsInfoWithDetails!(refinedDetails)
+                mReturningDelegate.didGetStudentsInfoWithDetails!(refinedDetails as AnyObject)
             }
         }
         else if serviceName == kServiceSeatAssignment
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetSeatAssignmentSavedWithDetails(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetSeatAssignmentSavedWithDetails(_:)))
             {
-                returningDelegate.didGetSeatAssignmentSavedWithDetails!(refinedDetails)
+                mReturningDelegate.didGetSeatAssignmentSavedWithDetails!(refinedDetails as AnyObject)
             }
         }
         else if serviceName == kServiceGetAllNodes
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetAllNodesWithDetails(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetAllNodesWithDetails(_:)))
             {
-                returningDelegate.didGetAllNodesWithDetails!(refinedDetails)
+                mReturningDelegate.didGetAllNodesWithDetails!(refinedDetails as AnyObject)
             }
         }
         else if serviceName == kServiceStartTopic || serviceName == kServiceStopTopic
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetSubtopicStartedWithDetails(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetSubtopicStartedWithDetails(_:)))
             {
-                returningDelegate.didGetSubtopicStartedWithDetails!(refinedDetails)
+                mReturningDelegate.didGetSubtopicStartedWithDetails!(refinedDetails as AnyObject)
             }
         }
         else if serviceName == kServiceGetGraspIndex
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetAllGraspIndexWithDetails(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetAllGraspIndexWithDetails(_:)))
             {
-                returningDelegate.didGetAllGraspIndexWithDetails!(refinedDetails)
+                mReturningDelegate.didGetAllGraspIndexWithDetails!(refinedDetails as AnyObject)
             }
         }
         else if serviceName == kServiceBroadcastQuestion
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetQuestionSentWithDetails(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetQuestionSentWithDetails(_:)))
             {
-                returningDelegate.didGetQuestionSentWithDetails!(refinedDetails)
+                mReturningDelegate.didGetQuestionSentWithDetails!(refinedDetails as AnyObject)
             }
         }
-        else if serviceName == kServiceClearQuestion
+        else if serviceName == kServiceEndQuestionInstance
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetQuestionClearedWithDetails(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetQuestionClearedWithDetails(_:)))
             {
-                returningDelegate.didGetQuestionClearedWithDetails!(refinedDetails)
+                mReturningDelegate.didGetQuestionClearedWithDetails!(refinedDetails as AnyObject)
             }
         }
         else if serviceName == kServiceRetrieveStudentAnswer
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetStudentsAnswerWithDetails(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetStudentsAnswerWithDetails(_:)))
             {
-                returningDelegate.didGetStudentsAnswerWithDetails!(refinedDetails)
+                mReturningDelegate.didGetStudentsAnswerWithDetails!(refinedDetails as AnyObject)
             }
         }
         else if serviceName == kServiceAgregateDrillDown
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetAgregateDrillDownWithDetails(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetAgregateDrillDownWithDetails(_:)))
             {
-                returningDelegate.didGetAgregateDrillDownWithDetails!(refinedDetails)
+                mReturningDelegate.didGetAgregateDrillDownWithDetails!(refinedDetails as AnyObject)
             }
         }
         else if serviceName == kServiceSendFeedback
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetFeedbackSentWithDetails(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetFeedbackSentWithDetails(_:)))
             {
-                returningDelegate.didGetFeedbackSentWithDetails!(refinedDetails)
+                mReturningDelegate.didGetFeedbackSentWithDetails!(refinedDetails as AnyObject)
             }
         }
         else if serviceName == kServiceGetDoubt
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetQueryWithDetails(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetQueryWithDetails(_:)))
             {
-                returningDelegate.didGetQueryWithDetails!(refinedDetails)
+                mReturningDelegate.didGetQueryWithDetails!(refinedDetails as AnyObject)
             }
         }
         else if serviceName == kServiceReplyToQuery
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetQueryRespondedWithDetails(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetQueryRespondedWithDetails(_:)))
             {
-                returningDelegate.didGetQueryRespondedWithDetails!(refinedDetails)
+                mReturningDelegate.didGetQueryRespondedWithDetails!(refinedDetails as AnyObject)
             }
         }
         else if serviceName == kServiceSaveSelectedQueries
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetSaveSelectedQueryWithDetails(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetSaveSelectedQueryWithDetails(_:)))
             {
-                returningDelegate.didGetSaveSelectedQueryWithDetails!(refinedDetails)
+                mReturningDelegate.didGetSaveSelectedQueryWithDetails!(refinedDetails as AnyObject)
             }
         }
         else if serviceName == kServiceEndVolunteeringSession
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetVolunteeringEndedWithDetails(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetVolunteeringEndedWithDetails(_:)))
             {
-                returningDelegate.didGetVolunteeringEndedWithDetails!(refinedDetails)
+                mReturningDelegate.didGetVolunteeringEndedWithDetails!(refinedDetails as AnyObject)
             }
         }
         else if serviceName == kServiceGetMaxStudentRegisterd
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetMaxStudentsRegistedWithDetails(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetMaxStudentsRegistedWithDetails(_:)))
             {
-                returningDelegate.didGetMaxStudentsRegistedWithDetails!(refinedDetails)
+                mReturningDelegate.didGetMaxStudentsRegistedWithDetails!(refinedDetails as AnyObject)
             }
         }
         else if serviceName == kServiceConfigureGrid
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetSeatsConfiguredWithDetails(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetSeatsConfiguredWithDetails(_:)))
             {
-                returningDelegate.didGetSeatsConfiguredWithDetails!(refinedDetails)
+                mReturningDelegate.didGetSeatsConfiguredWithDetails!(refinedDetails as AnyObject)
             }
         }
         
         else if serviceName == kServiceSaveLessonPlan
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetLessonPlanSavedWithdetails(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetLessonPlanSavedWithdetails(_:)))
             {
-                returningDelegate.didGetLessonPlanSavedWithdetails!(refinedDetails)
+                mReturningDelegate.didGetLessonPlanSavedWithdetails!(refinedDetails as AnyObject)
             }
         }
         else if serviceName == kuploadTeacherScribble
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetScribbleUploadedWithDetaisl(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetScribbleUploadedWithDetaisl(_:)))
             {
-                returningDelegate.didGetScribbleUploadedWithDetaisl!(refinedDetails)
+                mReturningDelegate.didGetScribbleUploadedWithDetaisl!(refinedDetails as AnyObject)
             }
         }
         else if serviceName == kRecordQuestion
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetQuestionRecordedWithDetaisl(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetQuestionRecordedWithDetaisl(_:)))
             {
-                returningDelegate.didGetQuestionRecordedWithDetaisl!(refinedDetails)
+                mReturningDelegate.didGetQuestionRecordedWithDetaisl!(refinedDetails as AnyObject)
+            }
+        }
+        else if serviceName == kUpdateRecordedQuestion
+        {
+            if mReturningDelegate.responds(to:#selector(SSTeacherDataSourceDelegate.didGetQuestionRecordedUpdatedWithDetaisl(_:)))
+            {
+                mReturningDelegate.didGetQuestionRecordedUpdatedWithDetaisl!(refinedDetails as AnyObject)
             }
         }
         else if serviceName == kServiceGetQuestion
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetQuestionWithDetails(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetQuestionWithDetails(_:)))
             {
-                returningDelegate.didGetQuestionWithDetails!(refinedDetails)
+                mReturningDelegate.didGetQuestionWithDetails!(refinedDetails as AnyObject)
             }
         }
         else if serviceName == kGetAllModelAnswer
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetModelAnswerWithDetails(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetModelAnswerWithDetails(_:)))
             {
-                returningDelegate.didGetModelAnswerWithDetails!(refinedDetails)
+                mReturningDelegate.didGetModelAnswerWithDetails!(refinedDetails as AnyObject)
             }
         }
         else if serviceName == kRecordModelAnswer
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetModelAnswerRecordedWithDetails(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetModelAnswerRecordedWithDetails(_:)))
             {
-                returningDelegate.didGetModelAnswerRecordedWithDetails!(refinedDetails)
+                mReturningDelegate.didGetModelAnswerRecordedWithDetails!(refinedDetails as AnyObject)
             }
         }
         else if serviceName == kServiceUserLogout
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetLogOutWithDetails(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetLogOutWithDetails(_:)))
             {
-                returningDelegate.didGetLogOutWithDetails!(refinedDetails)
+                mReturningDelegate.didGetLogOutWithDetails!(refinedDetails as AnyObject)
             }
         }
         else if serviceName == kServiceFetchSRQ
         {
-            if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didGetSRQWithDetails(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetSRQWithDetails(_:)))
             {
-                returningDelegate.didGetSRQWithDetails!(refinedDetails)
+                mReturningDelegate.didGetSRQWithDetails!(refinedDetails as AnyObject)
+            }
+            
+        }
+        else if serviceName == kFetchCategory
+        {
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetCategoryFetchedWithDetails(_:)))
+            {
+                mReturningDelegate.didGetCategoryFetchedWithDetails!(refinedDetails as AnyObject)
+            }
+            
+        }
+        else if serviceName == kCreateCategory
+        {
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetCategoryCreatedWithDetails(_:)))
+            {
+                mReturningDelegate.didGetCategoryCreatedWithDetails!(refinedDetails as AnyObject)
+            }
+            
+        }
+        else if serviceName == kSaveSuggestionState
+        {
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetSaveSuggestionStateWithDetails(_:)))
+            {
+                mReturningDelegate.didGetSaveSuggestionStateWithDetails!(refinedDetails as AnyObject)
+            }
+            
+        }
+        else if serviceName == kSelectCategory
+        {
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetCategorySelectedWithDetails(_:)))
+            {
+                mReturningDelegate.didGetCategorySelectedWithDetails!(refinedDetails as AnyObject)
             }
             
         }
@@ -1135,12 +1288,15 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     
     
-    func delegateServiceErrorMessage(message: String!, withServiceName ServiceName: String!, withErrorCode code: String!, withRetruningDelegate returningDelegate: AnyObject!)
+    func delegateServiceErrorMessage(_ message: String!, withServiceName ServiceName: String!, withErrorCode code: String!, withRetruningDelegate returningDelegate: Any!)
     {
         
-        if returningDelegate.respondsToSelector(#selector(SSTeacherDataSourceDelegate.didgetErrorMessage(_:WithServiceName:)))
+        
+        let mReturningDelegate = returningDelegate as AnyObject
+        
+        if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didgetErrorMessage(_:WithServiceName:)))
         {
-            returningDelegate.didgetErrorMessage!(message,WithServiceName: ServiceName)
+            mReturningDelegate.didgetErrorMessage!(message,WithServiceName: ServiceName)
         }
         
         print("Error in API \(ServiceName)")

@@ -14,10 +14,10 @@ import Foundation
     
     
     
-    optional func delegateSubTopicCellPressedWithMainTopicDetails(topicDetails:AnyObject, withCell topicCell:LessonPlanMainViewCell , withHeight height:CGFloat)
+    @objc optional func delegateSubTopicCellPressedWithMainTopicDetails(_ topicDetails:AnyObject, withCell topicCell:LessonPlanMainViewCell , withHeight height:CGFloat)
     
     
-    optional func delegateQuestionButtonPressedWithDetails(topicDetails:AnyObject)
+    @objc optional func delegateQuestionButtonPressedWithDetails(_ topicDetails:AnyObject)
     
 }
 
@@ -25,7 +25,7 @@ import Foundation
 class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
 {
     
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
     
     var m_graspImageView    = UIImageView()
     
@@ -59,7 +59,7 @@ class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
     
     var SubTopicsView :LessonPlanSubTopicsView!
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -80,54 +80,54 @@ class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
         
          dateFormatter.dateFormat = "HH:mm:ss"
         
-         mMainTopicView.frame = CGRectMake(0, 0, self.frame.size.width ,self.frame.size.height)
+         mMainTopicView.frame = CGRect(x: 0, y: 0, width: self.frame.size.width ,height: self.frame.size.height)
         self.addSubview(mMainTopicView)
         mMainTopicView.backgroundColor = whiteBackgroundColor
         
         
-        let button = UIButton(frame:CGRectMake(0, 0, self.frame.size.width ,self.frame.size.height));
+        let button = UIButton(frame:CGRect(x: 0, y: 0, width: self.frame.size.width ,height: self.frame.size.height));
         mMainTopicView.addSubview(button)
-         button.addTarget(self, action: #selector(LessonPlanMainViewCell.onSubtopicButton), forControlEvents: UIControlEvents.TouchUpInside)
+         button.addTarget(self, action: #selector(LessonPlanMainViewCell.onSubtopicButton), for: UIControlEvents.touchUpInside)
         
         
         
         
-         m_checkBoxButton = UIButton(frame:CGRectMake(0, 0, self.frame.size.height ,self.frame.size.height));
+         m_checkBoxButton = UIButton(frame:CGRect(x: 0, y: 0, width: self.frame.size.height ,height: self.frame.size.height));
         mMainTopicView.addSubview(m_checkBoxButton);
-        m_checkBoxButton.backgroundColor = UIColor.whiteColor()
+        m_checkBoxButton.backgroundColor = UIColor.white
        
-        checkBoxImage.frame = CGRectMake((m_checkBoxButton.frame.size.width - 20 )/2  , (m_checkBoxButton.frame.size.height - 20) / 2,20,20)
+        checkBoxImage.frame = CGRect(x: (m_checkBoxButton.frame.size.width - 20 )/2  , y: (m_checkBoxButton.frame.size.height - 20) / 2,width: 20,height: 20)
         checkBoxImage.image = UIImage(named:"Checked.png");
         mMainTopicView.addSubview(checkBoxImage);
-        m_checkBoxButton.addTarget(self, action: #selector(LessonPlanMainViewCell.checkMarkPressed), forControlEvents: UIControlEvents.TouchUpInside)
+        m_checkBoxButton.addTarget(self, action: #selector(LessonPlanMainViewCell.checkMarkPressed), for: UIControlEvents.touchUpInside)
 
         
         
-        m_graspImageView.frame = CGRectMake(m_checkBoxButton.frame.size.width + m_checkBoxButton.frame.origin.x + 10, (self.frame.size.height - (self.frame.size.height / 1.8))/2 ,self.frame.size.height / 1.8,self.frame.size.height / 1.8)
+        m_graspImageView.frame = CGRect(x: m_checkBoxButton.frame.size.width + m_checkBoxButton.frame.origin.x + 10, y: (self.frame.size.height - (self.frame.size.height / 1.8))/2 ,width: self.frame.size.height / 1.8,height: self.frame.size.height / 1.8)
         mMainTopicView.addSubview(m_graspImageView)
         m_graspImageView.image = UIImage(named: "00.png")
-        m_graspImageView.contentMode = .ScaleAspectFit
+        m_graspImageView.contentMode = .scaleAspectFit
         
         
-        mSubTopicButton.frame = CGRectMake(self.frame.size.width - 160 , 10 ,150 ,self.frame.size.height - 20)
+        mSubTopicButton.frame = CGRect(x: self.frame.size.width - 160 , y: 10 ,width: 150 ,height: self.frame.size.height - 20)
         mMainTopicView.addSubview(mSubTopicButton)
-        mSubTopicButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
-        mSubTopicButton.setTitleColor(standard_Button, forState: .Normal)
-        mSubTopicButton.setTitle("No SubTopics", forState: .Normal)
+        mSubTopicButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
+        mSubTopicButton.setTitleColor(standard_Button, for: UIControlState())
+        mSubTopicButton.setTitle("No SubTopics", for: UIControlState())
         mSubTopicButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 20)
-        mSubTopicButton.addTarget(self, action: #selector(LessonPlanMainViewCell.onSubtopicButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mSubTopicButton.addTarget(self, action: #selector(LessonPlanMainViewCell.onSubtopicButton), for: UIControlEvents.touchUpInside)
         mSubTopicButton.layer.cornerRadius = (mSubTopicButton.frame.size.height)/3
         
         
         
         
-        mQuestionsButton.frame = CGRectMake(mSubTopicButton.frame.origin.x - 160 , 10 ,150 ,self.frame.size.height - 20)
+        mQuestionsButton.frame = CGRect(x: mSubTopicButton.frame.origin.x - 160 , y: 10 ,width: 150 ,height: self.frame.size.height - 20)
         mMainTopicView.addSubview(mQuestionsButton)
-        mQuestionsButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
-        mQuestionsButton.setTitleColor(standard_Green, forState: .Normal)
-        mQuestionsButton.setTitle("No Question", forState: .Normal)
+        mQuestionsButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
+        mQuestionsButton.setTitleColor(standard_Green, for: UIControlState())
+        mQuestionsButton.setTitle("No Question", for: UIControlState())
         mQuestionsButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 20)
-        mQuestionsButton.addTarget(self, action: #selector(LessonPlanMainViewCell.onSubtopicButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mQuestionsButton.addTarget(self, action: #selector(LessonPlanMainViewCell.onSubtopicButton), for: UIControlEvents.touchUpInside)
         mQuestionsButton.layer.cornerRadius = (mSubTopicButton.frame.size.height)/3
 
         
@@ -141,22 +141,22 @@ class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
         
         
         
-        m_MainTopicLabel = UILabel(frame: CGRectMake(m_graspImageView.frame.size.width + m_graspImageView.frame.origin.x + 10 , (self.frame.size.height - (self.frame.size.height / 1.3))/2  , remainingWidth, self.frame.size.height / 1.3 ))
+        m_MainTopicLabel = UILabel(frame: CGRect(x: m_graspImageView.frame.size.width + m_graspImageView.frame.origin.x + 10 , y: (self.frame.size.height - (self.frame.size.height / 1.3))/2  , width: remainingWidth, height: self.frame.size.height / 1.3 ))
         m_MainTopicLabel.font = UIFont(name:helveticaRegular, size: 18)
         mMainTopicView.addSubview(m_MainTopicLabel)
         m_MainTopicLabel.textColor = blackTextColor
-        m_MainTopicLabel.textAlignment = .Left
-        m_MainTopicLabel.lineBreakMode = .ByTruncatingMiddle
+        m_MainTopicLabel.textAlignment = .left
+        m_MainTopicLabel.lineBreakMode = .byTruncatingMiddle
         
         
-        m_progressView.userInteractionEnabled = false;
+        m_progressView.isUserInteractionEnabled = false;
         mMainTopicView.addSubview(m_progressView)
-        m_progressView.frame  = CGRectMake(m_graspImageView.frame.origin.x,m_MainTopicLabel.frame.origin.y + m_MainTopicLabel.frame.size.height - 5, self.frame.size.width - (m_graspImageView.frame.origin.x + 10) , 1)
+        m_progressView.frame  = CGRect(x: m_graspImageView.frame.origin.x,y: m_MainTopicLabel.frame.origin.y + m_MainTopicLabel.frame.size.height - 5, width: self.frame.size.width - (m_graspImageView.frame.origin.x + 10) , height: 1)
         m_progressView.progressTintColor = standard_Button;
-        let transform: CGAffineTransform = CGAffineTransformMakeScale(1.0, 1.3);
+        let transform: CGAffineTransform = CGAffineTransform(scaleX: 1.0, y: 1.3);
         m_progressView.transform = transform;
         
-        let lineView = UIImageView(frame:CGRectMake(0, mMainTopicView.frame.size.height-1, mMainTopicView.frame.size.width, 1))
+        let lineView = UIImageView(frame:CGRect(x: 0, y: mMainTopicView.frame.size.height-1, width: mMainTopicView.frame.size.width, height: 1))
         lineView.backgroundColor = LineGrayColor
         mMainTopicView.addSubview(lineView)
         
@@ -170,14 +170,14 @@ class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
     }
     
     // MARK: - set mainTopic details functions
-    func setMainTopicDetails(topicDetails:AnyObject, withIndexPath indexPath:Int)
+    func setMainTopicDetails(_ topicDetails:AnyObject, withIndexPath indexPath:Int)
     {
         
         
         currentTopicDetails = topicDetails
         currentindexPath = indexPath
 
-        if let topicId = currentTopicDetails.objectForKey("Id")as? String
+        if let topicId = currentTopicDetails.object(forKey: "Id")as? String
         {
             mMainTopicId = topicId
             
@@ -185,23 +185,23 @@ class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
         }
         
         
-        if var topicName = currentTopicDetails.objectForKey("Name")as? String
+        if var topicName = currentTopicDetails.object(forKey: "Name")as? String
         {
-            topicName = topicName.capitalizedString
+            topicName = topicName.capitalized
             
-            if let CumulativeTime = currentTopicDetails.objectForKey("CumulativeTime")as? String
+            if let CumulativeTime = currentTopicDetails.object(forKey: "CumulativeTime")as? String
             {
-                m_MainTopicLabel.text = "\(topicName)(\(CumulativeTime))".capitalizedString
+                m_MainTopicLabel.text = "\(topicName)(\(CumulativeTime))".capitalized
             }
             else
             {
-                m_MainTopicLabel.text = "\(topicName)".capitalizedString
+                m_MainTopicLabel.text = "\(topicName)".capitalized
             }
         }
         
         
         
-        if let giValue = currentTopicDetails.objectForKey("GraspIndex") as? NSString
+        if let giValue = currentTopicDetails.object(forKey: "GraspIndex") as? NSString
         {
             var graspIndexValue = giValue.integerValue
             
@@ -225,7 +225,7 @@ class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
         }
         
         
-        if let PercentageStarted = currentTopicDetails.objectForKey("PercentageStarted") as? NSString
+        if let PercentageStarted = currentTopicDetails.object(forKey: "PercentageStarted") as? NSString
         {
             var percentageValue :Float =  PercentageStarted.floatValue
             
@@ -244,11 +244,11 @@ class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
         
         if SubTopicsView == nil
         {
-            SubTopicsView = LessonPlanSubTopicsView(frame: CGRectMake(m_checkBoxButton.frame.origin.x + m_checkBoxButton.frame.size.width,mMainTopicView.frame.size.height,self.frame.size.width - (m_checkBoxButton.frame.origin.x + m_checkBoxButton.frame.size.width),subTopicHeight ))
+            SubTopicsView = LessonPlanSubTopicsView(frame: CGRect(x: m_checkBoxButton.frame.origin.x + m_checkBoxButton.frame.size.width,y: mMainTopicView.frame.size.height,width: self.frame.size.width - (m_checkBoxButton.frame.origin.x + m_checkBoxButton.frame.size.width),height: subTopicHeight ))
             SubTopicsView.setSubtopicsArray(currentSubtopicsArray, withSelectedState: isSelected)
             SubTopicsView.setdelegate(self)
             self.addSubview(SubTopicsView)
-            SubTopicsView.hidden = true
+            SubTopicsView.isHidden = true
         }
         
         
@@ -256,30 +256,44 @@ class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
     
     
     
-    func getSubtopicsCountWithMainTopicsDetails(_mainTopicDetails:AnyObject)->NSMutableArray
+    func getSubtopicsCountWithMainTopicsDetails(_ _mainTopicDetails:AnyObject)->NSMutableArray
     {
        
         var subTopicsDetails = NSMutableArray()
         
-        if  let classCheckingVariable = _mainTopicDetails.objectForKey("SubTopics")?.objectForKey("SubTopic")
+        
+        
+        if  let classCheckingVariable = _mainTopicDetails.object(forKey: "SubTopics") as? NSMutableDictionary
         {
-            if classCheckingVariable.isKindOfClass(NSMutableArray)
+            if  let classCheckingVariable = classCheckingVariable.object(forKey: "SubTopic") as? NSMutableArray
             {
-                subTopicsDetails = classCheckingVariable as! NSMutableArray
-            }
-            else
-            {
-                subTopicsDetails.addObject(_mainTopicDetails.objectForKey("SubTopics")!.objectForKey("SubTopic")!)
+                subTopicsDetails = classCheckingVariable
+                
                 
             }
-            
+            else if let questionVariable = classCheckingVariable.object(forKey: "SubTopic") as? NSMutableDictionary
+            {
+                subTopicsDetails.add(questionVariable)
+                
+            }
         }
         
+        
+//        if  let classCheckingVariable = (_mainTopicDetails.object(forKey: "SubTopics") as AnyObject).object(forKey: "SubTopic") as? NSMutableArray
+//        {
+//           subTopicsDetails = classCheckingVariable
+//        }
+//        else
+//        {
+//            subTopicsDetails.add((_mainTopicDetails.object(forKey: "SubTopics")! as AnyObject).object(forKey: "SubTopic")!)
+//            
+//        }
+//        
         
         
         currentSubtopicsArray = subTopicsDetails
         
-        if let Tagged = currentTopicDetails.objectForKey("Tagged") as? String
+        if let Tagged = currentTopicDetails.object(forKey: "Tagged") as? String
         {
             if Tagged == "1"
             {
@@ -290,19 +304,19 @@ class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
                 
                 for index in 0..<subTopicsDetails.count
                 {
-                    let subTopicDict = subTopicsDetails.objectAtIndex(index)
+                    let subTopicDict = subTopicsDetails.object(at: index)
                     
-                    if let s_Tagged = subTopicDict.objectForKey("Tagged") as? String
+                    if let s_Tagged = (subTopicDict as AnyObject).object(forKey: "Tagged") as? String
                     {
                         if s_Tagged == "0"
                         {
                             checkBoxImage.image = UIImage(named:"halfChecked.png");
                             
-                            if let topicId = subTopicDict.objectForKey("Id")as? String
+                            if let topicId = (subTopicDict as AnyObject).object(forKey: "Id")as? String
                             {
-                                if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.containsObject(topicId) == true
+                                if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.contains(topicId) == true
                                 {
-                                    SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.removeObject(topicId)
+                                    SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.remove(topicId)
                                 }
                             }
                             
@@ -332,24 +346,24 @@ class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
         
         if Int(subTopicsDetails.count) <= 0
         {
-            mSubTopicButton.setTitle("No Sub topics", forState: .Normal)
-            mSubTopicButton.enabled = false
-            mSubTopicButton.setTitleColor(lightGrayColor, forState: .Normal)
+            mSubTopicButton.setTitle("No Sub topics", for: UIControlState())
+            mSubTopicButton.isEnabled = false
+            mSubTopicButton.setTitleColor(lightGrayColor, for: UIControlState())
         }
         else if Int(subTopicsDetails.count) == 1
         {
-            mSubTopicButton.setTitle("\(subTopicsDetails.count) Sub topic", forState: .Normal)
+            mSubTopicButton.setTitle("\(subTopicsDetails.count) Sub topic", for: UIControlState())
         }
         else
         {
-            mSubTopicButton.setTitle("\(subTopicsDetails.count) Sub topics", forState: .Normal)
+            mSubTopicButton.setTitle("\(subTopicsDetails.count) Sub topics", for: UIControlState())
         }
         
         return subTopicsDetails
     }
     
     
-    func getQuestionsCountWithSubTopicDetails(subTopicsDetails:NSMutableArray)
+    func getQuestionsCountWithSubTopicDetails(_ subTopicsDetails:NSMutableArray)
     {
         
         
@@ -357,21 +371,20 @@ class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
         
         for index in 0..<subTopicsDetails.count
         {
-            let subTopicDict = subTopicsDetails.objectAtIndex(index)
+            let subTopicDict = subTopicsDetails.object(at: index)
             
             var questionDetails = NSMutableArray()
             
-            if (subTopicDict.objectForKey("Questions") != nil)
+            if ((subTopicDict as AnyObject).object(forKey: "Questions") != nil)
             {
-                let classCheckingVariable = subTopicDict.objectForKey("Questions")!.objectForKey("Question")!
-                
-                if classCheckingVariable.isKindOfClass(NSMutableArray)
-                {
-                    questionDetails = classCheckingVariable as! NSMutableArray
+               if  let classCheckingVariable = ((subTopicDict as AnyObject).object(forKey: "Questions")! as AnyObject).object(forKey: "Question") as? NSMutableArray
+               {
+                    questionDetails = classCheckingVariable
                 }
+                
                 else
                 {
-                    questionDetails.addObject(subTopicDict.objectForKey("Questions")!.objectForKey("Question")!)
+                    questionDetails.add(((subTopicDict as AnyObject).object(forKey: "Questions")! as AnyObject).object(forKey: "Question")!)
                     
                 }
             }
@@ -381,21 +394,21 @@ class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
         }
         
         
-          mQuestionsButton.setTitleColor(standard_Green, forState: .Normal)
+          mQuestionsButton.setTitleColor(standard_Green, for: UIControlState())
         
         if questionsCount <= 0
         {
-            mQuestionsButton.setTitle("No Questions", forState: .Normal)
-            mQuestionsButton.enabled = false
-              mQuestionsButton.setTitleColor(lightGrayColor, forState: .Normal)
+            mQuestionsButton.setTitle("No Questions", for: UIControlState())
+            mQuestionsButton.isEnabled = false
+              mQuestionsButton.setTitleColor(lightGrayColor, for: UIControlState())
         }
         else if questionsCount == 1
         {
-            mQuestionsButton.setTitle("\(questionsCount) Question", forState: .Normal)
+            mQuestionsButton.setTitle("\(questionsCount) Question", for: UIControlState())
         }
         else
         {
-            mQuestionsButton.setTitle("\(questionsCount) Questions", forState: .Normal)
+            mQuestionsButton.setTitle("\(questionsCount) Questions", for: UIControlState())
         }
         
     }
@@ -410,16 +423,16 @@ class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
         
         var subTopicHeight:CGFloat = CGFloat(currentSubtopicsArray.count) * 55
         
-         if SubTopicsView.hidden == false
+         if SubTopicsView.isHidden == false
          {
-            SubTopicsView.hidden = true
+            SubTopicsView.isHidden = true
             
             subTopicHeight = mMainTopicView.frame.size.height
             
          }
         else
         {
-            SubTopicsView.hidden = false
+            SubTopicsView.isHidden = false
             subTopicHeight = mMainTopicView.frame.size.height + subTopicHeight
             
         }
@@ -430,7 +443,7 @@ class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
         
         
 
-        if delegate().respondsToSelector(#selector(LessonPlanMainViewDelegate.delegateSubTopicCellPressedWithMainTopicDetails(_:withCell:withHeight:)))
+        if delegate().responds(to: #selector(LessonPlanMainViewDelegate.delegateSubTopicCellPressedWithMainTopicDetails(_:withCell:withHeight:)))
         {
             delegate().delegateSubTopicCellPressedWithMainTopicDetails!(currentTopicDetails, withCell: self, withHeight: subTopicHeight)
         }
@@ -440,15 +453,15 @@ class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
     
     func onQuestionButton()
     {
-        if delegate().respondsToSelector(#selector(LessonPlanMainViewDelegate.delegateQuestionButtonPressedWithDetails(_:)))
+        if delegate().responds(to: #selector(LessonPlanMainViewDelegate.delegateQuestionButtonPressedWithDetails(_:)))
         {
             delegate().delegateQuestionButtonPressedWithDetails!(currentTopicDetails)
         }
     }
     
-    func delegateSubTopicViewQuestionButtonPressedwithDetails(subTopicDetails: AnyObject)
+    func delegateSubTopicViewQuestionButtonPressedwithDetails(_ subTopicDetails: AnyObject)
     {
-        if delegate().respondsToSelector(#selector(LessonPlanMainViewDelegate.delegateQuestionButtonPressedWithDetails(_:)))
+        if delegate().responds(to: #selector(LessonPlanMainViewDelegate.delegateQuestionButtonPressedWithDetails(_:)))
         {
             delegate().delegateQuestionButtonPressedWithDetails!(subTopicDetails)
         }
@@ -490,29 +503,29 @@ class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
     
     // MARK: - SubTopicDelegate  functions
     
-    func delegateCellStatewithChecMarkState(checkMark: Int)
+    func delegateCellStatewithChecMarkState(_ checkMark: Int)
     {
         if checkMark == 0
         {
             checkBoxImage.image = UIImage(named:"Unchecked.png");
             isSelected = false
-            if let topicId = currentTopicDetails.objectForKey("Id")as? String
+            if let topicId = currentTopicDetails.object(forKey: "Id")as? String
             {
-                if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.containsObject(topicId) == true
+                if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.contains(topicId) == true
                 {
-                    SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.removeObject(topicId)
+                    SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.remove(topicId)
                 }
             }
         }
         else if checkMark == 1
         {
             checkBoxImage.image = UIImage(named:"Checked.png");
-            if let topicId = currentTopicDetails.objectForKey("Id")as? String
+            if let topicId = currentTopicDetails.object(forKey: "Id")as? String
             {
                 
-                if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.containsObject(topicId) == false
+                if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.contains(topicId) == false
                 {
-                    SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.addObject(topicId)
+                    SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.add(topicId)
                 }
             }
             isSelected = true
@@ -521,12 +534,12 @@ class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
         {
             checkBoxImage.image = UIImage(named:"halfChecked.png");
             
-            if let topicId = currentTopicDetails.objectForKey("Id")as? String
+            if let topicId = currentTopicDetails.object(forKey: "Id")as? String
             {
                 
-                if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.containsObject(topicId) == false
+                if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.contains(topicId) == false
                 {
-                    SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.addObject(topicId)
+                    SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.add(topicId)
                 }
             }
             
@@ -537,25 +550,25 @@ class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
     
     // MARK: - Extra func functions
     
-    func selectSubtopicsWithState(selected:Bool)
+    func selectSubtopicsWithState(_ selected:Bool)
     {
         
-        if let topicId = currentTopicDetails.objectForKey("Id")as? String
+        if let topicId = currentTopicDetails.object(forKey: "Id")as? String
         {
             
                 if selected == true
                 {
-                    if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.containsObject(topicId) == false
+                    if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.contains(topicId) == false
                     {
-                        SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.addObject(topicId)
+                        SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.add(topicId)
                     }
                     
                 }
                 else
                 {
-                    if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.containsObject(topicId) == true
+                    if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.contains(topicId) == true
                     {
-                        SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.removeObject(topicId)
+                        SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.remove(topicId)
                     }
                     
                 }
@@ -565,24 +578,24 @@ class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
         
         for index in 0 ..< currentSubtopicsArray.count
         {
-            let TopicDetails = currentSubtopicsArray.objectAtIndex(index)
+            let TopicDetails = currentSubtopicsArray.object(at: index)
             
             
-            if let topicId = TopicDetails.objectForKey("Id")as? String
+            if let topicId = (TopicDetails as AnyObject).object(forKey: "Id")as? String
             {
                 if selected == true
                 {
-                    if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.containsObject(topicId) == false
+                    if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.contains(topicId) == false
                     {
-                        SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.addObject(topicId)
+                        SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.add(topicId)
                     }
                     
                 }
                 else
                 {
-                    if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.containsObject(topicId) == true
+                    if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.contains(topicId) == true
                     {
-                        SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.removeObject(topicId)
+                        SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.remove(topicId)
                     }
                     
                 }
@@ -592,9 +605,9 @@ class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
     
     
      // MARK: - Searching functions
-    func searchingForTextInmainTopicWithText(searchtext:String)
+    func searchingForTextInmainTopicWithText(_ searchtext:String)
     {
-        m_MainTopicLabel.attributedText = searchtext.getAttributeText(m_MainTopicLabel.text!.capitalizedString, withSubString: searchtext.capitalizedString)
+        m_MainTopicLabel.attributedText = searchtext.getAttributeText(m_MainTopicLabel.text!.capitalized, withSubString: searchtext.capitalized)
         
         
         if SubTopicsView != nil

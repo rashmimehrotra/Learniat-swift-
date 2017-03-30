@@ -22,7 +22,7 @@ class CustomTextView: UIView,UITextFieldDelegate
     
     var _delgate: AnyObject!
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -39,32 +39,33 @@ class CustomTextView: UIView,UITextFieldDelegate
         
         
        
-       self.backgroundColor = UIColor.whiteColor()
-        self.layer.borderColor = lightGrayColor.CGColor
+       self.backgroundColor = UIColor.white
+        self.layer.borderColor = lightGrayColor.cgColor
         self.layer.borderWidth = 1
         self.layer.cornerRadius = 5
         
-        mTopicText.frame = CGRectMake(10,10 , 100, self.frame.size.height - 20)
+        mTopicText.frame = CGRect(x: 10,y: 10 , width: 80, height: self.frame.size.height - 20)
         self.addSubview(mTopicText)
         mTopicText.text = StartText
         mTopicText.textColor = blackTextColor
-        mTopicText.font =  UIFont(name: helveticaRegular, size: 20);
+        mTopicText.font =  UIFont(name: helveticaRegular, size: 16);
         
         
-        mQuestionTextView.frame = CGRectMake(mTopicText.frame.origin.x + mTopicText.frame.size.width + 10, 10, self.frame.size.width - (mTopicText.frame.origin.x + mTopicText.frame.size.width + 20), self.frame.size.height - 20)
+        mQuestionTextView.frame = CGRect(x: mTopicText.frame.origin.x + mTopicText.frame.size.width + 10, y: 10, width: self.frame.size.width - (mTopicText.frame.origin.x + mTopicText.frame.size.width + 20), height: self.frame.size.height - 20)
         self.addSubview(mQuestionTextView)
         mQuestionTextView.delegate = self
-        mQuestionTextView.font =  UIFont(name: helveticaRegular, size: 20);
-        mQuestionTextView.textAlignment = .Left
+        mQuestionTextView.font =  UIFont(name: helveticaRegular, size: 16);
+        mQuestionTextView.textAlignment = .left
+        mQuestionTextView.minimumFontSize = 0.4
         
-        let mStartButton = UIButton(frame:CGRectMake(0, 0, self.frame.size.width,self.frame.size.height))
+        let mStartButton = UIButton(frame:CGRect(x: 0, y: 0, width: self.frame.size.width,height: self.frame.size.height))
         self.addSubview(mStartButton)
-        mStartButton.addTarget(self, action: #selector(CustomTextView.onSelfButton), forControlEvents: .TouchUpInside)
+        mStartButton.addTarget(self, action: #selector(CustomTextView.onSelfButton), for: .touchUpInside)
 
     }
     
     
-    func setPlaceHolder(_placeHolder:String, withStartSting _startString:String)
+    func setPlaceHolder(_ _placeHolder:String, withStartSting _startString:String)
     {
         
         mQuestionTextView.placeholder = _placeHolder
@@ -97,5 +98,22 @@ class CustomTextView: UIView,UITextFieldDelegate
         
         
         return mQuestionTextView.text!
+    }
+    
+    func isBorderRequired(isReuired:Bool)
+    {
+        if isReuired == true
+        {
+            self.layer.borderColor = lightGrayColor.cgColor
+            self.layer.borderWidth = 1
+            self.layer.cornerRadius = 5
+        }
+        else
+        {
+            self.layer.borderColor = UIColor.clear.cgColor
+            self.layer.borderWidth = 0
+            self.layer.cornerRadius = 5
+        }
+        
     }
 }

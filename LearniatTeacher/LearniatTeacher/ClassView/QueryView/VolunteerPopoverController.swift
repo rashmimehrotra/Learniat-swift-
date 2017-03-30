@@ -12,7 +12,7 @@ import Foundation
 {
     
     
-    optional func delegateGiveAnswerPressedWithVolunteerDetails(volunteerDetails:AnyObject)
+    @objc optional func delegateGiveAnswerPressedWithVolunteerDetails(_ volunteerDetails:AnyObject)
     
 }
 
@@ -24,7 +24,7 @@ class VolunteerPopoverController: UIViewController,VolunteerPopopverCellDelegate
     
     var _delgate: AnyObject!
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -47,7 +47,7 @@ class VolunteerPopoverController: UIViewController,VolunteerPopopverCellDelegate
     
     
     
-    func addVolunteerWithDetails(VolunteersArray:NSMutableArray)
+    func addVolunteerWithDetails(_ VolunteersArray:NSMutableArray)
     {
         
        
@@ -55,26 +55,26 @@ class VolunteerPopoverController: UIViewController,VolunteerPopopverCellDelegate
         var height :CGFloat = CGFloat((VolunteersArray.count * 60))
         
         
-        if height > UIScreen.mainScreen().bounds.height - 100
+        if height > UIScreen.main.bounds.height - 100
         {
-            height = UIScreen.mainScreen().bounds.height - 100
+            height = UIScreen.main.bounds.height - 100
         }
         
 
         
-        mStudentsScrollView.frame = CGRectMake(0, 0, 300, height)
+        mStudentsScrollView.frame = CGRect(x: 0, y: 0, width: 300, height: height)
         self.view.addSubview(mStudentsScrollView)
         
         var currentYPosition :CGFloat = 0
         
         for index  in 0 ..< VolunteersArray.count
         {
-            let details = VolunteersArray.objectAtIndex(index)
+            let details = VolunteersArray.object(at: index)
             
-            let mQuerySubView = VolunteerPopopverCell(frame: CGRectMake(0 , currentYPosition, 300 ,60))
+            let mQuerySubView = VolunteerPopopverCell(frame: CGRect(x: 0 , y: currentYPosition, width: 300 ,height: 60))
             mStudentsScrollView.addSubview(mQuerySubView)
             mQuerySubView.setdelegate(self)
-            mQuerySubView.setVolunteersDetails(details)
+            mQuerySubView.setVolunteersDetails(details as AnyObject)
             currentYPosition = currentYPosition + mQuerySubView.frame.size.height
         }
         
@@ -82,27 +82,31 @@ class VolunteerPopoverController: UIViewController,VolunteerPopopverCellDelegate
         self.preferredContentSize = CGSize(width: 300, height: height)
         
         
-        mStudentsScrollView.contentSize = CGSizeMake(0, currentYPosition)
+        mStudentsScrollView.contentSize = CGSize(width: 0, height: currentYPosition)
 
         
     }
     
-    var _Popover:AnyObject!
     
-    func setPopover(popover:AnyObject)
+    var _Popover:UIPopoverController!
+    
+    func setPopover(_ popover:UIPopoverController)
     {
         _Popover = popover
     }
     
-    func popover()-> AnyObject
+    func popover()-> UIPopoverController
     {
         return _Popover
     }
     
-    func delegateCellPressedWithVolunteerDetails(volunteerDetails: AnyObject)
+    
+    func delegateCellPressedWithVolunteerDetails(_ volunteerDetails: AnyObject)
     {
         delegate().delegateGiveAnswerPressedWithVolunteerDetails!(volunteerDetails)
-        _Popover.dismissPopoverAnimated(true)
+       
+        popover().dismiss(animated: true)
+        
     }
     
 }

@@ -13,7 +13,7 @@ import Foundation
 {
     
     
-    optional func delegateVolunteerSessionEndedWithRemainingqueries(queryIdArray:NSMutableArray)
+    @objc optional func delegateVolunteerSessionEndedWithRemainingqueries(_ queryIdArray:NSMutableArray)
     
     
 }
@@ -57,32 +57,32 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
         self.backgroundColor = whiteBackgroundColor
         
         
-        mTopImageView.frame = CGRectMake(0, 0, self.frame.size.width, 50)
+        mTopImageView.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: 50)
         self.addSubview(mTopImageView)
-        mTopImageView.backgroundColor = UIColor.whiteColor()
-        mTopImageView.userInteractionEnabled = true
+        mTopImageView.backgroundColor = UIColor.white
+        mTopImageView.isUserInteractionEnabled = true
         
-        mDoneButton.frame = CGRectMake(self.frame.size.width - 130, 0, 120, mTopImageView.frame.size.height)
-        mDoneButton.setTitle("Done", forState: .Normal)
+        mDoneButton.frame = CGRect(x: self.frame.size.width - 130, y: 0, width: 120, height: mTopImageView.frame.size.height)
+        mDoneButton.setTitle("Done", for: UIControlState())
         mTopImageView.addSubview(mDoneButton)
-        mDoneButton.setTitleColor(standard_Button, forState: .Normal)
-        mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
-        mDoneButton.addTarget(self, action: #selector(SSTeacherVolunteerView.onDoneButton), forControlEvents: .TouchUpInside)
+        mDoneButton.setTitleColor(standard_Button, for: UIControlState())
+        mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
+        mDoneButton.addTarget(self, action: #selector(SSTeacherVolunteerView.onDoneButton), for: .touchUpInside)
         
-        mQueryCountLabel.frame = CGRectMake(10, 0, 120, mTopImageView.frame.size.height)
+        mQueryCountLabel.frame = CGRect(x: 10, y: 0, width: 120, height: mTopImageView.frame.size.height)
         self.addSubview(mQueryCountLabel)
         
         
         
         
         
-        let mQuerySubView = VolunteerTopView(frame: CGRectMake(10 , mTopImageView.frame.size.height + mTopImageView.frame.origin.y + 10, self.frame.size.width - 20 ,20))
+        let mQuerySubView = VolunteerTopView(frame: CGRect(x: 10 , y: mTopImageView.frame.size.height + mTopImageView.frame.origin.y + 10, width: self.frame.size.width - 20 ,height: 20))
         self.addSubview(mQuerySubView)
         mQuerySubView.setdelegate(self)
         
         
         mScrollView = UIScrollView()
-        mScrollView.frame = CGRectMake(0, mQuerySubView.frame.size.height + mQuerySubView.frame.origin.y, self.frame.size.width, self.frame.size.height - (mQuerySubView.frame.size.height + mQuerySubView.frame.origin.y) )
+        mScrollView.frame = CGRect(x: 0, y: mQuerySubView.frame.size.height + mQuerySubView.frame.origin.y, width: self.frame.size.width, height: self.frame.size.height - (mQuerySubView.frame.size.height + mQuerySubView.frame.origin.y) )
         self.addSubview(mScrollView)
         
 
@@ -101,7 +101,7 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
     }
     
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -113,7 +113,7 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
     
     
     
-    func didGetSRQWithDetails(details: AnyObject)
+    func didGetSRQWithDetails(_ details: AnyObject)
     {
         
          currentYPosition  = 10
@@ -172,29 +172,29 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
     }
     
     
-    func addQueriesWithDetails(queryDetails:NSMutableArray)
+    func addQueriesWithDetails(_ queryDetails:NSMutableArray)
     {
         currentYPosition  = 10
         
         for index in 0  ..< queryDetails.count 
         {
-            let queryDict = queryDetails.objectAtIndex(index)
+            let queryDict = queryDetails.object(at: index)
             
-            let mQuerySubView = QueryVolunteerSubView(frame: CGRectMake(10 , currentYPosition, self.frame.size.width - 20 ,80))
+            let mQuerySubView = QueryVolunteerSubView(frame: CGRect(x: 10 , y: currentYPosition, width: self.frame.size.width - 20 ,height: 80))
             mScrollView.addSubview(mQuerySubView)
             mQuerySubView.setdelegate(self)
             
-            mQuerySubView.setQueryWithDetails(queryDict)
+            mQuerySubView.setQueryWithDetails(queryDict as AnyObject)
             
             
-            if let queryText = queryDict.objectForKey("QueryText") as? String
+            if let queryText = (queryDict as AnyObject).object(forKey: "QueryText") as? String
             {
                 
                mQuerySubView.mQueryLabel.text = "\(index+1). \(queryText)"
             }
             
             
-            if let QueryId = queryDict.objectForKey("QueryId") as? String
+            if let QueryId = (queryDict as AnyObject).object(forKey: "QueryId") as? String
             {
                 mQuerySubView.tag = Int(QueryId)!
             }
@@ -206,7 +206,7 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
             
         }
         
-        mScrollView.contentSize = CGSizeMake(0, currentYPosition)
+        mScrollView.contentSize = CGSize(width: 0, height: currentYPosition)
         
         
         if queryDetails.count > 1
@@ -254,20 +254,20 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
         
         for mQuerySubView in subViews
         {
-            if mQuerySubView.isKindOfClass(QueryVolunteerSubView)
+            if mQuerySubView.isKind(of: QueryVolunteerSubView.self)
             {
                
                 
                 
                 if mQuerySubView.mMetooLabel.text! != "0"
                 {
-                    if let QueryId = mQuerySubView.currentQueryDetails.objectForKey("QueryId") as? String
+                    if let QueryId = mQuerySubView.currentQueryDetails.object(forKey: "QueryId") as? String
                     {
-                        mQueryIdList.addObject(QueryId)
-                        remianingQueryIdArray.addObject(QueryId)
+                        mQueryIdList.add(QueryId)
+                        remianingQueryIdArray.add(QueryId)
                     }
                     
-                     meTooCountList.addObject(mQuerySubView.mMetooLabel.text!)
+                     meTooCountList.add(mQuerySubView.mMetooLabel.text!)
                     
                     
                     
@@ -276,9 +276,9 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
                 else
                 {
                     
-                    if let QueryId = mQuerySubView.currentQueryDetails.objectForKey("QueryId") as? String
+                    if let QueryId = mQuerySubView.currentQueryDetails.object(forKey: "QueryId") as? String
                     {
-                        if let StudentId = mQuerySubView.currentQueryDetails.objectForKey("StudentId") as? String
+                        if let StudentId = mQuerySubView.currentQueryDetails.object(forKey: "StudentId") as? String
                         {
                             SSTeacherDataSource.sharedDataSource.dismissQuerySelectedForVolunteerWithQueryId(QueryId, withStudentId: StudentId, WithDelegate: self)
                             
@@ -292,8 +292,8 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
         
         
         
-        let queryIdString = mQueryIdList.componentsJoinedByString(";;;")
-        let meTooCountString = meTooCountList.componentsJoinedByString(";;;")
+        let queryIdString = mQueryIdList.componentsJoined(by: ";;;")
+        let meTooCountString = meTooCountList.componentsJoined(by: ";;;")
         
         SSTeacherDataSource.sharedDataSource.EndVolunteeringSessionwithQueryId(queryIdString, withMeTooList: meTooCountString, WithDelegate: self)
         
@@ -301,12 +301,12 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
         
     }
     
-    func didGetVolunteeringEndedWithDetails(details: AnyObject)
+    func didGetVolunteeringEndedWithDetails(_ details: AnyObject)
     {
        
         SSTeacherMessageHandler.sharedMessageHandler.sendEndVolunteeringMessagetoStudent(SSTeacherDataSource.sharedDataSource.currentLiveSessionId)
         
-        if delegate().respondsToSelector(#selector(SSTeacherVolunteerViewDelegate.delegateVolunteerSessionEndedWithRemainingqueries(_:)))
+        if delegate().responds(to: #selector(SSTeacherVolunteerViewDelegate.delegateVolunteerSessionEndedWithRemainingqueries(_:)))
         {
             
             
@@ -318,7 +318,7 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
     }
     
     
-    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
+    func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
         
         if buttonIndex == 1
         {
@@ -326,23 +326,23 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
         }
         else
         {
-            alertView.dismissWithClickedButtonIndex(buttonIndex, animated: true)
+            alertView.dismiss(withClickedButtonIndex: buttonIndex, animated: true)
         }
     }
     
-    func didGetQueryRespondedWithDetails(details: AnyObject)
+    func didGetQueryRespondedWithDetails(_ details: AnyObject)
     {
         print(details)
     }
     
      // MARK: - Query Volunteer  functions
     
-    func volunteerRaiserWithDetails(details:AnyObject)
+    func volunteerRaiserWithDetails(_ details:AnyObject)
     {
         
-        if (details.objectForKey("QueryId") != nil)
+        if (details.object(forKey: "QueryId") != nil)
         {
-            if let QueryId = details.objectForKey("QueryId") as? String
+            if let QueryId = details.object(forKey: "QueryId") as? String
             {
                 if let studentqueryView  = mScrollView.viewWithTag(Int(QueryId)!) as? QueryVolunteerSubView
                 {
@@ -361,16 +361,16 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
         
     }
     
-    func metooRaisedWithDetails(details:AnyObject)
+    func metooRaisedWithDetails(_ details:AnyObject)
     {
-        if (details.objectForKey("QueryId") != nil)
+        if (details.object(forKey: "QueryId") != nil)
         {
-            if let QueryId = details.objectForKey("QueryId") as? String
+            if let QueryId = details.object(forKey: "QueryId") as? String
             {
                 if let studentqueryView  = mScrollView.viewWithTag(Int(QueryId)!) as? QueryVolunteerSubView
                 {
                    
-                    if let StudentId = details.objectForKey("StudentId") as? String
+                    if let StudentId = details.object(forKey: "StudentId") as? String
                     {
                          studentqueryView.setMeTooSelectedStudents(StudentId)
                         
@@ -387,9 +387,9 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
     
     // MARK: - Query Volunteer subView functions
     
-    func delegateVolunteerButtonPressedWithVolunteersArray(volunteersArray: NSMutableArray, withVolunteerButton volunteerButton: UIButton) {
+    func delegateVolunteerButtonPressedWithVolunteersArray(_ volunteersArray: NSMutableArray, withVolunteerButton volunteerButton: UIButton) {
         
-        let buttonPosition :CGPoint = volunteerButton.convertPoint(CGPointZero, toView: self)
+        let buttonPosition :CGPoint = volunteerButton.convert(CGPoint.zero, to: self)
         
         let questionInfoController = VolunteerPopoverController()
         
@@ -400,39 +400,39 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
         var height :CGFloat = CGFloat((volunteersArray.count * 60))
         
         
-        if height > UIScreen.mainScreen().bounds.height - 100
+        if height > UIScreen.main.bounds.height - 100
         {
-            height = UIScreen.mainScreen().bounds.height - 100
+            height = UIScreen.main.bounds.height - 100
         }
         
         
         
-        questionInfoController.preferredContentSize = CGSizeMake(300,height)
+        questionInfoController.preferredContentSize = CGSize(width: 300,height: height)
         
         questionInfoController.setdelegate(self)
         
         let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
         
-        classViewPopOverController.popoverContentSize = CGSizeMake(300,height);
+        classViewPopOverController.contentSize = CGSize(width: 300,height: height);
         
         classViewPopOverController.delegate = self;
         
         questionInfoController.setPopover(classViewPopOverController)
         
-        classViewPopOverController.presentPopoverFromRect(CGRect(
+        classViewPopOverController.present(from: CGRect(
             x:buttonPosition.x ,
             y:buttonPosition.y + volunteerButton.frame.size.height / 2,
             width: 1,
-            height: 1), inView: self, permittedArrowDirections: .Right, animated: true)
+            height: 1), in: self, permittedArrowDirections: .right, animated: true)
     }
     // MARK: - Volunteer popover delegate functions
     
-    func delegateGiveAnswerPressedWithVolunteerDetails(volunteerDetails: AnyObject)
+    func delegateGiveAnswerPressedWithVolunteerDetails(_ volunteerDetails: AnyObject)
     {
         
-        if (volunteerDetails.objectForKey("QueryId") != nil)
+        if (volunteerDetails.object(forKey: "QueryId") != nil)
         {
-            if let QueryId = volunteerDetails.objectForKey("QueryId") as? String
+            if let QueryId = volunteerDetails.object(forKey: "QueryId") as? String
             {
                 if let studentqueryView  = mScrollView.viewWithTag(Int(QueryId)!) as? QueryVolunteerSubView
                 {
@@ -445,12 +445,12 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
                     
                     
                     
-                    studentqueryView.backgroundColor = UIColor.whiteColor()
-                    studentqueryView.layer.shadowColor = UIColor.blackColor().CGColor
+                    studentqueryView.backgroundColor = UIColor.white
+                    studentqueryView.layer.shadowColor = UIColor.black.cgColor
                     studentqueryView.layer.shadowOffset = CGSize(width: 0, height: 3)
                     studentqueryView.layer.shadowOpacity = 0.3
                     studentqueryView.layer.shadowRadius = 2
-                    if let VolunteerId = volunteerDetails.objectForKey("VolunteerId") as? String
+                    if let VolunteerId = volunteerDetails.object(forKey: "VolunteerId") as? String
                     {
                          SSTeacherDataSource.sharedDataSource.sendApporoveVolunteerWithVolunteerId(VolunteerId, withstateFlag: "1", WithDelegate: self)
                         
@@ -459,11 +459,11 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
                    
 //                    let buttonPosition :CGPoint = studentqueryView.convertPoint(CGPointZero, toView: self)
                     
-                     studentVolunteeringPopoverView = VolunteerAnsweringPopOver(frame:CGRectMake(self.frame.size.width - 350 , (self.frame.size.height - 260)/2 , 150,260))
+                     studentVolunteeringPopoverView = VolunteerAnsweringPopOver(frame:CGRect(x: self.frame.size.width - 350 , y: (self.frame.size.height - 260)/2 , width: 150,height: 260))
                     studentVolunteeringPopoverView.setVolunteerDetails(volunteerDetails)
                     studentVolunteeringPopoverView.setdelegate(self)
                     self.addSubview(studentVolunteeringPopoverView)
-                    studentVolunteeringPopoverView.layer.shadowColor = UIColor.blackColor().CGColor
+                    studentVolunteeringPopoverView.layer.shadowColor = UIColor.black.cgColor
                     studentVolunteeringPopoverView.layer.shadowOffset = CGSize(width: 0, height: 3)
                     studentVolunteeringPopoverView.layer.shadowOpacity = 0.3
                     studentVolunteeringPopoverView.layer.shadowRadius = 2
@@ -478,21 +478,21 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
         
     }
     
-    func delegateStopVolunteeringPressedWithVolunteerDetails(volunteerDetails: AnyObject, withThummbsUp ThummbsUp: String, withThummbsDown ThummbsDown: String, withTotalVotes totalVotes: String) {
+    func delegateStopVolunteeringPressedWithVolunteerDetails(_ volunteerDetails: AnyObject, withThummbsUp ThummbsUp: String, withThummbsDown ThummbsDown: String, withTotalVotes totalVotes: String) {
         
         
-        if (volunteerDetails.objectForKey("QueryId") != nil)
+        if (volunteerDetails.object(forKey: "QueryId") != nil)
         {
-            if let QueryId = volunteerDetails.objectForKey("QueryId") as? String
+            if let QueryId = volunteerDetails.object(forKey: "QueryId") as? String
             {
                 if let studentqueryView  = mScrollView.viewWithTag(Int(QueryId)!) as? QueryVolunteerSubView
                 {
-                    studentqueryView.backgroundColor = UIColor.clearColor()
-                    studentqueryView.layer.shadowColor = UIColor.clearColor().CGColor
+                    studentqueryView.backgroundColor = UIColor.clear
+                    studentqueryView.layer.shadowColor = UIColor.clear.cgColor
                     studentqueryView.layer.shadowOffset = CGSize(width: 0, height: 0)
                     studentqueryView.layer.shadowRadius = 0
 
-                    if let VolunteerId = volunteerDetails.objectForKey("VolunteerId") as? String
+                    if let VolunteerId = volunteerDetails.object(forKey: "VolunteerId") as? String
                     {
                         SSTeacherDataSource.sharedDataSource.StopVolunteeringwithVolunteerId(VolunteerId, withthumbsUp: ThummbsUp, withthumbsDown: ThummbsDown, WithDelegate: self)
                         
@@ -517,9 +517,9 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
                     
                     
                     
-                    if let StudentId = volunteerDetails.objectForKey("StudentId") as? String
+                    if let StudentId = volunteerDetails.object(forKey: "StudentId") as? String
                     {
-                        SSTeacherMessageHandler.sharedMessageHandler.sendQRVClosedMessageToRoom(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, withstudentId: StudentId, withQueryId: QueryId, withVolunterPercentage: "\(totalPercentage)")
+                        SSTeacherMessageHandler.sharedMessageHandler.sendQRVClosedMessageToRoom(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, withstudentId: StudentId as NSString, withQueryId: QueryId, withVolunterPercentage: "\(totalPercentage)")
                     }
                     
                     
@@ -537,7 +537,7 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
     
     
     
-    func didGetNewVoteFromStudent(studentId:String, withNewVote newVote:String , withTotalStudents totalStudents:Int)
+    func didGetNewVoteFromStudent(_ studentId:String, withNewVote newVote:String , withTotalStudents totalStudents:Int)
     {
         if studentVolunteeringPopoverView != nil
         {
@@ -547,7 +547,7 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
     }
     
     
-    func queryUnderstoodMessageFromStudentWithQueryId(QueryId:String, withStudentId StudentId:String)
+    func queryUnderstoodMessageFromStudentWithQueryId(_ QueryId:String, withStudentId StudentId:String)
     {
         if let studentqueryView  = mScrollView.viewWithTag(Int(QueryId)!) as? QueryVolunteerSubView
         {
@@ -560,7 +560,7 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
      // MARK: - Volunteer Topview delegate functions
     
     
-    func delegateQueryButtonPressedWithAscending(Isascending: Bool)
+    func delegateQueryButtonPressedWithAscending(_ Isascending: Bool)
     {
         
         
@@ -570,11 +570,11 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
         
         for mQuerySubView in subViews
         {
-            if mQuerySubView.isKindOfClass(QueryVolunteerSubView)
+            if mQuerySubView.isKind(of: QueryVolunteerSubView.self)
             {
-                UIView.animateWithDuration(0.5, animations:
+                UIView.animate(withDuration: 0.5, animations:
                     {
-                        mQuerySubView.frame = CGRectMake(mQuerySubView.frame.origin.x , currentY, mQuerySubView.frame.size.width ,mQuerySubView.frame.size.height)
+                        mQuerySubView.frame = CGRect(x: mQuerySubView.frame.origin.x , y: currentY, width: mQuerySubView.frame.size.width ,height: mQuerySubView.frame.size.height)
                 })
                 
                 
@@ -588,7 +588,7 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
         }
     }
     
-    func delegateMetooButtonPressedWithAscending(Isascending: Bool) {
+    func delegateMetooButtonPressedWithAscending(_ Isascending: Bool) {
         
          var currentY:CGFloat = 10
         
@@ -601,14 +601,14 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
                 
                 for mQuerySubView in subViews
                 {
-                    if mQuerySubView.isKindOfClass(QueryVolunteerSubView)
+                    if mQuerySubView.isKind(of: QueryVolunteerSubView.self)
                     {
                         if mQuerySubView.mmMetooSelectedArray.count == index
                         {
                             
-                            UIView.animateWithDuration(0.5, animations:
+                            UIView.animate(withDuration: 0.5, animations:
                                 {
-                                    mQuerySubView.frame = CGRectMake(mQuerySubView.frame.origin.x , currentY, mQuerySubView.frame.size.width ,mQuerySubView.frame.size.height)
+                                    mQuerySubView.frame = CGRect(x: mQuerySubView.frame.origin.x , y: currentY, width: mQuerySubView.frame.size.width ,height: mQuerySubView.frame.size.height)
                             })
                             
                             
@@ -626,21 +626,21 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
             
             
             
-            for index in (0 ..< metooMaxCount+1).reverse()
+            for index in (0 ..< metooMaxCount+1).reversed()
             {
                 
                 let subViews = mScrollView.subviews.flatMap{ $0 as? QueryVolunteerSubView }
                 
                 for mQuerySubView in subViews
                 {
-                    if mQuerySubView.isKindOfClass(QueryVolunteerSubView)
+                    if mQuerySubView.isKind(of: QueryVolunteerSubView.self)
                     {
                         if mQuerySubView.mmMetooSelectedArray.count == index
                         {
                             
-                            UIView.animateWithDuration(0.5, animations:
+                            UIView.animate(withDuration: 0.5, animations:
                                 {
-                                    mQuerySubView.frame = CGRectMake(mQuerySubView.frame.origin.x , currentY, mQuerySubView.frame.size.width ,mQuerySubView.frame.size.height)
+                                    mQuerySubView.frame = CGRect(x: mQuerySubView.frame.origin.x , y: currentY, width: mQuerySubView.frame.size.width ,height: mQuerySubView.frame.size.height)
                             })
                             
                             
@@ -659,7 +659,7 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
         
     }
     
-    func delegateVolunteerButtonPressedWithAscending(Isascending: Bool)
+    func delegateVolunteerButtonPressedWithAscending(_ Isascending: Bool)
     {
         
         var currentY:CGFloat = 10
@@ -673,14 +673,14 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
                 
                 for mQuerySubView in subViews
                 {
-                    if mQuerySubView.isKindOfClass(QueryVolunteerSubView)
+                    if mQuerySubView.isKind(of: QueryVolunteerSubView.self)
                     {
                         if mQuerySubView.mVolunteersDetailsArray.count == index
                         {
                             
-                            UIView.animateWithDuration(0.5, animations:
+                            UIView.animate(withDuration: 0.5, animations:
                                 {
-                                    mQuerySubView.frame = CGRectMake(mQuerySubView.frame.origin.x , currentY, mQuerySubView.frame.size.width ,mQuerySubView.frame.size.height)
+                                    mQuerySubView.frame = CGRect(x: mQuerySubView.frame.origin.x , y: currentY, width: mQuerySubView.frame.size.width ,height: mQuerySubView.frame.size.height)
                             })
                             
                             
@@ -696,21 +696,21 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
         else{
             
             
-            for index in (0 ..< volunteerMaxCount+1).reverse()
+            for index in (0 ..< volunteerMaxCount+1).reversed()
             {
                 
                 let subViews = mScrollView.subviews.flatMap{ $0 as? QueryVolunteerSubView }
                 
                 for mQuerySubView in subViews
                 {
-                    if mQuerySubView.isKindOfClass(QueryVolunteerSubView)
+                    if mQuerySubView.isKind(of: QueryVolunteerSubView.self)
                     {
                         if mQuerySubView.mVolunteersDetailsArray.count == index
                         {
                             
-                            UIView.animateWithDuration(0.5, animations:
+                            UIView.animate(withDuration: 0.5, animations:
                                 {
-                                    mQuerySubView.frame = CGRectMake(mQuerySubView.frame.origin.x , currentY, mQuerySubView.frame.size.width ,mQuerySubView.frame.size.height)
+                                    mQuerySubView.frame = CGRect(x: mQuerySubView.frame.origin.x , y: currentY, width: mQuerySubView.frame.size.width ,height: mQuerySubView.frame.size.height)
                             })
                             
                             

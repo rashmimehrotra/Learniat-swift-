@@ -10,7 +10,7 @@ import Foundation
 class ModelAnswerFullViewSubView: UIView
 {
     
-    var studentImageView    = UIImageView()
+    var studentImageView    = CustomProgressImageView()
     
     var studentName         = UILabel()
     
@@ -20,18 +20,18 @@ class ModelAnswerFullViewSubView: UIView
     {
         super.init(frame: frame)
         
-        studentImageView = UIImageView(frame: CGRectMake(10,10, 40,40))
+        studentImageView = CustomProgressImageView(frame: CGRect(x: 10,y: 10, width: 40,height: 40))
         self.addSubview(studentImageView)
         studentImageView.image = UIImage(named: "Seat.png")
       
         
         
         
-        studentName.frame = CGRectMake(60, 10, (self.frame.size.width-60), 40)
+        studentName.frame = CGRect(x: 60, y: 10, width: (self.frame.size.width-60), height: 40)
         self.addSubview(studentName)
         studentName.numberOfLines = 4
-        studentName.lineBreakMode = .ByTruncatingMiddle
-        studentName.textAlignment = .Left
+        studentName.lineBreakMode = .byTruncatingMiddle
+        studentName.textAlignment = .left
         studentName.text = ""
         studentName.textColor = UIColor(red: 36/255.0, green: 68/255.0, blue: 99/255.0, alpha: 1)
         studentName.font =  UIFont (name: "Roboto-Regular", size: 16)
@@ -40,9 +40,9 @@ class ModelAnswerFullViewSubView: UIView
         let remainingHeight = self.frame.size.height - (60)
         
         
-        containerView.frame = CGRectMake((self.frame.size.width - (remainingHeight * 1.5))/2, 60, remainingHeight * 1.5 ,remainingHeight)
+        containerView.frame = CGRect(x: (self.frame.size.width - (remainingHeight * 1.5))/2, y: 60, width: remainingHeight * 1.5 ,height: remainingHeight)
         self.addSubview(containerView)
-        containerView.backgroundColor = UIColor.whiteColor()
+        containerView.backgroundColor = UIColor.white
         
         
         
@@ -52,20 +52,20 @@ class ModelAnswerFullViewSubView: UIView
     }
     
     
-    func setModelAnswerDetails(details:AnyObject , withOverlay overlaya:UIImage)
+    func setModelAnswerDetails(_ details:AnyObject , withOverlay overlaya:UIImage)
     {
         
-        if details.objectForKey("StudentId") != nil
+        if details.object(forKey: "StudentId") != nil
         {
-            if let StudentId = details.objectForKey("StudentId") as? String
+            if let StudentId = details.object(forKey: "StudentId") as? String
             {
                
-                let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_UserProfileImageURL) as! String
+                let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
                 
-                if let checkedUrl = NSURL(string: "\(urlString)/\(StudentId)_79px.jpg")
+                if let checkedUrl = URL(string: "\(urlString)/\(StudentId)_79px.jpg")
                 {
-                    studentImageView.contentMode = .ScaleAspectFit
-                    studentImageView.downloadImage(checkedUrl, withFolderType: folderType.ProFilePics)
+                    studentImageView.contentMode = .scaleAspectFit
+                    studentImageView.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
                     studentImageView.layer.cornerRadius = 5
                 }
             }
@@ -74,46 +74,46 @@ class ModelAnswerFullViewSubView: UIView
         
         let overlayImageImage = UIImageView(frame:containerView.frame)
         self.addSubview(overlayImageImage)
-        overlayImageImage.contentMode = .ScaleAspectFit
+        overlayImageImage.contentMode = .scaleAspectFit
         overlayImageImage.image = overlaya
         
         
         
-        if let _StudentName = details.objectForKey("StudentName") as? String
+        if let _StudentName = details.object(forKey: "StudentName") as? String
         {
-            studentName.text = _StudentName.capitalizedString
+            studentName.text = _StudentName.capitalized
         }
         
         
         
-        if details.objectForKey("Image") != nil
+        if details.object(forKey: "Image") != nil
         {
-            if let scribbleName = details.objectForKey("Image") as? String
+            if let scribbleName = details.object(forKey: "Image") as? String
             {
-                let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_SCRIBBLE_IMAGE_URL) as! String
+                let urlString = UserDefaults.standard.object(forKey: k_INI_SCRIBBLE_IMAGE_URL) as! String
                 
-                if let checkedUrl = NSURL(string: "\(urlString)/\(scribbleName)")
+                if let checkedUrl = URL(string: "\(urlString)/\(scribbleName)")
                 {
-                    let answerImage = UIImageView(frame:containerView.frame)
+                    let answerImage = CustomProgressImageView(frame:containerView.frame)
                     self.addSubview(answerImage)
-                    answerImage.contentMode = .ScaleAspectFit
-                    answerImage.downloadImage(checkedUrl, withFolderType: folderType.StudentAnswer, withResizeValue: answerImage.frame.size)
+                    answerImage.contentMode = .scaleAspectFit
+                    answerImage.downloadImage(checkedUrl, withFolderType: folderType.studentAnswer, withResizeValue: answerImage.frame.size)
                 }
             }
             else
             {
-                if let TextAnswer = details.objectForKey("TextAnswer") as? String
+                if let TextAnswer = details.object(forKey: "TextAnswer") as? String
                 {
                     let testAnswerLable = UILabel()
                     testAnswerLable.frame = containerView.frame
                     testAnswerLable.textColor = textColor
                     self.addSubview(testAnswerLable)
-                    testAnswerLable.lineBreakMode = NSLineBreakMode.ByTruncatingTail;
+                    testAnswerLable.lineBreakMode = NSLineBreakMode.byTruncatingTail;
                     testAnswerLable.font = UIFont(name: "Roboto-Regular", size: 16)
                     testAnswerLable.numberOfLines = 10
-                    testAnswerLable.backgroundColor = UIColor.whiteColor()
-                    containerView.bringSubviewToFront(testAnswerLable)
-                    testAnswerLable.textAlignment = .Center
+                    testAnswerLable.backgroundColor = UIColor.white
+                    containerView.bringSubview(toFront: testAnswerLable)
+                    testAnswerLable.textAlignment = .center
                     testAnswerLable.text = TextAnswer
                 }
             }
@@ -121,18 +121,18 @@ class ModelAnswerFullViewSubView: UIView
         
         else
         {
-            if let TextAnswer = details.objectForKey("TextAnswer") as? String
+            if let TextAnswer = details.object(forKey: "TextAnswer") as? String
             {
                 let testAnswerLable = UILabel()
                 testAnswerLable.frame = containerView.frame
                 testAnswerLable.textColor = textColor
                 self.addSubview(testAnswerLable)
-                testAnswerLable.lineBreakMode = NSLineBreakMode.ByTruncatingTail;
+                testAnswerLable.lineBreakMode = NSLineBreakMode.byTruncatingTail;
                 testAnswerLable.font = UIFont(name: "Roboto-Regular", size: 12)
                 testAnswerLable.numberOfLines = 10
-                testAnswerLable.backgroundColor = UIColor.whiteColor()
-                containerView.bringSubviewToFront(testAnswerLable)
-                testAnswerLable.textAlignment = .Center
+                testAnswerLable.backgroundColor = UIColor.white
+                containerView.bringSubview(toFront: testAnswerLable)
+                testAnswerLable.textAlignment = .center
                 testAnswerLable.text = TextAnswer
             }
         }

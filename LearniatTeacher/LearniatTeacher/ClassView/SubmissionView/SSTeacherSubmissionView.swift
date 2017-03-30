@@ -11,17 +11,18 @@ import Foundation
 @objc protocol SSTeacherSubmissionViewDelegate
 {
     
-    optional func delegateGetaggregateWithOptionId(optionId: String, withView barButton: BarView)
+    @objc optional func delegateGetaggregateWithOptionId(_ optionId: String, withView barButton: BarView)
     
     
-    optional func delegateTeacherEvaluatedReplyWithDetails(details:AnyObject, withStudentId studentId:String)
+    @objc optional func delegateTeacherEvaluatedReplyWithDetails(_ details:AnyObject, withStudentId studentId:String)
     
     
+    @objc optional func delegateQuestionSentWithQuestionDetails(_ questionDetails: AnyObject)
     
     
 }
 
-class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjectiveViewDelegate,OneStringGraphViewDelegate,OnewordAnswerViewDelegate
+class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjectiveViewDelegate,OneStringGraphViewDelegate,OnewordAnswerViewDelegate,CollaborationMRQViewDelegate
 {
     var _delgate: AnyObject!
     
@@ -34,6 +35,8 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
     var mOneStringQuestionView : OneStringGraphView!
     
     var mOneWordQuestionView : OnewordAnswerView!
+    
+    var mCollaborationMRQView   :CollaborationMRQView!
     
     var noSubmissionLabel = UILabel()
     
@@ -61,17 +64,17 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
     
     func loadViewWithDetails()
     {
-        noSubmissionLabel.frame = CGRectMake(0, (self.frame.size.height - 300)/2, self.frame.size.width, 300)
+        noSubmissionLabel.frame = CGRect(x: 0, y: (self.frame.size.height - 300)/2, width: self.frame.size.width, height: 300)
         self.addSubview(noSubmissionLabel)
         noSubmissionLabel.text = "There are no submission Yet"
         noSubmissionLabel.textColor = blackTextColor
-        noSubmissionLabel.hidden = false
-        noSubmissionLabel.textAlignment = .Center
+        noSubmissionLabel.isHidden = false
+        noSubmissionLabel.textAlignment = .center
         noSubmissionLabel.font =  UIFont(name: helveticaMedium, size: 35);
     }
     
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -82,64 +85,64 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
     }
     
     
-    func addMRQQuestionWithDetails(details:AnyObject)
+    func addMRQQuestionWithDetails(_ details:AnyObject)
     {
         if mMRQSubmissionView == nil
         {
             mMRQSubmissionView = SubmissionMRQView()
-            mMRQSubmissionView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)
+            mMRQSubmissionView.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height)
             self.addSubview(mMRQSubmissionView)
             mMRQSubmissionView.setdelegate(self)
         }
         mMRQSubmissionView.addGraphViewforWithQuestionDetails(details)
-        noSubmissionLabel.hidden = true
-        mMRQSubmissionView.hidden = false
+        noSubmissionLabel.isHidden = true
+        mMRQSubmissionView.isHidden = false
         
         mCurrentQuestionDetails = details
         
     }
     
-    func addMTCQuestionWithDetails(details:AnyObject)
+    func addMTCQuestionWithDetails(_ details:AnyObject)
     {
         if mMTCSubmissionView == nil
         {
             mMTCSubmissionView = SubmissionMTCView()
-            mMTCSubmissionView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)
+            mMTCSubmissionView.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height)
             self.addSubview(mMTCSubmissionView)
             mMTCSubmissionView.setdelegate(self)
         }
         mMTCSubmissionView.addGraphViewforWithQuestionDetails(details)
-        noSubmissionLabel.hidden = true
-        mMTCSubmissionView.hidden = false
+        noSubmissionLabel.isHidden = true
+        mMTCSubmissionView.isHidden = false
          mCurrentQuestionDetails = details
     }
     
     
     
-    func addScribbleQuestionWithDetails(details:AnyObject)
+    func addScribbleQuestionWithDetails(_ details:AnyObject)
     {
         if mScribbleSubmissionView == nil
         {
-            mScribbleSubmissionView = SubmissionSubjectiveView(frame: CGRectMake(0, 0, self.frame.size.width, self.frame.size.height))
+            mScribbleSubmissionView = SubmissionSubjectiveView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
             self.addSubview(mScribbleSubmissionView)
             mScribbleSubmissionView.setdelegate(self)
         }
-        noSubmissionLabel.hidden = false
-        mScribbleSubmissionView.hidden = true
+        noSubmissionLabel.isHidden = false
+        mScribbleSubmissionView.isHidden = true
         mCurrentQuestionDetails = details
     }
     
     
-    func addOneStringQuestionWithDetails(details:AnyObject)
+    func addOneStringQuestionWithDetails(_ details:AnyObject)
     {
         if mOneStringQuestionView == nil
         {
             
-            mOneStringQuestionView = OneStringGraphView(frame: CGRectMake(0, 0, self.frame.size.width, self.frame.size.height))
+            mOneStringQuestionView = OneStringGraphView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
             self.addSubview(mOneStringQuestionView)
             mOneStringQuestionView.setdelegate(self)
             
-            if let questionName = (details.objectForKey("Name")) as? String
+            if let questionName = (details.object(forKey: "Name")) as? String
             {
                 mOneStringQuestionView.setQuestionName(questionName , withDetails:details )
             }
@@ -148,11 +151,11 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
         if mOneWordQuestionView == nil
         {
             
-            mOneWordQuestionView = OnewordAnswerView(frame: CGRectMake(0, 0, self.frame.size.width, self.frame.size.height))
+            mOneWordQuestionView = OnewordAnswerView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
             self.addSubview(mOneWordQuestionView)
             mOneWordQuestionView.setdelegate(self)
             
-            if let questionName = (details.objectForKey("Name")) as? String
+            if let questionName = (details.object(forKey: "Name")) as? String
             {
                 mOneWordQuestionView.setQuestionName(questionName, withDetails:details)
             }
@@ -160,16 +163,16 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
             
             
         }
-        mOneWordQuestionView.hidden = true
+        mOneWordQuestionView.isHidden = true
         
-        noSubmissionLabel.hidden = true
-        mOneStringQuestionView.hidden = false
+        noSubmissionLabel.isHidden = true
+        mOneStringQuestionView.isHidden = false
         mCurrentQuestionDetails = details
     }
     
     
     
-    func addOneWordQuestionViewWithDetails(details:AnyObject)
+    func addOneWordQuestionViewWithDetails(_ details:AnyObject)
     {
         
 //        noSubmissionLabel.hidden = true
@@ -178,25 +181,29 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
     }
     
     
+   
     
-    func studentAnswerRecievedWIthDetails(details:AnyObject, withStudentDict studentdict:AnyObject)
+    
+    
+    
+    func studentAnswerRecievedWIthDetails(_ details:AnyObject, withStudentDict studentdict:AnyObject)
     {
         
         
-        noSubmissionLabel.hidden = true
+        noSubmissionLabel.isHidden = true
         
-        if let questionType = mCurrentQuestionDetails.objectForKey("Type") as? String
+        if let questionType = mCurrentQuestionDetails.object(forKey: "Type") as? String
         {
             
             if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
             {
                 mScribbleSubmissionView.setStudentAnswerWithAnswer(details, withStudentDict: studentdict, withQuestionDict:mCurrentQuestionDetails)
-                mScribbleSubmissionView.hidden = false
+                mScribbleSubmissionView.isHidden = false
             }
             else if (questionType == kText)
             {
                 mScribbleSubmissionView.setStudentAnswerWithAnswer(details, withStudentDict: studentdict, withQuestionDict:mCurrentQuestionDetails)
-                mScribbleSubmissionView.hidden = false
+                mScribbleSubmissionView.isHidden = false
             }
             else if (questionType == kMatchColumn)
             {
@@ -218,12 +225,12 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
     }
     
     
-    func SetStudentOneStringAnswer(studentAnswer:String,withStudentDict studentdict:AnyObject)
+    func SetStudentOneStringAnswer(_ studentAnswer:String,withStudentDict studentdict:AnyObject)
     {
        
         if mOneStringQuestionView !=  nil
         {            
-            if let questionType = mCurrentQuestionDetails.objectForKey("Type") as? String
+            if let questionType = mCurrentQuestionDetails.object(forKey: "Type") as? String
             {
                 if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
                 {
@@ -249,7 +256,7 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
         
     }
     
-    func studentSubmissionEvaluatedWithDetails(evaluationDetails:AnyObject, withStdentId StudentId:String)
+    func studentSubmissionEvaluatedWithDetails(_ evaluationDetails:AnyObject, withStdentId StudentId:String)
     {
         if mScribbleSubmissionView != nil
         {
@@ -260,14 +267,14 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
     
     
     
-    func studentAnswerWithdrawnWithStudentId(studentId:String)
+    func studentAnswerWithdrawnWithStudentId(_ studentId:String)
     {
         if mScribbleSubmissionView != nil
         {
             if mScribbleSubmissionView.removeStudentAnswerWithStudentId(studentId) <= 0
             {
-                mScribbleSubmissionView.hidden = true
-                noSubmissionLabel.hidden = false
+                mScribbleSubmissionView.isHidden = true
+                noSubmissionLabel.isHidden = false
             }
             
             
@@ -279,33 +286,33 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
     
     func questionClearedByTeacher()
     {
-        noSubmissionLabel.hidden = false
+        noSubmissionLabel.isHidden = false
         if mMRQSubmissionView != nil
         {
-            mMRQSubmissionView.hidden = true
+            mMRQSubmissionView.isHidden = true
         }
         if mMTCSubmissionView != nil
         {
-            mMTCSubmissionView.hidden = true
+            mMTCSubmissionView.isHidden = true
         }
         
         if mScribbleSubmissionView != nil
         {
-            mScribbleSubmissionView.hidden = true
+            mScribbleSubmissionView.isHidden = true
             mScribbleSubmissionView.questionCleared()
             
         }
         
         if mOneStringQuestionView != nil
         {
-            mOneStringQuestionView.hidden = true
+            mOneStringQuestionView.isHidden = true
             mOneStringQuestionView.removeFromSuperview()
             mOneStringQuestionView = nil
         }
         
         if mOneWordQuestionView != nil
         {
-            mOneWordQuestionView.hidden = true
+            mOneWordQuestionView.isHidden = true
             mOneWordQuestionView.removeFromSuperview()
             mOneWordQuestionView = nil
             
@@ -317,9 +324,9 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
     
      // MARK: - MRQ GraphView delegate
     
-    func delegateOptionTouchedWithId(optionId: String, withView barButton: BarView) {
+    func delegateOptionTouchedWithId(_ optionId: String, withView barButton: BarView) {
         
-        if delegate().respondsToSelector(#selector(SSTeacherSubmissionViewDelegate.delegateGetaggregateWithOptionId(_:withView:)))
+        if delegate().responds(to: #selector(SSTeacherSubmissionViewDelegate.delegateGetaggregateWithOptionId(_:withView:)))
         {
             delegate().delegateGetaggregateWithOptionId!(optionId,withView:barButton)
         }
@@ -329,16 +336,16 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
     
     // MARK: - SubJectiveView   delegate
     
-    func delegateStudentSubmissionEvaluatedWithDetails(evaluationDetails: AnyObject, withStudentId studentId: String, withSubmissionCount SubmissionCount: Int)
+    func delegateStudentSubmissionEvaluatedWithDetails(_ evaluationDetails: AnyObject, withStudentId studentId: String, withSubmissionCount SubmissionCount: Int)
     {
         
         if SubmissionCount <= 0
         {
-            mScribbleSubmissionView.hidden = true
-            noSubmissionLabel.hidden = false
+            mScribbleSubmissionView.isHidden = true
+            noSubmissionLabel.isHidden = false
         }
         
-        if delegate().respondsToSelector(#selector(SSTeacherSubmissionViewDelegate.delegateTeacherEvaluatedReplyWithDetails(_:withStudentId:)))
+        if delegate().responds(to: #selector(SSTeacherSubmissionViewDelegate.delegateTeacherEvaluatedReplyWithDetails(_:withStudentId:)))
         {
             delegate().delegateTeacherEvaluatedReplyWithDetails!(evaluationDetails, withStudentId: studentId)
         }
@@ -352,13 +359,13 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
     {
         if mOneStringQuestionView !=  nil
         {
-             mOneStringQuestionView.hidden = false
+             mOneStringQuestionView.isHidden = false
            
         }
         
         if mOneWordQuestionView !=  nil
         {
-            mOneWordQuestionView.hidden = true
+            mOneWordQuestionView.isHidden = true
             
         }
     }
@@ -367,20 +374,74 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
     {
         if mOneWordQuestionView !=  nil
         {
-            mOneWordQuestionView.hidden = false
+            mOneWordQuestionView.isHidden = false
             
         }
         
         if mOneStringQuestionView !=  nil
         {
-            mOneStringQuestionView.hidden = true
+            mOneStringQuestionView.isHidden = true
             
         }
         
     }
     
+    // MARK: - MRQ Collaboration
+    
+    func addCollaborationMRQView()
+    {
+        if mCollaborationMRQView == nil
+        {
+            mCollaborationMRQView = CollaborationMRQView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
+            self.addSubview(mCollaborationMRQView)
+            mCollaborationMRQView.setdelegate(self)
+            DispatchQueue.main.async(execute: {
+                self.mCollaborationMRQView.loadAllSubView()
+            })
+            
+            
+            
+        }
+        
+        mCollaborationMRQView.isHidden = false
+        noSubmissionLabel.isHidden = true
+    }
     
     
+    func addCollaborationMRQViewWithCategoryName(_ categoryName:String)
+    {
+        
+        
+      
+    }
+    
+    func addCollaborationSuggestionWithDetails(_ details:AnyObject)
+    {
+        if mCollaborationMRQView != nil
+        {
+          mCollaborationMRQView.addCollaborationSuggestionWithDetails(details)
+        }
+    }
+    
+    func delegateQuestionCreationDismissed()
+    {
+        mCollaborationMRQView.isHidden = true
+        mCollaborationMRQView.removeFromSuperview()
+        mCollaborationMRQView = nil
+        noSubmissionLabel.isHidden = false
+
+    }
+    
+    func delegateQuestionSentWithDetails(details:AnyObject)
+    {
+        mCollaborationMRQView.isHidden = true
+        mCollaborationMRQView.removeFromSuperview()
+        mCollaborationMRQView = nil
+        noSubmissionLabel.isHidden = false
+        
+        delegate().delegateQuestionSentWithQuestionDetails!(details)
+
+    }
     
     
 }

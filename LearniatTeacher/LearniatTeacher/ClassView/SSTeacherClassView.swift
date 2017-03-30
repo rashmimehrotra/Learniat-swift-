@@ -59,9 +59,9 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     var mStartTimeLabel = UILabel()
     
-    let dateFormatter = NSDateFormatter()
+    let dateFormatter = DateFormatter()
     
-    var mStartLabelUpdater                    = NSTimer()
+    var mStartLabelUpdater                    = Timer()
     
     var currentSessionDetails           :AnyObject!
     
@@ -157,7 +157,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
       var mExtTimelabel: UILabel = UILabel();
     
-    private var foregroundNotification: NSObjectProtocol!
+    fileprivate var foregroundNotification: NSObjectProtocol!
     
     override func viewDidLoad()
     {
@@ -170,7 +170,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         self.view.layoutIfNeeded()
         
         
-        foregroundNotification = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationWillEnterForegroundNotification, object: nil, queue: NSOperationQueue.mainQueue()) {
+        foregroundNotification = NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillEnterForeground, object: nil, queue: OperationQueue.main) {
             [unowned self] notification in
             SSTeacherDataSource.sharedDataSource.getMyCurrentSessionOfTeacher(self)
         }
@@ -189,27 +189,27 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
-        mTopbarImageView = UIImageView(frame: CGRectMake(0, 0, self.view.frame.size.width, 70))
+        mTopbarImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 70))
         mTopbarImageView.backgroundColor = topbarColor
         self.view.addSubview(mTopbarImageView)
-        mTopbarImageView.userInteractionEnabled = true
+        mTopbarImageView.isUserInteractionEnabled = true
         
         
-        mBottombarImageView = UIImageView(frame: CGRectMake(0, self.view.frame.size.height - 60, self.view.frame.size.width, 60))
+        mBottombarImageView = UIImageView(frame: CGRect(x: 0, y: self.view.frame.size.height - 60, width: self.view.frame.size.width, height: 60))
         mBottombarImageView.backgroundColor = topbarColor
         self.view.addSubview(mBottombarImageView)
-        mBottombarImageView.userInteractionEnabled = true
+        mBottombarImageView.isUserInteractionEnabled = true
         
         
        
         
         
         
-        mRemainingTimeProgressBar.userInteractionEnabled = false;
+        mRemainingTimeProgressBar.isUserInteractionEnabled = false;
         mBottombarImageView.addSubview(mRemainingTimeProgressBar)
-        mRemainingTimeProgressBar.frame  = CGRectMake(0, mBottombarImageView.frame.size.height - 4 , mBottombarImageView.frame.size.width, 1)
+        mRemainingTimeProgressBar.frame  = CGRect(x: 0, y: mBottombarImageView.frame.size.height - 4 , width: mBottombarImageView.frame.size.width, height: 1)
         mRemainingTimeProgressBar.progressTintColor = standard_Button;
-        let transform: CGAffineTransform = CGAffineTransformMakeScale(1.0, 2);
+        let transform: CGAffineTransform = CGAffineTransform(scaleX: 1.0, y: 2);
         mRemainingTimeProgressBar.transform = transform;
         
         
@@ -221,52 +221,52 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         tabPlaceHolderImage.layer.masksToBounds = true
         
         
-        mQuestionViewButton.frame  = CGRectMake(mBottombarImageView.frame.size.width/2 - 150  , 0, 150, mBottombarImageView.frame.size.height)
+        mQuestionViewButton.frame  = CGRect(x: mBottombarImageView.frame.size.width/2 - 150  , y: 0, width: 150, height: mBottombarImageView.frame.size.height)
         mBottombarImageView.addSubview(mQuestionViewButton)
-        mQuestionViewButton.addTarget(self, action: #selector(SSTeacherClassView.onQuestionsView), forControlEvents: UIControlEvents.TouchUpInside)
-        mQuestionViewButton.backgroundColor = UIColor.clearColor()
-        mQuestionViewButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        mQuestionViewButton.setTitle("Submission", forState: .Normal)
+        mQuestionViewButton.addTarget(self, action: #selector(SSTeacherClassView.onQuestionsView), for: UIControlEvents.touchUpInside)
+        mQuestionViewButton.backgroundColor = UIColor.clear
+        mQuestionViewButton.setTitleColor(UIColor.white, for: UIControlState())
+        mQuestionViewButton.setTitle("Submission", for: UIControlState())
         mQuestionViewButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
         
-        submissionNotificationLabel.frame = CGRectMake(mQuestionViewButton.frame.origin.x + mQuestionViewButton.frame.size.width - 25 , mQuestionViewButton.frame.origin.y + 5 , 40, 30)
+        submissionNotificationLabel.frame = CGRect(x: mQuestionViewButton.frame.origin.x + mQuestionViewButton.frame.size.width - 25 , y: mQuestionViewButton.frame.origin.y + 5 , width: 40, height: 30)
         submissionNotificationLabel.backgroundColor = standard_Red
-        submissionNotificationLabel.textColor = UIColor.whiteColor()
+        submissionNotificationLabel.textColor = UIColor.white
         mBottombarImageView.addSubview(submissionNotificationLabel)
         submissionNotificationLabel.layer.cornerRadius = 11.0;
         submissionNotificationLabel.layer.masksToBounds = true;
         submissionNotificationLabel.text = "0"
         submissionNotificationLabel.font = UIFont(name: helveticaBold, size: 20)
-        submissionNotificationLabel.textAlignment = .Center
-        submissionNotificationLabel.hidden = true
+        submissionNotificationLabel.textAlignment = .center
+        submissionNotificationLabel.isHidden = true
         
         
         
         
-        mClassViewButton.frame  = CGRectMake(mQuestionViewButton.frame.origin.x - (mQuestionViewButton.frame.size.width + 10)  , 0, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height)
+        mClassViewButton.frame  = CGRect(x: mQuestionViewButton.frame.origin.x - (mQuestionViewButton.frame.size.width + 10)  , y: 0, width: mQuestionViewButton.frame.size.width, height: mQuestionViewButton.frame.size.height)
         mBottombarImageView.addSubview(mClassViewButton)
-        mClassViewButton.addTarget(self, action: #selector(SSTeacherClassView.onClassView), forControlEvents: UIControlEvents.TouchUpInside)
-        mClassViewButton.backgroundColor = UIColor.clearColor()
-        mClassViewButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        mClassViewButton.setTitle("Class view", forState: .Normal)
+        mClassViewButton.addTarget(self, action: #selector(SSTeacherClassView.onClassView), for: UIControlEvents.touchUpInside)
+        mClassViewButton.backgroundColor = UIColor.clear
+        mClassViewButton.setTitleColor(UIColor.white, for: UIControlState())
+        mClassViewButton.setTitle("Class view", for: UIControlState())
         mClassViewButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
-        tabPlaceHolderImage.frame = CGRectMake(mClassViewButton.frame.origin.x  , 10, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height - 20 )
+        tabPlaceHolderImage.frame = CGRect(x: mClassViewButton.frame.origin.x  , y: 10, width: mQuestionViewButton.frame.size.width, height: mQuestionViewButton.frame.size.height - 20 )
        
-        mQueryViewButton.frame  = CGRectMake(mQuestionViewButton.frame.origin.x + (mQuestionViewButton.frame.size.width + 10)  , 0, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height)
+        mQueryViewButton.frame  = CGRect(x: mQuestionViewButton.frame.origin.x + (mQuestionViewButton.frame.size.width + 10)  , y: 0, width: mQuestionViewButton.frame.size.width, height: mQuestionViewButton.frame.size.height)
         mBottombarImageView.addSubview(mQueryViewButton)
-        mQueryViewButton.addTarget(self, action: #selector(SSTeacherClassView.onQueryView), forControlEvents: UIControlEvents.TouchUpInside)
-        mQueryViewButton.backgroundColor = UIColor.clearColor()
-        mQueryViewButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        mQueryViewButton.setTitle("Query", forState: .Normal)
+        mQueryViewButton.addTarget(self, action: #selector(SSTeacherClassView.onQueryView), for: UIControlEvents.touchUpInside)
+        mQueryViewButton.backgroundColor = UIColor.clear
+        mQueryViewButton.setTitleColor(UIColor.white, for: UIControlState())
+        mQueryViewButton.setTitle("Query", for: UIControlState())
         mQueryViewButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
         
         
-        mPollViewButton.frame  = CGRectMake(mQueryViewButton.frame.origin.x + (mQueryViewButton.frame.size.width + 10)  , 0, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height)
+        mPollViewButton.frame  = CGRect(x: mQueryViewButton.frame.origin.x + (mQueryViewButton.frame.size.width + 10)  , y: 0, width: mQuestionViewButton.frame.size.width, height: mQuestionViewButton.frame.size.height)
         mBottombarImageView.addSubview(mPollViewButton)
-        mPollViewButton.addTarget(self, action: #selector(SSTeacherClassView.onPollView), forControlEvents: UIControlEvents.TouchUpInside)
-        mPollViewButton.backgroundColor = UIColor.clearColor()
-        mPollViewButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        mPollViewButton.setTitle("Poll", forState: .Normal)
+        mPollViewButton.addTarget(self, action: #selector(SSTeacherClassView.onPollView), for: UIControlEvents.touchUpInside)
+        mPollViewButton.backgroundColor = UIColor.clear
+        mPollViewButton.setTitleColor(UIColor.white, for: UIControlState())
+        mPollViewButton.setTitle("Poll", for: UIControlState())
         mPollViewButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
         
 
@@ -274,35 +274,35 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
         
         
-        queryNotificationLabel.frame = CGRectMake(mQueryViewButton.frame.origin.x + mQueryViewButton.frame.size.width - 25 , mQueryViewButton.frame.origin.y + 5 , 40, 30)
+        queryNotificationLabel.frame = CGRect(x: mQueryViewButton.frame.origin.x + mQueryViewButton.frame.size.width - 25 , y: mQueryViewButton.frame.origin.y + 5 , width: 40, height: 30)
         queryNotificationLabel.backgroundColor = standard_Red
-        queryNotificationLabel.textColor = UIColor.whiteColor()
+        queryNotificationLabel.textColor = UIColor.white
         mBottombarImageView.addSubview(queryNotificationLabel)
         queryNotificationLabel.layer.cornerRadius = 11.0;
         queryNotificationLabel.layer.masksToBounds = true;
         queryNotificationLabel.text = "0"
         queryNotificationLabel.font = UIFont(name: helveticaBold, size: 20)
-        queryNotificationLabel.textAlignment = .Center
-        queryNotificationLabel.hidden = true
+        queryNotificationLabel.textAlignment = .center
+        queryNotificationLabel.isHidden = true
         
         
         
         
         
-        mClassView.frame = CGRectMake(0, mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , self.view.frame.size.width , self.view.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + mBottombarImageView.frame.size.height ))
+        mClassView.frame = CGRect(x: 0, y: mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , width: self.view.frame.size.width , height: self.view.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + mBottombarImageView.frame.size.height ))
         self.view.addSubview(mClassView)
         mClassView.backgroundColor = whiteBackgroundColor
-        mClassView.hidden = true
-        mClassView.userInteractionEnabled = true
+        mClassView.isHidden = true
+        mClassView.isUserInteractionEnabled = true
         
         
         
         
-        mSubmissionView.frame = CGRectMake(0, mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , self.view.frame.size.width , self.view.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + mBottombarImageView.frame.size.height ))
+        mSubmissionView.frame = CGRect(x: 0, y: mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , width: self.view.frame.size.width , height: self.view.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + mBottombarImageView.frame.size.height ))
         self.view.addSubview(mSubmissionView)
         mSubmissionView.backgroundColor = whiteBackgroundColor
-        mSubmissionView.hidden = true
-        mSubmissionView.userInteractionEnabled = true
+        mSubmissionView.isHidden = true
+        mSubmissionView.isUserInteractionEnabled = true
         mSubmissionView.setdelegate(self)
         mSubmissionView.loadViewWithDetails()
         
@@ -313,19 +313,19 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
         
         
-        mQueryView = SSTeacherQueryView(frame:CGRectMake(0, mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , self.view.frame.size.width , self.view.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + mBottombarImageView.frame.size.height )))
+        mQueryView = SSTeacherQueryView(frame:CGRect(x: 0, y: mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , width: self.view.frame.size.width , height: self.view.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + mBottombarImageView.frame.size.height )))
         self.view.addSubview(mQueryView)
         mQueryView.backgroundColor = whiteBackgroundColor
-        mQueryView.hidden = true
-        mQueryView.userInteractionEnabled = true
+        mQueryView.isHidden = true
+        mQueryView.isUserInteractionEnabled = true
         mQueryView.setdelegate(self)
         
         
-        mPollingView = SSTeacherPollView(frame:CGRectMake(0, mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , self.view.frame.size.width , self.view.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + mBottombarImageView.frame.size.height )))
+        mPollingView = SSTeacherPollView(frame:CGRect(x: 0, y: mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , width: self.view.frame.size.width , height: self.view.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + mBottombarImageView.frame.size.height )))
         self.view.addSubview(mPollingView)
         mPollingView.backgroundColor = whiteBackgroundColor
-        mPollingView.hidden = true
-        mPollingView.userInteractionEnabled = true
+        mPollingView.isHidden = true
+        mPollingView.isUserInteractionEnabled = true
         mPollingView.setdelegate(self)
 
         
@@ -333,114 +333,118 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
         
         
-        mTeacherImageView = CustomProgressImageView(frame: CGRectMake(15, 20, 40 ,40))
+        mTeacherImageView = CustomProgressImageView(frame: CGRect(x: 15, y: 20, width: 40 ,height: 40))
         mTeacherImageView.backgroundColor = lightGrayColor
         mTopbarImageView.addSubview(mTeacherImageView)
         mTeacherImageView.layer.masksToBounds = true
         mTeacherImageView.layer.cornerRadius = 2
         
         
-        let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_UserProfileImageURL) as! String
         
-        if let checkedUrl = NSURL(string: "\(urlString)/\(SSTeacherDataSource.sharedDataSource.currentUserId)_79px.jpg")
+        let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
+        let userID = urlString.appending("/").appending(SSTeacherDataSource.sharedDataSource.currentUserId)
+        
+        print("\(urlString)/\(userID)_79px.jpg")
+        
+        if let checkedUrl = URL(string:"\(userID)_79px.jpg")
         {
-            mTeacherImageView.contentMode = .ScaleAspectFit
-            mTeacherImageView.downloadImage(checkedUrl, withFolderType: folderType.ProFilePics)
+            mTeacherImageView.contentMode = .scaleAspectFit
+            mTeacherImageView.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
         }
         
         
-        mTeacherImageButton.frame = CGRectMake(0, 0, 40 , mTopbarImageView.frame.size.height)
+        mTeacherImageButton.frame = CGRect(x: 0, y: 0, width: 40 , height: mTopbarImageView.frame.size.height)
         mTopbarImageView.addSubview(mTeacherImageButton)
-        mTeacherImageButton.addTarget(self, action: #selector(SSTeacherClassView.onTeacherImage), forControlEvents: UIControlEvents.TouchUpInside)
+        mTeacherImageButton.addTarget(self, action: #selector(SSTeacherClassView.onTeacherImage), for: UIControlEvents.touchUpInside)
 
         
         
-      let  mSchedulePopoverButton = UIButton(frame: CGRectMake(mTeacherImageView.frame.origin.x + mTeacherImageView.frame.size.width + 10,  mTeacherImageView.frame.origin.y, 250 , 50))
+      let  mSchedulePopoverButton = UIButton(frame: CGRect(x: mTeacherImageView.frame.origin.x + mTeacherImageView.frame.size.width + 10,  y: mTeacherImageView.frame.origin.y, width: 250 , height: 50))
         mTopbarImageView.addSubview(mSchedulePopoverButton)
-        mSchedulePopoverButton.addTarget(self, action: #selector(SSTeacherClassView.onScheduleScreenPopupPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        mSchedulePopoverButton.addTarget(self, action: #selector(SSTeacherClassView.onScheduleScreenPopupPressed(_:)), for: UIControlEvents.touchUpInside)
         mSchedulePopoverButton.backgroundColor = standard_Button
         mSchedulePopoverButton.layer.cornerRadius = 2
         mSchedulePopoverButton.layer.masksToBounds = true
         
-        mClassName = UILabel(frame: CGRectMake(mSchedulePopoverButton.frame.origin.x + 10, mSchedulePopoverButton.frame.origin.y + 5 , 230, 20))
+        mClassName = UILabel(frame: CGRect(x: mSchedulePopoverButton.frame.origin.x + 10, y: mSchedulePopoverButton.frame.origin.y + 5 , width: 230, height: 20))
         
         
         mClassName.font = UIFont(name:helveticaBold, size: 14)
         mTopbarImageView.addSubview(mClassName)
-        mClassName.textColor = UIColor.whiteColor()
+        mClassName.textColor = UIColor.white
        
-        mStartTimeLabel.frame = CGRectMake(mSchedulePopoverButton.frame.origin.x + 10, mClassName.frame.origin.y + mClassName.frame.size.height , 230, 20)
+        mStartTimeLabel.frame = CGRect(x: mSchedulePopoverButton.frame.origin.x + 10, y: mClassName.frame.origin.y + mClassName.frame.size.height , width: 230, height: 20)
         mStartTimeLabel.font = UIFont(name:helveticaRegular, size: 12)
         mTopbarImageView.addSubview(mStartTimeLabel)
-        mStartTimeLabel.textColor = UIColor.whiteColor()
+        mStartTimeLabel.textColor = UIColor.white
         
         
         
-         mTopicButton = UIButton(frame: CGRectMake(mTopbarImageView.frame.size.width - (mSchedulePopoverButton.frame.size.width + 10 ),  mSchedulePopoverButton.frame.origin.y, mSchedulePopoverButton.frame.size.width , mSchedulePopoverButton.frame.size.height))
+         mTopicButton = UIButton(frame: CGRect(x: mTopbarImageView.frame.size.width - (mSchedulePopoverButton.frame.size.width + 10 ),  y: mSchedulePopoverButton.frame.origin.y, width: mSchedulePopoverButton.frame.size.width , height: mSchedulePopoverButton.frame.size.height))
         mTopbarImageView.addSubview(mTopicButton)
-        mTopicButton.addTarget(self, action: #selector(SSTeacherClassView.onTopicsButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        mTopicButton.addTarget(self, action: #selector(SSTeacherClassView.onTopicsButton(_:)), for: UIControlEvents.touchUpInside)
         mTopicButton.backgroundColor = standard_Button
         mTopicButton.layer.cornerRadius = 2
         mTopicButton.layer.masksToBounds = true
         
         
-        mModelAnswerButton = ModelAnswerButtonView(frame:CGRectMake(mTopicButton.frame.origin.x - (mTopicButton.frame.size.width + 10 ) , mTopicButton.frame.origin.y, mTopicButton.frame.size.width, mTopicButton.frame.size.height))
+        mModelAnswerButton = ModelAnswerButtonView(frame:CGRect(x: mTopicButton.frame.origin.x - (mTopicButton.frame.size.width + 10 ) , y: mTopicButton.frame.origin.y, width: mTopicButton.frame.size.width, height: mTopicButton.frame.size.height))
         mTopbarImageView.addSubview(mModelAnswerButton)
         mModelAnswerButton.backgroundColor = standard_Green
-         mModelAnswerButton.addTarget(self, action: #selector(SSTeacherClassView.onModelAnswerButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mModelAnswerButton.hidden = true
+         mModelAnswerButton.addTarget(self, action: #selector(SSTeacherClassView.onModelAnswerButton), for: UIControlEvents.touchUpInside)
+        mModelAnswerButton.isHidden = true
         
         
         
         
-        mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 610, mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , 600, 680)
+        mShowTopicsView.frame = CGRect(x: self.view.frame.size.width - 610, y: mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , width: 600, height: 680)
         
-        mShowTopicsView.backgroundColor = UIColor.whiteColor()
-        mShowTopicsView.layer.shadowColor = UIColor.blackColor().CGColor
+        mShowTopicsView.backgroundColor = UIColor.white
+        mShowTopicsView.layer.shadowColor = UIColor.black.cgColor
         mShowTopicsView.layer.shadowOpacity = 0.3
-        mShowTopicsView.layer.shadowOffset = CGSizeZero
+        mShowTopicsView.layer.shadowOffset = CGSize.zero
         mShowTopicsView.layer.shadowRadius = 10
-        mShowTopicsView.hidden = true
+        mShowTopicsView.isHidden = true
         self.view.addSubview(mShowTopicsView)
         
         
         
-        mModelAnswerView = StudentModelAnswerView(frame:CGRectMake(mModelAnswerButton.frame.origin.x - 30 , mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , mModelAnswerButton.frame.size.width + 60, 60))
+        mModelAnswerView = StudentModelAnswerView(frame:CGRect(x: mModelAnswerButton.frame.origin.x - 30 , y: mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , width: mModelAnswerButton.frame.size.width + 60, height: 60))
         self.view.addSubview(mModelAnswerView)
-        mModelAnswerView.backgroundColor = UIColor.whiteColor()
-        mModelAnswerView.layer.shadowColor = UIColor.blackColor().CGColor
+        mModelAnswerView.backgroundColor = UIColor.white
+        mModelAnswerView.layer.shadowColor = UIColor.black.cgColor
         mModelAnswerView.layer.shadowOpacity = 0.3
-        mModelAnswerView.layer.shadowOffset = CGSizeZero
+        mModelAnswerView.layer.shadowOffset = CGSize.zero
         mModelAnswerView.layer.shadowRadius = 10
         mModelAnswerView.setdelegate(self)
-        mModelAnswerView.hidden = true
+        mModelAnswerView.isHidden = true
         
         
-        mSubTopicsNamelabel = UILabel(frame: CGRectMake(10, 5 , mTopicButton.frame.size.width - 20, 20))
+        mSubTopicsNamelabel = UILabel(frame: CGRect(x: 10, y: 5 , width: mTopicButton.frame.size.width - 20, height: 20))
         mSubTopicsNamelabel.font = UIFont(name:helveticaBold, size: 14)
         mTopicButton.addSubview(mSubTopicsNamelabel)
-        mSubTopicsNamelabel.textColor = UIColor.whiteColor()
+        mSubTopicsNamelabel.textColor = UIColor.white
         mSubTopicsNamelabel.text = "No topic selected"
-        mSubTopicsNamelabel.textAlignment = .Right
+        mSubTopicsNamelabel.textAlignment = .right
         
         
         
-        mQuestionNamelabel = UILabel(frame: CGRectMake(mSubTopicsNamelabel.frame.origin.x , mSubTopicsNamelabel.frame.origin.y + mSubTopicsNamelabel.frame.size.height , mSubTopicsNamelabel.frame.size.width, 20))
+        mQuestionNamelabel = UILabel(frame: CGRect(x: mSubTopicsNamelabel.frame.origin.x , y: mSubTopicsNamelabel.frame.origin.y + mSubTopicsNamelabel.frame.size.height , width: mSubTopicsNamelabel.frame.size.width, height: 20))
         mQuestionNamelabel.font = UIFont(name:helveticaRegular, size: 12)
         mTopicButton.addSubview(mQuestionNamelabel)
-        mQuestionNamelabel.textColor = UIColor.whiteColor()
+        mQuestionNamelabel.textColor = UIColor.white
         mQuestionNamelabel.text = "No active question"
-        mQuestionNamelabel.textAlignment = .Right
+        mQuestionNamelabel.textAlignment = .right
         
         
       
         
         mStartLabelUpdater.invalidate()
-        mStartLabelUpdater = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(SSTeacherClassView.updateStartLabelTime), userInfo: nil, repeats: true)
+        mStartLabelUpdater = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(SSTeacherClassView.updateStartLabelTime), userInfo: nil, repeats: true)
         
         
-        mActivityIndicatore = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-        mActivityIndicatore.frame = CGRectMake((self.view.frame.size.width - 60)/2, (self.view.frame.size.height - 60)/2, 60, 60)
+        mActivityIndicatore = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        mActivityIndicatore.frame = CGRect(x: (self.view.frame.size.width - 60)/2, y: (self.view.frame.size.height - 60)/2, width: 60, height: 60)
         self.view.addSubview(mActivityIndicatore)
         
         
@@ -457,7 +461,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
  
   
     
-    func setSessionDetails(details:AnyObject)
+    func setSessionDetails(_ details:AnyObject)
     {
         currentSessionDetails = details
         
@@ -466,20 +470,20 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     func addAllDetailsOfSession()
     {
-        if let sessionId = (currentSessionDetails.objectForKey(kSessionId)) as? String
+        if let sessionId = (currentSessionDetails.object(forKey: kSessionId)) as? String
         {
             currentSessionId = sessionId
             SSTeacherDataSource.sharedDataSource.currentLiveSessionId = sessionId
         }
 
         
-        if let className = currentSessionDetails.objectForKey("ClassName") as? String
+        if let className = currentSessionDetails.object(forKey: "ClassName") as? String
         {
             
-            if var roomName = currentSessionDetails.objectForKey("RoomName") as? String
+            if var roomName = currentSessionDetails.object(forKey: "RoomName") as? String
             {
                 
-                roomName = roomName.stringByReplacingOccurrencesOfString("Room ", withString: "")
+                roomName = roomName.replacingOccurrences(of: "Room ", with: "")
                 
                 mClassName.text = "\(className)(R:\(roomName))"
             }
@@ -490,11 +494,11 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             
         }
         
-        if let  StartTime = currentSessionDetails.objectForKey("StartTime") as? String
+        if let  StartTime = currentSessionDetails.object(forKey: "StartTime") as? String
         {
             
             var _string :String = ""
-            let currentDate = NSDate()
+            let currentDate = Date()
            
             
 //            if isGreater == true
@@ -506,26 +510,26 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
 //            }
             
             
-            _string = _string.stringFromTimeInterval(currentDate.timeIntervalSinceDate(dateFormatter.dateFromString(StartTime)!)).fullString
+            _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: StartTime)!)).fullString
             mStartTimeLabel.text = "Started: \(_string)"
         }
         
         
         
-        if let  StartTime = currentSessionDetails.objectForKey("StartTime") as? String
+        if let  StartTime = currentSessionDetails.object(forKey: "StartTime") as? String
         {
          
-            if let  EndTime = currentSessionDetails.objectForKey("EndTime") as? String
+            if let  EndTime = currentSessionDetails.object(forKey: "EndTime") as? String
             {
-                 let currentDate = NSDate()
+                 let currentDate = Date()
                 
-                   var totalminutesRemaining = currentDate.minutesDiffernceBetweenDates(dateFormatter.dateFromString(StartTime)!, endDate: dateFormatter.dateFromString(EndTime )!)
+                   var totalminutesRemaining = currentDate.minutesDiffernceBetweenDates(dateFormatter.date(from: StartTime)!, endDate: dateFormatter.date(from: EndTime )!)
                 
                 totalminutesRemaining = totalminutesRemaining * 60
                 
                 
                 
-                 var minutesRemaining = currentDate.minutesDiffernceBetweenDates(dateFormatter.dateFromString(StartTime )!, endDate:currentDate )
+                 var minutesRemaining = currentDate.minutesDiffernceBetweenDates(dateFormatter.date(from: StartTime )!, endDate:currentDate )
                 
                 
                 minutesRemaining = minutesRemaining * 60
@@ -542,45 +546,45 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         }
         
         
-        mainTopicsView  = MainTopicsView(frame: CGRectMake(0,0, 600   ,44))
+        mainTopicsView  = MainTopicsView(frame: CGRect(x: 0,y: 0, width: 600   ,height: 44))
         mainTopicsView.setSessionDetails(currentSessionDetails)
         mainTopicsView.setdelegate(self)
         mShowTopicsView.addSubview(mainTopicsView)
-        mainTopicsView.hidden = true
+        mainTopicsView.isHidden = true
         
-        subTopicsView = SubTopicsView(frame:CGRectMake(0,0, 600   ,44))
+        subTopicsView = SubTopicsView(frame:CGRect(x: 0,y: 0, width: 600   ,height: 44))
         subTopicsView.setSessionDetails(currentSessionDetails)
         subTopicsView.setdelegate(self)
         mShowTopicsView.addSubview(subTopicsView)
-        mShowTopicsView.hidden = true
+        mShowTopicsView.isHidden = true
         
         
         
         
-        questionTopicsView = QuestionsView(frame:CGRectMake(0,0, 600   ,44))
+        questionTopicsView = QuestionsView(frame:CGRect(x: 0,y: 0, width: 600   ,height: 44))
         questionTopicsView.setSessionDetails(currentSessionDetails)
         questionTopicsView.setdelegate(self)
         mShowTopicsView.addSubview(questionTopicsView)
-        questionTopicsView.hidden = true
+        questionTopicsView.isHidden = true
         
         
         
-        liveQuestionView = LiveQuestionView(frame:CGRectMake(0,0, 450   ,350))
+        liveQuestionView = LiveQuestionView(frame:CGRect(x: 0,y: 0, width: 450   ,height: 350))
         liveQuestionView.setSessionDetails(currentSessionDetails)
         liveQuestionView.setdelegate(self)
         mShowTopicsView.addSubview(liveQuestionView)
-        liveQuestionView.hidden = true
+        liveQuestionView.isHidden = true
         
         
         
         
         
         
-        if let roomId = currentSessionDetails.objectForKey("RoomId") as? String
+        if let roomId = currentSessionDetails.object(forKey: "RoomId") as? String
         {
             SSTeacherDataSource.sharedDataSource.getGridDesignDetails(roomId, WithDelegate: self)
             mActivityIndicatore.startAnimating()
-            mActivityIndicatore.hidden = false
+            mActivityIndicatore.isHidden = false
         }
         
         
@@ -590,26 +594,26 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     }
     
     
-    func onScheduleScreenPopupPressed(sender:UIButton)
+    func onScheduleScreenPopupPressed(_ sender:UIButton)
     {
         let questionInfoController = SSTeacherSchedulePopoverController()
         questionInfoController.setdelegate(self)
         
         let height = self.view.frame.size.height - (mTopbarImageView.frame.size.height + 20 )
         questionInfoController.setdelegate(self)
-        questionInfoController.setCurrentScreenSize(CGSizeMake(600,height))
-        questionInfoController.preferredContentSize = CGSizeMake(600,height)
+        questionInfoController.setCurrentScreenSize(CGSize(width: 600,height: height))
+        questionInfoController.preferredContentSize = CGSize(width: 600,height: height)
         
         let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
         questionInfoController.setPopover(classViewPopOverController)
-        classViewPopOverController.popoverContentSize = CGSizeMake(600,height);
+        classViewPopOverController.contentSize = CGSize(width: 600,height: height);
         classViewPopOverController.delegate = self;
         
-        classViewPopOverController.presentPopoverFromRect(CGRect(
+        classViewPopOverController.present(from: CGRect(
             x:sender.frame.origin.x + sender.frame.size.width / 2,
             y:sender.frame.origin.y + sender.frame.size.height,
             width: 1,
-            height: 1), inView: self.view, permittedArrowDirections: .Up, animated: true)
+            height: 1), in: self.view, permittedArrowDirections: .up, animated: true)
 
     }
     
@@ -618,27 +622,27 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     func updateStartLabelTime()
     {
-        if let StartTime = currentSessionDetails.objectForKey("StartTime") as? String
+        if let StartTime = currentSessionDetails.object(forKey: "StartTime") as? String
         {
             
             var _string :String = ""
-            let currentDate = NSDate()
+            let currentDate = Date()
             
-            _string = _string.stringFromTimeInterval(currentDate.timeIntervalSinceDate(dateFormatter.dateFromString(StartTime)!)).fullString
+            _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: StartTime)!)).fullString
             mStartTimeLabel.text = "Started: \(_string)"
             
             
             
-            if let  EndTime = currentSessionDetails.objectForKey("EndTime") as? String
+            if let  EndTime = currentSessionDetails.object(forKey: "EndTime") as? String
             {
 
-                var totalminutesRemaining = currentDate.minutesDiffernceBetweenDates(dateFormatter.dateFromString(StartTime)!, endDate: dateFormatter.dateFromString(EndTime )!)
+                var totalminutesRemaining = currentDate.minutesDiffernceBetweenDates(dateFormatter.date(from: StartTime)!, endDate: dateFormatter.date(from: EndTime )!)
                 
                 totalminutesRemaining = totalminutesRemaining * 60
                 
                 
                 
-                var minutesRemaining = currentDate.minutesDiffernceBetweenDates(dateFormatter.dateFromString(StartTime )!, endDate:currentDate )
+                var minutesRemaining = currentDate.minutesDiffernceBetweenDates(dateFormatter.date(from: StartTime )!, endDate:currentDate )
                 
                 
                 minutesRemaining = minutesRemaining * 60
@@ -648,7 +652,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 mRemainingTimeProgressBar.progress = Float(progressValue)
                 
                 
-                let classEndingRemainingTime = currentDate.minutesDiffernceBetweenDates(currentDate, endDate:dateFormatter.dateFromString(EndTime )! )
+                let classEndingRemainingTime = currentDate.minutesDiffernceBetweenDates(currentDate, endDate:dateFormatter.date(from: EndTime )! )
                 
                 if classEndingRemainingTime <= 4
                 {
@@ -677,7 +681,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     func onTeacherImage()
     {
-        mShowTopicsView.hidden = true
+        mShowTopicsView.isHidden = true
         if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
         {
             mSubTopicsNamelabel.text = "No topic selected"
@@ -686,34 +690,34 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         let questionInfoController = SSSettingsViewController()
         questionInfoController.setDelegate(self)
         
-        questionInfoController.ClassViewTopicsButtonSettingsButtonPressed();
+        questionInfoController.classViewTopicsButtonSettingsButtonPressed();
 
         let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
         
-        classViewPopOverController.popoverContentSize = CGSizeMake(310, 444);
+        classViewPopOverController.contentSize = CGSize(width: 310, height: 444);
         classViewPopOverController.delegate = self;
-        questionInfoController.setPopOverController(classViewPopOverController)
+        questionInfoController.setPopOver(classViewPopOverController)
         
         
         if (newSubmissionRecieved.count <= 0 && newQueryRecieved.count <= 0 && SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false)
         {
-            questionInfoController.setupTopicsButton.enabled = true;
-            questionInfoController.setupTopicsButton.setTitleColor(standard_Button,forState:.Normal);
+            questionInfoController.setupTopicsButton.isEnabled = true;
+            questionInfoController.setupTopicsButton.setTitleColor(standard_Button,for:UIControlState());
             
-            questionInfoController.manualResignButton.enabled = true
-            questionInfoController.manualResignButton.setTitleColor(standard_Button, forState:.Normal);
+            questionInfoController.manualResignButton.isEnabled = true
+            questionInfoController.manualResignButton.setTitleColor(standard_Button, for:UIControlState());
             
             
             
-            questionInfoController.randomReassignButton.enabled = true
-            questionInfoController.randomReassignButton.setTitleColor(standard_Button, forState:.Normal);
+            questionInfoController.randomReassignButton.isEnabled = true
+            questionInfoController.randomReassignButton.setTitleColor(standard_Button, for:UIControlState());
             
            
-            questionInfoController.alphabeticalReassignButton.enabled = true
-            questionInfoController.alphabeticalReassignButton.setTitleColor(standard_Button, forState:.Normal);
+            questionInfoController.alphabeticalReassignButton.isEnabled = true
+            questionInfoController.alphabeticalReassignButton.setTitleColor(standard_Button, for:UIControlState());
 
-            questionInfoController.pullNewProfilePics.enabled = true
-            questionInfoController.pullNewProfilePics.setTitleColor(standard_Button, forState:.Normal);
+            questionInfoController.pullNewProfilePics.isEnabled = true
+            questionInfoController.pullNewProfilePics.setTitleColor(standard_Button, for:UIControlState());
             
             
         }
@@ -721,33 +725,33 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         {
             
             
-            questionInfoController.setupTopicsButton.enabled = false;
-            questionInfoController.setupTopicsButton.setTitleColor(lightGrayColor,forState:.Normal);
+            questionInfoController.setupTopicsButton.isEnabled = false;
+            questionInfoController.setupTopicsButton.setTitleColor(lightGrayColor,for:UIControlState());
             
             
-            questionInfoController.manualResignButton.enabled = false;
-            questionInfoController.manualResignButton.setTitleColor(lightGrayColor,forState:.Normal);
+            questionInfoController.manualResignButton.isEnabled = false;
+            questionInfoController.manualResignButton.setTitleColor(lightGrayColor,for:UIControlState());
 
 
-            questionInfoController.randomReassignButton.enabled = false;
-            questionInfoController.randomReassignButton.setTitleColor(lightGrayColor,forState:.Normal);
+            questionInfoController.randomReassignButton.isEnabled = false;
+            questionInfoController.randomReassignButton.setTitleColor(lightGrayColor,for:UIControlState());
             
-            questionInfoController.alphabeticalReassignButton.enabled = false;
-            questionInfoController.alphabeticalReassignButton.setTitleColor(lightGrayColor,forState:.Normal);
+            questionInfoController.alphabeticalReassignButton.isEnabled = false;
+            questionInfoController.alphabeticalReassignButton.setTitleColor(lightGrayColor,for:UIControlState());
             
-            questionInfoController.pullNewProfilePics.enabled = false;
-            questionInfoController.pullNewProfilePics.setTitleColor(lightGrayColor,forState:.Normal);
+            questionInfoController.pullNewProfilePics.isEnabled = false;
+            questionInfoController.pullNewProfilePics.setTitleColor(lightGrayColor,for:UIControlState());
             
         }
         
         
         
         
-        classViewPopOverController.presentPopoverFromRect(CGRect(
+        classViewPopOverController.present(from: CGRect(
             x:mTeacherImageButton.frame.origin.x ,
             y:mTeacherImageButton.frame.origin.y + mTeacherImageButton.frame.size.height,
             width: 1,
-            height: 1), inView: self.view, permittedArrowDirections: .Up, animated: true)
+            height: 1), in: self.view, permittedArrowDirections: .up, animated: true)
         
         
         
@@ -764,23 +768,23 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     func onClassView()
     {
-         tabPlaceHolderImage.frame = CGRectMake(mClassViewButton.frame.origin.x  , 10, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height - 20 )
+         tabPlaceHolderImage.frame = CGRect(x: mClassViewButton.frame.origin.x  , y: 10, width: mQuestionViewButton.frame.size.width, height: mQuestionViewButton.frame.size.height - 20 )
         currentScreen  = kClassView
         
-        mClassView.hidden      = false
-        mSubmissionView.hidden = true
-        mQueryView.hidden      = true
-         mPollingView.hidden    = true
+        mClassView.isHidden      = false
+        mSubmissionView.isHidden = true
+        mQueryView.isHidden      = true
+         mPollingView.isHidden    = true
     }
     
     func onQuestionsView()
     {
-         tabPlaceHolderImage.frame = CGRectMake(mQuestionViewButton.frame.origin.x  , 10, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height - 20 )
+         tabPlaceHolderImage.frame = CGRect(x: mQuestionViewButton.frame.origin.x  , y: 10, width: mQuestionViewButton.frame.size.width, height: mQuestionViewButton.frame.size.height - 20 )
         
-        mClassView.hidden      = true
-        mSubmissionView.hidden = false
-        mQueryView.hidden      = true
-         mPollingView.hidden    = true
+        mClassView.isHidden      = true
+        mSubmissionView.isHidden = false
+        mQueryView.isHidden      = true
+         mPollingView.isHidden    = true
         currentScreen  = kSubmissionView
 //        mShowTopicsView.hidden = true
 //        if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
@@ -788,7 +792,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
 //            mSubTopicsNamelabel.text = "No topic selected"
 //        }
         
-        submissionNotificationLabel.hidden = true
+        submissionNotificationLabel.isHidden = true
         
         if newSubmissionRecieved.count > 0
         {
@@ -796,7 +800,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             for index in 0 ..< newSubmissionRecieved.count
             {
                 
-                if let studentId = newSubmissionRecieved.objectAtIndex(index) as? String
+                if let studentId = newSubmissionRecieved.object(at: index) as? String
                 {
                     SSTeacherMessageHandler.sharedMessageHandler.sendHandRaiseReceivedMessageToStudentWithId(studentId)
                 }
@@ -814,7 +818,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     func onQueryView()
     {
-         tabPlaceHolderImage.frame = CGRectMake(mQueryViewButton.frame.origin.x  , 10, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height - 20 )
+         tabPlaceHolderImage.frame = CGRect(x: mQueryViewButton.frame.origin.x  , y: 10, width: mQuestionViewButton.frame.size.width, height: mQuestionViewButton.frame.size.height - 20 )
       
 //        mShowTopicsView.hidden = true
 //        if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
@@ -822,13 +826,13 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
 //            mSubTopicsNamelabel.text = "No topic selected"
 //        }
         
-        mClassView.hidden      = true
-        mSubmissionView.hidden = true
-        mPollingView.hidden    = true
-        mQueryView.hidden      = false
+        mClassView.isHidden      = true
+        mSubmissionView.isHidden = true
+        mPollingView.isHidden    = true
+        mQueryView.isHidden      = false
         currentScreen  = kQueryView
         
-        queryNotificationLabel.hidden = true
+        queryNotificationLabel.isHidden = true
         if newQueryRecieved.count > 0
         {
             SSTeacherMessageHandler.sharedMessageHandler.sendQueryRecievedMessageToRoom(currentSessionId)
@@ -841,15 +845,15 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     func onPollView()
     {
-        tabPlaceHolderImage.frame = CGRectMake(mPollViewButton.frame.origin.x  , 10, mQuestionViewButton.frame.size.width, mQuestionViewButton.frame.size.height - 20 )
+        tabPlaceHolderImage.frame = CGRect(x: mPollViewButton.frame.origin.x  , y: 10, width: mQuestionViewButton.frame.size.width, height: mQuestionViewButton.frame.size.height - 20 )
         
-        mClassView.hidden      = true
-        mSubmissionView.hidden = true
-        mQueryView.hidden      = true
-        mPollingView.hidden      = false
+        mClassView.isHidden      = true
+        mSubmissionView.isHidden = true
+        mQueryView.isHidden      = true
+        mPollingView.isHidden      = false
         currentScreen  = kQueryView
         
-        queryNotificationLabel.hidden = true
+        queryNotificationLabel.isHidden = true
         if newQueryRecieved.count > 0
         {
             SSTeacherMessageHandler.sharedMessageHandler.sendQueryRecievedMessageToRoom(currentSessionId)
@@ -867,13 +871,14 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     
     
-    func didGetGridDesignWithDetails(details: AnyObject) {
+    
+    func didGetGridDesignWithDetails(_ details: AnyObject) {
         
         let subViews = mClassView.subviews.flatMap{ $0 as? StundentDeskView }
         
         for subview in subViews
         {
-            if subview.isKindOfClass(StundentDeskView)
+            if subview.isKind(of: StundentDeskView.self)
             {
                subview.removeFromSuperview()
             }
@@ -883,14 +888,14 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     }
     
     
-    func didGetSeatAssignmentSavedWithDetails(details: AnyObject)
+    func didGetSeatAssignmentSavedWithDetails(_ details: AnyObject)
     {
         
         
-        if let sessionid = currentSessionDetails.objectForKey(kSessionId) as? String
+        if let sessionid = currentSessionDetails.object(forKey: kSessionId) as? String
         {
             
-            if let RoomName = currentSessionDetails.objectForKey("RoomName") as? String
+            if let RoomName = currentSessionDetails.object(forKey: "RoomName") as? String
             {
                 SSTeacherMessageHandler.sharedMessageHandler.sendSeatingChangedtoRoom(sessionid, withSeatName: "A2", withRoomName: RoomName)
             }
@@ -901,11 +906,11 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             
             SSTeacherDataSource.sharedDataSource.getStudentsInfoWithSessionId(currentSessionId, withDelegate: self)
             
-            if let roomId = currentSessionDetails.objectForKey("RoomId") as? String
+            if let roomId = currentSessionDetails.object(forKey: "RoomId") as? String
             {
                 SSTeacherDataSource.sharedDataSource.getGridDesignDetails(roomId, WithDelegate: self)
                 mActivityIndicatore.startAnimating()
-                mActivityIndicatore.hidden = false
+                mActivityIndicatore.isHidden = false
             }
 
         }
@@ -913,30 +918,30 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
 
     
     
-    func didGetSeatAssignmentWithDetails(details: AnyObject)
+    func didGetSeatAssignmentWithDetails(_ details: AnyObject)
     {
         
         
     }
-    func didGetStudentsInfoWithDetails(details: AnyObject) {
+    func didGetStudentsInfoWithDetails(_ details: AnyObject) {
         
         arranageSeatsWithDetails(details)
     }
     
-    func didGetAllGraspIndexWithDetails(details: AnyObject)
+    func didGetAllGraspIndexWithDetails(_ details: AnyObject)
     {
         
         print(details)
         
         
-        if let studentsdetails = details.objectForKey("Students")?.objectForKey("Student") as? NSMutableArray
+        if let studentsdetails = (details.object(forKey: "Students") as AnyObject).object(forKey: "Student") as? NSMutableArray
         {
             for index in studentsdetails
             {
                 
-                if let graspIndex =  index.objectForKey("GraspIndex") as? String
+                if let graspIndex =  (index as AnyObject).object(forKey: "GraspIndex") as? String
                 {
-                    if let StudentId = index.objectForKey("StudentId") as? String
+                    if let StudentId = (index as AnyObject).object(forKey: "StudentId") as? String
                     {
                         if let studentDeskView  = mClassView.viewWithTag(Int(StudentId)!) as? StundentDeskView
                         {
@@ -956,7 +961,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
 
     }
     
-    func didGetSubtopicStartedWithDetails(details: AnyObject)
+    func didGetSubtopicStartedWithDetails(_ details: AnyObject)
     {
         
         
@@ -965,7 +970,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
 
         if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == true
         {
-            if NSUserDefaults.standardUserDefaults().boolForKey("isSimulateMode") == true
+            if UserDefaults.standard.bool(forKey: "isSimulateMode") == true
             {
                 demoQueryView.sendDummyQueriesWithStudentDetails(StudentsDetailsArray)
             }
@@ -977,7 +982,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             
                     for subview in subViews
                     {
-                        if subview.isKindOfClass(StundentDeskView)
+                        if subview.isKind(of: StundentDeskView.self)
                         {
                             subview.setNewSubTopicStarted(true)
                         }
@@ -990,7 +995,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             
             for subview in subViews
             {
-                if subview.isKindOfClass(StundentDeskView)
+                if subview.isKind(of: StundentDeskView.self)
                 {
                     subview.setNewSubTopicStarted(false)
                 }
@@ -1002,12 +1007,12 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
     }
     
-    func didGetQuestionSentWithDetails(details: AnyObject) {
+    func didGetQuestionSentWithDetails(_ details: AnyObject) {
         
        
+        print(currentQuestionDetails)
         
-        
-        if let QuestionLogId = details.objectForKey("QuestionLogId") as? String
+        if let QuestionLogId = details.object(forKey: "QuestionLogId") as? String
         {
             
             SSTeacherDataSource.sharedDataSource.isQuestionSent = true
@@ -1015,14 +1020,14 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             
             SSTeacherDataSource.sharedDataSource.currentQuestionLogId = QuestionLogId
             
-            if let Type = currentQuestionDetails.objectForKey("Type") as? String
+            if let Type = currentQuestionDetails.object(forKey: "Type") as? String
             {
                 SSTeacherMessageHandler.sharedMessageHandler.sendQuestionWithRoomName("question_\(currentSessionId)", withQuestionLogId: SSTeacherDataSource.sharedDataSource.currentQuestionLogId, withQuestionType: Type)
                 
                 
                 
                 
-                if let questionType = currentQuestionDetails.objectForKey("Type") as? String
+                if let questionType = currentQuestionDetails.object(forKey: "Type") as? String
                 {
                     
 //                    print(currentQuestionDetails)
@@ -1032,7 +1037,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                         mSubmissionView.addScribbleQuestionWithDetails(currentQuestionDetails)
                        
                         
-                         if let Scribble = currentQuestionDetails.objectForKey("Scribble") as? String
+                         if let Scribble = currentQuestionDetails.object(forKey: "Scribble") as? String
                          {
                             SSTeacherDataSource.sharedDataSource.mOverlayImageName = Scribble
                         }
@@ -1044,7 +1049,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                         
                         
                         
-                        if NSUserDefaults.standardUserDefaults().boolForKey("isSimulateMode") == true
+                        if UserDefaults.standard.bool(forKey: "isSimulateMode") == true
                         {
                             demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
                         }
@@ -1052,7 +1057,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                     else if (questionType == kText)
                     {
                         mSubmissionView.addScribbleQuestionWithDetails(currentQuestionDetails)
-                        if NSUserDefaults.standardUserDefaults().boolForKey("isSimulateMode") == true
+                        if UserDefaults.standard.bool(forKey: "isSimulateMode") == true
                         {
                             demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
                         }
@@ -1062,7 +1067,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                     {
                         mSubmissionView.addMTCQuestionWithDetails(currentQuestionDetails)
                         
-                        if NSUserDefaults.standardUserDefaults().boolForKey("isSimulateMode") == true
+                        if UserDefaults.standard.bool(forKey: "isSimulateMode") == true
                         {
                             demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
                         }
@@ -1072,7 +1077,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                     else if (questionType  == kMCQ  || questionType == kMRQ)
                     {
                         mSubmissionView.addMRQQuestionWithDetails(currentQuestionDetails)
-                        if NSUserDefaults.standardUserDefaults().boolForKey("isSimulateMode") == true
+                        if UserDefaults.standard.bool(forKey: "isSimulateMode") == true
                         {
                           demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
                         }
@@ -1092,11 +1097,85 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
 //                    }
                 }
             }
+            else if let questionDetails = currentQuestionDetails.object(forKey: "Question") as? AnyObject
+            {
+                
+                if let questionType = questionDetails.object(forKey: "QuestionType") as? String
+                {
+                    SSTeacherMessageHandler.sharedMessageHandler.sendQuestionWithRoomName("question_\(currentSessionId)", withQuestionLogId: SSTeacherDataSource.sharedDataSource.currentQuestionLogId, withQuestionType: questionType)
+                    
+                  
+                        //                    print(currentQuestionDetails)
+                        
+                        if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
+                        {
+                            mSubmissionView.addScribbleQuestionWithDetails(currentQuestionDetails)
+                            
+                            
+                            if let Scribble = currentQuestionDetails.object(forKey: "Scribble") as? String
+                            {
+                                SSTeacherDataSource.sharedDataSource.mOverlayImageName = Scribble
+                            }
+                            else
+                            {
+                                SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
+                            }
+                            
+                            
+                            
+                            
+                            if UserDefaults.standard.bool(forKey: "isSimulateMode") == true
+                            {
+                                demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
+                            }
+                        }
+                        else if (questionType == kText)
+                        {
+                            mSubmissionView.addScribbleQuestionWithDetails(currentQuestionDetails)
+                            if UserDefaults.standard.bool(forKey: "isSimulateMode") == true
+                            {
+                                demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
+                            }
+                            SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
+                        }
+                        else if (questionType == kMatchColumn)
+                        {
+                            mSubmissionView.addMTCQuestionWithDetails(currentQuestionDetails)
+                            
+                            if UserDefaults.standard.bool(forKey: "isSimulateMode") == true
+                            {
+                                demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
+                            }
+                            SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
+                            
+                        }
+                        else if (questionType  == kMCQ  || questionType == kMRQ)
+                        {
+                            mSubmissionView.addMRQQuestionWithDetails(currentQuestionDetails)
+                            if UserDefaults.standard.bool(forKey: "isSimulateMode") == true
+                            {
+                                demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
+                            }
+                            SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
+                            
+                            
+                        }
+                        else if (questionType  == OneString) || questionType  == TextAuto
+                        {
+                            mSubmissionView.addOneStringQuestionWithDetails(currentQuestionDetails)
+                            SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
+                        }
+                        
+                    
+                }
+                
+                
+            }
         }
         
     }
     
-    func didGetQuestionClearedWithDetails(details:AnyObject)
+    func didGetQuestionClearedWithDetails(_ details:AnyObject)
     {
         print(details)
         
@@ -1104,7 +1183,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
     }
     
-    func didGetSessionUpdatedWithDetials(details: AnyObject)
+    func didGetSessionUpdatedWithDetials(_ details: AnyObject)
     {
         
         
@@ -1113,7 +1192,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         SSTeacherMessageHandler.sharedMessageHandler.sendEndSessionMessageToRoom(currentSessionId)
 
         
-         performSegueWithIdentifier("ClassViewToSchedule", sender: nil)
+         performSegue(withIdentifier: "ClassViewToSchedule", sender: nil)
         
         //        let scheduleScreenView  = TeacherScheduleViewController()
         SSTeacherDataSource.sharedDataSource.isQuestionSent = false
@@ -1128,14 +1207,14 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
 //       self.presentViewController(scheduleScreenView, animated: true, completion: nil)
     }
     
-    func didGetMycurrentSessionWithDetials(details: AnyObject)
+    func didGetMycurrentSessionWithDetials(_ details: AnyObject)
     {
         print(details)
         
         
-        if details.objectForKey("Status") != nil
+        if details.object(forKey: "Status") != nil
         {
-            if let Status = details.objectForKey("Status") as? String
+            if let Status = details.object(forKey: "Status") as? String
             {
                 if Status == "There are no active sessions."
                 {
@@ -1143,7 +1222,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 }
                 else
                 {
-                    if let SessionId = details.objectForKey("SessionId") as? String
+                    if let SessionId = details.object(forKey: "SessionId") as? String
                     {
                         if SessionId != SSTeacherDataSource.sharedDataSource.currentLiveSessionId
                         {
@@ -1154,27 +1233,27 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                             
                             
                             
-                            if let StartTime = currentSessionDetails.objectForKey("StartTime") as? String
+                            if let StartTime = currentSessionDetails.object(forKey: "StartTime") as? String
                             {
                                 
                                 var _string :String = ""
-                                let currentDate = NSDate()
+                                let currentDate = Date()
                                 
-                                _string = _string.stringFromTimeInterval(currentDate.timeIntervalSinceDate(dateFormatter.dateFromString(StartTime)!)).fullString
+                                _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: StartTime)!)).fullString
                                 mStartTimeLabel.text = "Started: \(_string)"
                                 
                                 
                                 
-                                if let  EndTime = currentSessionDetails.objectForKey("EndTime") as? String
+                                if let  EndTime = currentSessionDetails.object(forKey: "EndTime") as? String
                                 {
                                     
-                                    var totalminutesRemaining = currentDate.minutesDiffernceBetweenDates(dateFormatter.dateFromString(StartTime)!, endDate: dateFormatter.dateFromString(EndTime )!)
+                                    var totalminutesRemaining = currentDate.minutesDiffernceBetweenDates(dateFormatter.date(from: StartTime)!, endDate: dateFormatter.date(from: EndTime )!)
                                     
                                     totalminutesRemaining = totalminutesRemaining * 60
                                     
                                     
                                     
-                                    var minutesRemaining = currentDate.minutesDiffernceBetweenDates(dateFormatter.dateFromString(StartTime )!, endDate:currentDate )
+                                    var minutesRemaining = currentDate.minutesDiffernceBetweenDates(dateFormatter.date(from: StartTime )!, endDate:currentDate )
                                     
                                     
                                     minutesRemaining = minutesRemaining * 60
@@ -1184,7 +1263,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                                     mRemainingTimeProgressBar.progress = Float(progressValue)
                                     
                                     
-                                    let classEndingRemainingTime = currentDate.minutesDiffernceBetweenDates(currentDate, endDate:dateFormatter.dateFromString(EndTime )! )
+                                    let classEndingRemainingTime = currentDate.minutesDiffernceBetweenDates(currentDate, endDate:dateFormatter.date(from: EndTime )! )
                                     
                                     if classEndingRemainingTime <= 0
                                     {
@@ -1193,11 +1272,11 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                                     }
                                     else if classEndingRemainingTime < 6
                                     {
-                                        let  sessionAlertView = UIAlertController(title: "Session ending", message: "Your class is about to end in 6 mins. Do you want to continue?", preferredStyle: UIAlertControllerStyle.Alert)
+                                        let  sessionAlertView = UIAlertController(title: "Session ending", message: "Your class is about to end in 6 mins. Do you want to continue?", preferredStyle: UIAlertControllerStyle.alert)
                                         
-                                        sessionAlertView.addAction(UIAlertAction(title: "End now", style: .Default, handler: { action in
+                                        sessionAlertView.addAction(UIAlertAction(title: "End now", style: .default, handler: { action in
                                             
-                                            sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
+                                            sessionAlertView.dismiss(animated: true, completion: nil)
                                             
                                             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, WithStatusvalue: kEnded, WithDelegate: self)
                                             
@@ -1205,11 +1284,11 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                                             
                                         }))
                                         
-                                        sessionAlertView.addAction(UIAlertAction(title: "Continue", style: .Default, handler: { action in
+                                        sessionAlertView.addAction(UIAlertAction(title: "Continue", style: .default, handler: { action in
                                             
                                         }))
                                         
-                                        self.presentViewController(sessionAlertView, animated: true, completion: nil)
+                                        self.present(sessionAlertView, animated: true, completion: nil)
                                         
                                     }
                                     else
@@ -1228,9 +1307,9 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             }
             else
             {
-                if details.objectForKey("SessionId") != nil
+                if details.object(forKey: "SessionId") != nil
                 {
-                    if let SessionId = details.objectForKey("SessionId") as? String
+                    if let SessionId = details.object(forKey: "SessionId") as? String
                     {
                         if SessionId != SSTeacherDataSource.sharedDataSource.currentLiveSessionId
                         {
@@ -1239,9 +1318,9 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                         else
                         {
                             
-                             let  sessionAlertView = UIAlertController(title: "Session ending", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+                             let  sessionAlertView = UIAlertController(title: "Session ending", message: "", preferredStyle: UIAlertControllerStyle.alert)
                             
-                            sessionAlertView.addAction(UIAlertAction(title: "End session", style: .Default, handler: { action in
+                            sessionAlertView.addAction(UIAlertAction(title: "End session", style: .default, handler: { action in
                                 
                                 
                                 SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, WithStatusvalue: kEnded, WithDelegate: self)
@@ -1249,7 +1328,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                                 
                             }))
                             
-                            sessionAlertView.addAction(UIAlertAction(title: "Dismiss", style: .Default, handler: { action in
+                            sessionAlertView.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: { action in
                                 
                             }))
 
@@ -1265,14 +1344,79 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
     }
     
-    
+    func didGetStudentsStateWithDetails(_ details: AnyObject) {
+        
+        print(details)
+        
+        var mStudentsDetails = NSMutableArray()
+        
+        if let StudentIdList = details.object(forKey: "StudentIdList") as? NSMutableDictionary
+        {
+            if let Students = StudentIdList.object(forKey: "Students") as? NSMutableArray
+            {
+                mStudentsDetails = Students
+            }
+            else if let Students = StudentIdList.object(forKey: "Students") as? NSMutableDictionary
+            {
+                mStudentsDetails.add(Students)
+            }
+            
+        }
+        
+        
+        
+        for indexValue in 0  ..< mStudentsDetails.count
+        {
+           if let studentsDict = mStudentsDetails.object(at: indexValue) as? NSMutableDictionary
+           {
+                if let StudentId = studentsDict.object(forKey: "StudentId") as? String
+                {
+                    
+                    if let studentDeskView  = mClassView.viewWithTag(Int(StudentId)!) as? StundentDeskView
+                    {
+                        if let state = studentsDict.object(forKey: "StudentState") as? String
+                        {
+                            if Int(state) == kStudentLive
+                            {
+                                studentDeskView.setStudentCurrentState(StudentLive)
+                            }
+                            else if Int(state) == kStudentSignedOut
+                            {
+                                studentDeskView.setStudentCurrentState(StudentSignedout)
+                                
+                            }
+                            else if Int(state) == kStudentLeaveSession
+                            {
+                                studentDeskView.setStudentCurrentState(StudentFree)
+                            }
+                            else if Int(state) == kStudentLivebackground
+                            {
+                                studentDeskView.setStudentCurrentState(StudentLiveBackground)
+                            }
+                            else
+                            {
+                                studentDeskView.setStudentCurrentState(StudentFree)
+                            }
+                        }
+                        
+                    }
+                }
+
+            }
+            
+            
+            
+        }
+        
+        
+    }
     
    
     
 // MARK: - seatAssignment functions
     
     /// This function is used to arrange Grid using the details returned by API "RetrieveGridDesign"
-    func arrangegridWithDetails(details:AnyObject)
+    func arrangegridWithDetails(_ details:AnyObject)
     {
         var columnValue         = 1
         var rowValue            = 1
@@ -1281,19 +1425,19 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         var seatsRemovedArray   = [String]()
         
         
-        if let Columns = details.objectForKey("Columns") as? String
+        if let Columns = details.object(forKey: "Columns") as? String
         {
             columnValue = Int(Columns)!
         }
         
-        if let Rows = details.objectForKey("Rows") as? String
+        if let Rows = details.object(forKey: "Rows") as? String
         {
             rowValue = Int(Rows)!
         }
         
-        if let SeatIdList = details.objectForKey("SeatIdList") as? String
+        if let SeatIdList = details.object(forKey: "SeatIdList") as? String
         {
-            seatsIdArray =  SeatIdList.componentsSeparatedByString(",")
+            seatsIdArray =  SeatIdList.components(separatedBy: ",")
         }
         
 //        if let SeatLabelList = details.objectForKey("SeatLabelList") as? String
@@ -1301,9 +1445,9 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
 //            seatsLableArray =  SeatLabelList.componentsSeparatedByString(",")
 //        }
         
-        if let SeatsRemoved = details.objectForKey("SeatsRemoved") as? String
+        if let SeatsRemoved = details.object(forKey: "SeatsRemoved") as? String
         {
-            seatsRemovedArray =  SeatsRemoved.componentsSeparatedByString(",")
+            seatsRemovedArray =  SeatsRemoved.components(separatedBy: ",")
         }
         
         
@@ -1327,10 +1471,10 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         for columnIndex in 0 ..< rowValue
         {
             
-            let backGroundImageView = UIImageView(frame:  CGRectMake(0, postionY - barHeightSpace, mClassView.frame.size.width, barHeight + barHeightSpace) )
+            let backGroundImageView = UIImageView(frame:  CGRect(x: 0, y: postionY - barHeightSpace, width: mClassView.frame.size.width, height: barHeight + barHeightSpace) )
             if (columnIndex%2==0)
             {
-                backGroundImageView.backgroundColor = UIColor.whiteColor()
+                backGroundImageView.backgroundColor = UIColor.white
                 
             }
             else
@@ -1349,11 +1493,11 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 }
                 else
                 {
-                    let seatView = StundentDeskView(frame: CGRectMake(positionX, postionY, barWidthvalue, barHeight))
+                    let seatView = StundentDeskView(frame: CGRect(x: positionX, y: postionY, width: barWidthvalue, height: barHeight))
                     seatView.setdelegate(self)
                     mClassView.addSubview(seatView)
                     seatView.tag  = totalSeatvalue
-                    seatView.backgroundColor = UIColor.clearColor()
+                    seatView.backgroundColor = UIColor.clear
                 }
                 
                 positionX = positionX + barWidthvalue + barWidthSpace
@@ -1372,42 +1516,54 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     
     // This function is used to arrange seates according to details returned by API
-    func arranageSeatsWithDetails(details:AnyObject)
+    func arranageSeatsWithDetails(_ details:AnyObject)
     {
         
         
-        if let statusString = details.objectForKey("Status") as? String
+        if let statusString = details.object(forKey: "Status") as? String
         {
             if statusString == kSuccessString
             {
-                
-                let classCheckingVariable = details.objectForKey("Students")!.objectForKey("Student")!
-                
-                if classCheckingVariable.isKindOfClass(NSMutableArray)
+                if let classCheckingVariable = details.object(forKey: "Students") as? NSMutableDictionary
                 {
-                    StudentsDetailsArray = classCheckingVariable as! NSMutableArray
+                    if let StudentValue = classCheckingVariable.object(forKey: "Student") as? NSMutableArray
+                    {
+                        StudentsDetailsArray = StudentValue
+                    }
+                    else
+                    {
+                        StudentsDetailsArray.add(classCheckingVariable.object(forKey: "Student"))
+                    }
                 }
-                else
-                {
-                    StudentsDetailsArray.addObject(details.objectForKey("Students")!.objectForKey("Student")!)
-                    
-                }
+                
+                
+//                let classCheckingVariable = (details.object(forKey: "Students")! as AnyObject).object(forKey: "Student")!
+//                
+//                if (classCheckingVariable as AnyObject).isKind(of: NSMutableArray)
+//                {
+//                    StudentsDetailsArray = classCheckingVariable as! NSMutableArray
+//                }
+//                else
+//                {
+//                    StudentsDetailsArray.add((details.object(forKey: "Students")! as AnyObject).object(forKey: "Student")!)
+//                    
+//                }
             }
         }
         
         
         for indexValue in 0  ..< StudentsDetailsArray.count
         {
-            let studentsDict = StudentsDetailsArray.objectAtIndex(indexValue)
+            let studentsDict = StudentsDetailsArray.object(at: indexValue)
             
-            if var seatlabel = studentsDict.objectForKey("SeatLabel") as? String
+            if var seatlabel = (studentsDict as AnyObject).object(forKey: "SeatLabel") as? String
             {
-                seatlabel = seatlabel.stringByReplacingOccurrencesOfString("A", withString: "")
+                seatlabel = seatlabel.replacingOccurrences(of: "A", with: "")
                 
                if let studentDeskView  = mClassView.viewWithTag(Int(seatlabel)!) as? StundentDeskView
                {
-                    studentDeskView.setStudentsDetails(studentsDict)
-                    if let StudentId = studentsDict.objectForKey("StudentId") as? String
+                    studentDeskView.setStudentsDetails(studentsDict as AnyObject)
+                    if let StudentId = (studentsDict as AnyObject).object(forKey: "StudentId") as? String
                     {
                             studentDeskView.tag = Int(StudentId)!
                     }
@@ -1418,9 +1574,9 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         }
         
         
-        mClassView.hidden = false
+        mClassView.isHidden = false
         mActivityIndicatore.stopAnimating()
-        mActivityIndicatore.hidden = true
+        mActivityIndicatore.isHidden = true
 
     }
     
@@ -1429,26 +1585,26 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     func onModelAnswerButton()
     {
-        mShowTopicsView.hidden = true
-        if mModelAnswerView.hidden == false
+        mShowTopicsView.isHidden = true
+        if mModelAnswerView.isHidden == false
         {
-           mModelAnswerView.hidden = true
+           mModelAnswerView.isHidden = true
         }
         else
         {
-            mModelAnswerView.hidden = false
+            mModelAnswerView.isHidden = false
         }
     }
     
-    func onTopicsButton(sender:UIButton)
+    func onTopicsButton(_ sender:UIButton)
     {
         
-        mModelAnswerView.hidden =  true
+        mModelAnswerView.isHidden =  true
         
-        if mShowTopicsView.hidden == true
+        if mShowTopicsView.isHidden == true
         {
-            mShowTopicsView.hidden = false
-            self.view.bringSubviewToFront(mShowTopicsView)
+            mShowTopicsView.isHidden = false
+            self.view.bringSubview(toFront: mShowTopicsView)
             
             
             if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
@@ -1456,11 +1612,11 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 
                 
                 mainTopicsView.getTopicsDetailswithStartedMaintopicId("")
-                mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 610, mShowTopicsView.frame.origin.y , 600  , mainTopicsView.currentMainTopicsViewHeight)
+                mShowTopicsView.frame = CGRect(x: self.view.frame.size.width - 610, y: mShowTopicsView.frame.origin.y , width: 600  , height: mainTopicsView.currentMainTopicsViewHeight)
                 
                 hideAllViewInTopicsView()
-                mainTopicsView.hidden = false
-                mShowTopicsView.bringSubviewToFront(mainTopicsView)
+                mainTopicsView.isHidden = false
+                mShowTopicsView.bringSubview(toFront: mainTopicsView)
                 
                 
                 
@@ -1470,36 +1626,36 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             {
                 liveQuestionView.setQuestionDetails(currentQuestionDetails, withMainTopciName: subTopicsView.mTopicName.text!, withMainTopicId: SSTeacherDataSource.sharedDataSource.startedMainTopicId)
                 hideAllViewInTopicsView()
-                liveQuestionView.hidden = false
-                mShowTopicsView.bringSubviewToFront(liveQuestionView)
+                liveQuestionView.isHidden = false
+                mShowTopicsView.bringSubview(toFront: liveQuestionView)
                 
                 
                 
-                mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 460, mShowTopicsView.frame.origin.y ,450  ,350)
+                mShowTopicsView.frame = CGRect(x: self.view.frame.size.width - 460, y: mShowTopicsView.frame.origin.y ,width: 450  ,height: 350)
                 
             }
             else if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == true
             {
                 
                 
-                subTopicsView.frame = CGRectMake(0,0, 600   ,44)
+                subTopicsView.frame = CGRect(x: 0,y: 0, width: 600   ,height: 44)
                 subTopicsView.getSubtopicsDetailsWithMainTopicId(SSTeacherDataSource.sharedDataSource.startedMainTopicId, withMainTopicName: SSTeacherDataSource.sharedDataSource.startedMainTopicName,withStartedSubtopicID:SSTeacherDataSource.sharedDataSource.startedSubTopicId
                 )
                 hideAllViewInTopicsView()
-                subTopicsView.hidden = false
-                mShowTopicsView.bringSubviewToFront(subTopicsView)
+                subTopicsView.isHidden = false
+                mShowTopicsView.bringSubview(toFront: subTopicsView)
                 
                 
                 
                 
                 
-                mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 610, mShowTopicsView.frame.origin.y , 600 , subTopicsView.currentMainTopicsViewHeight)
+                mShowTopicsView.frame = CGRect(x: self.view.frame.size.width - 610, y: mShowTopicsView.frame.origin.y , width: 600 , height: subTopicsView.currentMainTopicsViewHeight)
             }
 
         }
         else
         {
-            mShowTopicsView.hidden = true
+            mShowTopicsView.isHidden = true
             if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
             {
                 mSubTopicsNamelabel.text = "No topic selected"
@@ -1512,11 +1668,11 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
 // MARK: - MainTopic delegate functions
     
     
-    func delegateTopicsSizeChangedWithHeight(height: CGFloat)
+    func delegateTopicsSizeChangedWithHeight(_ height: CGFloat)
     {
-        UIView.animateWithDuration(0.5, animations:
+        UIView.animate(withDuration: 0.5, animations:
             {
-                self.mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 610, self.mShowTopicsView.frame.origin.y , 600 , height)
+                self.mShowTopicsView.frame = CGRect(x: self.view.frame.size.width - 610, y: self.mShowTopicsView.frame.origin.y , width: 600 , height: height)
         })
         
         
@@ -1524,17 +1680,17 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
     }
     
-    func delegateShowSubTopicWithMainTopicId(mainTopicID: String, WithMainTopicName mainTopicName: String)
+    func delegateShowSubTopicWithMainTopicId(_ mainTopicID: String, WithMainTopicName mainTopicName: String)
     {
         
         
-        subTopicsView.frame = CGRectMake(0,0, 600   ,44)
+        subTopicsView.frame = CGRect(x: 0,y: 0, width: 600   ,height: 44)
         subTopicsView.getSubtopicsDetailsWithMainTopicId(mainTopicID, withMainTopicName: mainTopicName,withStartedSubtopicID: SSTeacherDataSource.sharedDataSource.startedSubTopicId)
 
         hideAllViewInTopicsView()
-        subTopicsView.hidden = false
-        mShowTopicsView.bringSubviewToFront(subTopicsView)
-          mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 610, mShowTopicsView.frame.origin.y ,600, subTopicsView.currentMainTopicsViewHeight)
+        subTopicsView.isHidden = false
+        mShowTopicsView.bringSubview(toFront: subTopicsView)
+          mShowTopicsView.frame = CGRect(x: self.view.frame.size.width - 610, y: mShowTopicsView.frame.origin.y ,width: 600, height: subTopicsView.currentMainTopicsViewHeight)
         
         
         if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
@@ -1555,13 +1711,13 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mainTopicsView.getTopicsDetailswithStartedMaintopicId(SSTeacherDataSource.sharedDataSource.startedMainTopicId)
         
         hideAllViewInTopicsView()
-        mainTopicsView.hidden = false
-        mShowTopicsView.bringSubviewToFront(mainTopicsView)
-         mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 610, mShowTopicsView.frame.origin.y , 600 , mainTopicsView.currentMainTopicsViewHeight)
+        mainTopicsView.isHidden = false
+        mShowTopicsView.bringSubview(toFront: mainTopicsView)
+         mShowTopicsView.frame = CGRect(x: self.view.frame.size.width - 610, y: mShowTopicsView.frame.origin.y , width: 600 , height: mainTopicsView.currentMainTopicsViewHeight)
        
     }
     
-    func delegateSubtopicStateChanedWithSubTopicDetails(subTopicDetails: AnyObject, withState state: Bool, withmainTopicName mainTopicName: String)
+    func delegateSubtopicStateChanedWithSubTopicDetails(_ subTopicDetails: AnyObject, withState state: Bool, withmainTopicName mainTopicName: String)
     {
         
         mainTopicsView.mMaintopicsDetails.removeAllObjects()
@@ -1569,14 +1725,14 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         if state == true
         {
             startedSubTopicDetails = subTopicDetails
-            if let topicId = subTopicDetails.objectForKey("Id")as? String
+            if let topicId = subTopicDetails.object(forKey: "Id")as? String
             {
 
-                if let sessionId = (currentSessionDetails.objectForKey(kSessionId)) as? String
+                if let sessionId = (currentSessionDetails.object(forKey: kSessionId)) as? String
                 {
                     SSTeacherDataSource.sharedDataSource.startSubTopicWithTopicID(topicId, withStudentId: "", withSessionID: sessionId, withDelegate: self)
                    
-                    if let topicName = subTopicDetails.objectForKey("Name")as? String
+                    if let topicName = subTopicDetails.object(forKey: "Name")as? String
                     {
                         mSubTopicsNamelabel.text = "\(mainTopicName) / \(topicName)"
                     }
@@ -1592,11 +1748,11 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         else
         {
             
-            if let subTopicId = subTopicDetails.objectForKey("Id")as? String
+            if let subTopicId = subTopicDetails.object(forKey: "Id")as? String
             {
-                let subTopicName = subTopicDetails.objectForKey("Name")as! String
+                let subTopicName = subTopicDetails.object(forKey: "Name")as! String
                 
-                if let sessionId = (currentSessionDetails.objectForKey(kSessionId)) as? String
+                if let sessionId = (currentSessionDetails.object(forKey: kSessionId)) as? String
                 {
                     SSTeacherDataSource.sharedDataSource.stopSubTopicWithTopicID(subTopicId, withSessionID: sessionId, withDelegate: self)
                 }
@@ -1617,12 +1773,12 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     }
     
     
-    func delegateSubtopicStateChanedWithID(subTopicId: String, withState state: Bool, withSubtopicName subTopicName: String, withmainTopicName mainTopicName: String) {
+    func delegateSubtopicStateChanedWithID(_ subTopicId: String, withState state: Bool, withSubtopicName subTopicName: String, withmainTopicName mainTopicName: String) {
         
         if state == true
         {
             
-            if let sessionId = (currentSessionDetails.objectForKey(kSessionId)) as? String
+            if let sessionId = (currentSessionDetails.object(forKey: kSessionId)) as? String
             {
                 SSTeacherDataSource.sharedDataSource.startSubTopicWithTopicID(subTopicId, withStudentId: "", withSessionID: sessionId, withDelegate: self)
             }
@@ -1635,7 +1791,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         {
             
             
-            if let sessionId = (currentSessionDetails.objectForKey(kSessionId)) as? String
+            if let sessionId = (currentSessionDetails.object(forKey: kSessionId)) as? String
             {
                 SSTeacherDataSource.sharedDataSource.stopSubTopicWithTopicID(subTopicId, withSessionID: sessionId, withDelegate: self)
             }
@@ -1650,13 +1806,13 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     
 // MARK: - subTopic delegate functions
-    func delegateQuestionButtonPressedWithSubtopicId(subtopicId: String, withSubTopicName subTopicName: String, withMainTopicId mainTopicId: String, withMainTopicName mainTopicName: String) {
+    func delegateQuestionButtonPressedWithSubtopicId(_ subtopicId: String, withSubTopicName subTopicName: String, withMainTopicId mainTopicId: String, withMainTopicName mainTopicName: String) {
         
        
         
         
         
-        questionTopicsView.frame = CGRectMake(0,0, 600   ,44)
+        questionTopicsView.frame = CGRect(x: 0,y: 0, width: 600   ,height: 44)
         
         if SSTeacherDataSource.sharedDataSource.startedSubTopicId == subtopicId
         {
@@ -1669,10 +1825,10 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
 
          hideAllViewInTopicsView()
         
-        questionTopicsView.hidden = false
-        mShowTopicsView.bringSubviewToFront(questionTopicsView)
+        questionTopicsView.isHidden = false
+        mShowTopicsView.bringSubview(toFront: questionTopicsView)
         
-        mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 610, mShowTopicsView.frame.origin.y , 600 , questionTopicsView.currentMainTopicsViewHeight)
+        mShowTopicsView.frame = CGRect(x: self.view.frame.size.width - 610, y: mShowTopicsView.frame.origin.y , width: 600 , height: questionTopicsView.currentMainTopicsViewHeight)
 
         
     }
@@ -1681,12 +1837,12 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
 // MARK: - Question delegate functions
     
     
-    func delegateQuizmodePressedwithQuestions(questionArray: NSMutableArray)
+    func delegateQuizmodePressedwithQuestions(_ questionArray: NSMutableArray)
     {
         
         
         
-        let mQuizMode = QuizModeView(frame:CGRectMake(0,0,mShowTopicsView.frame.size.width,mShowTopicsView.frame.size.height))
+        let mQuizMode = QuizModeView(frame:CGRect(x: 0,y: 0,width: mShowTopicsView.frame.size.width,height: mShowTopicsView.frame.size.height))
         mShowTopicsView.addSubview(mQuizMode)
         mQuizMode.setQuestionWithDetails(questionArray)
     
@@ -1697,25 +1853,22 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     }
     
     
-    func delegateQuestionSentWithQuestionDetails(questionDetails: AnyObject) {
-        
-        
-        
+    func delegateQuestionSentWithQuestionDetails(_ questionDetails: AnyObject) {
         
         
         
         if SSTeacherDataSource.sharedDataSource.isQuestionSent == false
         {
-            mShowTopicsView.hidden = true
+            mShowTopicsView.isHidden = true
             
             currentQuestionDetails = questionDetails
             
-            if let QuestionID = (currentQuestionDetails.objectForKey("Id")) as? String
+            if let QuestionID = (currentQuestionDetails.object(forKey: "Id")) as? String
             {
                 SSTeacherDataSource.sharedDataSource.broadcastQuestionWithQuestionId(QuestionID, withSessionID: currentSessionId, withDelegate: self)
                 SSTeacherDataSource.sharedDataSource.isQuestionSent = true
                 
-                if let questionName = (currentQuestionDetails.objectForKey("Name")) as? String
+                if let questionName = (currentQuestionDetails.object(forKey: "Name")) as? String
                 {
                     mQuestionNamelabel.text = questionName
                 }
@@ -1730,7 +1883,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             
             for subview in subViews
             {
-                if subview.isKindOfClass(StundentDeskView)
+                if subview.isKind(of: StundentDeskView.self)
                 {
                     subview.setCurrentQuestionDetails(questionDetails)
                 }
@@ -1740,46 +1893,106 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         }
         else
         {
-            self.view.makeToast("Please clear current question to send new question", duration: 5.0, position: .Bottom)
+            self.view.makeToast("Please clear current question to send new question", duration: 5.0, position: .bottom)
         }
     }
     
     
-    func delegateQuestionBackButtonPressed(mainTopicId: String, withMainTopicName mainTopicName: String) {
+    func delegateQuestionBackButtonPressed(_ mainTopicId: String, withMainTopicName mainTopicName: String) {
        
-        subTopicsView.frame = CGRectMake(0,0, 600   ,44)
+        subTopicsView.frame = CGRect(x: 0,y: 0, width: 600   ,height: 44)
         subTopicsView.getSubtopicsDetailsWithMainTopicId(mainTopicId, withMainTopicName: mainTopicName,withStartedSubtopicID:SSTeacherDataSource.sharedDataSource.startedSubTopicId
         )
         
         
         hideAllViewInTopicsView()
         
-        subTopicsView.hidden = false
-        mShowTopicsView.bringSubviewToFront(subTopicsView)
+        subTopicsView.isHidden = false
+        mShowTopicsView.bringSubview(toFront: subTopicsView)
         
     }
     
-    func delegateScribbleQuestionWithSubtopicId(subTopicID: String)
+    func delegateScribbleQuestionWithSubtopicId(_ subTopicID: String)
     {
-        let mScribbleview =  SSTeacherScribbleQuestion(frame:CGRectMake(0  ,0,self.view.frame.size.width,self.view.frame.size.height))
+        let mScribbleview =  SSTeacherScribbleQuestion(frame:CGRect(x: 0  ,y: 0,width: self.view.frame.size.width,height: self.view.frame.size.height))
         self.view.addSubview(mScribbleview)
         mScribbleview.setdelegate(self)
         mScribbleview.setCurrentTopicId(SSTeacherDataSource.sharedDataSource.startedSubTopicId)
         
     }
     
+    func delegateMtcQuestionWithSubtopicId(_ subTopicId:String)
+    {
+        
+    }
+   
+    func delegateMRQQuestionWithSubtopicId(_ subTopicId:String)
+    {
+        
+        
+        
+        
+        questionTopicsView.isHidden = true
+        
+       mShowTopicsView.frame = CGRect(x: mShowTopicsView.frame.origin.x, y: mShowTopicsView.frame.origin.y , width: mShowTopicsView.frame.size.width     , height: 200)
+        
+       /*
+        let  mCollaborationMRQView  = CollaborationMRQCategoryView(frame:CGRect(x: 0,y: 0, width: self.questionTopicsView.frame.size.width   ,height: 100))
+        mCollaborationMRQView.setdelegate(self)
+        mCollaborationMRQView.backgroundColor = UIColor.white
+        self.mShowTopicsView.addSubview(mCollaborationMRQView)
+        
+        DispatchQueue.main.async
+        {
+            mCollaborationMRQView.loadAllSubView()
+           
+        }
+ */
+        
+        
+        mSubmissionView.addCollaborationMRQView()
+        
+        mShowTopicsView.isHidden = true
+        
+        if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
+        {
+            mSubTopicsNamelabel.text = "No topic selected"
+        }
+        
+        onQuestionsView()
+        
+        
+        
+    }
+    
+    
+    // MARK: - Collaboration Questiondelegate functions
+    
+    func delegateDoneButtonPressedWithCategoryName(_ category:String)
+    {
+       
+     /*
+        SSTeacherMessageHandler.sharedMessageHandler.sendCollaborationQuestionEnabledWithRoomId(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, withType: "MRQ", withCategory: category)
+ 
+ */
+        
+        
+        
+    }
+    
+    func delegateBackButtonPressed()
+    {
+        
+        mShowTopicsView.frame = CGRect(x: self.view.frame.size.width - 610, y: mShowTopicsView.frame.origin.y , width: 600  , height: questionTopicsView.currentMainTopicsViewHeight)
+        
+        questionTopicsView.isHidden = false
+    }
+
+    
     
     // MARK: - live Question delegate functions
     
-    func delegateQuestionCleared(questionDetails: AnyObject, withCurrentmainTopicId mainTopicId: String, withCurrentMainTopicName mainTopicName: String) {
-        
-        
-        
-        
-        
-        
-        
-        
+    func delegateQuestionCleared(_ questionDetails: AnyObject, withCurrentmainTopicId mainTopicId: String, withCurrentMainTopicName mainTopicName: String) {
         
         
         SSTeacherDataSource.sharedDataSource.clearQuestionWithQuestionogId(SSTeacherDataSource.sharedDataSource.currentQuestionLogId,withTopicId: SSTeacherDataSource.sharedDataSource.startedSubTopicId,withSessionId: currentSessionId,withDelegate: self)
@@ -1793,9 +2006,9 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         subTopicsView.clearSubTopicDetailsWithMainTopicId(mainTopicId)
         
         
-        if (SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.objectForKey(mainTopicId) != nil)
+        if (SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.object(forKey: mainTopicId) != nil)
         {
-            SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.removeObjectForKey(mainTopicId)
+            SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.removeObject(forKey: mainTopicId)
         }
         
         
@@ -1806,29 +2019,29 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
         newSubmissionRecieved.removeAllObjects()
         
-        submissionNotificationLabel.hidden = true
+        submissionNotificationLabel.isHidden = true
         
 
         
         
         
-        subTopicsView.frame = CGRectMake(0,0, 600   ,44)
+        subTopicsView.frame = CGRect(x: 0,y: 0, width: 600   ,height: 44)
         subTopicsView.getSubtopicsDetailsWithMainTopicId(mainTopicId, withMainTopicName: mainTopicName,withStartedSubtopicID:SSTeacherDataSource.sharedDataSource.startedSubTopicId
         )
         
         
         hideAllViewInTopicsView()
-        subTopicsView.hidden = false
-        mShowTopicsView.bringSubviewToFront(subTopicsView)
-         mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 610, mShowTopicsView.frame.origin.y , 600 , 44)
+        subTopicsView.isHidden = false
+        mShowTopicsView.bringSubview(toFront: subTopicsView)
+         mShowTopicsView.frame = CGRect(x: self.view.frame.size.width - 610, y: mShowTopicsView.frame.origin.y , width: 600 , height: 44)
 
         
         
         for indexValue in 0  ..< StudentsDetailsArray.count
         {
-            let studentsDict = StudentsDetailsArray.objectAtIndex(indexValue)
+            let studentsDict = StudentsDetailsArray.object(at: indexValue)
            
-            if let StudentId = studentsDict.objectForKey("StudentId") as? String{
+            if let StudentId = (studentsDict as AnyObject).object(forKey: "StudentId") as? String{
                 
                 if let studentDeskView  = mClassView.viewWithTag(Int(StudentId)!) as? StundentDeskView
                 {
@@ -1843,8 +2056,8 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         SSTeacherMessageHandler.sharedMessageHandler.sendClearQuestionMessageWithRoomId("question_\(currentSessionId)")
         mSubmissionView.questionClearedByTeacher()
         mModelAnswerView.questionClearedByTeacher()
-        mModelAnswerButton.hidden = true
-        mModelAnswerView.hidden = true
+        mModelAnswerButton.isHidden = true
+        mModelAnswerView.isHidden = true
         SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
     }
     
@@ -1854,7 +2067,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     func delegateDoneButtonPressed()
     {
-        mShowTopicsView.hidden = true
+        mShowTopicsView.isHidden = true
        
         if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
         {
@@ -1865,19 +2078,19 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     func delegateTopicsButtonPressed()
     {
         
-        subTopicsView.frame = CGRectMake(0,0, 600   ,44)
+        subTopicsView.frame = CGRect(x: 0,y: 0, width: 600   ,height: 44)
         subTopicsView.getSubtopicsDetailsWithMainTopicId(SSTeacherDataSource.sharedDataSource.startedMainTopicId, withMainTopicName: SSTeacherDataSource.sharedDataSource.startedMainTopicName,withStartedSubtopicID:SSTeacherDataSource.sharedDataSource.startedSubTopicId
         )
        hideAllViewInTopicsView()
-        subTopicsView.hidden = false
+        subTopicsView.isHidden = false
        
-        mShowTopicsView.bringSubviewToFront(subTopicsView)
+        mShowTopicsView.bringSubview(toFront: subTopicsView)
         
         
         
         
         
-        mShowTopicsView.frame = CGRectMake(self.view.frame.size.width - 610, mShowTopicsView.frame.origin.y , 600 , subTopicsView.currentMainTopicsViewHeight)
+        mShowTopicsView.frame = CGRect(x: self.view.frame.size.width - 610, y: mShowTopicsView.frame.origin.y , width: 600 , height: subTopicsView.currentMainTopicsViewHeight)
         
     }
     
@@ -1885,7 +2098,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
 // MARK: - message handler delegate
     
     
-    func smhDidReciveAuthenticationState(state: Bool, WithName userName: String)
+    func smhDidReciveAuthenticationState(_ state: Bool, WithName userName: String)
     {
         if state == true
         {
@@ -1893,15 +2106,15 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         }
     }
     
-    func smhStreamReconnectingWithDelay(delay: Int32) {
+    func smhStreamReconnectingWithDelay(_ delay: Int32) {
         
-        self.view.makeToast("Reconnecting in \(delay) seconds", duration: 2, position: .Bottom)
+        self.view.makeToast("Reconnecting in \(delay) seconds", duration: 2, position: .bottom)
         
         AppDelegate.sharedDataSource.showReconnecting()
       
     }
     
-    func smhDidcreateRoomWithRoomName(roomName: String)
+    func smhDidcreateRoomWithRoomName(_ roomName: String)
     {
        
 //        if currentQuestionDetails == nil
@@ -1928,7 +2141,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     }
     
     
-    func smhDidgetStudentBentchStateWithStudentId(studentId: String, withState state: String) {
+    func smhDidgetStudentBentchStateWithStudentId(_ studentId: String, withState state: String) {
         
         if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView
         {
@@ -1989,7 +2202,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     }
     
     
-    func smhDidgetStudentQuestionAccepetedMessageWithStudentId(StudentId: String) {
+    func smhDidgetStudentQuestionAccepetedMessageWithStudentId(_ StudentId: String) {
         
         
         if currentQuestionDetails ==  nil
@@ -2001,9 +2214,9 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         if let studentDeskView  = mClassView.viewWithTag(Int(StudentId)!) as? StundentDeskView
         {
            
-            if currentQuestionDetails.objectForKey("Type") != nil
+            if currentQuestionDetails.object(forKey: "Type") != nil
             {
-                if let questionType = currentQuestionDetails.objectForKey("Type") as? String
+                if let questionType = currentQuestionDetails.object(forKey: "Type") as? String
                 {
                     
                     if (questionType  == kOverlayScribble  || questionType == kFreshScribble || questionType  == kText)
@@ -2016,7 +2229,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                         
                     }
                     
-                    studentDeskView.mQuestionStateImage.hidden = false
+                    studentDeskView.mQuestionStateImage.isHidden = false
                 }
             }
             
@@ -2025,7 +2238,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     }
     
     
-    func smhDidGetstudentSubmissionWithDrawn(StudentId: String)
+    func smhDidGetstudentSubmissionWithDrawn(_ StudentId: String)
     {
         if let studentDeskView  = mClassView.viewWithTag(Int(StudentId)!) as? StundentDeskView
         {
@@ -2035,19 +2248,19 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 
                 mSubmissionView.studentAnswerWithdrawnWithStudentId(StudentId)
                 
-                if newSubmissionRecieved.containsObject(StudentId)
+                if newSubmissionRecieved.contains(StudentId)
                 {
-                    newSubmissionRecieved.removeObject(StudentId)
+                    newSubmissionRecieved.remove(StudentId)
                     
                     if newSubmissionRecieved.count > 0
                     {
-                        submissionNotificationLabel.hidden = false
+                        submissionNotificationLabel.isHidden = false
                         
                         submissionNotificationLabel.text = "\(newSubmissionRecieved.count)"
                     }
                     else
                     {
-                        submissionNotificationLabel.hidden = true
+                        submissionNotificationLabel.isHidden = true
                     }
                 }
                 
@@ -2058,7 +2271,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         }
     }
     
-    func smhDidgetStudentAnswerMessageWithStudentId(StudentId: String, withAnswerString answerStrin: String)
+    func smhDidgetStudentAnswerMessageWithStudentId(_ StudentId: String, withAnswerString answerStrin: String)
     {
         if let studentDeskView  = mClassView.viewWithTag(Int(StudentId)!) as? StundentDeskView
         {
@@ -2074,7 +2287,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     }
     
     
-    func smhDidgetStudentDontKnowMessageRecieved(StudentId: String)
+    func smhDidgetStudentDontKnowMessageRecieved(_ StudentId: String)
     {
         if let studentDeskView  = mClassView.viewWithTag(Int(StudentId)!) as? StundentDeskView
         {
@@ -2090,28 +2303,28 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     }
     
     
-    func smhDidgetStudentQueryWithDetails(queryId: String) {
+    func smhDidgetStudentQueryWithDetails(_ queryId: String) {
         
         mQueryView.addQueryWithDetails(queryId)
-        if mQueryView.hidden == false
+        if mQueryView.isHidden == false
         {
             SSTeacherMessageHandler.sharedMessageHandler.sendQueryRecievedMessageToRoom(currentSessionId)
         }
         
     }
     
-    func smhDidgetQueryWithdrawnWithDetails(queryId: String, withStudentId studentId: String) {
+    func smhDidgetQueryWithdrawnWithDetails(_ queryId: String, withStudentId studentId: String) {
         
         if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView
         {
-            newQueryRecieved.removeObject(studentId)
+            newQueryRecieved.remove(studentId)
             studentDeskView.queryDismissed()
             mQueryView.queryWithDrawnWithQueryId(queryId)
             
         }
     }
     
-    func smhDidgetStudentPollWithDetails(optionValue: String)
+    func smhDidgetStudentPollWithDetails(_ optionValue: String)
     {
         
         if mPollingView != nil
@@ -2122,18 +2335,18 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     }
     
     
-    func smhDidgetMeTooValueWithDetails(details: AnyObject)
+    func smhDidgetMeTooValueWithDetails(_ details: AnyObject)
     {
         mQueryView.studentRaisedMeeToWithDetial(details)
     }
     
-    func smhDidgetVolunteerValueWithDetails(details: AnyObject)
+    func smhDidgetVolunteerValueWithDetails(_ details: AnyObject)
     {
         mQueryView.studentVolunteerRaisedWithDetails(details)
     }
     
     
-    func smhDidgetVoteFromStudentWithStudentId(StudentId: String, withVote newVote: String)
+    func smhDidgetVoteFromStudentWithStudentId(_ StudentId: String, withVote newVote: String)
     {
         
         
@@ -2144,7 +2357,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
         for subview in subViews
         {
-            if subview.isKindOfClass(StundentDeskView)
+            if subview.isKind(of: StundentDeskView.self)
             {
                 
                 
@@ -2171,12 +2384,12 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     
     
-    func smhDidgetUnderstoodMessageWithDetails(details: AnyObject, withStudentId StudentId: String)
+    func smhDidgetUnderstoodMessageWithDetails(_ details: AnyObject, withStudentId StudentId: String)
     {
         
-        if details.objectForKey("QueryId") != nil
+        if details.object(forKey: "QueryId") != nil
         {
-            if let QueryId =  details.objectForKey("QueryId") as? String
+            if let QueryId =  details.object(forKey: "QueryId") as? String
             {
                 mQueryView.studentUnderstoodQueryWithId(QueryId, withStudentId: StudentId)
             }
@@ -2185,17 +2398,17 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
     }
     
-    func smhDidgetPeakViewWithDetails(details: AnyObject, withStudentId studentId: String) {
+    func smhDidgetPeakViewWithDetails(_ details: AnyObject, withStudentId studentId: String) {
        
-        if details.objectForKey("imageData") != nil
+        if details.object(forKey: "imageData") != nil
         {
-           if  let imageData = details.objectForKey("imageData")  as? String
+           if  let imageData = details.object(forKey: "imageData")  as? String
            {
             
-            let dataDecoded:NSData = NSData(base64EncodedString: imageData, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)!
+            let dataDecoded:Data = Data(base64Encoded: imageData, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters)!
             
             var decodedimage:UIImage = UIImage()
-            if dataDecoded.length > 0
+            if dataDecoded.count > 0
             {
                 decodedimage = UIImage(data: dataDecoded)!
             }
@@ -2203,23 +2416,23 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             
             if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView
             {
-                let buttonPosition :CGPoint = studentDeskView.convertPoint(CGPointZero, toView: self.view)
+                let buttonPosition :CGPoint = studentDeskView.convert(CGPoint.zero, to: self.view)
 
                 let questionInfoController = SSTeacherPeakViewController()
                 questionInfoController.setStudentDetails(studentDeskView.currentStudentsDict, withPeakImage: decodedimage)
                
                 let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
                 
-                questionInfoController.preferredContentSize = CGSizeMake(270,220)
+                questionInfoController.preferredContentSize = CGSize(width: 270,height: 220)
                 
-                classViewPopOverController.popoverContentSize = CGSizeMake(270,220);
+                classViewPopOverController.contentSize = CGSize(width: 270,height: 220);
                 classViewPopOverController.delegate = self;
                 questionInfoController.setPopover(classViewPopOverController)
-                classViewPopOverController.presentPopoverFromRect(CGRect(
+                classViewPopOverController.present(from: CGRect(
                     x:buttonPosition.x + studentDeskView.frame.size.height / 2,
                     y:buttonPosition.y + studentDeskView.frame.size.height / 2,
                     width: 1,
-                    height: 1), inView: self.view, permittedArrowDirections: [.Right, .Left], animated: true)
+                    height: 1), in: self.view, permittedArrowDirections: [.right, .left], animated: true)
 
             }
             }
@@ -2230,20 +2443,20 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
            }
     
     
-    func smhDidgetOneStringAnswerWithDetails(details: AnyObject, withStudentId studentId: String) {
+    func smhDidgetOneStringAnswerWithDetails(_ details: AnyObject, withStudentId studentId: String) {
         
-        if details.objectForKey("OneStringAnswer") != nil
+        if details.object(forKey: "OneStringAnswer") != nil
         {
-            if let OneStringAnswer = details.objectForKey("OneStringAnswer")  as? String
+            if let OneStringAnswer = details.object(forKey: "OneStringAnswer")  as? String
             {
                 if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView
                 {
                     studentDeskView.setOneStringAnswerWithText(OneStringAnswer)
                     
                     
-                    if currentQuestionDetails.objectForKey("Type") != nil
+                    if currentQuestionDetails.object(forKey: "Type") != nil
                     {
-                        if let questionType = currentQuestionDetails.objectForKey("Type") as? String
+                        if let questionType = currentQuestionDetails.object(forKey: "Type") as? String
                         {
                             if questionType == OneString || questionType  == TextAuto
                             {
@@ -2258,9 +2471,20 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
     }
     
+    
+    
+    func smhDidgetCollaborationSuggestion(_ details: AnyObject)
+    {
+        
+      mSubmissionView.addCollaborationSuggestionWithDetails(details)
+        
+        
+    }
+    
+    
     // MARK: - DeskView delegate functions
     
-    func delegateStudentAnswerDownloadedWithDetails(details: AnyObject, withStudentDict studentDict: AnyObject)
+    func delegateStudentAnswerDownloadedWithDetails(_ details: AnyObject, withStudentDict studentDict: AnyObject)
     {
         
         
@@ -2270,14 +2494,14 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         }
         
         
-        if let _ = currentQuestionDetails.objectForKey("Type") as? String
+        if let _ = currentQuestionDetails.object(forKey: "Type") as? String
         {
             
             if currentScreen != kSubmissionView
             {
-                newSubmissionRecieved.addObject(studentDict.objectForKey("StudentId") as! String)
+                newSubmissionRecieved.add(studentDict.object(forKey: "StudentId") as! String)
                 
-                submissionNotificationLabel.hidden = false
+                submissionNotificationLabel.isHidden = false
                 
                 submissionNotificationLabel.text = "\(newSubmissionRecieved.count)"
             }
@@ -2287,9 +2511,9 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             
             
             
-            if mSubmissionView.hidden == false
+            if mSubmissionView.isHidden == false
             {
-                if let studentId = studentDict.objectForKey("StudentId") as? String
+                if let studentId = studentDict.object(forKey: "StudentId") as? String
                 {
                     SSTeacherMessageHandler.sharedMessageHandler.sendHandRaiseReceivedMessageToStudentWithId(studentId)
                 }
@@ -2305,14 +2529,14 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     }
     
     
-    func delegateStudentCellPressedWithViewAnswerOptions(answerOptions: NSMutableArray, withStudentId studentId: String) {
+    func delegateStudentCellPressedWithViewAnswerOptions(_ answerOptions: NSMutableArray, withStudentId studentId: String) {
         
         
         if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView
         {
-            let buttonPosition :CGPoint = studentDeskView.convertPoint(CGPointZero, toView: self.view)
+            let buttonPosition :CGPoint = studentDeskView.convert(CGPoint.zero, to: self.view)
            
-            if let questionType = currentQuestionDetails.objectForKey("Type") as? String
+            if let questionType = currentQuestionDetails.object(forKey: "Type") as? String
             {
                 
                 if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
@@ -2335,18 +2559,18 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                     questionInfoController.setQuestionDetails(currentQuestionDetails, withStudentsAnswer:answerOptions)
                     
                     
-                    questionInfoController.preferredContentSize = CGSizeMake(400,317)
+                    questionInfoController.preferredContentSize = CGSize(width: 400,height: 317)
                     
                     let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
                     questionInfoController.setPopover(classViewPopOverController)
-                    classViewPopOverController.popoverContentSize = CGSizeMake(400,317);
+                    classViewPopOverController.contentSize = CGSize(width: 400,height: 317);
                     classViewPopOverController.delegate = self;
                     
-                    classViewPopOverController.presentPopoverFromRect(CGRect(
+                    classViewPopOverController.present(from: CGRect(
                         x:buttonPosition.x + studentDeskView.frame.size.height / 2,
                         y:buttonPosition.y + studentDeskView.frame.size.height / 2,
                         width: 1,
-                        height: 1), inView: self.view, permittedArrowDirections:[.Right, .Left], animated: true)
+                        height: 1), in: self.view, permittedArrowDirections:[.right, .left], animated: true)
                 }
                 else
                 {
@@ -2359,18 +2583,18 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                     questionInfoController.setQuestionDetails(currentQuestionDetails,withAnswerOptions: answerOptions)
                     
                     
-                    questionInfoController.preferredContentSize = CGSizeMake(400,317)
+                    questionInfoController.preferredContentSize = CGSize(width: 400,height: 317)
                     
                     let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
                     questionInfoController.setPopover(classViewPopOverController)
-                    classViewPopOverController.popoverContentSize = CGSizeMake(400,317);
+                    classViewPopOverController.contentSize = CGSize(width: 400,height: 317);
                     classViewPopOverController.delegate = self;
                     
-                    classViewPopOverController.presentPopoverFromRect(CGRect(
+                    classViewPopOverController.present(from: CGRect(
                         x:buttonPosition.x + studentDeskView.frame.size.height / 2,
                         y:buttonPosition.y + studentDeskView.frame.size.height / 2,
                         width: 1,
-                        height: 1), inView: self.view, permittedArrowDirections: [.Right, .Left], animated: true)
+                        height: 1), in: self.view, permittedArrowDirections: [.right, .left], animated: true)
                     
                     
                 }
@@ -2383,13 +2607,13 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     }
     
     
-    func delegateStudentCellPressedWithViewSubjectiveAnswerDetails(details: AnyObject, withStudentId studentId: String)
+    func delegateStudentCellPressedWithViewSubjectiveAnswerDetails(_ details: AnyObject, withStudentId studentId: String)
     {
         if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView
         {
-            let buttonPosition :CGPoint = studentDeskView.convertPoint(CGPointZero, toView: self.view)
+            let buttonPosition :CGPoint = studentDeskView.convert(CGPoint.zero, to: self.view)
             
-            if let questionType = currentQuestionDetails.objectForKey("Type") as? String
+            if let questionType = currentQuestionDetails.object(forKey: "Type") as? String
             {
                 
                 if (questionType  == kOverlayScribble  || questionType == kFreshScribble || questionType == kText)
@@ -2401,32 +2625,32 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                     
                     let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
                     
-                    classViewPopOverController.popoverContentSize = CGSizeMake(320,320);
+                    classViewPopOverController.contentSize = CGSize(width: 320,height: 320);
                     classViewPopOverController.delegate = self;
                     questionInfoController.setPopover(classViewPopOverController)
-                    classViewPopOverController.presentPopoverFromRect(CGRect(
+                    classViewPopOverController.present(from: CGRect(
                         x:buttonPosition.x + studentDeskView.frame.size.height / 2,
                         y:buttonPosition.y + studentDeskView.frame.size.height / 2,
                         width: 1,
-                        height: 1), inView: self.view, permittedArrowDirections: [.Right, .Left], animated: true)
+                        height: 1), in: self.view, permittedArrowDirections: [.right, .left], animated: true)
                     
                     
                     
-                    if newSubmissionRecieved.containsObject(studentId)
+                    if newSubmissionRecieved.contains(studentId)
                     {
-                        newSubmissionRecieved.removeObject(studentId)
+                        newSubmissionRecieved.remove(studentId)
                         
                          SSTeacherMessageHandler.sharedMessageHandler.sendHandRaiseReceivedMessageToStudentWithId(studentId)
                         
                         if newSubmissionRecieved.count > 0
                         {
-                            submissionNotificationLabel.hidden = false
+                            submissionNotificationLabel.isHidden = false
                             
                             submissionNotificationLabel.text = "\(newSubmissionRecieved.count)"
                         }
                         else
                         {
-                            submissionNotificationLabel.hidden = true
+                            submissionNotificationLabel.isHidden = true
                         }
                     }
                 }
@@ -2439,11 +2663,11 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     
     
-    func delegateStudentCellPressedWithEvaluationDetails(details: AnyObject, withStudentId studentId: String)
+    func delegateStudentCellPressedWithEvaluationDetails(_ details: AnyObject, withStudentId studentId: String)
     {
         if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView
         {
-            let buttonPosition :CGPoint = studentDeskView.convertPoint(CGPointZero, toView: self.view)
+            let buttonPosition :CGPoint = studentDeskView.convert(CGPoint.zero, to: self.view)
             
             let questionInfoController = StudentEvaluationDetails()
             questionInfoController.setdelegate(self)
@@ -2452,30 +2676,30 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             
             let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
             
-            classViewPopOverController.popoverContentSize = CGSizeMake(320,320);
+            classViewPopOverController.contentSize = CGSize(width: 320,height: 320);
             classViewPopOverController.delegate = self;
             questionInfoController.setPopover(classViewPopOverController)
             
-            classViewPopOverController.presentPopoverFromRect(CGRect(
+            classViewPopOverController.present(from: CGRect(
                 x:buttonPosition.x + studentDeskView.frame.size.height / 2,
                 y:buttonPosition.y + studentDeskView.frame.size.height / 2,
                 width: 1,
-                height: 1), inView: self.view, permittedArrowDirections: [.Right, .Left], animated: true)
+                height: 1), in: self.view, permittedArrowDirections: [.right, .left], animated: true)
             
         }
         
     }
     
     
-    func delegateStudentQueryWithDetails(details: AnyObject, withStudentDict studentDict: AnyObject)
+    func delegateStudentQueryWithDetails(_ details: AnyObject, withStudentDict studentDict: AnyObject)
     {
         
         
-        if let studentId = studentDict.objectForKey("StudentId") as? String
+        if let studentId = studentDict.object(forKey: "StudentId") as? String
         {
             if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView
             {
-                let buttonPosition :CGPoint = studentDeskView.convertPoint(CGPointZero, toView: self.view)
+                let buttonPosition :CGPoint = studentDeskView.convert(CGPoint.zero, to: self.view)
                 
                 let questionInfoController = StudentQueryPopover()
                 //                    questionInfoController.setdelegate(self)
@@ -2486,18 +2710,18 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 questionInfoController.setQueryWithDetails(details, withStudentDetials: studentDict)
                 
                 
-                questionInfoController.preferredContentSize = CGSizeMake(320,317)
+                questionInfoController.preferredContentSize = CGSize(width: 320,height: 317)
                 
                 let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
                 questionInfoController.setPopover(classViewPopOverController)
-                classViewPopOverController.popoverContentSize = CGSizeMake(320,317);
+                classViewPopOverController.contentSize = CGSize(width: 320,height: 317);
                 classViewPopOverController.delegate = self;
                 
-                classViewPopOverController.presentPopoverFromRect(CGRect(
+                classViewPopOverController.present(from: CGRect(
                     x:buttonPosition.x + studentDeskView.frame.size.height / 2,
                     y:buttonPosition.y + studentDeskView.frame.size.height / 2,
                     width: 1,
-                    height: 1), inView: self.view, permittedArrowDirections:[.Right, .Left], animated: true)
+                    height: 1), in: self.view, permittedArrowDirections:[.right, .left], animated: true)
                 
             }
         }
@@ -2512,9 +2736,9 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     
     // MARK: - Submission view delegate  functions
-    func delegateGetaggregateWithOptionId(optionId: String, withView barButton: BarView) {
+    func delegateGetaggregateWithOptionId(_ optionId: String, withView barButton: BarView) {
         
-        let buttonPosition :CGPoint = barButton.convertPoint(CGPointZero, toView: self.view)
+        let buttonPosition :CGPoint = barButton.convert(CGPoint.zero, to: self.view)
         
         
         
@@ -2522,7 +2746,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         questionInfoController.setdelegate(self)
         
         
-        if let questionType = currentQuestionDetails.objectForKey("Type") as? String
+        if let questionType = currentQuestionDetails.object(forKey: "Type") as? String
         {
             
             questionInfoController.AggregateDrillDownWithOptionId(optionId, withQuestionDetails: currentQuestionDetails, withQuestionLogId: SSTeacherDataSource.sharedDataSource.currentQuestionLogId,withQuestionTye:questionType )
@@ -2531,32 +2755,32 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
         
 
-        questionInfoController.preferredContentSize = CGSizeMake(400,100)
+        questionInfoController.preferredContentSize = CGSize(width: 400,height: 100)
         
         let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
         
-        classViewPopOverController.popoverContentSize = CGSizeMake(400,100);
+        classViewPopOverController.contentSize = CGSize(width: 400,height: 100);
         classViewPopOverController.delegate = self;
         
-        classViewPopOverController.presentPopoverFromRect(CGRect(
+        classViewPopOverController.present(from: CGRect(
             x:buttonPosition.x + barButton.frame.size.width / 2,
             y:buttonPosition.y + barButton.frame.size.height / 2,
             width: 1,
-            height: 1), inView: self.view, permittedArrowDirections:[.Right, .Left], animated: true)
+            height: 1), in: self.view, permittedArrowDirections:[.right, .left], animated: true)
 
         
         
     }
     
     
-    func delegateTeacherEvaluatedReplyWithDetails(details: AnyObject, withStudentId studentId: String) {
+    func delegateTeacherEvaluatedReplyWithDetails(_ details: AnyObject, withStudentId studentId: String) {
         
         
         
         if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView
         {
             
-            if let ModelAnswerFlag = details.objectForKey("ModelAnswerFlag") as? String
+            if let ModelAnswerFlag = details.object(forKey: "ModelAnswerFlag") as? String
             {
                 if ModelAnswerFlag == "true"
                 {
@@ -2573,20 +2797,20 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     // MARK: - Query view delegate  functions
     
-    func delegateQueryDownloadedWithDetails(queryDetails: AnyObject)
+    func delegateQueryDownloadedWithDetails(_ queryDetails: AnyObject)
     {
-        if let StudentId = queryDetails.objectForKey("StudentId") as? String
+        if let StudentId = queryDetails.object(forKey: "StudentId") as? String
         {
             if let studentDeskView  = mClassView.viewWithTag(Int(StudentId)!) as? StundentDeskView
             {
                studentDeskView.setQueryDetails(queryDetails)
-                 newQueryRecieved.addObject(StudentId)
+                 newQueryRecieved.add(StudentId)
                 
                 
                 if currentScreen != kQueryView
                 {
                     
-                    queryNotificationLabel.hidden = false
+                    queryNotificationLabel.isHidden = false
                     
                     queryNotificationLabel.text = "\(newQueryRecieved.count)"
                 }
@@ -2597,13 +2821,13 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     }
     
     
-    func delegateQueryDeletedWithDetails(queryDetails: AnyObject) {
+    func delegateQueryDeletedWithDetails(_ queryDetails: AnyObject) {
         
-        if let StudentId = queryDetails.objectForKey("StudentId") as? String
+        if let StudentId = queryDetails.object(forKey: "StudentId") as? String
         {
             if let studentDeskView  = mClassView.viewWithTag(Int(StudentId)!) as? StundentDeskView
             {
-                newQueryRecieved.removeObject(StudentId)
+                newQueryRecieved.remove(StudentId)
                 studentDeskView.queryDismissed()
                 
             }
@@ -2613,25 +2837,25 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     // MARK: - SubmissionPopover functions
     
     
-    func delegateAnnotateButtonPressedWithAnswerDetails(answerDetails: AnyObject, withStudentDetails studentDict: AnyObject, withQuestionDetails questionDetails: AnyObject) {
-        
-        let annotateView = StudentAnnotateView(frame: CGRectMake(0, 0 ,self.view.frame.size.width,self.view.frame.size.height))
+func delegateAnnotateButtonPressedWithAnswerDetails(_ answerDetails:AnyObject, withStudentDetails studentDict:AnyObject, withQuestionDetails questionDetails:AnyObject, withStarRatings ratings:Int, withModelAnswer modelAnswer:Bool)
+{
+        let annotateView = StudentAnnotateView(frame: CGRect(x: 0, y: 0 ,width: self.view.frame.size.width,height: self.view.frame.size.height))
         self.view.addSubview(annotateView)
         annotateView.setdelegate(self)
-        annotateView.setStudentDetails(studentDict, withAnswerDetails: answerDetails, withQuestionDetails: questionDetails)
+        annotateView.setStudentDetails(studentDict, withAnswerDetails: answerDetails, withQuestionDetails: questionDetails,withStarRatings: ratings, withModelAnswer: modelAnswer)
         
     }
     
-    func delegateSubmissionEvalauatedWithAnswerDetails(answerDetails: AnyObject, withEvaluationDetail evaluation: AnyObject, withStudentId studentId: String)
+    func delegateSubmissionEvalauatedWithAnswerDetails(_ answerDetails: AnyObject, withEvaluationDetail evaluation: AnyObject, withStudentId studentId: String)
     {
        
         mSubmissionView.studentSubmissionEvaluatedWithDetails(evaluation, withStdentId: studentId)
     }
     
     // MARK: - Polling delegate functions
-    func delegatePollingStartedWithOptions(optionsArray: NSMutableArray)
+    func delegatePollingStartedWithOptions(_ optionsArray: NSMutableArray)
     {
-        if NSUserDefaults.standardUserDefaults().boolForKey("isSimulateMode") == true
+        if UserDefaults.standard.bool(forKey: "isSimulateMode") == true
         {
             pollingDemoView.sendDummyPollingWithStudents(StudentsDetailsArray, withOPtionsArray: optionsArray)
         }
@@ -2640,22 +2864,22 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     // MARK: - Setting controller functions
     
-    func Settings_setupLessonPlanClicked()
+    func settings_setupLessonPlanClicked()
     {
-        mShowTopicsView.hidden = true
+        mShowTopicsView.isHidden = true
         if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
         {
             mSubTopicsNamelabel.text = "No topic selected"
         }
         
-        let mSetupLessonPlan  = SSTeacherLessonPlanView(frame: CGRectMake(0, 0 ,self.view.frame.size.width, self.view.frame.size.height))
+        let mSetupLessonPlan  = SSTeacherLessonPlanView(frame: CGRect(x: 0, y: 0 ,width: self.view.frame.size.width, height: self.view.frame.size.height))
         mSetupLessonPlan.setCurrentSessionDetails(currentSessionDetails)
         self.view.addSubview(mSetupLessonPlan)
         SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.removeAllObjects()
         mainTopicsView.mMaintopicsDetails.removeAllObjects()
     }
     
-    func Settings_AlphabeticalReassignseats()
+    func settings_AlphabeticalReassignseats()
     {
         
         let studentIdArray = NSMutableArray()
@@ -2667,28 +2891,28 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
         for indexValue in 0  ..< StudentsDetailsArray.count
         {
-            let studentsDict = StudentsDetailsArray.objectAtIndex(indexValue)
+            let studentsDict = StudentsDetailsArray.object(at: indexValue)
             
             let seatId = seatsIdArray[indexValue]
-            if let StudentId = studentsDict.objectForKey("StudentId") as? String
+            if let StudentId = (studentsDict as AnyObject).object(forKey: "StudentId") as? String
             {
                 
-                _seatsIdArray.addObject(seatId)
-                studentIdArray.addObject(StudentId)
+                _seatsIdArray.add(seatId)
+                studentIdArray.add(StudentId)
             }
 
         }
         
-        if let sessionid = currentSessionDetails.objectForKey(kSessionId) as? String
+        if let sessionid = currentSessionDetails.object(forKey: kSessionId) as? String
         {
 
-            SSTeacherDataSource.sharedDataSource.SaveSeatAssignmentWithStudentsList(studentIdArray.componentsJoinedByString(","), withSeatsIdList: _seatsIdArray.componentsJoinedByString(","), withSessionId: sessionid, withDelegate: self)
+            SSTeacherDataSource.sharedDataSource.SaveSeatAssignmentWithStudentsList(studentIdArray.componentsJoined(by: ","), withSeatsIdList: _seatsIdArray.componentsJoined(by: ","), withSessionId: sessionid, withDelegate: self)
         }
 
         
     }
     
-    func Settings_RandomReasignSeats()
+    func settings_RandomReasignSeats()
     {
        
         let studentIdArray = NSMutableArray()
@@ -2699,12 +2923,12 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
         for subview in subViews
         {
-            if subview.isKindOfClass(StundentDeskView)
+            if subview.isKind(of: StundentDeskView.self)
             {
                 if subview.getSeatIdAndStudentId().StudentId != "0"
                 {
-                    seatsIdArray.addObject(subview.getSeatIdAndStudentId().seatId)
-                    studentIdArray.addObject(subview.getSeatIdAndStudentId().StudentId)
+                    seatsIdArray.add(subview.getSeatIdAndStudentId().seatId)
+                    studentIdArray.add(subview.getSeatIdAndStudentId().StudentId)
                 }
             }
         }
@@ -2713,36 +2937,38 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         seatsIdArray.shuffle()
        
         
-        if let sessionid = currentSessionDetails.objectForKey(kSessionId) as? String
+        if let sessionid = currentSessionDetails.object(forKey: kSessionId) as? String
         {
             //            mDonebutton.hidden = true
-            SSTeacherDataSource.sharedDataSource.SaveSeatAssignmentWithStudentsList(studentIdArray.componentsJoinedByString(","), withSeatsIdList: seatsIdArray.componentsJoinedByString(","), withSessionId: sessionid, withDelegate: self)
+            SSTeacherDataSource.sharedDataSource.SaveSeatAssignmentWithStudentsList(studentIdArray.componentsJoined(by: ","), withSeatsIdList: seatsIdArray.componentsJoined(by: ","), withSessionId: sessionid, withDelegate: self)
         }
     }
    
     
     
-    func Settings_ManualResignSeats() {
+    func settings_ManualResignSeats() {
         
     }
     
-    func Settings_onQueryEnbled() {
+    func settings_onQueryEnbled() {
         
     }
     
-    func Settings_onQuestionEnabled() {
+    func settings_onQuestionEnabled() {
         
     }
     
-    func Settings_refreshPicsClicked() {
+    func settings_refreshPicsClicked() {
+        
+        SSTeacherDataSource.sharedDataSource.getStudentsState(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, withDelegate: self)
         
     }
     
-    func Settings_testPingButtonClicked() {
+    func settings_testPingButtonClicked() {
         
     }
     
-    func Settings_XmppReconnectButtonClicked() {
+    func settings_XmppReconnectButtonClicked() {
         SSTeacherMessageHandler.sharedMessageHandler.performReconnet()
     }
     
@@ -2751,7 +2977,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     func delegateSessionEnded()
     {
         
-        if let sessionId = (currentSessionDetails.objectForKey(kSessionId)) as? String
+        if let sessionId = (currentSessionDetails.object(forKey: kSessionId)) as? String
         {
             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(sessionId, WithStatusvalue: "5", WithDelegate: self)
         
@@ -2762,10 +2988,10 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     func hideAllViewInTopicsView()
     {
-        mainTopicsView.hidden = true
-        subTopicsView.hidden = true
-        questionTopicsView.hidden = true
-        liveQuestionView.hidden = true
+        mainTopicsView.isHidden = true
+        subTopicsView.isHidden = true
+        questionTopicsView.isHidden = true
+        liveQuestionView.isHidden = true
     }
     
     
@@ -2773,72 +2999,66 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     func downloladDemoMasterFileDetails()
     {
         
-        let  url = NSURL(string: "\(kDemoPlistUrl)/DemoMasterDetails.plist")
-        let mDemoMaseterFileDetails = plistLoader.returnDictonarywithPlistName("DemoMasterDetails.plist", withUrl: url)
+        let  url = URL(string: "\(kDemoPlistUrl)/DemoMasterDetails.plist")
+        let mDemoMaseterFileDetails = plistLoader.returnDictonarywithPlistName("DemoMasterDetails.plist", with: url)
         
-        if (mDemoMaseterFileDetails.objectForKey("DemoCollaborationSubtopicId") != nil)
+        if (mDemoMaseterFileDetails?.object(forKey: "DemoCollaborationSubtopicId") != nil)
         {
-            let classCheckingVariable = mDemoMaseterFileDetails.objectForKey("DemoCollaborationSubtopicId")
-            
-            if classCheckingVariable!.isKindOfClass(NSMutableArray)
+           if  let classCheckingVariable = mDemoMaseterFileDetails?.object(forKey: "DemoCollaborationSubtopicId") as? NSMutableArray
             {
                 SSTeacherDataSource.sharedDataSource.mDemoCollaborationSubTopicArray = classCheckingVariable as! NSMutableArray
             }
             else
             {
-                SSTeacherDataSource.sharedDataSource.mDemoCollaborationSubTopicArray.addObject(mDemoMaseterFileDetails.objectForKey("DemoCollaborationSubtopicId")!)
+                SSTeacherDataSource.sharedDataSource.mDemoCollaborationSubTopicArray.add(mDemoMaseterFileDetails?.object(forKey: "DemoCollaborationSubtopicId")!)
                 
             }
         }
         
         
-        if (mDemoMaseterFileDetails.objectForKey("DemoQuestionsId") != nil)
+        if (mDemoMaseterFileDetails?.object(forKey: "DemoQuestionsId") != nil)
         {
-            let classCheckingVariable = mDemoMaseterFileDetails.objectForKey("DemoQuestionsId")
-            
-            if classCheckingVariable!.isKindOfClass(NSMutableArray)
+            if let classCheckingVariable = mDemoMaseterFileDetails?.object(forKey: "DemoQuestionsId") as? NSMutableArray
             {
-                SSTeacherDataSource.sharedDataSource.mDemoQuestionsIdArray = classCheckingVariable as! NSMutableArray
+                SSTeacherDataSource.sharedDataSource.mDemoQuestionsIdArray = classCheckingVariable
             }
-            else
+            else if let classCheckingVariable = mDemoMaseterFileDetails?.object(forKey: "DemoQuestionsId") as? NSMutableDictionary
             {
-                SSTeacherDataSource.sharedDataSource.mDemoQuestionsIdArray.addObject(mDemoMaseterFileDetails.objectForKey("DemoQuestionsId")!)
+                SSTeacherDataSource.sharedDataSource.mDemoQuestionsIdArray.add(classCheckingVariable)
                 
             }
         }
         
-        if (mDemoMaseterFileDetails.objectForKey("DemoSubTopicsId") != nil)
+        if (mDemoMaseterFileDetails?.object(forKey: "DemoSubTopicsId") != nil)
         {
-            let classCheckingVariable = mDemoMaseterFileDetails.objectForKey("DemoSubTopicsId")
+            if let classCheckingVariable = mDemoMaseterFileDetails?.object(forKey: "DemoSubTopicsId") as? NSMutableArray
+            {
             
-            if classCheckingVariable!.isKindOfClass(NSMutableArray)
-            {
-                SSTeacherDataSource.sharedDataSource.mDemoQuerySubTopicsArray = classCheckingVariable as! NSMutableArray
+              SSTeacherDataSource.sharedDataSource.mDemoQuerySubTopicsArray = classCheckingVariable 
             }
-            else
+            else if let classCheckingVariable = mDemoMaseterFileDetails?.object(forKey: "DemoSubTopicsId") as? NSMutableDictionary
             {
-            SSTeacherDataSource.sharedDataSource.mDemoQuerySubTopicsArray.addObject(mDemoMaseterFileDetails.objectForKey("DemoSubTopicsId")!)
-                
+                SSTeacherDataSource.sharedDataSource.mDemoQuerySubTopicsArray.add(classCheckingVariable)
             }
         }
     }
     
     // MARK: - ModelAnswer Delegate  functions
-    func delegateModelAnswerViewLoadedWithHeight(height: CGFloat, withCount modelCount: Int) {
+    func delegateModelAnswerViewLoadedWithHeight(_ height: CGFloat, withCount modelCount: Int) {
         
-        mModelAnswerButton.hidden = false
+        mModelAnswerButton.isHidden = false
         mModelAnswerButton.modelAnswerCountLabel.text = "\(modelCount)"
         
-        UIView.animateWithDuration(0.6, animations:
+        UIView.animate(withDuration: 0.6, animations:
             {
-               self.mModelAnswerView.frame = CGRectMake(self.mModelAnswerView.frame.origin.x, self.mModelAnswerView.frame.origin.y,self.mModelAnswerView.frame.size.width, height)
+               self.mModelAnswerView.frame = CGRect(x: self.mModelAnswerView.frame.origin.x, y: self.mModelAnswerView.frame.origin.y,width: self.mModelAnswerView.frame.size.width, height: height)
                 self.mModelAnswerView.layer.cornerRadius = 5
         })
         
         if modelCount <= 0
         {
-            mModelAnswerButton.hidden = true
-            mModelAnswerView.hidden = true 
+            mModelAnswerButton.isHidden = true
+            mModelAnswerView.isHidden = true 
         }
         
         

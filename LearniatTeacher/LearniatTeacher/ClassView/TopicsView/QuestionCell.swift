@@ -12,9 +12,9 @@ import Foundation
 {
     
     
-    optional func delegateSendQuestionDetails(questionDetails:AnyObject)
+    @objc optional func delegateSendQuestionDetails(_ questionDetails:AnyObject)
     
-    optional func delegateOnInfoButtonWithDetails(questionDetails:AnyObject, withButton infoButton:UIButton)
+    @objc optional func delegateOnInfoButtonWithDetails(_ questionDetails:AnyObject, withButton infoButton:UIButton)
     
 }
 
@@ -38,7 +38,7 @@ class QuestionCell: UIView
     
     var mDemoLabel          = UILabel()
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -58,49 +58,49 @@ class QuestionCell: UIView
         
        
 
-        mQuestionNameLabel.frame = CGRectMake(10 , 10 , self.frame.size.width - 60 , self.frame.size.height)
+        mQuestionNameLabel.frame = CGRect(x: 10 , y: 10 , width: self.frame.size.width - 60 , height: self.frame.size.height)
         mQuestionNameLabel.font = UIFont(name:helveticaMedium, size: 18)
         self.addSubview(mQuestionNameLabel)
         mQuestionNameLabel.textColor = blackTextColor
-        mQuestionNameLabel.textAlignment = .Left
-        mQuestionNameLabel.lineBreakMode = .ByTruncatingMiddle
+        mQuestionNameLabel.textAlignment = .left
+        mQuestionNameLabel.lineBreakMode = .byTruncatingMiddle
         mQuestionNameLabel.numberOfLines  = 20
         
         
         mIndexValuesLabel.font = UIFont(name:helveticaRegular, size: 16)
         self.addSubview(mIndexValuesLabel)
         mIndexValuesLabel.textColor = blackTextColor
-        mIndexValuesLabel.textAlignment = .Left
-        mIndexValuesLabel.lineBreakMode = .ByTruncatingMiddle
+        mIndexValuesLabel.textAlignment = .left
+        mIndexValuesLabel.lineBreakMode = .byTruncatingMiddle
         
         
         mQuestionTypeLabel.font = UIFont(name:helveticaBold, size: 16)
         self.addSubview(mQuestionTypeLabel)
         mQuestionTypeLabel.textColor = UIColor(red: 160.0/255.0, green: 160.0/255.0, blue: 160.0/255.0, alpha: 1)   //333333
-        mQuestionTypeLabel.textAlignment = .Center
-        mQuestionTypeLabel.lineBreakMode = .ByTruncatingMiddle
+        mQuestionTypeLabel.textAlignment = .center
+        mQuestionTypeLabel.lineBreakMode = .byTruncatingMiddle
         
         self.addSubview(mSendButton)
-        mSendButton.addTarget(self, action: #selector(QuestionCell.onSendButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mSendButton.setTitleColor(standard_Button, forState: .Normal)
-        mSendButton.setTitle("Send", forState: .Normal)
-        mSendButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        mSendButton.addTarget(self, action: #selector(QuestionCell.onSendButton), for: UIControlEvents.touchUpInside)
+        mSendButton.setTitleColor(standard_Button, for: UIControlState())
+        mSendButton.setTitle("Send", for: UIControlState())
+        mSendButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         mSendButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
         
         
         
         self.addSubview(mInfoButtonButton)
-        mInfoButtonButton.addTarget(self, action: #selector(QuestionCell.onInfoButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mInfoButtonButton.setImage(UIImage(named: "infoButton.png"), forState: .Normal)
-        mInfoButtonButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        mInfoButtonButton.addTarget(self, action: #selector(QuestionCell.onInfoButton), for: UIControlEvents.touchUpInside)
+        mInfoButtonButton.setImage(UIImage(named: "infoButton.png"), for: UIControlState())
+        mInfoButtonButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         
         
-        mDemoLabel = UILabel(frame: CGRectMake(10 , 0 , 100, 10))
+        mDemoLabel = UILabel(frame: CGRect(x: 10 , y: 0 , width: 100, height: 10))
         mDemoLabel.font = UIFont(name:helveticaMedium, size: 10)
         self.addSubview(mDemoLabel)
         mDemoLabel.textColor = standard_Green
-        mDemoLabel.textAlignment = .Left
-        mDemoLabel.lineBreakMode = .ByTruncatingMiddle
+        mDemoLabel.textAlignment = .left
+        mDemoLabel.lineBreakMode = .byTruncatingMiddle
         mDemoLabel.text = "Simulation"
 
     }
@@ -110,7 +110,7 @@ class QuestionCell: UIView
     }
     
     
-    func getCurrentCellHeightWithDetails(details:AnyObject, WIthCountValue questionCout:Int) -> CGFloat
+    func getCurrentCellHeightWithDetails(_ details:AnyObject, WIthCountValue questionCout:Int) -> CGFloat
     {
         
         var height :CGFloat = 100
@@ -122,44 +122,44 @@ class QuestionCell: UIView
         
         
         
-        if let topicId = currentQuestionDetails.objectForKey("Id")as? String
+        if let topicId = currentQuestionDetails.object(forKey: "Id")as? String
         {
             if SSTeacherDataSource.sharedDataSource.mDemoQuestionsIdArray.count>0
             {
-                if SSTeacherDataSource.sharedDataSource.mDemoQuestionsIdArray.containsObject(topicId)
+                if SSTeacherDataSource.sharedDataSource.mDemoQuestionsIdArray.contains(topicId)
                 {
-                    if NSUserDefaults.standardUserDefaults().boolForKey("isSimulateMode") == true
+                    if UserDefaults.standard.bool(forKey: "isSimulateMode") == true
                     {
-                        mDemoLabel.hidden = false
+                        mDemoLabel.isHidden = false
                     }
                     else
                     {
-                        mDemoLabel.hidden = true
+                        mDemoLabel.isHidden = true
                     }
                 }
                 else
                 {
-                    mDemoLabel.hidden = true
+                    mDemoLabel.isHidden = true
                 }
                 
                 
             }
             else
             {
-                mDemoLabel.hidden = true
+                mDemoLabel.isHidden = true
             }
             
            
         
         
         
-        if let questionName = details.objectForKey("Name")as? String
+        if let questionName = details.object(forKey: "Name")as? String
         {
             mQuestionNameLabel.text = "\(questionCout). \(questionName) (\(topicId))"
             
             height = heightForView(questionName, font: mQuestionNameLabel.font, width: mQuestionNameLabel.frame.size.width)
             
-            mQuestionNameLabel.frame = CGRectMake(mQuestionNameLabel.frame.origin.x, mQuestionNameLabel.frame.origin.y, mQuestionNameLabel.frame.size.width, height)
+            mQuestionNameLabel.frame = CGRect(x: mQuestionNameLabel.frame.origin.x, y: mQuestionNameLabel.frame.origin.y, width: mQuestionNameLabel.frame.size.width, height: height)
         }
         else
         {
@@ -167,30 +167,30 @@ class QuestionCell: UIView
             
             height = heightForView(mQuestionNameLabel.text!, font: mQuestionNameLabel.font, width: mQuestionNameLabel.frame.size.width)
             
-            mQuestionNameLabel.frame = CGRectMake(mQuestionNameLabel.frame.origin.x, mQuestionNameLabel.frame.origin.y + 10, mQuestionNameLabel.frame.size.width, height)
+            mQuestionNameLabel.frame = CGRect(x: mQuestionNameLabel.frame.origin.x, y: mQuestionNameLabel.frame.origin.y + 10, width: mQuestionNameLabel.frame.size.width, height: height)
         }
         
         height = height + 80
         
         
-        let seperatorView = UIView(frame: CGRectMake(5 ,height - 1 , self.frame.size.width - 10,1))
+        let seperatorView = UIView(frame: CGRect(x: 5 ,y: height - 1 , width: self.frame.size.width - 10,height: 1))
         seperatorView.backgroundColor = topicsLineColor;
         self.addSubview(seperatorView)
         
         
         }
         
-        if let QuestonAvgScore = details.objectForKey("QuestonAvgScore")as? NSString
+        if let QuestonAvgScore = details.object(forKey: "QuestonAvgScore")as? NSString
         {
            
             
             let questionAverage = QuestonAvgScore.floatValue * 100.0
             
-            if let NumberOfResponses = details.objectForKey("NumberOfResponses")as? NSString
+            if let NumberOfResponses = details.object(forKey: "NumberOfResponses")as? NSString
             {
                 if NumberOfResponses.intValue > 0
                 {
-                    mIndexValuesLabel.hidden = false
+                    mIndexValuesLabel.isHidden = false
                     
 
                     let  _string =  NSMutableAttributedString(string:"\(String(format: "%02d", Int(questionAverage)))% (\(NumberOfResponses))")
@@ -218,12 +218,12 @@ class QuestionCell: UIView
                 }
                 else
                 {
-                    mIndexValuesLabel.hidden = true
+                    mIndexValuesLabel.isHidden = true
                 }
             }
             else
             {
-                mIndexValuesLabel.hidden = true
+                mIndexValuesLabel.isHidden = true
             }
         }
         
@@ -232,45 +232,45 @@ class QuestionCell: UIView
         
         
         
-        if let questionType = details.objectForKey("Type")as? NSString
+        if let questionType = details.object(forKey: "Type")as? NSString
         {
-            if(questionType.isEqualToString(kText))
+            if(questionType.isEqual(to: kText))
             {
                 
                 mQuestionTypeLabel.text = questionType as String ;
-                mInfoButtonButton.hidden = true
+                mInfoButtonButton.isHidden = true
                 
             }
-            else if(questionType.isEqualToString(kOverlayScribble))
+            else if(questionType.isEqual(to: kOverlayScribble))
             {
             
                 mQuestionTypeLabel.text = questionType as String;
-                mInfoButtonButton.hidden = false
+                mInfoButtonButton.isHidden = false
             
             
             }
-            else if(questionType.isEqualToString(kFreshScribble))
+            else if(questionType.isEqual(to: kFreshScribble))
             {
             
                 mQuestionTypeLabel.text = questionType as String;
-                mInfoButtonButton.hidden = true
+                mInfoButtonButton.isHidden = true
             
             
             }
            
-            else if(questionType.isEqualToString(kMRQ))
+            else if(questionType.isEqual(to: kMRQ))
             {
             
                 mQuestionTypeLabel.text = questionType as String;
-                mInfoButtonButton.hidden = false
+                mInfoButtonButton.isHidden = false
             
             
             }
-            else if(questionType.isEqualToString(kMCQ))
+            else if(questionType.isEqual(to: kMCQ))
             {
             
                 mQuestionTypeLabel.text = questionType as String;
-                 mInfoButtonButton.hidden = false
+                 mInfoButtonButton.isHidden = false
             
             
             }
@@ -278,26 +278,26 @@ class QuestionCell: UIView
             {
             
                 mQuestionTypeLabel.text = questionType as String;
-                 mInfoButtonButton.hidden = false
+                 mInfoButtonButton.isHidden = false
             
             }
             
         }
        
         
-        mIndexValuesLabel.frame = CGRectMake(mQuestionNameLabel.frame.origin.x, mQuestionNameLabel.frame.origin.y + mQuestionNameLabel.frame.size.height + 25, self.frame.size.width / 5 , self.frame.size.width / 20)
+        mIndexValuesLabel.frame = CGRect(x: mQuestionNameLabel.frame.origin.x, y: mQuestionNameLabel.frame.origin.y + mQuestionNameLabel.frame.size.height + 25, width: self.frame.size.width / 5 , height: self.frame.size.width / 20)
         
         
-        mQuestionTypeLabel.frame = CGRectMake(mIndexValuesLabel.frame.origin.x + mIndexValuesLabel.frame.size.width + 15 , mIndexValuesLabel.frame.origin.y, self.frame.size.width / 2, self.frame.size.width / 20)
+        mQuestionTypeLabel.frame = CGRect(x: mIndexValuesLabel.frame.origin.x + mIndexValuesLabel.frame.size.width + 15 , y: mIndexValuesLabel.frame.origin.y, width: self.frame.size.width / 2, height: self.frame.size.width / 20)
         
         
-         mDemoLabel.frame = CGRectMake(10 , mQuestionNameLabel.frame.origin.y + mQuestionNameLabel.frame.size.height + 5 , 100, 10)
+         mDemoLabel.frame = CGRect(x: 10 , y: mQuestionNameLabel.frame.origin.y + mQuestionNameLabel.frame.size.height + 5 , width: 100, height: 10)
         
         
-         mSendButton.frame = CGRectMake(self.frame.size.width - ((self.frame.size.width / 4.5 ) + 10) , mIndexValuesLabel.frame.origin.y, self.frame.size.width / 4.5, self.frame.size.width / 20)
+         mSendButton.frame = CGRect(x: self.frame.size.width - ((self.frame.size.width / 4.5 ) + 10) , y: mIndexValuesLabel.frame.origin.y, width: self.frame.size.width / 4.5, height: self.frame.size.width / 20)
         
         
-        mInfoButtonButton.frame = CGRectMake(self.frame.size.width - ((self.frame.size.width / 15) + 10), 5, self.frame.size.width / 15,self.frame.size.width / 15)
+        mInfoButtonButton.frame = CGRect(x: self.frame.size.width - ((self.frame.size.width / 15) + 10), y: 5, width: self.frame.size.width / 15,height: self.frame.size.width / 15)
         
         
         return height
@@ -305,11 +305,11 @@ class QuestionCell: UIView
     }
     
     
-    func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat
+    func heightForView(_ text:String, font:UIFont, width:CGFloat) -> CGFloat
     {
-        let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max))
+        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
         label.numberOfLines = 0
-        label.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.font = font
         label.text = text
         
@@ -319,7 +319,7 @@ class QuestionCell: UIView
     
     func onSendButton()
     {
-        if delegate().respondsToSelector(#selector(QuestionCellDelegate.delegateSendQuestionDetails(_:)))
+        if delegate().responds(to: #selector(QuestionCellDelegate.delegateSendQuestionDetails(_:)))
         {
             delegate().delegateSendQuestionDetails!(currentQuestionDetails)
              
@@ -329,7 +329,7 @@ class QuestionCell: UIView
     
     func onInfoButton()
     {
-        if delegate().respondsToSelector(#selector(QuestionCellDelegate.delegateOnInfoButtonWithDetails(_:withButton:)))
+        if delegate().responds(to: #selector(QuestionCellDelegate.delegateOnInfoButtonWithDetails(_:withButton:)))
         {
             delegate().delegateOnInfoButtonWithDetails!(currentQuestionDetails, withButton: mInfoButtonButton)
             

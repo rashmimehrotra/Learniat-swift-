@@ -36,10 +36,10 @@ class LessonPlanMainView: UIView,SSTeacherDataSourceDelegate,LessonPlanMainViewD
         self.backgroundColor = lightGrayTopBar
        
         
-        mTopicsContainerView.frame = CGRectMake(0, 0, self.frame.size.width,self.frame.size.height)
+        mTopicsContainerView.frame = CGRect(x: 0, y: 0, width: self.frame.size.width,height: self.frame.size.height)
         self.addSubview(mTopicsContainerView)
         mTopicsContainerView.backgroundColor = lightGrayTopBar
-        mTopicsContainerView.hidden = true
+        mTopicsContainerView.isHidden = true
         
         
         
@@ -50,19 +50,19 @@ class LessonPlanMainView: UIView,SSTeacherDataSourceDelegate,LessonPlanMainViewD
     
     func registerKeyboardNotifications()
     {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LessonPlanMainView.keyboardDidShow(_:)), name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LessonPlanMainView.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LessonPlanMainView.keyboardDidShow(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LessonPlanMainView.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     func unregisterKeyboardNotifications()
     {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
-    func keyboardDidShow(notification: NSNotification)
+    func keyboardDidShow(_ notification: Notification)
     {
-        let userInfo: NSDictionary = notification.userInfo!
-        let keyboardSize = userInfo.objectForKey(UIKeyboardFrameBeginUserInfoKey)!.CGRectValue.size
+        let userInfo: NSDictionary = notification.userInfo! as NSDictionary
+        let keyboardSize = (userInfo.object(forKey: UIKeyboardFrameBeginUserInfoKey)! as AnyObject).cgRectValue.size
         let contentInsets = UIEdgeInsetsMake(0, 0, keyboardSize.height, 0)
         mTopicsContainerView.contentInset = contentInsets
         mTopicsContainerView.scrollIndicatorInsets = contentInsets
@@ -70,17 +70,17 @@ class LessonPlanMainView: UIView,SSTeacherDataSourceDelegate,LessonPlanMainViewD
         var viewRect = self.frame
         viewRect.size.height -= keyboardSize.height
        
-        if CGRectContainsPoint(viewRect, mTopicsContainerView.frame.origin)
+        if viewRect.contains(mTopicsContainerView.frame.origin)
         {
-            let scrollPoint = CGPointMake(0, mTopicsContainerView.frame.origin.y - keyboardSize.height)
+            let scrollPoint = CGPoint(x: 0, y: mTopicsContainerView.frame.origin.y - keyboardSize.height)
             mTopicsContainerView.setContentOffset(scrollPoint, animated: true)
         }
     }
     
-    func keyboardWillHide(notification: NSNotification)
+    func keyboardWillHide(_ notification: Notification)
     {
-        mTopicsContainerView.contentInset = UIEdgeInsetsZero
-        mTopicsContainerView.scrollIndicatorInsets = UIEdgeInsetsZero
+        mTopicsContainerView.contentInset = UIEdgeInsets.zero
+        mTopicsContainerView.scrollIndicatorInsets = UIEdgeInsets.zero
     }
 
     
@@ -94,20 +94,18 @@ class LessonPlanMainView: UIView,SSTeacherDataSourceDelegate,LessonPlanMainViewD
     }
     
     
-    func setCurrentSessionDetails(sessionDetails:AnyObject, withFullLessonPlanDetails _fullLessonPlan:AnyObject)
+    func setCurrentSessionDetails(_ sessionDetails:AnyObject, withFullLessonPlanDetails _fullLessonPlan:AnyObject)
     {
         
           mMaintopicsDetails.removeAllObjects()
         
-        let classCheckingVariable = _fullLessonPlan.objectForKey("MainTopics")!.objectForKey("MainTopic")!
-        
-        if classCheckingVariable.isKindOfClass(NSMutableArray)
+        if let classCheckingVariable = (_fullLessonPlan.object(forKey: "MainTopics")! as AnyObject).object(forKey: "MainTopic") as? NSMutableArray
         {
-            mMaintopicsDetails = classCheckingVariable as! NSMutableArray
+            mMaintopicsDetails = classCheckingVariable
         }
         else
         {
-            mMaintopicsDetails.addObject(_fullLessonPlan.objectForKey("MainTopics")!.objectForKey("MainTopic")!)
+            mMaintopicsDetails.add((_fullLessonPlan.object(forKey: "MainTopics")! as AnyObject).object(forKey: "MainTopic")!)
             
         }
         
@@ -124,12 +122,12 @@ class LessonPlanMainView: UIView,SSTeacherDataSourceDelegate,LessonPlanMainViewD
         {
             mTopicName.text = "No Topics found"
             
-            mTopicsContainerView.hidden = true
+            mTopicsContainerView.isHidden = true
         }
         else
         {
-             mTopicName.hidden = true
-            mTopicsContainerView.hidden = false
+             mTopicName.isHidden = true
+            mTopicsContainerView.isHidden = false
         }
         
         
@@ -140,38 +138,38 @@ class LessonPlanMainView: UIView,SSTeacherDataSourceDelegate,LessonPlanMainViewD
         
         for index in 0 ..< mMaintopicsDetails.count
         {
-            let currentTopicDetails = mMaintopicsDetails.objectAtIndex(index)
-            let topicCell = LessonPlanMainViewCell(frame: CGRectMake(10  , positionY, mTopicsContainerView.frame.size.width - 20, 55))
+            let currentTopicDetails = mMaintopicsDetails.object(at: index)
+            let topicCell = LessonPlanMainViewCell(frame: CGRect(x: 10  , y: positionY, width: mTopicsContainerView.frame.size.width - 20, height: 55))
             topicCell.setdelegate(self)
-            topicCell.setMainTopicDetails(currentTopicDetails, withIndexPath: index)
+            topicCell.setMainTopicDetails(currentTopicDetails as AnyObject, withIndexPath: index)
             mTopicsContainerView.addSubview(topicCell)
             positionY = positionY + topicCell.frame.size.height + 10
         }
         
-        mTopicsContainerView.contentSize = CGSizeMake(0, positionY + 20)
+        mTopicsContainerView.contentSize = CGSize(width: 0, height: positionY + 20)
         
     }
     
     // MARK: - mainTopic cell delegate functions
     
-    func delegateSubTopicCellPressedWithMainTopicDetails(topicDetails: AnyObject, withCell topicCell: LessonPlanMainViewCell, withHeight height: CGFloat)
+    func delegateSubTopicCellPressedWithMainTopicDetails(_ topicDetails: AnyObject, withCell topicCell: LessonPlanMainViewCell, withHeight height: CGFloat)
     {
-        topicCell.frame = CGRectMake(topicCell.frame.origin.x, topicCell.frame.origin.y, topicCell.frame.width, height)
+        topicCell.frame = CGRect(x: topicCell.frame.origin.x, y: topicCell.frame.origin.y, width: topicCell.frame.width, height: height)
         rearrangeScrollView()
     }
     
-    func delegateQuestionButtonPressedWithDetails(topicDetails: AnyObject)
+    func delegateQuestionButtonPressedWithDetails(_ topicDetails: AnyObject)
     {
         
         
         
         
-                let SubTopicsView = LessonPlanQuestionView(frame: CGRectMake(0,0,self.frame.size.width,self.frame.size.height ))
+                let SubTopicsView = LessonPlanQuestionView(frame: CGRect(x: 0,y: 0,width: self.frame.size.width,height: self.frame.size.height ))
                 SubTopicsView.setCurrentMainTopicDetails(topicDetails)
         
-                UIView.animateWithDuration(0.6, animations:
+                UIView.animate(withDuration: 0.6, animations:
                     {
-                     SubTopicsView.frame =  CGRectMake(0,0,self.frame.size.width,self.frame.size.height )
+                     SubTopicsView.frame =  CGRect(x: 0,y: 0,width: self.frame.size.width,height: self.frame.size.height )
                     })
         
         
@@ -180,14 +178,14 @@ class LessonPlanMainView: UIView,SSTeacherDataSourceDelegate,LessonPlanMainViewD
         
     }
     
-    func delegateMainTopicCheckMarkPressedWithState(SelectedState: Bool, withCurrentTopicDatails details: AnyObject)
+    func delegateMainTopicCheckMarkPressedWithState(_ SelectedState: Bool, withCurrentTopicDatails details: AnyObject)
     {
         
     }
     
     // MARK: - subTopic View delegate functions
     
-    func delegateCellStateChangedWithState(SelectedState: Bool, withIndexValue indexValue: Int, withCurrentTopicDatails details: AnyObject, withChecMarkState checkMark: Int) {
+    func delegateCellStateChangedWithState(_ SelectedState: Bool, withIndexValue indexValue: Int, withCurrentTopicDatails details: AnyObject, withChecMarkState checkMark: Int) {
         
 //        if indexValue < mMaintopicsDetails.count
 //        {
@@ -233,7 +231,7 @@ class LessonPlanMainView: UIView,SSTeacherDataSourceDelegate,LessonPlanMainViewD
     
     
     
-    func delegateSubTopicRemovedWithTopicDetails(topicDetails: AnyObject)
+    func delegateSubTopicRemovedWithTopicDetails(_ topicDetails: AnyObject)
     {
 //        if let topicId = topicDetails.objectForKey("Id")as? String
 //        {
@@ -257,7 +255,7 @@ class LessonPlanMainView: UIView,SSTeacherDataSourceDelegate,LessonPlanMainViewD
 
         unregisterKeyboardNotifications()
         
-       let topicDetailsString = SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.componentsJoinedByString(",")
+       let topicDetailsString = SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.componentsJoined(by: ",")
         
         
         return topicDetailsString 
@@ -268,9 +266,9 @@ class LessonPlanMainView: UIView,SSTeacherDataSourceDelegate,LessonPlanMainViewD
         let subViews =  mTopicsContainerView.subviews.flatMap{ $0 as? LessonPlanMainViewCell }
         for topicCell in subViews
         {
-            if topicCell.isKindOfClass(LessonPlanMainViewCell)
+            if topicCell.isKind(of: LessonPlanMainViewCell.self)
             {
-               topicCell.SubTopicsView.hidden = true
+               topicCell.SubTopicsView.isHidden = true
                 topicCell.onSubtopicButton()
             }
         }
@@ -281,20 +279,20 @@ class LessonPlanMainView: UIView,SSTeacherDataSourceDelegate,LessonPlanMainViewD
         let subViews =  mTopicsContainerView.subviews.flatMap{ $0 as? LessonPlanMainViewCell }
         for topicCell in subViews
         {
-            if topicCell.isKindOfClass(LessonPlanMainViewCell)
+            if topicCell.isKind(of: LessonPlanMainViewCell.self)
             {
-                topicCell.SubTopicsView.hidden = false
+                topicCell.SubTopicsView.isHidden = false
                 topicCell.onSubtopicButton()
             }
         }
     }
     
-    func searchingTextWithSearchText(searchText:String)
+    func searchingTextWithSearchText(_ searchText:String)
     {
         let subViews =  mTopicsContainerView.subviews.flatMap{ $0 as? LessonPlanMainViewCell }
         for topicCell in subViews
         {
-            if topicCell.isKindOfClass(LessonPlanMainViewCell)
+            if topicCell.isKind(of: LessonPlanMainViewCell.self)
             {
                 topicCell.searchingForTextInmainTopicWithText(searchText)
             }
@@ -314,18 +312,18 @@ class LessonPlanMainView: UIView,SSTeacherDataSourceDelegate,LessonPlanMainViewD
         let subViews =  mTopicsContainerView.subviews.flatMap{ $0 as? LessonPlanMainViewCell }
         for topicCell in subViews
         {
-            if topicCell.isKindOfClass(LessonPlanMainViewCell)
+            if topicCell.isKind(of: LessonPlanMainViewCell.self)
             {
-                UIView.animateWithDuration(0.2, animations:
+                UIView.animate(withDuration: 0.2, animations:
                     {
-                        topicCell.frame = CGRectMake(topicCell.frame.origin.x ,currentYPosition,topicCell.frame.size.width,topicCell.frame.size.height)
+                        topicCell.frame = CGRect(x: topicCell.frame.origin.x ,y: currentYPosition,width: topicCell.frame.size.width,height: topicCell.frame.size.height)
                 })
                 
                 currentYPosition = currentYPosition + topicCell.frame.size.height + 10
             }
         }
         
-          mTopicsContainerView.contentSize = CGSizeMake(0, currentYPosition)
+          mTopicsContainerView.contentSize = CGSize(width: 0, height: currentYPosition)
     }
     
     

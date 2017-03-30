@@ -27,7 +27,7 @@ class BarView: UIButton
         
         super.init(frame:frame)
         
-        barView.frame = CGRectMake((self.frame.size.width - (self.frame.size.width * 0.7)) / 2, 0, (self.frame.size.width * 0.7), self.frame.size.height)
+        barView.frame = CGRect(x: (self.frame.size.width - (self.frame.size.width * 0.7)) / 2, y: 0, width: (self.frame.size.width * 0.7), height: self.frame.size.height)
         self.addSubview(barView)
         
     }
@@ -40,15 +40,15 @@ class BarView: UIButton
     }
     
     
-    func setBarColor(color:UIColor)
+    func setBarColor(_ color:UIColor)
     {
         barView.backgroundColor = color
     }
     
-    func changeFrameWithHeight(height:CGFloat)
+    func changeFrameWithHeight(_ height:CGFloat)
     {
         
-        barView.frame = CGRectMake(barView.frame.origin.x ,0 , barView.frame.size.width ,height)
+        barView.frame = CGRect(x: barView.frame.origin.x ,y: 0 , width: barView.frame.size.width ,height: height)
     }
     
     func increasePresentValue()

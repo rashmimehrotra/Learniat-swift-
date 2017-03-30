@@ -14,9 +14,9 @@ import Foundation
 {
     
     
-    optional func delegateSubmissionEvalauatedWithAnswerDetails(answerDetails:AnyObject,withEvaluationDetail evaluation:AnyObject, withStudentId studentId:String)
+    @objc optional func delegateSubmissionEvalauatedWithAnswerDetails(_ answerDetails:AnyObject,withEvaluationDetail evaluation:AnyObject, withStudentId studentId:String)
     
-    optional func delegateAnnotateButtonPressedWithAnswerDetails(answerDetails:AnyObject, withStudentDetails studentDict:AnyObject, withQuestionDetails questionDetails:AnyObject)
+    @objc optional func delegateAnnotateButtonPressedWithAnswerDetails(_ answerDetails:AnyObject, withStudentDetails studentDict:AnyObject, withQuestionDetails questionDetails:AnyObject, withStarRatings ratings:Int, withModelAnswer modelAnswer:Bool)
     
     
     
@@ -27,7 +27,7 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
 {
     var _delgate: AnyObject!
 
-    var _Popover:AnyObject!
+    
     
     var _studentAnswerDetails:AnyObject!
     
@@ -50,7 +50,7 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
     
     let feedBackDetails = NSMutableDictionary()
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -62,12 +62,14 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
     
     
     
-    func setPopover(popover:AnyObject)
+    var _Popover:UIPopoverController!
+    
+    func setPopover(_ popover:UIPopoverController)
     {
         _Popover = popover
     }
     
-    func popover()-> AnyObject
+    func popover()-> UIPopoverController
     {
         return _Popover
     }
@@ -84,16 +86,16 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         imageUploading.setDelegate(self)
         
         
-        let questionView = UIView(frame: CGRectMake(0, 0, 320, 320))
+        let questionView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 320))
         self.view.addSubview(questionView)
         
         
-        let headerView = UIView(frame: CGRectMake(0, 0, 320, 40))
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 40))
         headerView.backgroundColor = lightGrayTopBar
         questionView.addSubview(headerView);
         
         
-        let seperatorView = UIView(frame: CGRectMake(0, headerView.frame.size.height-1, 320, 1))
+        let seperatorView = UIView(frame: CGRect(x: 0, y: headerView.frame.size.height-1, width: 320, height: 1))
         seperatorView.backgroundColor = LineGrayColor
         headerView.addSubview(seperatorView);
 
@@ -103,29 +105,29 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         
         
         
-        let headerlabel = UILabel(frame: CGRectMake(20, 0, 200, 40))
+        let headerlabel = UILabel(frame: CGRect(x: 20, y: 0, width: 200, height: 40))
         headerlabel.text = kOverlayScribble
         headerView.addSubview(headerlabel)
-        headerlabel.textAlignment = .Left;
+        headerlabel.textAlignment = .left;
         headerlabel.font = UIFont(name: helveticaRegular, size: 20)
         headerlabel.textColor  = blackTextColor
         
         
         
-         mDoneButton.frame = CGRectMake(headerView.frame.size.width - 120, 0, 100, 40)
-        mDoneButton.addTarget(self, action: #selector(StudentSubjectivePopover.onDoneButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mDoneButton.setTitleColor(standard_Button, forState: .Normal)
-        mDoneButton.setTitle("Done", forState: .Normal)
-        mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+         mDoneButton.frame = CGRect(x: headerView.frame.size.width - 120, y: 0, width: 100, height: 40)
+        mDoneButton.addTarget(self, action: #selector(StudentSubjectivePopover.onDoneButton), for: UIControlEvents.touchUpInside)
+        mDoneButton.setTitleColor(standard_Button, for: UIControlState())
+        mDoneButton.setTitle("Done", for: UIControlState())
+        mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         mDoneButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
         headerView.addSubview(mDoneButton)
 
         
         
-        sendButtonSpinner = UIActivityIndicatorView(activityIndicatorStyle:.Gray);
+        sendButtonSpinner = UIActivityIndicatorView(activityIndicatorStyle:.gray);
         sendButtonSpinner.frame = mDoneButton.frame;
         headerView.addSubview(sendButtonSpinner);
-        sendButtonSpinner.hidden = true;
+        sendButtonSpinner.isHidden = true;
 
         
         
@@ -133,77 +135,77 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         
        
         
-        modelAnswerButton.enabled = true
-        modelAnswerButton.setTitle("Mark Model", forState:.Normal)
-        modelAnswerButton.setTitleColor(standard_Button ,forState:.Normal);
-        modelAnswerButton.addTarget(self, action: #selector(StudentSubjectivePopover.onModelAnswer), forControlEvents: UIControlEvents.TouchUpInside)
-        modelAnswerButton.frame = CGRectMake(20, 45, 130, 40);
+        modelAnswerButton.isEnabled = true
+        modelAnswerButton.setTitle("Mark Model", for:UIControlState())
+        modelAnswerButton.setTitleColor(standard_Button ,for:UIControlState());
+        modelAnswerButton.addTarget(self, action: #selector(StudentSubjectivePopover.onModelAnswer), for: UIControlEvents.touchUpInside)
+        modelAnswerButton.frame = CGRect(x: 20, y: 45, width: 130, height: 40);
         questionView.addSubview(modelAnswerButton);
-        modelAnswerButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
+        modelAnswerButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
         
-        let anotateButton = UIButton(type:.Custom)
-        anotateButton.enabled = true
-        anotateButton.setTitle("Annotate", forState:.Normal)
-        anotateButton.setTitleColor(standard_Button ,forState:.Normal);
-        anotateButton.addTarget(self, action: #selector(StudentSubjectivePopover.onAnnotateButton), forControlEvents: UIControlEvents.TouchUpInside)
-        anotateButton.frame = CGRectMake(170, 45, 130, 40);
+        let anotateButton = UIButton(type:.custom)
+        anotateButton.isEnabled = true
+        anotateButton.setTitle("Annotate", for:UIControlState())
+        anotateButton.setTitleColor(standard_Button ,for:UIControlState());
+        anotateButton.addTarget(self, action: #selector(StudentSubjectivePopover.onAnnotateButton), for: UIControlEvents.touchUpInside)
+        anotateButton.frame = CGRect(x: 170, y: 45, width: 130, height: 40);
         questionView.addSubview(anotateButton);
-        anotateButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        anotateButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
     
         
-       let lineView = UIImageView(frame:CGRectMake(20, 85, 280, 1))
+       let lineView = UIImageView(frame:CGRect(x: 20, y: 85, width: 280, height: 1))
         lineView.backgroundColor = topicsLineColor
         questionView.addSubview(lineView);
         
         
         
-        if let StudentName = _currentStudentDict.objectForKey("StudentName") as? String
+        if let StudentName = _currentStudentDict.object(forKey: "StudentName") as? String
         {
             headerlabel.text = StudentName
         }
         
         
       
-        if let questionType = _currentQuestiondetails.objectForKey("Type") as? String
+        if let questionType = _currentQuestiondetails.object(forKey: "Type") as? String
         {
             if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
             {
-                if let overlayImage = _currentQuestiondetails.objectForKey("Scribble") as? String
+                if let overlayImage = _currentQuestiondetails.object(forKey: "Scribble") as? String
                 {
-                    let overLayImageView = CustomProgressImageView(frame: CGRectMake((questionView.frame.size.width - 270)/2,lineView.frame.origin.y + 2 ,270,180))
+                    let overLayImageView = CustomProgressImageView(frame: CGRect(x: (questionView.frame.size.width - 270)/2,y: lineView.frame.origin.y + 2 ,width: 270,height: 180))
                     questionView.addSubview(overLayImageView)
                     
                     
-                    let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_QuestionsImageUrl) as! String
+                    let urlString = UserDefaults.standard.object(forKey: k_INI_QuestionsImageUrl) as! String
                     
-                    if let checkedUrl = NSURL(string: "\(urlString)/\(overlayImage)")
+                    if let checkedUrl = URL(string: "\(urlString)/\(overlayImage)")
                     {
-                        overLayImageView.contentMode = .ScaleAspectFit
+                        overLayImageView.contentMode = .scaleAspectFit
                         overLayImageView.downloadImage(checkedUrl, withFolderType: folderType.questionImage,withResizeValue: overLayImageView.frame.size)
                     }
                     
                 }
                 
                 
-                let studentAnswerImage = CustomProgressImageView(frame: CGRectMake((questionView.frame.size.width - 270)/2,lineView.frame.origin.y + lineView.frame.size.height ,270,180))
+                let studentAnswerImage = CustomProgressImageView(frame: CGRect(x: (questionView.frame.size.width - 270)/2,y: lineView.frame.origin.y + lineView.frame.size.height ,width: 270,height: 180))
                 questionView.addSubview(studentAnswerImage)
                 
                 
-                if let Scribble = _studentAnswerDetails.objectForKey("Scribble") as? String
+                if let Scribble = _studentAnswerDetails.object(forKey: "Scribble") as? String
                 {
-                    let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_SCRIBBLE_IMAGE_URL) as! String
+                    let urlString = UserDefaults.standard.object(forKey: k_INI_SCRIBBLE_IMAGE_URL) as! String
                     
-                    if let checkedUrl = NSURL(string: "\(urlString)/\(Scribble)")
+                    if let checkedUrl = URL(string: "\(urlString)/\(Scribble)")
                     {
-                        studentAnswerImage.contentMode = .ScaleAspectFit
-                        studentAnswerImage.downloadImage(checkedUrl, withFolderType: folderType.StudentAnswer,withResizeValue: studentAnswerImage.frame.size)
+                        studentAnswerImage.contentMode = .scaleAspectFit
+                        studentAnswerImage.downloadImage(checkedUrl, withFolderType: folderType.studentAnswer,withResizeValue: studentAnswerImage.frame.size)
                     }
                 }
                 
             }
             else if (questionType == kText)
             {
-                let studentAnswertext = UILabel(frame: CGRectMake((questionView.frame.size.width - 270)/2,lineView.frame.origin.y + lineView.frame.size.height ,270,180))
+                let studentAnswertext = UILabel(frame: CGRect(x: (questionView.frame.size.width - 270)/2,y: lineView.frame.origin.y + lineView.frame.size.height ,width: 270,height: 180))
                 questionView.addSubview(studentAnswertext)
                 
                 var fontHeight = studentAnswertext.frame.size.height/1.6;
@@ -215,10 +217,10 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
                 
                 studentAnswertext.font = UIFont(name: helveticaRegular, size: fontHeight)
                 studentAnswertext.textColor = blackTextColor
-                studentAnswertext.lineBreakMode = .ByTruncatingMiddle
+                studentAnswertext.lineBreakMode = .byTruncatingMiddle
                 studentAnswertext.numberOfLines = 10
-                studentAnswertext.textAlignment = .Center
-                if let TextAnswer = _studentAnswerDetails.objectForKey("TextAnswer") as? String
+                studentAnswertext.textAlignment = .center
+                if let TextAnswer = _studentAnswerDetails.object(forKey: "TextAnswer") as? String
                 {
                     studentAnswertext.text = TextAnswer
                 }
@@ -229,31 +231,31 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         
         
         
-        mScribbleView = SmoothLineView(frame: CGRectMake((questionView.frame.size.width - 270)/2,lineView.frame.origin.y + lineView.frame.size.height ,270,180))
+        mScribbleView = SmoothLineView(frame: CGRect(x: (questionView.frame.size.width - 270)/2,y: lineView.frame.origin.y + lineView.frame.size.height ,width: 270,height: 180))
         mScribbleView.delegate = self
-        self.view.addSubview(mScribbleView);
-        mScribbleView.userInteractionEnabled = true
-        mScribbleView.setDrawingColor(standard_Red);
+//        self.view.addSubview(mScribbleView);
+        mScribbleView.isUserInteractionEnabled = true
+        mScribbleView.setDrawing(standard_Red);
         mScribbleView.setBrushWidth(3)
-        mScribbleView.setDrawingTool(kBrushTool)
-        mScribbleView.hidden = false
+        mScribbleView.setDrawing(kBrushTool)
+        mScribbleView.isHidden = false
 
         
         
-        let lineView1 = UIImageView(frame:CGRectMake(20, 270, 280, 1))
+        let lineView1 = UIImageView(frame:CGRect(x: 20, y: 270, width: 280, height: 1))
         lineView1.backgroundColor = topicsLineColor
         questionView.addSubview(lineView1);
         
         
         mStarRatingView.setDelegate(self);
-        mStarRatingView.backgroundColor = UIColor.clearColor();
-        mStarRatingView.frame = CGRectMake(80, lineView1.frame.origin.y + lineView1.frame.size.height + 10, 210.0, 34.0);
+        mStarRatingView.backgroundColor = UIColor.clear;
+        mStarRatingView.frame = CGRect(x: 80, y: lineView1.frame.origin.y + lineView1.frame.size.height + 10, width: 210.0, height: 34.0);
         questionView.addSubview(mStarRatingView);
-        mStarRatingView.setsizeOfStar(25)
+        mStarRatingView.setsize(ofStar: 25)
 
     }
     
-    func setStudentAnswerDetails(details:AnyObject, withStudentDetials StudentDict:AnyObject, withCurrentQuestionDict questionDict:AnyObject)
+    func setStudentAnswerDetails(_ details:AnyObject, withStudentDetials StudentDict:AnyObject, withCurrentQuestionDict questionDict:AnyObject)
     {
         _studentAnswerDetails = details
         _currentStudentDict = StudentDict
@@ -274,8 +276,8 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         
         
         isModelAnswer = true
-        modelAnswerButton.setTitleColor(UIColor.lightGrayColor() ,forState:.Normal);
-        modelAnswerButton.enabled = false
+        modelAnswerButton.setTitleColor(UIColor.lightGray ,for:UIControlState());
+        modelAnswerButton.isEnabled = false
         
     }
     
@@ -287,24 +289,24 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         
     }
     
-    func setUndoButtonEnable(enable: NSNumber!) {
+    func setUndoButtonEnable(_ enable: NSNumber!) {
         
     }
     
-    func setRedoButtonEnable(enable: NSNumber!) {
+    func setRedoButtonEnable(_ enable: NSNumber!) {
         
     }
     
     
     func onAnnotateButton()
     {
-        if delegate().respondsToSelector(#selector(StudentSubjectivePopoverDelegate.delegateAnnotateButtonPressedWithAnswerDetails(_:withStudentDetails:withQuestionDetails:)))
+        if delegate().responds(to: #selector(StudentSubjectivePopoverDelegate.delegateAnnotateButtonPressedWithAnswerDetails(_:withStudentDetails:withQuestionDetails:withStarRatings:withModelAnswer:)))
         {
+            delegate().delegateAnnotateButtonPressedWithAnswerDetails!(_studentAnswerDetails, withStudentDetails: _currentStudentDict, withQuestionDetails: _currentQuestiondetails, withStarRatings: mStarRatingView.rating(), withModelAnswer: isModelAnswer)
             
             
-            delegate().delegateAnnotateButtonPressedWithAnswerDetails!(_studentAnswerDetails, withStudentDetails: _currentStudentDict, withQuestionDetails: _currentQuestiondetails)
+            popover().dismiss(animated: true)
             
-            popover().dismissPopoverAnimated(true)
         }
     }
     
@@ -315,27 +317,28 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         
         if isModelAnswer == true || mStarRatingView.rating() > 0 || mScribbleView.curImage != nil
         {
-            sendButtonSpinner.hidden = false
+            sendButtonSpinner.isHidden = false
             sendButtonSpinner.startAnimating()
-            mDoneButton.hidden = true
+            mDoneButton.isHidden = true
             
-            let currentDate = NSDate()
+            let currentDate = Date()
             
-            let dateFormatter = NSDateFormatter()
+            let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-mm-dd HH:mm:ss"
             
             
             
-            let currentDateString = dateFormatter.stringFromDate(currentDate)
+            let currentDateString = dateFormatter.string(from: currentDate)
             
+            let imagePathString = SSTeacherDataSource.sharedDataSource.currentUserId.appending("-").appending(SSTeacherDataSource.sharedDataSource.currentLiveSessionId).appending("-").appending(currentDateString)
             
-            var nameOfImage  = "TT-\(SSTeacherDataSource.sharedDataSource.currentUserId)-\(SSTeacherDataSource.sharedDataSource.currentLiveSessionId)-\(currentDateString)"
-            nameOfImage =  nameOfImage.stringByReplacingOccurrencesOfString(" ", withString: "")
+            var nameOfImage  = "TT-".appending(imagePathString)
+            nameOfImage =  nameOfImage.replacingOccurrences(of: " ", with: "")
             
             if mScribbleView.curImage != nil
             {
                 
-                imageUploading.uploadImageWithImage(mScribbleView.curImage, withImageName: nameOfImage, withUserId: SSTeacherDataSource.sharedDataSource.currentUserId)
+                imageUploading.uploadImage(with: mScribbleView.curImage, withImageName: nameOfImage, withUserId: SSTeacherDataSource.sharedDataSource.currentUserId)
             }
             else
             {
@@ -347,7 +350,7 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         }
         else
         {
-            popover().dismissPopoverAnimated(true)
+            popover().dismiss(animated: true)
         }
         
         
@@ -355,48 +358,51 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
     }
     
     
-    func newImageUploadedWithName(imageName:String)
+    func newImageUploadedWithName(_ imageName:String)
     {
-        if let AssessmentAnswerId = _studentAnswerDetails.objectForKey("AssessmentAnswerId") as? String
+        if let AssessmentAnswerId = _studentAnswerDetails.object(forKey: "AssessmentAnswerId") as? String
         {
             
             
-            feedBackDetails.setObject(_currentStudentDict.objectForKey("StudentId")!, forKey: "StudentId")
+            feedBackDetails.setObject(_currentStudentDict.object(forKey: "StudentId")!, forKey: "StudentId" as NSCopying)
             
-            feedBackDetails.setObject(AssessmentAnswerId, forKey: "AssessmentAnswerId")
+            feedBackDetails.setObject(AssessmentAnswerId, forKey: "AssessmentAnswerId" as NSCopying)
             
-            feedBackDetails.setObject("\(mStarRatingView.rating())", forKey: "Rating")
+            feedBackDetails.setObject("\(mStarRatingView.rating())", forKey: "Rating" as NSCopying)
             
-            feedBackDetails.setObject("upload/\(imageName).png", forKey: "imageUrl")
+            feedBackDetails.setObject("upload/".appending(imageName).appending(".png"), forKey: "imageUrl" as NSCopying)
             
-            feedBackDetails.setObject("0", forKey: "BadgeId")
+            feedBackDetails.setObject("0", forKey: "BadgeId" as NSCopying)
             
-            feedBackDetails.setObject("", forKey: "textRating")
+            feedBackDetails.setObject("", forKey: "textRating" as NSCopying)
             
-            feedBackDetails.setObject("\(isModelAnswer)", forKey: "ModelAnswerFlag")
+            feedBackDetails.setObject("\(isModelAnswer)", forKey: "ModelAnswerFlag" as NSCopying)
             
             SSTeacherDataSource.sharedDataSource.sendFeedbackToStudentWithDetails(feedBackDetails, WithDelegate: self)
             
         }
     }
     
-    func didGetFeedbackSentWithDetails(details: AnyObject)
+    func didGetFeedbackSentWithDetails(_ details: AnyObject)
     {
         
         
-        if let studentId = details.objectForKey("Students")!.objectForKey("Student")!.objectForKey("StudentId") as? String
+        if let studentId = ((details.object(forKey: "Students")! as AnyObject).object(forKey: "Student")! as AnyObject).object(forKey: "StudentId") as? String
         {
-            if let AssessmentAnswerId = details.objectForKey("AssessmentAnswerId") as? String
+            if let AssessmentAnswerId = details.object(forKey: "AssessmentAnswerId") as? String
             {
                 SSTeacherMessageHandler.sharedMessageHandler.sendFeedbackToStudentWitId(studentId, withassesmentAnswerId: AssessmentAnswerId)
                 
-                if delegate().respondsToSelector(#selector(StudentSubjectivePopoverDelegate.delegateSubmissionEvalauatedWithAnswerDetails(_:withEvaluationDetail:withStudentId:)))
+                if delegate().responds(to: #selector(StudentSubjectivePopoverDelegate.delegateSubmissionEvalauatedWithAnswerDetails(_:withEvaluationDetail:withStudentId:)))
                 {
                     
                     delegate().delegateSubmissionEvalauatedWithAnswerDetails!(_studentAnswerDetails, withEvaluationDetail: feedBackDetails, withStudentId: studentId)
                     
                 }
-                popover().dismissPopoverAnimated(true)
+                
+                popover().dismiss(animated: true)
+                
+                
             }
         }
     }
@@ -406,16 +412,16 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
     
     // MARK: - ImageUploading delegate
     
-    func ImageUploadedWithName(name: String!)
+    func ImageUploadedWithName(_ name: String!)
     {
         newImageUploadedWithName(name)
     }
     
-    func ErrorInUploadingWithName(name: String!)
+    func ErrorInUploadingWithName(_ name: String!)
     {
-        sendButtonSpinner.hidden = true
+        sendButtonSpinner.isHidden = true
         sendButtonSpinner.stopAnimating()
-        mDoneButton.hidden = false
+        mDoneButton.isHidden = false
         mScribbleView.clearButtonClicked()
     }
     

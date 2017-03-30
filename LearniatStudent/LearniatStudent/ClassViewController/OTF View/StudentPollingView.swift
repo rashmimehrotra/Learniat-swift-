@@ -32,40 +32,40 @@ class StudentPollingView: UIView,PollingSubViewDelegate {
         
         
         
-        mTopbarImageView = UIImageView(frame: CGRectMake(0, 0, self.frame.size.width, 60))
+        mTopbarImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 60))
         mTopbarImageView.backgroundColor = lightGrayTopBar
         self.addSubview(mTopbarImageView)
-        mTopbarImageView.userInteractionEnabled = true
-        mTopbarImageView.userInteractionEnabled = true
+        mTopbarImageView.isUserInteractionEnabled = true
+        mTopbarImageView.isUserInteractionEnabled = true
         
         
-        mSendButton.frame = CGRectMake(mTopbarImageView.frame.size.width - 210, 0,200,mTopbarImageView.frame.size.height )
+        mSendButton.frame = CGRect(x: mTopbarImageView.frame.size.width - 210, y: 0,width: 200,height: mTopbarImageView.frame.size.height )
         mTopbarImageView.addSubview(mSendButton)
-        mSendButton.addTarget(self, action: #selector(StudentPollingView.onSendButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mSendButton.setTitle("Send", forState: .Normal)
-        mSendButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        mSendButton.addTarget(self, action: #selector(StudentPollingView.onSendButton), for: UIControlEvents.touchUpInside)
+        mSendButton.setTitle("Send", for: UIControlState())
+        mSendButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         mSendButton.titleLabel?.font = UIFont (name: helveticaMedium, size: 20)
-        mSendButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
-        mSendButton.enabled = false
+        mSendButton.setTitleColor(UIColor.lightGray, for: UIControlState())
+        mSendButton.isEnabled = false
         
         
-        mQuestionLabel.frame = CGRectMake(10, mTopbarImageView.frame.size.height + mTopbarImageView.frame.origin.y, self.frame.size.width-20, 80)
+        mQuestionLabel.frame = CGRect(x: 10, y: mTopbarImageView.frame.size.height + mTopbarImageView.frame.origin.y, width: self.frame.size.width-20, height: 80)
         mQuestionLabel.numberOfLines = 20;
-        mQuestionLabel.textAlignment = .Center
+        mQuestionLabel.textAlignment = .center
         self.addSubview(mQuestionLabel)
         mQuestionLabel.textColor = topbarColor
         mQuestionLabel.font = UIFont (name: helveticaRegular, size: 20)
-        mQuestionLabel.lineBreakMode = .ByTruncatingMiddle
+        mQuestionLabel.lineBreakMode = .byTruncatingMiddle
         
         
-        mOptionsScrollView.frame = CGRectMake(0, mQuestionLabel.frame.origin.y + mQuestionLabel.frame.size.height , self.frame.size.width, self.frame.size.height - (mQuestionLabel.frame.origin.y + mQuestionLabel.frame.size.height))
+        mOptionsScrollView.frame = CGRect(x: 0, y: mQuestionLabel.frame.origin.y + mQuestionLabel.frame.size.height , width: self.frame.size.width, height: self.frame.size.height - (mQuestionLabel.frame.origin.y + mQuestionLabel.frame.size.height))
         self.addSubview(mOptionsScrollView)
         
         self.addSubview(mReplyStatusLabelView)
-        mReplyStatusLabelView.textColor = UIColor.whiteColor()
+        mReplyStatusLabelView.textColor = UIColor.white
         mReplyStatusLabelView.backgroundColor = dark_Yellow
         mReplyStatusLabelView.font = UIFont (name: helveticaBold, size: 16)
-        mReplyStatusLabelView.textAlignment = .Center
+        mReplyStatusLabelView.textAlignment = .center
         
     }
     
@@ -80,10 +80,10 @@ class StudentPollingView: UIView,PollingSubViewDelegate {
         {
              SSStudentMessageHandler.sharedMessageHandler.sendPollOptionSelectedWithoptionText(selectedOPtionText)
            
-            mReplyStatusLabelView.frame = CGRectMake((self.frame.size.width - (mTopbarImageView.frame.size.height * 2)) / 2, 0, mTopbarImageView.frame.size.height * 2, mTopbarImageView.frame.size.height / 1.5)
-            mReplyStatusLabelView.hidden = false
+            mReplyStatusLabelView.frame = CGRect(x: (self.frame.size.width - (mTopbarImageView.frame.size.height * 2)) / 2, y: 0, width: mTopbarImageView.frame.size.height * 2, height: mTopbarImageView.frame.size.height / 1.5)
+            mReplyStatusLabelView.isHidden = false
             mReplyStatusLabelView.text = "Reply sent"
-            mTopbarImageView.hidden = true
+            mTopbarImageView.isHidden = true
             
             
             
@@ -91,10 +91,10 @@ class StudentPollingView: UIView,PollingSubViewDelegate {
             
             for mOptions in subViews
             {
-                if mOptions.isKindOfClass(PollingSubView)
+                if mOptions.isKind(of: PollingSubView.self)
                 {
                    
-                    mOptions.userInteractionEnabled = false
+                    mOptions.isUserInteractionEnabled = false
                 }
             }
 
@@ -102,21 +102,21 @@ class StudentPollingView: UIView,PollingSubViewDelegate {
        
     }
     
-    func setQuestionOptionsWithDetails(details:AnyObject)
+    func setQuestionOptionsWithDetails(_ details:AnyObject)
     {
         print(details)
         
         
         var optionsArray  = [String]()
         
-        if let questionName = details.objectForKey("questionName") as? String
+        if let questionName = details.object(forKey: "questionName") as? String
         {
             mQuestionLabel.text = questionName
         }
         
-        if let Options = details.objectForKey("selectedOptions") as? String
+        if let Options = details.object(forKey: "selectedOptions") as? String
         {
-            optionsArray = Options.componentsSeparatedByString(";;;")
+            optionsArray = Options.components(separatedBy: ";;;")
         }
         
         
@@ -126,12 +126,12 @@ class StudentPollingView: UIView,PollingSubViewDelegate {
         {
             let optionText = optionsArray[index]
             
-            let mPollingOptions = PollingSubView(frame:CGRectMake((self.frame.size.width - 400)/2,currentPositionY , 400, 60 ))
+            let mPollingOptions = PollingSubView(frame:CGRect(x: (self.frame.size.width - 400)/2,y: currentPositionY , width: 400, height: 60 ))
             mPollingOptions.setdelegate(self)
             mPollingOptions.setOptionDetails(optionText)
             mOptionsScrollView.addSubview(mPollingOptions)
             
-            mPollingOptions.layer.borderColor = textColor.CGColor
+            mPollingOptions.layer.borderColor = textColor.cgColor
             mPollingOptions.layer.cornerRadius = mPollingOptions.frame.size.height / 2
             mPollingOptions.layer.borderWidth = 1
             mPollingOptions.layer.masksToBounds = true
@@ -139,21 +139,21 @@ class StudentPollingView: UIView,PollingSubViewDelegate {
             
         }
         
-         mOptionsScrollView.contentSize = CGSizeMake(0, currentPositionY)
+         mOptionsScrollView.contentSize = CGSize(width: 0, height: currentPositionY)
     }
     
-    func delegateOptionTouchedWithText(optionText: String, withPollingView pollingView: PollingSubView, withState state: Bool) {
+    func delegateOptionTouchedWithText(_ optionText: String, withPollingView pollingView: PollingSubView, withState state: Bool) {
         
         let subViews = mOptionsScrollView.subviews.flatMap{ $0 as? PollingSubView }
         
         for mOptions in subViews
         {
-            if mOptions.isKindOfClass(PollingSubView)
+            if mOptions.isKind(of: PollingSubView.self)
             {
                 if state == true
                 {
-                    mSendButton.setTitleColor(standard_Button, forState: .Normal)
-                    mSendButton.enabled = true
+                    mSendButton.setTitleColor(standard_Button, for: UIControlState())
+                    mSendButton.isEnabled = true
                     if mOptions != pollingView
                     {
                         mOptions.setSelectedState(false)
@@ -163,8 +163,8 @@ class StudentPollingView: UIView,PollingSubViewDelegate {
                 }
                 else
                 {
-                    mSendButton.setTitleColor(lightGrayColor, forState: .Normal)
-                    mSendButton.enabled = false
+                    mSendButton.setTitleColor(lightGrayColor, for: UIControlState())
+                    mSendButton.isEnabled = false
                     mOptions.setSelectedState(false)
                     selectedOPtionText = ""
                 }

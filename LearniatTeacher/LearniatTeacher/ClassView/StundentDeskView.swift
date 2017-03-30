@@ -16,14 +16,14 @@ let StudentOccupied             =  "Occupied"
 let StudentFree                 =  "Free"
 let StudentSignedout            = "Signedout"
 let StudentPreAllocated         = "PreAllocated"
-
+let kDeskBorderWidth :CGFloat           = 0.5
 
 enum StudentAnswerState
 {
-    case AnswerRecieved
-    case AnswerEvaluated
-    case AnswerDontKnow
-    case AnswerCleared
+    case answerRecieved
+    case answerEvaluated
+    case answerDontKnow
+    case answerCleared
 }
 
 
@@ -31,19 +31,19 @@ enum StudentAnswerState
 {
     
     
-    optional func delegateStudentCellPressedWithViewAnswerOptions(answerOptions:NSMutableArray, withStudentId studentId:String)
+    @objc optional func delegateStudentCellPressedWithViewAnswerOptions(_ answerOptions:NSMutableArray, withStudentId studentId:String)
     
     
-    optional func delegateStudentCellPressedWithViewSubjectiveAnswerDetails(details:AnyObject, withStudentId studentId:String)
+    @objc optional func delegateStudentCellPressedWithViewSubjectiveAnswerDetails(_ details:AnyObject, withStudentId studentId:String)
     
     
-    optional func delegateStudentAnswerDownloadedWithDetails(details:AnyObject, withStudentDict studentDict:AnyObject)
+    @objc optional func delegateStudentAnswerDownloadedWithDetails(_ details:AnyObject, withStudentDict studentDict:AnyObject)
     
    
-    optional func delegateStudentQueryWithDetails(details:AnyObject, withStudentDict studentDict:AnyObject)
+    @objc optional func delegateStudentQueryWithDetails(_ details:AnyObject, withStudentDict studentDict:AnyObject)
     
     
-    optional func delegateStudentCellPressedWithEvaluationDetails(details:AnyObject, withStudentId studentId:String)
+    @objc optional func delegateStudentCellPressedWithEvaluationDetails(_ details:AnyObject, withStudentId studentId:String)
     
     
 }
@@ -89,7 +89,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     
     var answerContainerView = StudentAnswerOptionsView()
     
-    var currentAnswerState :StudentAnswerState = .AnswerCleared
+    var currentAnswerState :StudentAnswerState = .answerCleared
     
     var mQueryTextLable              = UILabel()
     
@@ -103,7 +103,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     
     var _delgate: AnyObject!
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -139,36 +139,36 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
 
     
         
-        refrenceDeskImageView.frame = CGRectMake((self.frame.size.width-(deskSize))/2, (self.frame.size.height-deskSize)/2,deskSize,deskSize )
+        refrenceDeskImageView.frame = CGRect(x: (self.frame.size.width-(deskSize))/2, y: (self.frame.size.height-deskSize)/2,width: deskSize,height: deskSize )
         self.addSubview(refrenceDeskImageView)
-        refrenceDeskImageView.backgroundColor = UIColor.clearColor()
+        refrenceDeskImageView.backgroundColor = UIColor.clear
         cellWith = refrenceDeskImageView.frame.size.width
         cellHeight = cellWith / 2
-        refrenceDeskImageView.userInteractionEnabled = true
+        refrenceDeskImageView.isUserInteractionEnabled = true
         
         
         
         
-        mStudentImage.frame = CGRectMake((refrenceDeskImageView.frame.size.width - refrenceDeskImageView.frame.size.width / 1.2 )/2, (refrenceDeskImageView.frame.size.height / 4.5) / 8, refrenceDeskImageView.frame.size.width / 4.5, refrenceDeskImageView.frame.size.width / 4.5)
+        mStudentImage.frame = CGRect(x: (refrenceDeskImageView.frame.size.width - refrenceDeskImageView.frame.size.width / 1.2 )/2, y: (refrenceDeskImageView.frame.size.height / 4.5) / 8, width: refrenceDeskImageView.frame.size.width / 4.5, height: refrenceDeskImageView.frame.size.width / 4.5)
         refrenceDeskImageView.addSubview(mStudentImage)
-        mStudentImage.backgroundColor = UIColor.clearColor()
+        mStudentImage.backgroundColor = UIColor.clear
         mStudentImage.layer.cornerRadius = mStudentImage.frame.size.width/16;
         mStudentImage.layer.masksToBounds = true
 
         
         
-        mParticipationLessImageView.frame = CGRectMake((mStudentImage.frame.origin.x + mStudentImage.frame.size.width)-((mStudentImage.frame.size.width / 3) / 2),0, (mStudentImage.frame.size.width / 3), (mStudentImage.frame.size.width / 3))
+        mParticipationLessImageView.frame = CGRect(x: (mStudentImage.frame.origin.x + mStudentImage.frame.size.width)-((mStudentImage.frame.size.width / 3) / 2),y: 0, width: (mStudentImage.frame.size.width / 3), height: (mStudentImage.frame.size.width / 3))
         refrenceDeskImageView.addSubview(mParticipationLessImageView)
         mParticipationLessImageView.image = UIImage(named: "lowParticipartion.png")
-        mParticipationLessImageView.hidden = true
+        mParticipationLessImageView.isHidden = true
         
         
-        answerDeskImageView.frame = CGRectMake((refrenceDeskImageView.frame.size.width-refrenceDeskImageView.frame.size.width/1.2)/2, (mStudentImage.frame.size.height + cellHeight/6),refrenceDeskImageView.frame.size.width/1.2, refrenceDeskImageView.frame.size.width/1.8)
+        answerDeskImageView.frame = CGRect(x: (refrenceDeskImageView.frame.size.width-refrenceDeskImageView.frame.size.width/1.2)/2, y: (mStudentImage.frame.size.height + cellHeight/6),width: refrenceDeskImageView.frame.size.width/1.2, height: refrenceDeskImageView.frame.size.width/1.8)
         refrenceDeskImageView.addSubview(answerDeskImageView)
         answerDeskImageView.borderType = BorderTypeDashed;
         answerDeskImageView.dashPattern = 4;
         answerDeskImageView.spacePattern = 4;
-        answerDeskImageView.borderWidth = 1;
+        answerDeskImageView.borderWidth = kDeskBorderWidth;
         answerDeskImageView.borderColor = LineGrayColor;
         
         
@@ -179,7 +179,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         
         answerContainerView.frame = mDeskFrame
         refrenceDeskImageView.addSubview(answerContainerView)
-        answerContainerView.backgroundColor = UIColor.clearColor()
+        answerContainerView.backgroundColor = UIColor.clear
         
         
         
@@ -198,22 +198,22 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         
         mQueryTextLable.font = UIFont(name: RobotItalic, size: fontHeight)
         mQueryTextLable.textColor = blackTextColor
-        mQueryTextLable.lineBreakMode = .ByTruncatingMiddle
+        mQueryTextLable.lineBreakMode = .byTruncatingMiddle
         mQueryTextLable.numberOfLines = 10
-        mQueryTextLable.textAlignment = .Center
-        mQueryTextLable.hidden = true
+        mQueryTextLable.textAlignment = .center
+        mQueryTextLable.isHidden = true
         
         
         
-        mStudentName.frame = CGRectMake(answerDeskImageView.frame.origin.x,answerDeskImageView.frame.size.height+answerDeskImageView.frame.origin.y, answerDeskImageView.frame.size.width, refrenceDeskImageView.frame.size.height-(answerDeskImageView.frame.origin.y+answerDeskImageView.frame.size.height));
-        mStudentName.textAlignment = .Center;
+        mStudentName.frame = CGRect(x: answerDeskImageView.frame.origin.x,y: answerDeskImageView.frame.size.height+answerDeskImageView.frame.origin.y, width: answerDeskImageView.frame.size.width, height: refrenceDeskImageView.frame.size.height-(answerDeskImageView.frame.origin.y+answerDeskImageView.frame.size.height));
+        mStudentName.textAlignment = .center;
         mStudentName.textColor = blackTextColor
         refrenceDeskImageView.addSubview(mStudentName)
-        mStudentName.backgroundColor = UIColor.clearColor()
+        mStudentName.backgroundColor = UIColor.clear
         mStudentName.allowOrphans = true;
-        mStudentName.textAlignment = .Center;
-        mStudentName.contentMode = .Center;
-        mStudentName.hidden = false
+        mStudentName.textAlignment = .center;
+        mStudentName.contentMode = .center;
+        mStudentName.isHidden = false
         
         fontHeight = mStudentName.frame.size.height/1.3;
         if (fontHeight>14)
@@ -226,11 +226,11 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         
         mMiddleStudentName.frame = mDeskFrame
 //        refrenceDeskImageView.addSubview(mMiddleStudentName)
-        mMiddleStudentName.backgroundColor = UIColor.clearColor();
-        mMiddleStudentName.hidden = true
-        mMiddleStudentName.textAlignment = .Center;
+        mMiddleStudentName.backgroundColor = UIColor.clear;
+        mMiddleStudentName.isHidden = true
+        mMiddleStudentName.textAlignment = .center;
         mMiddleStudentName.numberOfLines=10;
-        mMiddleStudentName.lineBreakMode = .ByTruncatingMiddle
+        mMiddleStudentName.lineBreakMode = .byTruncatingMiddle
         mMiddleStudentName.textColor = blackTextColor
         
         
@@ -240,35 +240,35 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         
         
         
-        let questionStateView = UIView(frame:CGRectMake(answerDeskImageView.frame.size.width-(mStudentImage.frame.size.height/2), mStudentImage.frame.origin.y, mStudentImage.frame.size.height/2,mStudentImage.frame.size.height/2));
+        let questionStateView = UIView(frame:CGRect(x: answerDeskImageView.frame.size.width-(mStudentImage.frame.size.height/2), y: mStudentImage.frame.origin.y, width: mStudentImage.frame.size.height/2,height: mStudentImage.frame.size.height/2));
         refrenceDeskImageView.addSubview(questionStateView)
-        questionStateView.backgroundColor = UIColor.clearColor()
+        questionStateView.backgroundColor = UIColor.clear
         
         
-        mQuestionStateImage.frame = CGRectMake(0, 0, questionStateView.frame.size.height,questionStateView.frame.size.height)
+        mQuestionStateImage.frame = CGRect(x: 0, y: 0, width: questionStateView.frame.size.height,height: questionStateView.frame.size.height)
         questionStateView.addSubview(mQuestionStateImage);
-        mQuestionStateImage.backgroundColor = UIColor.whiteColor()
-        mQuestionStateImage.hidden = true
+        mQuestionStateImage.backgroundColor = UIColor.white
+        mQuestionStateImage.isHidden = true
         
         
-        mDoubtImageview.frame =  CGRectMake(0, 0, questionStateView.frame.size.height,questionStateView.frame.size.height);
+        mDoubtImageview.frame =  CGRect(x: 0, y: 0, width: questionStateView.frame.size.height,height: questionStateView.frame.size.height);
         questionStateView.addSubview(mDoubtImageview)
-        mDoubtImageview.backgroundColor = UIColor.clearColor()
-       mDoubtImageview.hidden = true
+        mDoubtImageview.backgroundColor = UIColor.clear
+       mDoubtImageview.isHidden = true
         mDoubtImageview.image  = UIImage(named:"Query.png");
         
         
         
-        mProgressView.frame = CGRectMake((mStudentImage.frame.size.width + mStudentImage.frame.origin.x + 5),
-                                         mStudentImage.frame.size.height - mStudentImage.frame.size.height/8,
-                                         answerDeskImageView.frame.size.width - (mStudentImage.frame.size.width + mStudentImage.frame.origin.x),
-                                         mStudentImage.frame.size.width/8);
+        mProgressView.frame = CGRect(x: (mStudentImage.frame.size.width + mStudentImage.frame.origin.x + 5),
+                                         y: mStudentImage.frame.size.height - mStudentImage.frame.size.height/8,
+                                         width: answerDeskImageView.frame.size.width - (mStudentImage.frame.size.width + mStudentImage.frame.origin.x),
+                                         height: mStudentImage.frame.size.width/8);
         
         refrenceDeskImageView.addSubview(mProgressView);
         mProgressView.progressTintColor  = standard_Red
         mProgressView.trackTintColor = UIColor(red: 213/255.0, green:213/255.0, blue:213/255.0, alpha: 1)
-        mProgressView.hidden = true
-        let transform = CGAffineTransformMakeScale(1.0, 3.2);
+        mProgressView.isHidden = true
+        let transform = CGAffineTransform(scaleX: 1.0, y: 3.2);
         mProgressView.transform = transform;
         mProgressView.layer.cornerRadius = mProgressView.frame.size.height/2;
         mProgressView.layer.masksToBounds = true;
@@ -279,7 +279,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         let  mDoneButton = UIButton()
         mDoneButton.frame = mDeskFrame
         refrenceDeskImageView.addSubview(mDoneButton)
-        mDoneButton.addTarget(self, action: #selector(StundentDeskView.onDeskPressed), forControlEvents: UIControlEvents.TouchUpInside)
+        mDoneButton.addTarget(self, action: #selector(StundentDeskView.onDeskPressed), for: UIControlEvents.touchUpInside)
         
         let longGesture = UITapGestureRecognizer(target: self, action: #selector(StundentDeskView.Long)) //Long function will call when user long press on button.
         mDoneButton.addGestureRecognizer(longGesture)
@@ -295,27 +295,24 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     func Long()
     {
         
-        if mQuestionStateImage.hidden == false
+        if mQuestionStateImage.isHidden == false
         {
-            if let questionType = _currentQuestionDetials.objectForKey("Type") as? String
+            if let questionType = _currentQuestionDetials.object(forKey: "Type") as? String
             {
                 
                 if (questionType  == kOverlayScribble  || questionType == kFreshScribble || questionType == kText)
                 {
                     
-                    if let StudentId = currentStudentsDict.objectForKey("StudentId") as? String
+                    if let StudentId = currentStudentsDict.object(forKey: "StudentId") as? String
                     {
                         SSTeacherMessageHandler.sharedMessageHandler.sendPeakViewMessageToStudentWithId(StudentId)
                     }
                 }
             }
         }
-        
-        
-        
-       
-      
     }
+    
+    
     
     required init?(coder aDecoder: NSCoder)
     {
@@ -323,30 +320,30 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     }
     
     
-    func setStudentsDetails(details:AnyObject)
+    func setStudentsDetails(_ details:AnyObject)
     {
         currentStudentsDict = details
         
-        if let StudentName = currentStudentsDict.objectForKey("Name") as? String
+        if let StudentName = currentStudentsDict.object(forKey: "Name") as? String
         {
             mMiddleStudentName.text = StudentName
             mStudentName.text       = StudentName
         }
         
         
-        if let StudentId = currentStudentsDict.objectForKey("StudentId") as? String
+        if let StudentId = currentStudentsDict.object(forKey: "StudentId") as? String
         {
-            let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_UserProfileImageURL) as! String
+            let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
             
-            if let checkedUrl = NSURL(string: "\(urlString)/\(StudentId)_79px.jpg")
+            if let checkedUrl = URL(string: "\(urlString)/\(StudentId)_79px.jpg")
             {
-                mStudentImage.contentMode = .ScaleAspectFit
-                mStudentImage.downloadImage(checkedUrl, withFolderType: folderType.ProFilePics)
+                mStudentImage.contentMode = .scaleAspectFit
+                mStudentImage.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
             }
         }
         
         
-        if let _StudentState = currentStudentsDict.objectForKey("StudentState") as? String
+        if let _StudentState = currentStudentsDict.object(forKey: "StudentState") as? String
         {
            setStudentCurrentState(_StudentState)
         }
@@ -357,74 +354,79 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     
     }
     
-    func setStudentCurrentState(state:String)
+    func setStudentCurrentState(_ state:String)
     {
         
         StudentState = state;
-        mStudentImage.hidden = false
-        
-        switch (state)
-        {
-           
-            case StudentSignedout:
-                
-                answerDeskImageView.borderType = BorderTypeDashed;
-                answerDeskImageView.borderWidth = 1;
-                answerDeskImageView.borderColor = standard_Red
-                mStudentImage.hidden = true
-                
-                break;
-         
-            case StudentFree:
-                answerDeskImageView.borderType = BorderTypeDashed;
-                answerDeskImageView.borderWidth = 1;
-                answerDeskImageView.borderColor = LineGrayColor;
-                
-                break;
-            
-            case StudentLive:
-                
+        mStudentImage.isHidden = false
+       
+        UIView.animate(withDuration: 0.5, animations:
+            {
+                switch (state)
+                {
                     
-                    answerDeskImageView.borderType = BorderTypeSolid;
-                    answerDeskImageView.borderWidth = 1;
-                   answerDeskImageView.borderColor = standard_Green
+                case StudentSignedout:
+                    
+                    self.answerDeskImageView.borderType = BorderTypeDashed;
+                    self.answerDeskImageView.borderWidth = kDeskBorderWidth;
+                    self.answerDeskImageView.borderColor = standard_Red
+                    self.mStudentImage.isHidden = true
                     
                     break;
-           
-            case StudentLiveBackground:
-                
-                answerDeskImageView.borderType = BorderTypeSolid;
-                answerDeskImageView.borderWidth = 1;
-                answerDeskImageView.borderColor = standard_Red
-                
-                break;
-                
-            case StudentOccupied:
-               
-                answerDeskImageView.borderType = BorderTypeDashed;
-                answerDeskImageView.borderWidth = 1;
-                answerDeskImageView.borderColor = LineGrayColor
-                
-                break;
-
-            case StudentPreAllocated:
-               
-                answerDeskImageView.borderType = BorderTypeDashed;
-                answerDeskImageView.borderWidth = 1;
-                answerDeskImageView.borderColor = LineGrayColor
-                
-                break
-                
-            default:
-                answerDeskImageView.borderType = BorderTypeSolid;
-                answerDeskImageView.borderWidth = 1;
-
-                break
-        }
+                    
+                case StudentFree:
+                    self.answerDeskImageView.borderType = BorderTypeDashed;
+                    self.answerDeskImageView.borderWidth = kDeskBorderWidth;
+                    self.answerDeskImageView.borderColor = LineGrayColor;
+                    
+                    break;
+                    
+                case StudentLive:
+                    
+                    
+                    self.answerDeskImageView.borderType = BorderTypeSolid;
+                    self.answerDeskImageView.borderWidth = kDeskBorderWidth;
+                    self.answerDeskImageView.borderColor = standard_Green
+                    
+                    break;
+                    
+                case StudentLiveBackground:
+                    
+                    self.answerDeskImageView.borderType = BorderTypeSolid;
+                    self.answerDeskImageView.borderWidth = kDeskBorderWidth;
+                    self.answerDeskImageView.borderColor = standard_Red
+                    
+                    break;
+                    
+                case StudentOccupied:
+                    
+                    self.answerDeskImageView.borderType = BorderTypeDashed;
+                    self.answerDeskImageView.borderWidth = kDeskBorderWidth;
+                    self.answerDeskImageView.borderColor = LineGrayColor
+                    
+                    break;
+                    
+                case StudentPreAllocated:
+                    
+                    self.answerDeskImageView.borderType = BorderTypeDashed;
+                    self.answerDeskImageView.borderWidth = kDeskBorderWidth;
+                    self.answerDeskImageView.borderColor = LineGrayColor
+                    
+                    break
+                    
+                default:
+                    self.answerDeskImageView.borderType = BorderTypeSolid;
+                    self.answerDeskImageView.borderWidth = kDeskBorderWidth;
+                    
+                    break
+                }  
+        })
+        
+        
     }
     
     // MARK: - Student Answers functions
-    func setNewSubTopicStarted(isStarted:Bool)
+    func setNewSubTopicStarted(_ isStarted:Bool)
     {
         
         
@@ -434,20 +436,20 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
             
             if StudentState == StudentLive || StudentState == StudentLiveBackground
              {
-                     mProgressView.hidden = false
+                     mProgressView.isHidden = false
             }
            
         }
         else
         {
-            mProgressView.hidden =  true
+            mProgressView.isHidden =  true
         }
         
         
     }
     
     
-    func setProgressValue(progressValue :Float)
+    func setProgressValue(_ progressValue :Float)
     {
         
         if progressValue < 33
@@ -470,12 +472,12 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     }
     
     
-    func setCurrentQuestionDetails(questionDetails:AnyObject)
+    func setCurrentQuestionDetails(_ questionDetails:AnyObject)
     {
          _currentQuestionDetials = questionDetails
     }
     
-    func studentSentAnswerWithAnswerString(answerString:String, withQuestionDetails details:AnyObject)
+    func studentSentAnswerWithAnswerString(_ answerString:String, withQuestionDetails details:AnyObject)
     {
         _currentQuestionDetials = details
         
@@ -486,6 +488,8 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     func studentAnswerWithdrawn()
     {
          teacherClearedQuestion()
+        
+        mQuestionStateImage.isHidden = false
     }
     
     
@@ -493,48 +497,48 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     func setDontKnowMessageFromStudent()
     {
         answerContainerView.addDontKnowImage()
-        currentAnswerState = .AnswerDontKnow
+        currentAnswerState = .answerDontKnow
         
-        mQuestionStateImage.hidden = true
+        mQuestionStateImage.isHidden = true
 //        mMiddleStudentName.hidden = true
 //        mStudentName.hidden = false
-        mQueryTextLable.hidden = true
+        mQueryTextLable.isHidden = true
         
-        answerContainerView.hidden = false
+        answerContainerView.isHidden = false
         
         if isQueryPresent == true
         {
-            mDoubtImageview.hidden = false
-            mQueryTextLable.hidden = true
+            mDoubtImageview.isHidden = false
+            mQueryTextLable.isHidden = true
             
         }
     }
     
-    func didGetStudentsAnswerWithDetails(details: AnyObject)
+    func didGetStudentsAnswerWithDetails(_ details: AnyObject)
     {
-        mQuestionStateImage.hidden = true
+        mQuestionStateImage.isHidden = true
 //        mMiddleStudentName.hidden = true
 //        mStudentName.hidden = false
         _currentAnswerDetails = details
-        mQueryTextLable.hidden = true
+        mQueryTextLable.isHidden = true
         setStudentCurrentState(StudentLive)
-        answerContainerView.hidden = false
+        answerContainerView.isHidden = false
         
         if isQueryPresent == true
         {
-            mDoubtImageview.hidden = false
-            mQueryTextLable.hidden = true
+            mDoubtImageview.isHidden = false
+            mQueryTextLable.isHidden = true
             
         }
         
-        if let questionType = _currentQuestionDetials.objectForKey("Type") as? String
+        if let questionType = _currentQuestionDetials.object(forKey: "Type") as? String
         {
             
             if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
             {
                 
                 
-                if let ScribbleId = _currentQuestionDetials.objectForKey("Scribble") as? String{
+                if let ScribbleId = _currentQuestionDetials.object(forKey: "Scribble") as? String{
                     answerContainerView.addScribbleWithDetiails(details, withOverlayImage:ScribbleId)
                 }
                 else
@@ -559,9 +563,9 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         }
         
         
-        currentAnswerState = .AnswerRecieved
+        currentAnswerState = .answerRecieved
         
-        if delegate().respondsToSelector(#selector(StundentDeskViewDelegate.delegateStudentAnswerDownloadedWithDetails(_:withStudentDict:)))
+        if delegate().responds(to: #selector(StundentDeskViewDelegate.delegateStudentAnswerDownloadedWithDetails(_:withStudentDict:)))
         {
             delegate().delegateStudentAnswerDownloadedWithDetails!(details, withStudentDict:currentStudentsDict)
             
@@ -570,26 +574,26 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     }
     
     
-    func setOneStringAnswerWithText(answer:String)
+    func setOneStringAnswerWithText(_ answer:String)
     {
         
-        mQuestionStateImage.hidden = true
+        mQuestionStateImage.isHidden = true
 //        mMiddleStudentName.hidden = true
 //        mStudentName.hidden = false
         
-        mQueryTextLable.hidden = true
+        mQueryTextLable.isHidden = true
         setStudentCurrentState(StudentLive)
-        answerContainerView.hidden = false
+        answerContainerView.isHidden = false
         
         if isQueryPresent == true
         {
-            mDoubtImageview.hidden = false
-            mQueryTextLable.hidden = true
+            mDoubtImageview.isHidden = false
+            mQueryTextLable.isHidden = true
             
         }
 
         
-        currentAnswerState = .AnswerRecieved
+        currentAnswerState = .answerRecieved
         answerContainerView.addOneStringAnswerWithString(answer)
     }
     
@@ -598,17 +602,17 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     func onDeskPressed()
     {
         
-        if currentAnswerState == .AnswerRecieved
+        if currentAnswerState == .answerRecieved
         {
-                if let questionType = _currentQuestionDetials.objectForKey("Type") as? String
+                if let questionType = _currentQuestionDetials.object(forKey: "Type") as? String
                 {
                     
                     if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
                     {
-                        if delegate().respondsToSelector(#selector(StundentDeskViewDelegate.delegateStudentCellPressedWithViewSubjectiveAnswerDetails(_:withStudentId:)))
+                        if delegate().responds(to: #selector(StundentDeskViewDelegate.delegateStudentCellPressedWithViewSubjectiveAnswerDetails(_:withStudentId:)))
                         {
                             
-                            delegate().delegateStudentCellPressedWithViewSubjectiveAnswerDetails!(_currentAnswerDetails,  withStudentId:(currentStudentsDict.objectForKey("StudentId") as? String)!)
+                            delegate().delegateStudentCellPressedWithViewSubjectiveAnswerDetails!(_currentAnswerDetails,  withStudentId:(currentStudentsDict.object(forKey: "StudentId") as? String)!)
                             
                         }
                         
@@ -616,10 +620,10 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
                     else if (questionType == kText)
                     {
                         
-                        if delegate().respondsToSelector(#selector(StundentDeskViewDelegate.delegateStudentCellPressedWithViewSubjectiveAnswerDetails(_:withStudentId:)))
+                        if delegate().responds(to: #selector(StundentDeskViewDelegate.delegateStudentCellPressedWithViewSubjectiveAnswerDetails(_:withStudentId:)))
                         {
                             
-                             delegate().delegateStudentCellPressedWithViewSubjectiveAnswerDetails!(_currentAnswerDetails,  withStudentId:(currentStudentsDict.objectForKey("StudentId") as? String)!)
+                             delegate().delegateStudentCellPressedWithViewSubjectiveAnswerDetails!(_currentAnswerDetails,  withStudentId:(currentStudentsDict.object(forKey: "StudentId") as? String)!)
                             
                         }
                         
@@ -628,20 +632,20 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
                     }
                     else if (questionType == kMatchColumn)
                     {
-                        if delegate().respondsToSelector(#selector(StundentDeskViewDelegate.delegateStudentCellPressedWithViewAnswerOptions(_:withStudentId:)))
+                        if delegate().responds(to: #selector(StundentDeskViewDelegate.delegateStudentCellPressedWithViewAnswerOptions(_:withStudentId:)))
                         {
                             
-                            delegate().delegateStudentCellPressedWithViewAnswerOptions!(answerContainerView._studentFinalAnswerOptions,  withStudentId:(currentStudentsDict.objectForKey("StudentId") as? String)!)
+                            delegate().delegateStudentCellPressedWithViewAnswerOptions!(answerContainerView._studentFinalAnswerOptions,  withStudentId:(currentStudentsDict.object(forKey: "StudentId") as? String)!)
                             
                         }
                         
                     }
                     else if (questionType == kMCQ) || (questionType == kMRQ)
                     {
-                        if delegate().respondsToSelector(#selector(StundentDeskViewDelegate.delegateStudentCellPressedWithViewAnswerOptions(_:withStudentId:)))
+                        if delegate().responds(to: #selector(StundentDeskViewDelegate.delegateStudentCellPressedWithViewAnswerOptions(_:withStudentId:)))
                         {
                             
-                             delegate().delegateStudentCellPressedWithViewAnswerOptions!(answerContainerView._studentFinalAnswerOptions,  withStudentId:(currentStudentsDict.objectForKey("StudentId") as? String)!)
+                             delegate().delegateStudentCellPressedWithViewAnswerOptions!(answerContainerView._studentFinalAnswerOptions,  withStudentId:(currentStudentsDict.object(forKey: "StudentId") as? String)!)
 
                         }
                         
@@ -653,18 +657,18 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
                 
             }
         }
-        else if currentAnswerState == .AnswerEvaluated
+        else if currentAnswerState == .answerEvaluated
         {
-            if delegate().respondsToSelector(#selector(StundentDeskViewDelegate.delegateStudentCellPressedWithEvaluationDetails(_:withStudentId:)))
+            if delegate().responds(to: #selector(StundentDeskViewDelegate.delegateStudentCellPressedWithEvaluationDetails(_:withStudentId:)))
             {
                 
-                delegate().delegateStudentCellPressedWithEvaluationDetails!(_currentEvaluationDetail,  withStudentId:(currentStudentsDict.objectForKey("StudentId") as? String)!)
+                delegate().delegateStudentCellPressedWithEvaluationDetails!(_currentEvaluationDetail,  withStudentId:(currentStudentsDict.object(forKey: "StudentId") as? String)!)
                 
             }
         }
         else if isQueryPresent == true
         {
-            if delegate().respondsToSelector(#selector(StundentDeskViewDelegate.delegateStudentQueryWithDetails(_:withStudentDict:)))
+            if delegate().responds(to: #selector(StundentDeskViewDelegate.delegateStudentQueryWithDetails(_:withStudentDict:)))
             {
                 
                 delegate().delegateStudentQueryWithDetails!(currentQueryDetails, withStudentDict: currentStudentsDict!)
@@ -683,12 +687,12 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
             subview.removeFromSuperview()
         }
         
-        currentAnswerState = .AnswerCleared
+        currentAnswerState = .answerCleared
         
         if isQueryPresent == true
         {
-            mDoubtImageview.hidden = true
-            mQueryTextLable.hidden = false
+            mDoubtImageview.isHidden = true
+            mQueryTextLable.isHidden = false
             
 //            mStudentName.hidden = false
 //            mMiddleStudentName.hidden = true
@@ -701,8 +705,8 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
 
         }
         
-        mQuestionStateImage.hidden = true
-        answerContainerView.hidden = true
+        mQuestionStateImage.isHidden = true
+        answerContainerView.isHidden = true
                
     }
     
@@ -710,21 +714,21 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     
     
     
-    func setQueryDetails(queryDetails:AnyObject)
+    func setQueryDetails(_ queryDetails:AnyObject)
     {
          isQueryPresent = true
         setStudentCurrentState(StudentLive)
         currentQueryDetails = queryDetails
-        if currentAnswerState == .AnswerRecieved || currentAnswerState == .AnswerEvaluated || currentAnswerState == .AnswerDontKnow
+        if currentAnswerState == .answerRecieved || currentAnswerState == .answerEvaluated || currentAnswerState == .answerDontKnow
         {
-            mDoubtImageview.hidden = false
-            mQueryTextLable.hidden = true
+            mDoubtImageview.isHidden = false
+            mQueryTextLable.isHidden = true
            
         }
         else
         {
-            mDoubtImageview.hidden = true
-            mQueryTextLable.hidden = false
+            mDoubtImageview.isHidden = true
+            mQueryTextLable.isHidden = false
             
 //            mStudentName.hidden = false
 //            mMiddleStudentName.hidden = true
@@ -733,7 +737,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
             
         }
         
-        if let QueryText = queryDetails.objectForKey("QueryText") as? String
+        if let QueryText = queryDetails.object(forKey: "QueryText") as? String
         {
             mQueryTextLable.text = QueryText
            
@@ -743,11 +747,11 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     
     func queryDismissed()
     {
-        mDoubtImageview.hidden = true
-        mQueryTextLable.hidden = true
+        mDoubtImageview.isHidden = true
+        mQueryTextLable.isHidden = true
         isQueryPresent = false
         
-        if currentAnswerState == .AnswerCleared
+        if currentAnswerState == .answerCleared
         {
 //            mStudentName.hidden = true
 //            mMiddleStudentName.hidden = false
@@ -756,11 +760,11 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     }
     
     
-    func setReplayEvaluatedWithDetails(details:AnyObject)
+    func setReplayEvaluatedWithDetails(_ details:AnyObject)
     {
         _currentEvaluationDetail = details
         answerContainerView.setStudentEvaluationStatusWithDetails(details)
-        currentAnswerState = .AnswerEvaluated
+        currentAnswerState = .answerEvaluated
     }
     
     func getSeatIdAndStudentId() ->(seatId:String , StudentId :String)
@@ -772,13 +776,13 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         
         if currentStudentsDict != nil
         {
-            if let StudentId = currentStudentsDict.objectForKey("StudentId") as? String
+            if let StudentId = currentStudentsDict.object(forKey: "StudentId") as? String
             {
                 StudentIdValue = StudentId
             }
             
             
-            if let seatId = currentStudentsDict.objectForKey("SeatId") as? String
+            if let seatId = currentStudentsDict.object(forKey: "SeatId") as? String
             {
                 seatIdvalue = seatId
             }

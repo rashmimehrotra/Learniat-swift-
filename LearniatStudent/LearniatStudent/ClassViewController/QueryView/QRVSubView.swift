@@ -48,11 +48,11 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
         super.init(frame:frame)
         
         
-        queryTextLabel.frame = CGRectMake(50, 5, self.frame.size.width - 60 , 30)
+        queryTextLabel.frame = CGRect(x: 50, y: 5, width: self.frame.size.width - 60 , height: 30)
         self.addSubview(queryTextLabel)
         queryTextLabel.numberOfLines = 4
-        queryTextLabel.lineBreakMode = .ByTruncatingMiddle
-        queryTextLabel.textAlignment = .Left
+        queryTextLabel.lineBreakMode = .byTruncatingMiddle
+        queryTextLabel.textAlignment = .left
         queryTextLabel.textColor = textColor
         queryTextLabel.font =  UIFont (name: helveticaRegular, size: 16)
     }
@@ -61,7 +61,7 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -73,26 +73,26 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
     
     
     
-    func addAllSUbQuerySubViewWithDetails(AllowVolunteer:String, withQueryId queryId:String, withQueryText queryText:String, withQuerySize height:CGFloat, withCount count:String , withMyQuery isMyQuery:Bool)
+    func addAllSUbQuerySubViewWithDetails(_ AllowVolunteer:String, withQueryId queryId:String, withQueryText queryText:String, withQuerySize height:CGFloat, withCount count:String , withMyQuery isMyQuery:Bool)
     {
         
         self.tag = Int(queryId)!
         var positionXofButtons :CGFloat = 50
         
         
-        myQuerylabel.frame = CGRectMake(positionXofButtons,5,200, 30)
+        myQuerylabel.frame = CGRect(x: positionXofButtons,y: 5,width: 200, height: 30)
         myQuerylabel.text = "My query"
         myQuerylabel.font =  UIFont (name: HelveticaNeueThin, size: 16)
         self.addSubview(myQuerylabel)
-        myQuerylabel.hidden = true
+        myQuerylabel.isHidden = true
         myQuerylabel.textColor = lightGrayColor
         
         
         
-       let countLabel = UILabel(frame: CGRectMake(10, 5, 30 , 30))
+       let countLabel = UILabel(frame: CGRect(x: 10, y: 5, width: 30 , height: 30))
         self.addSubview(countLabel)
-        countLabel.textAlignment = .Center
-        countLabel.textColor = UIColor.whiteColor()
+        countLabel.textAlignment = .center
+        countLabel.textColor = UIColor.white
         countLabel.font =  UIFont (name: helveticaRegular, size: 14)
         countLabel.text = count
         countLabel.backgroundColor = UIColor(red: 255/255.0, green: 204/255.0, blue: 0/255.0, alpha: 1)
@@ -102,25 +102,25 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
         
         
         
-        queryTextLabel.frame = CGRectMake(50, 5, self.frame.size.width - 60 , height)
+        queryTextLabel.frame = CGRect(x: 50, y: 5, width: self.frame.size.width - 60 , height: height)
         queryTextLabel.text = queryText
         
         
         
         
-        let lineView = UIImageView(frame: CGRectMake(50, queryTextLabel.frame.origin.y + queryTextLabel.frame.size.height + 5, (self.frame.size.width-50), 1))
+        let lineView = UIImageView(frame: CGRect(x: 50, y: queryTextLabel.frame.origin.y + queryTextLabel.frame.size.height + 5, width: (self.frame.size.width-50), height: 1))
         lineView.backgroundColor = topicsLineColor
         self.addSubview(lineView)
 
         
         if AllowVolunteer == "1" && isMyQuery == false
         {
-            VolunteerButton.frame = CGRectMake(positionXofButtons,lineView.frame.origin.y + lineView.frame.size.height + 5 ,120, 30)
-            VolunteerButton.setTitle("I VOLUNTEER", forState: .Normal)
-            VolunteerButton.contentHorizontalAlignment = .Left
+            VolunteerButton.frame = CGRect(x: positionXofButtons,y: lineView.frame.origin.y + lineView.frame.size.height + 5 ,width: 120, height: 30)
+            VolunteerButton.setTitle("I VOLUNTEER", for: UIControlState())
+            VolunteerButton.contentHorizontalAlignment = .left
             self.addSubview(VolunteerButton)
-            VolunteerButton.setTitleColor(standard_Button, forState: .Normal)
-            VolunteerButton.addTarget(self, action: #selector(QRVSubView.onVolunteerButton), forControlEvents: UIControlEvents.TouchUpInside)
+            VolunteerButton.setTitleColor(standard_Button, for: UIControlState())
+            VolunteerButton.addTarget(self, action: #selector(QRVSubView.onVolunteerButton), for: UIControlEvents.touchUpInside)
             VolunteerButton.titleLabel?.font = UIFont (name: helveticaRegular, size: 16)
             positionXofButtons = positionXofButtons + VolunteerButton.frame.size.width + 20
 
@@ -128,17 +128,17 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
         
         
         
-        meeTooButton.frame = CGRectMake(positionXofButtons,lineView.frame.origin.y + lineView.frame.size.height + 5 ,70, 30)
-        meeTooButton.setTitle("ME TOO", forState: .Normal)
-        meeTooButton.contentHorizontalAlignment = .Left
+        meeTooButton.frame = CGRect(x: positionXofButtons,y: lineView.frame.origin.y + lineView.frame.size.height + 5 ,width: 70, height: 30)
+        meeTooButton.setTitle("ME TOO", for: UIControlState())
+        meeTooButton.contentHorizontalAlignment = .left
         self.addSubview(meeTooButton)
-        meeTooButton.setTitleColor(standard_Button, forState: .Normal)
+        meeTooButton.setTitleColor(standard_Button, for: UIControlState())
         meeTooButton.titleLabel?.font = UIFont (name: helveticaRegular, size: 16)
-        meeTooButton.addTarget(self, action: #selector(QRVSubView.onMeeTooButton), forControlEvents: UIControlEvents.TouchUpInside)
+        meeTooButton.addTarget(self, action: #selector(QRVSubView.onMeeTooButton), for: UIControlEvents.touchUpInside)
         
     }
     
-    func getQueryTextSizeWithText(query:String) -> CGFloat
+    func getQueryTextSizeWithText(_ query:String) -> CGFloat
     {
         queryTextLabel.text = query
         var height :CGFloat = 50
@@ -150,11 +150,11 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
         
     }
     
-    func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat
+    func heightForView(_ text:String, font:UIFont, width:CGFloat) -> CGFloat
     {
-        let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max))
+        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
         label.numberOfLines = 0
-        label.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.font = font
         label.text = text
         
@@ -165,11 +165,11 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
     
     func onVolunteerButton()
     {
-        UIView.animateWithDuration(0.5, animations:
+        UIView.animate(withDuration: 0.5, animations:
             {
-                self.meeTooButton.hidden = true
-                self.VolunteerButton.setTitleColor(lightGrayColor, forState: .Normal)
-                self.VolunteerButton.enabled = false
+                self.meeTooButton.isHidden = true
+                self.VolunteerButton.setTitleColor(lightGrayColor, for: UIControlState())
+                self.VolunteerButton.isEnabled = false
         })
       
         
@@ -183,55 +183,55 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
         currentSelectionState = "Me-Too Selected"
         
         
-        UIView.animateWithDuration(0.5, animations:
+        UIView.animate(withDuration: 0.5, animations:
             {
-                self.VolunteerButton.hidden = true
-                self.meeTooButton.setTitleColor(lightGrayColor, forState: .Normal)
-                self.meeTooButton.enabled = false
-                self.meeTooButton.frame = CGRectMake(50,self.meeTooButton.frame.origin.y,self.meeTooButton.frame.size.width,self.meeTooButton.frame.size.height)
+                self.VolunteerButton.isHidden = true
+                self.meeTooButton.setTitleColor(lightGrayColor, for: UIControlState())
+                self.meeTooButton.isEnabled = false
+                self.meeTooButton.frame = CGRect(x: 50,y: self.meeTooButton.frame.origin.y,width: self.meeTooButton.frame.size.width,height: self.meeTooButton.frame.size.height)
         })
         
         
         
         let underStoodButton = UIButton()
         
-        underStoodButton.frame = CGRectMake(meeTooButton.frame.origin.x + meeTooButton.frame.size.width + 20 ,meeTooButton.frame.origin.y ,meeTooButton.frame.size.width * 2 ,meeTooButton.frame.size.height)
-        underStoodButton.setTitle("UNDERSTOOD", forState: .Normal)
-        underStoodButton.contentHorizontalAlignment = .Left
+        underStoodButton.frame = CGRect(x: meeTooButton.frame.origin.x + meeTooButton.frame.size.width + 20 ,y: meeTooButton.frame.origin.y ,width: meeTooButton.frame.size.width * 2 ,height: meeTooButton.frame.size.height)
+        underStoodButton.setTitle("UNDERSTOOD", for: UIControlState())
+        underStoodButton.contentHorizontalAlignment = .left
         self.addSubview(underStoodButton)
-        underStoodButton.setTitleColor(standard_Button, forState: .Normal)
+        underStoodButton.setTitleColor(standard_Button, for: UIControlState())
         underStoodButton.titleLabel?.font = UIFont (name: helveticaRegular, size: 16)
-        underStoodButton.addTarget(self, action: #selector(QRVSubView.onUnderStoodButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        underStoodButton.addTarget(self, action: #selector(QRVSubView.onUnderStoodButton(_:)), for: UIControlEvents.touchUpInside)
         
         SSStudentMessageHandler.sharedMessageHandler.sendMeTooMessageToTeacherWithQueryId(String(self.tag))
         
     }
     
-    func onUnderStoodButton(sender:UIButton)
+    func onUnderStoodButton(_ sender:UIButton)
     {
         
         
-        UIView.animateWithDuration(0.5, animations:
+        UIView.animate(withDuration: 0.5, animations:
             {
-                self.meeTooButton.hidden = true
-                sender.enabled = false
-                sender.setTitleColor(lightGrayColor, forState: .Normal)
-                sender.frame = CGRectMake(50,sender.frame.origin.y,sender.frame.size.width,sender.frame.size.height)
+                self.meeTooButton.isHidden = true
+                sender.isEnabled = false
+                sender.setTitleColor(lightGrayColor, for: UIControlState())
+                sender.frame = CGRect(x: 50,y: sender.frame.origin.y,width: sender.frame.size.width,height: sender.frame.size.height)
         })
         
         
         SSStudentMessageHandler.sharedMessageHandler.sendQueryUnderstoodMessageWithQueryID(String(self.tag))
     }
     
-    func didGetvolunteerRegisteredWithDetails(details: AnyObject)
+    func didGetvolunteerRegisteredWithDetails(_ details: AnyObject)
     {
         print(details)
        
-        if let Status = details.objectForKey("Status") as? String
+        if let Status = details.object(forKey: "Status") as? String
         {
             if Status == kSuccessString
             {
-                if let volunteeerId = details.objectForKey("VolunteerId") as? String
+                if let volunteeerId = details.object(forKey: "VolunteerId") as? String
                 {
                     currentVolunteerId = volunteeerId
                     
@@ -240,14 +240,14 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
             }
             else
             {
-                self.VolunteerButton.hidden = false
-                VolunteerButton.setTitleColor(standard_Button, forState: .Normal)
-                VolunteerButton.enabled = true
+                self.VolunteerButton.isHidden = false
+                VolunteerButton.setTitleColor(standard_Button, for: UIControlState())
+                VolunteerButton.isEnabled = true
                 
                 
-                self.meeTooButton.hidden = false
-                meeTooButton.setTitleColor(standard_Button, forState: .Normal)
-                meeTooButton.enabled = true
+                self.meeTooButton.isHidden = false
+                meeTooButton.setTitleColor(standard_Button, for: UIControlState())
+                meeTooButton.isEnabled = true
             }
         }
         
@@ -255,32 +255,32 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
      
     }
     
-    func addVolunteerDetailsDotWithStudentid(studentId:String, WithDecreasingValue value:CGFloat)
+    func addVolunteerDetailsDotWithStudentid(_ studentId:String, WithDecreasingValue value:CGFloat)
     {
         
         
         
         if volunteerView == nil
         {
-            volunteerView = UIView(frame: CGRectMake(queryTextLabel.frame.origin.x, meeTooButton.frame.origin.y +  meeTooButton.frame.size.height + 5, queryTextLabel.frame.size.width ,55))
+            volunteerView = UIView(frame: CGRect(x: queryTextLabel.frame.origin.x, y: meeTooButton.frame.origin.y +  meeTooButton.frame.size.height + 5, width: queryTextLabel.frame.size.width ,height: 55))
             self.addSubview(volunteerView);
-            volunteerView.backgroundColor = UIColor.clearColor()
+            volunteerView.backgroundColor = UIColor.clear
             
             
-            let lineView = UIImageView(frame: CGRectMake(0,1, volunteerView.frame.size.width, 1))
+            let lineView = UIImageView(frame: CGRect(x: 0,y: 1, width: volunteerView.frame.size.width, height: 1))
             lineView.backgroundColor = topicsLineColor
             volunteerView.addSubview(lineView)
             
             
-            let volunteerLable = UILabel(frame: CGRectMake(0,5, volunteerView.frame.size.width, 20))
-            volunteerLable.textColor = UIColor.lightGrayColor()
+            let volunteerLable = UILabel(frame: CGRect(x: 0,y: 5, width: volunteerView.frame.size.width, height: 20))
+            volunteerLable.textColor = UIColor.lightGray
             volunteerView.addSubview(volunteerLable)
             volunteerLable.font = UIFont (name:helveticaMedium, size: 16)
             volunteerLable.text = "Volunteer responses:"
             
             
             
-            volunteerScrollView = UIScrollView(frame: CGRectMake(0,30, volunteerView.frame.size.width,25))
+            volunteerScrollView = UIScrollView(frame: CGRect(x: 0,y: 30, width: volunteerView.frame.size.width,height: 25))
             volunteerView.addSubview(volunteerScrollView)
             
             
@@ -327,14 +327,14 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
         
         
         
-        let dotImage = QRVVolunteerView(frame: CGRectMake(volunteerDotPosition, 0, 25,25))
+        let dotImage = QRVVolunteerView(frame: CGRect(x: volunteerDotPosition, y: 0, width: 25,height: 25))
         numberOfVolunteerResponse = numberOfVolunteerResponse + 1
         dotImage.setStudentImageWithId(studentId, withColor: dotColor)
         volunteerScrollView.addSubview(dotImage);
         
         volunteerDotPosition = volunteerDotPosition + dotImage.frame.size.width + 5
         
-        volunteerScrollView.contentSize = CGSizeMake(volunteerDotPosition, 0)
+        volunteerScrollView.contentSize = CGSize(width: volunteerDotPosition, height: 0)
         
     }
     

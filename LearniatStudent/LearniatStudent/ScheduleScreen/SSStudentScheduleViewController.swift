@@ -20,7 +20,7 @@ let halfHourMultipleRatio : CGFloat = (oneHourDiff / 2)/(30)
 
 class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDelegate,ScheduleScreenTileDelegate,SSStudentMessageHandlerDelegate
 {
-    var mTeacherImageView: UIImageView!
+    var mTeacherImageView: CustomProgressImageView!
    
     var mTopbarImageView: UIImageView!
     
@@ -42,11 +42,11 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     
     var mCurrentTimeLine :CurrentTimeLineView!
     
-    var timer = NSTimer()
+    var timer = Timer()
     
     var sessionIdDictonary:Dictionary<String,AnyObject> = Dictionary()
     
-    let dateFormatter = NSDateFormatter()
+    let dateFormatter = DateFormatter()
     
     
     var mExtTimelabel: UILabel = UILabel();
@@ -56,7 +56,7 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     
     var extendTimeSessiondetails : AnyObject!
     
-    var activityIndicator  = UIActivityIndicatorView(activityIndicatorStyle:.WhiteLarge)
+    var activityIndicator  = UIActivityIndicatorView(activityIndicatorStyle:.whiteLarge)
     
     var delayTime:Float = 0
     
@@ -66,7 +66,7 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     
     var mAppVersionNumber               = UILabel();
     
-     private var foregroundNotification: NSObjectProtocol!
+     fileprivate var foregroundNotification: NSObjectProtocol!
     
     override func viewDidLoad()
     {
@@ -81,14 +81,14 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
 
         
         
-        foregroundNotification = NSNotificationCenter.defaultCenter().addObserverForName(UIApplicationWillEnterForegroundNotification, object: nil, queue: NSOperationQueue.mainQueue()) {
+        foregroundNotification = NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillEnterForeground, object: nil, queue: OperationQueue.main) {
             [unowned self] notification in
             
             if self.sessionAlertView != nil
             {
-                if self.sessionAlertView.isBeingPresented()
+                if self.sessionAlertView.isBeingPresented
                 {
-                    self.sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
+                    self.sessionAlertView.dismiss(animated: true, completion: nil)
                 }
             }
             
@@ -100,61 +100,65 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
-        mTopbarImageView = UIImageView(frame: CGRectMake(0, 0, self.view.frame.size.width, (self.view.frame.size.height)/12))
+        mTopbarImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: (self.view.frame.size.height)/12))
         mTopbarImageView.backgroundColor = topbarColor
         self.view.addSubview(mTopbarImageView)
-        mTopbarImageView.userInteractionEnabled = true
+        mTopbarImageView.isUserInteractionEnabled = true
         
         
         
         
         
-        mTeacherImageView = UIImageView(frame: CGRectMake(15, 15, mTopbarImageView.frame.size.height - 20 ,mTopbarImageView.frame.size.height - 20))
+        mTeacherImageView = CustomProgressImageView(frame: CGRect(x: 15, y: 15, width: mTopbarImageView.frame.size.height - 20 ,height: mTopbarImageView.frame.size.height - 20))
         mTeacherImageView.backgroundColor = lightGrayColor
         mTopbarImageView.addSubview(mTeacherImageView)
         mTeacherImageView.layer.masksToBounds = true
         mTeacherImageView.layer.cornerRadius = 2
         
         
-        let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_UserProfileImageURL) as! String
+        let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
         
-        if let checkedUrl = NSURL(string: "\(urlString)/\(SSStudentDataSource.sharedDataSource.currentUserId)_79px.jpg")
+        
+        let userID = urlString.appending("/").appending(SSStudentDataSource.sharedDataSource.currentUserId)
+
+        
+        if let checkedUrl = URL(string: "\(userID)_79px.jpg")
         {
-            mTeacherImageView.contentMode = .ScaleAspectFit
-            mTeacherImageView.downloadImage(checkedUrl, withFolderType: folderType.ProFilePics)
+            mTeacherImageView.contentMode = .scaleAspectFit
+            mTeacherImageView.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
         }
         
         
-        mTeacherImageButton.frame = CGRectMake(0, 0, mTopbarImageView.frame.size.height , mTopbarImageView.frame.size.height)
+        mTeacherImageButton.frame = CGRect(x: 0, y: 0, width: mTopbarImageView.frame.size.height , height: mTopbarImageView.frame.size.height)
         mTopbarImageView.addSubview(mTeacherImageButton)
-        mTeacherImageButton.addTarget(self, action: #selector(SSStudentScheduleViewController.onTeacherImage), forControlEvents: UIControlEvents.TouchUpInside)
+        mTeacherImageButton.addTarget(self, action: #selector(SSStudentScheduleViewController.onTeacherImage), for: UIControlEvents.touchUpInside)
         
         
         
         
-        mTeacherName = UILabel(frame: CGRectMake(mTeacherImageView.frame.origin.x + mTeacherImageView.frame.size.width + 10, mTeacherImageView.frame.origin.y, 200, 20))
+        mTeacherName = UILabel(frame: CGRect(x: mTeacherImageView.frame.origin.x + mTeacherImageView.frame.size.width + 10, y: mTeacherImageView.frame.origin.y, width: 200, height: 20))
         mTeacherName.font = UIFont(name:helveticaMedium, size: 20)
-        mTeacherName.text = SSStudentDataSource.sharedDataSource.currentUserName.capitalizedString
+        mTeacherName.text = SSStudentDataSource.sharedDataSource.currentUserName.capitalized
         mTopbarImageView.addSubview(mTeacherName)
-        mTeacherName.textColor = UIColor.whiteColor()
+        mTeacherName.textColor = UIColor.white
         
         
         
-        let mTeacher = UILabel(frame: CGRectMake(mTeacherImageView.frame.origin.x + mTeacherImageView.frame.size.width + 10, 40, 200, 20))
+        let mTeacher = UILabel(frame: CGRect(x: mTeacherImageView.frame.origin.x + mTeacherImageView.frame.size.width + 10, y: 40, width: 200, height: 20))
         mTeacher.font = UIFont(name:helveticaRegular, size: 16)
         mTeacher.text = "Student"
         mTopbarImageView.addSubview(mTeacher)
-        mTeacher.textColor = UIColor.whiteColor()
+        mTeacher.textColor = UIColor.white
         
         
         
         
         
-        let mTodaysSchedule = UILabel(frame: CGRectMake((mTopbarImageView.frame.size.width - 200)/2, 15, 200, 20))
+        let mTodaysSchedule = UILabel(frame: CGRect(x: (mTopbarImageView.frame.size.width - 200)/2, y: 15, width: 200, height: 20))
         mTodaysSchedule.font = UIFont(name:helveticaMedium, size: 20)
         mTodaysSchedule.text = "Today's schedule"
         mTopbarImageView.addSubview(mTodaysSchedule)
-        mTodaysSchedule.textColor = UIColor.whiteColor()
+        mTodaysSchedule.textColor = UIColor.white
         
         
         
@@ -162,21 +166,21 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         
         
         
-        mRefreshButton = UIButton(frame: CGRectMake(mTopbarImageView.frame.size.width - mTopbarImageView.frame.size.height, 0,mTopbarImageView.frame.size.height,mTopbarImageView.frame.size.height ))
-        mRefreshButton.setImage(UIImage(named: "refresh.png"), forState: .Normal)
+        mRefreshButton = UIButton(frame: CGRect(x: mTopbarImageView.frame.size.width - mTopbarImageView.frame.size.height, y: 0,width: mTopbarImageView.frame.size.height,height: mTopbarImageView.frame.size.height ))
+        mRefreshButton.setImage(UIImage(named: "refresh.png"), for: UIControlState())
         mTopbarImageView.addSubview(mRefreshButton)
         mRefreshButton.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
-        mRefreshButton.addTarget(self, action: #selector(SSStudentScheduleViewController.onRefreshButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        mRefreshButton.hidden = false
+        mRefreshButton.addTarget(self, action: #selector(SSStudentScheduleViewController.onRefreshButton(_:)), for: UIControlEvents.touchUpInside)
+        mRefreshButton.isHidden = false
         
         
         
-        mAppVersionNumber = UILabel(frame: CGRectMake(mRefreshButton.frame.origin.x - (mRefreshButton.frame.size.width + 10), 0,mTopbarImageView.frame.size.height,mTopbarImageView.frame.size.height ))
+        mAppVersionNumber = UILabel(frame: CGRect(x: mRefreshButton.frame.origin.x - (mRefreshButton.frame.size.width + 10), y: 0,width: mTopbarImageView.frame.size.height,height: mTopbarImageView.frame.size.height ))
         
         mTopbarImageView.addSubview(mAppVersionNumber)
-        mAppVersionNumber.textAlignment = .Left
-        mAppVersionNumber.textColor = UIColor.whiteColor()
-        if let version = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String {
+        mAppVersionNumber.textAlignment = .left
+        mAppVersionNumber.textColor = UIColor.white
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
             mAppVersionNumber.text = "V = \(version)"
         }
         
@@ -184,37 +188,37 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         
         
         
-        activityIndicator.frame = CGRectMake(mRefreshButton.frame.origin.x - 60,  0,mTopbarImageView.frame.size.height,mTopbarImageView.frame.size.height)
+        activityIndicator.frame = CGRect(x: mRefreshButton.frame.origin.x - 60,  y: 0,width: mTopbarImageView.frame.size.height,height: mTopbarImageView.frame.size.height)
         mTopbarImageView.addSubview(activityIndicator)
-        activityIndicator.hidden = true
+        activityIndicator.isHidden = true
        
         
-        mNoSessionLabel = UILabel(frame: CGRectMake(10, (self.view.frame.size.height - 40)/2, self.view.frame.size.width - 20,40))
+        mNoSessionLabel = UILabel(frame: CGRect(x: 10, y: (self.view.frame.size.height - 40)/2, width: self.view.frame.size.width - 20,height: 40))
         mNoSessionLabel.font = UIFont(name:helveticaMedium, size: 30)
         mNoSessionLabel.text = "You do not have any sessions today!"
         self.view.addSubview(mNoSessionLabel)
-        mNoSessionLabel.textColor = UIColor.whiteColor()
-        mNoSessionLabel.textAlignment = .Center
+        mNoSessionLabel.textColor = UIColor.white
+        mNoSessionLabel.textAlignment = .center
         
         
-        mNoSessionSubLabel = UILabel(frame: CGRectMake(10, mNoSessionLabel.frame.origin.y + mNoSessionLabel.frame.size.height + 0, self.view.frame.size.width - 20,40))
+        mNoSessionSubLabel = UILabel(frame: CGRect(x: 10, y: mNoSessionLabel.frame.origin.y + mNoSessionLabel.frame.size.height + 0, width: self.view.frame.size.width - 20,height: 40))
         mNoSessionSubLabel.font = UIFont(name:helveticaRegular, size: 20)
         mNoSessionSubLabel.text = "Enjoy your day :)"
         self.view.addSubview(mNoSessionSubLabel)
-        mNoSessionSubLabel.textColor = UIColor.whiteColor()
+        mNoSessionSubLabel.textColor = UIColor.white
         mNoSessionSubLabel.alpha = 0.5
-        mNoSessionSubLabel.textAlignment = .Center
+        mNoSessionSubLabel.textAlignment = .center
         
         
         
         
-        mScrollView = UIScrollView(frame: CGRectMake(0,mTopbarImageView.frame.size.height,self.view.frame.size.width,self.view.frame.size.height - mTopbarImageView.frame.size.height))
+        mScrollView = UIScrollView(frame: CGRect(x: 0,y: mTopbarImageView.frame.size.height,width: self.view.frame.size.width,height: self.view.frame.size.height - mTopbarImageView.frame.size.height))
         mScrollView.backgroundColor = darkBackgroundColor
         self.view.addSubview(mScrollView)
-        mScrollView.hidden = true
+        mScrollView.isHidden = true
         
         SSStudentDataSource.sharedDataSource.getScheduleOfTheDay(self)
-        activityIndicator.hidden = false
+        activityIndicator.isHidden = false
         activityIndicator.startAnimating()
         
         
@@ -222,22 +226,22 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         addNumberOfLinesToScrollView()
         
         
-        let currentDate = NSDate()
-        mCurrentTimeLine = CurrentTimeLineView(frame: CGRectMake(30, 0 , self.view.frame.size.width-30, 10))
+        let currentDate = Date()
+        mCurrentTimeLine = CurrentTimeLineView(frame: CGRect(x: 30, y: 0 , width: self.view.frame.size.width-30, height: 10))
         mScrollView.addSubview(mCurrentTimeLine)
         mCurrentTimeLine.addToCurrentTimewithHours(getPositionWithHour(currentDate.hour(), withMinute: currentDate.minute()))
-        mScrollView.contentOffset = CGPointMake(0,mCurrentTimeLine.frame.origin.y-self.view.frame.size.height/3);
+        mScrollView.contentOffset = CGPoint(x: 0,y: mCurrentTimeLine.frame.origin.y-self.view.frame.size.height/3);
         
         
         
-         timer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: #selector(SSStudentScheduleViewController.timerAction), userInfo: nil, repeats: true)
+         timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(SSStudentScheduleViewController.timerAction), userInfo: nil, repeats: true)
         
     }
    
     deinit {
         // make sure to remove the observer when this view controller is dismissed/deallocated
         
-        NSNotificationCenter.defaultCenter().removeObserver(foregroundNotification)
+        NotificationCenter.default.removeObserver(foregroundNotification)
     }
     
     func addNumberOfLinesToScrollView()
@@ -250,7 +254,7 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         
         for index in 0 ..< 25
         {
-            let hourlabel = UILabel(frame: CGRectMake(10, positionY-15,50,30))
+            let hourlabel = UILabel(frame: CGRect(x: 10, y: positionY-15,width: 50,height: 30))
             mScrollView.addSubview(hourlabel)
             hourlabel.textColor = standard_TextGrey
             if index == 0
@@ -271,12 +275,12 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
                 hourValue = hourValue+1
             }
             hourlabel.font = UIFont (name: helveticaRegular, size: 16)
-            hourlabel.textAlignment = NSTextAlignment.Right
+            hourlabel.textAlignment = NSTextAlignment.right
             
             
             
             let hourLineView = ScheduleScreenLineView()
-            hourLineView.frame = CGRectMake(70, positionY, self.view.frame.size.width-70, 1)
+            hourLineView.frame = CGRect(x: 70, y: positionY, width: self.view.frame.size.width-70, height: 1)
             positionsArray[String("\(index)")] = positionY
             mScrollView.addSubview(hourLineView)
             
@@ -286,17 +290,17 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
             if index != 24
             {
                 let halfHourLineView =  DottedLine()
-                halfHourLineView.frame = CGRectMake(75, positionY + (oneHourDiff/2), self.view.frame.size.width-80, 2)
+                halfHourLineView.frame = CGRect(x: 75, y: positionY + (oneHourDiff/2), width: self.view.frame.size.width-80, height: 2)
                 
                 mScrollView.addSubview(halfHourLineView)
-                halfHourLineView.drawDashedBorderAroundViewWithColor(UIColor(red: 153/255.0, green: 153/255.0, blue: 153/255.0, alpha: 1))
+                halfHourLineView.drawDashedBorderAroundView(with: UIColor(red: 153/255.0, green: 153/255.0, blue: 153/255.0, alpha: 1))
                  positionY = positionY + oneHourDiff
             }
             
            
         }
         
-        mScrollView.contentSize = CGSizeMake(0, positionY + oneHourDiff / 2 )
+        mScrollView.contentSize = CGSize(width: 0, height: positionY + oneHourDiff / 2 )
     }
     
     
@@ -305,16 +309,16 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         // Dispose of any resources that can be recreated.
     }
     
-    func onRefreshButton(sender: AnyObject)
+    func onRefreshButton(_ sender: AnyObject)
     {
         SSStudentDataSource.sharedDataSource.getScheduleOfTheDay(self)
-        activityIndicator.hidden = false
+        activityIndicator.isHidden = false
         activityIndicator.startAnimating()
     }
     
     func timerAction()
     {
-        let currentDate = NSDate()
+        let currentDate = Date()
         
         let currentHour = (currentDate.hour())
         
@@ -328,7 +332,7 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     
     // MARK: - Returning Functions
     
-    func getPositionWithHour(_hour : Int, withMinute minute:Int) -> CGFloat
+    func getPositionWithHour(_ _hour : Int, withMinute minute:Int) -> CGFloat
     {
         var  hour = _hour
         var returningValue = CGFloat()
@@ -346,7 +350,7 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     
     
     
-    func getSizeOfCalendarEvernWithStarthour(startHour: Int, withstartMinute startMinute:Int, withEndHour endHour:Int, withEndMinute endMinute:Int) -> CGFloat
+    func getSizeOfCalendarEvernWithStarthour(_ startHour: Int, withstartMinute startMinute:Int, withEndHour endHour:Int, withEndMinute endMinute:Int) -> CGFloat
     {
         
         let startPosition = getPositionWithHour(startHour, withMinute: startMinute)
@@ -364,36 +368,36 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     
     // MARK: - Teacher datasource Error
 
-    func didgetErrorMessage(message: String, WithServiceName serviceName: String)
+    func didgetErrorMessage(_ message: String, WithServiceName serviceName: String)
     {
-         self.view.makeToast(message, duration: 2.0, position: .Bottom)
+         self.view.makeToast(message, duration: 2.0, position: .bottom)
         
-        activityIndicator.hidden = true
+        activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
         
     }
     
     // MARK: - Teacher datasource Delegate
     
-    func didGetSchedulesWithDetials(details: AnyObject)
+    func didGetSchedulesWithDetials(_ details: AnyObject)
     {
 
         sessionUpdatedLive = false
-        
+        print(details)
         
         if self.sessionAlertView != nil
         {
-            if self.sessionAlertView.isBeingPresented()
+            if self.sessionAlertView.isBeingPresented
             {
-                self.sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
+                self.sessionAlertView.dismiss(animated: true, completion: nil)
             }
         }
         
         
         for index in 0 ..< sessionDetailsArray.count
         {
-            let dict = sessionDetailsArray.objectAtIndex(index)
-             let sessionid = dict.objectForKey(kSessionId) as! String
+            let dict = sessionDetailsArray.object(at: index)
+             let sessionid = (dict as AnyObject).object(forKey: kSessionId) as! String
             
              if let scheduleTileView  = mScrollView.viewWithTag(Int(sessionid)!) as? ScheduleScreenTile
              {
@@ -404,31 +408,31 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         
         
         sessionDetailsArray.removeAllObjects()
-        if let statusString = details.objectForKey("Status") as? String
+        if let statusString = details.object(forKey: "Status") as? String
         {
             if statusString == kSuccessString
             {
-                mNoSessionLabel.hidden = true
-                mNoSessionSubLabel.hidden = true
-                mScrollView.hidden = false
+                mNoSessionLabel.isHidden = true
+                mNoSessionSubLabel.isHidden = true
+                mScrollView.isHidden = false
                 
-                let classCheckingVariable = details.objectForKey(kSessions)!.objectForKey(kSubSession)!
+               if  let classCheckingVariable = (details.object(forKey: kSessions)! as AnyObject).object(forKey: kSubSession) as? NSMutableArray
+               {
+                    sessionDetailsArray = classCheckingVariable
+                }
+               else
+               {
+                sessionDetailsArray.add((details.object(forKey: kSessions)! as AnyObject).object(forKey: kSubSession)!)
                 
-                if classCheckingVariable.isKindOfClass(NSMutableArray)
-                {
-                    sessionDetailsArray = classCheckingVariable as! NSMutableArray
                 }
-                else
-                {
-                    sessionDetailsArray.addObject(details.objectForKey(kSessions)!.objectForKey(kSubSession)!)
-                    
-                }
+                
+                
             }
             else
             {
-                mNoSessionLabel.hidden = false
-                mNoSessionSubLabel.hidden = false
-                mScrollView.hidden = true
+                mNoSessionLabel.isHidden = false
+                mNoSessionSubLabel.isHidden = false
+                mScrollView.isHidden = true
             }
         }
         
@@ -439,33 +443,33 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         
         for index in 0 ..< sessionDetailsArray.count
         {
-            let dict = sessionDetailsArray.objectAtIndex(index)
+            let dict = sessionDetailsArray.object(at: index)
             
-            let startDate :String = (dict.objectForKey(kStartTime) as! String)
-            let endDate = (dict.objectForKey(kEndTime) as! String!)
-            let totalSize = getSizeOfCalendarEvernWithStarthour(startDate.hourValue(), withstartMinute: startDate.minuteValue(), withEndHour: endDate.hourValue(), withEndMinute: endDate.minuteValue())
+            let startDate :String = ((dict as AnyObject).object(forKey: kStartTime) as! String)
+            let endDate = ((dict as AnyObject).object(forKey: kEndTime) as! String!)
+            let totalSize = getSizeOfCalendarEvernWithStarthour(startDate.hourValue(), withstartMinute: startDate.minuteValue(), withEndHour: (endDate?.hourValue())!, withEndMinute: (endDate?.minuteValue())!)
             let StartPositionOfTile = getPositionWithHour(startDate.hourValue(), withMinute: startDate.minuteValue())
             
             
-            let scheduleTileView = ScheduleScreenTile(frame: CGRectMake(75, StartPositionOfTile, self.view.frame.size.width-85, totalSize))
+            let scheduleTileView = ScheduleScreenTile(frame: CGRect(x: 75, y: StartPositionOfTile, width: self.view.frame.size.width-85, height: totalSize))
             mScrollView.addSubview(scheduleTileView)
             scheduleTileView.setdelegate(self)
             
             
-            let sessionid = dict.objectForKey(kSessionId) as! String
+            let sessionid = (dict as AnyObject).object(forKey: kSessionId) as! String
            
-            sessionIdDictonary[sessionid] = dict
+            sessionIdDictonary[sessionid] = dict as AnyObject?
             scheduleTileView.tag = Int(sessionid)!
-            scheduleTileView.setCurrentSessionDetails(dict)
+            scheduleTileView.setCurrentSessionDetails(dict as AnyObject)
             
-            let sessionState = dict.objectForKey(kSessionState) as! String
+            let sessionState = (dict as AnyObject).object(forKey: kSessionState) as! String
             if sessionState == kLiveString || sessionState == kopenedString || sessionState == kScheduledString
             {
-                SSStudentMessageHandler.sharedMessageHandler.createRoomWithRoomName(String(format:"room_%@",(dict.objectForKey(kSessionId) as! String)), withHistory: "0")
+                SSStudentMessageHandler.sharedMessageHandler.createRoomWithRoomName(String(format:"room_%@",((dict as AnyObject).object(forKey: kSessionId) as! String)), withHistory: "0")
             }
             else
             {
-                SSStudentMessageHandler.sharedMessageHandler.checkAndRemoveJoinedRoomsArrayWithRoomid(String(format:"room_%@",(dict.objectForKey(kSessionId) as! String)))
+                SSStudentMessageHandler.sharedMessageHandler.checkAndRemoveJoinedRoomsArrayWithRoomid(String(format:"room_%@",((dict as AnyObject).object(forKey: kSessionId) as! String)))
             }
             
             
@@ -475,16 +479,16 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         
         
         
-        let currentDate = NSDate()
+        let currentDate = Date()
         let currentHour = (currentDate.hour())
         mCurrentTimeLine.addToCurrentTimewithHours(getPositionWithHour(currentHour, withMinute: currentDate.minute()))
-        UIView.animateWithDuration(0.5, animations: {
-            self.mScrollView.contentOffset = CGPointMake(0,self.mCurrentTimeLine.frame.origin.y - self.view.frame.size.height/3);
-            self.mScrollView.bringSubviewToFront(self.mCurrentTimeLine)
+        UIView.animate(withDuration: 0.5, animations: {
+            self.mScrollView.contentOffset = CGPoint(x: 0,y: self.mCurrentTimeLine.frame.origin.y - self.view.frame.size.height/3);
+            self.mScrollView.bringSubview(toFront: self.mCurrentTimeLine)
         })
        
         
-        activityIndicator.hidden = true
+        activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
 
         
@@ -503,16 +507,16 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         
         let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
         
-        classViewPopOverController.popoverContentSize = CGSizeMake(310, 145);
+        classViewPopOverController.contentSize = CGSize(width: 310, height: 145);
         
-        questionInfoController.setPopOverController(classViewPopOverController)
+        questionInfoController.setPopOver(classViewPopOverController)
         
         
-        classViewPopOverController.presentPopoverFromRect(CGRect(
+        classViewPopOverController.present(from: CGRect(
             x:mTeacherImageButton.frame.origin.x ,
             y:mTeacherImageButton.frame.origin.y + mTeacherImageButton.frame.size.height,
             width: 1,
-            height: 1), inView: self.view, permittedArrowDirections: .Up, animated: true)
+            height: 1), in: self.view, permittedArrowDirections: .up, animated: true)
         
         
     }
@@ -531,7 +535,7 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     func delegateRefreshSchedule()
     {
         SSStudentDataSource.sharedDataSource.getScheduleOfTheDay(self)
-        activityIndicator.hidden = false
+        activityIndicator.isHidden = false
         activityIndicator.startAnimating()
         
     }
@@ -542,35 +546,35 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     // MARK: - Alert functions
     
     
-    func delegateScheduleTileTouchedWithState(state: String, withCurrentTileDetails Details: AnyObject) {
+    func delegateScheduleTileTouchedWithState(_ state: String, withCurrentTileDetails Details: AnyObject) {
         
         
-        if let SessionState = Details.objectForKey("SessionState") as? String
+        if let SessionState = Details.object(forKey: "SessionState") as? String
         {
             if SessionState == kScheduledString
             {
-                 self.view.makeToast("You can not enter to scheduled session" , duration: 0.5, position: .Bottom)
+                 self.view.makeToast("You can not enter to scheduled session" , duration: 0.5, position: .bottom)
             }
             else  if SessionState == kCanClledString
             {
-                self.view.makeToast("This class was cancelled.", duration: 0.5, position: .Bottom)
+                self.view.makeToast("This class was cancelled.", duration: 0.5, position: .bottom)
                 
             }
             else  if SessionState == kEndedString
             {
-                self.view.makeToast("This class has already ended.", duration: 0.5, position: .Bottom)
+                self.view.makeToast("This class has already ended.", duration: 0.5, position: .bottom)
             }
             else if SessionState == kLiveString
             {
                 let seatController = StudentSeatViewController()
                 seatController.setCurrentSessionDetails(Details)
-                self.presentViewController(seatController, animated: true, completion: nil)
+                self.present(seatController, animated: true, completion: nil)
             }
             else if SessionState == kopenedString
             {
                 let seatController = StudentSeatViewController()
                 seatController.setCurrentSessionDetails(Details)
-                self.presentViewController(seatController, animated: true, completion: nil)
+                self.present(seatController, animated: true, completion: nil)
             }
         }
 
@@ -593,39 +597,39 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     
      // MARK: - message handler functions
     
-    func smhDidRecieveStreamConnectionsState(state: Bool) {
+    func smhDidRecieveStreamConnectionsState(_ state: Bool) {
         
 //        self.view.makeToast("Xmpp Stream disconnected.", duration: 0.2, position: .Bottom)
         
         activityIndicator.stopAnimating()
-        activityIndicator.hidden = true
+        activityIndicator.isHidden = true
     }
     
-    func smhDidReciveAuthenticationState(state: Bool, WithName userName: String) {
+    func smhDidReciveAuthenticationState(_ state: Bool, WithName userName: String) {
         
         activityIndicator.stopAnimating()
-        activityIndicator.hidden = true
+        activityIndicator.isHidden = true
         AppDelegate.sharedDataSource.hideReconnecting()
     }
     
-    func smhStreamReconnectingWithDelay(delay: Int32)
+    func smhStreamReconnectingWithDelay(_ delay: Int32)
     {
-       self.view.makeToast("Reconnecting in \(delay) seconds", duration: 0.5, position: .Bottom)
+       self.view.makeToast("Reconnecting in \(delay) seconds", duration: 0.5, position: .bottom)
         
         activityIndicator.startAnimating()
-        activityIndicator.hidden = false
+        activityIndicator.isHidden = false
         AppDelegate.sharedDataSource.showReconnecting()
         
     }
     
     
-    func smhDidgetTimeExtendedWithDetails(Details: AnyObject)
+    func smhDidgetTimeExtendedWithDetails(_ Details: AnyObject)
     {
         
         delegateRefreshSchedule()
     }
     
-    func smhDidGetSessionEndMessageWithDetails(details: AnyObject)
+    func smhDidGetSessionEndMessageWithDetails(_ details: AnyObject)
     {
         delegateRefreshSchedule()
         
@@ -634,7 +638,7 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     
      // MARK: - Extra functions
     
-    func secondsToMinutesSeconds (seconds : Double) -> (Double, Double)
+    func secondsToMinutesSeconds (_ seconds : Double) -> (Double, Double)
     {
         let (_,  minf) = modf (seconds / 3600)
         let (min, secf) = modf (60 * minf)
@@ -647,7 +651,7 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     // MARK: - Change screen Functions
    
     
-    func beginClassWithDetails(details:AnyObject)
+    func beginClassWithDetails(_ details:AnyObject)
     {
        
 //        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -664,29 +668,29 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     func Settings_performLogout()
     {
         SSStudentDataSource.sharedDataSource.updateStudentStatus(kuserStateSignedOut, ofSession: SSStudentDataSource.sharedDataSource.currentLiveSessionId, withDelegate: self)
-        activityIndicator.hidden = false
+        activityIndicator.isHidden = false
         activityIndicator.startAnimating()
         
     }
     
-    func didGetUpdatedUserStateWithDetails(details: AnyObject)
+    func didGetUpdatedUserStateWithDetails(_ details: AnyObject)
     {
-        if details.objectForKey("Status") != nil
+        if details.object(forKey: "Status") != nil
         {
-            if let status = details.objectForKey("Status") as? String
+            if let status = details.object(forKey: "Status") as? String
             {
                 if status == kSuccessString
                 {
-                    if NSUserDefaults.standardUserDefaults().objectForKey(kPassword) != nil
+                    if UserDefaults.standard.object(forKey: kPassword) != nil
                     {
-                        NSUserDefaults.standardUserDefaults().removeObjectForKey(kPassword)
+                        UserDefaults.standard.removeObject(forKey: kPassword)
                     }
                     
                     
                     SSStudentMessageHandler.sharedMessageHandler.goOffline()
-                    performSegueWithIdentifier("ScheduleToLogin", sender: nil)
+                    performSegue(withIdentifier: "ScheduleToLogin", sender: nil)
                     
-                    activityIndicator.hidden = true
+                    activityIndicator.isHidden = true
                     activityIndicator.stopAnimating()
                     
                 }
@@ -698,7 +702,7 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     func Settings_XmppReconnectButtonClicked()
     {
         SSStudentMessageHandler.sharedMessageHandler.performReconnet()
-        activityIndicator.hidden = false
+        activityIndicator.isHidden = false
         activityIndicator.startAnimating()
     }
     

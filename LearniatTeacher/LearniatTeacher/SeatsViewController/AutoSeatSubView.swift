@@ -38,19 +38,19 @@ class AutoSeatSubView: UIView{
         
         
         let containerView = UIImageView()
-        containerView.frame = CGRectMake((self.frame.size.width - sizeOfCell)/2 , (self.frame.size.height - sizeOfCell)/2  , sizeOfCell, sizeOfCell)
+        containerView.frame = CGRect(x: (self.frame.size.width - sizeOfCell)/2 , y: (self.frame.size.height - sizeOfCell)/2  , width: sizeOfCell, height: sizeOfCell)
         self.addSubview(containerView)
         
         
-        StudentImageView.frame = CGRectMake((containerView.frame.size.width - sizeOfCell * 0.7 )/2 , 0 , sizeOfCell * 0.7, sizeOfCell * 0.7)
+        StudentImageView.frame = CGRect(x: (containerView.frame.size.width - sizeOfCell * 0.7 )/2 , y: 0 , width: sizeOfCell * 0.7, height: sizeOfCell * 0.7)
         containerView.addSubview(StudentImageView)
-        StudentImageView.backgroundColor = UIColor.whiteColor()
+        StudentImageView.backgroundColor = UIColor.white
         
-        StudentNameLabel.frame = CGRectMake(0, containerView.frame.size.height - sizeOfCell * 0.3  , containerView.frame.size.width , sizeOfCell * 0.3)
+        StudentNameLabel.frame = CGRect(x: 0, y: containerView.frame.size.height - sizeOfCell * 0.3  , width: containerView.frame.size.width , height: sizeOfCell * 0.3)
         containerView.addSubview(StudentNameLabel)
-        StudentNameLabel.lineBreakMode = .ByTruncatingTail
+        StudentNameLabel.lineBreakMode = .byTruncatingTail
         StudentNameLabel.numberOfLines = 2
-        StudentNameLabel.textAlignment = .Center
+        StudentNameLabel.textAlignment = .center
         
         if (StudentNameLabel.frame.size.height)/1.2 < 18
         {
@@ -70,21 +70,21 @@ class AutoSeatSubView: UIView{
 
     }
     
-    func setSeatIdValue(seatId:String)
+    func setSeatIdValue(_ seatId:String)
     {
         seatIdvalue = seatId
     }
     
-    func setStudentImageWithID(studentId:String, WithStudentname StudentName:String )
+    func setStudentImageWithID(_ studentId:String, WithStudentname StudentName:String )
     {
         
         StudentNameLabel.text = StudentName
-        StudentImageView.backgroundColor = UIColor.clearColor()
-        let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_UserProfileImageURL) as! String
-        if let checkedUrl = NSURL(string: "\(urlString)/\(studentId)_79px.jpg")
+        StudentImageView.backgroundColor = UIColor.clear
+        let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
+        if let checkedUrl = URL(string: "\(urlString)/\(studentId)_79px.jpg")
         {
-            StudentImageView.contentMode = .ScaleAspectFit
-            StudentImageView.downloadImage(checkedUrl, withFolderType: folderType.ProFilePics)
+            StudentImageView.contentMode = .scaleAspectFit
+            StudentImageView.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
         }
         StudentImageView.layer.cornerRadius = 2
         StudentImageView.layer.masksToBounds = true

@@ -63,82 +63,85 @@ import Foundation
 
 @objc protocol SSStudentMessageHandlerDelegate
 {
-    optional func smhDidRecieveStreamConnectionsState(state:Bool)
+    @objc optional func smhDidRecieveStreamConnectionsState(_ state:Bool)
     
-    optional  func smhDidReciveAuthenticationState(state:Bool, WithName userName:String)
+    @objc optional  func smhDidReciveAuthenticationState(_ state:Bool, WithName userName:String)
     
-    optional  func smhStreamReconnectingWithDelay(delay:Int32)
+    @objc optional  func smhStreamReconnectingWithDelay(_ delay:Int32)
     
-    optional  func smhDidcreateRoomWithRoomName(roomName:String)
-    
-    
-    
-    
-    optional  func smhDidgetTimeExtendedWithDetails(Details:AnyObject)
-    
-     optional func smhDidGetSessionEndMessageWithDetails(details:AnyObject)
-    
-    optional  func smhDidGetSeatingChangedWithDetails(details:AnyObject)
-    
-    optional  func smhDidGetVotingMessageWithDetails(details:AnyObject)
-    
-    optional func smhdidReceiveQuestionSentMessage(dict: AnyObject)
-    
-    optional func smhdidReceiveQuestionClearMessage()
-    
-    optional func smhdidReceiveQuestionFreezMessage()
+    @objc optional  func smhDidcreateRoomWithRoomName(_ roomName:String)
     
     
     
     
+    @objc optional  func smhDidgetTimeExtendedWithDetails(_ Details:AnyObject)
     
-    optional func smhdidGetQueryFeedBackFromTeacherWithDetials(details : AnyObject)
+     @objc optional func smhDidGetSessionEndMessageWithDetails(_ details:AnyObject)
     
-    optional func smhdidRecieveQueryReviewmessage()
+    @objc optional  func smhDidGetSeatingChangedWithDetails(_ details:AnyObject)
     
-    optional func smhdidRecieveQueryOpenedForVotingWithDetails()
+    @objc optional  func smhDidGetVotingMessageWithDetails(_ details:AnyObject)
     
-    optional func smhdidRecieveQueryVolunteeringEnded()
+    @objc optional func smhdidReceiveQuestionSentMessage(_ dict: AnyObject)
     
-    optional func smhDidRecieveQueryAnsweringMessageWithDetails(details:AnyObject)
+    @objc optional func smhdidReceiveQuestionClearMessage()
     
-    optional func smhdidRecieveQueryVolunteeringClosedMessageWithDetails(details:AnyObject)
+    @objc optional func smhdidReceiveQuestionFreezMessage()
     
-    optional func smhDidRecievePollingStartedMessageWithDetails(detials:AnyObject)
+    
+    
+    
+    
+    @objc optional func smhdidGetQueryFeedBackFromTeacherWithDetials(_ details : AnyObject)
+    
+    @objc optional func smhdidRecieveQueryReviewmessage()
+    
+    @objc optional func smhdidRecieveQueryOpenedForVotingWithDetails()
+    
+    @objc optional func smhdidRecieveQueryVolunteeringEnded()
+    
+    @objc optional func smhDidRecieveQueryAnsweringMessageWithDetails(_ details:AnyObject)
+    
+    @objc optional func smhdidRecieveQueryVolunteeringClosedMessageWithDetails(_ details:AnyObject)
+    
+    @objc optional func smhDidRecievePollingStartedMessageWithDetails(_ detials:AnyObject)
    
-    optional func smhDidGetPollEndedMessageFromteacher()
+    @objc optional func smhDidGetPollEndedMessageFromteacher()
     
-    optional func smhDidGetGraphSharedWithDetails(details:AnyObject)
+    @objc optional func smhDidGetGraphSharedWithDetails(_ details:AnyObject)
     
-    optional func smhDidGetTeacherReviewMessage()
+    @objc optional func smhDidGetTeacherReviewMessage()
     
-    optional func smhDidGetFeedbackForAnswerWithDetils(details:AnyObject)
+    @objc optional func smhDidGetFeedbackForAnswerWithDetils(_ details:AnyObject)
     
-    optional func smhDidGetPeakViewMessage()
+    @objc optional func smhDidGetPeakViewMessage()
     
-    optional func smhdidRecieveModelAnswerMessageWithDetials(details:AnyObject)
+    @objc optional func smhdidRecieveModelAnswerMessageWithDetials(_ details:AnyObject)
     
-    optional func smhDidRecieveMutemessageWithDetails(details:AnyObject)
+    @objc optional func smhDidRecieveMutemessageWithDetails(_ details:AnyObject)
+    
+    
+    @objc optional func smhDidRecieveCollaborationPingFromTeacher(_ details:AnyObject)
     
     
 }
 
-public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,MessageManagerDelegate {
+open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,MessageManagerDelegate {
     
     var _delgate: AnyObject!
     var currentUserName:String!
    
     
-   public  static let sharedMessageHandler = SSStudentMessageHandler()
+   open  static let sharedMessageHandler = SSStudentMessageHandler()
     
     
     
-  let kBaseXMPPURL	=	NSUserDefaults.standardUserDefaults().objectForKey(k_INI_BaseXMPPURL) as! String
+  let kBaseXMPPURL	=	UserDefaults.standard.object(forKey: k_INI_BaseXMPPURL) as! String
     
     
     // MARK: - Delegate Functions
 
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -160,7 +163,7 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
     
     //MARK: - Registration Function
     
-    func registerStudentWithUserName(userName:String , withPassword password:String, withEmailId EmailId:String)
+    func registerStudentWithUserName(_ userName:String , withPassword password:String, withEmailId EmailId:String)
     {
         guard userName.characters.count>0 || password.characters.count>0 || EmailId.characters.count>0  else
         {
@@ -168,11 +171,11 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
         }
 
          MessageManager.sharedMessageHandler().setdelegate(self)
-        MessageManager.sharedMessageHandler().registerStudentWithUserName(userName, withPassword: password, withEmailId: EmailId)
+        MessageManager.sharedMessageHandler().registerStudent(withUserName: userName, withPassword: password, withEmailId: EmailId)
     }
 
     //MARK: - ..........Delegate
-    func didGetRegistrationState (state: Bool,withErrorMessage errorMessage:String )
+    public func didGetRegistrationState (_ state: Bool,withErrorMessage errorMessage:String )
     {
 
     }
@@ -183,7 +186,7 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
     
     //MARK: - Login
     /*- this function is called to connect to XMPP Server -*/
-    func connectWithUserId(userID:String, andWithPassword password:String, withDelegate delegate:SSStudentMessageHandlerDelegate)
+    func connectWithUserId(_ userID:String, andWithPassword password:String, withDelegate delegate:SSStudentMessageHandlerDelegate)
     {
         guard userID.characters.count>0 || password.characters.count>0  else
         {
@@ -194,11 +197,11 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
         
         MessageManager.sharedMessageHandler().setdelegate(self)
         
-        MessageManager.sharedMessageHandler().connectWithUserId("\(userID)@\(kBaseXMPPURL)", withPassword: password)
+        MessageManager.sharedMessageHandler().connect(withUserId: "\(userID)@\(kBaseXMPPURL)", withPassword: password)
     }
     
     
-    func authenticateUserithUserId(userId:String ,withPassword passowrd:String)
+    func authenticateUserithUserId(_ userId:String ,withPassword passowrd:String)
     {
     
         guard userId.characters.count>0 || passowrd.characters.count>0 else
@@ -234,9 +237,9 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
     func performReconnet()
     {
         
-        if let password  =  NSUserDefaults.standardUserDefaults().objectForKey(kPassword) as? String
+        if let password  =  UserDefaults.standard.object(forKey: kPassword) as? String
         {
-            MessageManager.sharedMessageHandler().connectWithUserId("\(SSStudentDataSource.sharedDataSource.currentUserId)@\(kBaseXMPPURL)", withPassword: password)
+            MessageManager.sharedMessageHandler().connect(withUserId: "\(SSStudentDataSource.sharedDataSource.currentUserId)@\(kBaseXMPPURL)", withPassword: password)
         }
         
     }
@@ -250,26 +253,26 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
     
     
     //MARK: ..........Delegate
-    public func didGetStreamState(state:Bool)
+    open func didGetStreamState(_ state:Bool)
     {
-        if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhDidRecieveStreamConnectionsState(_:)))
+        if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidRecieveStreamConnectionsState(_:)))
         {
             delegate().smhDidRecieveStreamConnectionsState!(state)
         }
         
 
     }
-    public func didGetAuthenticationState(state:Bool)
+    open func didGetAuthenticationState(_ state:Bool)
     {
-         if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhDidReciveAuthenticationState(_:WithName:)))
+         if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidReciveAuthenticationState(_:WithName:)))
          {
             delegate().smhDidReciveAuthenticationState!(state, WithName: getCurrentUSerName())
         }
     }
     
     
-    public func didReconnectingWithDelaytime(delayTime: Int32) {
-        if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhStreamReconnectingWithDelay(_:)))
+    open func didReconnecting(withDelaytime delayTime: Int32) {
+        if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhStreamReconnectingWithDelay(_:)))
         {
             delegate().smhStreamReconnectingWithDelay!(delayTime)
         }
@@ -278,7 +281,7 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
     
     //MARK: Create and join Room
     
-    func createRoomWithRoomName(roomName: String!, withHistory history:String!)
+    func createRoomWithRoomName(_ roomName: String!, withHistory history:String!)
     {
         MessageManager.sharedMessageHandler().setdelegate(self)
         MessageManager.sharedMessageHandler().setUpRoom(roomName, withAdminPrivilage: false, withHistoryValue: history)
@@ -286,9 +289,9 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
     
     
     
-    public func didCreatedOrJoinedRoomWithCreatedRoomName(_roomName: String!)
+    open func didCreatedOrJoinedRoom(withCreatedRoomName _roomName: String!)
     {
-        if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhDidcreateRoomWithRoomName(_:)))
+        if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidcreateRoomWithRoomName(_:)))
         {
             delegate().smhDidcreateRoomWithRoomName!(_roomName)
         }
@@ -297,20 +300,20 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
     
     
     
-    func didGetUserJoinedToRoomORLeaveRoomWithName(_userName: String!, withPresence presence: String!)
+    func didGetUserJoinedToRoomORLeaveRoomWithName(_ _userName: String!, withPresence presence: String!)
     {
         
        
     }
     
     
-    func checkAndRemoveJoinedRoomsArrayWithRoomid(roomId:String)
+    func checkAndRemoveJoinedRoomsArrayWithRoomid(_ roomId:String)
     {
-        MessageManager.sharedMessageHandler().removeIfRoomPresentWithRoomId(roomId)
+        MessageManager.sharedMessageHandler().removeIfRoomPresent(withRoomId: roomId)
     }
     
     
-    func sendInviteToRoomWithUserName(userName:String)
+    func sendInviteToRoomWithUserName(_ userName:String)
     {
       
     }
@@ -320,7 +323,7 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
     
     
     
-    func sendStudentBenchStatus( status:String)
+    func sendStudentBenchStatus( _ status:String)
     {
         
         
@@ -336,17 +339,17 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
             
             
             
-            let details:NSMutableDictionary = ["From":studentID,
-                                               "To":teacherID,
+            let details:NSMutableDictionary = ["From":studentID!,
+                                               "To":teacherID!,
                                                "Type":msgType,
                                                "Body":messageBody];
             
             let msg = SSMessage()
             msg.setMsgDetails( details)
             
-            let xmlBody:String = msg.XMLMessage()
+            let xmlBody:String = msg.xmlMessage()
             
-            MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
+            MessageManager.sharedMessageHandler().sendMessage(to: "\(teacherID!)@\(kBaseXMPPURL)", withContents: xmlBody)
         }
     }
     
@@ -361,16 +364,16 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
             let teacherID           = SSStudentDataSource.sharedDataSource.currentTeacherId
             
             
-            let details:NSMutableDictionary = ["From":studentID,
-                                               "To":teacherID,
+            let details:NSMutableDictionary = ["From":studentID!,
+                                               "To":teacherID!,
                                                "Type":msgType];
             
             let msg = SSMessage()
             msg.setMsgDetails( details)
             
-            let xmlBody:String = msg.XMLMessage()
+            let xmlBody:String = msg.xmlMessage()
             
-            MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
+            MessageManager.sharedMessageHandler().sendMessage(to: "\(teacherID!)@\(kBaseXMPPURL)", withContents: xmlBody)
         }
     }
     
@@ -387,19 +390,19 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
             let teacherID           = SSStudentDataSource.sharedDataSource.currentTeacherId
             
             
-            let details:NSMutableDictionary = ["From":studentID,
-                                               "To":teacherID,
+            let details:NSMutableDictionary = ["From":studentID!,
+                                               "To":teacherID!,
                                                "Type":msgType];
             
             let msg = SSMessage()
             msg.setMsgDetails( details)
             
-            let xmlBody:String = msg.XMLMessage()
+            let xmlBody:String = msg.xmlMessage()
             
-            MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
+            MessageManager.sharedMessageHandler().sendMessage(to: "\(teacherID!)@\(kBaseXMPPURL)", withContents: xmlBody)
         }
     }
-    func sendAnswerToQuestionMessageToTeacherWithAnswerString( answerIdString:String)
+    func sendAnswerToQuestionMessageToTeacherWithAnswerString( _ answerIdString:String)
     {
         
         
@@ -415,21 +418,21 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
             
             
             
-            let details:NSMutableDictionary = ["From":studentID,
-                                               "To":teacherID,
+            let details:NSMutableDictionary = ["From":studentID!,
+                                               "To":teacherID!,
                                                "Type":msgType,
                                                "Body":messageBody];
             
             let msg = SSMessage()
             msg.setMsgDetails( details)
             
-            let xmlBody:String = msg.XMLMessage()
+            let xmlBody:String = msg.xmlMessage()
             
-            MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
+            MessageManager.sharedMessageHandler().sendMessage(to: "\(teacherID!)@\(kBaseXMPPURL)", withContents: xmlBody)
         }
     }
     
-    func sendDoubtMessageToTeacherWithQueryId(queryId:String)
+    func sendDoubtMessageToTeacherWithQueryId(_ queryId:String)
     {
         
         
@@ -445,22 +448,22 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
             
             
             
-            let details:NSMutableDictionary = ["From":studentID,
-                                               "To":teacherID,
+            let details:NSMutableDictionary = ["From":studentID!,
+                                               "To":teacherID!,
                                                "Type" :msgType,
                                                "Body":messageBody];
             
             let msg = SSMessage()
             msg.setMsgDetails( details)
             
-            let xmlBody:String = msg.XMLMessage()
+            let xmlBody:String = msg.xmlMessage()
             
-            MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
+            MessageManager.sharedMessageHandler().sendMessage(to: "\(teacherID!)@\(kBaseXMPPURL)", withContents: xmlBody)
         }
     }
     
     
-    func sendDoubtWithdrwanFromStudentWithQueryId(queryId:String)
+    func sendDoubtWithdrwanFromStudentWithQueryId(_ queryId:String)
     {
         
         
@@ -476,17 +479,17 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
             
             
             
-            let details:NSMutableDictionary = ["From":studentID,
-                                               "To":teacherID,
+            let details:NSMutableDictionary = ["From":studentID!,
+                                               "To":teacherID!,
                                                "Type":msgType,
                                                "Body":messageBody];
             
             let msg = SSMessage()
             msg.setMsgDetails( details)
             
-            let xmlBody:String = msg.XMLMessage()
+            let xmlBody:String = msg.xmlMessage()
             
-            MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
+            MessageManager.sharedMessageHandler().sendMessage(to: "\(teacherID!)@\(kBaseXMPPURL)", withContents: xmlBody)
         }
     }
     
@@ -502,19 +505,19 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
             let teacherID           = SSStudentDataSource.sharedDataSource.currentTeacherId
             
             
-            let details:NSMutableDictionary = ["From":studentID,
-                                               "To":teacherID,
+            let details:NSMutableDictionary = ["From":studentID!,
+                                               "To":teacherID!,
                                                "Type":msgType];
             
             let msg = SSMessage()
             msg.setMsgDetails( details)
             
-            let xmlBody:String = msg.XMLMessage()
+            let xmlBody:String = msg.xmlMessage()
             
-            MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
+            MessageManager.sharedMessageHandler().sendMessage(to: "\(teacherID!)@\(kBaseXMPPURL)", withContents: xmlBody)
         }
     }
-    func sendMeTooMessageToTeacherWithQueryId(queryid:String)
+    func sendMeTooMessageToTeacherWithQueryId(_ queryid:String)
     {
         
         
@@ -530,21 +533,21 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
             
             
             
-            let details:NSMutableDictionary = ["From":studentID,
-                                               "To":teacherID,
+            let details:NSMutableDictionary = ["From":studentID!,
+                                               "To":teacherID!,
                                                "Type":msgType,
                                                "Body":messageBody];
             
             let msg = SSMessage()
             msg.setMsgDetails( details)
             
-            let xmlBody:String = msg.XMLMessage()
+            let xmlBody:String = msg.xmlMessage()
             
-            MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
+            MessageManager.sharedMessageHandler().sendMessage(to: "\(teacherID!)@\(kBaseXMPPURL)", withContents: xmlBody)
         }
     }
     
-    func sendIVolunteerMessageToTeacher(queryid:String, withvolunteerId volunteerId:String)
+    func sendIVolunteerMessageToTeacher(_ queryid:String, withvolunteerId volunteerId:String)
     {
         
         
@@ -559,21 +562,21 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
             
             
             
-            let details:NSMutableDictionary = ["From":studentID,
-                                               "To":teacherID,
+            let details:NSMutableDictionary = ["From":studentID!,
+                                               "To":teacherID!,
                                                "Type":msgType,
                                                "Body":messageBody];
             
             let msg = SSMessage()
             msg.setMsgDetails( details)
             
-            let xmlBody:String = msg.XMLMessage()
+            let xmlBody:String = msg.xmlMessage()
             
-            MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
+            MessageManager.sharedMessageHandler().sendMessage(to: "\(teacherID!)@\(kBaseXMPPURL)", withContents: xmlBody)
         }
     }
     
-    func sendQueryLikedAndDislikeMessagetoTeacherwithNewVote(newvote:String)
+    func sendQueryLikedAndDislikeMessagetoTeacherwithNewVote(_ newvote:String)
     {
         
         
@@ -589,20 +592,20 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
             
             
             
-            let details:NSMutableDictionary = ["From":studentID,
-                                               "To":teacherID,
+            let details:NSMutableDictionary = ["From":studentID!,
+                                               "To":teacherID!,
                                                "Type":msgType,
                                                "Body":messageBody];
             
             let msg = SSMessage()
             msg.setMsgDetails( details)
             
-            let xmlBody:String = msg.XMLMessage()
+            let xmlBody:String = msg.xmlMessage()
             
-            MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
+            MessageManager.sharedMessageHandler().sendMessage(to: "\(teacherID!)@\(kBaseXMPPURL)", withContents: xmlBody)
         }
     }
-    func sendQueryVolunteerVotesMessagetoTeacherwithOldvolde( oldVote:String, withNewVote newvote:String)
+    func sendQueryVolunteerVotesMessagetoTeacherwithOldvolde( _ oldVote:String, withNewVote newvote:String)
     {
         
         
@@ -618,22 +621,22 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
             
             
             
-            let details:NSMutableDictionary = ["From":studentID,
-                                               "To":teacherID,
+            let details:NSMutableDictionary = ["From":studentID!,
+                                               "To":teacherID!,
                                                "Type":msgType,
                                                "Body":messageBody];
             
             let msg = SSMessage()
             msg.setMsgDetails( details)
             
-            let xmlBody:String = msg.XMLMessage()
+            let xmlBody:String = msg.xmlMessage()
             
-            MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
+            MessageManager.sharedMessageHandler().sendMessage(to: "\(teacherID!)@\(kBaseXMPPURL)", withContents: xmlBody)
         }
     }
     
     
-    func sendQueryUnderstoodMessageWithQueryID(QueryId:String)
+    func sendQueryUnderstoodMessageWithQueryID(_ QueryId:String)
     {
         
         
@@ -649,20 +652,20 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
             
             
             
-            let details:NSMutableDictionary = ["From":studentID,
-                                               "To":teacherID,
+            let details:NSMutableDictionary = ["From":studentID!,
+                                               "To":teacherID!,
                                                "Type":msgType,
                                                "Body":messageBody];
             
             let msg = SSMessage()
             msg.setMsgDetails( details)
             
-            let xmlBody:String = msg.XMLMessage()
+            let xmlBody:String = msg.xmlMessage()
             
-            MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
+            MessageManager.sharedMessageHandler().sendMessage(to: "\(teacherID!)@\(kBaseXMPPURL)", withContents: xmlBody)
         }
     }
-    func sendPollOptionSelectedWithoptionText(optiontext:String)
+    func sendPollOptionSelectedWithoptionText(_ optiontext:String)
     {
         if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true &&  SSStudentDataSource.sharedDataSource.currentTeacherId != nil)
         {
@@ -676,20 +679,20 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
             
             
             
-            let details:NSMutableDictionary = ["From":studentID,
-                                               "To":teacherID,
+            let details:NSMutableDictionary = ["From":studentID!,
+                                               "To":teacherID!,
                                                "Type":msgType,
                                                "Body":messageBody];
             
             let msg = SSMessage()
             msg.setMsgDetails( details)
             
-            let xmlBody:String = msg.XMLMessage()
+            let xmlBody:String = msg.xmlMessage()
             
-            MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
+            MessageManager.sharedMessageHandler().sendMessage(to: "\(teacherID!)@\(kBaseXMPPURL)", withContents: xmlBody)
         }
     }
-    func sendPeakViewMessageToTeacherWithImageData(imageData:String)
+    func sendPeakViewMessageToTeacherWithImageData(_ imageData:String)
     {
         if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true &&  SSStudentDataSource.sharedDataSource.currentTeacherId != nil)
         {
@@ -703,21 +706,21 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
             
             
             
-            let details:NSMutableDictionary = ["From":studentID,
-                                               "To":teacherID,
+            let details:NSMutableDictionary = ["From":studentID!,
+                                               "To":teacherID!,
                                                "Type":msgType,
                                                "Body":messageBody];
             
             let msg = SSMessage()
             msg.setMsgDetails( details)
             
-            let xmlBody:String = msg.XMLMessage()
+            let xmlBody:String = msg.xmlMessage()
             
-            MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
+            MessageManager.sharedMessageHandler().sendMessage(to: "\(teacherID!)@\(kBaseXMPPURL)", withContents: xmlBody)
         }
     }
     
-    func sendOneStringAnswerWithAnswer(answerString:String)
+    func sendOneStringAnswerWithAnswer(_ answerString:String)
     {
         if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true &&  SSStudentDataSource.sharedDataSource.currentTeacherId != nil)
         {
@@ -731,237 +734,284 @@ public class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Me
             
             
             
-            let details:NSMutableDictionary = ["From":studentID,
-                                               "To":teacherID,
+            let details:NSMutableDictionary = ["From":studentID!,
+                                               "To":teacherID!,
                                                "Type":msgType,
                                                "Body":messageBody];
             
             let msg = SSMessage()
             msg.setMsgDetails( details)
             
-            let xmlBody:String = msg.XMLMessage()
+            let xmlBody:String = msg.xmlMessage()
             
-            MessageManager.sharedMessageHandler().sendMessageTo("\(teacherID)@\(kBaseXMPPURL)", withContents: xmlBody)
+            MessageManager.sharedMessageHandler().sendMessage(to: "\(teacherID!)@\(kBaseXMPPURL)", withContents: xmlBody)
         }
     }
     
+    
+    
+    func sendCollaborationSuggestion(_ suggestion:String, withSuggestionID SuggestionId:String)
+    {
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true &&  SSStudentDataSource.sharedDataSource.currentTeacherId != nil)
+        {
+            let studentID           = SSStudentDataSource.sharedDataSource.currentUserId
+            let msgType             = kCollaborationOption
+            let teacherID           = SSStudentDataSource.sharedDataSource.currentTeacherId
+            
+            
+            let messageBody = ["suggestion":suggestion,
+                               "SuggestionId":SuggestionId,
+                               "studentID":studentID,
+                               "StudentName":SSStudentDataSource.sharedDataSource.currentUserName]
+            
+            
+            
+            
+            let details:NSMutableDictionary = ["From":studentID!,
+                                               "To":teacherID!,
+                                               "Type":msgType,
+                                               "Body":messageBody];
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.xmlMessage()
+            
+            MessageManager.sharedMessageHandler().sendMessage(to: "\(teacherID!)@\(kBaseXMPPURL)", withContents: xmlBody)
+        }
+    }
+    
+    
+    
+    
     //MARK: Recieve Message
-    public func didReceiveMessageWithBody(body: String!)
+    open func didReceiveMessage(withBody body: String!)
     {
         
-        let message = SSMessage.init(XMLString: body)
+        let message = SSMessage.init(xmlString: body)
         
         
-        if message.messageType() == nil
+        if message?.messageType() == nil
         {
             return
         }
         
         
-        if message.messageType() == kTimeExtended
+        if message?.messageType() == kTimeExtended
         {
-            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhDidgetTimeExtendedWithDetails))
+            if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidgetTimeExtendedWithDetails))
             {
-                delegate().smhDidgetTimeExtendedWithDetails!(message.messageBody())
+                delegate().smhDidgetTimeExtendedWithDetails!(message!.messageBody() as AnyObject)
             }
         }
-        else if message.messageType() == kTeacherEndsSession
+        else if message?.messageType() == kTeacherEndsSession
         {
-            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhDidGetSessionEndMessageWithDetails(_:)))
+            if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidGetSessionEndMessageWithDetails(_:)))
             {
-                delegate().smhDidGetSessionEndMessageWithDetails!(message.messageBody())
+                delegate().smhDidGetSessionEndMessageWithDetails!(message!.messageBody() as AnyObject)
             }
         }
-        else if message.messageType() == kSeatingChanged
+        else if message?.messageType() == kSeatingChanged
         {
-            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhDidGetSeatingChangedWithDetails))
+            if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidGetSeatingChangedWithDetails))
             {
-                delegate().smhDidGetSeatingChangedWithDetails!(message.messageBody())
+                delegate().smhDidGetSeatingChangedWithDetails!(message!.messageBody() as AnyObject)
             }
         }
-        else if message.messageType() == kAllowVoiting
+        else if message?.messageType() == kAllowVoiting
         {
-            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhDidGetVotingMessageWithDetails(_:)))
+            if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidGetVotingMessageWithDetails(_:)))
             {
-                if message.messageBody() != nil
+                if message?.messageBody() != nil
                 {
-                    delegate().smhDidGetVotingMessageWithDetails!(message.messageBody())
+                    delegate().smhDidGetVotingMessageWithDetails!(message!.messageBody() as AnyObject)
                 }
                 
             }
         }
 
-        else if message.messageType() == kTeacherQnASubmitted
+        else if message?.messageType() == kTeacherQnASubmitted
         {
-            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhdidReceiveQuestionSentMessage(_:)))
+            if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhdidReceiveQuestionSentMessage(_:)))
             {
-                if message.messageBody() != nil
+                if message?.messageBody() != nil
                 {
-                    delegate().smhdidReceiveQuestionSentMessage!(message.messageBody())
+                    delegate().smhdidReceiveQuestionSentMessage!(message!.messageBody() as AnyObject)
                 }
                 
             }
         }
-        else if message.messageType() == kTeacherQnADone
+        else if message?.messageType() == kTeacherQnADone
         {
-            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhdidReceiveQuestionClearMessage))
+            if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhdidReceiveQuestionClearMessage))
             {
                 
                 delegate().smhdidReceiveQuestionClearMessage!()
             }
         }
-        else if message.messageType() == kTeacherQnAFreeze
+        else if message?.messageType() == kTeacherQnAFreeze
         {
-            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhdidReceiveQuestionFreezMessage))
+            if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhdidReceiveQuestionFreezMessage))
             {
                 
                 delegate().smhdidReceiveQuestionFreezMessage!()
             }
         }
-        else if message.messageType() == kReplyToQuery
+        else if message?.messageType() == kReplyToQuery
         {
-            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhdidGetQueryFeedBackFromTeacherWithDetials(_:)))
+            if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhdidGetQueryFeedBackFromTeacherWithDetials(_:)))
             {
                 
-                if message.messageBody() != nil
+                if message?.messageBody() != nil
                 {
-                    delegate().smhdidGetQueryFeedBackFromTeacherWithDetials!(message.messageBody())
+                    delegate().smhdidGetQueryFeedBackFromTeacherWithDetials!(message!.messageBody() as AnyObject)
                 }
             }
             
         }
-        else if message.messageType() == kTeacherReviewDoubt
+        else if message?.messageType() == kTeacherReviewDoubt
         {
-            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhdidRecieveQueryReviewmessage))
+            if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhdidRecieveQueryReviewmessage))
             {
                 delegate().smhdidRecieveQueryReviewmessage!()
             }
             
         }
-        else if message.messageType() == kQueryStartedForVolunteer
+        else if message?.messageType() == kQueryStartedForVolunteer
         {
-            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhdidRecieveQueryOpenedForVotingWithDetails))
+            if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhdidRecieveQueryOpenedForVotingWithDetails))
             {
                 delegate().smhdidRecieveQueryOpenedForVotingWithDetails!()
             }
             
         }
-        else if message.messageType() == kEndVolunteeringSession
+        else if message?.messageType() == kEndVolunteeringSession
         {
-            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhdidRecieveQueryVolunteeringEnded))
+            if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhdidRecieveQueryVolunteeringEnded))
             {
                 delegate().smhdidRecieveQueryVolunteeringEnded!()
             }
             
         }
-        else if message.messageType() == kQueryAnswering
+        else if message?.messageType() == kQueryAnswering
         {
-            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhDidRecieveQueryAnsweringMessageWithDetails(_:)))
+            if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidRecieveQueryAnsweringMessageWithDetails(_:)))
             {
                 
-                if message.messageBody() != nil
+                if message?.messageBody() != nil
                 {
-                   delegate().smhDidRecieveQueryAnsweringMessageWithDetails!(message.messageBody())
+                   delegate().smhDidRecieveQueryAnsweringMessageWithDetails!(message!.messageBody() as AnyObject)
                 }
                 
                 
             }
             
         }
-        else if message.messageType() == kQueryCloseVoting
+        else if message?.messageType() == kQueryCloseVoting
         {
-            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhdidRecieveQueryVolunteeringClosedMessageWithDetails(_:)))
+            if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhdidRecieveQueryVolunteeringClosedMessageWithDetails(_:)))
             {
                 
-                if message.messageBody() != nil
+                if message?.messageBody() != nil
                 {
-                    delegate().smhdidRecieveQueryVolunteeringClosedMessageWithDetails!(message.messageBody())
+                    delegate().smhdidRecieveQueryVolunteeringClosedMessageWithDetails!(message!.messageBody() as AnyObject)
                 }
                 
                 
             }
             
         }
-        else if message.messageType() == kSendPollMessageToStudents
+        else if message?.messageType() == kSendPollMessageToStudents
         {
-            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhDidRecievePollingStartedMessageWithDetails(_:)))
+            if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidRecievePollingStartedMessageWithDetails(_:)))
             {
                 
-                if message.messageBody() != nil
+                if message?.messageBody() != nil
                 {
-                    delegate().smhDidRecievePollingStartedMessageWithDetails!(message.messageBody())
+                    delegate().smhDidRecievePollingStartedMessageWithDetails!(message!.messageBody() as AnyObject)
                 }
                 
                 
             }
             
         }
-        else if message.messageType() == kSendPollStoppedToStudent
+        else if message?.messageType() == kSendPollStoppedToStudent
         {
-            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhDidGetPollEndedMessageFromteacher))
+            if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidGetPollEndedMessageFromteacher))
             {
                 
                 delegate().smhDidGetPollEndedMessageFromteacher!()
             }
         }
-        else if message.messageType() == kSharegraph
+        else if message?.messageType() == kSharegraph
         {
-            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhDidGetGraphSharedWithDetails(_:)))
+            if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidGetGraphSharedWithDetails(_:)))
             {
                 
-                if message.messageBody() != nil
+                if message?.messageBody() != nil
                 {
-                   delegate().smhDidGetGraphSharedWithDetails!(message.messageBody())
+                   delegate().smhDidGetGraphSharedWithDetails!(message!.messageBody() as AnyObject)
                 }
             }
         }
-        else if message.messageType() == kTeacherHandRaiseInReview
+        else if message?.messageType() == kTeacherHandRaiseInReview
         {
-            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhDidGetTeacherReviewMessage))
+            if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidGetTeacherReviewMessage))
             {
                 
                 delegate().smhDidGetTeacherReviewMessage!()
             }
         }
-        else if message.messageType() == kSendFeedBack
+        else if message?.messageType() == kSendFeedBack
         {
-            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhDidGetFeedbackForAnswerWithDetils(_:)))
+            if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidGetFeedbackForAnswerWithDetils(_:)))
             {
-                if message.messageBody() != nil
+                if message?.messageBody() != nil
                 {
-                    delegate().smhDidGetFeedbackForAnswerWithDetils!(message.messageBody())
+                    delegate().smhDidGetFeedbackForAnswerWithDetils!(message!.messageBody() as AnyObject)
                 }
                 
             }
         }
-        else if message.messageType() == kGetPeakView
+        else if message?.messageType() == kGetPeakView
         {
-            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhDidGetPeakViewMessage))
+            if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidGetPeakViewMessage))
             {
                 delegate().smhDidGetPeakViewMessage!()
                 
             }
         }
-        else if message.messageType() == kModelAnswerDetails
+        else if message?.messageType() == kModelAnswerDetails
         {
-            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhdidRecieveModelAnswerMessageWithDetials(_:)))
+            if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhdidRecieveModelAnswerMessageWithDetials(_:)))
             {
-                if message.messageBody() != nil
+                if message?.messageBody() != nil
                 {
-                    delegate().smhdidRecieveModelAnswerMessageWithDetials!((message.messageBody()))
+                    delegate().smhdidRecieveModelAnswerMessageWithDetials!((message!.messageBody() as AnyObject))
                 }
             }
         }
-        else if message.messageType() == kMuteStudent
+        else if message?.messageType() == kMuteStudent
         {
-            if delegate().respondsToSelector(#selector(SSStudentMessageHandlerDelegate.smhDidRecieveMutemessageWithDetails(_:)))
+            if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidRecieveMutemessageWithDetails(_:)))
             {
-                if message.messageBody() != nil
+                if message?.messageBody() != nil
                 {
-                    delegate().smhDidRecieveMutemessageWithDetails!((message.messageBody()))
+                    delegate().smhDidRecieveMutemessageWithDetails!((message!.messageBody() as AnyObject))
                 }
             }
         }
+        else if message?.messageType() == kCollaborationPing
+        {
+            if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidRecieveCollaborationPingFromTeacher(_:)))
+            {
+                if message?.messageBody() != nil
+                {
+                    delegate().smhDidRecieveCollaborationPingFromTeacher!((message!.messageBody() as AnyObject))
+                }
+            }
+        }
+        
     }
 }
 

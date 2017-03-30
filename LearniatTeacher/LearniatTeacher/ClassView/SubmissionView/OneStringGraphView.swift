@@ -12,7 +12,7 @@ import Foundation
 @objc protocol OneStringGraphViewDelegate
 {
     
-    optional func delegateWordCloudButtonPressed()
+    @objc optional func delegateWordCloudButtonPressed()
     
     
     
@@ -48,7 +48,7 @@ class OneStringGraphView: UIView
     
     var wordCloudButton = UIButton()
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -64,26 +64,26 @@ class OneStringGraphView: UIView
         super.init(frame: frame)
         
         
-        wordCloudButton.frame = CGRectMake(self.frame.size.width - 130 , 10, 120, 40)
+        wordCloudButton.frame = CGRect(x: self.frame.size.width - 130 , y: 10, width: 120, height: 40)
         self.addSubview(wordCloudButton)
         wordCloudButton.backgroundColor = standard_Button
-        wordCloudButton.setTitleColor(whiteColor, forState: .Normal)
-        wordCloudButton.setTitle("Word cloud", forState: .Normal)
-        wordCloudButton.addTarget(self, action: #selector(OneStringGraphView.onWordCloudButton), forControlEvents: UIControlEvents.TouchUpInside)
+        wordCloudButton.setTitleColor(whiteColor, for: UIControlState())
+        wordCloudButton.setTitle("Word cloud", for: UIControlState())
+        wordCloudButton.addTarget(self, action: #selector(OneStringGraphView.onWordCloudButton), for: UIControlEvents.touchUpInside)
 
         
-        questionNamelabel.frame =  CGRectMake(10,10,self.frame.size.width - 130 ,40)
+        questionNamelabel.frame =  CGRect(x: 10,y: 10,width: self.frame.size.width - 130 ,height: 40)
         self.addSubview(questionNamelabel)
         questionNamelabel.font = UIFont (name: helveticaRegular, size: 18)
         questionNamelabel.textColor = blackTextColor
-        questionNamelabel.textAlignment = .Center
+        questionNamelabel.textAlignment = .center
         
 
-        lineContainerView.frame  = CGRectMake(0, questionNamelabel.frame.size.height + questionNamelabel.frame.origin.y + 20 , self.frame.size.width, self.frame.size.height - (questionNamelabel.frame.size.height + questionNamelabel.frame.origin.y + 100))
+        lineContainerView.frame  = CGRect(x: 0, y: questionNamelabel.frame.size.height + questionNamelabel.frame.origin.y + 20 , width: self.frame.size.width, height: self.frame.size.height - (questionNamelabel.frame.size.height + questionNamelabel.frame.origin.y + 100))
         self.addSubview(lineContainerView)
         
         
-        optionsScrollView.frame = CGRectMake(100, questionNamelabel.frame.size.height + questionNamelabel.frame.origin.y + 20 , lineContainerView.frame.size.width - 100 , self.frame.size.height - (questionNamelabel.frame.size.height + questionNamelabel.frame.origin.y + 20))
+        optionsScrollView.frame = CGRect(x: 100, y: questionNamelabel.frame.size.height + questionNamelabel.frame.origin.y + 20 , width: lineContainerView.frame.size.width - 100 , height: self.frame.size.height - (questionNamelabel.frame.size.height + questionNamelabel.frame.origin.y + 20))
         self.addSubview(optionsScrollView)
         
         
@@ -96,12 +96,12 @@ class OneStringGraphView: UIView
             if (i % 2 == 0)
             {
                 
-                let lineView = UIImageView(frame:CGRectMake(100, height, self.frame.size.width - 100, 1))
+                let lineView = UIImageView(frame:CGRect(x: 100, y: height, width: self.frame.size.width - 100, height: 1))
                 lineView.backgroundColor = UIColor(red: 117/255.0, green: 117/255.0, blue: 117/255.0, alpha: 0.3)
                 lineContainerView.addSubview(lineView);
                 
                 
-                let lable = UILabel(frame:CGRectMake(60, height-25, 100, 50))
+                let lable = UILabel(frame:CGRect(x: 60, y: height-25, width: 100, height: 50))
                 lable.text = "\(i)"
                 lineContainerView.addSubview(lable);
                 lable.textColor = blackTextColor
@@ -111,8 +111,8 @@ class OneStringGraphView: UIView
             else
             {
                 
-                let lineView = DottedLine(frame:CGRectMake(100, height, self.frame.size.width - 100, 1))
-                lineView.drawDashedBorderAroundViewWithColor(UIColor(red: 117/255.0, green: 117/255.0, blue: 117/255.0, alpha: 0.3))
+                let lineView = DottedLine(frame:CGRect(x: 100, y: height, width: self.frame.size.width - 100, height: 1))
+                lineView.drawDashedBorderAroundView(with: UIColor(red: 117/255.0, green: 117/255.0, blue: 117/255.0, alpha: 0.3))
                 lineContainerView.addSubview(lineView);
                 
             }
@@ -133,7 +133,7 @@ class OneStringGraphView: UIView
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setQuestionName(questionName :String, withDetails details:AnyObject)
+    func setQuestionName(_ questionName :String, withDetails details:AnyObject)
     {
          questionNamelabel.text = questionName
         
@@ -141,19 +141,16 @@ class OneStringGraphView: UIView
         print(details)
         currentOptionsArray.removeAllObjects()
         
-        if let options = details.objectForKey("Options")
+        if let options = details.object(forKey: "Options")
         {
-            if let classCheckingVariable = options.objectForKey("Option")
+            if let classCheckingVariable = (options as AnyObject).object(forKey: "Option") as? NSMutableArray
             {
-                if classCheckingVariable.isKindOfClass(NSMutableArray)
-                {
-                    currentOptionsArray = classCheckingVariable as! NSMutableArray
-                }
-                else
-                {
-                    currentOptionsArray.addObject(details.objectForKey("Options")!.objectForKey("Option")!)
-                    
-                }
+                currentOptionsArray = classCheckingVariable
+            }
+            else
+            {
+                currentOptionsArray.add((details.object(forKey: "Options")! as AnyObject).object(forKey: "Option")!)
+                
             }
         }
         
@@ -162,25 +159,25 @@ class OneStringGraphView: UIView
         
     }
     
-    func setOptionWithString(optionString:String, withCheckingState state:Bool)
+    func setOptionWithString(_ optionString:String, withCheckingState state:Bool)
     {
-        if optionIdDictionary.objectForKey(optionString) == nil
+        if optionIdDictionary.object(forKey: optionString.removeWhitespace().removeSpecialCharsFromString().capitalized) == nil
         {
-            optionIdDictionary.setObject("\(OptionIdValue)", forKey: optionString)
+            optionIdDictionary.setObject("\(OptionIdValue)", forKey: optionString.removeWhitespace().removeSpecialCharsFromString().capitalized as NSCopying)
             
-            let optionsLabel = FXLabel(frame: CGRectMake(positionX , lineContainerView.frame.size.height + 5, 100 ,optionsScrollView.frame.size.height - (lineContainerView.frame.size.height + 10)));
+            let optionsLabel = FXLabel(frame: CGRect(x: positionX , y: lineContainerView.frame.size.height + 5, width: 100 ,height: optionsScrollView.frame.size.height - (lineContainerView.frame.size.height + 10)));
             optionsScrollView.addSubview(optionsLabel)
-            optionsLabel.lineBreakMode = .ByTruncatingMiddle;
+            optionsLabel.lineBreakMode = .byTruncatingMiddle;
             optionsLabel.numberOfLines = 5;
-            optionsLabel.textAlignment = .Center;
-            optionsLabel.contentMode = .Top;
+            optionsLabel.textAlignment = .center;
+            optionsLabel.contentMode = .top;
             optionsLabel.textColor = blackTextColor
-            optionsLabel.backgroundColor = UIColor.clearColor()
+            optionsLabel.backgroundColor = UIColor.clear
             
             optionsLabel.text = optionString
             
             
-            let barView = BarView(frame: CGRectMake(positionX ,lineContainerView.frame.size.height, optionsLabel.frame.size.width ,0))
+            let barView = BarView(frame: CGRect(x: positionX ,y: lineContainerView.frame.size.height, width: optionsLabel.frame.size.width ,height: 0))
             optionsScrollView.addSubview(barView)
 //            barView.addTarget(self, action: #selector(StudentAnswerGraphView.onBarButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             barView.tag = OptionIdValue
@@ -191,9 +188,9 @@ class OneStringGraphView: UIView
             
             for index in currentOptionsArray
             {
-                if let optionText = index.objectForKey("OptionText") as? String
+                if let optionText = (index as AnyObject).object(forKey: "OptionText") as? String
                 {
-                    if optionText.removeWhitespace().removeSpecialCharsFromString().capitalizedString == optionString.removeWhitespace().removeSpecialCharsFromString().capitalizedString
+                    if optionText.removeWhitespace().removeSpecialCharsFromString().capitalized == optionString.removeWhitespace().removeSpecialCharsFromString().capitalized
                     {
                         barView.setBarColor( standard_Green)
                         break
@@ -215,7 +212,7 @@ class OneStringGraphView: UIView
             presentValue = presentValue * differenceheight
             
             
-            barView.frame = CGRectMake(barView.frame.origin.x ,lineContainerView.frame.size.height - presentValue  , barView.frame.size.width ,presentValue)
+            barView.frame = CGRect(x: barView.frame.origin.x ,y: lineContainerView.frame.size.height - presentValue  , width: barView.frame.size.width ,height: presentValue)
             
             
             barView.changeFrameWithHeight(presentValue)
@@ -224,16 +221,16 @@ class OneStringGraphView: UIView
             
             OptionIdValue = OptionIdValue + 1
             
-            optionsScrollView.contentSize = CGSizeMake(positionX, 0)
+            optionsScrollView.contentSize = CGSize(width: positionX, height: 0)
             
             
             
         }
         else
         {
-          if  let optionString = optionIdDictionary.objectForKey(optionString) as? String
+          if  let optionStringValue = optionIdDictionary.object(forKey: (optionString.removeWhitespace().removeSpecialCharsFromString().capitalized)) as? String
           {
-                let optionValue = Int(optionString)
+                let optionValue = Int(optionStringValue)
                 if let answerBar  = self.viewWithTag(optionValue!) as? BarView
                 {
                     answerBar.increasePresentValue()
@@ -245,7 +242,7 @@ class OneStringGraphView: UIView
                     presentValue = presentValue * differenceheight
                     
                     
-                    answerBar.frame = CGRectMake(answerBar.frame.origin.x ,lineContainerView.frame.size.height - presentValue  , answerBar.frame.size.width ,presentValue)
+                    answerBar.frame = CGRect(x: answerBar.frame.origin.x ,y: lineContainerView.frame.size.height - presentValue  , width: answerBar.frame.size.width ,height: presentValue)
                     
                     
                     answerBar.changeFrameWithHeight(presentValue)
@@ -260,12 +257,12 @@ class OneStringGraphView: UIView
                         let subViews = optionsScrollView.subviews.flatMap{ $0 as? BarView }
                         for updatedbarImageview in subViews
                         {
-                            if updatedbarImageview.isKindOfClass(BarView)
+                            if updatedbarImageview.isKind(of: BarView.self)
                             {
                                 
                                 var presentValue:CGFloat = CGFloat(updatedbarImageview.presentValue)
                                 presentValue = presentValue * differenceheight
-                                updatedbarImageview.frame = CGRectMake(updatedbarImageview.frame.origin.x ,self.lineContainerView.frame.size.height - presentValue  , updatedbarImageview.frame.size.width ,presentValue)
+                                updatedbarImageview.frame = CGRect(x: updatedbarImageview.frame.origin.x ,y: self.lineContainerView.frame.size.height - presentValue  , width: updatedbarImageview.frame.size.width ,height: presentValue)
                                 updatedbarImageview.changeFrameWithHeight(presentValue)
                                 
                                 

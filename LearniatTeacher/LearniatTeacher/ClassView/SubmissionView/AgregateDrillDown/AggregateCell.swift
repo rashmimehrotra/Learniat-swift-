@@ -21,45 +21,45 @@ class AggregateCell: UIView
         super.init(frame:frame)
         
         
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clear
         
         
         
         // Initialization code
 
-        studentName.frame = CGRectMake(70 ,20, 200, 25);
-        studentName.textAlignment = .Left;
+        studentName.frame = CGRect(x: 70 ,y: 20, width: 200, height: 25);
+        studentName.textAlignment = .left;
         studentName.font =  UIFont(name: helveticaRegular, size: 16);
         self.addSubview(studentName)
         
-         graspLevelLabel.frame = CGRectMake(195 ,20, 100, 25);
-        graspLevelLabel.textAlignment = .Right;
+         graspLevelLabel.frame = CGRect(x: 195 ,y: 20, width: 100, height: 25);
+        graspLevelLabel.textAlignment = .right;
         graspLevelLabel.font = UIFont(name: helveticaRegular, size: 16);
 
         
         
         
-        studentImage.frame =  CGRectMake(20 ,15, 40,40);
+        studentImage.frame =  CGRect(x: 20 ,y: 15, width: 40,height: 40);
         studentImage.layer.cornerRadius=studentImage.frame.size.width/8;
         studentImage.layer.masksToBounds = true;
         self.addSubview(studentImage)
         
         
-        progressView.type                     = .Flat;
-        progressView.stripesAnimated = false;
+        progressView.type                     = .flat;
+        progressView.isStripesAnimated = false;
         progressView.hideStripes     = true;
         progressView.trackTintColor = UIColor(red: 213/255.0, green:213/255.0, blue:213/255.0, alpha: 1) //EEEEEE
-        progressView.frame = CGRectMake(70, 50, 305, 4);
-        progressView.userInteractionEnabled = false;
+        progressView.frame = CGRect(x: 70, y: 50, width: 305, height: 4);
+        progressView.isUserInteractionEnabled = false;
         self.addSubview(progressView)
         
         
-        graspImageView.frame = CGRectMake(325, 12, 50,32);
+        graspImageView.frame = CGRect(x: 325, y: 12, width: 50,height: 32);
         self.addSubview(graspImageView)
         
         
         
-        let seperatorView = UIView(frame: CGRectMake(0 ,self.frame.size.height - 2 , self.frame.size.width,2))
+        let seperatorView = UIView(frame: CGRect(x: 0 ,y: self.frame.size.height - 2 , width: self.frame.size.width,height: 2))
         seperatorView.backgroundColor = topicsLineColor;
         self.addSubview(seperatorView)
 
@@ -76,16 +76,16 @@ class AggregateCell: UIView
     }
     
     
-    func addStudentId(studentId:NSString, withName name:NSString, withgraspLevel grasp:NSString, withParticipation participation:Float)
+    func addStudentId(_ studentId:NSString, withName name:NSString, withgraspLevel grasp:NSString, withParticipation participation:Float)
     {
         studentName.text = name as String
         
-        let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_UserProfileImageURL) as! String
+        let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
         
-        if let checkedUrl = NSURL(string: "\(urlString)/\(studentId)_79px.jpg")
+        if let checkedUrl = URL(string: "\(urlString)/\(studentId)_79px.jpg")
         {
-            studentImage.contentMode = .ScaleAspectFit
-            studentImage.downloadImage(checkedUrl, withFolderType: folderType.ProFilePics)
+            studentImage.contentMode = .scaleAspectFit
+            studentImage.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
         }
         
         

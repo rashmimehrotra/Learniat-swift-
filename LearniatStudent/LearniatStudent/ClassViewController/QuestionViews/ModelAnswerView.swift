@@ -23,18 +23,18 @@ class ModelAnswerView: UIView
         super.init(frame:frame)
         
         
-        modelAnswerLabel.frame = CGRectMake(5, 0, self.frame.size.width - 10 , 35)
-        modelAnswerLabel.textColor = UIColor.whiteColor()
+        modelAnswerLabel.frame = CGRect(x: 5, y: 0, width: self.frame.size.width - 10 , height: 35)
+        modelAnswerLabel.textColor = UIColor.white
         self.addSubview(modelAnswerLabel)
-        modelAnswerLabel.lineBreakMode = NSLineBreakMode.ByTruncatingTail;
+        modelAnswerLabel.lineBreakMode = NSLineBreakMode.byTruncatingTail;
         modelAnswerLabel.font = UIFont(name: "Roboto-Regular", size: 12)
         modelAnswerLabel.numberOfLines = 4
-        modelAnswerLabel.textAlignment = .Center
+        modelAnswerLabel.textAlignment = .center
         
         
-        containerView.frame = CGRectMake(5,35, 90,60)
+        containerView.frame = CGRect(x: 5,y: 35, width: 90,height: 60)
         self.addSubview(containerView)
-        containerView.backgroundColor = UIColor.whiteColor()
+        containerView.backgroundColor = UIColor.white
         
         
         
@@ -54,40 +54,40 @@ class ModelAnswerView: UIView
     }
     
     
-    func setScribbleImageName(scribbleName:String , withOverlayImage overlay:UIImage)
+    func setScribbleImageName(_ scribbleName:String , withOverlayImage overlay:UIImage)
     {
         
         
         let overlayImage = UIImageView(frame:containerView.frame)
         self.addSubview(overlayImage)
-        overlayImage.contentMode = .ScaleAspectFit
+        overlayImage.contentMode = .scaleAspectFit
         overlayImage.image = overlay
         
         
         
-        let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_SCRIBBLE_IMAGE_URL) as! String
+        let urlString = UserDefaults.standard.object(forKey: k_INI_SCRIBBLE_IMAGE_URL) as! String
         
-        if let checkedUrl = NSURL(string: "\(urlString)/\(scribbleName)")
+        if let checkedUrl = URL(string: "\(urlString)/\(scribbleName)")
         {
-            let teacherImage = UIImageView(frame:containerView.frame)
+            let teacherImage = CustomProgressImageView(frame:containerView.frame)
             self.addSubview(teacherImage)
-            teacherImage.contentMode = .ScaleAspectFit
-            teacherImage.downloadImage(checkedUrl, withFolderType: folderType.StudentAnswer, withResizeValue: teacherImage.frame.size)
+            teacherImage.contentMode = .scaleAspectFit
+            teacherImage.downloadImage(checkedUrl, withFolderType: folderType.studentAnswer, withResizeValue: teacherImage.frame.size)
         }
     }
     
-    func setTextAnswerText(textAnswer:String)
+    func setTextAnswerText(_ textAnswer:String)
     {
          let testAnswerLable = UILabel()
         testAnswerLable.frame = containerView.frame
         testAnswerLable.textColor = textColor
         self.addSubview(testAnswerLable)
-        testAnswerLable.lineBreakMode = NSLineBreakMode.ByTruncatingTail;
+        testAnswerLable.lineBreakMode = NSLineBreakMode.byTruncatingTail;
         testAnswerLable.font = UIFont(name: "Roboto-Regular", size: 12)
         testAnswerLable.numberOfLines = 10
-        testAnswerLable.backgroundColor = UIColor.whiteColor()
-        containerView.bringSubviewToFront(testAnswerLable)
-        testAnswerLable.textAlignment = .Center
+        testAnswerLable.backgroundColor = UIColor.white
+        containerView.bringSubview(toFront: testAnswerLable)
+        testAnswerLable.textAlignment = .center
         testAnswerLable.text = textAnswer
     }
     

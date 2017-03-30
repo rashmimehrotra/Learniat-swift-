@@ -47,7 +47,7 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
     
     var _delgate: AnyObject!
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -64,45 +64,45 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
         super.init(frame: frame)
         
         
-        mTopbarImageView = UIImageView(frame: CGRectMake(0, 0, self.frame.size.width, 60))
+        mTopbarImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 60))
         mTopbarImageView.backgroundColor = lightGrayTopBar
         self.addSubview(mTopbarImageView)
-        mTopbarImageView.userInteractionEnabled = true
+        mTopbarImageView.isUserInteractionEnabled = true
         
         
-        mSendButton.frame = CGRectMake(mTopbarImageView.frame.size.width - 210, 0,200,mTopbarImageView.frame.size.height )
+        mSendButton.frame = CGRect(x: mTopbarImageView.frame.size.width - 210, y: 0,width: 200,height: mTopbarImageView.frame.size.height )
         mTopbarImageView.addSubview(mSendButton)
-        mSendButton.addTarget(self, action: #selector(TextTypeQuestionView.onSendButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mSendButton.setTitle("Send", forState: .Normal)
-        mSendButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        mSendButton.addTarget(self, action: #selector(TextTypeQuestionView.onSendButton), for: UIControlEvents.touchUpInside)
+        mSendButton.setTitle("Send", for: UIControlState())
+        mSendButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         mSendButton.titleLabel?.font = UIFont (name: helveticaMedium, size: 20)
-        mSendButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
-        mSendButton.enabled = false
+        mSendButton.setTitleColor(UIColor.lightGray, for: UIControlState())
+        mSendButton.isEnabled = false
         
         
-        sendButtonSpinner = UIActivityIndicatorView(activityIndicatorStyle:.WhiteLarge);
+        sendButtonSpinner = UIActivityIndicatorView(activityIndicatorStyle:.whiteLarge);
         sendButtonSpinner.frame = mSendButton.frame;
         mTopbarImageView.addSubview(sendButtonSpinner);
-        sendButtonSpinner.hidden = true;
+        sendButtonSpinner.isHidden = true;
         
 
         
         
-        mDontKnow.frame = CGRectMake(10, 0,200,mTopbarImageView.frame.size.height )
+        mDontKnow.frame = CGRect(x: 10, y: 0,width: 200,height: mTopbarImageView.frame.size.height )
         mTopbarImageView.addSubview(mDontKnow)
-        mDontKnow.addTarget(self, action: #selector(TextTypeQuestionView.onDontKnowButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mDontKnow.setTitle("Don't know", forState: .Normal)
-        mDontKnow.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
-        mDontKnow.setTitleColor(standard_Button, forState: .Normal)
+        mDontKnow.addTarget(self, action: #selector(TextTypeQuestionView.onDontKnowButton), for: UIControlEvents.touchUpInside)
+        mDontKnow.setTitle("Don't know", for: UIControlState())
+        mDontKnow.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
+        mDontKnow.setTitleColor(standard_Button, for: UIControlState())
         mDontKnow.titleLabel?.font = UIFont (name: helveticaMedium, size: 20)
         
-        mQuestionLabel.frame = CGRectMake(10, mTopbarImageView.frame.size.height + mTopbarImageView.frame.origin.y, self.frame.size.width-20, 80)
+        mQuestionLabel.frame = CGRect(x: 10, y: mTopbarImageView.frame.size.height + mTopbarImageView.frame.origin.y, width: self.frame.size.width-20, height: 80)
         mQuestionLabel.numberOfLines = 20;
-        mQuestionLabel.textAlignment = .Center
+        mQuestionLabel.textAlignment = .center
         self.addSubview(mQuestionLabel)
         mQuestionLabel.textColor = topbarColor
         mQuestionLabel.font = UIFont (name: helveticaRegular, size: 20)
-        mQuestionLabel.lineBreakMode = .ByTruncatingMiddle
+        mQuestionLabel.lineBreakMode = .byTruncatingMiddle
         
      
         var remainingHeight = self.frame.size.height  - (mQuestionLabel.frame.size.height + mQuestionLabel.frame.origin.y)
@@ -111,27 +111,27 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
         
         
         
-        mContainerView.frame = CGRectMake((self.frame.size.width - (remainingHeight * 1.5))/2 ,mQuestionLabel.frame.size.height + mQuestionLabel.frame.origin.y , remainingHeight * 1.5 , remainingHeight)
+        mContainerView.frame = CGRect(x: (self.frame.size.width - (remainingHeight * 1.5))/2 ,y: mQuestionLabel.frame.size.height + mQuestionLabel.frame.origin.y , width: remainingHeight * 1.5 , height: remainingHeight)
         self.addSubview(mContainerView)
-        mContainerView.backgroundColor = UIColor.whiteColor()
-        mContainerView.layer.shadowColor = progressviewBackground.CGColor;
-        mContainerView.layer.shadowOffset = CGSizeMake(0,0);
+        mContainerView.backgroundColor = UIColor.white
+        mContainerView.layer.shadowColor = progressviewBackground.cgColor;
+        mContainerView.layer.shadowOffset = CGSize(width: 0,height: 0);
         mContainerView.layer.shadowOpacity = 1;
         mContainerView.layer.shadowRadius = 1.0;
         mContainerView.clipsToBounds = false;
-        mContainerView.layer.borderColor = topicsLineColor.CGColor
+        mContainerView.layer.borderColor = topicsLineColor.cgColor
         mContainerView.layer.borderWidth = 1
-        mContainerView.hidden = true
+        mContainerView.isHidden = true
         
         
-        mAnswerLabel.frame = CGRectMake(0,0,mContainerView.frame.size.width,mContainerView.frame.size.height)
+        mAnswerLabel.frame = CGRect(x: 0,y: 0,width: mContainerView.frame.size.width,height: mContainerView.frame.size.height)
         mContainerView.addSubview(mAnswerLabel)
         mAnswerLabel.font = UIFont (name: helveticaRegular, size: 18)
         mAnswerLabel.numberOfLines = 100
-        mAnswerLabel.lineBreakMode = .ByWordWrapping
+        mAnswerLabel.lineBreakMode = .byWordWrapping
         mAnswerLabel.textColor = topbarColor
         
-        mAnswerTextView = CustomTextView(frame:CGRectMake((self.frame.size.width - (remainingHeight * 1.5))/2 ,mQuestionLabel.frame.size.height + mQuestionLabel.frame.origin.y , remainingHeight * 1.5 , 160))
+        mAnswerTextView = CustomTextView(frame:CGRect(x: (self.frame.size.width - (remainingHeight * 1.5))/2 ,y: mQuestionLabel.frame.size.height + mQuestionLabel.frame.origin.y , width: remainingHeight * 1.5 , height: 160))
         self.addSubview(mAnswerTextView)
         mAnswerTextView.setdelegate(self)
         mAnswerTextView.setPlaceHolder("Write your answer", withStartSting: "answer")
@@ -139,25 +139,25 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
         
         
         self.addSubview(mReplyStatusLabel)
-        mReplyStatusLabel.textColor = UIColor.whiteColor()
+        mReplyStatusLabel.textColor = UIColor.white
         mReplyStatusLabel.backgroundColor = dark_Yellow
         mReplyStatusLabel.font = UIFont (name: helveticaBold, size: 16)
-        mReplyStatusLabel.textAlignment = .Center
+        mReplyStatusLabel.textAlignment = .center
         
         
-        mWithDrawButton.frame = CGRectMake(mContainerView.frame.origin.x, mContainerView.frame.size.height + mContainerView.frame.origin.y + 1, mContainerView.frame.size.width, 40)
+        mWithDrawButton.frame = CGRect(x: mContainerView.frame.origin.x, y: mContainerView.frame.size.height + mContainerView.frame.origin.y + 1, width: mContainerView.frame.size.width, height: 40)
         self.addSubview(mWithDrawButton)
-        mWithDrawButton.setTitle("Withdraw", forState: .Normal)
-        mWithDrawButton.setTitleColor(standard_Button, forState: .Normal)
-        mWithDrawButton.addTarget(self, action: #selector(TextTypeQuestionView.onWithDrawButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mWithDrawButton.layer.borderColor = topicsLineColor.CGColor
+        mWithDrawButton.setTitle("Withdraw", for: UIControlState())
+        mWithDrawButton.setTitleColor(standard_Button, for: UIControlState())
+        mWithDrawButton.addTarget(self, action: #selector(TextTypeQuestionView.onWithDrawButton), for: UIControlEvents.touchUpInside)
+        mWithDrawButton.layer.borderColor = topicsLineColor.cgColor
         mWithDrawButton.layer.borderWidth = 1
         mWithDrawButton.backgroundColor = whiteColor
-        mWithDrawButton.hidden = true
+        mWithDrawButton.isHidden = true
 
-        modelAnswerScrollView.frame = CGRectMake(self.frame.size.width - 110, mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height, 110, self.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height));
+        modelAnswerScrollView.frame = CGRect(x: self.frame.size.width - 110, y: mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height, width: 110, height: self.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height));
         self.addSubview(modelAnswerScrollView)
-        modelAnswerScrollView.hidden = true
+        modelAnswerScrollView.isHidden = true
         
         let longGesture = UITapGestureRecognizer(target: self, action: #selector(ScribbleQuestionView.Long)) //Long function will call when user long press on button.
         modelAnswerScrollView.addGestureRecognizer(longGesture)
@@ -170,16 +170,16 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
     func Long()
     {
         
-        let modelAnswerFullView = ModelAnswerFullView(frame:CGRectMake(10,10,self.frame.size.width - 20, self.frame.size.height - 20 ))
+        let modelAnswerFullView = ModelAnswerFullView(frame:CGRect(x: 10,y: 10,width: self.frame.size.width - 20, height: self.frame.size.height - 20 ))
         self.addSubview(modelAnswerFullView)
         modelAnswerFullView.setModelAnswerDetailsArray(modelAnswerArray, withQuestionName: mQuestionLabel.text!,withOverlayImage: UIImage())
         
                
         modelAnswerFullView.layer.shadowRadius = 1.0;
         
-        modelAnswerFullView.layer.shadowColor = UIColor.blackColor().CGColor
+        modelAnswerFullView.layer.shadowColor = UIColor.black.cgColor
         modelAnswerFullView.layer.shadowOpacity = 0.3
-        modelAnswerFullView.layer.shadowOffset = CGSizeZero
+        modelAnswerFullView.layer.shadowOffset = CGSize.zero
         modelAnswerFullView.layer.shadowRadius = 10
 
         
@@ -195,18 +195,18 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
     }
     
     
-    func setQuestionDetails(details:AnyObject, withsessionDetails _sessionDetails:AnyObject, withQuestionLogId _logId:String)
+    func setQuestionDetails(_ details:AnyObject, withsessionDetails _sessionDetails:AnyObject, withQuestionLogId _logId:String)
     {
         currentQuestionDetails = details
         questionLogId = _logId
         sessionDetails = _sessionDetails
         
-        currentQuestionType = (details.objectForKey(kQuestionType) as? String)
+        currentQuestionType = (details.object(forKey: kQuestionType) as? String)
         
         
-        if (details.objectForKey(kQuestionName) as? String) != ""
+        if (details.object(forKey: kQuestionName) as? String) != ""
         {
-            mQuestionLabel.text = (details.objectForKey(kQuestionName) as? String)
+            mQuestionLabel.text = (details.object(forKey: kQuestionName) as? String)
         }
     }
     
@@ -215,17 +215,17 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
     {
        if  mAnswerTextView.getTextOfCurrentTextView() != ""
        {
-            sendButtonSpinner.hidden = false
+            sendButtonSpinner.isHidden = false
             sendButtonSpinner.startAnimating()
-            mSendButton.hidden = true
-            mWithDrawButton.hidden = false
-            SSStudentDataSource.sharedDataSource.sendTextAnswer(mAnswerTextView.getTextOfCurrentTextView(), withQuestionType: currentQuestionType, withQuestionLogId: questionLogId, withsessionId: (sessionDetails.objectForKey("SessionId") as! String), withDelegate: self)
-            mAnswerTextView.hidden = true
-            mContainerView.hidden = false
+            mSendButton.isHidden = true
+            mWithDrawButton.isHidden = false
+            SSStudentDataSource.sharedDataSource.sendTextAnswer(mAnswerTextView.getTextOfCurrentTextView(), withQuestionType: currentQuestionType, withQuestionLogId: questionLogId, withsessionId: (sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+            mAnswerTextView.isHidden = true
+            mContainerView.isHidden = false
         
             mAnswerLabel.text = mAnswerTextView.getTextOfCurrentTextView()
             let height =  heightForView(mAnswerLabel.text!, font: mAnswerLabel.font, width: mAnswerLabel.frame.size.width)
-            mAnswerLabel.frame = CGRectMake(5, 5, mAnswerLabel.frame.size.width - 10 , height )
+            mAnswerLabel.frame = CGRect(x: 5, y: 5, width: mAnswerLabel.frame.size.width - 10 , height: height )
         
         }
         
@@ -236,56 +236,56 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
     {
         SSStudentMessageHandler.sharedMessageHandler.sendDontKnowMessageToTeacher()
         
-        mReplyStatusLabel.frame = CGRectMake((self.frame.size.width - (mTopbarImageView.frame.size.height * 2)) / 2, 0, mTopbarImageView.frame.size.height * 2, mTopbarImageView.frame.size.height / 1.5)
-        mReplyStatusLabel.hidden = false
+        mReplyStatusLabel.frame = CGRect(x: (self.frame.size.width - (mTopbarImageView.frame.size.height * 2)) / 2, y: 0, width: mTopbarImageView.frame.size.height * 2, height: mTopbarImageView.frame.size.height / 1.5)
+        mReplyStatusLabel.isHidden = false
         mReplyStatusLabel.text = "Don't Know"
         
-        mAnswerTextView.hidden = true
-        mTopbarImageView.hidden = true
-        mContainerView.hidden = false
+        mAnswerTextView.isHidden = true
+        mTopbarImageView.isHidden = true
+        mContainerView.isHidden = false
         
         mAnswerLabel.text = mAnswerTextView.getTextOfCurrentTextView()
         
         let height =  heightForView(mAnswerLabel.text!, font: mAnswerLabel.font, width: mAnswerLabel.frame.size.width)
-        mAnswerLabel.frame = CGRectMake(5, 5, mAnswerLabel.frame.size.width - 10 , height )
+        mAnswerLabel.frame = CGRect(x: 5, y: 5, width: mAnswerLabel.frame.size.width - 10 , height: height )
 
-        mWithDrawButton.hidden = true
+        mWithDrawButton.isHidden = true
         SSStudentDataSource.sharedDataSource.answerSent = true
     }
     
     
     func onWithDrawButton()
     {
-        mContainerView.hidden = true
-        mAnswerTextView.hidden = false
-        mWithDrawButton.hidden = true
-        mTopbarImageView.hidden = false
-        mSendButton.hidden = false
-        mReplyStatusLabel.hidden = true
-        sendButtonSpinner.hidden = true
+        mContainerView.isHidden = true
+        mAnswerTextView.isHidden = false
+        mWithDrawButton.isHidden = true
+        mTopbarImageView.isHidden = false
+        mSendButton.isHidden = false
+        mReplyStatusLabel.isHidden = true
+        sendButtonSpinner.isHidden = true
         sendButtonSpinner.stopAnimating()
 
         SSStudentMessageHandler.sharedMessageHandler.sendWithDrawMessageToTeacher()
     }
     
-    func didGetAnswerSentWithDetails(details: AnyObject)
+    func didGetAnswerSentWithDetails(_ details: AnyObject)
     {
-        SSStudentMessageHandler.sharedMessageHandler.sendAnswerToQuestionMessageToTeacherWithAnswerString(details.objectForKey("AssessmentAnswerId") as! String)
+        SSStudentMessageHandler.sharedMessageHandler.sendAnswerToQuestionMessageToTeacherWithAnswerString(details.object(forKey: "AssessmentAnswerId") as! String)
         
         
-        mReplyStatusLabel.frame = CGRectMake((self.frame.size.width - (mTopbarImageView.frame.size.height * 2)) / 2, 0, mTopbarImageView.frame.size.height * 2, mTopbarImageView.frame.size.height / 1.5)
+        mReplyStatusLabel.frame = CGRect(x: (self.frame.size.width - (mTopbarImageView.frame.size.height * 2)) / 2, y: 0, width: mTopbarImageView.frame.size.height * 2, height: mTopbarImageView.frame.size.height / 1.5)
         
-        mReplyStatusLabel.hidden = false
+        mReplyStatusLabel.isHidden = false
         
         mReplyStatusLabel.text = "Reply sent"
         
-        mTopbarImageView.hidden = true
+        mTopbarImageView.isHidden = true
         
         
-        mWithDrawButton.hidden = true
+        mWithDrawButton.isHidden = true
         
         SSStudentDataSource.sharedDataSource.answerSent = true
-        mWithDrawButton.hidden = false
+        mWithDrawButton.isHidden = false
         
         if isModelAnswerRecieved  == true
         {
@@ -294,27 +294,27 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
         
     }
     
-    func didgetErrorMessage(message: String, WithServiceName serviceName: String)
+    func didgetErrorMessage(_ message: String, WithServiceName serviceName: String)
     {
-        sendButtonSpinner.hidden = true
+        sendButtonSpinner.isHidden = true
         sendButtonSpinner.stopAnimating()
-        mSendButton.hidden = false
+        mSendButton.isHidden = false
         
     }
     
     func didGetEvaluatingMessage()
     {
-        mWithDrawButton.hidden = true
+        mWithDrawButton.isHidden = true
         mReplyStatusLabel.text = "Evaluating..."
     }
     
-    func getFeedBackDetails(details:AnyObject)
+    func getFeedBackDetails(_ details:AnyObject)
     {
         
         
         mReplyStatusLabel.text = "Evaluated"
         
-        let teacherReplyStatusView = UIImageView(frame:CGRectMake(mWithDrawButton.frame.origin.x, mWithDrawButton.frame.origin.y, mWithDrawButton.frame.size.width, mWithDrawButton.frame.size.height))
+        let teacherReplyStatusView = UIImageView(frame:CGRect(x: mWithDrawButton.frame.origin.x, y: mWithDrawButton.frame.origin.y, width: mWithDrawButton.frame.size.width, height: mWithDrawButton.frame.size.height))
         teacherReplyStatusView.backgroundColor = topbarColor
         self.addSubview(teacherReplyStatusView)
         
@@ -323,18 +323,18 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
         var badgeValue    = 0
         var starCount   = 0
         
-        if (details.objectForKey("BadgeId") != nil)
+        if (details.object(forKey: "BadgeId") != nil)
         {
-            if let badgeId = details.objectForKey("BadgeId") as? String
+            if let badgeId = details.object(forKey: "BadgeId") as? String
             {
                 badgeValue = Int(badgeId)!
             }
         }
         
         
-        if (details.objectForKey("Rating") != nil)
+        if (details.object(forKey: "Rating") != nil)
         {
-            if let Rating = details.objectForKey("Rating") as? String
+            if let Rating = details.object(forKey: "Rating") as? String
             {
                 starCount = Int(Rating)!
             }
@@ -352,9 +352,9 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
             }
             
             
-            let starBackGround = UIImageView(frame: CGRectMake(width, 0, teacherReplyStatusView.frame.size.height*CGFloat(starCount) , teacherReplyStatusView.frame.size.height))
+            let starBackGround = UIImageView(frame: CGRect(x: width, y: 0, width: teacherReplyStatusView.frame.size.height*CGFloat(starCount) , height: teacherReplyStatusView.frame.size.height))
             teacherReplyStatusView.addSubview(starBackGround)
-            starBackGround.backgroundColor = UIColor.clearColor()
+            starBackGround.backgroundColor = UIColor.clear
             
             
             
@@ -370,10 +370,10 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
             var positionX:CGFloat = 0
             for _ in 0  ..< starCount
             {
-                let starImage = UIImageView(frame: CGRectMake(positionX,0, starWidth ,starBackGround.frame.size.height))
+                let starImage = UIImageView(frame: CGRect(x: positionX,y: 0, width: starWidth ,height: starBackGround.frame.size.height))
                 starBackGround.addSubview(starImage)
                 starImage.image = UIImage(named: "Star_Selected.png")
-                starImage.contentMode = .ScaleAspectFit
+                starImage.contentMode = .scaleAspectFit
                 positionX = positionX + starImage.frame.size.width + starSpace
             }
             
@@ -385,17 +385,17 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
             if badgeValue > 0
             {
                 
-                let badgeImage = UIImageView(frame: CGRectMake(teacherReplyStatusView.frame.size.width - (starWidth + 10) ,0, starWidth ,starBackGround.frame.size.height))
+                let badgeImage = CustomProgressImageView(frame: CGRect(x: teacherReplyStatusView.frame.size.width - (starWidth + 10) ,y: 0, width: starWidth ,height: starBackGround.frame.size.height))
                 teacherReplyStatusView.addSubview(badgeImage)
                 badgeImage.image = UIImage(named: "ic_thumb_up_green_48dp.png")
                 
                 
                 
-                let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_Badges) as! String
+                let urlString = UserDefaults.standard.object(forKey: k_INI_Badges) as! String
                 
-                if let checkedUrl = NSURL(string: ("\(urlString)/\(badgeValue).png"))
+                if let checkedUrl = URL(string: ("\(urlString)/\(badgeValue).png"))
                 {
-                    badgeImage.contentMode = .ScaleAspectFit
+                    badgeImage.contentMode = .scaleAspectFit
                     badgeImage.downloadImage(checkedUrl, withFolderType: folderType.badgesImages)
                 }
                 
@@ -408,17 +408,17 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
         }
         
         
-        if (details.objectForKey("ImagePath") != nil)
+        if (details.object(forKey: "ImagePath") != nil)
         {
-            if let Scribble = details.objectForKey("ImagePath") as? String
+            if let Scribble = details.object(forKey: "ImagePath") as? String
             {
-                let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_QuestionsImageUrl) as! String
+                let urlString = UserDefaults.standard.object(forKey: k_INI_QuestionsImageUrl) as! String
                 
-                if let checkedUrl = NSURL(string: "\(urlString)/\(Scribble).png")
+                if let checkedUrl = URL(string: "\(urlString)/\(Scribble).png")
                 {
-                    let teacherImage = UIImageView(frame:CGRectMake(0, 0, mContainerView.frame.size.width, mContainerView.frame.size.height))
+                    let teacherImage = CustomProgressImageView(frame:CGRect(x: 0, y: 0, width: mContainerView.frame.size.width, height: mContainerView.frame.size.height))
                     mContainerView.addSubview(teacherImage)
-                    teacherImage.contentMode = .ScaleAspectFit
+                    teacherImage.contentMode = .scaleAspectFit
                     teacherImage.downloadImage(checkedUrl, withFolderType: folderType.questionImage)
                 }
             }
@@ -437,7 +437,7 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
             
         }
         
-        mReplyStatusLabel.hidden = false
+        mReplyStatusLabel.isHidden = false
         mReplyStatusLabel.text = "Frozen"
         
     }
@@ -456,30 +456,30 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
         
     }
 
-    func delegateTextViewTextChanged(chnagedText:String)
+    func delegateTextViewTextChanged(_ chnagedText:String)
     {
         if chnagedText != ""
         {
-            mSendButton.enabled = true
-            mSendButton.setTitleColor(standard_Button, forState: .Normal)
+            mSendButton.isEnabled = true
+            mSendButton.setTitleColor(standard_Button, for: UIControlState())
             
             
         }
         else
         {
-            mSendButton.enabled = false
-            mSendButton.setTitleColor(lightGrayColor, forState: .Normal)
+            mSendButton.isEnabled = false
+            mSendButton.setTitleColor(lightGrayColor, for: UIControlState())
             
 
         }
     }
     
     
-    func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat
+    func heightForView(_ text:String, font:UIFont, width:CGFloat) -> CGFloat
     {
-        let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max))
+        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
         label.numberOfLines = 0
-        label.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.font = font
         label.text = text
         
@@ -500,7 +500,7 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
             isModelAnswerRecieved = true
         }
     }
-    func didGetAllModelAnswerWithDetails(details: AnyObject)
+    func didGetAllModelAnswerWithDetails(_ details: AnyObject)
     {
         
         
@@ -511,13 +511,13 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
         
         for subview in subViews
         {
-            if subview.isKindOfClass(ModelAnswerView)
+            if subview.isKind(of: ModelAnswerView.self)
             {
                 subview.removeFromSuperview()
             }
         }
         
-        if let _modelAnswerArray = details.objectForKey("AssessmentAnswerIdList")?.objectForKey("AssessmentAnswerId") as? NSMutableArray
+        if let _modelAnswerArray = (details.object(forKey: "AssessmentAnswerIdList") as AnyObject).object(forKey: "AssessmentAnswerId") as? NSMutableArray
         {
             showModelAnswerWithDetailsArray(_modelAnswerArray)
             modelAnswerArray = _modelAnswerArray
@@ -525,7 +525,7 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
         else
         {
             let testVariable :NSMutableArray = NSMutableArray()
-            testVariable.addObject(details.objectForKey("AssessmentAnswerIdList")!.objectForKey("AssessmentAnswerId")!)
+            testVariable.add((details.object(forKey: "AssessmentAnswerIdList")! as AnyObject).object(forKey: "AssessmentAnswerId")!)
             showModelAnswerWithDetailsArray(testVariable)
             modelAnswerArray = testVariable
             
@@ -533,7 +533,7 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
         
     }
     
-    func showModelAnswerWithDetailsArray(modelAnswersArray:NSMutableArray)
+    func showModelAnswerWithDetailsArray(_ modelAnswersArray:NSMutableArray)
     {
         print(modelAnswersArray)
         
@@ -542,14 +542,14 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
         
         for subview in subViews
         {
-            if subview.isKindOfClass(ModelAnswerView)
+            if subview.isKind(of: ModelAnswerView.self)
             {
                 subview.removeFromSuperview()
             }
         }
         
         
-        modelAnswerScrollView.hidden = false
+        modelAnswerScrollView.isHidden = false
         
         
         var positionY:CGFloat = 10
@@ -557,12 +557,12 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
         for index in 0  ..< modelAnswersArray.count
         {
             
-            let dict = modelAnswersArray.objectAtIndex(index)
+            let dict = modelAnswersArray.object(at: index)
             
-            let modelAnswer  = ModelAnswerView(frame: CGRectMake(5, positionY, 100, 100))
+            let modelAnswer  = ModelAnswerView(frame: CGRect(x: 5, y: positionY, width: 100, height: 100))
             modelAnswerScrollView.addSubview(modelAnswer)
-            if dict.objectForKey("TextAnswer") != nil{
-                if let TextAnswer = dict.objectForKey("TextAnswer") as? String
+            if (dict as AnyObject).object(forKey: "TextAnswer") != nil{
+                if let TextAnswer = (dict as AnyObject).object(forKey: "TextAnswer") as? String
                 {
                     modelAnswer.setTextAnswerText(TextAnswer)
                 }
@@ -571,7 +571,7 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
             
             
             
-            if dict.objectForKey("StudentId") as! String == SSStudentDataSource.sharedDataSource.currentUserId
+            if (dict as AnyObject).object(forKey: "StudentId") as! String == SSStudentDataSource.sharedDataSource.currentUserId
             {
                 modelAnswer.backgroundColor = standard_Green
                 modelAnswer.modelAnswerLabel.text = "Your answer selected as model answer"
@@ -587,9 +587,9 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
             
         }
         
-        modelAnswerScrollView.contentSize = CGSizeMake(0,positionY)
-        mWithDrawButton.hidden = true
-        mTopbarImageView.hidden = true
+        modelAnswerScrollView.contentSize = CGSize(width: 0,height: positionY)
+        mWithDrawButton.isHidden = true
+        mTopbarImageView.isHidden = true
         
         
     }

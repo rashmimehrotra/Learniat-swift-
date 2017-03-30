@@ -11,7 +11,7 @@ import UIKit
 class StudentOTFView: UIView
 {
      var mStudentSidePolling     :StudentPollingView!
-    
+    var mStudentCollaborationView : StudentCollaborationView!
     override init(frame: CGRect)
     {
         super.init(frame: frame)
@@ -25,9 +25,7 @@ class StudentOTFView: UIView
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    
-    func didGetPollingStartedWithDetills(details:AnyObject)
+    func didGetCollaborationStartedMessageWithCategoryName(_ category:String , withCategoryID categoryId:String)
     {
         if mStudentSidePolling != nil{
             mStudentSidePolling.removeFromSuperview()
@@ -35,7 +33,28 @@ class StudentOTFView: UIView
             
         }
         
-        mStudentSidePolling = StudentPollingView(frame:CGRectMake(0,0,self.frame.size.width, self.frame.size.height))
+        if mStudentCollaborationView != nil{
+            mStudentCollaborationView.removeFromSuperview()
+            mStudentCollaborationView = nil
+            
+        }
+        
+        mStudentCollaborationView = StudentCollaborationView(frame:CGRect(x: 0,y: 0,width: self.frame.size.width, height: self.frame.size.height))
+        self.addSubview(mStudentCollaborationView)
+        mStudentCollaborationView.setCategoryName(category, withCategoryID: categoryId)
+        
+    }
+    
+    
+    func didGetPollingStartedWithDetills(_ details:AnyObject)
+    {
+        if mStudentSidePolling != nil{
+            mStudentSidePolling.removeFromSuperview()
+            mStudentSidePolling = nil
+            
+        }
+        
+        mStudentSidePolling = StudentPollingView(frame:CGRect(x: 0,y: 0,width: self.frame.size.width, height: self.frame.size.height))
         self.addSubview(mStudentSidePolling)
         mStudentSidePolling.setQuestionOptionsWithDetails(details)
         

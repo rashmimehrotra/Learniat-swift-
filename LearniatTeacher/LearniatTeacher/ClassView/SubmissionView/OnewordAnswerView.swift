@@ -11,7 +11,7 @@ import Foundation
 @objc protocol OnewordAnswerViewDelegate
 {
     
-    optional func delegateGraphButtonPressed()
+    @objc optional func delegateGraphButtonPressed()
     
     
     
@@ -36,7 +36,7 @@ class OnewordAnswerView: UIView
     
     var currentOptionsArray  = NSMutableArray()
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -53,47 +53,45 @@ class OnewordAnswerView: UIView
         
         
         
-        graphButton.frame = CGRectMake(self.frame.size.width - 130 , 10, 120, 40)
+        graphButton.frame = CGRect(x: self.frame.size.width - 130 , y: 10, width: 120, height: 40)
         self.addSubview(graphButton)
         graphButton.backgroundColor = standard_Button
-        graphButton.setTitleColor(whiteColor, forState: .Normal)
-        graphButton.setTitle("Graph", forState: .Normal)
-        graphButton.addTarget(self, action: #selector(OnewordAnswerView.onGraphButton), forControlEvents: UIControlEvents.TouchUpInside)
+        graphButton.setTitleColor(whiteColor, for: UIControlState())
+        graphButton.setTitle("Graph", for: UIControlState())
+        graphButton.addTarget(self, action: #selector(OnewordAnswerView.onGraphButton), for: UIControlEvents.touchUpInside)
         
-        questionNamelabel.frame =  CGRectMake(10,10,self.frame.size.width - 130 ,40)
+        questionNamelabel.frame =  CGRect(x: 10,y: 10,width: self.frame.size.width - 130 ,height: 40)
         self.addSubview(questionNamelabel)
         questionNamelabel.font = UIFont (name: helveticaRegular, size: 18)
         questionNamelabel.textColor = blackTextColor
-        questionNamelabel.textAlignment = .Center
+        questionNamelabel.textAlignment = .center
         
         
-        wordCloudLabel.frame = CGRectMake(10, questionNamelabel.frame.size.height + questionNamelabel.frame.origin.y + 10  , self.frame.size.width - 20 , self.frame.size.height - (questionNamelabel.frame.size.height + questionNamelabel.frame.origin.y + 20))
+        wordCloudLabel.frame = CGRect(x: 10, y: questionNamelabel.frame.size.height + questionNamelabel.frame.origin.y + 10  , width: self.frame.size.width - 20 , height: self.frame.size.height - (questionNamelabel.frame.size.height + questionNamelabel.frame.origin.y + 20))
         self.addSubview(wordCloudLabel)
-        wordCloudLabel.textColor = UIColor.blueColor()
-        wordCloudLabel.editable = false
+        wordCloudLabel.textColor = UIColor.blue
+        wordCloudLabel.isEditable = false
 
     }
     
-    func setQuestionName(questionName :String, withDetails details:AnyObject)
+    func setQuestionName(_ questionName :String, withDetails details:AnyObject)
     {
         questionNamelabel.text = questionName
         
         
         currentOptionsArray.removeAllObjects()
         
-        if let options = details.objectForKey("Options")
+        if let options = details.object(forKey: "Options")
         {
-            if let classCheckingVariable = options.objectForKey("Option")
+            if let classCheckingVariable = (options as AnyObject).object(forKey: "Option") as? NSMutableArray
             {
-                if classCheckingVariable.isKindOfClass(NSMutableArray)
-                {
-                    currentOptionsArray = classCheckingVariable as! NSMutableArray
-                }
-                else
-                {
-                    currentOptionsArray.addObject(details.objectForKey("Options")!.objectForKey("Option")!)
-                    
-                }
+               currentOptionsArray = classCheckingVariable
+                
+            }
+            else
+            {
+                currentOptionsArray.add((details.object(forKey: "Options")! as AnyObject).object(forKey: "Option")!)
+                
             }
         }
         
@@ -105,7 +103,7 @@ class OnewordAnswerView: UIView
         delegate().delegateGraphButtonPressed!()
     }
     
-    func setOptionWithString(studentWord:String)
+    func setOptionWithString(_ studentWord:String)
     {
         
         var wordFont = wordDictonary[studentWord]
@@ -137,10 +135,10 @@ class OnewordAnswerView: UIView
             if wordFontValue != nil
             {
                 let str = NSString(string: OldString)
-                let theRange = str.rangeOfString(keyvalue)
+                let theRange = str.range(of: keyvalue)
                 
                 
-                mutableString.addAttribute(NSFontAttributeName, value: UIFont.systemFontOfSize(CGFloat(wordFontValue!)) , range: theRange)
+                mutableString.addAttribute(NSFontAttributeName, value: UIFont.systemFont(ofSize: CGFloat(wordFontValue!)) , range: theRange)
             }
             
             

@@ -70,48 +70,48 @@ class SetupGridview: UIViewController,SSTeacherDataSourceDelegate,UIAlertViewDel
         
         self.view.backgroundColor = whiteBackgroundColor
         
-        mTopbarImageView = UIImageView(frame: CGRectMake(0, 0, self.view.frame.size.width, 60))
+        mTopbarImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 60))
         mTopbarImageView.backgroundColor = topbarColor
         self.view.addSubview(mTopbarImageView)
-        mTopbarImageView.userInteractionEnabled = true
-        mTopbarImageView.userInteractionEnabled = true
+        mTopbarImageView.isUserInteractionEnabled = true
+        mTopbarImageView.isUserInteractionEnabled = true
         
         
         
-        let  mBackButton = UIButton(frame: CGRectMake(10, 0,mTopbarImageView.frame.size.height * 2,mTopbarImageView.frame.size.height ))
+        let  mBackButton = UIButton(frame: CGRect(x: 10, y: 0,width: mTopbarImageView.frame.size.height * 2,height: mTopbarImageView.frame.size.height ))
         mTopbarImageView.addSubview(mBackButton)
-        mBackButton.setTitle("Back", forState: .Normal)
-        mBackButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        mBackButton.setTitle("Back", for: UIControlState())
+        mBackButton.setTitleColor(UIColor.white, for: UIControlState())
         mBackButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
-        mBackButton.addTarget(self, action: #selector(SetupGridview.onBack), forControlEvents: UIControlEvents.TouchUpInside)
-        mBackButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
+        mBackButton.addTarget(self, action: #selector(SetupGridview.onBack), for: UIControlEvents.touchUpInside)
+        mBackButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
         
         
-        mDoneButton.frame = CGRectMake(mTopbarImageView.frame.size.width - ((mTopbarImageView.frame.size.height * 2) + 10), 0,mTopbarImageView.frame.size.height * 2,mTopbarImageView.frame.size.height )
+        mDoneButton.frame = CGRect(x: mTopbarImageView.frame.size.width - ((mTopbarImageView.frame.size.height * 2) + 10), y: 0,width: mTopbarImageView.frame.size.height * 2,height: mTopbarImageView.frame.size.height )
         mTopbarImageView.addSubview(mDoneButton)
-        mDoneButton.setTitle("Done", forState: .Normal)
-        mDoneButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        mDoneButton.setTitle("Done", for: UIControlState())
+        mDoneButton.setTitleColor(UIColor.white, for: UIControlState())
         mDoneButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
-        mDoneButton.addTarget(self, action: #selector(SetupGridview.onDone), forControlEvents: UIControlEvents.TouchUpInside)
-        mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
-        mDoneButton.hidden = true
+        mDoneButton.addTarget(self, action: #selector(SetupGridview.onDone), for: UIControlEvents.touchUpInside)
+        mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
+        mDoneButton.isHidden = true
         
         
-        registerdStudentsLable.frame =  CGRectMake(10,mTopbarImageView.frame.size.height + 10 ,self.view.frame.size.width - 20 ,mTopbarImageView.frame.size.height)
+        registerdStudentsLable.frame =  CGRect(x: 10,y: mTopbarImageView.frame.size.height + 10 ,width: self.view.frame.size.width - 20 ,height: mTopbarImageView.frame.size.height)
         self.view.addSubview(registerdStudentsLable)
         registerdStudentsLable.font = UIFont (name: helveticaRegular, size: 18)
         registerdStudentsLable.textColor = blackTextColor
-        registerdStudentsLable.textAlignment = .Center
+        registerdStudentsLable.textAlignment = .center
         registerdStudentsLable.text = "YOU HAVE 0 STUDENTS REGISTERED FOR THIS CLASS. PLEASE SELECT A GRID WITH AT LEAST 0 SEATS"
         
         
-        containerView.frame = CGRectMake(20,(registerdStudentsLable.frame.origin.y + registerdStudentsLable.frame.size.height + 5) ,self.view.frame.size.width - 40 ,self.view.frame.size.height - (registerdStudentsLable.frame.origin.y + registerdStudentsLable.frame.size.height + 40))
+        containerView.frame = CGRect(x: 20,y: (registerdStudentsLable.frame.origin.y + registerdStudentsLable.frame.size.height + 5) ,width: self.view.frame.size.width - 40 ,height: self.view.frame.size.height - (registerdStudentsLable.frame.origin.y + registerdStudentsLable.frame.size.height + 40))
         self.view.addSubview(containerView)
         
         
         
         containerView.addSubview(draggingView)
-        draggingView.layer.borderColor = standard_Red.CGColor
+        draggingView.layer.borderColor = standard_Red.cgColor
         draggingView.layer.borderWidth = 2
         
         let edgePan = UIPanGestureRecognizer(target: self, action: #selector(SetupGridview.OnDragView(_:)))
@@ -123,9 +123,9 @@ class SetupGridview: UIViewController,SSTeacherDataSourceDelegate,UIAlertViewDel
         
         containerView.addSubview(cellDraggedCountValue)
         cellDraggedCountValue.font = UIFont (name: helveticaRegular, size: 18)
-        cellDraggedCountValue.textColor = UIColor.whiteColor()
+        cellDraggedCountValue.textColor = UIColor.white
         cellDraggedCountValue.backgroundColor = standard_Red
-        cellDraggedCountValue.textAlignment = .Center
+        cellDraggedCountValue.textAlignment = .center
         cellDraggedCountValue.layer.cornerRadius = 13
         cellDraggedCountValue.layer.masksToBounds = true
         cellDraggedCountValue.text = "1"
@@ -141,13 +141,13 @@ class SetupGridview: UIViewController,SSTeacherDataSourceDelegate,UIAlertViewDel
         
         addGridView()
         
-        mActivityIndicatore = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
+        mActivityIndicatore = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
         mActivityIndicatore.frame = mDoneButton.frame
         mTopbarImageView.addSubview(mActivityIndicatore)
         mActivityIndicatore.startAnimating()
 
         
-        if let roomId = _currentSessionDetails.objectForKey("RoomId") as? String
+        if let roomId = _currentSessionDetails.object(forKey: "RoomId") as? String
         {
             SSTeacherDataSource.sharedDataSource.getMaxStudentRegisterdwiRoomId(roomId, WithDelegate: self)
         }
@@ -157,35 +157,35 @@ class SetupGridview: UIViewController,SSTeacherDataSourceDelegate,UIAlertViewDel
     }
     
     
-    func setCurrentSessionDetails(sessionDetails:AnyObject)
+    func setCurrentSessionDetails(_ sessionDetails:AnyObject)
     {
         _currentSessionDetails = sessionDetails
     }
     
     
-    func didGetMaxStudentsRegistedWithDetails(details: AnyObject) {
+    func didGetMaxStudentsRegistedWithDetails(_ details: AnyObject) {
         
-        if let maxRegStudents = details.objectForKey("StudentsRegistered" ) as? NSString
+        if let maxRegStudents = details.object(forKey: "StudentsRegistered" ) as? NSString
         {
             miniumSeats = maxRegStudents.integerValue
             mActivityIndicatore.stopAnimating()
-            mActivityIndicatore.hidden = true
-            mDoneButton.hidden = false
+            mActivityIndicatore.isHidden = true
+            mDoneButton.isHidden = false
             registerdStudentsLable.text = "YOU HAVE \(maxRegStudents) STUDENTS REGISTERED FOR THIS CLASS. PLEASE SELECT A GRID WITH AT LEAST \(maxRegStudents) SEATS"
             let  squrtFun = sqrt(maxRegStudents.floatValue)
            
             
             
-            UIView.animateWithDuration(0.2, animations:
+            UIView.animate(withDuration: 0.2, animations:
                 {
                     
                     if (squrtFun - floor(squrtFun) < 0.5)
                     {
-                         self.draggingView.frame =  CGRectMake(0, 0, self.cellSize.width * CGFloat((squrtFun + 1)) , self.cellSize.height * CGFloat(squrtFun))
+                         self.draggingView.frame =  CGRect(x: 0, y: 0, width: self.cellSize.width * CGFloat((squrtFun + 1)) , height: self.cellSize.height * CGFloat(squrtFun))
                     }
                     else
                     {
-                         self.draggingView.frame =  CGRectMake(0, 0, self.cellSize.width * CGFloat(squrtFun) , self.cellSize.height * CGFloat(squrtFun))
+                         self.draggingView.frame =  CGRect(x: 0, y: 0, width: self.cellSize.width * CGFloat(squrtFun) , height: self.cellSize.height * CGFloat(squrtFun))
                     }
                     
               
@@ -203,14 +203,14 @@ class SetupGridview: UIViewController,SSTeacherDataSourceDelegate,UIAlertViewDel
             
             if Int(totalSeats) >= miniumSeats
             {
-                draggingView.layer.borderColor = standard_Green.CGColor
+                draggingView.layer.borderColor = standard_Green.cgColor
                 cellDraggedCountValue.backgroundColor = standard_Green
                 EndCornerImageView.image = UIImage(named: "Circle_Green.png")
                  starCornerImage.image = UIImage(named: "Circle_Green.png")
             }
             else
             {
-                draggingView.layer.borderColor = standard_Red.CGColor
+                draggingView.layer.borderColor = standard_Red.cgColor
                 cellDraggedCountValue.backgroundColor = standard_Red
                 EndCornerImageView.image = UIImage(named: "Circle_Red.png")
                 starCornerImage.image = UIImage(named: "Circle_Red.png")
@@ -237,14 +237,14 @@ class SetupGridview: UIViewController,SSTeacherDataSourceDelegate,UIAlertViewDel
         {
             let _setupGrid = SetUpClassRoom()
             _setupGrid.SetColumnValue(numberOfColumns, withRowvalue:numberOfRows,withMiniumSeats: miniumSeats,withCurrentSessionDetails:_currentSessionDetails)
-            presentViewController(_setupGrid, animated: true, completion: nil)
+            present(_setupGrid, animated: true, completion: nil)
         }
         else
         {
             
-            let alert = UIAlertController(title: "Alert", message: "Select at least a grid with \(miniumSeats) boxes", preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
+            let alert = UIAlertController(title: "Alert", message: "Select at least a grid with \(miniumSeats) boxes", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
             
         }
         
@@ -252,7 +252,7 @@ class SetupGridview: UIViewController,SSTeacherDataSourceDelegate,UIAlertViewDel
     
     func onBack()
     {
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 
     
@@ -278,10 +278,10 @@ class SetupGridview: UIViewController,SSTeacherDataSourceDelegate,UIAlertViewDel
             for _ in 0 ..< columnValue 
             {
                 
-                    let seatView = UIImageView(frame: CGRectMake(positionX, postionY, barWidthvalue, barHeight))
+                    let seatView = UIImageView(frame: CGRect(x: positionX, y: postionY, width: barWidthvalue, height: barHeight))
                     cellSize = seatView.frame.size
                     containerView.addSubview(seatView)
-                    seatView.layer.borderColor = LineGrayColor.CGColor
+                    seatView.layer.borderColor = LineGrayColor.cgColor
                     seatView.layer.borderWidth = 1
                 
                 positionX = positionX + barWidthvalue
@@ -292,32 +292,32 @@ class SetupGridview: UIViewController,SSTeacherDataSourceDelegate,UIAlertViewDel
             
         }
         
-        draggingView.frame = CGRectMake(0, 0, cellSize.width, cellSize.height)
-        EndCornerImageView.frame = CGRectMake(draggingView.frame.size.width - 22, draggingView.frame.size.height - 22, 40, 40)
-        starCornerImage.frame = CGRectMake(-18,-18, 40, 40)
-        cellDraggedCountValue.frame =  CGRectMake(draggingView.frame.size.width - 20 , -10 ,40 ,25)
-        containerView.bringSubviewToFront(draggingView)
-        containerView.bringSubviewToFront(cellDraggedCountValue)
-        containerView.bringSubviewToFront(EndCornerImageView)
-        containerView.bringSubviewToFront(starCornerImage)
+        draggingView.frame = CGRect(x: 0, y: 0, width: cellSize.width, height: cellSize.height)
+        EndCornerImageView.frame = CGRect(x: draggingView.frame.size.width - 22, y: draggingView.frame.size.height - 22, width: 40, height: 40)
+        starCornerImage.frame = CGRect(x: -18,y: -18, width: 40, height: 40)
+        cellDraggedCountValue.frame =  CGRect(x: draggingView.frame.size.width - 20 , y: -10 ,width: 40 ,height: 25)
+        containerView.bringSubview(toFront: draggingView)
+        containerView.bringSubview(toFront: cellDraggedCountValue)
+        containerView.bringSubview(toFront: EndCornerImageView)
+        containerView.bringSubview(toFront: starCornerImage)
         
         
 
     }
     
-    func OnDragView(recognizer: UIPanGestureRecognizer)
+    func OnDragView(_ recognizer: UIPanGestureRecognizer)
     {
-        if recognizer.state == UIGestureRecognizerState.Changed
+        if recognizer.state == UIGestureRecognizerState.changed
         {
-            let translation = recognizer.locationInView(containerView)
+            let translation = recognizer.location(in: containerView)
             chnagedFrameWithPoint(translation)
         }
-        else if recognizer.state == UIGestureRecognizerState.Changed
+        else if recognizer.state == UIGestureRecognizerState.changed
         {
-            let translation = recognizer.locationInView(containerView)
+            let translation = recognizer.location(in: containerView)
             chnagedFrameWithPoint(translation)
         }
-        else if recognizer.state == UIGestureRecognizerState.Ended
+        else if recognizer.state == UIGestureRecognizerState.ended
         {
             roundOffDragView()
         }
@@ -326,7 +326,7 @@ class SetupGridview: UIViewController,SSTeacherDataSourceDelegate,UIAlertViewDel
     
     
     
-    func chnagedFrameWithPoint(_translation:CGPoint)
+    func chnagedFrameWithPoint(_ _translation:CGPoint)
     {
         var translation = _translation
         
@@ -340,11 +340,11 @@ class SetupGridview: UIViewController,SSTeacherDataSourceDelegate,UIAlertViewDel
         }
         
         
-        draggingView.frame = CGRectMake(0, 0, translation.x,translation.y)
+        draggingView.frame = CGRect(x: 0, y: 0, width: translation.x,height: translation.y)
         
-        EndCornerImageView.frame = CGRectMake(draggingView.frame.size.width - 22, draggingView.frame.size.height - 22, 40, 40)
-        starCornerImage.frame = CGRectMake(-18,-18, 40, 40)
-        cellDraggedCountValue.frame =  CGRectMake(draggingView.frame.size.width - 20 , -10 ,40 ,25)
+        EndCornerImageView.frame = CGRect(x: draggingView.frame.size.width - 22, y: draggingView.frame.size.height - 22, width: 40, height: 40)
+        starCornerImage.frame = CGRect(x: -18,y: -18, width: 40, height: 40)
+        cellDraggedCountValue.frame =  CGRect(x: draggingView.frame.size.width - 20 , y: -10 ,width: 40 ,height: 25)
         
         let cellColumnValue = draggingView.frame.size.width / cellSize.width
         
@@ -359,7 +359,7 @@ class SetupGridview: UIViewController,SSTeacherDataSourceDelegate,UIAlertViewDel
         
         if Int(totalSeats) >= miniumSeats
         {
-            draggingView.layer.borderColor = standard_Green.CGColor
+            draggingView.layer.borderColor = standard_Green.cgColor
             cellDraggedCountValue.backgroundColor = standard_Green
             EndCornerImageView.image = UIImage(named: "Circle_Green.png")
             starCornerImage.image = UIImage(named: "Circle_Green.png")
@@ -367,7 +367,7 @@ class SetupGridview: UIViewController,SSTeacherDataSourceDelegate,UIAlertViewDel
         }
         else
         {
-            draggingView.layer.borderColor = standard_Red.CGColor
+            draggingView.layer.borderColor = standard_Red.cgColor
             cellDraggedCountValue.backgroundColor = standard_Red
             EndCornerImageView.image = UIImage(named: "Circle_Red.png")
             starCornerImage.image = UIImage(named: "Circle_Red.png")
@@ -397,14 +397,14 @@ class SetupGridview: UIViewController,SSTeacherDataSourceDelegate,UIAlertViewDel
         }
         
         
-        UIView.animateWithDuration(0.2, animations:
+        UIView.animate(withDuration: 0.2, animations:
             {
-           self.draggingView.frame = CGRectMake(0, 0, CGFloat(cellColumnValue) * self.cellSize.width ,CGFloat(cellRowValue) * self.cellSize.height)
-            self.EndCornerImageView.frame = CGRectMake(self.draggingView.frame.size.width - 22, self.draggingView.frame.size.height - 22, 40, 40)
+           self.draggingView.frame = CGRect(x: 0, y: 0, width: CGFloat(cellColumnValue) * self.cellSize.width ,height: CGFloat(cellRowValue) * self.cellSize.height)
+            self.EndCornerImageView.frame = CGRect(x: self.draggingView.frame.size.width - 22, y: self.draggingView.frame.size.height - 22, width: 40, height: 40)
             
-            self.starCornerImage.frame = CGRectMake(-18,-18, 40, 40)
+            self.starCornerImage.frame = CGRect(x: -18,y: -18, width: 40, height: 40)
             
-            self.cellDraggedCountValue.frame =  CGRectMake(self.draggingView.frame.size.width - 20 , -10 ,40 ,25)
+            self.cellDraggedCountValue.frame =  CGRect(x: self.draggingView.frame.size.width - 20 , y: -10 ,width: 40 ,height: 25)
         })
 
         
@@ -416,14 +416,14 @@ class SetupGridview: UIViewController,SSTeacherDataSourceDelegate,UIAlertViewDel
         
         if Int(totalSeats) >= miniumSeats
         {
-            draggingView.layer.borderColor = standard_Green.CGColor
+            draggingView.layer.borderColor = standard_Green.cgColor
             cellDraggedCountValue.backgroundColor = standard_Green
             EndCornerImageView.image = UIImage(named: "Circle_Green.png")
             starCornerImage.image = UIImage(named: "Circle_Green.png")
         }
         else
         {
-            draggingView.layer.borderColor = standard_Red.CGColor
+            draggingView.layer.borderColor = standard_Red.cgColor
             cellDraggedCountValue.backgroundColor = standard_Red
             EndCornerImageView.image = UIImage(named: "Circle_Red.png")
             starCornerImage.image = UIImage(named: "Circle_Red.png")
@@ -447,6 +447,6 @@ class SetupGridview: UIViewController,SSTeacherDataSourceDelegate,UIAlertViewDel
 
 extension Float {
     var cleanValue: String {
-        return self % 1 == 0 ? String(format: "%.0f", self) : String(self)
+        return self.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self)
     }
 }

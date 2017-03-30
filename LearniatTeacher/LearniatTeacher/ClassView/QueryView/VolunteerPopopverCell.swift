@@ -13,7 +13,7 @@ import UIKit
 {
     
     
-    optional func delegateCellPressedWithVolunteerDetails(volunteerDetails:AnyObject)
+    @objc optional func delegateCellPressedWithVolunteerDetails(_ volunteerDetails:AnyObject)
     
     
     
@@ -36,37 +36,37 @@ class VolunteerPopopverCell: UIView
     {
         super.init(frame: frame)
         
-        mStudentImage.frame = CGRectMake(10,10 , 40 ,40)
+        mStudentImage.frame = CGRect(x: 10,y: 10 , width: 40 ,height: 40)
         self.addSubview(mStudentImage)
-        mStudentImage.backgroundColor = UIColor.clearColor()
+        mStudentImage.backgroundColor = UIColor.clear
         mStudentImage.layer.cornerRadius = mStudentImage.frame.size.width/16;
         mStudentImage.layer.masksToBounds = true
         
-        mStudentName.frame = CGRectMake(mStudentImage.frame.origin.x + mStudentImage.frame.size.width + 10, mStudentImage.frame.origin.y,100,mStudentImage.frame.size.height)
-        mStudentName.textAlignment = .Center;
+        mStudentName.frame = CGRect(x: mStudentImage.frame.origin.x + mStudentImage.frame.size.width + 10, y: mStudentImage.frame.origin.y,width: 100,height: mStudentImage.frame.size.height)
+        mStudentName.textAlignment = .center;
         mStudentName.textColor = blackTextColor
         self.addSubview(mStudentName)
-        mStudentName.backgroundColor = UIColor.clearColor()
-        mStudentName.textAlignment = .Left;
+        mStudentName.backgroundColor = UIColor.clear
+        mStudentName.textAlignment = .left;
         mStudentName.font = UIFont(name: helveticaMedium, size: 18)
         
         
-        mGiveAnswerButton.frame = CGRectMake(mStudentName.frame.origin.x + mStudentName.frame.size.width  - 10 , 0, 140, self.frame.size.height)
-        mGiveAnswerButton.setTitle("Give Answer", forState: .Normal)
+        mGiveAnswerButton.frame = CGRect(x: mStudentName.frame.origin.x + mStudentName.frame.size.width  - 10 , y: 0, width: 140, height: self.frame.size.height)
+        mGiveAnswerButton.setTitle("Give Answer", for: UIControlState())
         self.addSubview(mGiveAnswerButton)
-        mGiveAnswerButton.setTitleColor(standard_Button, forState: .Normal)
-        mGiveAnswerButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        mGiveAnswerButton.setTitleColor(standard_Button, for: UIControlState())
+        mGiveAnswerButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         mGiveAnswerButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 16)
-        mGiveAnswerButton.addTarget(self, action: #selector(VolunteerPopopverCell.onGiveAnswerButton), forControlEvents: .TouchUpInside)
-        mGiveAnswerButton.backgroundColor = UIColor.clearColor()
+        mGiveAnswerButton.addTarget(self, action: #selector(VolunteerPopopverCell.onGiveAnswerButton), for: .touchUpInside)
+        mGiveAnswerButton.backgroundColor = UIColor.clear
 
         if SSTeacherDataSource.sharedDataSource.isVolunteerAnswering == false
         {
-            mGiveAnswerButton.hidden = false
+            mGiveAnswerButton.isHidden = false
         }
         else
         {
-            mGiveAnswerButton.hidden = true
+            mGiveAnswerButton.isHidden = true
         }
         
     }
@@ -76,7 +76,7 @@ class VolunteerPopopverCell: UIView
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -97,24 +97,24 @@ class VolunteerPopopverCell: UIView
         
     }
     
-    func setVolunteersDetails(volunteersDetails:AnyObject)
+    func setVolunteersDetails(_ volunteersDetails:AnyObject)
     {
         currentVolunteerDetails = volunteersDetails
 
-        if let StudentName = currentVolunteerDetails.objectForKey("StudentName") as? String
+        if let StudentName = currentVolunteerDetails.object(forKey: "StudentName") as? String
         {
             mStudentName.text       = StudentName
         }
         
         
-        if let StudentId = currentVolunteerDetails.objectForKey("StudentId") as? String
+        if let StudentId = currentVolunteerDetails.object(forKey: "StudentId") as? String
         {
-            let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_UserProfileImageURL) as! String
+            let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
             
-            if let checkedUrl = NSURL(string: "\(urlString)/\(StudentId)_79px.jpg")
+            if let checkedUrl = URL(string: "\(urlString)/\(StudentId)_79px.jpg")
             {
-                mStudentImage.contentMode = .ScaleAspectFit
-                mStudentImage.downloadImage(checkedUrl, withFolderType: folderType.ProFilePics)
+                mStudentImage.contentMode = .scaleAspectFit
+                mStudentImage.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
             }
         }
     }

@@ -13,7 +13,7 @@ let kServiceSendAnswer   =   "SendAnswer"
 {
     
     
-    optional func delegateStudentAnswerRecievedWithDetails(answerId:String, withStudentid stundentId:String)
+    @objc optional func delegateStudentAnswerRecievedWithDetails(_ answerId:String, withStudentid stundentId:String)
     
     
     
@@ -43,7 +43,7 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -54,12 +54,12 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
     }
     
     
-    func setCurrentQuestionDetails(questionDetails:AnyObject, withCurrentStudentDetails studentDetail:AnyObject)
+    func setCurrentQuestionDetails(_ questionDetails:AnyObject, withCurrentStudentDetails studentDetail:AnyObject)
     {
         _currentQuestionDetails = questionDetails
         _currentStudentDetails = studentDetail
         
-        if let questionType = _currentQuestionDetails.objectForKey("Type") as? String
+        if let questionType = _currentQuestionDetails.object(forKey: "Type") as? String
         {
             if (questionType == kMCQ)
             {
@@ -89,25 +89,24 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
     
     
     
-    func selectMulitipleChoiceOptionsWithQuestionDetails(questionDetails:AnyObject)
+    func selectMulitipleChoiceOptionsWithQuestionDetails(_ questionDetails:AnyObject)
     {
         
         
         var optionArray = NSMutableArray()
         
-        if let options = questionDetails.objectForKey("Options")
+        if let options = questionDetails.object(forKey: "Options")
         {
-            if let classCheckingVariable = options.objectForKey("Option")
+            if let classCheckingVariable = (options as AnyObject).object(forKey: "Option") as? NSMutableArray
             {
-                if classCheckingVariable.isKindOfClass(NSMutableArray)
-                {
-                    optionArray = classCheckingVariable as! NSMutableArray
-                }
-                else
-                {
-                    optionArray.addObject(questionDetails.objectForKey("Options")!.objectForKey("Option")!)
-                    
-                }
+                optionArray = classCheckingVariable
+                
+                
+            }
+            else
+            {
+                optionArray.add((questionDetails.object(forKey: "Options")! as AnyObject).object(forKey: "Option")!)
+                
             }
         }
         
@@ -121,12 +120,12 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
             {
                 aRandomInt = optionArray.count - 1
             }
-            let optionDict = optionArray.objectAtIndex(aRandomInt)
-            if let optionsString = optionDict.objectForKey("OptionText") as? String
+            let optionDict = optionArray.object(at: aRandomInt)
+            if let optionsString = (optionDict as AnyObject).object(forKey: "OptionText") as? String
             {
-                if let StudentId = _currentStudentDetails.objectForKey("StudentId") as? String
+                if let StudentId = _currentStudentDetails.object(forKey: "StudentId") as? String
                 {
-                    if let Type = _currentQuestionDetails.objectForKey("Type") as? String
+                    if let Type = _currentQuestionDetails.object(forKey: "Type") as? String
                     {
                         if SSTeacherDataSource.sharedDataSource.currentQuestionLogId != ""
                         {
@@ -151,24 +150,24 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
     
     
     
-    func selectMultipleResponseOptionsWithQuestionDetails(questionDetails:AnyObject)
+    func selectMultipleResponseOptionsWithQuestionDetails(_ questionDetails:AnyObject)
     {
         
         var optionArray = NSMutableArray()
         
-        if let options = questionDetails.objectForKey("Options")
+        if let options = questionDetails.object(forKey: "Options")
         {
-            if let classCheckingVariable = options.objectForKey("Option")
+            if let classCheckingVariable = (options as AnyObject).object(forKey: "Option") as? NSMutableArray
             {
-                if classCheckingVariable.isKindOfClass(NSMutableArray)
-                {
-                    optionArray = classCheckingVariable as! NSMutableArray
-                }
-                else
-                {
-                    optionArray.addObject(questionDetails.objectForKey("Options")!.objectForKey("Option")!)
-                    
-                }
+               
+                optionArray = classCheckingVariable
+                
+                
+            }
+            else
+            {
+                optionArray.add((questionDetails.object(forKey: "Options")! as AnyObject).object(forKey: "Option")!)
+                
             }
         }
         
@@ -185,20 +184,20 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
             }
             for index  in 0..<aRandomInt
             {
-                let optionDict = optionArray.objectAtIndex(index)
-                if let questionOptionText = optionDict.objectForKey("OptionText") as? String
+                let optionDict = optionArray.object(at: index)
+                if let questionOptionText = (optionDict as AnyObject).object(forKey: "OptionText") as? String
                 {
-                    optionSelectedArray.addObject(questionOptionText)
+                    optionSelectedArray.add(questionOptionText)
                 }
             }
         }
         
         if optionSelectedArray.count > 0
         {
-            let optionsString = optionSelectedArray.componentsJoinedByString(";;;")
-            if let StudentId = _currentStudentDetails.objectForKey("StudentId") as? String
+            let optionsString = optionSelectedArray.componentsJoined(by: ";;;")
+            if let StudentId = _currentStudentDetails.object(forKey: "StudentId") as? String
             {
-                if let Type = _currentQuestionDetails.objectForKey("Type") as? String
+                if let Type = _currentQuestionDetails.object(forKey: "Type") as? String
                 {
                     if SSTeacherDataSource.sharedDataSource.currentQuestionLogId != ""
                     {
@@ -221,7 +220,7 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
     }
     
     
-    func selectMatchColumnOptionsWithQuestionDetails(questionDetails:AnyObject)
+    func selectMatchColumnOptionsWithQuestionDetails(_ questionDetails:AnyObject)
     {
         var optionArray = NSMutableArray()
         
@@ -231,15 +230,13 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
         
         
         
-        let classCheckingVariable = questionDetails.objectForKey("Options")!.objectForKey("Option")!
-        
-        if classCheckingVariable.isKindOfClass(NSMutableArray)
-        {
-            optionArray = classCheckingVariable as! NSMutableArray
+       if let classCheckingVariable = (questionDetails.object(forKey: "Options")! as AnyObject).object(forKey: "Option") as? NSMutableArray
+       {
+            optionArray = classCheckingVariable
         }
         else
         {
-            optionArray.addObject(questionDetails.objectForKey("Options")!.objectForKey("Option")!)
+            optionArray.add((questionDetails.object(forKey: "Options")! as AnyObject).object(forKey: "Option")!)
             
         }
         
@@ -248,12 +245,12 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
         for index in 0 ..< optionArray.count
         {
             
-            let optionDict = optionArray.objectAtIndex(index)
-            if let Column = optionDict.objectForKey("Column") as? String
+            let optionDict = optionArray.object(at: index)
+            if let Column = (optionDict as AnyObject).object(forKey: "Column") as? String
             {
                 if Column == "2"
                 {
-                    RightSideArray.addObject(optionDict)
+                    RightSideArray.add(optionDict)
                     
                 }
             }
@@ -265,20 +262,20 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
         for index in 0..<RightSideArray.count
         {
             
-            let optionDict = RightSideArray.objectAtIndex(index)
-            if let Sequence = optionDict.objectForKey("Sequence") as? String
+            let optionDict = RightSideArray.object(at: index)
+            if let Sequence = (optionDict as AnyObject).object(forKey: "Sequence") as? String
             {
-                sequenceArray.addObject(Sequence)
+                sequenceArray.add(Sequence)
             }
         }
         
         
         if sequenceArray.count > 0
         {
-            let optionsString = sequenceArray.componentsJoinedByString(";;;")
-            if let StudentId = _currentStudentDetails.objectForKey("StudentId") as? String
+            let optionsString = sequenceArray.componentsJoined(by: ";;;")
+            if let StudentId = _currentStudentDetails.object(forKey: "StudentId") as? String
             {
-                if let Type = _currentQuestionDetails.objectForKey("Type") as? String
+                if let Type = _currentQuestionDetails.object(forKey: "Type") as? String
                 {
                     if SSTeacherDataSource.sharedDataSource.currentQuestionLogId != ""
                     {
@@ -295,14 +292,14 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
         }
     }
     
-    func selectScribbleWithQuestionDetails(questionDetails:AnyObject)
+    func selectScribbleWithQuestionDetails(_ questionDetails:AnyObject)
     {
         
-        if let topicId = questionDetails.objectForKey("Id")as? String
+        if let topicId = questionDetails.object(forKey: "Id")as? String
         {
-            if SSTeacherDataSource.sharedDataSource.mDemoQuestionsIdArray.containsObject(topicId)
+            if SSTeacherDataSource.sharedDataSource.mDemoQuestionsIdArray.contains(topicId)
             {
-                let  url = NSURL(string: "\(kDemoPlistUrl)/Question_\(topicId).plist")
+                let  url = URL(string: "\(kDemoPlistUrl)/Question_\(topicId).plist")
                 
                 let plistLoader = PlistDownloder()
                 
@@ -312,19 +309,16 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
                 {
                     var demoScribbleImageArray = NSMutableArray()
                     
-                    if mDemoMaseterFileDetails.objectForKey("ScribbleImagePaths") != nil
+                    if mDemoMaseterFileDetails?.object(forKey: "ScribbleImagePaths") != nil
                     {
-                        if let classCheckingVariable = mDemoMaseterFileDetails.objectForKey("ScribbleImagePaths")
+                        if let classCheckingVariable = mDemoMaseterFileDetails?.object(forKey: "ScribbleImagePaths") as? NSMutableArray
                         {
-                            if classCheckingVariable.isKindOfClass(NSMutableArray)
-                            {
-                                demoScribbleImageArray = classCheckingVariable as! NSMutableArray
-                            }
-                            else
-                            {
-                                demoScribbleImageArray.addObject(mDemoMaseterFileDetails.objectForKey("ScribbleImagePaths")!)
-                                
-                            }
+                            demoScribbleImageArray = classCheckingVariable
+                        }
+                        else
+                        {
+                            demoScribbleImageArray.add(mDemoMaseterFileDetails?.object(forKey: "ScribbleImagePaths")!)
+                            
                         }
                     }
                     
@@ -334,9 +328,9 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
                     {
                         if let imagePath = demoScribbleImageArray.firstObject as? String
                         {
-                            if let StudentId = _currentStudentDetails.objectForKey("StudentId") as? String
+                            if let StudentId = _currentStudentDetails.object(forKey: "StudentId") as? String
                             {
-                                if let Type = _currentQuestionDetails.objectForKey("Type") as? String
+                                if let Type = _currentQuestionDetails.object(forKey: "Type") as? String
                                 {
                                     if SSTeacherDataSource.sharedDataSource.currentQuestionLogId != ""
                                     {
@@ -354,14 +348,14 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
         }
     }
     
-    func selectTextWithQuestionDetails(questionDetails:AnyObject)
+    func selectTextWithQuestionDetails(_ questionDetails:AnyObject)
     {
         
-        if let topicId = questionDetails.objectForKey("Id")as? String
+        if let topicId = questionDetails.object(forKey: "Id")as? String
         {
-            if SSTeacherDataSource.sharedDataSource.mDemoQuestionsIdArray.containsObject(topicId)
+            if SSTeacherDataSource.sharedDataSource.mDemoQuestionsIdArray.contains(topicId)
             {
-                let  url = NSURL(string: "\(kDemoPlistUrl)/Question_\(topicId).plist")
+                let  url = URL(string: "\(kDemoPlistUrl)/Question_\(topicId).plist")
                 
                 let plistLoader = PlistDownloder()
                 
@@ -371,19 +365,18 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
                 {
                     var demoScribbleImageArray = NSMutableArray()
                     
-                    if mDemoMaseterFileDetails.objectForKey("TextAnswers") != nil
+                    if mDemoMaseterFileDetails?.object(forKey: "TextAnswers") != nil
                     {
-                        if let classCheckingVariable = mDemoMaseterFileDetails.objectForKey("TextAnswers")
+                        if let classCheckingVariable = mDemoMaseterFileDetails?.object(forKey: "TextAnswers") as? NSMutableArray
                         {
-                            if classCheckingVariable.isKindOfClass(NSMutableArray)
-                            {
-                                demoScribbleImageArray = classCheckingVariable as! NSMutableArray
-                            }
-                            else
-                            {
-                                demoScribbleImageArray.addObject(mDemoMaseterFileDetails.objectForKey("TextAnswers")!)
-                                
-                            }
+                            demoScribbleImageArray = classCheckingVariable
+                            
+                            
+                        }
+                        else
+                        {
+                            demoScribbleImageArray.add(mDemoMaseterFileDetails?.object(forKey: "TextAnswers")!)
+                            
                         }
                     }
                     
@@ -393,9 +386,9 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
                     {
                         if let imagePath = demoScribbleImageArray.firstObject as? String
                         {
-                            if let StudentId = _currentStudentDetails.objectForKey("StudentId") as? String
+                            if let StudentId = _currentStudentDetails.object(forKey: "StudentId") as? String
                             {
-                                if let Type = _currentQuestionDetails.objectForKey("Type") as? String
+                                if let Type = _currentQuestionDetails.object(forKey: "Type") as? String
                                 {
                                     if SSTeacherDataSource.sharedDataSource.currentQuestionLogId != ""
                                     {
@@ -415,66 +408,66 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
     
     
     
-    func sendAnswerWithOptionText(OptionText:String,witStudentId StudentId:String, withQuestionLogId QuestionLogId:String, withQuestionType type:String)
+    func sendAnswerWithOptionText(_ OptionText:String,witStudentId StudentId:String, withQuestionLogId QuestionLogId:String, withQuestionType type:String)
     {
         
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>SendAnswer</Service><StudentId>%@</StudentId><OptionText>%@</OptionText><SessionId>%@</SessionId><QuestionLogId>%@</QuestionLogId><QuestionType>%@</QuestionType></Action></Sunstone>",URLPrefix,StudentId,OptionText,SSTeacherDataSource.sharedDataSource.currentLiveSessionId,QuestionLogId,type)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceSendAnswer, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: self)
+        manager.downloadDataURL(urlString, withServiceName: kServiceSendAnswer, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: self)
     }
     
     
     
-    func sendAnswerForMTCWithOptionText(OptionText:String,witStudentId StudentId:String, withQuestionLogId QuestionLogId:String, withQuestionType type:String)
+    func sendAnswerForMTCWithOptionText(_ OptionText:String,witStudentId StudentId:String, withQuestionLogId QuestionLogId:String, withQuestionType type:String)
     {
         
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>SendAnswer</Service><StudentId>%@</StudentId><Sequence>%@</Sequence><SessionId>%@</SessionId><QuestionLogId>%@</QuestionLogId><QuestionType>%@</QuestionType></Action></Sunstone>",URLPrefix,StudentId,OptionText,SSTeacherDataSource.sharedDataSource.currentLiveSessionId,QuestionLogId,type)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceSendAnswer, withDelegate: self, withRequestType: eHTTPGetRequest , withReturningDelegate: self)
+        manager.downloadDataURL(urlString, withServiceName: kServiceSendAnswer, withDelegate: self, with: eHTTPGetRequest , withReturningDelegate: self)
     }
     
     
-    func sendAnswerForScribbleQuestionWithImagePath(imagePath:String,witStudentId StudentId:String, withQuestionLogId QuestionLogId:String, withQuestionType type:String)
+    func sendAnswerForScribbleQuestionWithImagePath(_ imagePath:String,witStudentId StudentId:String, withQuestionLogId QuestionLogId:String, withQuestionType type:String)
     {
         
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>SendAnswer</Service><StudentId>%@</StudentId><ImagePath>%@</ImagePath><SessionId>%@</SessionId><QuestionLogId>%@</QuestionLogId><QuestionType>%@</QuestionType></Action></Sunstone>",URLPrefix,StudentId,imagePath,SSTeacherDataSource.sharedDataSource.currentLiveSessionId,QuestionLogId,type)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceSendAnswer, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: self)
+        manager.downloadDataURL(urlString, withServiceName: kServiceSendAnswer, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: self)
     }
     
     
     
-    func sendAnswerForTextQuestionWithImagePath(textAnswer:String,witStudentId StudentId:String, withQuestionLogId QuestionLogId:String, withQuestionType type:String)
+    func sendAnswerForTextQuestionWithImagePath(_ textAnswer:String,witStudentId StudentId:String, withQuestionLogId QuestionLogId:String, withQuestionType type:String)
     {
         
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>SendAnswer</Service><StudentId>%@</StudentId><TextAnswer>%@</TextAnswer><SessionId>%@</SessionId><QuestionLogId>%@</QuestionLogId><QuestionType>%@</QuestionType></Action></Sunstone>",URLPrefix,StudentId,textAnswer,SSTeacherDataSource.sharedDataSource.currentLiveSessionId,QuestionLogId,type)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceSendAnswer, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate: self)
+        manager.downloadDataURL(urlString, withServiceName: kServiceSendAnswer, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: self)
     }
     
     
     
-     func delegateDidGetServiceResponseWithDetails(dict: NSMutableDictionary!, WIthServiceName serviceName: String!, withRetruningDelegate returningDelegate: AnyObject!)
+     func delegateDidGetServiceResponse(withDetails dict: NSMutableDictionary!, wIthServiceName serviceName: String!, withRetruningDelegate returningDelegate: Any!)
     {
         if SSTeacherDataSource.sharedDataSource.isQuestionSent == true
         {
-            let refinedDetails = dict.objectForKey(kSunstone)!.objectForKey(kSSAction)!
+            let refinedDetails = (dict.object(forKey: kSunstone)! as AnyObject).object(forKey: kSSAction)!
             
             
             if serviceName == kServiceSendAnswer
             {
-                if let AssessmentAnswerId = refinedDetails.objectForKey("AssessmentAnswerId") as? String{
-                    if delegate().respondsToSelector(#selector(StudentAnswerSelectionViewDelegate.delegateStudentAnswerRecievedWithDetails(_:withStudentid:)))
+                if let AssessmentAnswerId = (refinedDetails as AnyObject).object(forKey: "AssessmentAnswerId") as? String{
+                    if delegate().responds(to: #selector(StudentAnswerSelectionViewDelegate.delegateStudentAnswerRecievedWithDetails(_:withStudentid:)))
                     {
-                        if let StudentId = _currentStudentDetails.objectForKey("StudentId") as? String
+                        if let StudentId = _currentStudentDetails.object(forKey: "StudentId") as? String
                         {
                             delegate().delegateStudentAnswerRecievedWithDetails!(AssessmentAnswerId, withStudentid: StudentId)
                         }
@@ -489,13 +482,13 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
     
     
     
-    func delegateServiceErrorMessage(message: String!, withServiceName ServiceName: String!, withErrorCode code: String!)
+    func delegateServiceErrorMessage(_ message: String!, withServiceName ServiceName: String!, withErrorCode code: String!)
     {
         
     }
     
     
-    func randomInt(min: Int, max:Int) -> Int
+    func randomInt(_ min: Int, max:Int) -> Int
     {
         return min + Int(arc4random_uniform(UInt32(max - min + 1)))
     }

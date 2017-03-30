@@ -12,13 +12,13 @@ import Foundation
 {
     
     
-    optional func delegateQuestionCleared(questionDetails:AnyObject, withCurrentmainTopicId mainTopicId:String, withCurrentMainTopicName mainTopicName:String)
+    @objc optional func delegateQuestionCleared(_ questionDetails:AnyObject, withCurrentmainTopicId mainTopicId:String, withCurrentMainTopicName mainTopicName:String)
     
-    optional func delegateDoneButtonPressed()
+    @objc optional func delegateDoneButtonPressed()
     
-    optional func delegateTopicsButtonPressed()
+    @objc optional func delegateTopicsButtonPressed()
     
-    optional func delegateFreezQuestion()
+    @objc optional func delegateFreezQuestion()
     
 }
 
@@ -53,7 +53,7 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
     var questionsDetailsDictonary:Dictionary<String, NSMutableArray> = Dictionary()
     
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -70,40 +70,40 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
 
         self.backgroundColor = whiteBackgroundColor
         
-        questionImageView.frame  = CGRectMake(0, 0, 450,350)
+        questionImageView.frame  = CGRect(x: 0, y: 0, width: 450,height: 350)
         self.addSubview(questionImageView)
-        questionImageView.userInteractionEnabled = true
+        questionImageView.isUserInteractionEnabled = true
         
         
         
         
-        let mTopbarImageView = UIImageView(frame: CGRectMake(0, 0, questionImageView.frame.size.width, 44))
-        mTopbarImageView.backgroundColor = UIColor.whiteColor()
+        let mTopbarImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: questionImageView.frame.size.width, height: 44))
+        mTopbarImageView.backgroundColor = UIColor.white
         questionImageView.addSubview(mTopbarImageView)
-        mTopbarImageView.userInteractionEnabled = true
+        mTopbarImageView.isUserInteractionEnabled = true
         
         
-        let  mTopicsButton = UIButton(frame: CGRectMake(10,  0, 200 ,mTopbarImageView.frame.size.height))
+        let  mTopicsButton = UIButton(frame: CGRect(x: 10,  y: 0, width: 200 ,height: mTopbarImageView.frame.size.height))
         mTopbarImageView.addSubview(mTopicsButton)
-        mTopicsButton.addTarget(self, action: #selector(LiveQuestionView.onTopicsButtonPressed), forControlEvents: UIControlEvents.TouchUpInside)
-        mTopicsButton.setTitleColor(standard_Button, forState: .Normal)
-        mTopicsButton.setTitle("Topics", forState: .Normal)
-        mTopicsButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
+        mTopicsButton.addTarget(self, action: #selector(LiveQuestionView.onTopicsButtonPressed), for: UIControlEvents.touchUpInside)
+        mTopicsButton.setTitleColor(standard_Button, for: UIControlState())
+        mTopicsButton.setTitle("Topics", for: UIControlState())
+        mTopicsButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
         mTopicsButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
         
         
         
         
-        let  mDoneButton = UIButton(frame: CGRectMake(mTopbarImageView.frame.size.width - 210,  0, 200 ,mTopbarImageView.frame.size.height))
+        let  mDoneButton = UIButton(frame: CGRect(x: mTopbarImageView.frame.size.width - 210,  y: 0, width: 200 ,height: mTopbarImageView.frame.size.height))
         mTopbarImageView.addSubview(mDoneButton)
-        mDoneButton.addTarget(self, action: #selector(LiveQuestionView.onDoneButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mDoneButton.setTitleColor(standard_Button, forState: .Normal)
-        mDoneButton.setTitle("Done", forState: .Normal)
-        mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        mDoneButton.addTarget(self, action: #selector(LiveQuestionView.onDoneButton), for: UIControlEvents.touchUpInside)
+        mDoneButton.setTitleColor(standard_Button, for: UIControlState())
+        mDoneButton.setTitle("Done", for: UIControlState())
+        mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         mDoneButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
         
         
-        let seperatorView = UIView(frame: CGRectMake(0 ,mTopbarImageView.frame.size.height - 1 , mTopbarImageView.frame.size.width,1))
+        let seperatorView = UIView(frame: CGRect(x: 0 ,y: mTopbarImageView.frame.size.height - 1 , width: mTopbarImageView.frame.size.width,height: 1))
         seperatorView.backgroundColor = LineGrayColor;
         mTopbarImageView.addSubview(seperatorView)
         
@@ -112,38 +112,38 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
         mIndexValuesLabel.font = UIFont(name:helveticaRegular, size: 16)
         questionImageView.addSubview(mIndexValuesLabel)
         mIndexValuesLabel.textColor = blackTextColor
-        mIndexValuesLabel.textAlignment = .Left
-        mIndexValuesLabel.lineBreakMode = .ByTruncatingMiddle
-        mIndexValuesLabel.frame = CGRectMake(10 , seperatorView.frame.size.height + seperatorView.frame.origin.y , 100 ,mTopbarImageView.frame.size.height)
+        mIndexValuesLabel.textAlignment = .left
+        mIndexValuesLabel.lineBreakMode = .byTruncatingMiddle
+        mIndexValuesLabel.frame = CGRect(x: 10 , y: seperatorView.frame.size.height + seperatorView.frame.origin.y , width: 100 ,height: mTopbarImageView.frame.size.height)
         
         
         
         
         
         
-        mQuestionTypeLabel.frame = CGRectMake(mIndexValuesLabel.frame.origin.x + mIndexValuesLabel.frame.size.width + 10   ,                                                    seperatorView.frame.size.height + seperatorView.frame.origin.y ,
-                                              mTopbarImageView.frame.size.width - (mIndexValuesLabel.frame.origin.x + (mIndexValuesLabel.frame.size.width * 2) + 20 )  ,
-                                              mTopbarImageView.frame.size.height)
+        mQuestionTypeLabel.frame = CGRect(x: mIndexValuesLabel.frame.origin.x + mIndexValuesLabel.frame.size.width + 10   ,                                                    y: seperatorView.frame.size.height + seperatorView.frame.origin.y ,
+                                              width: mTopbarImageView.frame.size.width - (mIndexValuesLabel.frame.origin.x + (mIndexValuesLabel.frame.size.width * 2) + 20 )  ,
+                                              height: mTopbarImageView.frame.size.height)
         mQuestionTypeLabel.font = UIFont(name:helveticaBold, size: 16)
         questionImageView.addSubview(mQuestionTypeLabel)
-        mQuestionTypeLabel.textColor = UIColor.lightGrayColor()
-        mQuestionTypeLabel.textAlignment = .Center
-        mQuestionTypeLabel.lineBreakMode = .ByTruncatingMiddle
+        mQuestionTypeLabel.textColor = UIColor.lightGray
+        mQuestionTypeLabel.textAlignment = .center
+        mQuestionTypeLabel.lineBreakMode = .byTruncatingMiddle
         
         
         
         
-        mInfoButton.frame = CGRectMake(questionImageView.frame.size.width - (mTopbarImageView.frame.size.height + 10) , seperatorView.frame.size.height + seperatorView.frame.origin.y , mTopbarImageView.frame.size.height ,mTopbarImageView.frame.size.height)
+        mInfoButton.frame = CGRect(x: questionImageView.frame.size.width - (mTopbarImageView.frame.size.height + 10) , y: seperatorView.frame.size.height + seperatorView.frame.origin.y , width: mTopbarImageView.frame.size.height ,height: mTopbarImageView.frame.size.height)
         questionImageView.addSubview(mInfoButton)
-        mInfoButton.addTarget(self, action: #selector(LiveQuestionView.onInfoButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mInfoButton.setImage(UIImage(named: "infoButton.png"), forState: .Normal)
-        mInfoButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        mInfoButton.addTarget(self, action: #selector(LiveQuestionView.onInfoButton), for: UIControlEvents.touchUpInside)
+        mInfoButton.setImage(UIImage(named: "infoButton.png"), for: UIControlState())
+        mInfoButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         
         
         
         
         
-        let seperatorView2 = UIView(frame: CGRectMake(10,  mQuestionTypeLabel.frame.size.height + mQuestionTypeLabel.frame.origin.y , questionImageView.frame.size.width - 20  ,1))
+        let seperatorView2 = UIView(frame: CGRect(x: 10,  y: mQuestionTypeLabel.frame.size.height + mQuestionTypeLabel.frame.origin.y , width: questionImageView.frame.size.width - 20  ,height: 1))
         seperatorView2.backgroundColor = LineGrayColor;
         questionImageView.addSubview(seperatorView2)
         
@@ -153,24 +153,24 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
         
         
         
-        mQuestionNameLabel.frame = CGRectMake(10 , seperatorView2.frame.size.height + seperatorView2.frame.origin.y + 20  , questionImageView.frame.size.width - 20 ,mTopbarImageView.frame.size.height)
+        mQuestionNameLabel.frame = CGRect(x: 10 , y: seperatorView2.frame.size.height + seperatorView2.frame.origin.y + 20  , width: questionImageView.frame.size.width - 20 ,height: mTopbarImageView.frame.size.height)
         mQuestionNameLabel.font = UIFont(name:helveticaMedium, size: 18)
         questionImageView.addSubview(mQuestionNameLabel)
         mQuestionNameLabel.textColor = blackTextColor
-        mQuestionNameLabel.textAlignment = .Center
-        mQuestionNameLabel.lineBreakMode = .ByTruncatingMiddle
+        mQuestionNameLabel.textAlignment = .center
+        mQuestionNameLabel.lineBreakMode = .byTruncatingMiddle
         mQuestionNameLabel.numberOfLines  = 20
         
         
         
-        mFreezbutton.frame =   CGRectMake((questionImageView.frame.size.width - 200) / 2,  mQuestionNameLabel.frame.size.height + mQuestionNameLabel.frame.origin.y + 20, 200 ,mTopbarImageView.frame.size.height)
+        mFreezbutton.frame =   CGRect(x: (questionImageView.frame.size.width - 200) / 2,  y: mQuestionNameLabel.frame.size.height + mQuestionNameLabel.frame.origin.y + 20, width: 200 ,height: mTopbarImageView.frame.size.height)
         questionImageView.addSubview(mFreezbutton)
-        mFreezbutton.addTarget(self, action: #selector(LiveQuestionView.onFreezButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mFreezbutton.setTitleColor(standard_Red, forState: .Normal)
-        mFreezbutton.setTitle("Freeze response", forState: .Normal)
-        mFreezbutton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
+        mFreezbutton.addTarget(self, action: #selector(LiveQuestionView.onFreezButton), for: UIControlEvents.touchUpInside)
+        mFreezbutton.setTitleColor(standard_Red, for: UIControlState())
+        mFreezbutton.setTitle("Freeze response", for: UIControlState())
+        mFreezbutton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
         mFreezbutton.titleLabel?.font = UIFont(name: helveticaRegular, size: 20)
-        mFreezbutton.layer.borderColor = standard_Red.CGColor
+        mFreezbutton.layer.borderColor = standard_Red.cgColor
         mFreezbutton.layer.borderWidth = 1
         mFreezbutton.layer.cornerRadius = 5
         
@@ -180,25 +180,25 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
         
         
         
-        mTopicName.frame = CGRectMake(10 , mFreezbutton.frame.size.height + mFreezbutton.frame.origin.y + 20  , questionImageView.frame.size.width - 20 ,mTopbarImageView.frame.size.height)
+        mTopicName.frame = CGRect(x: 10 , y: mFreezbutton.frame.size.height + mFreezbutton.frame.origin.y + 20  , width: questionImageView.frame.size.width - 20 ,height: mTopbarImageView.frame.size.height)
         mTopicName.font = UIFont(name:helveticaRegular, size: 18)
         questionImageView.addSubview(mTopicName)
-        mTopicName.textColor = UIColor.lightGrayColor()
-        mTopicName.textAlignment = .Center
-        mTopicName.lineBreakMode = .ByTruncatingMiddle
+        mTopicName.textColor = UIColor.lightGray
+        mTopicName.textAlignment = .center
+        mTopicName.lineBreakMode = .byTruncatingMiddle
         mTopicName.numberOfLines  = 20
         
         
-        let seperatorView1 = UIView(frame: CGRectMake(10,  questionImageView.frame.size.height - mTopbarImageView.frame.size.height , questionImageView.frame.size.width - 20  ,1))
+        let seperatorView1 = UIView(frame: CGRect(x: 10,  y: questionImageView.frame.size.height - mTopbarImageView.frame.size.height , width: questionImageView.frame.size.width - 20  ,height: 1))
         seperatorView1.backgroundColor = LineGrayColor;
         questionImageView.addSubview(seperatorView1)
         
-        let  clearQuestion = UIButton(frame: CGRectMake(10,  questionImageView.frame.size.height - mTopbarImageView.frame.size.height , questionImageView.frame.size.width - 20  ,mTopbarImageView.frame.size.height))
+        let  clearQuestion = UIButton(frame: CGRect(x: 10,  y: questionImageView.frame.size.height - mTopbarImageView.frame.size.height , width: questionImageView.frame.size.width - 20  ,height: mTopbarImageView.frame.size.height))
         questionImageView.addSubview(clearQuestion)
-        clearQuestion.addTarget(self, action: #selector(LiveQuestionView.onClearQuestion), forControlEvents: UIControlEvents.TouchUpInside)
-        clearQuestion.setTitleColor(standard_Button, forState: .Normal)
-        clearQuestion.setTitle("Close question", forState: .Normal)
-        clearQuestion.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
+        clearQuestion.addTarget(self, action: #selector(LiveQuestionView.onClearQuestion), for: UIControlEvents.touchUpInside)
+        clearQuestion.setTitleColor(standard_Button, for: UIControlState())
+        clearQuestion.setTitle("Close question", for: UIControlState())
+        clearQuestion.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
         clearQuestion.titleLabel?.font = UIFont(name: helveticaRegular, size: 20)
         
     }
@@ -209,7 +209,7 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
     
     
     
-    func setSessionDetails( details:AnyObject)
+    func setSessionDetails( _ details:AnyObject)
     {
         currentSessionDetails = details
         
@@ -222,7 +222,7 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
     
     // MARK: - datasource delegate functions
     
-    func setQuestionDetails(details:AnyObject, withMainTopciName mainTopicName:String, withMainTopicId mainTopicId:String)
+    func setQuestionDetails(_ details:AnyObject, withMainTopciName mainTopicName:String, withMainTopicId mainTopicId:String)
     {
         
         
@@ -248,16 +248,16 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
         
         
         
-        if let QuestonAvgScore = currentQuestionDetails.objectForKey("QuestonAvgScore")as? NSString
+        if let QuestonAvgScore = currentQuestionDetails.object(forKey: "QuestonAvgScore")as? NSString
         {
             
             let questionAverage = QuestonAvgScore.floatValue * 100.0
             
-            if let NumberOfResponses = currentQuestionDetails.objectForKey("NumberOfResponses")as? NSString
+            if let NumberOfResponses = currentQuestionDetails.object(forKey: "NumberOfResponses")as? NSString
             {
                 if NumberOfResponses.intValue > 0
                 {
-                    mIndexValuesLabel.hidden = false
+                    mIndexValuesLabel.isHidden = false
                     
                     
                     let  _string =  NSMutableAttributedString(string:"\(String(format: "%02d", Int(questionAverage)))% (\(NumberOfResponses))")
@@ -285,12 +285,12 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
                 }
                 else
                 {
-                    mIndexValuesLabel.hidden = true
+                    mIndexValuesLabel.isHidden = true
                 }
             }
             else
             {
-                mIndexValuesLabel.hidden = true
+                mIndexValuesLabel.isHidden = true
             }
         }
         
@@ -299,45 +299,45 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
         
         
         
-        if let questionType = currentQuestionDetails.objectForKey("Type")as? NSString
+        if let questionType = currentQuestionDetails.object(forKey: "Type")as? NSString
         {
-            if(questionType.isEqualToString(kText))
+            if(questionType.isEqual(to: kText))
             {
                 
                 mQuestionTypeLabel.text = "\(questionType)";
-                mInfoButton.hidden = true
+                mInfoButton.isHidden = true
                 
             }
-            else if(questionType.isEqualToString(kOverlayScribble))
+            else if(questionType.isEqual(to: kOverlayScribble))
             {
                 
                 mQuestionTypeLabel.text = "\(questionType)";
-                mInfoButton.hidden = false
-                
-                
-            }
-            else if(questionType.isEqualToString(kFreshScribble))
-            {
-                
-                mQuestionTypeLabel.text = "\(questionType)";
-                mInfoButton.hidden = true
+                mInfoButton.isHidden = false
                 
                 
             }
-                
-            else if(questionType.isEqualToString(kMRQ))
+            else if(questionType.isEqual(to: kFreshScribble))
             {
                 
                 mQuestionTypeLabel.text = "\(questionType)";
-                mInfoButton.hidden = false
+                mInfoButton.isHidden = true
                 
                 
             }
-            else if(questionType.isEqualToString(kMCQ))
+                
+            else if(questionType.isEqual(to: kMRQ))
             {
                 
                 mQuestionTypeLabel.text = "\(questionType)";
-                mInfoButton.hidden = false
+                mInfoButton.isHidden = false
+                
+                
+            }
+            else if(questionType.isEqual(to: kMCQ))
+            {
+                
+                mQuestionTypeLabel.text = "\(questionType)";
+                mInfoButton.isHidden = false
                 
                 
             }
@@ -345,7 +345,7 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
             {
                 
                 mQuestionTypeLabel.text = "\(questionType)";
-                mInfoButton.hidden = false
+                mInfoButton.isHidden = false
                 
             }
             
@@ -354,7 +354,7 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
         
         
         
-        if let questionName = currentQuestionDetails.objectForKey("Name")as? String
+        if let questionName = currentQuestionDetails.object(forKey: "Name")as? String
         {
             mQuestionNameLabel.text = "\(questionName)"
             
@@ -369,20 +369,23 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
     }
     
     
-    var _Popover:AnyObject!
     
-    func setPopover(popover:AnyObject)
+    var _Popover:UIPopoverController!
+    
+    func setPopover(_ popover:UIPopoverController)
     {
         _Popover = popover
     }
     
-    func popover()-> AnyObject
+    func popover()-> UIPopoverController
     {
         return _Popover
     }
+    
+    
     func onDoneButton()
     {
-        if delegate().respondsToSelector(#selector(LiveQuestionViewDelegate.delegateDoneButtonPressed))
+        if delegate().responds(to: #selector(LiveQuestionViewDelegate.delegateDoneButtonPressed))
         {
             delegate().delegateDoneButtonPressed!()
         }
@@ -390,7 +393,7 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
     
     func onTopicsButtonPressed()
     {
-        if delegate().respondsToSelector(#selector(LiveQuestionViewDelegate.delegateTopicsButtonPressed))
+        if delegate().responds(to: #selector(LiveQuestionViewDelegate.delegateTopicsButtonPressed))
         {
             delegate().delegateTopicsButtonPressed!()
         }
@@ -399,10 +402,10 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
     func onClearQuestion()
     {
         
-        mFreezbutton.enabled = true
-        mFreezbutton.setTitleColor(standard_Red, forState: .Normal)
+        mFreezbutton.isEnabled = true
+        mFreezbutton.setTitleColor(standard_Red, for: UIControlState())
         
-        if delegate().respondsToSelector(#selector(LiveQuestionViewDelegate.delegateQuestionCleared(_:withCurrentmainTopicId:withCurrentMainTopicName:)))
+        if delegate().responds(to: #selector(LiveQuestionViewDelegate.delegateQuestionCleared(_:withCurrentmainTopicId:withCurrentMainTopicName:)))
         {
             delegate().delegateQuestionCleared!(currentQuestionDetails, withCurrentmainTopicId: currentMainTopicId, withCurrentMainTopicName: currentMainTopicName)
         }
@@ -411,22 +414,22 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
     func onFreezButton()
     {
         
-        var QuestonAvgScore = currentQuestionDetails.objectForKey("QuestonAvgScore")as? NSString
+        var QuestonAvgScore = currentQuestionDetails.object(forKey: "QuestonAvgScore")as? NSString
         
-        QuestonAvgScore = String(format: "%02d", QuestonAvgScore!.floatValue)
+        QuestonAvgScore = String(format: "%02d", QuestonAvgScore!.floatValue) as NSString?
         
-        let NumberOfResponses = currentQuestionDetails.objectForKey("NumberOfResponses")as? String
+        let NumberOfResponses = currentQuestionDetails.object(forKey: "NumberOfResponses")as? String
         
         
         
         
         SSTeacherMessageHandler.sharedMessageHandler.freezeQnAMessageToRoom("question_\(SSTeacherDataSource.sharedDataSource.currentLiveSessionId)", withAverageScore: QuestonAvgScore! as String, withTotalResponses: NumberOfResponses!)
         
-        mFreezbutton.enabled = false
-        mFreezbutton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
+        mFreezbutton.isEnabled = false
+        mFreezbutton.setTitleColor(UIColor.lightGray, for: UIControlState())
         
         
-        if delegate().respondsToSelector(#selector(LiveQuestionViewDelegate.delegateFreezQuestion))
+        if delegate().responds(to: #selector(LiveQuestionViewDelegate.delegateFreezQuestion))
         {
             delegate().delegateFreezQuestion!()
         }
@@ -438,7 +441,7 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
     func onInfoButton()
     {
         
-        if let questionType = currentQuestionDetails.objectForKey("Type") as? String
+        if let questionType = currentQuestionDetails.object(forKey: "Type") as? String
         {
             if questionType == kOverlayScribble
             {
@@ -448,18 +451,18 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
                 questionInfoController.setScribbleInfoDetails(currentQuestionDetails)
                 
                 
-                questionInfoController.preferredContentSize = CGSizeMake(400,317)
+                questionInfoController.preferredContentSize = CGSize(width: 400,height: 317)
                 
                 let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
                 questionInfoController.setPopover(classViewPopOverController)
-                classViewPopOverController.popoverContentSize = CGSizeMake(400,317);
+                classViewPopOverController.contentSize = CGSize(width: 400,height: 317);
                 classViewPopOverController.delegate = self;
                 
-                classViewPopOverController.presentPopoverFromRect(CGRect(
+                classViewPopOverController.present(from: CGRect(
                     x:mInfoButton.frame.origin.x ,
                     y:mInfoButton.frame.origin.y + mInfoButton.frame.size.height / 2,
                     width: 1,
-                    height: 1), inView: self, permittedArrowDirections: .Right, animated: true)
+                    height: 1), in: self, permittedArrowDirections: .right, animated: true)
             }
             else if questionType == kMRQ || questionType == kMCQ
             {
@@ -469,18 +472,18 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
                 questionInfoController.setQuestionDetails(currentQuestionDetails)
                 
                 
-                questionInfoController.preferredContentSize = CGSizeMake(400,317)
+                questionInfoController.preferredContentSize = CGSize(width: 400,height: 317)
                 
                 let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
                 questionInfoController.setPopover(classViewPopOverController)
-                classViewPopOverController.popoverContentSize = CGSizeMake(400,317);
+                classViewPopOverController.contentSize = CGSize(width: 400,height: 317);
                 classViewPopOverController.delegate = self;
                 
-                classViewPopOverController.presentPopoverFromRect(CGRect(
+                classViewPopOverController.present(from: CGRect(
                     x:mInfoButton.frame.origin.x ,
                     y:mInfoButton.frame.origin.y + mInfoButton.frame.size.height / 2,
                     width: 1,
-                    height: 1), inView: self, permittedArrowDirections: .Right, animated: true)
+                    height: 1), in: self, permittedArrowDirections: .right, animated: true)
             }
             else if questionType == kMatchColumn
             {
@@ -490,18 +493,18 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
                 questionInfoController.setQuestionDetails(currentQuestionDetails)
                 
                 
-                questionInfoController.preferredContentSize = CGSizeMake(400,317)
+                questionInfoController.preferredContentSize = CGSize(width: 400,height: 317)
                 
                 let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
                 questionInfoController.setPopover(classViewPopOverController)
-                classViewPopOverController.popoverContentSize = CGSizeMake(400,317);
+                classViewPopOverController.contentSize = CGSize(width: 400,height: 317);
                 classViewPopOverController.delegate = self;
                 
-                classViewPopOverController.presentPopoverFromRect(CGRect(
+                classViewPopOverController.present(from: CGRect(
                     x:mInfoButton.frame.origin.x ,
                     y:mInfoButton.frame.origin.y + mInfoButton.frame.size.height / 2,
                     width: 1,
-                    height: 1), inView: self, permittedArrowDirections: .Right, animated: true)
+                    height: 1), in: self, permittedArrowDirections: .right, animated: true)
             }
         }
     }

@@ -12,7 +12,7 @@ import Foundation
 @objc protocol multipleResponseOptionViewDelegate
 {
     
-    optional func delegateOptionTouchedWithState(state: Bool, withCurrentOptionDetails Details:AnyObject, withCurrentOption mOptionView:multipleResponseOptionView)
+    @objc optional func delegateOptionTouchedWithState(_ state: Bool, withCurrentOptionDetails Details:AnyObject, withCurrentOption mOptionView:multipleResponseOptionView)
     
     
 }
@@ -39,7 +39,7 @@ class multipleResponseOptionView: UIView
         let tap = UITapGestureRecognizer(target: self, action: #selector(multipleResponseOptionView.optionTouchedTapped))
         tap.numberOfTapsRequired = 1
         self.addGestureRecognizer(tap)
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.white
             }
     
     
@@ -49,17 +49,17 @@ class multipleResponseOptionView: UIView
     }
     
     
-    func setOptionDetails(details:AnyObject)
+    func setOptionDetails(_ details:AnyObject)
     {
         currentOptionDetails = details
-        currentOptionId = details.objectForKey("OptionId") as! String
+        currentOptionId = details.object(forKey: "OptionId") as! String
         
-        optionsLabel.frame = CGRectMake(40, 0, self.frame.size.width-80, self.frame.size.height)
+        optionsLabel.frame = CGRect(x: 40, y: 0, width: self.frame.size.width-80, height: self.frame.size.height)
         self.addSubview(optionsLabel)
         optionsLabel.numberOfLines = 4
-        optionsLabel.lineBreakMode = .ByTruncatingMiddle
-        optionsLabel.textAlignment = .Center
-        optionsLabel.text = (currentOptionDetails.objectForKey("OptionText") as! String)
+        optionsLabel.lineBreakMode = .byTruncatingMiddle
+        optionsLabel.textAlignment = .center
+        optionsLabel.text = (currentOptionDetails.object(forKey: "OptionText") as! String)
         optionsLabel.textColor = standard_Button
         optionsLabel.font = UIFont (name: helveticaRegular, size: 18)
 //        optionsLabel.backgroundColor = lightGrayColor
@@ -72,7 +72,7 @@ class multipleResponseOptionView: UIView
         {
             isSelected = true
             self.backgroundColor = standard_Button
-            optionsLabel.textColor = UIColor.whiteColor()
+            optionsLabel.textColor = UIColor.white
             
             
             
@@ -80,7 +80,7 @@ class multipleResponseOptionView: UIView
         else
         {
             isSelected = false
-            self.backgroundColor = UIColor.whiteColor()
+            self.backgroundColor = UIColor.white
             optionsLabel.textColor = standard_Button
             
             
@@ -92,7 +92,7 @@ class multipleResponseOptionView: UIView
     }
     
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -102,14 +102,14 @@ class multipleResponseOptionView: UIView
         return _delgate;
     }
 
-    func setSelectedState(state:Bool)
+    func setSelectedState(_ state:Bool)
     {
         isSelected = state
         
         
         if isSelected == false
         {
-            self.backgroundColor = UIColor.whiteColor()
+            self.backgroundColor = UIColor.white
             optionsLabel.textColor = standard_Button
             
             
@@ -117,7 +117,7 @@ class multipleResponseOptionView: UIView
         else
         {
             self.backgroundColor = standard_Button
-            optionsLabel.textColor = UIColor.whiteColor()
+            optionsLabel.textColor = UIColor.white
         }
     }
     
@@ -127,9 +127,9 @@ class multipleResponseOptionView: UIView
     {
         
         
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clear
         optionsLabel.textColor = topbarColor
-        self.layer.borderColor = topbarColor.CGColor
+        self.layer.borderColor = topbarColor.cgColor
 
         
         
@@ -137,38 +137,38 @@ class multipleResponseOptionView: UIView
         
         if isSelected
         {
-            if (currentOptionDetails.objectForKey("IsAnswer") as! String) == "1"
+            if (currentOptionDetails.object(forKey: "IsAnswer") as! String) == "1"
             {
                 self.backgroundColor = standard_Green
-                optionsLabel.textColor = UIColor.whiteColor()
-                self.layer.borderColor = standard_Green.CGColor
+                optionsLabel.textColor = UIColor.white
+                self.layer.borderColor = standard_Green.cgColor
                 
-                let correctImage = UIImageView(frame:CGRectMake(5, 5, 30, self.frame.height - 10))
+                let correctImage = UIImageView(frame:CGRect(x: 5, y: 5, width: 30, height: self.frame.height - 10))
                 correctImage.image = UIImage(named:"correct.png")
-                correctImage.contentMode = .ScaleAspectFit
+                correctImage.contentMode = .scaleAspectFit
                 self.addSubview(correctImage)
                 
                 
                 
             }
-            else if (currentOptionDetails.objectForKey("IsAnswer") as! String) == "0"
+            else if (currentOptionDetails.object(forKey: "IsAnswer") as! String) == "0"
             {
                 self.backgroundColor = standard_Red
-                self.layer.borderColor = standard_Red.CGColor
-                optionsLabel.textColor = UIColor.whiteColor()
+                self.layer.borderColor = standard_Red.cgColor
+                optionsLabel.textColor = UIColor.white
                 
-                let wrongImage = UIImageView(frame:CGRectMake(5, 5, 30, self.frame.height - 10))
+                let wrongImage = UIImageView(frame:CGRect(x: 5, y: 5, width: 30, height: self.frame.height - 10))
                 wrongImage.image = UIImage(named:"wrong.png")
-                wrongImage.contentMode = .ScaleAspectFit
+                wrongImage.contentMode = .scaleAspectFit
                 self.addSubview(wrongImage)
             }
         }
        
-        else if (currentOptionDetails.objectForKey("IsAnswer") as! String) == "1"
+        else if (currentOptionDetails.object(forKey: "IsAnswer") as! String) == "1"
         {
-            self.backgroundColor = UIColor.whiteColor()
+            self.backgroundColor = UIColor.white
             optionsLabel.textColor = standard_Green
-            self.layer.borderColor = standard_Green.CGColor
+            self.layer.borderColor = standard_Green.cgColor
         }
     }
     

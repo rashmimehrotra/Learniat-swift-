@@ -12,7 +12,7 @@ import Foundation
 {
     
     
-    func delegateSendButtonpressedWithSelectedOptionsArray(selectedOptions: String, withQuestionName questionName:String)
+    func delegateSendButtonpressedWithSelectedOptionsArray(_ selectedOptions: String, withQuestionName questionName:String)
     
 
 }
@@ -32,7 +32,7 @@ class PollingCreationView: UIView,PollViewCellDelegate
     
     var _delgate: AnyObject!
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -50,25 +50,25 @@ class PollingCreationView: UIView,PollViewCellDelegate
         self.backgroundColor = lightGrayTopBar
         
        
-        mTopImageView.frame = CGRectMake(0, 0, self.frame.size.width, 50)
+        mTopImageView.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: 50)
         self.addSubview(mTopImageView)
-        mTopImageView.backgroundColor = UIColor.whiteColor()
-        mTopImageView.userInteractionEnabled = true
+        mTopImageView.backgroundColor = UIColor.white
+        mTopImageView.isUserInteractionEnabled = true
         
-        mCancelButton.frame = CGRectMake(10, 0, 200, mTopImageView.frame.size.height)
-        mCancelButton.setTitle("Cancel", forState: .Normal)
+        mCancelButton.frame = CGRect(x: 10, y: 0, width: 200, height: mTopImageView.frame.size.height)
+        mCancelButton.setTitle("Cancel", for: UIControlState())
         mTopImageView.addSubview(mCancelButton)
-        mCancelButton.setTitleColor(standard_Button, forState: .Normal)
-        mCancelButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
-        mCancelButton.addTarget(self, action: #selector(PollingCreationView.onCancelButton), forControlEvents: .TouchUpInside)
+        mCancelButton.setTitleColor(standard_Button, for: UIControlState())
+        mCancelButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
+        mCancelButton.addTarget(self, action: #selector(PollingCreationView.onCancelButton), for: .touchUpInside)
         
         
-        mStartButton.frame = CGRectMake(self.frame.size.width - 210, 0, 200, mTopImageView.frame.size.height)
-        mStartButton.setTitle("Start", forState: .Normal)
+        mStartButton.frame = CGRect(x: self.frame.size.width - 210, y: 0, width: 200, height: mTopImageView.frame.size.height)
+        mStartButton.setTitle("Start", for: UIControlState())
         mTopImageView.addSubview(mStartButton)
-        mStartButton.setTitleColor(standard_Button, forState: .Normal)
-        mStartButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
-        mStartButton.addTarget(self, action: #selector(PollingCreationView.onSendButton), forControlEvents: .TouchUpInside)
+        mStartButton.setTitleColor(standard_Button, for: UIControlState())
+        mStartButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
+        mStartButton.addTarget(self, action: #selector(PollingCreationView.onSendButton), for: .touchUpInside)
         
         
     }
@@ -84,28 +84,28 @@ class PollingCreationView: UIView,PollViewCellDelegate
         
         
         
-        let screenName = UILabel(frame: CGRectMake((mTopImageView.frame.size.width - 300)/2, 0, 300, mTopImageView.frame.size.height))
+        let screenName = UILabel(frame: CGRect(x: (mTopImageView.frame.size.width - 300)/2, y: 0, width: 300, height: mTopImageView.frame.size.height))
         mTopImageView.addSubview(screenName)
         screenName.text = "Create new polls"
         screenName.textColor = blackTextColor
-        screenName.textAlignment = .Center
+        screenName.textAlignment = .center
         screenName.font =  UIFont(name: helveticaMedium, size: 20);
         
         
-        mQuestionTextView = CustomTextView(frame:CGRectMake(10, mTopImageView.frame.size.height + 10 , self.frame.size.width - 20, mTopImageView.frame.size.height))
+        mQuestionTextView = CustomTextView(frame:CGRect(x: 10, y: mTopImageView.frame.size.height + 10 , width: self.frame.size.width - 20, height: mTopImageView.frame.size.height))
         mQuestionTextView.setdelegate(self)
         mQuestionTextView.setPlaceHolder("Write question", withStartSting: "Question:")
         self.addSubview(mQuestionTextView)
         
         
-        mLikerScaleScrollView.frame = CGRectMake(10, (self.frame.size.height - 250) / 2, self.frame.size.width - 20, 250)
+        mLikerScaleScrollView.frame = CGRect(x: 10, y: (self.frame.size.height - 250) / 2, width: self.frame.size.width - 20, height: 250)
         self.addSubview(mLikerScaleScrollView)
         
         
         var  positionXvalue :CGFloat = 10;
         for index in 0..<5
         {
-            let cellView = PollViewCell(frame:CGRectMake(positionXvalue,10, 175, 270))
+            let cellView = PollViewCell(frame:CGRect(x: positionXvalue,y: 10, width: 175, height: 270))
             mLikerScaleScrollView.addSubview(cellView);
             cellView.backgroundColor = pollCellBackgroundColor
             cellView.setdelegate(self);
@@ -141,7 +141,7 @@ class PollingCreationView: UIView,PollViewCellDelegate
                 break;
             }
         }
-        mLikerScaleScrollView.contentSize = CGSizeMake(positionXvalue, 0)
+        mLikerScaleScrollView.contentSize = CGSize(width: positionXvalue, height: 0)
 
        
     }
@@ -166,7 +166,7 @@ class PollingCreationView: UIView,PollViewCellDelegate
             let subViews = mLikerScaleScrollView.subviews.flatMap{ $0 as? PollViewCell }
             for mQuerySubView in subViews
             {
-                if mQuerySubView.isKindOfClass(PollViewCell)
+                if mQuerySubView.isKind(of: PollViewCell.self)
                 {
                     
                    if mQuerySubView.getPollSubcellState() == kSelected
@@ -174,13 +174,13 @@ class PollingCreationView: UIView,PollViewCellDelegate
                     
                     
                     
-                        if delegate().respondsToSelector(#selector(PollingCreationViewDelegate.delegateSendButtonpressedWithSelectedOptionsArray(_:withQuestionName:)))
+                        if delegate().responds(to: #selector(PollingCreationViewDelegate.delegateSendButtonpressedWithSelectedOptionsArray(_:withQuestionName:)))
                         {
                             
                             let optionsValue = mQuerySubView.getPollOptions()
-                            SSTeacherMessageHandler.sharedMessageHandler.sendLikertPollMessageToRoom(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, withSelectedOption: optionsValue, withQuestionName: mQuestionTextView.getTextOfCurrentTextView())
+                            SSTeacherMessageHandler.sharedMessageHandler.sendLikertPollMessageToRoom(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, withSelectedOption: optionsValue!, withQuestionName: mQuestionTextView.getTextOfCurrentTextView())
                             
-                            delegate().delegateSendButtonpressedWithSelectedOptionsArray(optionsValue, withQuestionName: mQuestionTextView.getTextOfCurrentTextView())
+                            delegate().delegateSendButtonpressedWithSelectedOptionsArray(optionsValue!, withQuestionName: mQuestionTextView.getTextOfCurrentTextView())
                             
                             
                             self.removeFromSuperview()
@@ -196,12 +196,12 @@ class PollingCreationView: UIView,PollViewCellDelegate
        
     }
     
-    func delegateIgnoreButtonPressedWithOptionCell(selectedCell: PollViewCell!) {
+    func delegateIgnoreButtonPressed(withOptionCell selectedCell: PollViewCell!) {
         
         let subViews = mLikerScaleScrollView.subviews.flatMap{ $0 as? PollViewCell }
         for mQuerySubView in subViews
         {
-            if mQuerySubView.isKindOfClass(PollViewCell)
+            if mQuerySubView.isKind(of: PollViewCell.self)
             {
                 if selectedCell != mQuerySubView
                 {
@@ -216,12 +216,12 @@ class PollingCreationView: UIView,PollViewCellDelegate
         
     }
     
-    func delegateSelectButtonPressedWithOptionCell(selectedCell: PollViewCell!) {
+    func delegateSelectButtonPressed(withOptionCell selectedCell: PollViewCell!) {
         
         let subViews = mLikerScaleScrollView.subviews.flatMap{ $0 as? PollViewCell }
         for mQuerySubView in subViews
         {
-            if mQuerySubView.isKindOfClass(PollViewCell)
+            if mQuerySubView.isKind(of: PollViewCell.self)
             {
                 if selectedCell != mQuerySubView
                 {

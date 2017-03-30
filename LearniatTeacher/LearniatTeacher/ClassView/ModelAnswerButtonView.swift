@@ -22,7 +22,7 @@ class ModelAnswerButtonView: UIButton
         super.init(frame: frame)
         
         
-        modelAnswerCountLabel.frame = CGRectMake(10, 10, self.frame.size.height - 20, self.frame.size.height - 20)
+        modelAnswerCountLabel.frame = CGRect(x: 10, y: 10, width: self.frame.size.height - 20, height: self.frame.size.height - 20)
         self.addSubview(modelAnswerCountLabel)
         modelAnswerCountLabel.layer.cornerRadius = modelAnswerCountLabel.frame.size.width / 2
         modelAnswerCountLabel.layer.masksToBounds = true
@@ -30,12 +30,12 @@ class ModelAnswerButtonView: UIButton
         modelAnswerCountLabel.textColor = standard_Green
         modelAnswerCountLabel.font = UIFont(name: helveticaMedium, size: 20);
         modelAnswerCountLabel.text = "0"
-        modelAnswerCountLabel.textAlignment = .Center
+        modelAnswerCountLabel.textAlignment = .center
         
-        modelAnswerLabel.frame = CGRectMake((self.frame.size.width - 150)/2,0 ,150 ,self.frame.size.height)
+        modelAnswerLabel.frame = CGRect(x: (self.frame.size.width - 150)/2,y: 0 ,width: 150 ,height: self.frame.size.height)
         modelAnswerLabel.text = "Model answer selected"
         modelAnswerLabel.font = UIFont(name: helveticaMedium, size: 14);
-        modelAnswerLabel.textAlignment = .Center;
+        modelAnswerLabel.textAlignment = .center;
         modelAnswerLabel.textColor = whiteColor
         self.addSubview(modelAnswerLabel);
         
@@ -63,7 +63,7 @@ class ModelAnswerButtonView: UIButton
     
     
     
-    func setModelAnswerCount(count:Int)
+    func setModelAnswerCount(_ count:Int)
     {
         modelAnswerCountLabel.text = "\(count)"
     }

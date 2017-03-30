@@ -10,28 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatStudent/Source/SSStudentDataSource.swift"
-            timestampString = "487667829.838425"
+            timestampString = "509965209.438863"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "533"
-            endingLineNumber = "533"
-            landmarkName = "delegateDidGetServiceResponseWithDetails(_:WIthServiceName:withRetruningDelegate:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatStudent/ClassViewController/QueryView/QRVSubView.swift"
-            timestampString = "487501505.303899"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "254"
-            endingLineNumber = "254"
-            landmarkName = "didGetvolunteerRegisteredWithDetails(_:)"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "SSStudentDataSourceDelegate"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -42,13 +26,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatStudent/Source/SSStudentMessageHandler.swift"
-            timestampString = "487667829.838425"
+            timestampString = "507706377.843141"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "551"
-            endingLineNumber = "551"
+            startingLineNumber = "554"
+            endingLineNumber = "554"
             landmarkName = "sendIVolunteerMessageToTeacher(_:withvolunteerId:)"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -58,12 +42,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatStudent/Source/SSStudentDataSource.swift"
-            timestampString = "485978631.473517"
+            timestampString = "509965209.438863"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "391"
-            endingLineNumber = "391"
-            landmarkName = "volunteerRegisterwithQueryId(_:withDelegate:)"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "SSStudentDataSourceDelegate"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -106,12 +90,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatStudent/ClassViewController/QuestionViews/StudentQuestionView.swift"
-            timestampString = "487319005.02691"
+            timestampString = "509965209.438863"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "409"
-            endingLineNumber = "409"
-            landmarkName = "didGetGraphSharedWithDetails(_:)"
+            startingLineNumber = "14"
+            endingLineNumber = "14"
+            landmarkName = "StudentQuestionViewDelegate"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -122,12 +106,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatStudent/ClassViewController/QuestionViews/StudentQuestionView.swift"
-            timestampString = "487319005.02691"
+            timestampString = "509965209.438863"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "389"
-            endingLineNumber = "389"
-            landmarkName = "didGetGraphSharedWithDetails(_:)"
+            startingLineNumber = "14"
+            endingLineNumber = "14"
+            landmarkName = "StudentQuestionViewDelegate"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -138,12 +122,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatStudent/ClassViewController/QuestionViews/StudentQuestionView.swift"
-            timestampString = "487319005.02691"
+            timestampString = "509965209.438863"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "375"
-            endingLineNumber = "375"
-            landmarkName = "didGetGraphSharedWithDetails(_:)"
+            startingLineNumber = "14"
+            endingLineNumber = "14"
+            landmarkName = "StudentQuestionViewDelegate"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -154,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatStudent/ClassViewController/GraphView/StudentAnswerGraphView.swift"
-            timestampString = "485339105.810081"
+            timestampString = "509965209.438863"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "379"
-            endingLineNumber = "379"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
             landmarkName = "increaseMTCMultiplevalu(_:withOptionText:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -170,45 +154,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatStudent/ClassViewController/GraphView/StudentAnswerGraphView.swift"
-            timestampString = "485339149.56211"
+            timestampString = "509965209.438863"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "454"
-            endingLineNumber = "454"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
             landmarkName = "increaseBarValueWithOptionText(_:)"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "LearniatStudent.StudentAnswerGraphView.increaseBarValueWithOptionText (Swift.String) -&gt; ()"
-                  moduleName = "LearniatStudent"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatStudent/LearniatStudent/ClassViewController/GraphView/StudentAnswerGraphView.swift"
-                  timestampString = "492345678.478367"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "455"
-                  endingLineNumber = "455"
-                  offsetFromSymbolStart = "552">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "LearniatStudent.StudentAnswerGraphView.increaseBarValueWithOptionText (Swift.String) -&gt; ()"
-                  moduleName = "LearniatStudent"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatStudent/LearniatStudent/ClassViewController/GraphView/StudentAnswerGraphView.swift"
-                  timestampString = "492345678.478618"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "455"
-                  endingLineNumber = "455"
-                  offsetFromSymbolStart = "912">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -218,13 +170,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatStudent/ClassViewController/QuestionViews/TextTypeQuestionView.swift"
-            timestampString = "486460070.117698"
+            timestampString = "509965209.438863"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
-            landmarkName = "onDontKnowButton()"
-            landmarkType = "5">
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "setdelegate(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -234,12 +186,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatStudent/ClassViewController/QuestionViews/ModelAnswerView.swift"
-            timestampString = "486116556.937401"
+            timestampString = "509965209.438863"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "setScribbleImageName(_:withOverlayImage:)"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "init(frame:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatStudent/ClassViewController/QuestionViews/ScribbleQuestionView.swift"
+            timestampString = "509965209.438863"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "ScribbleQuestionViewDelegate"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -250,76 +218,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatStudent/ClassViewController/QuestionViews/ScribbleQuestionView.swift"
-            timestampString = "487318315.106635"
+            timestampString = "509965209.438863"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "676"
-            endingLineNumber = "676"
-            landmarkName = "getPeakViewMessageFromTeacher()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatStudent/Source/SSStudentMessageHandler.swift"
-            timestampString = "487667829.838425"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "697"
-            endingLineNumber = "697"
-            landmarkName = "sendPeakViewMessageToTeacherWithImageData(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatStudent/ClassViewController/QuestionViews/ScribbleQuestionView.swift"
-            timestampString = "487318947.713698"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "664"
-            endingLineNumber = "664"
-            landmarkName = "FreezMessageFromTeacher()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatStudent/ClassViewController/StudentClassViewController.swift"
-            timestampString = "487320776.70513"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "839"
-            endingLineNumber = "839"
-            landmarkName = "smhdidReceiveQuestionFreezMessage()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatStudent/ClassViewController/QueryView/StudentsQueryView.swift"
-            timestampString = "491290270.649716"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "531"
-            endingLineNumber = "531"
-            landmarkName = "volunteerClosedWithQueryId(_:withStudentdID:withTotalVotes:)"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "ScribbleQuestionViewDelegate"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -336,38 +240,6 @@
             startingLineNumber = "1249"
             endingLineNumber = "1249"
             landmarkName = "-setIPv6Enabled:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatStudent/common/XMPP/Vendor/CocoaAsyncSocket/GCDAsyncSocket.m"
-            timestampString = "492341145.766712"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2197"
-            endingLineNumber = "2197"
-            landmarkName = "-connectWithAddress4:address6:error:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatStudent/common/XMPP/Vendor/CocoaAsyncSocket/GCDAsyncSocket.m"
-            timestampString = "492341227.361437"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1875"
-            endingLineNumber = "1875"
-            landmarkName = "-connectToHost:onPort:error:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -409,14 +281,78 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LearniatStudent/common/XMPP/Vendor/CocoaAsyncSocket/GCDAsyncSocket.m"
-            timestampString = "492341831.272136"
+            filePath = "LearniatStudent/ClassViewController/QuestionViews/OneStingQuestionView.swift"
+            timestampString = "511821340.147577"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1931"
-            endingLineNumber = "1931"
-            landmarkName = "-connectToHost:onPort:viaInterface:withTimeout:error:"
-            landmarkType = "5">
+            startingLineNumber = "167"
+            endingLineNumber = "167"
+            landmarkName = "onSendButton()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatStudent/ClassViewController/QuestionViews/OneStingQuestionView.swift"
+            timestampString = "511821351.591241"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "199"
+            endingLineNumber = "199"
+            landmarkName = "didGetAnswerSentWithDetails(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatStudent/Source/SSStudentMessageHandler.swift"
+            timestampString = "511904297.845552"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "890"
+            endingLineNumber = "890"
+            landmarkName = "didReceiveMessage(withBody:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatStudent/ClassViewController/StudentClassViewController.swift"
+            timestampString = "511905217.547528"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "930"
+            endingLineNumber = "930"
+            landmarkName = "smhdidRecieveQueryVolunteeringEnded()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatStudent/ClassViewController/QueryView/StudentQuerySubView.swift"
+            timestampString = "512506132.809492"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "193"
+            endingLineNumber = "193"
+            landmarkName = "addreplyView()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

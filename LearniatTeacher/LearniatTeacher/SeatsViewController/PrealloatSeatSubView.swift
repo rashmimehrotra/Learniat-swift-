@@ -29,7 +29,7 @@ class PrealloatSeatSubView: UIView{
         
         sizeOfCell = sizeOfCell * 0.9
         
-        let mainChariView = LBorderView(frame: CGRectMake((self.frame.size.width - sizeOfCell )/2 , (self.frame.size.height - sizeOfCell )/2 , sizeOfCell, sizeOfCell))
+        let mainChariView = LBorderView(frame: CGRect(x: (self.frame.size.width - sizeOfCell )/2 , y: (self.frame.size.height - sizeOfCell )/2 , width: sizeOfCell, height: sizeOfCell))
         self.addSubview(mainChariView)
         mainChariView.borderType = BorderTypeDashed;
         mainChariView.dashPattern = 4;

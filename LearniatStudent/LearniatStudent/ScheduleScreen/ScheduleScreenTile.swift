@@ -8,13 +8,37 @@
 //
 
 import Foundation
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 @objc protocol ScheduleScreenTileDelegate
 {
     
-    optional func delegateScheduleTileTouchedWithState(state: String, withCurrentTileDetails Details:AnyObject)
+    @objc optional func delegateScheduleTileTouchedWithState(_ state: String, withCurrentTileDetails Details:AnyObject)
     
-    optional func delegateRefreshSchedule()
+    @objc optional func delegateRefreshSchedule()
     
 }
 
@@ -43,9 +67,9 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
     
     var mDifferenceTimeLabel            = UIVerticalAlignLabel()
     
-    var overDueTimer                    = NSTimer()
+    var overDueTimer                    = Timer()
     
-    var nextSessionTimer                = NSTimer()
+    var nextSessionTimer                = Timer()
     
     var alertTimeValue                  = 0
     
@@ -64,7 +88,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
     }
     
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -78,12 +102,12 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
     func loadAllViewObjects()
     {
         
-        self.userInteractionEnabled = true
+        self.isUserInteractionEnabled = true
         
-        cancelledImageView = UIImageView(frame: CGRectMake(0, 0, self.frame.size.width, self.frame.size.height))
+        cancelledImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
         self.addSubview(cancelledImageView)
         cancelledImageView.image = UIImage(named: "CalendarBubbleRed.png")
-        cancelledImageView.hidden = true
+        cancelledImageView.isHidden = true
         
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(ScheduleScreenTile.handleTap(_:)))
@@ -97,35 +121,35 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         self.addSubview(mClassName)
         mClassName.adjustsFontSizeToFitWidth = true
         mClassName.minimumScaleFactor = 0.2
-        mClassName.lineBreakMode = NSLineBreakMode.ByTruncatingTail;
+        mClassName.lineBreakMode = NSLineBreakMode.byTruncatingTail;
         mClassName.numberOfLines = 4
-        mClassName.verticalAlignment = .VerticalAlignmentTop
-        mClassName.textAlignment = .Left
+        mClassName.verticalAlignment = .verticalAlignmentTop
+        mClassName.textAlignment = .left
         self.addSubview(circleImage)
-        circleImage.hidden = true
-        mClassName.textColor = UIColor.whiteColor()
+        circleImage.isHidden = true
+        mClassName.textColor = UIColor.white
         
        
         
         self.addSubview(mSeatingLabel)
         mSeatingLabel.adjustsFontSizeToFitWidth = true
         mSeatingLabel.minimumScaleFactor = 0.2
-        mSeatingLabel.lineBreakMode = NSLineBreakMode.ByTruncatingTail;
+        mSeatingLabel.lineBreakMode = NSLineBreakMode.byTruncatingTail;
         mSeatingLabel.numberOfLines = 4
-        mSeatingLabel.verticalAlignment = .VerticalAlignmentTop
+        mSeatingLabel.verticalAlignment = .verticalAlignmentTop
         mSeatingLabel.textColor = standard_Red
-        mSeatingLabel.textAlignment = .Left
+        mSeatingLabel.textAlignment = .left
         
         
         
         self.addSubview(mDifferenceTimeLabel)
         mDifferenceTimeLabel.adjustsFontSizeToFitWidth = true
         mDifferenceTimeLabel.minimumScaleFactor = 0.2
-        mDifferenceTimeLabel.lineBreakMode = NSLineBreakMode.ByTruncatingTail;
+        mDifferenceTimeLabel.lineBreakMode = NSLineBreakMode.byTruncatingTail;
         mDifferenceTimeLabel.numberOfLines = 4
-        mDifferenceTimeLabel.verticalAlignment = .VerticalAlignmentTop
-        mDifferenceTimeLabel.textColor = UIColor.blackColor()
-        mDifferenceTimeLabel.textAlignment = .Center
+        mDifferenceTimeLabel.verticalAlignment = .verticalAlignmentTop
+        mDifferenceTimeLabel.textColor = UIColor.black
+        mDifferenceTimeLabel.textAlignment = .center
         
         
         
@@ -133,19 +157,19 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         
         mSeatingAlertImageView.image = UIImage(named: "Alert_Icon.png")
         self.addSubview(mSeatingAlertImageView)
-        mSeatingAlertImageView.hidden = true
+        mSeatingAlertImageView.isHidden = true
 
         
     }
     
-    func handleTap(sender: UITapGestureRecognizer? = nil)
+    func handleTap(_ sender: UITapGestureRecognizer? = nil)
     {
         // handling code
         
-        let sessionState = sessionDetails.objectForKey(kSessionState) as! String
+        let sessionState = sessionDetails.object(forKey: kSessionState) as! String
         
         
-        if delegate().respondsToSelector(#selector(ScheduleScreenTileDelegate.delegateScheduleTileTouchedWithState(_:withCurrentTileDetails:)))
+        if delegate().responds(to: #selector(ScheduleScreenTileDelegate.delegateScheduleTileTouchedWithState(_:withCurrentTileDetails:)))
         {
             delegate().delegateScheduleTileTouchedWithState!(sessionState, withCurrentTileDetails: sessionDetails)
         }
@@ -154,17 +178,17 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         
     }
     
-    func setCurrentSessionDetails(details :AnyObject)
+    func setCurrentSessionDetails(_ details :AnyObject)
     {
         
         
         loadAllViewObjects()
         sessionDetails = details
 
-        updateSessionColorWithSessionState(sessionDetails.objectForKey(kSessionState) as! String)
+        updateSessionColorWithSessionState(sessionDetails.object(forKey: kSessionState) as! String)
         
         updatSeatinglabelWithDetials(details)
-        let classNameWithRoom = String(format:"%@(%@)",(details.objectForKey(kClassName) as! String),(details.objectForKey(kRoomName) as! String))
+        let classNameWithRoom = String(format:"%@(%@)",(details.object(forKey: kClassName) as! String),(details.object(forKey: kRoomName) as! String))
         mClassName.text = classNameWithRoom
     
         
@@ -177,17 +201,17 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
     
     
     
-    func updateSessionColorWithSessionState(sessionState:String)
+    func updateSessionColorWithSessionState(_ sessionState:String)
     {
         
-        cancelledImageView.hidden = true
-        circleImage.hidden = false
+        cancelledImageView.isHidden = true
+        circleImage.isHidden = false
         
         switch sessionState
         {
             case kScheduledString:
                 self.backgroundColor = scheduledColor
-                self.layer.borderColor = scheduledBorderColor.CGColor
+                self.layer.borderColor = scheduledBorderColor.cgColor
                 self.layer.borderWidth = 1
                 
                 
@@ -198,7 +222,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
                 
             case kopenedString:
                 self.backgroundColor = OpenedColor
-                self.layer.borderColor = OpenedBorderColor.CGColor
+                self.layer.borderColor = OpenedBorderColor.cgColor
                 self.layer.borderWidth = 1
                 
                 
@@ -213,35 +237,35 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
                 
                 
                 setClassNameWithFont(helveticaRegular)
-                circleImage.backgroundColor = UIColor.whiteColor()
+                circleImage.backgroundColor = UIColor.white
                 
                 
                 if self.frame.size.height > 40
                 {
-                    circleImage.frame = CGRectMake(10, 8, 24, 24)
+                    circleImage.frame = CGRect(x: 10, y: 8, width: 24, height: 24)
                     circleImage.layer.cornerRadius = circleImage.frame.size.width/2
                     circleImage.layer.masksToBounds = true
                     
-                    let LiveLabel = UILabel(frame: CGRectMake(0,0,circleImage.frame.size.width,circleImage.frame.size.height))
+                    let LiveLabel = UILabel(frame: CGRect(x: 0,y: 0,width: circleImage.frame.size.width,height: circleImage.frame.size.height))
                     circleImage.addSubview(LiveLabel)
                     LiveLabel.text = "Live"
                     LiveLabel.font = UIFont(name:helveticaRegular, size: 9)
                     LiveLabel.textColor = LiveColor
-                    LiveLabel.textAlignment = .Center
+                    LiveLabel.textAlignment = .center
                 }
                 
                 else
                 {
-                    circleImage.frame = CGRectMake(10, 2, self.frame.size.height - 4,self.frame.size.height - 4)
+                    circleImage.frame = CGRect(x: 10, y: 2, width: self.frame.size.height - 4,height: self.frame.size.height - 4)
                     circleImage.layer.cornerRadius = circleImage.frame.size.width/2
                     circleImage.layer.masksToBounds = true
                     
-                    let LiveLabel = UILabel(frame: CGRectMake(0,0,circleImage.frame.size.width,circleImage.frame.size.height))
+                    let LiveLabel = UILabel(frame: CGRect(x: 0,y: 0,width: circleImage.frame.size.width,height: circleImage.frame.size.height))
                     circleImage.addSubview(LiveLabel)
                     LiveLabel.text = "Live"
                     LiveLabel.font = UIFont(name:helveticaRegular, size: 9)
                     LiveLabel.textColor = LiveColor
-                    LiveLabel.textAlignment = .Center
+                    LiveLabel.textAlignment = .center
                 }
                 
                
@@ -251,10 +275,10 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
                 
             case kCanClledString:
                 
-                self.layer.borderColor = CancelledBorderColor.CGColor
+                self.layer.borderColor = CancelledBorderColor.cgColor
                 self.layer.borderWidth = 1
                 self.backgroundColor = CancelledBorderColor
-                cancelledImageView.hidden = false
+                cancelledImageView.isHidden = false
                 setClassNameWithFont(helveticaRegular)
                 circleImage.backgroundColor = CancelledBorderColor
 
@@ -264,7 +288,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
                 self.backgroundColor = EndedColor
                 setClassNameWithFont(helveticaRegular)
 
-                circleImage.hidden = true
+                circleImage.isHidden = true
                 
                 break
                 
@@ -277,13 +301,13 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
     
     
     
-    func updatSeatinglabelWithDetials(details:AnyObject)
+    func updatSeatinglabelWithDetials(_ details:AnyObject)
     {
         
         
-         mSeatingLabel.hidden = true
-         mSeatingAlertImageView.hidden = true
-       if let sessionState = details.objectForKey(kSessionState) as? String
+         mSeatingLabel.isHidden = true
+         mSeatingAlertImageView.isHidden = true
+       if let sessionState = details.object(forKey: kSessionState) as? String
         {
             
             
@@ -292,18 +316,18 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
             switch sessionState
             {
                 case kScheduled:
-                   if let StudentsRegistered = details.objectForKey("StudentsRegistered") as? String
+                   if let StudentsRegistered = details.object(forKey: "StudentsRegistered") as? String
                    {
-                        if let PreAllocatedSeats = details.objectForKey("PreAllocatedSeats") as? String
+                        if let PreAllocatedSeats = details.object(forKey: "PreAllocatedSeats") as? String
                         {
-                            if let OccupiedSeats = details.objectForKey("OccupiedSeats") as? String
+                            if let OccupiedSeats = details.object(forKey: "OccupiedSeats") as? String
                             {
                                 
                                 if Int(StudentsRegistered) > Int(PreAllocatedSeats)! + Int(OccupiedSeats)!
                                 {
                                     
-                                    mSeatingLabel.hidden = false
-                                     mSeatingAlertImageView.hidden = false
+                                    mSeatingLabel.isHidden = false
+                                     mSeatingAlertImageView.isHidden = false
                                      if (Int(StudentsRegistered)>1)
                                      {
                                         mSeatingLabel.text = "\(Int(StudentsRegistered)! - (Int(PreAllocatedSeats)! + Int(OccupiedSeats)!)) Students are not allocated"
@@ -319,18 +343,18 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
                     break
                     
                 case kopened:
-                    if let StudentsRegistered = details.objectForKey("StudentsRegistered") as? String
+                    if let StudentsRegistered = details.object(forKey: "StudentsRegistered") as? String
                     {
-                        if let PreAllocatedSeats = details.objectForKey("PreAllocatedSeats") as? String
+                        if let PreAllocatedSeats = details.object(forKey: "PreAllocatedSeats") as? String
                         {
-                            if let OccupiedSeats = details.objectForKey("OccupiedSeats") as? String
+                            if let OccupiedSeats = details.object(forKey: "OccupiedSeats") as? String
                             {
                                 
                                 if Int(StudentsRegistered) > Int(PreAllocatedSeats)! + Int(OccupiedSeats)!
                                 {
                                     
-                                    mSeatingLabel.hidden = false
-                                    mSeatingAlertImageView.hidden = false
+                                    mSeatingLabel.isHidden = false
+                                    mSeatingAlertImageView.isHidden = false
                                     if (Int(StudentsRegistered)>1)
                                     {
                                         mSeatingLabel.text = "\(Int(StudentsRegistered)! - (Int(PreAllocatedSeats)! + Int(OccupiedSeats)!)) Students are not allocated"
@@ -347,7 +371,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
                     break
                     
                 default:
-                    mSeatingLabel.hidden = true
+                    mSeatingLabel.isHidden = true
                     break
             }
 
@@ -356,47 +380,47 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
     }
     
     
-    func setClassNameWithFont(fontname: String)
+    func setClassNameWithFont(_ fontname: String)
     {
         if self.frame.size.height/2 < 20
         {
-            mClassName.frame = CGRectMake(40, 4, self.frame.size.width/3, (self.frame.size.height/1.2))
+            mClassName.frame = CGRect(x: 40, y: 4, width: self.frame.size.width/3, height: (self.frame.size.height/1.2))
             
             mClassName.font = UIFont(name: fontname, size: (self.frame.size.height/2))
             
-            circleImage.frame = CGRectMake(15, 6, 15, 15)
+            circleImage.frame = CGRect(x: 15, y: 6, width: 15, height: 15)
             
             
             
-            mSeatingLabel.frame =  CGRectMake(self.frame.size.width - (self.frame.size.width/3.5), 4, self.frame.size.width/3.5, (self.frame.size.height/1.2))
+            mSeatingLabel.frame =  CGRect(x: self.frame.size.width - (self.frame.size.width/3.5), y: 4, width: self.frame.size.width/3.5, height: (self.frame.size.height/1.2))
             
             mSeatingLabel.font = UIFont(name: helveticaBold, size: (self.frame.size.height/2))
             
-            mSeatingAlertImageView.frame = CGRectMake(mSeatingLabel.frame.origin.x - 30, 4, 20, 20)
+            mSeatingAlertImageView.frame = CGRect(x: mSeatingLabel.frame.origin.x - 30, y: 4, width: 20, height: 20)
             
             
-            mDifferenceTimeLabel.frame = CGRectMake(mClassName.frame.origin.x  + mClassName.frame.size.width + 20, 4, self.frame.size.width/3 , (self.frame.size.height/1.2))
+            mDifferenceTimeLabel.frame = CGRect(x: mClassName.frame.origin.x  + mClassName.frame.size.width + 20, y: 4, width: self.frame.size.width/3 , height: (self.frame.size.height/1.2))
              mDifferenceTimeLabel.font = UIFont(name: helveticaRegular, size: (self.frame.size.height/2))
             
             
         }
         else
         {
-            mClassName.frame = CGRectMake(40, 10, self.frame.size.width/3, (self.frame.size.height/1.2))
+            mClassName.frame = CGRect(x: 40, y: 10, width: self.frame.size.width/3, height: (self.frame.size.height/1.2))
             
             mClassName.font = UIFont(name: fontname, size: 18)
             
-            circleImage.frame = CGRectMake(15, 15, 15, 15)
+            circleImage.frame = CGRect(x: 15, y: 15, width: 15, height: 15)
             
             
-            mSeatingLabel.frame =  CGRectMake(self.frame.size.width - (self.frame.size.width/3.5), 10, self.frame.size.width/3.5, (self.frame.size.height/1.2))
+            mSeatingLabel.frame =  CGRect(x: self.frame.size.width - (self.frame.size.width/3.5), y: 10, width: self.frame.size.width/3.5, height: (self.frame.size.height/1.2))
             mSeatingLabel.font = UIFont(name: helveticaBold, size: 18)
             
             
-            mSeatingAlertImageView.frame = CGRectMake(mSeatingLabel.frame.origin.x - 30, 13, 20, 20)
+            mSeatingAlertImageView.frame = CGRect(x: mSeatingLabel.frame.origin.x - 30, y: 13, width: 20, height: 20)
             
             
-            mDifferenceTimeLabel.frame = CGRectMake(mClassName.frame.origin.x  + mClassName.frame.size.width + 20, 10, self.frame.size.width/4 , (self.frame.size.height/1.2))
+            mDifferenceTimeLabel.frame = CGRect(x: mClassName.frame.origin.x  + mClassName.frame.size.width + 20, y: 10, width: self.frame.size.width/4 , height: (self.frame.size.height/1.2))
             mDifferenceTimeLabel.font = UIFont(name: helveticaRegular, size: 18)
 
             
@@ -408,52 +432,52 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
     }
     
     
-    func OverDueSessionIsWithDetails(details:AnyObject)
+    func OverDueSessionIsWithDetails(_ details:AnyObject)
     {
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
         var _string :String = ""
-        let currentDate = NSDate()
-        _string = _string.stringFromTimeInterval(currentDate.timeIntervalSinceDate(dateFormatter.dateFromString((sessionDetails.objectForKey("StartTime") as! String))!)).fullString
+        let currentDate = Date()
+        _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: (sessionDetails.object(forKey: "StartTime") as! String))!)).fullString
         
         mDifferenceTimeLabel.text = "Overdue: \(_string)"
         
         
         self.backgroundColor = standard_Red
         mSeatingAlertImageView.image = UIImage(named: "Blue_Alert.png")
-        mSeatingLabel.textColor = UIColor.whiteColor()
+        mSeatingLabel.textColor = UIColor.white
         
         overDueTimer.invalidate()
         nextSessionTimer.invalidate()
         
-        overDueTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(ScheduleScreenTile.updateOverdueSession), userInfo: nil, repeats: true)
+        overDueTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ScheduleScreenTile.updateOverdueSession), userInfo: nil, repeats: true)
     }
     
     
     func updateOverdueSession()
     {
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
         var _string :String = ""
-        let currentDate = NSDate()
-        _string = _string.stringFromTimeInterval(currentDate.timeIntervalSinceDate(dateFormatter.dateFromString((sessionDetails.objectForKey("StartTime") as! String))!)).fullString
+        let currentDate = Date()
+        _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: (sessionDetails.object(forKey: "StartTime") as! String))!)).fullString
         
         mDifferenceTimeLabel.text = "Overdue: \(_string)"
         
         
         
         
-        if let endTime = sessionDetails.objectForKey("EndTime") as? String
+        if let endTime = sessionDetails.object(forKey: "EndTime") as? String
         {
-            let isGreater = currentDate.isGreaterThanDate((dateFormatter.dateFromString(endTime)!))
+            let isGreater = currentDate.isGreaterThanDate((dateFormatter.date(from: endTime)!))
             
-            let isEqual = currentDate.isEqualToDate((dateFormatter.dateFromString(endTime)!))
+            let isEqual = currentDate == (dateFormatter.date(from: endTime)!)
            
             if isGreater == true || isEqual == true
             {
-                if delegate().respondsToSelector(#selector(ScheduleScreenTileDelegate.delegateRefreshSchedule))
+                if delegate().responds(to: #selector(ScheduleScreenTileDelegate.delegateRefreshSchedule))
                 {
                     delegate().delegateRefreshSchedule!()
                 }
@@ -466,24 +490,24 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
     
     
     
-    func nextSessionUpdatingWithdetails(details:AnyObject)
+    func nextSessionUpdatingWithdetails(_ details:AnyObject)
     {
         
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
         var _string :String = ""
-        let currentDate = NSDate()
-        _string = _string.stringFromTimeInterval(dateFormatter.dateFromString((sessionDetails.objectForKey("StartTime") as! String))!.timeIntervalSinceDate(currentDate)).fullString
+        let currentDate = Date()
+        _string = _string.stringFromTimeInterval(dateFormatter.date(from: (sessionDetails.object(forKey: "StartTime") as! String))!.timeIntervalSince(currentDate)).fullString
         
         mDifferenceTimeLabel.text = "Starts in about: \(_string)"
 
         overDueTimer.invalidate()
         nextSessionTimer.invalidate()
-        nextSessionTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(ScheduleScreenTile.updateNextSession), userInfo: nil, repeats: true)
+        nextSessionTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ScheduleScreenTile.updateNextSession), userInfo: nil, repeats: true)
         
         
-         let differenceMinutes  = currentDate.minutesAndSecondsDiffernceBetweenDates(currentDate, endDate: dateFormatter.dateFromString(sessionDetails.objectForKey("StartTime") as! String)!)
+         let differenceMinutes  = currentDate.minutesAndSecondsDiffernceBetweenDates(currentDate, endDate: dateFormatter.date(from: sessionDetails.object(forKey: "StartTime") as! String)!)
         
         if differenceMinutes.second < alertTimeConditionValue
         {
@@ -498,30 +522,30 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
     
     func updateNextSession()
     {
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
         var _string :String = ""
-        let currentDate = NSDate()
-        _string = _string.stringFromTimeInterval(dateFormatter.dateFromString((sessionDetails.objectForKey("StartTime") as! String))!.timeIntervalSinceDate(currentDate)).fullString
+        let currentDate = Date()
+        _string = _string.stringFromTimeInterval(dateFormatter.date(from: (sessionDetails.object(forKey: "StartTime") as! String))!.timeIntervalSince(currentDate)).fullString
         
         mDifferenceTimeLabel.text = "Starts in about: \(_string)"
         
         
         
-        let differenceMinutes  = currentDate.minutesAndSecondsDiffernceBetweenDates(currentDate, endDate: dateFormatter.dateFromString(sessionDetails.objectForKey("StartTime") as! String)!)
+        let differenceMinutes  = currentDate.minutesAndSecondsDiffernceBetweenDates(currentDate, endDate: dateFormatter.date(from: sessionDetails.object(forKey: "StartTime") as! String)!)
         
         
         if differenceMinutes.second <= 0
         {
-            let isLesserValue = currentDate.isGreaterThanDate(dateFormatter.dateFromString(sessionDetails.objectForKey("StartTime") as! String)!)
+            let isLesserValue = currentDate.isGreaterThanDate(dateFormatter.date(from: sessionDetails.object(forKey: "StartTime") as! String)!)
             
             if isLesserValue == true
             {
                 overDueTimer.invalidate()
                 nextSessionTimer.invalidate()
                 alertTimeValue = alertExtendingMunites
-                if delegate().respondsToSelector(#selector(ScheduleScreenTileDelegate.delegateRefreshSchedule))
+                if delegate().responds(to: #selector(ScheduleScreenTileDelegate.delegateRefreshSchedule))
                 {
                     delegate().delegateRefreshSchedule!()
                 }
@@ -532,7 +556,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
             overDueTimer.invalidate()
             nextSessionTimer.invalidate()
             alertTimeValue = alertExtendingMunites
-            if delegate().respondsToSelector(#selector(ScheduleScreenTileDelegate.delegateRefreshSchedule))
+            if delegate().responds(to: #selector(ScheduleScreenTileDelegate.delegateRefreshSchedule))
             {
                 delegate().delegateRefreshSchedule!()
             }
@@ -545,7 +569,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
                 overDueTimer.invalidate()
                 nextSessionTimer.invalidate()
                 alertTimeValue = alertExtendingMunites
-                if delegate().respondsToSelector(#selector(ScheduleScreenTileDelegate.delegateRefreshSchedule))
+                if delegate().responds(to: #selector(ScheduleScreenTileDelegate.delegateRefreshSchedule))
                 {
                     delegate().delegateRefreshSchedule!()
                 }

@@ -14,9 +14,9 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     var mTopbarImageView             :UIImageView           = UIImageView()
     
-    var  studentImage :UIImageView!
+    var  studentImage :CustomProgressImageView!
     
-    var mTeacherImageView: UIImageView!
+    var mTeacherImageView: CustomProgressImageView!
     
     var mTeacherName: UILabel!
     
@@ -54,14 +54,14 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     var currentSubTopicId :String           = String()
     var currentAssessmentAnswerId :String   = String()
-    var waitQuestionTimer                   = NSTimer()
+    var waitQuestionTimer                   = Timer()
     
      let mClassNameButton  = UIButton()
     let mTeacherImageButton = UIButton()
     
     var mStudentQrvAnsweringView           :StudentVolunteeringView!
     
-    var startedTimeUpdatingTimer = NSTimer()
+    var startedTimeUpdatingTimer = Timer()
     
     
     var mFullScreenView         :SSStudentFullscreenScribbleQuestion!
@@ -76,47 +76,50 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         
         SSStudentMessageHandler.sharedMessageHandler.setdelegate(self)
         
-        mTopbarImageView = UIImageView(frame: CGRectMake(0, 0, self.view.frame.size.width, 60))
+        mTopbarImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 60))
         mTopbarImageView.backgroundColor = topbarColor
         self.view.addSubview(mTopbarImageView)
-        mTopbarImageView.userInteractionEnabled = true
+        mTopbarImageView.isUserInteractionEnabled = true
         
-         studentImage = UIImageView(frame:CGRectMake(15, 15, mTopbarImageView.frame.size.height - 20 ,mTopbarImageView.frame.size.height - 20))
+         studentImage = CustomProgressImageView(frame:CGRect(x: 15, y: 15, width: mTopbarImageView.frame.size.height - 20 ,height: mTopbarImageView.frame.size.height - 20))
         mTopbarImageView.addSubview(studentImage)
         
-        let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_UserProfileImageURL) as! String
+        let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
         
-        if let checkedUrl = NSURL(string: "\(urlString)/\(SSStudentDataSource.sharedDataSource.currentUserId)_79px.jpg")
+        let userID = urlString.appending("/").appending(SSStudentDataSource.sharedDataSource.currentUserId)
+        
+        
+        if let checkedUrl = URL(string: "\(userID)_79px.jpg")
         {
-            studentImage.contentMode = .ScaleAspectFit
-            studentImage.downloadImage(checkedUrl, withFolderType: folderType.ProFilePics)
+            studentImage.contentMode = .scaleAspectFit
+            studentImage.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
         }
         
         
         
-        let studentName = UILabel(frame: CGRectMake(studentImage.frame.origin.x + studentImage.frame.size.width + 10, studentImage.frame.origin.y, 200, 20))
+        let studentName = UILabel(frame: CGRect(x: studentImage.frame.origin.x + studentImage.frame.size.width + 10, y: studentImage.frame.origin.y, width: 200, height: 20))
         mTopbarImageView.addSubview(studentName)
-        studentName.textColor = UIColor.whiteColor()
-        studentName.text = SSStudentDataSource.sharedDataSource.currentUserName.capitalizedString
+        studentName.textColor = UIColor.white
+        studentName.text = SSStudentDataSource.sharedDataSource.currentUserName.capitalized
 
         
         
         
-        mTeacherImageButton.frame = CGRectMake(0, 0, mTopbarImageView.frame.size.height , mTopbarImageView.frame.size.height)
+        mTeacherImageButton.frame = CGRect(x: 0, y: 0, width: mTopbarImageView.frame.size.height , height: mTopbarImageView.frame.size.height)
         mTopbarImageView.addSubview(mTeacherImageButton)
-        mTeacherImageButton.addTarget(self, action: #selector(StudentClassViewController.onTeacherImage), forControlEvents: UIControlEvents.TouchUpInside)
+        mTeacherImageButton.addTarget(self, action: #selector(StudentClassViewController.onTeacherImage), for: UIControlEvents.touchUpInside)
         
 
         
         
-        mClassName = UILabel(frame: CGRectMake(mTopbarImageView.frame.size.width/2 - 100 , 15, 500, 20))
+        mClassName = UILabel(frame: CGRect(x: mTopbarImageView.frame.size.width/2 - 100 , y: 15, width: 500, height: 20))
         mClassName.font = UIFont(name:helveticaRegular, size: 20)
         
         mTopbarImageView.addSubview(mClassName)
-        mClassName.textColor = UIColor.whiteColor()
-        mClassName.textAlignment = .Left
+        mClassName.textColor = UIColor.white
+        mClassName.textAlignment = .left
         
-        if let ClassName = sessionDetails.objectForKey("ClassName") as? String
+        if let ClassName = sessionDetails.object(forKey: "ClassName") as? String
         {
             mClassName.text = ClassName
         }
@@ -125,25 +128,25 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
        
         
         
-        mClassNameButton.frame = CGRectMake((mTopbarImageView.frame.size.width - mClassName.frame.size.width)/2 , 0, mClassName.frame.size.width, mTopbarImageView.frame.size.height )
+        mClassNameButton.frame = CGRect(x: (mTopbarImageView.frame.size.width - mClassName.frame.size.width)/2 , y: 0, width: mClassName.frame.size.width, height: mTopbarImageView.frame.size.height )
         mTopbarImageView.addSubview(mClassNameButton)
-        mClassNameButton.addTarget(self, action: #selector(StudentClassViewController.onClassButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mClassNameButton.backgroundColor = UIColor.clearColor()
+        mClassNameButton.addTarget(self, action: #selector(StudentClassViewController.onClassButton), for: UIControlEvents.touchUpInside)
+        mClassNameButton.backgroundColor = UIColor.clear
         
         
         
-        mstatusImage .frame = CGRectMake(mClassName.frame.origin.x  - (mClassName.frame.size.height + 5),mClassName.frame.origin.y  ,mClassName.frame.size.height,mClassName.frame.size.height)
+        mstatusImage .frame = CGRect(x: mClassName.frame.origin.x  - (mClassName.frame.size.height + 5),y: mClassName.frame.origin.y  ,width: mClassName.frame.size.height,height: mClassName.frame.size.height)
         mstatusImage.backgroundColor  = UIColor(red: 255/255.0, green: 59/255.0, blue: 48/255.0, alpha: 1)
         mTopbarImageView.addSubview(mstatusImage)
         mstatusImage.layer.cornerRadius = mstatusImage.frame.size.width/2
         
         
         
-        mClassStatedLabel.frame =  CGRectMake(mClassName.frame.origin.x, mClassName.frame.origin.y + mClassName.frame.size.height + 3 , mClassName.frame.size.width, mClassName.frame.size.height)
-        mClassStatedLabel.textColor = UIColor.whiteColor()
+        mClassStatedLabel.frame =  CGRect(x: mClassName.frame.origin.x, y: mClassName.frame.origin.y + mClassName.frame.size.height + 3 , width: mClassName.frame.size.width, height: mClassName.frame.size.height)
+        mClassStatedLabel.textColor = UIColor.white
         mClassStatedLabel.numberOfLines = 2
         
-        mClassStatedLabel.textAlignment = .Left
+        mClassStatedLabel.textAlignment = .left
         mClassStatedLabel.font = UIFont(name: helveticaMedium, size: 14)
         mTopbarImageView.addSubview(mClassStatedLabel)
         
@@ -151,50 +154,50 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
 
         
         
-        classStartedView.frame = CGRectMake(0, mTopbarImageView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - mTopbarImageView.frame.size.height)
+        classStartedView.frame = CGRect(x: 0, y: mTopbarImageView.frame.size.height, width: self.view.frame.size.width, height: self.view.frame.size.height - mTopbarImageView.frame.size.height)
         classStartedView.backgroundColor = darkBackgroundColor
         self.view.addSubview(classStartedView)
-        classStartedView.hidden = true
+        classStartedView.isHidden = true
         
         
         
        
         
         
-        mBottomBarImageView.frame = CGRectMake(0, classStartedView.frame.size.height - 60, classStartedView.frame.size.width, 60)
+        mBottomBarImageView.frame = CGRect(x: 0, y: classStartedView.frame.size.height - 60, width: classStartedView.frame.size.width, height: 60)
         classStartedView.addSubview(mBottomBarImageView)
         mBottomBarImageView.backgroundColor = topbarColor
         
-        mTeacherImageView = UIImageView(frame: CGRectMake(10, 10, mBottomBarImageView.frame.size.height - 20 ,mBottomBarImageView.frame.size.height - 20))
+        mTeacherImageView = CustomProgressImageView(frame: CGRect(x: 10, y: 10, width: mBottomBarImageView.frame.size.height - 20 ,height: mBottomBarImageView.frame.size.height - 20))
         mTeacherImageView.backgroundColor = lightGrayColor
         mBottomBarImageView.addSubview(mTeacherImageView)
         mTeacherImageView.layer.masksToBounds = true
         mTeacherImageView.layer.cornerRadius = 2
         
-        mTeacherName = UILabel(frame: CGRectMake(mTeacherImageView.frame.origin.x + mTeacherImageView.frame.size.width + 10, mTeacherImageView.frame.origin.y, 200, 20))
+        mTeacherName = UILabel(frame: CGRect(x: mTeacherImageView.frame.origin.x + mTeacherImageView.frame.size.width + 10, y: mTeacherImageView.frame.origin.y, width: 200, height: 20))
         mTeacherName.font = UIFont(name:helveticaMedium, size: 20)
         mBottomBarImageView.addSubview(mTeacherName)
-        mTeacherName.textColor = UIColor.whiteColor()
+        mTeacherName.textColor = UIColor.white
         
         
-        let teacher = UILabel(frame: CGRectMake(mTeacherImageView.frame.origin.x + mTeacherImageView.frame.size.width + 10, mTeacherName.frame.origin.y + mTeacherName.frame.size.height + 5, 200, 20))
+        let teacher = UILabel(frame: CGRect(x: mTeacherImageView.frame.origin.x + mTeacherImageView.frame.size.width + 10, y: mTeacherName.frame.origin.y + mTeacherName.frame.size.height + 5, width: 200, height: 20))
         mBottomBarImageView.addSubview(teacher)
         teacher.text = "Teacher"
         teacher.font = UIFont(name:helveticaRegular, size: 16)
-        teacher.textColor = UIColor.whiteColor()
+        teacher.textColor = UIColor.white
         
       
         
-        mNoStudentLabel.frame = CGRectMake(10, (self.view.frame.size.height - 40)/2, self.view.frame.size.width - 20,40)
+        mNoStudentLabel.frame = CGRect(x: 10, y: (self.view.frame.size.height - 40)/2, width: self.view.frame.size.width - 20,height: 40)
         mNoStudentLabel.font = UIFont(name:helveticaMedium, size: 30)
         mNoStudentLabel.text = "Wait for the teacher to begin :)"
         self.view.addSubview(mNoStudentLabel)
-        mNoStudentLabel.textColor = UIColor.whiteColor()
-        mNoStudentLabel.textAlignment = .Center
-        mNoStudentLabel.hidden = true
+        mNoStudentLabel.textColor = UIColor.white
+        mNoStudentLabel.textAlignment = .center
+        mNoStudentLabel.isHidden = true
         
         
-        if let sessionId = sessionDetails.objectForKey(kSessionId) as? String
+        if let sessionId = sessionDetails.object(forKey: kSessionId) as? String
         {
             SSStudentDataSource.sharedDataSource.currentLiveSessionId = sessionId
             SSStudentDataSource.sharedDataSource.getUserSessionWithDetails(sessionId, withDelegate: self)
@@ -202,36 +205,36 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         }
         
         
-        switch (sessionDetails.objectForKey("SessionState") as! String)
+        switch (sessionDetails.object(forKey: "SessionState") as! String)
         {
             case kopenedString:
                 mstatusImage.backgroundColor = UIColor(red: 255/255.0, green: 59/255.0, blue: 48/255.0, alpha: 1)
                 mClassStatedLabel.text = "Class not started yet"
-                mNoStudentLabel.hidden = false
-                classStartedView.hidden = true
+                mNoStudentLabel.isHidden = false
+                classStartedView.isHidden = true
                 
                 break
             
             case kLiveString:
                 
                 
-                let dateFormatter = NSDateFormatter()
+                let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
                 
                 var _string :String = ""
-                let currentDate = NSDate()
+                let currentDate = Date()
                 
                 
                 
-                _string = _string.stringFromTimeInterval(currentDate.timeIntervalSinceDate(dateFormatter.dateFromString((sessionDetails.objectForKey("StartTime") as! String))!)).fullString
+                _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: (sessionDetails.object(forKey: "StartTime") as! String))!)).fullString
                 
                 mstatusImage.backgroundColor = UIColor(red: 76.0/255.0, green: 217.0/255.0, blue: 100.0/255.0, alpha: 1)
                 mClassStatedLabel.text = "Started: \(_string)"
-                mNoStudentLabel.hidden = true
-                classStartedView.hidden = false
+                mNoStudentLabel.isHidden = true
+                classStartedView.isHidden = false
                 
                 startedTimeUpdatingTimer.invalidate()
-                startedTimeUpdatingTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(StudentClassViewController.startTimeUpdating), userInfo: nil, repeats: true)
+                startedTimeUpdatingTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(StudentClassViewController.startTimeUpdating), userInfo: nil, repeats: true)
                 
                 break
             
@@ -242,9 +245,10 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
          loadSubview()
         
         
-        let notificationCenter = NSNotificationCenter.defaultCenter()
-        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplicationWillResignActiveNotification, object: nil)
-         notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplicationWillEnterForegroundNotification, object: nil)
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        
+        notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
         
     }
     
@@ -256,20 +260,20 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         let questionInfoController = SSSettingsViewController()
         questionInfoController.setDelegate(self)
         
-        questionInfoController.ClassViewTopicsButtonSettingsButtonPressed();
+        questionInfoController.classViewTopicsButtonSettingsButtonPressed();
         
         let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
         
-        classViewPopOverController.popoverContentSize = CGSizeMake(310, 80);
+        classViewPopOverController.contentSize = CGSize(width: 310, height: 80);
         
-        questionInfoController.setPopOverController(classViewPopOverController)
+        questionInfoController.setPopOver(classViewPopOverController)
         
         
-        classViewPopOverController.presentPopoverFromRect(CGRect(
+        classViewPopOverController.present(from: CGRect(
             x:mTeacherImageButton.frame.origin.x ,
             y:mTeacherImageButton.frame.origin.y + mTeacherImageButton.frame.size.height,
             width: 1,
-            height: 1), inView: self.view, permittedArrowDirections: .Up, animated: true)
+            height: 1), in: self.view, permittedArrowDirections: .up, animated: true)
         
         
     }
@@ -280,7 +284,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         print("App moved to background!")
         
          SSStudentMessageHandler.sharedMessageHandler.sendStudentBenchStatus(kUserStateBackGround)
-        SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateBackGround, ofSession:(sessionDetails.objectForKey("SessionId") as! String), withDelegate: self)
+        SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateBackGround, ofSession:(sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
         
     }
     
@@ -289,9 +293,11 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         print("App moved to background!")
         
        
-        SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateLive, ofSession:(sessionDetails.objectForKey("SessionId") as! String), withDelegate: self)
+        SSStudentMessageHandler.sharedMessageHandler.sendStudentBenchStatus(kUserStateLive)
         
-         SSStudentMessageHandler.sharedMessageHandler.sendStudentBenchStatus(kUserStateLive)
+        SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateLive, ofSession:(sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+        
+        
         
     }
 
@@ -301,23 +307,23 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         
         
         
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
         var _string :String = ""
-        let currentDate = NSDate()
-        _string = _string.stringFromTimeInterval(currentDate.timeIntervalSinceDate(dateFormatter.dateFromString((sessionDetails.objectForKey("StartTime") as! String))!)).fullString
+        let currentDate = Date()
+        _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: (sessionDetails.object(forKey: "StartTime") as! String))!)).fullString
         
         
         mstatusImage.backgroundColor = UIColor(red: 76.0/255.0, green: 217.0/255.0, blue: 100.0/255.0, alpha: 1)
-        mNoStudentLabel.hidden = true
-        classStartedView.hidden = false
+        mNoStudentLabel.isHidden = true
+        classStartedView.isHidden = false
         mClassStatedLabel.text = "Started: \(_string)"
         
-        SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateLive, ofSession:(sessionDetails.objectForKey("SessionId") as! String), withDelegate: self)
+        SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateLive, ofSession:(sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
         
         startedTimeUpdatingTimer.invalidate()
-        startedTimeUpdatingTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(StudentClassViewController.startTimeUpdating), userInfo: nil, repeats: true)
+        startedTimeUpdatingTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(StudentClassViewController.startTimeUpdating), userInfo: nil, repeats: true)
         
     }
     
@@ -326,25 +332,25 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
       
         
         
-        let buttonPosition :CGPoint = mClassNameButton.convertPoint(CGPointZero, toView: self.view)
+        let buttonPosition :CGPoint = mClassNameButton.convert(CGPoint.zero, to: self.view)
         
         let remainingHeight = self.view.frame.size.height - (buttonPosition.y  + mClassNameButton.frame.size.height + mClassNameButton.frame.size.height)
         
         
         let questionInfoController = SSStudentSchedulePopoverController()
         
-        questionInfoController.setCurrentScreenSize(CGSizeMake(400, remainingHeight))
+        questionInfoController.setCurrentScreenSize(CGSize(width: 400, height: remainingHeight))
         questionInfoController.setdelegate(self)
         let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
         
-        classViewPopOverController.popoverContentSize = CGSizeMake(400,remainingHeight);
+        classViewPopOverController.contentSize = CGSize(width: 400,height: remainingHeight);
         classViewPopOverController.delegate = self;
         questionInfoController.setPopover(classViewPopOverController)
-        classViewPopOverController.presentPopoverFromRect(CGRect(
+        classViewPopOverController.present(from: CGRect(
             x:buttonPosition.x + mClassNameButton.frame.size.width / 2,
             y:buttonPosition.y  + mClassNameButton.frame.size.height,
             width: 1,
-            height: 1), inView: self.view, permittedArrowDirections: .Up, animated: true)
+            height: 1), in: self.view, permittedArrowDirections: .up, animated: true)
         
     }
     
@@ -354,18 +360,18 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     func startTimeUpdating()
     {
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
         var _string :String = ""
-        let currentDate = NSDate()
-        _string = _string.stringFromTimeInterval(currentDate.timeIntervalSinceDate(dateFormatter.dateFromString((sessionDetails.objectForKey("StartTime") as! String))!)).fullString
+        let currentDate = Date()
+        _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: (sessionDetails.object(forKey: "StartTime") as! String))!)).fullString
         mClassStatedLabel.text = "Started: \(_string)"
     }
     
     
     
-    func setCurrentSessionDetails(details: AnyObject)
+    func setCurrentSessionDetails(_ details: AnyObject)
     {
         sessionDetails = details
         
@@ -376,27 +382,27 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     // MARK: - datasource delegate Functions
     
-    func didGetSessionInfoWithDetials(details: AnyObject)
+    func didGetSessionInfoWithDetials(_ details: AnyObject)
     {
         print(details)
         
         
-        if let sessionState = details.objectForKey("SessionState") as? String
+        if let sessionState = details.object(forKey: "SessionState") as? String
         {
             if sessionState == "1"
             {
-               mNoStudentLabel.hidden = true
-                classStartedView.hidden = false
-                if let sessionId = sessionDetails.objectForKey(kSessionId) as? String
+               mNoStudentLabel.isHidden = true
+                classStartedView.isHidden = false
+                if let sessionId = sessionDetails.object(forKey: kSessionId) as? String
                 {
                      SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateLive, ofSession: sessionId, withDelegate: self)
                 }
             }
             else
             {
-                mNoStudentLabel.hidden = false
-                 classStartedView.hidden = true
-                if let sessionId = sessionDetails.objectForKey(kSessionId) as? String
+                mNoStudentLabel.isHidden = false
+                 classStartedView.isHidden = true
+                if let sessionId = sessionDetails.object(forKey: kSessionId) as? String
                 {
                     SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserOccupied, ofSession: sessionId, withDelegate: self)
                 }
@@ -405,28 +411,31 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         }
         else
         {
-            mNoStudentLabel.hidden = false
-            classStartedView.hidden = true
+            mNoStudentLabel.isHidden = false
+            classStartedView.isHidden = true
         }
         
         
-        if let  TeacherId = details.objectForKey("TeacherId") as? String
+        if let  TeacherId = details.object(forKey: "TeacherId") as? String
         {
             SSStudentDataSource.sharedDataSource.currentTeacherId = TeacherId
             
-            let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_UserProfileImageURL) as! String
+            let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
             
-            if let checkedUrl = NSURL(string: "\(urlString)/\(TeacherId)_79px.jpg")
+            let userID = urlString.appending("/").appending(TeacherId)
+            
+            
+            if let checkedUrl = URL(string: "\(userID)_79px.jpg")
             {
-                mTeacherImageView.contentMode = .ScaleAspectFit
-                mTeacherImageView.downloadImage(checkedUrl, withFolderType: folderType.ProFilePics)
+                mTeacherImageView.contentMode = .scaleAspectFit
+                mTeacherImageView.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
             }
             
             
 
         }
         
-        if let  TeacherName = details.objectForKey("TeacherName") as? String
+        if let  TeacherName = details.object(forKey: "TeacherName") as? String
         {
             mTeacherName.text = TeacherName
             
@@ -436,7 +445,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     }
     
     
-    func didGetUpdatedUserStateWithDetails(details: AnyObject)
+    func didGetUpdatedUserStateWithDetails(_ details: AnyObject)
     {
         
         SSStudentMessageHandler.sharedMessageHandler.sendStudentBenchStatus(SSStudentDataSource.sharedDataSource.currentUSerState)
@@ -445,33 +454,38 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         {
             
             let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let preallotController : SSStudentScheduleViewController = storyboard.instantiateViewControllerWithIdentifier("TeacherScheduleViewController") as! SSStudentScheduleViewController
-            self.presentViewController(preallotController, animated: true, completion: nil)
+            let preallotController : SSStudentScheduleViewController = storyboard.instantiateViewController(withIdentifier: "TeacherScheduleViewController") as! SSStudentScheduleViewController
+            self.present(preallotController, animated: true, completion: nil)
         }
         
         
     }
     
     
-    func didGetQuestionWithDetails(details: AnyObject)
+    func didGetQuestionWithDetails(_ details: AnyObject)
     {
         currentQuestionDetails = details
         SSStudentMessageHandler.sharedMessageHandler.sendAcceptQuestionMessageToTeacherforType()
         print(details)
         
         
-        if (details.objectForKey(kQuestionTag)?.objectForKey(kQuestionName) as? String) != ""
+        if ((details.object(forKey: kQuestionTag) as AnyObject).object(forKey: kQuestionName) as? String) != ""
         {
-            mQuestionNameLabel.text = (details.objectForKey(kQuestionTag)?.objectForKey(kQuestionName) as? String)
+            mQuestionNameLabel.text = ((details.object(forKey: kQuestionTag) as AnyObject).object(forKey: kQuestionName) as? String)
         }
         
         
-        if (details.objectForKey(kQuestionTag)?.objectForKey(kQuestionType) as? String) != ""
+        if ((details.object(forKey: kQuestionTag) as AnyObject).object(forKey: kQuestionType) as? String) != ""
         {
-            currentQuestionType = (details.objectForKey(kQuestionTag)?.objectForKey(kQuestionType) as? String)!
+            currentQuestionType = ((details.object(forKey: kQuestionTag) as AnyObject).object(forKey: kQuestionType) as? String)!
         }
         
-        mQuestionView.setQuestionDetails(currentQuestionDetails.objectForKey(kQuestionTag)!, withType: currentQuestionType, withSessionDetails: sessionDetails, withQuestion: currentQuestionLogId)
+        
+        let questionDetails = currentQuestionDetails.object(forKey: kQuestionTag)
+        
+        
+        
+        mQuestionView.setQuestionDetails(questionDetails! as AnyObject, withType: currentQuestionType, withSessionDetails: sessionDetails, withQuestion: currentQuestionLogId)
         
         mQuestionButton.newEventRaised()
         
@@ -479,25 +493,25 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     
     // MARK: - Questions delegate 
-    func delegateFullScreenButtonPressedWithOverlayImage(overlay: UIImage)
+    func delegateFullScreenButtonPressedWithOverlayImage(_ overlay: UIImage)
     {
         if mFullScreenView == nil{
-            mFullScreenView = SSStudentFullscreenScribbleQuestion(frame:CGRectMake(0,0,self.view.frame.size.width,self.view.frame.size.height))
+            mFullScreenView = SSStudentFullscreenScribbleQuestion(frame:CGRect(x: 0,y: 0,width: self.view.frame.size.width,height: self.view.frame.size.height))
             mFullScreenView.setdelegate(self)
             self.view.addSubview(mFullScreenView)
-            self.view.bringSubviewToFront(mFullScreenView)
+            self.view.bringSubview(toFront: mFullScreenView)
         }
         
-        mFullScreenView.hidden = false
+        mFullScreenView.isHidden = false
         
         mFullScreenView.setOverlayImage(overlay)
     }
     
     
-    func delegateFullScreenSendButtonPressedWithImage(writtenImage: UIImage)
+    func delegateFullScreenSendButtonPressedWithImage(_ writtenImage: UIImage)
     {
         mQuestionView.setFullScreenDrawnImage(writtenImage)
-        mFullScreenView.hidden = true
+        mFullScreenView.isHidden = true
         
     }
     // MARK: - schedule popover delegate
@@ -506,7 +520,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     func delegateSessionEnded()
     {
         
-         SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateFree, ofSession: (sessionDetails.objectForKey("SessionId") as! String), withDelegate: self)
+         SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateFree, ofSession: (sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
         
     }
     
@@ -515,58 +529,58 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     func loadSubview()
     {
         
-        mQuestionButton.frame = CGRectMake(10, 10, 100, 100)
+        mQuestionButton.frame = CGRect(x: 10, y: 10, width: 100, height: 100)
         mQuestionButton.setImage("Questions_Selected.png", _unselectedImageName: "Questions.png", withText: "Question")
         classStartedView.addSubview(mQuestionButton)
         mQuestionButton.buttonselected()
-         mQuestionButton.addTarget(self, action: #selector(StudentClassViewController.onQuestionButton), forControlEvents: UIControlEvents.TouchUpInside)
+         mQuestionButton.addTarget(self, action: #selector(StudentClassViewController.onQuestionButton), for: UIControlEvents.touchUpInside)
         
-        mQuestionView = StudentQuestionView(frame:CGRectMake(mQuestionButton.frame.origin.x + mQuestionButton.frame.size.width ,mQuestionButton.frame.origin.y, classStartedView.frame.size.width - (mQuestionButton.frame.origin.x + mQuestionButton.frame.size.width + 10 ) , classStartedView.frame.size.height -  (mQuestionButton.frame.origin.y + mBottomBarImageView.frame.size.height )))
+        mQuestionView = StudentQuestionView(frame:CGRect(x: mQuestionButton.frame.origin.x + mQuestionButton.frame.size.width ,y: mQuestionButton.frame.origin.y, width: classStartedView.frame.size.width - (mQuestionButton.frame.origin.x + mQuestionButton.frame.size.width + 10 ) , height: classStartedView.frame.size.height -  (mQuestionButton.frame.origin.y + mBottomBarImageView.frame.size.height )))
         mQuestionView.setdelegate(self)
         classStartedView.addSubview(mQuestionView)
         
         
         
-        mQueryButton.frame = CGRectMake(10 , mQuestionButton.frame.origin.y + mQuestionButton.frame.size.height + 20 , 100, 100)
+        mQueryButton.frame = CGRect(x: 10 , y: mQuestionButton.frame.origin.y + mQuestionButton.frame.size.height + 20 , width: 100, height: 100)
         mQueryButton.setImage("Query_Selected.png",  _unselectedImageName:"Query.png" ,withText: "Query")
         classStartedView.addSubview(mQueryButton)
         mQueryButton.buttonUnSelected()
-         mQueryButton.addTarget(self, action: #selector(StudentClassViewController.onQueryButton), forControlEvents: UIControlEvents.TouchUpInside)
+         mQueryButton.addTarget(self, action: #selector(StudentClassViewController.onQueryButton), for: UIControlEvents.touchUpInside)
        
         mQueryView = StudentsQueryView(frame:mQuestionView.frame)
          classStartedView.addSubview(mQueryView)
-        mQueryView.hidden = true
+        mQueryView.isHidden = true
         
-        mSubmissionButton.frame = CGRectMake(10 , mQueryButton.frame.origin.y + mQueryButton.frame.size.height + 20 , 100, 100)
+        mSubmissionButton.frame = CGRect(x: 10 , y: mQueryButton.frame.origin.y + mQueryButton.frame.size.height + 20 , width: 100, height: 100)
          mSubmissionButton.setImage("poll_icon_selected.png",  _unselectedImageName: "poll_icon_unselected.png", withText: "OTF")
         classStartedView.addSubview(mSubmissionButton)
         mSubmissionButton.buttonUnSelected()
-         mSubmissionButton.addTarget(self, action: #selector(StudentClassViewController.onOTFButton), forControlEvents: UIControlEvents.TouchUpInside)
+         mSubmissionButton.addTarget(self, action: #selector(StudentClassViewController.onOTFButton), for: UIControlEvents.touchUpInside)
         
         
         mOTFView = StudentOTFView(frame:mQuestionView.frame)
         classStartedView.addSubview(mOTFView)
-        mOTFView.hidden = true
+        mOTFView.isHidden = true
         
         
-        mSubTopicNamelabel.frame =  CGRectMake(mTeacherName.frame.origin.x + mTeacherName.frame.size.width + 10 , mTeacherName.frame.origin.y, mBottomBarImageView.frame.size.width - (mTeacherName.frame.origin.x + mTeacherName.frame.size.width + 20),mTeacherName.frame.size.height )
+        mSubTopicNamelabel.frame =  CGRect(x: mTeacherName.frame.origin.x + mTeacherName.frame.size.width + 10 , y: mTeacherName.frame.origin.y, width: mBottomBarImageView.frame.size.width - (mTeacherName.frame.origin.x + mTeacherName.frame.size.width + 20),height: mTeacherName.frame.size.height )
         mBottomBarImageView.addSubview(mSubTopicNamelabel)
         mSubTopicNamelabel.text = "No subtopic"
         mSubTopicNamelabel.font = UIFont(name:helveticaMedium, size: 20)
-        mSubTopicNamelabel.textColor = UIColor.whiteColor()
-        mSubTopicNamelabel.textAlignment = .Right
+        mSubTopicNamelabel.textColor = UIColor.white
+        mSubTopicNamelabel.textAlignment = .right
         
         
         
-        mQuestionNameLabel.frame =  CGRectMake(mSubTopicNamelabel.frame.origin.x,mSubTopicNamelabel.frame.origin.y + mSubTopicNamelabel.frame.size.height + 5,mSubTopicNamelabel.frame.size.width,mSubTopicNamelabel.frame.size.height)
+        mQuestionNameLabel.frame =  CGRect(x: mSubTopicNamelabel.frame.origin.x,y: mSubTopicNamelabel.frame.origin.y + mSubTopicNamelabel.frame.size.height + 5,width: mSubTopicNamelabel.frame.size.width,height: mSubTopicNamelabel.frame.size.height)
         mBottomBarImageView.addSubview(mQuestionNameLabel)
         mQuestionNameLabel.text = "No Question"
         mQuestionNameLabel.font = UIFont(name:helveticaMedium, size: 14)
-        mQuestionNameLabel.textColor = UIColor.whiteColor()
-        mQuestionNameLabel.textAlignment = .Right
+        mQuestionNameLabel.textColor = UIColor.white
+        mQuestionNameLabel.textAlignment = .right
         
         
-        SSStudentMessageHandler.sharedMessageHandler.createRoomWithRoomName("question_\((sessionDetails.objectForKey("SessionId") as! String))", withHistory: "1")
+        SSStudentMessageHandler.sharedMessageHandler.createRoomWithRoomName("question_\((sessionDetails.object(forKey: "SessionId") as! String))", withHistory: "1")
         
     }
     
@@ -577,9 +591,9 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     func onQuestionButton()
     {
-        mQuestionView.hidden = false
-        mQueryView.hidden = true
-        mOTFView.hidden = true
+        mQuestionView.isHidden = false
+        mQueryView.isHidden = true
+        mOTFView.isHidden = true
         mSubmissionButton.buttonUnSelected()
          mQueryButton.buttonUnSelected()
         mQuestionButton.buttonselected()
@@ -588,9 +602,9 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     func onQueryButton()
     {
-        mQuestionView.hidden = true
-        mQueryView.hidden = false
-         mOTFView.hidden = true
+        mQuestionView.isHidden = true
+        mQueryView.isHidden = false
+         mOTFView.isHidden = true
         mSubmissionButton.buttonUnSelected()
         mQueryButton.buttonselected()
         mQuestionButton.buttonUnSelected()
@@ -598,9 +612,9 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     func onOTFButton()
     {
-        mQuestionView.hidden = true
-        mQueryView.hidden = true
-        mOTFView.hidden = false
+        mQuestionView.isHidden = true
+        mQueryView.isHidden = true
+        mOTFView.isHidden = false
         mSubmissionButton.buttonselected()
         mQueryButton.buttonUnSelected()
         mQuestionButton.buttonUnSelected()
@@ -611,13 +625,13 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     func onBack()
     {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     
     // MARK: - message handler functions
     
-    func smhDidRecieveStreamConnectionsState(state: Bool) {
+    func smhDidRecieveStreamConnectionsState(_ state: Bool) {
         if state == false
         {
              mstatusImage.backgroundColor = standard_Red
@@ -633,30 +647,30 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
 
     
     
-    func smhStreamReconnectingWithDelay(delay: Int32)
+    func smhStreamReconnectingWithDelay(_ delay: Int32)
     {
-        self.view.makeToast("Reconnecting in \(delay) seconds", duration: 0.5, position: .Bottom)
+        self.view.makeToast("Reconnecting in \(delay) seconds", duration: 0.5, position: .bottom)
         
         AppDelegate.sharedDataSource.showReconnecting()
 
     }
     
-    func smhDidReciveAuthenticationState(state: Bool, WithName userName: String)
+    func smhDidReciveAuthenticationState(_ state: Bool, WithName userName: String)
     {
         if state == true
         {
-            SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateLive, ofSession:(sessionDetails.objectForKey("SessionId") as! String), withDelegate: self)
+            SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateLive, ofSession:(sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
              AppDelegate.sharedDataSource.hideReconnecting()
         }
     }
     
-    func smhDidgetTimeExtendedWithDetails(Details: AnyObject)
+    func smhDidgetTimeExtendedWithDetails(_ Details: AnyObject)
     {
         
         
-        if classStartedView.hidden == true
+        if classStartedView.isHidden == true
         {
-            classStartedView.hidden = false
+            classStartedView.isHidden = false
              classsBegin()
         }
         
@@ -668,31 +682,31 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         
         
 
-            mNoStudentLabel.hidden = true 
+            mNoStudentLabel.isHidden = true 
     }
     
-    func smhDidGetSessionEndMessageWithDetails(details: AnyObject)
+    func smhDidGetSessionEndMessageWithDetails(_ details: AnyObject)
     {
-        SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateFree, ofSession: (sessionDetails.objectForKey("SessionId") as! String), withDelegate: self)
+        SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateFree, ofSession: (sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
         
     }
     
-    func smhDidGetVotingMessageWithDetails(details: AnyObject)
+    func smhDidGetVotingMessageWithDetails(_ details: AnyObject)
     {
         
         print(details)
         
         
-        if let VotingValue = details.objectForKey("VotingValue") as? String
+        if let VotingValue = details.object(forKey: "VotingValue") as? String
         {
             if VotingValue == "TRUE"
             {
                 
                 mQueryView.queryPresentState(true)
                 
-                if (details.objectForKey("SubTopicName") != nil)
+                if (details.object(forKey: "SubTopicName") != nil)
                 {
-                    if let SubTopicName = details.objectForKey("SubTopicName") as? String
+                    if let SubTopicName = details.object(forKey: "SubTopicName") as? String
                     {
                         mSubTopicNamelabel.text = SubTopicName
                     }
@@ -712,71 +726,80 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                  mQueryView.queryPresentState(false)
                 mSubTopicNamelabel.text = "No subtopic"
             }
+            
+            
+            if let subtopicId = details.object(forKey: "SubTopicId") as? String
+            {
+                SSStudentDataSource.sharedDataSource.currentSubtopicID = subtopicId
+                
+                currentSubTopicId = subtopicId
+            }
+            
         }
     }
     
     
-    func smhdidReceiveQuestionSentMessage(dict: AnyObject)
+    func smhdidReceiveQuestionSentMessage(_ dict: AnyObject)
     {
         
-        mQuestionButton.hidden = false
+        mQuestionButton.isHidden = false
         if mFullScreenView != nil
         {
             mFullScreenView.mScribbleView.clearButtonClicked()
         }
         
-        if let QuestionLogId = dict.objectForKey("QuestionLogId") as? String
+        if let QuestionLogId = dict.object(forKey: "QuestionLogId") as? String
         {
             currentQuestionLogId = QuestionLogId
             var messageString:String!
             
-            if dict.objectForKey(kQuestionType) as! String  == text
+            if dict.object(forKey: kQuestionType) as! String  == text
             {
                 messageString = "Please type out your response";
                 showAlertWithMessage(messageString)
                 
             }
-            else if dict.objectForKey(kQuestionType) as! String  == MatchColumns
+            else if dict.object(forKey: kQuestionType) as! String  == MatchColumns
             {
                 messageString = "Please rearrange the list to match other list";
                 showAlertWithMessage(messageString)
                 
                 
             }
-            else if  dict.objectForKey(kQuestionType) as! String  == MultipleChoice
+            else if  dict.object(forKey: kQuestionType) as! String  == MultipleChoice
             {
                 messageString = "Please Select correct Response (Just one)";
                 showAlertWithMessage(messageString)
                 
             }
-            else if dict.objectForKey(kQuestionType) as! String  == MultipleResponse
+            else if dict.object(forKey: kQuestionType) as! String  == MultipleResponse
             {
                 
                 messageString = "Please Select correct Responses (More than one or just one)";
                 showAlertWithMessage(messageString)
             }
-            else if dict.objectForKey(kQuestionType) as! String  == OverlayScribble
+            else if dict.object(forKey: kQuestionType) as! String  == OverlayScribble
             {
                 
                 messageString = "Please hand draw over the picture sent";
                 showAlertWithMessage(messageString)
                 
             }
-            else if dict.objectForKey(kQuestionType) as! String  == FreshScribble
+            else if dict.object(forKey: kQuestionType) as! String  == FreshScribble
             {
                 
                 messageString = "Please sketch your response";
                showAlertWithMessage(messageString)
                
             }
-            else if dict.objectForKey(kQuestionType) as! String  == OneString
+            else if dict.object(forKey: kQuestionType) as! String  == OneString
             {
                 
                 messageString = "Please type one word answer";
                 showAlertWithMessage(messageString)
                
             }
-            else if dict.objectForKey(kQuestionType) as! String  == TextAuto
+            else if dict.object(forKey: kQuestionType) as! String  == TextAuto
             {
                 
                 messageString = "Please type one word answer";
@@ -787,9 +810,9 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         
         
         
-        if classStartedView.hidden == true
+        if classStartedView.isHidden == true
         {
-            classStartedView.hidden = false
+            classStartedView.isHidden = false
         }
         
     }
@@ -810,12 +833,12 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
 //        SSStudentDataSource.sharedDataSource.getGraspIndexwithTopicId(currentSubTopicId, withSessionId: (sessionDetails.objectForKey("SessionId") as! String), withDelegate: self)
        
         
-        if questionAcceptAlert.visible == true{
-            questionAcceptAlert.dismissWithClickedButtonIndex(-1, animated: true)
+        if questionAcceptAlert.isVisible == true{
+            questionAcceptAlert.dismiss(withClickedButtonIndex: -1, animated: true)
         }
         
         
-        if classStartedView.hidden == true
+        if classStartedView.isHidden == true
         {
             classsBegin()
         }
@@ -861,11 +884,11 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         mQueryView.teacherReviewQuery()
         mQueryButton.newEventRaised()
     }
-    func smhDidRecieveMutemessageWithDetails(details: AnyObject)
+    func smhDidRecieveMutemessageWithDetails(_ details: AnyObject)
     {
-        if details.objectForKey("MUTESTATUS") != nil
+        if details.object(forKey: "MUTESTATUS") != nil
         {
-            if let muteState = details.objectForKey("MUTESTATUS") as? String
+            if let muteState = details.object(forKey: "MUTESTATUS") as? String
             {
                 if muteState == "1"
                 {
@@ -874,12 +897,16 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                 else
                 {
                     
-                    let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_UserProfileImageURL) as! String
+                    let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
                     
-                    if let checkedUrl = NSURL(string: "\(urlString)/\(SSStudentDataSource.sharedDataSource.currentUserId)_79px.jpg")
+                    let userID = urlString.appending("/").appending(SSStudentDataSource.sharedDataSource.currentUserId)
+                    
+                    
+                    if let checkedUrl = URL(string: "\(userID)_79px.jpg")
+
                     {
-                        studentImage.contentMode = .ScaleAspectFit
-                        studentImage.downloadImage(checkedUrl, withFolderType: folderType.ProFilePics)
+                        studentImage.contentMode = .scaleAspectFit
+                        studentImage.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
                     }
                 }
             }
@@ -887,7 +914,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         
     }
     
-    func smhdidGetQueryFeedBackFromTeacherWithDetials(details: AnyObject)
+    func smhdidGetQueryFeedBackFromTeacherWithDetials(_ details: AnyObject)
     {
         mQueryView.feedBackSentFromTeacherWithDetiails(details)
         mQueryButton.newEventRaised()
@@ -906,30 +933,30 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         {
             mStudentQrvAnsweringView.removeFromSuperview()
         }
-        if questionAcceptAlert.visible == true
+        if questionAcceptAlert.isVisible == true
         {
-            questionAcceptAlert.dismissWithClickedButtonIndex(-1, animated: true)
+            questionAcceptAlert.dismiss(withClickedButtonIndex: -1, animated: true)
         }
 
     }
     
     
-    func smhDidRecieveQueryAnsweringMessageWithDetails(details: AnyObject)
+    func smhDidRecieveQueryAnsweringMessageWithDetails(_ details: AnyObject)
     {
-        if details.objectForKey("AnsweringStudentId") != nil
+        if details.object(forKey: "AnsweringStudentId") != nil
         {
-            if let AnsweringStudentId = details.objectForKey("AnsweringStudentId") as? String
+            if let AnsweringStudentId = details.object(forKey: "AnsweringStudentId") as? String
             {
                 if AnsweringStudentId == SSStudentDataSource.sharedDataSource.currentUserId
                 {
-                    if questionAcceptAlert.visible == true{
-                        questionAcceptAlert.dismissWithClickedButtonIndex(-1, animated: true)
+                    if questionAcceptAlert.isVisible == true{
+                        questionAcceptAlert.dismiss(withClickedButtonIndex: -1, animated: true)
                     }
 
                     questionAcceptAlert = UIAlertView()
                     questionAcceptAlert.title = "Teacher selected you"
                     questionAcceptAlert.message = "Please stand up and answer"
-                    questionAcceptAlert.addButtonWithTitle("OK")
+                    questionAcceptAlert.addButton(withTitle: "OK")
                     questionAcceptAlert.show()
                     questionAcceptAlert.delegate = self
                     
@@ -937,7 +964,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                 }
                 
                 
-                mStudentQrvAnsweringView = StudentVolunteeringView(frame:CGRectMake(0,0,self.view.frame.size.width, self.view.frame.size.height))
+                mStudentQrvAnsweringView = StudentVolunteeringView(frame:CGRect(x: 0,y: 0,width: self.view.frame.size.width, height: self.view.frame.size.height))
                 mStudentQrvAnsweringView.setVolunteeringDetails(details)
                 self.view.addSubview(mStudentQrvAnsweringView)
                 
@@ -949,7 +976,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     }
     
     
-    func smhdidRecieveQueryVolunteeringClosedMessageWithDetails(details: AnyObject)
+    func smhdidRecieveQueryVolunteeringClosedMessageWithDetails(_ details: AnyObject)
     {
         if mStudentQrvAnsweringView != nil
         {
@@ -957,24 +984,24 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         }
         
         
-        if questionAcceptAlert.visible == true{
-            questionAcceptAlert.dismissWithClickedButtonIndex(-1, animated: true)
+        if questionAcceptAlert.isVisible == true{
+            questionAcceptAlert.dismiss(withClickedButtonIndex: -1, animated: true)
         }
         
         var totalVotes :CGFloat = 0 ;
         
         
-        if details.objectForKey("QueryId") != nil
+        if details.object(forKey: "QueryId") != nil
         {
-             if let QueryId = details.objectForKey("QueryId") as? String
+             if let QueryId = details.object(forKey: "QueryId") as? String
              {
                 
-                if details.objectForKey("totalPercentage") != nil
+                if details.object(forKey: "totalPercentage") != nil
                 {
-                    if let _totalVotes = details.objectForKey("totalPercentage") as? String
+                    if let _totalVotes = details.object(forKey: "totalPercentage") as? String
                     {
                         
-                        if let n = NSNumberFormatter().numberFromString(_totalVotes)
+                        if let n = NumberFormatter().number(from: _totalVotes)
                         {
                              totalVotes = CGFloat(n)
                         }
@@ -989,9 +1016,9 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                     totalVotes = 0
                 }
                 
-                if details.objectForKey("StudentId") != nil
+                if details.object(forKey: "StudentId") != nil
                 {
-                    if let StudentId = details.objectForKey("StudentId") as? String
+                    if let StudentId = details.object(forKey: "StudentId") as? String
                     {
                         
                         mQueryView.volunteerClosedWithQueryId(QueryId, withStudentdID: StudentId, withTotalVotes:totalVotes)
@@ -1003,7 +1030,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         }
     }
     
-    func smhDidRecievePollingStartedMessageWithDetails(detials: AnyObject)
+    func smhDidRecievePollingStartedMessageWithDetails(_ detials: AnyObject)
     {
        mOTFView.didGetPollingStartedWithDetills(detials)
         mSubmissionButton.newEventRaised()
@@ -1016,7 +1043,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     }
     
     
-    func smhDidGetGraphSharedWithDetails(details: AnyObject)
+    func smhDidGetGraphSharedWithDetails(_ details: AnyObject)
     {
         mQuestionView.didGetGraphSharedWithDetails(details)
         
@@ -1029,12 +1056,12 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
          mQuestionButton.newEventRaised()
     }
     
-    func smhDidGetFeedbackForAnswerWithDetils(details: AnyObject)
+    func smhDidGetFeedbackForAnswerWithDetils(_ details: AnyObject)
     {
-        if (details.objectForKey("AssesmentAnswerId") != nil)
+        if (details.object(forKey: "AssesmentAnswerId") != nil)
         {
           
-            if let AssesmentAnswerId = details.objectForKey("AssesmentAnswerId") as? String
+            if let AssesmentAnswerId = details.object(forKey: "AssesmentAnswerId") as? String
             {
                  mQuestionView.getFeedbackDetailsWithId(AssesmentAnswerId)
                  mQuestionButton.newEventRaised()
@@ -1048,8 +1075,8 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         {
           let peakImage =   mFullScreenView.getCurrentImage()
             
-            let imageData:NSData = UIImagePNGRepresentation(peakImage)!
-            let strBase64:String = imageData.base64EncodedStringWithOptions(.Encoding64CharacterLineLength)
+            let imageData:Data = UIImagePNGRepresentation(peakImage)!
+            let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
             SSStudentMessageHandler.sharedMessageHandler.sendPeakViewMessageToTeacherWithImageData(strBase64)
             
             
@@ -1062,7 +1089,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         
     }
     
-    func smhdidRecieveModelAnswerMessageWithDetials(details: AnyObject)
+    func smhdidRecieveModelAnswerMessageWithDetials(_ details: AnyObject)
     {
         
         if currentQuestionType == text  || currentQuestionType == OverlayScribble || currentQuestionType == FreshScribble
@@ -1073,37 +1100,58 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         }
         
     }
+    
+     // MARK:  Collaboration Messages
+    
+    func smhDidRecieveCollaborationPingFromTeacher(_ details: AnyObject) {
+        print(details)
+        
+        if let category = details.object(forKey: "category") as? String
+        {
+            if let categoryID = details.object(forKey: "categoryID") as? String
+            {
+                 mOTFView.didGetCollaborationStartedMessageWithCategoryName(category, withCategoryID: categoryID)
+            }
+            
+           
+        }
+        
+        onOTFButton()
+        
+        
+    }
+    
    
     // MARK: - message handler functions
-    func showAlertWithMessage(message:String)
+    func showAlertWithMessage(_ message:String)
     {
         
-        if SSStudentDataSource.sharedDataSource.currentUSerState == kUserStateLive
+        if SSStudentDataSource.sharedDataSource.currentUSerState == kUserStateLive || SSStudentDataSource.sharedDataSource.currentUSerState == kUserStateBackGround
         {
             
-            if questionAcceptAlert.visible == true{
-                questionAcceptAlert.dismissWithClickedButtonIndex(-1, animated: true)
+            if questionAcceptAlert.isVisible == true{
+                questionAcceptAlert.dismiss(withClickedButtonIndex: -1, animated: true)
             }
             
             questionAcceptAlert = UIAlertView()
             questionAcceptAlert.title = "Received a question"
             questionAcceptAlert.message = message
 //            questionAcceptAlert.addButtonWithTitle("Wait")
-            questionAcceptAlert.addButtonWithTitle("Accept")
+            questionAcceptAlert.addButton(withTitle: "Accept")
             questionAcceptAlert.show()
             questionAcceptAlert.delegate = self
             questionAcceptAlert.tag = 1011
         }
         else
         {
-            if questionAcceptAlert.visible == true
+            if questionAcceptAlert.isVisible == true
             {
-                questionAcceptAlert.dismissWithClickedButtonIndex(-1, animated: true)
+                questionAcceptAlert.dismiss(withClickedButtonIndex: -1, animated: true)
             }
         }
     }
    
-    func alertView(alertView: UIAlertView!, clickedButtonAtIndex buttonIndex: Int)
+    func alertView(_ alertView: UIAlertView!, clickedButtonAtIndex buttonIndex: Int)
     {
         if alertView.tag == 1011
         {

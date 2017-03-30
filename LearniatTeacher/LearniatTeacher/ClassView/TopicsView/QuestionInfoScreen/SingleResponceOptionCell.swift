@@ -24,11 +24,11 @@ class SingleResponceOptionCell: UIView
         
         
         
-        _OptionsLabel.frame = CGRectMake(50, 0, 330, self.frame.size.height);
-        _OptionsLabel.textAlignment = .Left;
+        _OptionsLabel.frame = CGRect(x: 50, y: 0, width: 330, height: self.frame.size.height);
+        _OptionsLabel.textAlignment = .left;
         _OptionsLabel.text = "mainTopics"
         self.addSubview(_OptionsLabel)
-        _OptionsLabel.lineBreakMode = .ByTruncatingMiddle
+        _OptionsLabel.lineBreakMode = .byTruncatingMiddle
         
         _OptionsLabel.font = UIFont(name: helveticaRegular, size: 20)
        
@@ -38,9 +38,9 @@ class SingleResponceOptionCell: UIView
         
         
         
-        _optionValueImageView.frame = CGRectMake(20, (self.frame.size.height-25)/2, 20, 20);
+        _optionValueImageView.frame = CGRect(x: 20, y: (self.frame.size.height-25)/2, width: 20, height: 20);
         self.addSubview(_optionValueImageView);
-        _optionValueImageView.contentMode = .ScaleAspectFit
+        _optionValueImageView.contentMode = .scaleAspectFit
         
     }
 
@@ -48,9 +48,9 @@ class SingleResponceOptionCell: UIView
         fatalError("init(coder:) has not been implemented")
     }
     
-    func getHeightWithDetails(details:AnyObject)->CGFloat
+    func getHeightWithDetails(_ details:AnyObject)->CGFloat
     {
-        if let OptionText = details.objectForKey("OptionText") as? String
+        if let OptionText = details.object(forKey: "OptionText") as? String
         {
             _OptionsLabel.text = OptionText
         }
@@ -60,17 +60,17 @@ class SingleResponceOptionCell: UIView
         }
         
         
-        if let IsAnswer = details.objectForKey("IsAnswer") as? String
+        if let IsAnswer = details.object(forKey: "IsAnswer") as? String
         {
             if IsAnswer == "1" || IsAnswer == KCorretValue
             {
                 _optionValueImageView.image = UIImage(named: "Check.png")
-                _optionValueImageView.backgroundColor = UIColor.clearColor()
+                _optionValueImageView.backgroundColor = UIColor.clear
             }
             else if IsAnswer == "0" || IsAnswer == kWrongvalue
             {
                  _optionValueImageView.image = UIImage(named: "X.png")
-                _optionValueImageView.backgroundColor = UIColor.clearColor()
+                _optionValueImageView.backgroundColor = UIColor.clear
             }
             else
             {
@@ -87,15 +87,15 @@ class SingleResponceOptionCell: UIView
     
     func changeFrameWithSize()
     {
-         _OptionsLabel.frame = CGRectMake(50, 20, 330, self.frame.size.height - 40);
-        _optionValueImageView.frame = CGRectMake(20, (self.frame.size.height - 20)/2, 20, 20);
+         _OptionsLabel.frame = CGRect(x: 50, y: 20, width: 330, height: self.frame.size.height - 40);
+        _optionValueImageView.frame = CGRect(x: 20, y: (self.frame.size.height - 20)/2, width: 20, height: 20);
     }
     
     
     
     
     
-    func checkValueOfOPtion(questiondetails:AnyObject, withanswerOptionsArray mAnswerOptions:NSMutableArray)
+    func checkValueOfOPtion(_ questiondetails:AnyObject, withanswerOptionsArray mAnswerOptions:NSMutableArray)
     {
         
         if mAnswerOptions.count > 0
@@ -103,26 +103,26 @@ class SingleResponceOptionCell: UIView
             _optionValueImageView.backgroundColor = topicsLineColor
             _optionValueImageView.image =  nil
             
-            if let questionOptionText = questiondetails.objectForKey("OptionText") as? String
+            if let questionOptionText = questiondetails.object(forKey: "OptionText") as? String
             {
                 for answerIndex in 0 ..< mAnswerOptions.count
                 {
-                    if let answerOptionText = mAnswerOptions.objectAtIndex(answerIndex) as? String
+                    if let answerOptionText = mAnswerOptions.object(at: answerIndex) as? String
                     {
                         if answerOptionText == questionOptionText
                         {
-                            if let IsAnswer = questiondetails.objectForKey("IsAnswer") as? String
+                            if let IsAnswer = questiondetails.object(forKey: "IsAnswer") as? String
                             {
                                 
                                 if IsAnswer == "1"
                                 {
                                     _optionValueImageView.image = UIImage(named: "Check.png")
-                                    _optionValueImageView.backgroundColor = UIColor.clearColor()
+                                    _optionValueImageView.backgroundColor = UIColor.clear
                                 }
                                 else if IsAnswer == "0"
                                 {
                                     _optionValueImageView.image = UIImage(named: "X.png")
-                                    _optionValueImageView.backgroundColor = UIColor.clearColor()
+                                    _optionValueImageView.backgroundColor = UIColor.clear
                                 }
                             }
                         }
@@ -135,11 +135,11 @@ class SingleResponceOptionCell: UIView
        
     }
     
-    func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat
+    func heightForView(_ text:String, font:UIFont, width:CGFloat) -> CGFloat
     {
-        let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max))
+        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
         label.numberOfLines = 0
-        label.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.font = font
         label.text = text
         

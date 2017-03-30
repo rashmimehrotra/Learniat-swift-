@@ -52,65 +52,65 @@ class AutoSeatAllocate: UIViewController,SSTeacherDataSourceDelegate
         
         self.view.backgroundColor = whiteBackgroundColor
         
-        mTopbarImageView = UIImageView(frame: CGRectMake(0, 0, self.view.frame.size.width, (self.view.frame.size.height)/12))
+        mTopbarImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: (self.view.frame.size.height)/12))
         mTopbarImageView.backgroundColor = topbarColor
         self.view.addSubview(mTopbarImageView)
-        mTopbarImageView.userInteractionEnabled = true
-        mTopbarImageView.userInteractionEnabled = true
+        mTopbarImageView.isUserInteractionEnabled = true
+        mTopbarImageView.isUserInteractionEnabled = true
         
-        let  mBackButton = UIButton(frame: CGRectMake(10, 0,mTopbarImageView.frame.size.height * 2,mTopbarImageView.frame.size.height ))
+        let  mBackButton = UIButton(frame: CGRect(x: 10, y: 0,width: mTopbarImageView.frame.size.height * 2,height: mTopbarImageView.frame.size.height ))
         mTopbarImageView.addSubview(mBackButton)
-        mBackButton.setTitle("Back", forState: .Normal)
-        mBackButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        mBackButton.setTitle("Back", for: UIControlState())
+        mBackButton.setTitleColor(UIColor.white, for: UIControlState())
         mBackButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
-        mBackButton.addTarget(self, action: #selector(AutoSeatAllocate.onBack), forControlEvents: UIControlEvents.TouchUpInside)
-        mBackButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
+        mBackButton.addTarget(self, action: #selector(AutoSeatAllocate.onBack), for: UIControlEvents.touchUpInside)
+        mBackButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
         
         
-        let mPreallocateSeats = UILabel(frame: CGRectMake((mTopbarImageView.frame.size.width - 200)/2, 0, 200, mTopbarImageView.frame.size.height))
+        let mPreallocateSeats = UILabel(frame: CGRect(x: (mTopbarImageView.frame.size.width - 200)/2, y: 0, width: 200, height: mTopbarImageView.frame.size.height))
         mPreallocateSeats.font = UIFont(name:helveticaRegular, size: 20)
         mPreallocateSeats.text = "Auto allocate seats"
         mTopbarImageView.addSubview(mPreallocateSeats)
-        mPreallocateSeats.textColor = UIColor.whiteColor()
-        mPreallocateSeats.textAlignment = .Center
+        mPreallocateSeats.textColor = UIColor.white
+        mPreallocateSeats.textAlignment = .center
         
         
         
-        mDonebutton = UIButton(frame: CGRectMake(mTopbarImageView.frame.size.width - (mTopbarImageView.frame.size.height * 2), 0,mTopbarImageView.frame.size.height * 2,mTopbarImageView.frame.size.height ))
+        mDonebutton = UIButton(frame: CGRect(x: mTopbarImageView.frame.size.width - (mTopbarImageView.frame.size.height * 2), y: 0,width: mTopbarImageView.frame.size.height * 2,height: mTopbarImageView.frame.size.height ))
         mTopbarImageView.addSubview(mDonebutton)
-        mDonebutton.setTitle("Done", forState: .Normal)
-        mDonebutton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        mDonebutton.setTitle("Done", for: UIControlState())
+        mDonebutton.setTitleColor(UIColor.white, for: UIControlState())
         mDonebutton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
-        mDonebutton.addTarget(self, action: #selector(AutoSeatAllocate.onDone), forControlEvents: UIControlEvents.TouchUpInside)
+        mDonebutton.addTarget(self, action: #selector(AutoSeatAllocate.onDone), for: UIControlEvents.touchUpInside)
         
         
-        let  mAutomatically = UIButton(frame: CGRectMake(mDonebutton.frame.origin.x  - (mTopbarImageView.frame.size.height * 2), 0,mTopbarImageView.frame.size.height * 2,mTopbarImageView.frame.size.height ))
+        let  mAutomatically = UIButton(frame: CGRect(x: mDonebutton.frame.origin.x  - (mTopbarImageView.frame.size.height * 2), y: 0,width: mTopbarImageView.frame.size.height * 2,height: mTopbarImageView.frame.size.height ))
         mTopbarImageView.addSubview(mAutomatically)
-        mAutomatically.setTitle("Configure grid", forState: .Normal)
-        mAutomatically.setTitleColor(whiteColor, forState: .Normal)
+        mAutomatically.setTitle("Configure grid", for: UIControlState())
+        mAutomatically.setTitleColor(whiteColor, for: UIControlState())
         mAutomatically.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
-        mAutomatically.addTarget(self, action: #selector(AutoSeatAllocate.onEditSeat), forControlEvents: UIControlEvents.TouchUpInside)
+        mAutomatically.addTarget(self, action: #selector(AutoSeatAllocate.onEditSeat), for: UIControlEvents.touchUpInside)
         
         
         
         
-        mGridContainerView.frame = CGRectMake(10, mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + 10 , self.view.frame.size.width - 20, self.view.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height) - 50 )
+        mGridContainerView.frame = CGRect(x: 10, y: mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + 10 , width: self.view.frame.size.width - 20, height: self.view.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height) - 50 )
         self.view.addSubview(mGridContainerView)
-        mGridContainerView.backgroundColor = UIColor.clearColor()
+        mGridContainerView.backgroundColor = UIColor.clear
         //        mGridContainerView.hidden = true
         
         
         
-        let mclassRoomFront = UILabel(frame: CGRectMake(10,self.view.frame.size.height - 40 , self.view.frame.size.width,30))
+        let mclassRoomFront = UILabel(frame: CGRect(x: 10,y: self.view.frame.size.height - 40 , width: self.view.frame.size.width,height: 30))
         mclassRoomFront.font = UIFont(name:helveticaRegular, size: 20)
         mclassRoomFront.text = "Classroom front"
         self.view.addSubview(mclassRoomFront)
         mclassRoomFront.textColor = standard_Green
-        mclassRoomFront.textAlignment = .Center
+        mclassRoomFront.textAlignment = .center
         
         
-        mActivityIndicatore = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
-        mActivityIndicatore.frame = CGRectMake(mBackButton.frame.origin.x + mBackButton.frame.size.width + 10, 0, mTopbarImageView.frame.size.height,mTopbarImageView.frame.size.height)
+        mActivityIndicatore = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        mActivityIndicatore.frame = CGRect(x: mBackButton.frame.origin.x + mBackButton.frame.size.width + 10, y: 0, width: mTopbarImageView.frame.size.height,height: mTopbarImageView.frame.size.height)
         mTopbarImageView.addSubview(mActivityIndicatore)
         //        mActivityIndicatore.startAnimating()
         
@@ -121,7 +121,7 @@ class AutoSeatAllocate: UIViewController,SSTeacherDataSourceDelegate
     
     
     
-    func setCurrentSessionDetails(sessiondetails: AnyObject, withGridDetails details:AnyObject)
+    func setCurrentSessionDetails(_ sessiondetails: AnyObject, withGridDetails details:AnyObject)
     {
         currentSessionDetails = sessiondetails
         
@@ -134,32 +134,32 @@ class AutoSeatAllocate: UIViewController,SSTeacherDataSourceDelegate
     func arrangeSeatsWithGridDetails()
     {
         mActivityIndicatore.stopAnimating()
-        mActivityIndicatore.hidden = true
+        mActivityIndicatore.isHidden = true
         
         
-        if let Columns = currentGridDetails.objectForKey("Columns") as? String
+        if let Columns = currentGridDetails.object(forKey: "Columns") as? String
         {
             columnValue = Int(Columns)!
         }
         
-        if let Rows = currentGridDetails.objectForKey("Rows") as? String
+        if let Rows = currentGridDetails.object(forKey: "Rows") as? String
         {
             rowValue = Int(Rows)!
         }
         
-        if let SeatIdList = currentGridDetails.objectForKey("SeatIdList") as? String
+        if let SeatIdList = currentGridDetails.object(forKey: "SeatIdList") as? String
         {
-            seatsIdArray =  SeatIdList.componentsSeparatedByString(",")
+            seatsIdArray =  SeatIdList.components(separatedBy: ",")
         }
         
-        if let SeatLabelList = currentGridDetails.objectForKey("SeatLabelList") as? String
+        if let SeatLabelList = currentGridDetails.object(forKey: "SeatLabelList") as? String
         {
-            seatsLableArray =  SeatLabelList.componentsSeparatedByString(",")
+            seatsLableArray =  SeatLabelList.components(separatedBy: ",")
         }
         
-        if let SeatsRemoved = currentGridDetails.objectForKey("SeatsRemoved") as? String
+        if let SeatsRemoved = currentGridDetails.object(forKey: "SeatsRemoved") as? String
         {
-            seatsRemovedArray =  SeatsRemoved.componentsSeparatedByString(",")
+            seatsRemovedArray =  SeatsRemoved.components(separatedBy: ",")
         }
         
         
@@ -191,11 +191,11 @@ class AutoSeatAllocate: UIViewController,SSTeacherDataSourceDelegate
                 }
                 else
                 {
-                    let seatView = AutoSeatSubView(frame: CGRectMake(positionX, postionY, barWidthvalue, barHeight))
+                    let seatView = AutoSeatSubView(frame: CGRect(x: positionX, y: postionY, width: barWidthvalue, height: barHeight))
                     mGridContainerView.addSubview(seatView)
                     seatView.tag  = totalSeatvalue
                     availabletags.append(totalSeatvalue)
-                    seatView.backgroundColor = UIColor.clearColor()
+                    seatView.backgroundColor = UIColor.clear
                 }
                 
                 positionX = positionX + barWidthvalue + barWidthSpace
@@ -206,9 +206,9 @@ class AutoSeatAllocate: UIViewController,SSTeacherDataSourceDelegate
             
         }
 
-        availabletags = availabletags.reverse()
+        availabletags = availabletags.reversed()
         
-        if let sessionid = currentSessionDetails.objectForKey(kSessionId) as? String
+        if let sessionid = currentSessionDetails.object(forKey: kSessionId) as? String
         {
             SSTeacherDataSource.sharedDataSource.getStudentsInfoWithSessionId(sessionid, withDelegate: self)
         }
@@ -220,13 +220,13 @@ class AutoSeatAllocate: UIViewController,SSTeacherDataSourceDelegate
     
     // MARK: - datasource delegate Functions
     
-    func didGetStudentsInfoWithDetails(details: AnyObject)
+    func didGetStudentsInfoWithDetails(_ details: AnyObject)
     {
-        if let Status = details.objectForKey("Status") as? String
+        if let Status = details.object(forKey: "Status") as? String
         {
             if Status == kSuccessString
             {
-                if let _studentsArray = details.objectForKey("Students")?.objectForKey("Student") as? NSMutableArray
+                if let _studentsArray = (details.object(forKey: "Students") as AnyObject).object(forKey: "Student") as? NSMutableArray
                 {
                     StudentsArray.removeAllObjects()
                     
@@ -237,16 +237,16 @@ class AutoSeatAllocate: UIViewController,SSTeacherDataSourceDelegate
        
         for index in 0  ..< StudentsArray.count
         {
-            let studentsDict = StudentsArray.objectAtIndex(index)
+            let studentsDict = StudentsArray.object(at: index)
             
             
             if availabletags.count > index
             {
                 if let studentImageView  = mGridContainerView.viewWithTag(availabletags[index]) as? AutoSeatSubView
                 {
-                    if let StudentId = studentsDict.objectForKey("StudentId") as? String
+                    if let StudentId = (studentsDict as AnyObject).object(forKey: "StudentId") as? String
                     {
-                        if let Name = studentsDict.objectForKey("Name") as? String
+                        if let Name = (studentsDict as AnyObject).object(forKey: "Name") as? String
                         {
                             
                             studentImageView.setSeatIdValue(seatsIdArray[index])
@@ -258,14 +258,14 @@ class AutoSeatAllocate: UIViewController,SSTeacherDataSourceDelegate
         }
     }
     
-    func didGetSeatAssignmentSavedWithDetails(details: AnyObject)
+    func didGetSeatAssignmentSavedWithDetails(_ details: AnyObject)
     {
         
         
-        if let sessionid = currentSessionDetails.objectForKey(kSessionId) as? String
+        if let sessionid = currentSessionDetails.object(forKey: kSessionId) as? String
         {
             
-            if let RoomName = currentSessionDetails.objectForKey("RoomName") as? String
+            if let RoomName = currentSessionDetails.object(forKey: "RoomName") as? String
             {
                  SSTeacherMessageHandler.sharedMessageHandler.sendSeatingChangedtoRoom(sessionid, withSeatName: "A2", withRoomName: RoomName)
             }
@@ -280,12 +280,12 @@ class AutoSeatAllocate: UIViewController,SSTeacherDataSourceDelegate
         
         
         
-        performSegueWithIdentifier("AutoAllocateToSchedule", sender: nil)
+        performSegue(withIdentifier: "AutoAllocateToSchedule", sender: nil)
     }
     
-    func didgetErrorMessage(message: String, WithServiceName serviceName: String) {
+    func didgetErrorMessage(_ message: String, WithServiceName serviceName: String) {
         
-        mDonebutton.hidden = false
+        mDonebutton.isHidden = false
         
     }
     
@@ -293,14 +293,14 @@ class AutoSeatAllocate: UIViewController,SSTeacherDataSourceDelegate
     
     func onBack()
     {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     func onEditSeat()
     {
         let gridView = SetupGridview()
         gridView.setCurrentSessionDetails(currentSessionDetails)
-        presentViewController(gridView, animated: true, completion: nil)
+        present(gridView, animated: true, completion: nil)
 
     }
     
@@ -315,20 +315,20 @@ class AutoSeatAllocate: UIViewController,SSTeacherDataSourceDelegate
         
         for subview in subViews 
         {
-            if subview.isKindOfClass(AutoSeatSubView)
+            if subview.isKind(of: AutoSeatSubView.self)
             {
                 if subview.getSeatIdAndStudentId().StudentId != "0"
                 {
-                    seatsIdArray.addObject(subview.getSeatIdAndStudentId().seatId)
-                    studentIdArray.addObject(subview.getSeatIdAndStudentId().StudentId)
+                    seatsIdArray.add(subview.getSeatIdAndStudentId().seatId)
+                    studentIdArray.add(subview.getSeatIdAndStudentId().StudentId)
                 }
             }
         }
         
-        if let sessionid = currentSessionDetails.objectForKey(kSessionId) as? String
+        if let sessionid = currentSessionDetails.object(forKey: kSessionId) as? String
         {
-            mDonebutton.hidden = true
-             SSTeacherDataSource.sharedDataSource.SaveSeatAssignmentWithStudentsList(studentIdArray.componentsJoinedByString(","), withSeatsIdList: seatsIdArray.componentsJoinedByString(","), withSessionId: sessionid, withDelegate: self)
+            mDonebutton.isHidden = true
+             SSTeacherDataSource.sharedDataSource.SaveSeatAssignmentWithStudentsList(studentIdArray.componentsJoined(by: ","), withSeatsIdList: seatsIdArray.componentsJoined(by: ","), withSessionId: sessionid, withDelegate: self)
         }
     }
     

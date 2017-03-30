@@ -18,24 +18,24 @@ class CurrentTimeLineView: UIView
         super.init(frame:frame)
         
         
-        timeLabel.frame = CGRectMake(0, 0, 50, self.frame.size.height)
+        timeLabel.frame = CGRect(x: 0, y: 0, width: 50, height: self.frame.size.height)
         self.addSubview(timeLabel)
         timeLabel.font = UIFont(name: helveticaRegular, size: 10)
         timeLabel.textColor = standard_Red
-        timeLabel.textAlignment = .Right
+        timeLabel.textAlignment = .right
         
         let circleView = UIImageView()
-        circleView.frame = CGRectMake(timeLabel.frame.origin.x + timeLabel.frame.size.width + 5,0,10,10)
+        circleView.frame = CGRect(x: timeLabel.frame.origin.x + timeLabel.frame.size.width + 5,y: 0,width: 10,height: 10)
         self.addSubview(circleView)
         circleView.layer.cornerRadius =  circleView.frame.size.width/2
         circleView.backgroundColor = standard_Yellow
 
         
         
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clear
         
         let lineview =  UIImageView()
-        lineview.frame = CGRectMake(circleView.frame.origin.x + (circleView.frame.size.width/2), 4, self.frame.size.width - (timeLabel.frame.origin.x + (timeLabel.frame.size.width/2)),2)
+        lineview.frame = CGRect(x: circleView.frame.origin.x + (circleView.frame.size.width/2), y: 4, width: self.frame.size.width - (timeLabel.frame.origin.x + (timeLabel.frame.size.width/2)),height: 2)
         self.addSubview(lineview)
         lineview.backgroundColor = standard_Yellow
 
@@ -56,7 +56,7 @@ class CurrentTimeLineView: UIView
        
     }
     
-    func setCurrentTimeLabel(currentTime :String)
+    func setCurrentTimeLabel(_ currentTime :String)
     {
         timeLabel.text = currentTime
     }

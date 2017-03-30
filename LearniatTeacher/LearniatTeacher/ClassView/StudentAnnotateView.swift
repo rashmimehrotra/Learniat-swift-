@@ -14,7 +14,7 @@ import Foundation
 {
     
     
-    optional func delegateSubmissionEvalauatedWithAnswerDetails(answerDetails:AnyObject,withEvaluationDetail evaluation:AnyObject, withStudentId studentId:String)
+    @objc optional func delegateSubmissionEvalauatedWithAnswerDetails(_ answerDetails:AnyObject,withEvaluationDetail evaluation:AnyObject, withStudentId studentId:String)
     
     
 }
@@ -88,7 +88,7 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
     var sendButtonSpinner : UIActivityIndicatorView!
     
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -108,124 +108,124 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         
         imageUploading.setDelegate(self)
         
-        let  mTopbarImageView = UIImageView(frame: CGRectMake(0, 0, self.frame.size.width, 70))
+        let  mTopbarImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 70))
         mTopbarImageView.backgroundColor = topbarColor
         self.addSubview(mTopbarImageView)
-        mTopbarImageView.userInteractionEnabled = true
+        mTopbarImageView.isUserInteractionEnabled = true
         
         
         
-        let bottomview = UIImageView(frame: CGRectMake(0, self.frame.size.height - 60, self.frame.size.width, 60))
+        let bottomview = UIImageView(frame: CGRect(x: 0, y: self.frame.size.height - 60, width: self.frame.size.width, height: 60))
         bottomview.backgroundColor = topbarColor
         self.addSubview(bottomview)
-        bottomview.userInteractionEnabled = true
+        bottomview.isUserInteractionEnabled = true
         
         
         mCancelButton.showsTouchWhenHighlighted = true;
         /* Add Cancel button target Cancel button should deselect all the selected submissions *defect 142 */
-        mCancelButton.frame = CGRectMake(10 , 0, 100,  mTopbarImageView.frame.size.height);
+        mCancelButton.frame = CGRect(x: 10 , y: 0, width: 100,  height: mTopbarImageView.frame.size.height);
         mTopbarImageView.addSubview(mCancelButton);
-        mCancelButton.setTitle("Cancel", forState:.Normal);
-        mCancelButton.setTitleColor(UIColor.whiteColor(), forState:.Normal);
+        mCancelButton.setTitle("Cancel", for:UIControlState());
+        mCancelButton.setTitleColor(UIColor.white, for:UIControlState());
         mCancelButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20);
-        mCancelButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
-        mCancelButton.addTarget(self, action: #selector(StudentAnnotateView.onCancelButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mCancelButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
+        mCancelButton.addTarget(self, action: #selector(StudentAnnotateView.onCancelButton), for: UIControlEvents.touchUpInside)
         
         
-        mSendButton.frame = CGRectMake(mTopbarImageView.frame.size.width - 100 , 0, 100 , mTopbarImageView.frame.size.height );
+        mSendButton.frame = CGRect(x: mTopbarImageView.frame.size.width - 100 , y: 0, width: 100 , height: mTopbarImageView.frame.size.height );
         mTopbarImageView.addSubview(mSendButton);
-        mSendButton.setTitle("Send", forState:.Normal);
-        mSendButton.setTitleColor(UIColor.lightGrayColor(), forState:.Normal);
+        mSendButton.setTitle("Send", for:UIControlState());
+        mSendButton.setTitleColor(UIColor.lightGray, for:UIControlState());
         mSendButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20);
-        mSendButton.enabled = false
-        mSendButton.highlighted = false;
-        mSendButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
-        mSendButton.addTarget(self, action: #selector(StudentAnnotateView.onSendButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mSendButton.isEnabled = false
+        mSendButton.isHighlighted = false;
+        mSendButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
+        mSendButton.addTarget(self, action: #selector(StudentAnnotateView.onSendButton), for: UIControlEvents.touchUpInside)
         
         
-        sendButtonSpinner = UIActivityIndicatorView(activityIndicatorStyle:.WhiteLarge);
+        sendButtonSpinner = UIActivityIndicatorView(activityIndicatorStyle:.whiteLarge);
         sendButtonSpinner.frame = mSendButton.frame;
         mTopbarImageView.addSubview(sendButtonSpinner);
-        sendButtonSpinner.hidden = true;
+        sendButtonSpinner.isHidden = true;
         
 
 
         
         
         
-        topImageView.frame = CGRectMake(0,mTopbarImageView.frame.size.height, mTopbarImageView.frame.size.width, 54)
-        topImageView.backgroundColor = UIColor.whiteColor()
+        topImageView.frame = CGRect(x: 0,y: mTopbarImageView.frame.size.height, width: mTopbarImageView.frame.size.width, height: 54)
+        topImageView.backgroundColor = UIColor.white
         self.addSubview (topImageView);
-        topImageView.layer.shadowColor = progressviewBackground.CGColor;
-        topImageView.layer.shadowOffset = CGSizeMake(1, 1);
+        topImageView.layer.shadowColor = progressviewBackground.cgColor;
+        topImageView.layer.shadowOffset = CGSize(width: 1, height: 1);
         topImageView.layer.shadowOpacity = 1;
         topImageView.layer.shadowRadius = 1.0;
         topImageView.clipsToBounds = false;
-        topImageView.userInteractionEnabled = true
+        topImageView.isUserInteractionEnabled = true
         
         
         
         
-        m_textButton.frame = CGRectMake(topImageView.frame.size.width - 50, 10, 40, topImageView.frame.size.height - 20);
+        m_textButton.frame = CGRect(x: topImageView.frame.size.width - 50, y: 10, width: 40, height: topImageView.frame.size.height - 20);
         //        [m_textButton addTarget:self action:@selector(onTextReplyButton:) forControlEvents:UIControlEventTouchUpInside];
         topImageView.addSubview(m_textButton);
-        m_textButton.imageView?.contentMode = .ScaleAspectFit
-        m_textButton.setImage(UIImage(named:"Text_Unselected.png"), forState:.Normal);
-        m_textButton.addTarget(self, action: #selector(StudentAnnotateView.onTextButton), forControlEvents: UIControlEvents.TouchUpInside)
+        m_textButton.imageView?.contentMode = .scaleAspectFit
+        m_textButton.setImage(UIImage(named:"Text_Unselected.png"), for:UIControlState());
+        m_textButton.addTarget(self, action: #selector(StudentAnnotateView.onTextButton), for: UIControlEvents.touchUpInside)
         
         
         
         
-        let lineImage1 = UIImageView(frame:CGRectMake(m_textButton.frame.origin.x - 10 , 5, 1, topImageView.frame.size.height - 10));
+        let lineImage1 = UIImageView(frame:CGRect(x: m_textButton.frame.origin.x - 10 , y: 5, width: 1, height: topImageView.frame.size.height - 10));
         lineImage1.backgroundColor = progressviewBackground
         topImageView.addSubview(lineImage1);
         
         
-        m_badgeButton.frame = CGRectMake(lineImage1.frame.origin.x - 50, 10, 40, topImageView.frame.size.height - 20);
+        m_badgeButton.frame = CGRect(x: lineImage1.frame.origin.x - 50, y: 10, width: 40, height: topImageView.frame.size.height - 20);
         //        [m_badgeButton addTarget:self action:@selector(onBadgeButton:) forControlEvents:UIControlEventTouchUpInside];
         topImageView.addSubview(m_badgeButton);
-        m_badgeButton.imageView?.contentMode = .ScaleAspectFit
-        m_badgeButton.setImage(UIImage(named:"Cb_Like_Disabled.png"), forState:.Normal);
-        m_badgeButton.addTarget(self, action: #selector(StudentAnnotateView.onBadgeButton), forControlEvents: UIControlEvents.TouchUpInside)
+        m_badgeButton.imageView?.contentMode = .scaleAspectFit
+        m_badgeButton.setImage(UIImage(named:"Cb_Like_Disabled.png"), for:UIControlState());
+        m_badgeButton.addTarget(self, action: #selector(StudentAnnotateView.onBadgeButton), for: UIControlEvents.touchUpInside)
         
         
-        let lineImage2 = UIImageView(frame:CGRectMake(m_badgeButton.frame.origin.x - 10, 5, 1, topImageView.frame.size.height - 10));
+        let lineImage2 = UIImageView(frame:CGRect(x: m_badgeButton.frame.origin.x - 10, y: 5, width: 1, height: topImageView.frame.size.height - 10));
         lineImage2.backgroundColor = progressviewBackground
         topImageView.addSubview(lineImage2);
         
         
-        mStarRatingView.backgroundColor = UIColor.clearColor();
-        mStarRatingView.frame = CGRectMake(lineImage2.frame.origin.x - 190, 10, 180, topImageView.frame.size.height - 20);
+        mStarRatingView.backgroundColor = UIColor.clear;
+        mStarRatingView.frame = CGRect(x: lineImage2.frame.origin.x - 190, y: 10, width: 180, height: topImageView.frame.size.height - 20);
         mStarRatingView.setDelegate(self);
         topImageView.addSubview(mStarRatingView);
-        mStarRatingView.setsizeOfStar(30);
+        mStarRatingView.setsize(ofStar: 30);
         
         
-        let  mMarkModelButtonlineImage = UIImageView(frame: CGRectMake(mStarRatingView.frame.origin.x - 10, 5, 1, topImageView.frame.size.height - 10));
+        let  mMarkModelButtonlineImage = UIImageView(frame: CGRect(x: mStarRatingView.frame.origin.x - 10, y: 5, width: 1, height: topImageView.frame.size.height - 10));
         mMarkModelButtonlineImage.backgroundColor = progressviewBackground
         topImageView.addSubview(mMarkModelButtonlineImage);
         
         
         
-        mMarkModelButton.frame = CGRectMake(mMarkModelButtonlineImage.frame.origin.x - 160, 0, 150, topImageView.frame.size.height);
+        mMarkModelButton.frame = CGRect(x: mMarkModelButtonlineImage.frame.origin.x - 160, y: 0, width: 150, height: topImageView.frame.size.height);
         topImageView.addSubview(mMarkModelButton);
-        mMarkModelButton.setImage(UIImage(named:"Mark_Model_Not_Selected.png"), forState:.Normal);
-        mMarkModelButton.setTitle("  Mark Model", forState:.Normal);
-        mMarkModelButton.setTitleColor(blackTextColor, forState:.Normal)
+        mMarkModelButton.setImage(UIImage(named:"Mark_Model_Not_Selected.png"), for:UIControlState());
+        mMarkModelButton.setTitle("  Mark Model", for:UIControlState());
+        mMarkModelButton.setTitleColor(blackTextColor, for:UIControlState())
         mMarkModelButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20);
-        mMarkModelButton.addTarget(self, action: #selector(StudentAnnotateView.onModelAnswerButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mMarkModelButton.addTarget(self, action: #selector(StudentAnnotateView.onModelAnswerButton), for: UIControlEvents.touchUpInside)
         
         
         
         
-        mStudentImageView.frame = CGRectMake(10 , 7, 40, 40)
+        mStudentImageView.frame = CGRect(x: 10 , y: 7, width: 40, height: 40)
         topImageView.addSubview(mStudentImageView);
         
         
-        mStudentNameLabel.frame = CGRectMake(mStudentImageView.frame.origin.x + mStudentImageView.frame.size.width + 10  ,mStudentImageView.frame.origin.y , 200 ,mStudentImageView.frame.size.height)
+        mStudentNameLabel.frame = CGRect(x: mStudentImageView.frame.origin.x + mStudentImageView.frame.size.width + 10  ,y: mStudentImageView.frame.origin.y , width: 200 ,height: mStudentImageView.frame.size.height)
         mStudentNameLabel.text = ""
         mStudentNameLabel.font = UIFont(name: helveticaMedium, size: 14);
-        mStudentNameLabel.textAlignment = .Left;
+        mStudentNameLabel.textAlignment = .left;
         mStudentNameLabel.textColor = blackTextColor
         topImageView.addSubview(mStudentNameLabel);
         
@@ -235,11 +235,11 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         var contanerHeight  = topImageView.frame.origin.y + topImageView.frame.size.height + bottomview.frame.size.height + 20
         contanerHeight = self.frame.size.height - contanerHeight
         
-        containerview.frame = CGRectMake((self.frame.size.width - (contanerHeight * kAspectRation)) / 2 , topImageView.frame.origin.y + topImageView.frame.size.height + 10 ,  contanerHeight * kAspectRation ,contanerHeight)
-        containerview.backgroundColor = UIColor.whiteColor()
+        containerview.frame = CGRect(x: (self.frame.size.width - (contanerHeight * kAspectRation)) / 2 , y: topImageView.frame.origin.y + topImageView.frame.size.height + 10 ,  width: contanerHeight * kAspectRation ,height: contanerHeight)
+        containerview.backgroundColor = UIColor.white
         self.addSubview(containerview);
-        containerview.layer.shadowColor = progressviewBackground.CGColor;
-        containerview.layer.shadowOffset = CGSizeMake(0,0);
+        containerview.layer.shadowColor = progressviewBackground.cgColor;
+        containerview.layer.shadowOffset = CGSize(width: 0,height: 0);
         containerview.layer.shadowOpacity = 1;
         containerview.layer.shadowRadius = 1.0;
         containerview.clipsToBounds = false;
@@ -248,49 +248,49 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         mScribbleView = SmoothLineView(frame: containerview.frame)
         mScribbleView.delegate = self
         self.addSubview(mScribbleView);
-        mScribbleView.userInteractionEnabled = true
-        mScribbleView.setDrawingColor(standard_Red);
+        mScribbleView.isUserInteractionEnabled = true
+        mScribbleView.setDrawing(standard_Red);
         mScribbleView.setBrushWidth(5)
-        mScribbleView.setDrawingTool(kBrushTool)
-        mScribbleView.hidden = false
+        mScribbleView.setDrawing(kBrushTool)
+        mScribbleView.isHidden = false
         
 
         
-        m_UndoButton.frame = CGRectMake(0, 0, bottomview.frame.size.height, bottomview.frame.size.height)
-        m_UndoButton.setImage(UIImage(named:"Undo_Disabled.png"),forState:.Normal);
+        m_UndoButton.frame = CGRect(x: 0, y: 0, width: bottomview.frame.size.height, height: bottomview.frame.size.height)
+        m_UndoButton.setImage(UIImage(named:"Undo_Disabled.png"),for:UIControlState());
         bottomview.addSubview(m_UndoButton);
-        m_UndoButton.imageView?.contentMode = .ScaleAspectFit
-        m_UndoButton.addTarget(self, action: #selector(StudentAnnotateView.onUndoButton), forControlEvents: UIControlEvents.TouchUpInside)
-        m_UndoButton.enabled = false
+        m_UndoButton.imageView?.contentMode = .scaleAspectFit
+        m_UndoButton.addTarget(self, action: #selector(StudentAnnotateView.onUndoButton), for: UIControlEvents.touchUpInside)
+        m_UndoButton.isEnabled = false
         
-        bottomtoolSelectedImageView.backgroundColor = UIColor.whiteColor();
+        bottomtoolSelectedImageView.backgroundColor = UIColor.white;
         bottomview.addSubview(bottomtoolSelectedImageView);
         bottomtoolSelectedImageView.layer.cornerRadius = 10.0;
         
         
-        m_BrushButton.frame = CGRectMake((bottomview.frame.size.width/2) - (bottomview.frame.size.height + 10) ,5, bottomview.frame.size.height ,bottomview.frame.size.height - 10)
-        m_BrushButton.setImage(UIImage(named:"Marker_Selected.png"), forState:.Normal)
+        m_BrushButton.frame = CGRect(x: (bottomview.frame.size.width/2) - (bottomview.frame.size.height + 10) ,y: 5, width: bottomview.frame.size.height ,height: bottomview.frame.size.height - 10)
+        m_BrushButton.setImage(UIImage(named:"Marker_Selected.png"), for:UIControlState())
         bottomview.addSubview(m_BrushButton);
-        m_BrushButton.imageView?.contentMode = .ScaleAspectFit
-        m_BrushButton.addTarget(self, action: #selector(StudentAnnotateView.onBrushButton), forControlEvents: UIControlEvents.TouchUpInside)
+        m_BrushButton.imageView?.contentMode = .scaleAspectFit
+        m_BrushButton.addTarget(self, action: #selector(StudentAnnotateView.onBrushButton), for: UIControlEvents.touchUpInside)
         bottomtoolSelectedImageView.frame = m_BrushButton.frame
         
         
         
         
-        m_EraserButton.frame = CGRectMake((bottomview.frame.size.width/2) + 10  ,5, bottomview.frame.size.height ,bottomview.frame.size.height - 10)
-        m_EraserButton.setImage(UIImage(named:"Eraser_Unselected.png"), forState:.Normal);
+        m_EraserButton.frame = CGRect(x: (bottomview.frame.size.width/2) + 10  ,y: 5, width: bottomview.frame.size.height ,height: bottomview.frame.size.height - 10)
+        m_EraserButton.setImage(UIImage(named:"Eraser_Unselected.png"), for:UIControlState());
         bottomview.addSubview(m_EraserButton);
-        m_EraserButton.imageView?.contentMode = .ScaleAspectFit
-        m_EraserButton.addTarget(self, action: #selector(StudentAnnotateView.onEraserButton), forControlEvents: UIControlEvents.TouchUpInside)
+        m_EraserButton.imageView?.contentMode = .scaleAspectFit
+        m_EraserButton.addTarget(self, action: #selector(StudentAnnotateView.onEraserButton), for: UIControlEvents.touchUpInside)
         
         
-        m_RedoButton.frame = CGRectMake(bottomview.frame.size.width - bottomview.frame.size.height ,0, bottomview.frame.size.height ,bottomview.frame.size.height)
-        m_RedoButton.setImage(UIImage(named:"Redo_Disabled.png"), forState:.Normal);
+        m_RedoButton.frame = CGRect(x: bottomview.frame.size.width - bottomview.frame.size.height ,y: 0, width: bottomview.frame.size.height ,height: bottomview.frame.size.height)
+        m_RedoButton.setImage(UIImage(named:"Redo_Disabled.png"), for:UIControlState());
         bottomview.addSubview(m_RedoButton);
-        m_RedoButton.imageView?.contentMode = .ScaleAspectFit
-        m_RedoButton.addTarget(self, action: #selector(StudentAnnotateView.onRedoButton), forControlEvents: UIControlEvents.TouchUpInside)
-        m_RedoButton.enabled = false
+        m_RedoButton.imageView?.contentMode = .scaleAspectFit
+        m_RedoButton.addTarget(self, action: #selector(StudentAnnotateView.onRedoButton), for: UIControlEvents.touchUpInside)
+        m_RedoButton.isEnabled = false
         
 
         
@@ -312,7 +312,7 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
     
     
     
-    func setStudentDetails(studentDetails:AnyObject, withAnswerDetails answerDetails:AnyObject, withQuestionDetails _currentQuestionDetials:AnyObject )
+    func setStudentDetails(_ studentDetails:AnyObject, withAnswerDetails answerDetails:AnyObject, withQuestionDetails _currentQuestionDetials:AnyObject ,withStarRatings ratings:Int, withModelAnswer modelAnswer:Bool)
     {
         
         
@@ -329,71 +329,89 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         }
         
         
-        if let overlayImage = _currentQuestionDetials.objectForKey("Scribble") as? String
+        if let overlayImage = _currentQuestionDetials.object(forKey: "Scribble") as? String
         {
             let overlayimageView = CustomProgressImageView()
-            overlayimageView.frame = CGRectMake(0, 0, containerview.frame.size.width, containerview.frame.size.height)
+            overlayimageView.frame = CGRect(x: 0, y: 0, width: containerview.frame.size.width, height: containerview.frame.size.height)
             containerview.addSubview(overlayimageView);
 
             if overlayImage != ""
             {
-                let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_SCRIBBLE_IMAGE_URL) as! String
+                let urlString = UserDefaults.standard.object(forKey: k_INI_SCRIBBLE_IMAGE_URL) as! String
                 
-                if let checkedUrl = NSURL(string: "\(urlString)/\(overlayImage)")
+                if let checkedUrl = URL(string: "\(urlString)/\(overlayImage)")
                 {
-                    overlayimageView.contentMode = .ScaleAspectFit
+                    overlayimageView.contentMode = .scaleAspectFit
                     overlayimageView.downloadImage(checkedUrl, withFolderType: folderType.questionImage,withResizeValue: overlayimageView.frame.size)
                 }
-                overlayimageView.hidden = false
+                overlayimageView.isHidden = false
             }
         }
         
         
-        if let studentId = studentDetails.objectForKey("StudentId") as? String
+        if let studentId = studentDetails.object(forKey: "StudentId") as? String
         {
-            let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_UserProfileImageURL) as! String
+            let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
             
-            if let checkedUrl = NSURL(string: "\(urlString)/\(studentId)_79px.jpg")
+            if let checkedUrl = URL(string: "\(urlString)/\(studentId)_79px.jpg")
             {
-                mStudentImageView.contentMode = .ScaleAspectFit
-                mStudentImageView.downloadImage(checkedUrl, withFolderType: folderType.ProFilePics, withResizeValue:mStudentImageView.frame.size)
+                mStudentImageView.contentMode = .scaleAspectFit
+                mStudentImageView.downloadImage(checkedUrl, withFolderType: folderType.proFilePics, withResizeValue:mStudentImageView.frame.size)
             }
             
-            if let Scribble = answerDetails.objectForKey("Scribble") as? String
+            if let Scribble = answerDetails.object(forKey: "Scribble") as? String
             {
-                let studentAnswerImage = CustomProgressImageView(frame: CGRectMake(0, 0, containerview.frame.size.width, containerview.frame.size.height))
+                let studentAnswerImage = CustomProgressImageView(frame: CGRect(x: 0, y: 0, width: containerview.frame.size.width, height: containerview.frame.size.height))
                 studentAnswerImage.tag  = Int(studentId)!
                 containerview.addSubview(studentAnswerImage)
                 
                 
                 
-                let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_SCRIBBLE_IMAGE_URL) as! String
+                let urlString = UserDefaults.standard.object(forKey: k_INI_SCRIBBLE_IMAGE_URL) as! String
                 
-                if let checkedUrl = NSURL(string: "\(urlString)/\(Scribble)")
+                if let checkedUrl = URL(string: "\(urlString)/\(Scribble)")
                 {
-                    studentAnswerImage.contentMode = .ScaleAspectFit
-                    studentAnswerImage.downloadImage(checkedUrl, withFolderType: folderType.StudentAnswer,withResizeValue: studentAnswerImage.frame.size)
+                    studentAnswerImage.contentMode = .scaleAspectFit
+                    studentAnswerImage.downloadImage(checkedUrl, withFolderType: folderType.studentAnswer,withResizeValue: studentAnswerImage.frame.size)
                 }
             }
-            else if let TextAnswer = answerDetails.objectForKey("TextAnswer") as? String
+            else if let TextAnswer = answerDetails.object(forKey: "TextAnswer") as? String
             {
                 
-                let studentAnswertext = UILabel(frame: CGRectMake(0,0,containerview.frame.size.width,containerview.frame.size.height))
+                let studentAnswertext = UILabel(frame: CGRect(x: 0,y: 0,width: containerview.frame.size.width,height: containerview.frame.size.height))
                 containerview.addSubview(studentAnswertext)
                 studentAnswertext.font = UIFont(name: helveticaRegular, size: 18)
                 studentAnswertext.textColor = blackTextColor
-                studentAnswertext.lineBreakMode = .ByTruncatingMiddle
+                studentAnswertext.lineBreakMode = .byTruncatingMiddle
                 studentAnswertext.numberOfLines = 10
-                studentAnswertext.textAlignment = .Center
+                studentAnswertext.textAlignment = .center
                 studentAnswertext.text = TextAnswer
                 studentAnswertext.tag  = Int(studentId)!
                 
                 
             }
+            
+            
+            mStarRatingView.setStarRating(ratings)
+            
+            isModelAnswerSelected = modelAnswer
+            
+            
+            if isModelAnswerSelected == false
+            {
+                
+                mMarkModelButton.setImage(UIImage(named:"Mark_Model_Not_Selected.png"), for:UIControlState());
+            }
+            else
+            {
+                mMarkModelButton.setImage(UIImage(named:"Mark_Model_Selected.png"), for:UIControlState());
+                
+            }
+            
 
         }
         
-        if let StudentName = studentDetails.objectForKey("Name") as? String
+        if let StudentName = studentDetails.object(forKey: "Name") as? String
         {
             mStudentNameLabel.text = StudentName
         }
@@ -416,26 +434,27 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         
         
         
-        let currentDate = NSDate()
+        let currentDate = Date()
         
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-mm-dd HH:mm:ss"
         
         
         
-        let currentDateString = dateFormatter.stringFromDate(currentDate)
+        let currentDateString = dateFormatter.string(from: currentDate)
+       
+        let imagePathString = SSTeacherDataSource.sharedDataSource.currentUserId.appending("-").appending(SSTeacherDataSource.sharedDataSource.currentLiveSessionId).appending("-").appending(currentDateString)
         
+        var nameOfImage  = "TT-".appending(imagePathString)
+        nameOfImage =  nameOfImage.replacingOccurrences(of: " ", with: "")
         
-        var nameOfImage  = "TT-\(SSTeacherDataSource.sharedDataSource.currentUserId)-\(SSTeacherDataSource.sharedDataSource.currentLiveSessionId)-\(currentDateString)"
-        nameOfImage =  nameOfImage.stringByReplacingOccurrencesOfString(" ", withString: "")
-        
-        sendButtonSpinner.hidden = false
+        sendButtonSpinner.isHidden = false
         sendButtonSpinner.startAnimating()
-        mSendButton.hidden = true
+        mSendButton.isHidden = true
         
         if (mScribbleView.curImage != nil)
         {
-            imageUploading.uploadImageWithImage(mScribbleView.curImage, withImageName: nameOfImage, withUserId: SSTeacherDataSource.sharedDataSource.currentUserId)
+            imageUploading.uploadImage(with: mScribbleView.curImage, withImageName: nameOfImage, withUserId: SSTeacherDataSource.sharedDataSource.currentUserId)
         }
         else
         {
@@ -456,31 +475,31 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         
         
         PopoverControllerRatings = UIPopoverController(contentViewController: navController)
-        PopoverControllerRatings.popoverContentSize = CGSizeMake(200,100);
+        PopoverControllerRatings.contentSize = CGSize(width: 200,height: 100);
         PopoverControllerRatings.delegate = self;
-        navController.navigationBarHidden = true;
+        navController.isNavigationBarHidden = true;
         
         
-        let buttonPosition :CGPoint = m_textButton.convertPoint(CGPointZero, toView: self)
+        let buttonPosition :CGPoint = m_textButton.convert(CGPoint.zero, to: self)
         
-        PopoverControllerRatings.presentPopoverFromRect(CGRectMake(buttonPosition.x + m_textButton.frame.size.width / 2 , topImageView.frame.origin.y + topImageView.frame.size.height , 1, 1), inView: self, permittedArrowDirections: .Up, animated: true)
+        PopoverControllerRatings.present(from: CGRect(x: buttonPosition.x + m_textButton.frame.size.width / 2 , y: topImageView.frame.origin.y + topImageView.frame.size.height , width: 1, height: 1), in: self, permittedArrowDirections: .up, animated: true)
     }
     
     func onBadgeButton()
     {
         
         selectedtab = "Badge"
-        _ratingsPopoverController.addBadgesWithValueValue(givenBadgeId, withtext:"Rate with badge");
+        _ratingsPopoverController.addBadges(withValueValue: givenBadgeId, withtext:"Rate with badge");
         let navController = UINavigationController(rootViewController: _ratingsPopoverController)
         
         
-        let buttonPosition :CGPoint = m_badgeButton.convertPoint(CGPointZero, toView: self)
+        let buttonPosition :CGPoint = m_badgeButton.convert(CGPoint.zero, to: self)
         PopoverControllerRatings = UIPopoverController(contentViewController: navController)
-        PopoverControllerRatings.popoverContentSize = CGSizeMake(200,150);
+        PopoverControllerRatings.contentSize = CGSize(width: 200,height: 150);
         PopoverControllerRatings.delegate = self;
-        navController.navigationBarHidden = true;
+        navController.isNavigationBarHidden = true;
         
-        PopoverControllerRatings.presentPopoverFromRect(CGRectMake(buttonPosition.x + m_badgeButton.frame.size.width / 2 , topImageView.frame.origin.y + topImageView.frame.size.height , 1, 1), inView: self, permittedArrowDirections: .Up, animated: true)
+        PopoverControllerRatings.present(from: CGRect(x: buttonPosition.x + m_badgeButton.frame.size.width / 2 , y: topImageView.frame.origin.y + topImageView.frame.size.height , width: 1, height: 1), in: self, permittedArrowDirections: .up, animated: true)
         
     }
     
@@ -491,12 +510,12 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
             isModelAnswerSelected = true
             
             
-            mMarkModelButton.setImage(UIImage(named:"Mark_Model_Selected.png"), forState:.Normal);
+            mMarkModelButton.setImage(UIImage(named:"Mark_Model_Selected.png"), for:UIControlState());
         }
         else
         {
             isModelAnswerSelected = false
-            mMarkModelButton.setImage(UIImage(named:"Mark_Model_Not_Selected.png"), forState:.Normal);
+            mMarkModelButton.setImage(UIImage(named:"Mark_Model_Not_Selected.png"), for:UIControlState());
         }
     }
     
@@ -514,13 +533,13 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         if bottomtoolSelectedImageView.frame == m_BrushButton.frame
         {
             
-            let buttonPosition :CGPoint = m_BrushButton.convertPoint(CGPointZero, toView: self)
+            let buttonPosition :CGPoint = m_BrushButton.convert(CGPoint.zero, to: self)
             
             
             let colorSelectContoller = colorpopOverViewController()
             colorSelectContoller.setSelectTab(1);
             colorSelectContoller.setDelegate(self);
-            colorSelectContoller.setRect(CGRectMake(0,0,400,400));
+            colorSelectContoller.setRect(CGRect(x: 0,y: 0,width: 400,height: 400));
             
             
             colorSelectContoller.title = "Brush Size & Colour";
@@ -528,18 +547,18 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
             let navController = UINavigationController(rootViewController:colorSelectContoller)
             
             let colorPopoverController = UIPopoverController(contentViewController:navController);
-            colorPopoverController.popoverContentSize = CGSizeMake(400, 400);
+            colorPopoverController.contentSize = CGSize(width: 400, height: 400);
             colorPopoverController.delegate = self;
-            colorSelectContoller.setPopOverController(colorPopoverController);
+            colorSelectContoller.setPopOver(colorPopoverController);
             
-            colorPopoverController.presentPopoverFromRect(CGRectMake(buttonPosition.x  + (m_BrushButton.frame.size.width/2),buttonPosition.y,1,1), inView: self, permittedArrowDirections: .Down, animated: true)
+            colorPopoverController.present(from: CGRect(x: buttonPosition.x  + (m_BrushButton.frame.size.width/2),y: buttonPosition.y,width: 1,height: 1), in: self, permittedArrowDirections: .down, animated: true)
             
         }
         
         bottomtoolSelectedImageView.frame = m_BrushButton.frame
-        m_BrushButton.setImage(UIImage(named:"Marker_Selected.png"), forState:.Normal)
-        m_EraserButton.setImage(UIImage(named:"Eraser_Unselected.png"), forState:.Normal)
-        mScribbleView.setDrawingTool(kBrushTool)
+        m_BrushButton.setImage(UIImage(named:"Marker_Selected.png"), for:UIControlState())
+        m_EraserButton.setImage(UIImage(named:"Eraser_Unselected.png"), for:UIControlState())
+        mScribbleView.setDrawing(kBrushTool)
         
         
         
@@ -555,13 +574,13 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         if bottomtoolSelectedImageView.frame == m_EraserButton.frame
         {
             
-            let buttonPosition :CGPoint = m_EraserButton.convertPoint(CGPointZero, toView: self)
+            let buttonPosition :CGPoint = m_EraserButton.convert(CGPoint.zero, to: self)
             
             
             let colorSelectContoller = colorpopOverViewController()
             colorSelectContoller.setSelectTab(2);
             colorSelectContoller.setDelegate(self);
-            colorSelectContoller.setRect(CGRectMake(0,0,200,200));
+            colorSelectContoller.setRect(CGRect(x: 0,y: 0,width: 200,height: 200));
             
             
             colorSelectContoller.title = "Eraser Size & Colour";
@@ -569,11 +588,11 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
             let navController = UINavigationController(rootViewController:colorSelectContoller)
             
             let colorPopoverController = UIPopoverController(contentViewController:navController);
-            colorPopoverController.popoverContentSize = CGSizeMake(200, 150);
+            colorPopoverController.contentSize = CGSize(width: 200, height: 150);
             colorPopoverController.delegate = self;
-            colorSelectContoller.setPopOverController(colorPopoverController);
+            colorSelectContoller.setPopOver(colorPopoverController);
             
-            colorPopoverController.presentPopoverFromRect(CGRectMake(buttonPosition.x  + (m_EraserButton.frame.size.width/2),buttonPosition.y,1,1), inView: self, permittedArrowDirections: .Down, animated: true)
+            colorPopoverController.present(from: CGRect(x: buttonPosition.x  + (m_EraserButton.frame.size.width/2),y: buttonPosition.y,width: 1,height: 1), in: self, permittedArrowDirections: .down, animated: true)
             
         }
         
@@ -581,10 +600,10 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         
         
         bottomtoolSelectedImageView.frame = m_EraserButton.frame
-        m_BrushButton.setImage(UIImage(named:"Marker_Unselected.png"), forState:.Normal)
-        m_EraserButton.setImage(UIImage(named:"Eraser_Selected.png"), forState:.Normal)
+        m_BrushButton.setImage(UIImage(named:"Marker_Unselected.png"), for:UIControlState())
+        m_EraserButton.setImage(UIImage(named:"Eraser_Selected.png"), for:UIControlState())
         
-        mScribbleView.setDrawingTool(kEraserTool)
+        mScribbleView.setDrawing(kEraserTool)
         
         
         
@@ -607,7 +626,7 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
     
     // MARK: - popover delegate
     
-    func popoverControllerDidDismissPopover(popoverController: UIPopoverController)
+    func popoverControllerDidDismissPopover(_ popoverController: UIPopoverController)
     {
         
         if PopoverControllerRatings != nil
@@ -620,11 +639,11 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
                     
                     if givenBadgeId > 0
                     {
-                        m_badgeButton.setImage(_ratingsPopoverController.getbadgeImageWithId(givenBadgeId), forState:.Normal);
+                        m_badgeButton.setImage(_ratingsPopoverController.getbadgeImage(withId: givenBadgeId), for:UIControlState());
                     }
                     else
                     {
-                        m_badgeButton.setImage(UIImage(named:"Cb_Like_Disabled.png"), forState:.Normal);
+                        m_badgeButton.setImage(UIImage(named:"Cb_Like_Disabled.png"), for:UIControlState());
                     }
                     
                 }
@@ -635,13 +654,13 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
                     
                     if (givenTextReply == "")
                     {
-                        m_textButton.setImage(UIImage(named:"Text_Unselected.png"), forState:.Normal);
+                        m_textButton.setImage(UIImage(named:"Text_Unselected.png"), for:UIControlState());
                         
                         
                     }
                     else
                     {
-                        m_textButton.setImage(UIImage(named:"Text_Selected.png"), forState:.Normal);
+                        m_textButton.setImage(UIImage(named:"Text_Selected.png"), for:UIControlState());
                     }
                     
                     
@@ -649,13 +668,13 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
             }
             if ((givenStarRatings > 0 ) || (givenBadgeId > 0) || givenTextReply != "")
             {
-                mSendButton.enabled = true;
-                mSendButton.setTitleColor(whiteColor, forState:.Normal);
+                mSendButton.isEnabled = true;
+                mSendButton.setTitleColor(whiteColor, for:UIControlState());
             }
             else
             {
-                mSendButton.enabled = false;
-                mSendButton.setTitleColor(UIColor.lightGrayColor(), forState:.Normal);
+                mSendButton.isEnabled = false;
+                mSendButton.setTitleColor(UIColor.lightGray, for:UIControlState());
             }
         }
         
@@ -671,32 +690,32 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
     
     // MARK: - Smooth line delegate
     
-    func setUndoButtonEnable(enable: NSNumber!)
+    func setUndoButtonEnable(_ enable: NSNumber!)
     {
         if enable == 1
         {
-            m_UndoButton.setImage(UIImage(named:"Undo_Active.png"),forState:.Normal);
-            m_UndoButton.enabled = true
+            m_UndoButton.setImage(UIImage(named:"Undo_Active.png"),for:UIControlState());
+            m_UndoButton.isEnabled = true
         }
         else
         {
-            m_UndoButton.setImage(UIImage(named:"Undo_Disabled.png"),forState:.Normal);
-            m_UndoButton.enabled = false
+            m_UndoButton.setImage(UIImage(named:"Undo_Disabled.png"),for:UIControlState());
+            m_UndoButton.isEnabled = false
         }
         
     }
     
-    func setRedoButtonEnable(enable: NSNumber!)
+    func setRedoButtonEnable(_ enable: NSNumber!)
     {
         if enable == 1
         {
-            m_RedoButton.setImage(UIImage(named:"Redo_Active.png"),forState:.Normal);
-            m_RedoButton.enabled = true
+            m_RedoButton.setImage(UIImage(named:"Redo_Active.png"),for:UIControlState());
+            m_RedoButton.isEnabled = true
         }
         else
         {
-            m_RedoButton.setImage(UIImage(named:"Redo_Disabled.png"),forState:.Normal);
-            m_RedoButton.enabled = false
+            m_RedoButton.setImage(UIImage(named:"Redo_Disabled.png"),for:UIControlState());
+            m_RedoButton.isEnabled = false
         }
         
         
@@ -704,8 +723,8 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
     
     func lineDrawnChanged()
     {
-        mSendButton.enabled = true;
-        mSendButton.setTitleColor(whiteColor, forState:.Normal);
+        mSendButton.isEnabled = true;
+        mSendButton.setTitleColor(whiteColor, for:UIControlState());
     }
     
     // MARK: - Star view delegate
@@ -715,8 +734,8 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         givenStarRatings = mStarRatingView.rating()
         if givenStarRatings > 0
         {
-            mSendButton.enabled = true;
-            mSendButton.setTitleColor(whiteColor, forState:.Normal);
+            mSendButton.isEnabled = true;
+            mSendButton.setTitleColor(whiteColor, for:UIControlState());
         }
         
         
@@ -725,28 +744,28 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
     
     // MARK: - image Uploadeding delegate
     
-    func newImageUploadedWithName(imageName:String)
+    func newImageUploadedWithName(_ imageName:String)
     {
-        if let studentId = studentdict.objectForKey("StudentId") as? String
+        if let studentId = studentdict.object(forKey: "StudentId") as? String
         {
             
-            if let AssessmentAnswerId = studentsAswerDictonary.objectForKey("AssessmentAnswerId") as? String
+            if let AssessmentAnswerId = studentsAswerDictonary.object(forKey: "AssessmentAnswerId") as? String
             {
                 
                 let feedBackDetails  = NSMutableDictionary()
-                feedBackDetails.setObject(studentId, forKey: "StudentId")
+                feedBackDetails.setObject(studentId, forKey: "StudentId" as NSCopying)
                 
-                feedBackDetails.setObject(AssessmentAnswerId, forKey: "AssessmentAnswerId")
+                feedBackDetails.setObject(AssessmentAnswerId, forKey: "AssessmentAnswerId" as NSCopying)
                 
-                feedBackDetails.setObject("\(givenStarRatings)", forKey: "Rating")
+                feedBackDetails.setObject("\(givenStarRatings)", forKey: "Rating" as NSCopying)
                 
-                feedBackDetails.setObject("upload/\(imageName)", forKey: "imageUrl")
+                feedBackDetails.setObject("upload/".appending(imageName), forKey: "imageUrl" as NSCopying)
                 
-                feedBackDetails.setObject("\(givenBadgeId)", forKey: "BadgeId")
+                feedBackDetails.setObject("\(givenBadgeId)", forKey: "BadgeId" as NSCopying)
                 
-                feedBackDetails.setObject("\(givenTextReply)", forKey: "textRating")
+                feedBackDetails.setObject("\(givenTextReply)", forKey: "textRating" as NSCopying)
                 
-                feedBackDetails.setObject("\(isModelAnswerSelected)", forKey: "ModelAnswerFlag")
+                feedBackDetails.setObject("\(isModelAnswerSelected)", forKey: "ModelAnswerFlag" as NSCopying)
                 
                 SSTeacherDataSource.sharedDataSource.sendFeedbackToStudentWithDetails(feedBackDetails, WithDelegate: self)
                 
@@ -756,15 +775,15 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         
     }
     
-    func didGetFeedbackSentWithDetails(details: AnyObject)
+    func didGetFeedbackSentWithDetails(_ details: AnyObject)
     {
         
         
         
         
-        if let studentId = details.objectForKey("Students")!.objectForKey("Student")!.objectForKey("StudentId") as? String
+        if let studentId = ((details.object(forKey: "Students")! as AnyObject).object(forKey: "Student")! as AnyObject).object(forKey: "StudentId") as? String
         {
-            if let AssessmentAnswerId = details.objectForKey("AssessmentAnswerId") as? String
+            if let AssessmentAnswerId = details.object(forKey: "AssessmentAnswerId") as? String
             {
                 SSTeacherMessageHandler.sharedMessageHandler.sendFeedbackToStudentWitId(studentId, withassesmentAnswerId: AssessmentAnswerId)
                 
@@ -772,23 +791,23 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
                 
                 let feedBackDetails = NSMutableDictionary()
                 
-                feedBackDetails.setObject(studentId, forKey: "StudentId")
+                feedBackDetails.setObject(studentId, forKey: "StudentId" as NSCopying)
                 
-                feedBackDetails.setObject(AssessmentAnswerId, forKey: "AssessmentAnswerId")
+                feedBackDetails.setObject(AssessmentAnswerId, forKey: "AssessmentAnswerId" as NSCopying)
                 
-                feedBackDetails.setObject("\(givenStarRatings)", forKey: "Rating")
+                feedBackDetails.setObject("\(givenStarRatings)", forKey: "Rating" as NSCopying)
                 
-                feedBackDetails.setObject("upload/\(currentTeacherImageURl).png", forKey: "imageUrl")
+                feedBackDetails.setObject("upload/".appending(currentTeacherImageURl).appending(".png"), forKey: "imageUrl" as NSCopying)
                 
-                feedBackDetails.setObject("\(givenBadgeId)", forKey: "BadgeId")
+                feedBackDetails.setObject("\(givenBadgeId)", forKey: "BadgeId" as NSCopying)
                 
-                feedBackDetails.setObject("\(givenTextReply)", forKey: "textRating")
+                feedBackDetails.setObject("\(givenTextReply)", forKey: "textRating" as NSCopying)
                 
-                feedBackDetails.setObject("\(isModelAnswerSelected)", forKey: "ModelAnswerFlag")
+                feedBackDetails.setObject("\(isModelAnswerSelected)", forKey: "ModelAnswerFlag" as NSCopying)
 
                 
                 
-                if delegate().respondsToSelector(#selector(StudentAnnotateViewDelegate.delegateSubmissionEvalauatedWithAnswerDetails(_:withEvaluationDetail:withStudentId:)))
+                if delegate().responds(to: #selector(StudentAnnotateViewDelegate.delegateSubmissionEvalauatedWithAnswerDetails(_:withEvaluationDetail:withStudentId:)))
                 {
                      delegate().delegateSubmissionEvalauatedWithAnswerDetails!(studentsAswerDictonary, withEvaluationDetail: feedBackDetails, withStudentId: studentId)
                 }
@@ -800,9 +819,9 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         
         
         
-        sendButtonSpinner.hidden = true
+        sendButtonSpinner.isHidden = true
         sendButtonSpinner.stopAnimating()
-        mSendButton.hidden = false
+        mSendButton.isHidden = false
         mScribbleView.clearButtonClicked()
         self.removeFromSuperview()
     }
@@ -811,17 +830,17 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
     
     // MARK: - ImageUploading delegate
     
-    func ImageUploadedWithName(name: String!)
+    func ImageUploadedWithName(_ name: String!)
     {
         newImageUploadedWithName(name)
         currentTeacherImageURl = name
     }
     
-    func ErrorInUploadingWithName(name: String!)
+    func ErrorInUploadingWithName(_ name: String!)
     {
-        sendButtonSpinner.hidden = true
+        sendButtonSpinner.isHidden = true
         sendButtonSpinner.stopAnimating()
-        mSendButton.hidden = false
+        mSendButton.isHidden = false
         mScribbleView.clearButtonClicked()
         currentTeacherImageURl = ""
     }
@@ -830,7 +849,7 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
     
     // MARK: - Color popover delegate
     
-    func selectedbrushSize(sender: AnyObject!, withSelectedTab tabTag: Int32)
+    func selectedbrushSize(_ sender: AnyObject!, withSelectedTab tabTag: Int32)
     {
         
         if let progressView = sender as? UISlider
@@ -841,11 +860,11 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         
     }
     
-    func selectedColor(sender: AnyObject!, withSelectedTab tabTag: Int32)
+    func selectedColor(_ sender: AnyObject!, withSelectedTab tabTag: Int32)
     {
         if let progressColor = sender as? UIColor
         {
-            mScribbleView.setDrawingColor(progressColor);
+            mScribbleView.setDrawing(progressColor);
         }
     }
 

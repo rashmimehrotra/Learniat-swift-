@@ -12,7 +12,7 @@ import Foundation
 {
     
     
-    optional  func smhDidgetStudentAnswerMessageWithStudentId(StudentId: String, withAnswerString answerStrin:String)
+    @objc optional  func smhDidgetStudentAnswerMessageWithStudentId(_ StudentId: String, withAnswerString answerStrin:String)
     
     
     
@@ -33,7 +33,7 @@ class StudentAnswerDemo: UIView,StudentAnswerSelectionViewDelegate
     
     var _delgate: AnyObject!
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -59,7 +59,7 @@ class StudentAnswerDemo: UIView,StudentAnswerSelectionViewDelegate
     }
     
     
-    func sendDummyAnswerWithQuestionDetails(questionDetails:AnyObject, withStudentDetails studentDetails:NSMutableArray)
+    func sendDummyAnswerWithQuestionDetails(_ questionDetails:AnyObject, withStudentDetails studentDetails:NSMutableArray)
     {
 
         
@@ -69,12 +69,12 @@ class StudentAnswerDemo: UIView,StudentAnswerSelectionViewDelegate
         
         for index in 0..<studentDetails.count
         {
-            let currentStudentsDict = studentDetails.objectAtIndex(index)
-            if let _StudentState = currentStudentsDict.objectForKey("StudentState") as? String
+            let currentStudentsDict = studentDetails.object(at: index)
+            if let _StudentState = (currentStudentsDict as AnyObject).object(forKey: "StudentState") as? String
             {
                 if _StudentState !=  StudentLive && _StudentState !=  StudentLiveBackground
                 {
-                   notLiveStudentsDetails.addObject(currentStudentsDict)
+                   notLiveStudentsDetails.add(currentStudentsDict)
                     totalStudentsCount = totalStudentsCount + 1
                 }
             }
@@ -86,7 +86,7 @@ class StudentAnswerDemo: UIView,StudentAnswerSelectionViewDelegate
         {
             totalStudentsCount = notLiveStudentsDetails.count - 1
         }
-        if let questionType = questionDetails.objectForKey("Type") as? String
+        if let questionType = questionDetails.object(forKey: "Type") as? String
         {
             if (questionType == kOverlayScribble || questionType == kFreshScribble )
             {
@@ -99,21 +99,21 @@ class StudentAnswerDemo: UIView,StudentAnswerSelectionViewDelegate
         
         
         
-        let currentStudentsDict = notLiveStudentsDetails.objectAtIndex(totalStudentsCount)
+        let currentStudentsDict = notLiveStudentsDetails.object(at: totalStudentsCount)
         let studentsAnswer = StudentAnswerSelectionView()
         studentsAnswer.setdelegate(self)
-        studentsAnswer.setCurrentQuestionDetails(questionDetails, withCurrentStudentDetails: currentStudentsDict)
+        studentsAnswer.setCurrentQuestionDetails(questionDetails, withCurrentStudentDetails: currentStudentsDict as AnyObject)
         
         totalStudentsCount = totalStudentsCount - 1
         
     }
     
-    func delegateStudentAnswerRecievedWithDetails(answerId: String, withStudentid stundentId: String) {
+    func delegateStudentAnswerRecievedWithDetails(_ answerId: String, withStudentid stundentId: String) {
         
         
         if SSTeacherDataSource.sharedDataSource.isQuestionSent == true
         {
-            if delegate().respondsToSelector(#selector(StudentAnswerDemoDelegate.smhDidgetStudentAnswerMessageWithStudentId(_:withAnswerString:)))
+            if delegate().responds(to: #selector(StudentAnswerDemoDelegate.smhDidgetStudentAnswerMessageWithStudentId(_:withAnswerString:)))
             {
                 delegate().smhDidgetStudentAnswerMessageWithStudentId!(stundentId, withAnswerString: answerId)
             }
@@ -122,10 +122,11 @@ class StudentAnswerDemo: UIView,StudentAnswerSelectionViewDelegate
             {
                 if totalStudentsCount < notLiveStudentsDetails.count
                 {
-                    let currentStudentsDict = notLiveStudentsDetails.objectAtIndex(totalStudentsCount)
+                    let currentStudentsDict = notLiveStudentsDetails.object(at: totalStudentsCount)
                     let studentsAnswer = StudentAnswerSelectionView()
                     studentsAnswer.setdelegate(self)
-                    studentsAnswer.setCurrentQuestionDetails(currentQuestionDetails, withCurrentStudentDetails: currentStudentsDict)
+                    studentsAnswer.setCurrentQuestionDetails(currentQuestionDetails, withCurrentStudentDetails:
+                        currentStudentsDict as AnyObject)
                     totalStudentsCount = totalStudentsCount - 1
                 }
                 else

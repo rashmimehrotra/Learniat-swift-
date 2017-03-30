@@ -12,7 +12,7 @@ import Foundation
 {
     
     
-    func delegatePollingStartedWithOptions(optionsArray:NSMutableArray)
+    func delegatePollingStartedWithOptions(_ optionsArray:NSMutableArray)
     
     
 }
@@ -38,7 +38,7 @@ class SSTeacherPollView: UIView,PollingCreationViewDelegate,PollingGraphViewDele
     
     var mGraphScrollView    = UIScrollView()
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -55,23 +55,23 @@ class SSTeacherPollView: UIView,PollingCreationViewDelegate,PollingGraphViewDele
         
         self.backgroundColor = whiteBackgroundColor
         
-        mTopImageView.frame = CGRectMake(0, 0, self.frame.size.width, 50)
+        mTopImageView.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: 50)
         self.addSubview(mTopImageView)
-        mTopImageView.backgroundColor = UIColor.whiteColor()
-        mTopImageView.userInteractionEnabled = true
+        mTopImageView.backgroundColor = UIColor.white
+        mTopImageView.isUserInteractionEnabled = true
         
         
         YPosition =  10
         
-        createNewPollButton.frame = CGRectMake(self.frame.size.width - 210, 0, 200, mTopImageView.frame.size.height)
-        createNewPollButton.setTitle("Create new poll", forState: .Normal)
+        createNewPollButton.frame = CGRect(x: self.frame.size.width - 210, y: 0, width: 200, height: mTopImageView.frame.size.height)
+        createNewPollButton.setTitle("Create new poll", for: UIControlState())
         mTopImageView.addSubview(createNewPollButton)
-        createNewPollButton.setTitleColor(standard_Green, forState: .Normal)
-        createNewPollButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
-        createNewPollButton.addTarget(self, action: #selector(SSTeacherPollView.onCreatePollView), forControlEvents: .TouchUpInside)
+        createNewPollButton.setTitleColor(standard_Green, for: UIControlState())
+        createNewPollButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
+        createNewPollButton.addTarget(self, action: #selector(SSTeacherPollView.onCreatePollView), for: .touchUpInside)
         
         
-        mGraphScrollView.frame = CGRectMake(0, mTopImageView.frame.size.height, self.frame.size.width, self.frame.size.height - mTopImageView.frame.size.height)
+        mGraphScrollView.frame = CGRect(x: 0, y: mTopImageView.frame.size.height, width: self.frame.size.width, height: self.frame.size.height - mTopImageView.frame.size.height)
         self.addSubview(mGraphScrollView)
         
     }
@@ -86,13 +86,13 @@ class SSTeacherPollView: UIView,PollingCreationViewDelegate,PollingGraphViewDele
     
     func onCreatePollView()
     {
-        let mPollCreationView = PollingCreationView(frame:CGRectMake(self.frame.size.width,0,self.frame.size.width,self.frame.size.height))
+        let mPollCreationView = PollingCreationView(frame:CGRect(x: self.frame.size.width,y: 0,width: self.frame.size.width,height: self.frame.size.height))
         self.addSubview(mPollCreationView)
         mPollCreationView.setdelegate(self)
         
-        UIView.animateWithDuration(0.6, animations:
+        UIView.animate(withDuration: 0.6, animations:
             {
-                 mPollCreationView.frame = CGRectMake(0, 0 , self.frame.size.width , self.frame.size.height)
+                 mPollCreationView.frame = CGRect(x: 0, y: 0 , width: self.frame.size.width , height: self.frame.size.height)
             },
                                    completion:
             { finished in
@@ -103,20 +103,20 @@ class SSTeacherPollView: UIView,PollingCreationViewDelegate,PollingGraphViewDele
     
     
      // MARK: - Polling CreationView functions
-    func delegateSendButtonpressedWithSelectedOptionsArray(selectedOptions: String, withQuestionName questionName:String)
+    func delegateSendButtonpressedWithSelectedOptionsArray(_ selectedOptions: String, withQuestionName questionName:String)
     {
         
         let options = NSMutableArray()
-        options.addObjectsFromArray(selectedOptions.componentsSeparatedByString(";;;"))
+        options.addObjects(from: selectedOptions.components(separatedBy: ";;;"))
         
-         mPollGraphView = PollingGraphView(frame:CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
+         mPollGraphView = PollingGraphView(frame:CGRect(x: 0,y: 0,width: self.frame.size.width,height: self.frame.size.height))
         self.addSubview(mPollGraphView)
         mPollGraphView.setdelegate(self)
         mPollGraphView.tag = pollTagValue
         mPollGraphView.loadGraphViewWithOPtions(options, withQuestion: questionName)
         pollTagValue = pollTagValue + 1
         
-        if delegate().respondsToSelector(#selector(SSTeacherPollViewDelegate.delegatePollingStartedWithOptions(_:)))
+        if delegate().responds(to: #selector(SSTeacherPollViewDelegate.delegatePollingStartedWithOptions(_:)))
         {
             delegate().delegatePollingStartedWithOptions(options)
         }
@@ -126,7 +126,7 @@ class SSTeacherPollView: UIView,PollingCreationViewDelegate,PollingGraphViewDele
     
     // MARK: - Polling GraphView functions
     
-    func delegateStopButtonPressedWithMultiplierValue(multiplier: Int, withOptionsArray optionsArray: NSMutableArray, withOptionsvalue optionsValue: NSMutableArray, withQuestionName questionName: String, withTagValue tag: Int) {
+    func delegateStopButtonPressedWithMultiplierValue(_ multiplier: Int, withOptionsArray optionsArray: NSMutableArray, withOptionsvalue optionsValue: NSMutableArray, withQuestionName questionName: String, withTagValue tag: Int) {
         
 //        if let mCompltedView  = self.viewWithTag(tag) as? PollCompletedView
 //        {
@@ -137,7 +137,7 @@ class SSTeacherPollView: UIView,PollingCreationViewDelegate,PollingGraphViewDele
 //            
         
             
-            let mcomletedView = PollCompletedView(frame:CGRectMake(Xposition,YPosition,(self.frame.size.width - 40 )/2 ,(self.frame.size.width - 40 )/2 ))
+            let mcomletedView = PollCompletedView(frame:CGRect(x: Xposition,y: YPosition,width: (self.frame.size.width - 40 )/2 ,height: (self.frame.size.width - 40 )/2 ))
             mGraphScrollView.addSubview(mcomletedView)
             mcomletedView.tag = tag
             mcomletedView.setGraphDetailsWithQuestionName(questionName,withOPtionsArray:optionsArray,withOptionsValues: optionsValue, withMultiplier: multiplier)
@@ -145,14 +145,14 @@ class SSTeacherPollView: UIView,PollingCreationViewDelegate,PollingGraphViewDele
             if Xposition ==  10
             {
                 Xposition = Xposition + mcomletedView.frame.size.width + 20
-                mGraphScrollView.contentSize = CGSizeMake(0, YPosition + mcomletedView.frame.size.height)
+                mGraphScrollView.contentSize = CGSize(width: 0, height: YPosition + mcomletedView.frame.size.height)
                 
             }
             else
             {
                 Xposition = 10
                 YPosition = YPosition + mcomletedView.frame.size.height + 10
-                mGraphScrollView.contentSize = CGSizeMake(0, YPosition)
+                mGraphScrollView.contentSize = CGSize(width: 0, height: YPosition)
                 
             }
         
@@ -161,25 +161,25 @@ class SSTeacherPollView: UIView,PollingCreationViewDelegate,PollingGraphViewDele
     
     // MARK: - Poll completed view functions
     
-    func delegateOnResendButtonPressedWithOptions(optionsArray: NSMutableArray, withQuestionName questionName: String, withTagValue tagValue: Int)
+    func delegateOnResendButtonPressedWithOptions(_ optionsArray: NSMutableArray, withQuestionName questionName: String, withTagValue tagValue: Int)
     {
         
         
-        mPollGraphView = PollingGraphView(frame:CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
+        mPollGraphView = PollingGraphView(frame:CGRect(x: 0,y: 0,width: self.frame.size.width,height: self.frame.size.height))
         self.addSubview(mPollGraphView)
         mPollGraphView.setdelegate(self)
         mPollGraphView.tag =  tagValue
         mPollGraphView.loadGraphViewWithOPtions(optionsArray, withQuestion: questionName)
         
         
-         if delegate().respondsToSelector(#selector(SSTeacherPollViewDelegate.delegatePollingStartedWithOptions(_:)))
+         if delegate().responds(to: #selector(SSTeacherPollViewDelegate.delegatePollingStartedWithOptions(_:)))
          {
             delegate().delegatePollingStartedWithOptions(optionsArray)
         }
     }
     
     
-    func didGetStudentPollValue(optionValue:String)
+    func didGetStudentPollValue(_ optionValue:String)
     {
         if mPollGraphView != nil
         {

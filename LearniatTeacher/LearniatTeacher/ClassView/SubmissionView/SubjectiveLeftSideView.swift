@@ -12,7 +12,7 @@ import Foundation
 @objc protocol SubjectiveLeftSideViewDelegate
 {
     
-    optional func delegateStudentSelectedWithState(state:Bool, withStudentDetails studentDetails:AnyObject, withAnswerDetails answerDetails:AnyObject)
+    @objc optional func delegateStudentSelectedWithState(_ state:Bool, withStudentDetails studentDetails:AnyObject, withAnswerDetails answerDetails:AnyObject)
     
     
     
@@ -38,7 +38,7 @@ class SubjectiveLeftSideView: UIView,SubjectiveStudentContainerDelegate
     
     var totlStudentsCount           = 0
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -53,30 +53,31 @@ class SubjectiveLeftSideView: UIView,SubjectiveStudentContainerDelegate
     {
         super.init(frame:frame)
         
-        self.backgroundColor =  blackTextColor
+        self.backgroundColor =  UIColor.black;
         
-        let headerLabel = UILabel(frame: CGRectMake(30, 0, 80, 50));
-        headerLabel.textAlignment = .Center;
+        let headerLabel = UILabel(frame: CGRect(x: 30, y: 0, width: 80, height: 50));
+        headerLabel.textAlignment = .center;
         headerLabel.text = "SelectAll";
-        headerLabel.textColor = LineGrayColor
-        headerLabel.backgroundColor = UIColor.clearColor();
+        headerLabel.textColor = standard_TextGrey
+        headerLabel.backgroundColor = UIColor.black;
         self.addSubview(headerLabel)
         
         
         
-        selectAllImageview = UIImageView(frame: CGRectMake(7.0, 15, 20,20))
+        selectAllImageview = UIImageView(frame: CGRect(x: 7.0, y: 15, width: 20,height: 20))
         self.addSubview(selectAllImageview)
         selectAllImageview.image = UIImage(named: "Unchecked.png")
         
         let selectAllButton = UIButton()
-        selectAllButton.frame = CGRectMake(0, 0, self.frame.size.width, 50)
+        selectAllButton.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: 50)
         self.addSubview(selectAllButton)
-        selectAllButton.setTitleColor(LineGrayColor, forState: .Normal)
-        selectAllButton.addTarget(self, action: #selector(SubjectiveLeftSideView.onSelectAllButton), forControlEvents: UIControlEvents.TouchUpInside)
+        selectAllButton.setTitleColor(LineGrayColor, for: UIControlState())
+        selectAllButton.addTarget(self, action: #selector(SubjectiveLeftSideView.onSelectAllButton), for: UIControlEvents.touchUpInside)
 
     
-        mScrollView.frame = CGRectMake(0, 50, self.frame.size.width, self.frame.size.height - 50 )
+        mScrollView.frame = CGRect(x: 0, y: 50, width: self.frame.size.width, height: self.frame.size.height - 50 )
         self.addSubview(mScrollView)
+        mScrollView.backgroundColor = blackTextColor
         
     }
     
@@ -87,17 +88,17 @@ class SubjectiveLeftSideView: UIView,SubjectiveStudentContainerDelegate
     
     
     
-    func addStudentSubmissionWithStudentAnswer(studentAnswer:AnyObject, withStudentDetails studentDict:AnyObject, withOverlay overlay:String)
+    func addStudentSubmissionWithStudentAnswer(_ studentAnswer:AnyObject, withStudentDetails studentDict:AnyObject, withOverlay overlay:String)
     {
         
         
         _currentStudentAnswerDetails = studentAnswer
         _currentStudentDetails = studentDict
         
-        let subjectiveCell = SubjectiveStudentContainer(frame: CGRectMake(0 ,currentPositionY,mScrollView.frame.size.width,mScrollView.frame.size.width))
+        let subjectiveCell = SubjectiveStudentContainer(frame: CGRect(x: 0 ,y: currentPositionY,width: mScrollView.frame.size.width,height: mScrollView.frame.size.width))
         subjectiveCell.setdelegate(self)
         subjectiveCell.setStudentAnswerDetails(studentAnswer, withStudentDetails: studentDict,withOverlay:overlay)
-        if let studentId = studentDict.objectForKey("StudentId") as? NSString
+        if let studentId = studentDict.object(forKey: "StudentId") as? NSString
         {
             subjectiveCell.tag = studentId.integerValue
         }
@@ -111,22 +112,22 @@ class SubjectiveLeftSideView: UIView,SubjectiveStudentContainerDelegate
         totlStudentsCount = totlStudentsCount + 1
         refreshScrollView()
         
-        mScrollView.contentSize = CGSizeMake(0, currentPositionY)
+        mScrollView.contentSize = CGSize(width: 0, height: currentPositionY)
         
     }
     
      // MARK: - SubjectiveStudentContainer Delegate
     
-    func delegateCheckmarkPressedWithState(state: Bool, withStudentDetails studentDetails: AnyObject, withAnswerDetails answerDetails: AnyObject) {
+    func delegateCheckmarkPressedWithState(_ state: Bool, withStudentDetails studentDetails: AnyObject, withAnswerDetails answerDetails: AnyObject) {
         
         if state == true
         {
             
-            if let studentId = studentDetails.objectForKey("StudentId") as? String
+            if let studentId = studentDetails.object(forKey: "StudentId") as? String
             {
-                if !selectedStudentsArray.containsObject(studentId)
+                if !selectedStudentsArray.contains(studentId)
                 {
-                    selectedStudentsArray.addObject(studentId)
+                    selectedStudentsArray.add(studentId)
                 }
             }
           
@@ -134,11 +135,11 @@ class SubjectiveLeftSideView: UIView,SubjectiveStudentContainerDelegate
         }
         else
         {
-            if let studentId = studentDetails.objectForKey("StudentId") as? String
+            if let studentId = studentDetails.object(forKey: "StudentId") as? String
             {
-                if selectedStudentsArray.containsObject(studentId)
+                if selectedStudentsArray.contains(studentId)
                 {
-                    selectedStudentsArray.removeObject(studentId)
+                    selectedStudentsArray.remove(studentId)
                 }
             }
             
@@ -146,7 +147,7 @@ class SubjectiveLeftSideView: UIView,SubjectiveStudentContainerDelegate
         
         
         
-        if delegate().respondsToSelector(#selector(SubjectiveLeftSideViewDelegate.delegateStudentSelectedWithState(_:withStudentDetails:withAnswerDetails:)))
+        if delegate().responds(to: #selector(SubjectiveLeftSideViewDelegate.delegateStudentSelectedWithState(_:withStudentDetails:withAnswerDetails:)))
         {
             delegate().delegateStudentSelectedWithState!(state, withStudentDetails: studentDetails, withAnswerDetails: answerDetails)
         }
@@ -179,11 +180,11 @@ class SubjectiveLeftSideView: UIView,SubjectiveStudentContainerDelegate
         }
     }
     
-    func removeStudentsWithStudentsId(studentId:String)
+    func removeStudentsWithStudentsId(_ studentId:String)
     {
-        if selectedStudentsArray.containsObject(studentId)
+        if selectedStudentsArray.contains(studentId)
         {
-            selectedStudentsArray.removeObject(studentId)
+            selectedStudentsArray.remove(studentId)
         }
         
         if let studentDeskView  = mScrollView.viewWithTag(Int(studentId)!) as? SubjectiveStudentContainer
@@ -210,7 +211,7 @@ class SubjectiveLeftSideView: UIView,SubjectiveStudentContainerDelegate
             
             for subview in subViews
             {
-                if subview.isKindOfClass(SubjectiveStudentContainer)
+                if subview.isKind(of: SubjectiveStudentContainer.self)
                 {
                     
                     subview.currentSelectionState = kUnSelected
@@ -232,7 +233,7 @@ class SubjectiveLeftSideView: UIView,SubjectiveStudentContainerDelegate
             
             for subview in subViews
             {
-                if subview.isKindOfClass(SubjectiveStudentContainer)
+                if subview.isKind(of: SubjectiveStudentContainer.self)
                 {
                     
                     subview.currentSelectionState = kSelected
@@ -256,15 +257,15 @@ class SubjectiveLeftSideView: UIView,SubjectiveStudentContainerDelegate
         let subViews = mScrollView.subviews
         for subjectiveCell in subViews
         {
-            if subjectiveCell.isKindOfClass(SubjectiveStudentContainer)
+            if subjectiveCell.isKind(of: SubjectiveStudentContainer.self)
             {
-                subjectiveCell.frame = CGRectMake(subjectiveCell.frame.origin.x ,currentPositionY,mScrollView.frame.size.width,mScrollView.frame.size.width)
+                subjectiveCell.frame = CGRect(x: subjectiveCell.frame.origin.x ,y: currentPositionY,width: mScrollView.frame.size.width,height: mScrollView.frame.size.width)
                 totlStudentsCount = totlStudentsCount + 1
                 currentPositionY = currentPositionY + subjectiveCell.frame.size.height + 10
             }
         }
         
-        mScrollView.contentSize = CGSizeMake(0, currentPositionY)
+        mScrollView.contentSize = CGSize(width: 0, height: currentPositionY)
         
         if selectedStudentsArray.count <= 0
         {

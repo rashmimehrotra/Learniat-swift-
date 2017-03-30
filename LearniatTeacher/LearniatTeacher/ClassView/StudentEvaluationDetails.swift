@@ -7,6 +7,30 @@
 //
 
 import Foundation
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 class StudentEvaluationDetails: UIViewController,SSStarRatingViewDelegate
 {
     var _delgate: AnyObject!
@@ -20,10 +44,9 @@ class StudentEvaluationDetails: UIViewController,SSStarRatingViewDelegate
     
     var _currentEvaluationDetails:AnyObject!
     
-    var _Popover:AnyObject!
     
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -50,17 +73,17 @@ class StudentEvaluationDetails: UIViewController,SSStarRatingViewDelegate
         
         
         
-        let questionView = UIView(frame: CGRectMake(0, 0, 320, 320))
+        let questionView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 320))
         self.view.addSubview(questionView)
         questionView.backgroundColor = whiteBackgroundColor
         
         
-        let headerView = UIView(frame: CGRectMake(0, 0, 320, 40))
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 40))
         headerView.backgroundColor = lightGrayTopBar
         questionView.addSubview(headerView);
         
         
-        let seperatorView = UIView(frame: CGRectMake(0, headerView.frame.size.height-1, 320, 1))
+        let seperatorView = UIView(frame: CGRect(x: 0, y: headerView.frame.size.height-1, width: 320, height: 1))
         seperatorView.backgroundColor = LineGrayColor
         headerView.addSubview(seperatorView);
         
@@ -70,20 +93,20 @@ class StudentEvaluationDetails: UIViewController,SSStarRatingViewDelegate
         
         
         
-        let headerlabel = UILabel(frame: CGRectMake(20, 0, 200, 40))
+        let headerlabel = UILabel(frame: CGRect(x: 20, y: 0, width: 200, height: 40))
         headerlabel.text = kOverlayScribble
         headerView.addSubview(headerlabel)
-        headerlabel.textAlignment = .Left;
+        headerlabel.textAlignment = .left;
         headerlabel.font = UIFont(name: helveticaRegular, size: 20)
         headerlabel.textColor  = blackTextColor
         
         
         
-        let  mDoneButton = UIButton(frame: CGRectMake(headerView.frame.size.width - 120, 0, 100, 40))
-        mDoneButton.addTarget(self, action: #selector(StudentEvaluationDetails.onDoneButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mDoneButton.setTitleColor(standard_Button, forState: .Normal)
-        mDoneButton.setTitle("Done", forState: .Normal)
-        mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        let  mDoneButton = UIButton(frame: CGRect(x: headerView.frame.size.width - 120, y: 0, width: 100, height: 40))
+        mDoneButton.addTarget(self, action: #selector(StudentEvaluationDetails.onDoneButton), for: UIControlEvents.touchUpInside)
+        mDoneButton.setTitleColor(standard_Button, for: UIControlState())
+        mDoneButton.setTitle("Done", for: UIControlState())
+        mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         mDoneButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
         headerView.addSubview(mDoneButton)
         
@@ -91,16 +114,16 @@ class StudentEvaluationDetails: UIViewController,SSStarRatingViewDelegate
         
         
        
-        let mStarRatingView = StudentStarView(frame: CGRectMake(20, headerView.frame.origin.y + headerView.frame.size.height + 5, headerView.frame.size.width - 90 , 34.0))
-        mStarRatingView.backgroundColor = UIColor.clearColor();
+        let mStarRatingView = StudentStarView(frame: CGRect(x: 20, y: headerView.frame.origin.y + headerView.frame.size.height + 5, width: headerView.frame.size.width - 90 , height: 34.0))
+        mStarRatingView.backgroundColor = UIColor.clear;
         
-        if let Rating = _currentEvaluationDetails.objectForKey("Rating") as? String
+        if let Rating = _currentEvaluationDetails.object(forKey: "Rating") as? String
         {
             if Int(Rating) > 0
             {
                 
                 questionView.addSubview(mStarRatingView);
-                mStarRatingView.addStarsWithRatings(Int32(Rating)!, withSize: Float(mStarRatingView.frame.size.height))
+                mStarRatingView.addStars(withRatings: Int32(Rating)!, withSize: Float(mStarRatingView.frame.size.height))
 
             }
             
@@ -108,14 +131,14 @@ class StudentEvaluationDetails: UIViewController,SSStarRatingViewDelegate
         
   
         
-        if let BadgeId = _currentEvaluationDetails.objectForKey("BadgeId") as? String
+        if let BadgeId = _currentEvaluationDetails.object(forKey: "BadgeId") as? String
         {
             if Int(BadgeId) > 0
             {
                 let imageLoader = ImageUploading()
                 
-                let BadgeIdImage = UIImageView(frame: CGRectMake(headerView.frame.size.width - 80, headerView.frame.origin.y + headerView.frame.size.height + 10 ,40,34.0))
-                BadgeIdImage.contentMode = .ScaleAspectFit
+                let BadgeIdImage = UIImageView(frame: CGRect(x: headerView.frame.size.width - 80, y: headerView.frame.origin.y + headerView.frame.size.height + 10 ,width: 40,height: 34.0))
+                BadgeIdImage.contentMode = .scaleAspectFit
                 BadgeIdImage.image = imageLoader.getImageWithBadgeId(Int32(BadgeId)!)
                 questionView.addSubview(BadgeIdImage)
             }
@@ -124,59 +147,59 @@ class StudentEvaluationDetails: UIViewController,SSStarRatingViewDelegate
         
         
        
-        let lineView = UIImageView(frame:CGRectMake(20, mStarRatingView.frame.origin.y + mStarRatingView.frame.size.height + 5 , 280, 1))
+        let lineView = UIImageView(frame:CGRect(x: 20, y: mStarRatingView.frame.origin.y + mStarRatingView.frame.size.height + 5 , width: 280, height: 1))
         lineView.backgroundColor = topicsLineColor
         questionView.addSubview(lineView);
         
         
         
-        if let StudentName = _currentStudentDict.objectForKey("StudentName") as? String
+        if let StudentName = _currentStudentDict.object(forKey: "StudentName") as? String
         {
             headerlabel.text = StudentName
         }
         
         
         
-        if let questionType = _currentQuestiondetails.objectForKey("Type") as? String
+        if let questionType = _currentQuestiondetails.object(forKey: "Type") as? String
         {
             if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
             {
-                if let overlayImage = _currentQuestiondetails.objectForKey("Scribble") as? String
+                if let overlayImage = _currentQuestiondetails.object(forKey: "Scribble") as? String
                 {
-                    let overLayImageView = CustomProgressImageView(frame: CGRectMake((questionView.frame.size.width - 270)/2,lineView.frame.origin.y + 2 ,270,180))
+                    let overLayImageView = CustomProgressImageView(frame: CGRect(x: (questionView.frame.size.width - 270)/2,y: lineView.frame.origin.y + 2 ,width: 270,height: 180))
                     questionView.addSubview(overLayImageView)
                     
                     
-                    let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_QuestionsImageUrl) as! String
+                    let urlString = UserDefaults.standard.object(forKey: k_INI_QuestionsImageUrl) as! String
                     
-                    if let checkedUrl = NSURL(string: "\(urlString)/\(overlayImage)")
+                    if let checkedUrl = URL(string: "\(urlString)/\(overlayImage)")
                     {
-                        overLayImageView.contentMode = .ScaleAspectFit
+                        overLayImageView.contentMode = .scaleAspectFit
                         overLayImageView.downloadImage(checkedUrl, withFolderType: folderType.questionImage,withResizeValue: overLayImageView.frame.size)
                     }
                     
                 }
                 
                 
-                let studentAnswerImage = CustomProgressImageView(frame: CGRectMake((questionView.frame.size.width - 270)/2,lineView.frame.origin.y + lineView.frame.size.height ,270,180))
+                let studentAnswerImage = CustomProgressImageView(frame: CGRect(x: (questionView.frame.size.width - 270)/2,y: lineView.frame.origin.y + lineView.frame.size.height ,width: 270,height: 180))
                 questionView.addSubview(studentAnswerImage)
                 
                 
-                if let Scribble = _studentAnswerDetails.objectForKey("Scribble") as? String
+                if let Scribble = _studentAnswerDetails.object(forKey: "Scribble") as? String
                 {
-                    let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_SCRIBBLE_IMAGE_URL) as! String
+                    let urlString = UserDefaults.standard.object(forKey: k_INI_SCRIBBLE_IMAGE_URL) as! String
                     
-                    if let checkedUrl = NSURL(string: "\(urlString)/\(Scribble)")
+                    if let checkedUrl = URL(string: "\(urlString)/\(Scribble)")
                     {
-                        studentAnswerImage.contentMode = .ScaleAspectFit
-                        studentAnswerImage.downloadImage(checkedUrl, withFolderType: folderType.StudentAnswer,withResizeValue: studentAnswerImage.frame.size)
+                        studentAnswerImage.contentMode = .scaleAspectFit
+                        studentAnswerImage.downloadImage(checkedUrl, withFolderType: folderType.studentAnswer,withResizeValue: studentAnswerImage.frame.size)
                     }
                 }
                 
             }
             else if (questionType == kText)
             {
-                let studentAnswertext = UILabel(frame: CGRectMake((questionView.frame.size.width - 270)/2,lineView.frame.origin.y + lineView.frame.size.height ,270,180))
+                let studentAnswertext = UILabel(frame: CGRect(x: (questionView.frame.size.width - 270)/2,y: lineView.frame.origin.y + lineView.frame.size.height ,width: 270,height: 180))
                 questionView.addSubview(studentAnswertext)
                 
                 var fontHeight = studentAnswertext.frame.size.height/1.6;
@@ -188,10 +211,10 @@ class StudentEvaluationDetails: UIViewController,SSStarRatingViewDelegate
                 
                 studentAnswertext.font = UIFont(name: helveticaRegular, size: fontHeight)
                 studentAnswertext.textColor = blackTextColor
-                studentAnswertext.lineBreakMode = .ByTruncatingMiddle
+                studentAnswertext.lineBreakMode = .byTruncatingMiddle
                 studentAnswertext.numberOfLines = 10
-                studentAnswertext.textAlignment = .Center
-                if let TextAnswer = _studentAnswerDetails.objectForKey("TextAnswer") as? String
+                studentAnswertext.textAlignment = .center
+                if let TextAnswer = _studentAnswerDetails.object(forKey: "TextAnswer") as? String
                 {
                     studentAnswertext.text = TextAnswer
                 }
@@ -202,17 +225,17 @@ class StudentEvaluationDetails: UIViewController,SSStarRatingViewDelegate
         
         
         
-        if let teacherScribble = _currentEvaluationDetails.objectForKey("imageUrl") as? String
+        if let teacherScribble = _currentEvaluationDetails.object(forKey: "imageUrl") as? String
         {
-            let overLayImage = CustomProgressImageView(frame: CGRectMake((questionView.frame.size.width - 270)/2,lineView.frame.origin.y + lineView.frame.size.height ,270,180))
+            let overLayImage = CustomProgressImageView(frame: CGRect(x: (questionView.frame.size.width - 270)/2,y: lineView.frame.origin.y + lineView.frame.size.height ,width: 270,height: 180))
             questionView.addSubview(overLayImage)
             
             
-            let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_QuestionsImageUrl) as! String
+            let urlString = UserDefaults.standard.object(forKey: k_INI_QuestionsImageUrl) as! String
             
-            if let checkedUrl = NSURL(string: "\(urlString)/\(teacherScribble)")
+            if let checkedUrl = URL(string: "\(urlString)/\(teacherScribble)")
             {
-                overLayImage.contentMode = .ScaleAspectFit
+                overLayImage.contentMode = .scaleAspectFit
                 overLayImage.downloadImage(checkedUrl, withFolderType: folderType.questionImage,withResizeValue: questionView.frame.size)
             }
             
@@ -220,27 +243,27 @@ class StudentEvaluationDetails: UIViewController,SSStarRatingViewDelegate
         
         
         
-        let lineView1 = UIImageView(frame:CGRectMake(20, 270, 280, 1))
+        let lineView1 = UIImageView(frame:CGRect(x: 20, y: 270, width: 280, height: 1))
         lineView1.backgroundColor = topicsLineColor
         questionView.addSubview(lineView1);
         
         
         
-        let mTextImage = UIImageView(frame: CGRectMake(10, lineView1.frame.origin.y + lineView1.frame.size.height + 10 ,40,34.0))
-        mTextImage.contentMode = .ScaleAspectFit
+        let mTextImage = UIImageView(frame: CGRect(x: 10, y: lineView1.frame.origin.y + lineView1.frame.size.height + 10 ,width: 40,height: 34.0))
+        mTextImage.contentMode = .scaleAspectFit
         mTextImage.image = UIImage(named: "Text_on_desk.png")
         questionView.addSubview(mTextImage)
 
         
-        if let textRating = _currentEvaluationDetails.objectForKey("textRating") as? String
+        if let textRating = _currentEvaluationDetails.object(forKey: "textRating") as? String
         {
-            let teacherReplyText = UILabel(frame: CGRectMake(lineView1.frame.origin.x + lineView1.frame.size.width + 10,lineView1.frame.origin.y + lineView1.frame.size.height + 10 ,260,34.0))
+            let teacherReplyText = UILabel(frame: CGRect(x: lineView1.frame.origin.x + lineView1.frame.size.width + 10,y: lineView1.frame.origin.y + lineView1.frame.size.height + 10 ,width: 260,height: 34.0))
             questionView.addSubview(teacherReplyText)
             teacherReplyText.font = UIFont(name: helveticaRegular, size: 16)
             teacherReplyText.textColor = blackTextColor
-            teacherReplyText.lineBreakMode = .ByTruncatingMiddle
+            teacherReplyText.lineBreakMode = .byTruncatingMiddle
             teacherReplyText.numberOfLines = 10
-            teacherReplyText.textAlignment = .Center
+            teacherReplyText.textAlignment = .center
             teacherReplyText.text = textRating
 
         }
@@ -250,7 +273,7 @@ class StudentEvaluationDetails: UIViewController,SSStarRatingViewDelegate
         
     }
     
-    func setStudentAnswerDetails(details:AnyObject, withStudentDetials StudentDict:AnyObject, withCurrentQuestionDict questionDict:AnyObject, withEvaluationDetails evaluationDetails:AnyObject)
+    func setStudentAnswerDetails(_ details:AnyObject, withStudentDetials StudentDict:AnyObject, withCurrentQuestionDict questionDict:AnyObject, withEvaluationDetails evaluationDetails:AnyObject)
     {
         _studentAnswerDetails = details
         _currentStudentDict = StudentDict
@@ -261,18 +284,22 @@ class StudentEvaluationDetails: UIViewController,SSStarRatingViewDelegate
     
     
     
-    func setPopover(popover:AnyObject)
+    
+    var _Popover:UIPopoverController!
+    
+    func setPopover(_ popover:UIPopoverController)
     {
         _Popover = popover
     }
     
-    func popover()-> AnyObject
+    func popover()-> UIPopoverController
     {
         return _Popover
     }
+    
     func onDoneButton()
     {
-        popover().dismissPopoverAnimated(true)
+        popover().dismiss(animated: true)
         
     }
     

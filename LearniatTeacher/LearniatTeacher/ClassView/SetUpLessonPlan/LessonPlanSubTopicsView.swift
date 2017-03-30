@@ -16,9 +16,9 @@ import Foundation
     
     
     
-    optional func delegateCellStatewithChecMarkState(checkMark:Int)
+    @objc optional func delegateCellStatewithChecMarkState(_ checkMark:Int)
     
-    optional func delegateSubTopicViewQuestionButtonPressedwithDetails(subTopicDetails:AnyObject)
+    @objc optional func delegateSubTopicViewQuestionButtonPressedwithDetails(_ subTopicDetails:AnyObject)
 
     
     
@@ -37,7 +37,7 @@ class LessonPlanSubTopicsView: UIView,SSTeacherDataSourceDelegate,UIGestureRecog
     var _delgate: AnyObject!
     
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -53,12 +53,12 @@ class LessonPlanSubTopicsView: UIView,SSTeacherDataSourceDelegate,UIGestureRecog
         super.init(frame:frame)
         
         
-        self.backgroundColor =  UIColor.clearColor()
+        self.backgroundColor =  UIColor.clear
 
-        mTopicsContainerView.frame = CGRectMake(0,0, self.frame.size.width,self.frame.size.height )
+        mTopicsContainerView.frame = CGRect(x: 0,y: 0, width: self.frame.size.width,height: self.frame.size.height )
         self.addSubview(mTopicsContainerView)
         mTopicsContainerView.backgroundColor = lightGrayTopBar
-        mTopicsContainerView.userInteractionEnabled = true
+        mTopicsContainerView.isUserInteractionEnabled = true
     }
     
     
@@ -69,7 +69,7 @@ class LessonPlanSubTopicsView: UIView,SSTeacherDataSourceDelegate,UIGestureRecog
         
     }
     
-    func setSubtopicsArray(subTopicArray:NSMutableArray, withSelectedState selectedState:Bool)
+    func setSubtopicsArray(_ subTopicArray:NSMutableArray, withSelectedState selectedState:Bool)
     {
          mSubtopicsDetails.removeAllObjects()
         mSubtopicsDetails = subTopicArray
@@ -77,7 +77,7 @@ class LessonPlanSubTopicsView: UIView,SSTeacherDataSourceDelegate,UIGestureRecog
     }
    
     
-    func addTopicsForheight(selectedState:Bool)
+    func addTopicsForheight(_ selectedState:Bool)
     {
         
         
@@ -85,11 +85,11 @@ class LessonPlanSubTopicsView: UIView,SSTeacherDataSourceDelegate,UIGestureRecog
         if mSubtopicsDetails.count <= 0
         {
             
-            mTopicsContainerView.hidden = true
+            mTopicsContainerView.isHidden = true
         }
         else
         {
-            mTopicsContainerView.hidden = false
+            mTopicsContainerView.isHidden = false
         }
         
         
@@ -102,15 +102,15 @@ class LessonPlanSubTopicsView: UIView,SSTeacherDataSourceDelegate,UIGestureRecog
         
         for index in 0 ..< mSubtopicsDetails.count
         {
-            let currentTopicDetails = mSubtopicsDetails.objectAtIndex(index)
-            let topicCell = LessonPlanSubTopicCell(frame: CGRectMake(0  , positionY, mTopicsContainerView.frame.size.width, 55))
+            let currentTopicDetails = mSubtopicsDetails.object(at: index)
+            let topicCell = LessonPlanSubTopicCell(frame: CGRect(x: 0  , y: positionY, width: mTopicsContainerView.frame.size.width, height: 55))
             topicCell.setdelegate(self)
-            topicCell.setSubTopicTopicDetails(currentTopicDetails, withSelectedState: selectedState)
+            topicCell.setSubTopicTopicDetails(currentTopicDetails as AnyObject, withSelectedState: selectedState)
             mTopicsContainerView.addSubview(topicCell)
             positionY = positionY + topicCell.frame.size.height
         }
         
-        mTopicsContainerView.contentSize = CGSizeMake(0, 0)
+        mTopicsContainerView.contentSize = CGSize(width: 0, height: 0)
         
     }
     
@@ -118,7 +118,7 @@ class LessonPlanSubTopicsView: UIView,SSTeacherDataSourceDelegate,UIGestureRecog
      // MARK: - subTopic cell delegate functions
     
     
-    func delegateQuestionPressedWithSubTopicDetails(topicDetails: AnyObject)
+    func delegateQuestionPressedWithSubTopicDetails(_ topicDetails: AnyObject)
     {
         
 //        let SubTopicsView = LessonPlanQuestionView(frame: CGRectMake(self.frame.size.width,0,self.frame.size.width,self.frame.size.height ))
@@ -132,7 +132,7 @@ class LessonPlanSubTopicsView: UIView,SSTeacherDataSourceDelegate,UIGestureRecog
 //        SubTopicsView.setdelegate(self)
 //        self.addSubview(SubTopicsView)
         
-        if delegate().respondsToSelector(#selector(LessonPlanSubTopicsViewDelegate.delegateSubTopicViewQuestionButtonPressedwithDetails(_:)))
+        if delegate().responds(to: #selector(LessonPlanSubTopicsViewDelegate.delegateSubTopicViewQuestionButtonPressedwithDetails(_:)))
         {
             delegate().delegateSubTopicViewQuestionButtonPressedwithDetails!(topicDetails)
         }
@@ -148,11 +148,11 @@ class LessonPlanSubTopicsView: UIView,SSTeacherDataSourceDelegate,UIGestureRecog
 
         for index in 0 ..< mSubtopicsDetails.count
         {
-            let currentSubTopicDetails = mSubtopicsDetails.objectAtIndex(index)
+            let currentSubTopicDetails = mSubtopicsDetails.object(at: index)
             
-            if let topicId = currentSubTopicDetails.objectForKey("Id")as? String
+            if let topicId = (currentSubTopicDetails as AnyObject).object(forKey: "Id")as? String
             {
-               if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.containsObject(topicId)
+               if SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.contains(topicId)
                {
                     selectedState = selectedState + 1
                 }
@@ -177,7 +177,7 @@ class LessonPlanSubTopicsView: UIView,SSTeacherDataSourceDelegate,UIGestureRecog
             selectedState  = 2
         }
 
-        if delegate().respondsToSelector(#selector(LessonPlanSubTopicsViewDelegate.delegateCellStatewithChecMarkState))
+        if delegate().responds(to: #selector(LessonPlanSubTopicsViewDelegate.delegateCellStatewithChecMarkState))
         {
             delegate().delegateCellStatewithChecMarkState!(selectedState)
             
@@ -190,7 +190,7 @@ class LessonPlanSubTopicsView: UIView,SSTeacherDataSourceDelegate,UIGestureRecog
     
     
       // MARK: - Question view delegate functions
-    func delegateSubTopicRemovedWithTopicDetails(topicDetails: AnyObject)
+    func delegateSubTopicRemovedWithTopicDetails(_ topicDetails: AnyObject)
     {
 //        if let topicId = topicDetails.objectForKey("Id")as? String
 //        {
@@ -208,13 +208,13 @@ class LessonPlanSubTopicsView: UIView,SSTeacherDataSourceDelegate,UIGestureRecog
     }
     
     
-    func checkMarkStateChangedWithState(state:Bool)
+    func checkMarkStateChangedWithState(_ state:Bool)
     {
         
         let subViews =  mTopicsContainerView.subviews.flatMap{ $0 as? LessonPlanSubTopicCell }
         for topicCell in subViews
         {
-            if topicCell.isKindOfClass(LessonPlanSubTopicCell)
+            if topicCell.isKind(of: LessonPlanSubTopicCell.self)
             {
                 if state == true
                 {
@@ -230,12 +230,12 @@ class LessonPlanSubTopicsView: UIView,SSTeacherDataSourceDelegate,UIGestureRecog
     }
     
     
-    func searchTopicNameWithSearchText(searchtext:String)
+    func searchTopicNameWithSearchText(_ searchtext:String)
     {
         let subViews =  mTopicsContainerView.subviews.flatMap{ $0 as? LessonPlanSubTopicCell }
         for topicCell in subViews
         {
-            if topicCell.isKindOfClass(LessonPlanSubTopicCell)
+            if topicCell.isKind(of: LessonPlanSubTopicCell.self)
             {
                 topicCell.searchingForTextInmainTopicWithText(searchtext)
             }

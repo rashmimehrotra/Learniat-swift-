@@ -15,7 +15,7 @@ class ScribbleQuestionInfoScreen : UIViewController
     var questionDetails :AnyObject!
     
     var  ScribbleImageView = CustomProgressImageView()
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -36,37 +36,37 @@ class ScribbleQuestionInfoScreen : UIViewController
         
         
         
-        let headerView = UIView(frame: CGRectMake(0, 0, 400, 50))
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 400, height: 50))
         headerView.backgroundColor = lightGrayTopBar
         self.view.addSubview(headerView);
        
         
-        let seperatorView = UIView(frame: CGRectMake(0, headerView.frame.size.height-1, 400, 1))
+        let seperatorView = UIView(frame: CGRect(x: 0, y: headerView.frame.size.height-1, width: 400, height: 1))
         seperatorView.backgroundColor = LineGrayColor
         headerView.addSubview(seperatorView);
         
         
-        let headerlabel = UILabel(frame: CGRectMake(10, 0, 200, 50))
+        let headerlabel = UILabel(frame: CGRect(x: 10, y: 0, width: 200, height: 50))
         headerlabel.text = kOverlayScribble
         headerView.addSubview(headerlabel)
-        headerlabel.textAlignment = .Left;
+        headerlabel.textAlignment = .left;
         headerlabel.font = UIFont(name: helveticaRegular, size: 20)
         headerlabel.textColor  = blackTextColor
         
         
         
-        let  mDoneButton = UIButton(frame: CGRectMake(headerView.frame.size.width - 210, 0, 200, 50))
-        mDoneButton.addTarget(self, action: #selector(ScribbleQuestionInfoScreen.onDoneButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mDoneButton.setTitleColor(standard_Button, forState: .Normal)
-        mDoneButton.setTitle("Done", forState: .Normal)
-        mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        let  mDoneButton = UIButton(frame: CGRect(x: headerView.frame.size.width - 210, y: 0, width: 200, height: 50))
+        mDoneButton.addTarget(self, action: #selector(ScribbleQuestionInfoScreen.onDoneButton), for: UIControlEvents.touchUpInside)
+        mDoneButton.setTitleColor(standard_Button, for: UIControlState())
+        mDoneButton.setTitle("Done", for: UIControlState())
+        mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         mDoneButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
         headerView.addSubview(mDoneButton)
         
-        ScribbleImageView.frame = CGRectMake(0,50, 400, 267)
+        ScribbleImageView.frame = CGRect(x: 0,y: 50, width: 400, height: 267)
         self.view.addSubview(ScribbleImageView)
 
-        if let scribble = questionDetails.objectForKey("Scribble") as? String
+        if let scribble = questionDetails.object(forKey: "Scribble") as? String
         {
             showScribbleWithDetails(scribble)
         }
@@ -76,39 +76,40 @@ class ScribbleQuestionInfoScreen : UIViewController
     
     
     
-    var _Popover:AnyObject!
-   
-    func setPopover(popover:AnyObject)
+    var _Popover:UIPopoverController!
+    
+    func setPopover(_ popover:UIPopoverController)
     {
         _Popover = popover
     }
     
-    func popover()-> AnyObject
+    func popover()-> UIPopoverController
     {
         return _Popover
     }
+    
     func onDoneButton()
     {
-        popover().dismissPopoverAnimated(true)
+       popover().dismiss(animated: true)
         
     }
     
     
     
-    func setScribbleInfoDetails(details:AnyObject)
+    func setScribbleInfoDetails(_ details:AnyObject)
     {
         questionDetails = details
     }
-    func showScribbleWithDetails(Url:String)
+    func showScribbleWithDetails(_ Url:String)
     {
        
         
-        let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_QuestionsImageUrl) as! String
+        let urlString = UserDefaults.standard.object(forKey: k_INI_QuestionsImageUrl) as! String
         
-        if let checkedUrl = NSURL(string: "\(urlString)/\(Url)")
+        if let checkedUrl = URL(string: "\(urlString)/\(Url)")
         {
-            ScribbleImageView.contentMode = .ScaleAspectFit
-            ScribbleImageView.downloadImage(checkedUrl, withFolderType: folderType.ProFilePics)
+            ScribbleImageView.contentMode = .scaleAspectFit
+            ScribbleImageView.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
         }
 
         

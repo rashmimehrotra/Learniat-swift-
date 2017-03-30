@@ -12,11 +12,11 @@ import Foundation
 {
     
     
-    optional func delegateMetooButtonPressedWithAscending(Isascending:Bool)
+    @objc optional func delegateMetooButtonPressedWithAscending(_ Isascending:Bool)
   
-    optional func delegateVolunteerButtonPressedWithAscending(Isascending:Bool)
+    @objc optional func delegateVolunteerButtonPressedWithAscending(_ Isascending:Bool)
     
-    optional func delegateQueryButtonPressedWithAscending(Isascending:Bool)
+    @objc optional func delegateQueryButtonPressedWithAscending(_ Isascending:Bool)
     
     
     
@@ -42,51 +42,51 @@ class VolunteerTopView: UIView
         
         super.init(frame:frame)
         
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clear
         
         
         
         
-        mVolunteerButton.frame = CGRectMake(self.frame.size.width - 100, 0, 100, self.frame.size.height)
-        mVolunteerButton.setTitle("I-Volunteer", forState: .Normal)
+        mVolunteerButton.frame = CGRect(x: self.frame.size.width - 100, y: 0, width: 100, height: self.frame.size.height)
+        mVolunteerButton.setTitle("I-Volunteer", for: UIControlState())
         self.addSubview(mVolunteerButton)
-        mVolunteerButton.setTitleColor( UIColor.lightGrayColor(), forState: .Normal)
-        mVolunteerButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
+        mVolunteerButton.setTitleColor( UIColor.lightGray, for: UIControlState())
+        mVolunteerButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
         mVolunteerButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 14)
-        mVolunteerButton.backgroundColor = UIColor.clearColor()
-        mVolunteerButton.addTarget(self, action: #selector(VolunteerTopView.onVolunteerButton), forControlEvents: .TouchUpInside)
+        mVolunteerButton.backgroundColor = UIColor.clear
+        mVolunteerButton.addTarget(self, action: #selector(VolunteerTopView.onVolunteerButton), for: .touchUpInside)
         
-        let lineImage1 = UIImageView(frame:CGRectMake(mVolunteerButton.frame.origin.x, 5, 1, self.frame.size.height - 10));
+        let lineImage1 = UIImageView(frame:CGRect(x: mVolunteerButton.frame.origin.x, y: 5, width: 1, height: self.frame.size.height - 10));
         lineImage1.backgroundColor = progressviewBackground
 //        self.addSubview(lineImage1);
         
         
         
-        mMetooLabel.frame = CGRectMake((lineImage1.frame.origin.x - lineImage1.frame.size.width)  - mVolunteerButton.frame.size.width , 0, mVolunteerButton.frame.size.width, self.frame.size.height)
-        mMetooLabel.setTitle("Me-Too", forState: .Normal)
-        mMetooLabel.setTitleColor( UIColor.lightGrayColor(), forState: .Normal)
-        mMetooLabel.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
+        mMetooLabel.frame = CGRect(x: (lineImage1.frame.origin.x - lineImage1.frame.size.width)  - mVolunteerButton.frame.size.width , y: 0, width: mVolunteerButton.frame.size.width, height: self.frame.size.height)
+        mMetooLabel.setTitle("Me-Too", for: UIControlState())
+        mMetooLabel.setTitleColor( UIColor.lightGray, for: UIControlState())
+        mMetooLabel.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
         mMetooLabel.titleLabel?.font = UIFont(name: helveticaRegular, size: 14)
-        mMetooLabel.backgroundColor = UIColor.clearColor()
+        mMetooLabel.backgroundColor = UIColor.clear
         self.addSubview(mMetooLabel)
-        mMetooLabel.addTarget(self, action: #selector(VolunteerTopView.onMetooButton), forControlEvents: .TouchUpInside)
+        mMetooLabel.addTarget(self, action: #selector(VolunteerTopView.onMetooButton), for: .touchUpInside)
         
         
-        let lineImage = UIImageView(frame:CGRectMake(mMetooLabel.frame.origin.x, 5, 1, self.frame.size.height - 10));
+        let lineImage = UIImageView(frame:CGRect(x: mMetooLabel.frame.origin.x, y: 5, width: 1, height: self.frame.size.height - 10));
         lineImage.backgroundColor = progressviewBackground
 //        self.addSubview(lineImage);
         
         
         
         
-        mQueryLabel.frame = CGRectMake(10 ,0,lineImage.frame.origin.x - 20  , self.frame.size.height)
+        mQueryLabel.frame = CGRect(x: 10 ,y: 0,width: lineImage.frame.origin.x - 20  , height: self.frame.size.height)
         self.addSubview(mQueryLabel)
-        mQueryLabel.backgroundColor = UIColor.clearColor()
-        mQueryLabel.setTitle("Query", forState: .Normal)
-        mQueryLabel.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
+        mQueryLabel.backgroundColor = UIColor.clear
+        mQueryLabel.setTitle("Query", for: UIControlState())
+        mQueryLabel.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
         mQueryLabel.titleLabel?.font = UIFont(name: helveticaRegular, size: 14)
-        mQueryLabel.setTitleColor( blackTextColor, forState: .Normal)
-        mQueryLabel.addTarget(self, action: #selector(VolunteerTopView.onQueryButton), forControlEvents: .TouchUpInside)
+        mQueryLabel.setTitleColor( blackTextColor, for: UIControlState())
+        mQueryLabel.addTarget(self, action: #selector(VolunteerTopView.onQueryButton), for: .touchUpInside)
         
         
         
@@ -105,7 +105,7 @@ class VolunteerTopView: UIView
     }
     
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -122,12 +122,12 @@ class VolunteerTopView: UIView
         if mVolunteerButton.currentTitleColor == blackTextColor
         {
             delegate().delegateVolunteerButtonPressedWithAscending!(true)
-             mVolunteerButton.setTitleColor(lightGrayColor, forState: .Normal)
+             mVolunteerButton.setTitleColor(lightGrayColor, for: UIControlState())
         }
         else
         {
             delegate().delegateVolunteerButtonPressedWithAscending!(false)
-             mVolunteerButton.setTitleColor(blackTextColor, forState: .Normal)
+             mVolunteerButton.setTitleColor(blackTextColor, for: UIControlState())
         }
         
         
@@ -138,13 +138,13 @@ class VolunteerTopView: UIView
         if mMetooLabel.currentTitleColor == blackTextColor
         {
             delegate().delegateMetooButtonPressedWithAscending!(true)
-            mMetooLabel.setTitleColor(lightGrayColor, forState: .Normal)
+            mMetooLabel.setTitleColor(lightGrayColor, for: UIControlState())
             
         }
         else
         {
             delegate().delegateMetooButtonPressedWithAscending!(false)
-            mMetooLabel.setTitleColor(blackTextColor, forState: .Normal)
+            mMetooLabel.setTitleColor(blackTextColor, for: UIControlState())
         }
         
     }
@@ -154,12 +154,12 @@ class VolunteerTopView: UIView
         if mQueryLabel.currentTitleColor == blackTextColor
         {
             delegate().delegateQueryButtonPressedWithAscending!(true)
-            mQueryLabel.setTitleColor(lightGrayColor, forState: .Normal)
+            mQueryLabel.setTitleColor(lightGrayColor, for: UIControlState())
         }
         else
         {
             delegate().delegateQueryButtonPressedWithAscending!(false)
-            mQueryLabel.setTitleColor(blackTextColor, forState: .Normal)
+            mQueryLabel.setTitleColor(blackTextColor, for: UIControlState())
         }
         
     }

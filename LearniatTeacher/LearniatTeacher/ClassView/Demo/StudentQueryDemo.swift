@@ -12,7 +12,7 @@ import Foundation
 {
     
     
-    optional  func smhDidgetStudentQueryWithDetails(queryId:String)
+    @objc optional  func smhDidgetStudentQueryWithDetails(_ queryId:String)
     
     
     
@@ -27,7 +27,7 @@ class StudentQueryDemo: UIView, StudentQuerySelectionViewDelegate
     
     var _delgate: AnyObject!
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -55,7 +55,7 @@ class StudentQueryDemo: UIView, StudentQuerySelectionViewDelegate
         fatalError("init(coder:) has not been implemented")
     }
     
-    func sendDummyQueriesWithStudentDetails(studentDetails:NSMutableArray)
+    func sendDummyQueriesWithStudentDetails(_ studentDetails:NSMutableArray)
     {
         demoQueriesArray.removeAllObjects()
 
@@ -63,12 +63,12 @@ class StudentQueryDemo: UIView, StudentQuerySelectionViewDelegate
         
         for index in 0..<studentDetails.count
         {
-            let currentStudentsDict = studentDetails.objectAtIndex(index)
-            if let _StudentState = currentStudentsDict.objectForKey("StudentState") as? String
+            let currentStudentsDict = studentDetails.object(at: index)
+            if let _StudentState = (currentStudentsDict as AnyObject).object(forKey: "StudentState") as? String
             {
                 if _StudentState !=  StudentLive && _StudentState !=  StudentLiveBackground
                 {
-                    notLiveStudentsDetails.addObject(currentStudentsDict)
+                    notLiveStudentsDetails.add(currentStudentsDict)
                     totalStudentsCount = totalStudentsCount + 1
                 }
             }
@@ -86,28 +86,26 @@ class StudentQueryDemo: UIView, StudentQuerySelectionViewDelegate
         {
             let subTopicId = SSTeacherDataSource.sharedDataSource.startedSubTopicId
             
-            if SSTeacherDataSource.sharedDataSource.mDemoQuerySubTopicsArray.containsObject(subTopicId)
+            if SSTeacherDataSource.sharedDataSource.mDemoQuerySubTopicsArray.contains(subTopicId)
             {
-                let  url = NSURL(string: "\(kDemoPlistUrl)/Query_\(subTopicId).plist")
+                let  url = URL(string: "\(kDemoPlistUrl)/Query_\(subTopicId).plist")
                 
                 let mDemoMaseterFileDetails = plistLoader.returnDictonarywithUrl(url)
                 
                 if  mDemoMaseterFileDetails != nil
                 {
                     
-                    if mDemoMaseterFileDetails.objectForKey("Queries") != nil
+                    if mDemoMaseterFileDetails?.object(forKey: "Queries") != nil
                     {
-                        if let classCheckingVariable = mDemoMaseterFileDetails.objectForKey("Queries")
+                        if let classCheckingVariable = mDemoMaseterFileDetails?.object(forKey: "Queries") as? NSMutableArray
                         {
-                            if classCheckingVariable.isKindOfClass(NSMutableArray)
-                            {
-                                demoQueriesArray = classCheckingVariable as! NSMutableArray
-                            }
-                            else
-                            {
-                                demoQueriesArray.addObject(mDemoMaseterFileDetails.objectForKey("Queries")!)
-                                
-                            }
+                            demoQueriesArray = classCheckingVariable
+                            
+                        }
+                        else
+                        {
+                            demoQueriesArray.add(mDemoMaseterFileDetails?.object(forKey: "Queries") as AnyObject)
+                            
                         }
                     }
                 }
@@ -117,21 +115,21 @@ class StudentQueryDemo: UIView, StudentQuerySelectionViewDelegate
             if demoQueriesArray.count > 0
             {
                 mTotalQueriesCount = demoQueriesArray.count - 1
-                let currentStudentsDict = notLiveStudentsDetails.objectAtIndex(totalStudentsCount)
+                let currentStudentsDict = notLiveStudentsDetails.object(at: totalStudentsCount)
                 let studentsQuery = StudentQuerySelectionView()
                 studentsQuery.setdelegate(self)
-                studentsQuery.setQueryWithDetails(demoQueriesArray, withStudentDetails: currentStudentsDict)
+                studentsQuery.setQueryWithDetails(demoQueriesArray, withStudentDetails: currentStudentsDict as AnyObject)
                 totalStudentsCount = totalStudentsCount - 1
 
             }
         }
     }
     
-    func delegateStudentQueryRecievedWithId(queryId: String, withStudentId stundentId: String) {
+    func delegateStudentQueryRecievedWithId(_ queryId: String, withStudentId stundentId: String) {
         
         if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == true
         {
-            if delegate().respondsToSelector(#selector(StudentQueryDemoDelegate.smhDidgetStudentQueryWithDetails(_:)))
+            if delegate().responds(to: #selector(StudentQueryDemoDelegate.smhDidgetStudentQueryWithDetails(_:)))
             {
                 delegate().smhDidgetStudentQueryWithDetails!(queryId)
             }
@@ -142,10 +140,10 @@ class StudentQueryDemo: UIView, StudentQuerySelectionViewDelegate
                 {
                     if totalStudentsCount < notLiveStudentsDetails.count
                     {
-                        let currentStudentsDict = notLiveStudentsDetails.objectAtIndex(totalStudentsCount)
+                        let currentStudentsDict = notLiveStudentsDetails.object(at: totalStudentsCount)
                         let studentsQuery = StudentQuerySelectionView()
                         studentsQuery.setdelegate(self)
-                        studentsQuery.setQueryWithDetails(demoQueriesArray, withStudentDetails: currentStudentsDict)
+                        studentsQuery.setQueryWithDetails(demoQueriesArray, withStudentDetails: currentStudentsDict as AnyObject)
                         
                         totalStudentsCount = totalStudentsCount - 1
                         mTotalQueriesCount = mTotalQueriesCount - 1

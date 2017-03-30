@@ -42,7 +42,7 @@ class OneStingQuestionView: UIView,SSStudentDataSourceDelegate
 
     var _delgate: AnyObject!
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -58,45 +58,45 @@ class OneStingQuestionView: UIView,SSStudentDataSourceDelegate
         super.init(frame: frame)
         
         
-        mTopbarImageView = UIImageView(frame: CGRectMake(0, 0, self.frame.size.width, 60))
+        mTopbarImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 60))
         mTopbarImageView.backgroundColor = lightGrayTopBar
         self.addSubview(mTopbarImageView)
-        mTopbarImageView.userInteractionEnabled = true
+        mTopbarImageView.isUserInteractionEnabled = true
         
         
-        mSendButton.frame = CGRectMake(mTopbarImageView.frame.size.width - 210, 0,200,mTopbarImageView.frame.size.height )
+        mSendButton.frame = CGRect(x: mTopbarImageView.frame.size.width - 210, y: 0,width: 200,height: mTopbarImageView.frame.size.height )
         mTopbarImageView.addSubview(mSendButton)
-        mSendButton.addTarget(self, action: #selector(OneStingQuestionView.onSendButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mSendButton.setTitle("Send", forState: .Normal)
-        mSendButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        mSendButton.addTarget(self, action: #selector(OneStingQuestionView.onSendButton), for: UIControlEvents.touchUpInside)
+        mSendButton.setTitle("Send", for: UIControlState())
+        mSendButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         mSendButton.titleLabel?.font = UIFont (name: helveticaMedium, size: 20)
-        mSendButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
-        mSendButton.enabled = false
+        mSendButton.setTitleColor(UIColor.lightGray, for: UIControlState())
+        mSendButton.isEnabled = false
         
         
-        sendButtonSpinner = UIActivityIndicatorView(activityIndicatorStyle:.WhiteLarge);
+        sendButtonSpinner = UIActivityIndicatorView(activityIndicatorStyle:.whiteLarge);
         sendButtonSpinner.frame = mSendButton.frame;
         mTopbarImageView.addSubview(sendButtonSpinner);
-        sendButtonSpinner.hidden = true;
+        sendButtonSpinner.isHidden = true;
         
         
         
         
-        mDontKnow.frame = CGRectMake(10, 0,200,mTopbarImageView.frame.size.height )
+        mDontKnow.frame = CGRect(x: 10, y: 0,width: 200,height: mTopbarImageView.frame.size.height )
         mTopbarImageView.addSubview(mDontKnow)
-        mDontKnow.addTarget(self, action: #selector(OneStingQuestionView.onDontKnowButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mDontKnow.setTitle("Don't know", forState: .Normal)
-        mDontKnow.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
-        mDontKnow.setTitleColor(standard_Button, forState: .Normal)
+        mDontKnow.addTarget(self, action: #selector(OneStingQuestionView.onDontKnowButton), for: UIControlEvents.touchUpInside)
+        mDontKnow.setTitle("Don't know", for: UIControlState())
+        mDontKnow.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
+        mDontKnow.setTitleColor(standard_Button, for: UIControlState())
         mDontKnow.titleLabel?.font = UIFont (name: helveticaMedium, size: 20)
         
-        mQuestionLabel.frame = CGRectMake(10, mTopbarImageView.frame.size.height + mTopbarImageView.frame.origin.y, self.frame.size.width-20, 80)
+        mQuestionLabel.frame = CGRect(x: 10, y: mTopbarImageView.frame.size.height + mTopbarImageView.frame.origin.y, width: self.frame.size.width-20, height: 80)
         mQuestionLabel.numberOfLines = 20;
-        mQuestionLabel.textAlignment = .Center
+        mQuestionLabel.textAlignment = .center
         self.addSubview(mQuestionLabel)
         mQuestionLabel.textColor = topbarColor
         mQuestionLabel.font = UIFont (name: helveticaRegular, size: 20)
-        mQuestionLabel.lineBreakMode = .ByTruncatingMiddle
+        mQuestionLabel.lineBreakMode = .byTruncatingMiddle
         
         
         var remainingHeight = self.frame.size.height  - (mQuestionLabel.frame.size.height + mQuestionLabel.frame.origin.y)
@@ -105,28 +105,28 @@ class OneStingQuestionView: UIView,SSStudentDataSourceDelegate
         
         
         
-        mContainerView.frame = CGRectMake((self.frame.size.width - (remainingHeight * 1.5))/2 ,mQuestionLabel.frame.size.height + mQuestionLabel.frame.origin.y , remainingHeight * 1.5 ,50)
+        mContainerView.frame = CGRect(x: (self.frame.size.width - (remainingHeight * 1.5))/2 ,y: mQuestionLabel.frame.size.height + mQuestionLabel.frame.origin.y , width: remainingHeight * 1.5 ,height: 50)
         self.addSubview(mContainerView)
-        mContainerView.backgroundColor = UIColor.whiteColor()
-        mContainerView.layer.shadowColor = progressviewBackground.CGColor;
-        mContainerView.layer.shadowOffset = CGSizeMake(0,0);
+        mContainerView.backgroundColor = UIColor.white
+        mContainerView.layer.shadowColor = progressviewBackground.cgColor;
+        mContainerView.layer.shadowOffset = CGSize(width: 0,height: 0);
         mContainerView.layer.shadowOpacity = 1;
         mContainerView.layer.shadowRadius = 1.0;
         mContainerView.clipsToBounds = false;
-        mContainerView.layer.borderColor = topicsLineColor.CGColor
+        mContainerView.layer.borderColor = topicsLineColor.cgColor
         mContainerView.layer.borderWidth = 1
-        mContainerView.hidden = true
+        mContainerView.isHidden = true
         
         
-        mAnswerLabel.frame = CGRectMake(5,5,mContainerView.frame.size.width - 10 , mContainerView.frame.size.height - 10)
+        mAnswerLabel.frame = CGRect(x: 5,y: 5,width: mContainerView.frame.size.width - 10 , height: mContainerView.frame.size.height - 10)
         mContainerView.addSubview(mAnswerLabel)
         mAnswerLabel.font = UIFont (name: helveticaRegular, size: 18)
         mAnswerLabel.numberOfLines = 100
-        mAnswerLabel.lineBreakMode = .ByWordWrapping
+        mAnswerLabel.lineBreakMode = .byWordWrapping
         mAnswerLabel.textColor = topbarColor
-        mAnswerLabel.textAlignment = .Center
+        mAnswerLabel.textAlignment = .center
         
-        mAnswerTextView = CustomTextView(frame:CGRectMake((self.frame.size.width - (remainingHeight * 1.5))/2 ,mQuestionLabel.frame.size.height + mQuestionLabel.frame.origin.y , remainingHeight * 1.5 , 160))
+        mAnswerTextView = CustomTextView(frame:CGRect(x: (self.frame.size.width - (remainingHeight * 1.5))/2 ,y: mQuestionLabel.frame.size.height + mQuestionLabel.frame.origin.y , width: remainingHeight * 1.5 , height: 160))
         self.addSubview(mAnswerTextView)
         mAnswerTextView.setdelegate(self)
         mAnswerTextView.setPlaceHolder("Write your answer", withStartSting: "answer")
@@ -134,10 +134,10 @@ class OneStingQuestionView: UIView,SSStudentDataSourceDelegate
         
         
         self.addSubview(mReplyStatusLabel)
-        mReplyStatusLabel.textColor = UIColor.whiteColor()
+        mReplyStatusLabel.textColor = UIColor.white
         mReplyStatusLabel.backgroundColor = dark_Yellow
         mReplyStatusLabel.font = UIFont (name: helveticaBold, size: 16)
-        mReplyStatusLabel.textAlignment = .Center
+        mReplyStatusLabel.textAlignment = .center
         
         
     }
@@ -146,18 +146,18 @@ class OneStingQuestionView: UIView,SSStudentDataSourceDelegate
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setQuestionDetails(details:AnyObject, withsessionDetails _sessionDetails:AnyObject, withQuestionLogId _logId:String)
+    func setQuestionDetails(_ details:AnyObject, withsessionDetails _sessionDetails:AnyObject, withQuestionLogId _logId:String)
     {
         currentQuestionDetails = details
         questionLogId = _logId
         sessionDetails = _sessionDetails
         
-        currentQuestionType = (details.objectForKey(kQuestionType) as? String)
+        currentQuestionType = (details.object(forKey: kQuestionType) as? String)
         
         
-        if (details.objectForKey(kQuestionName) as? String) != ""
+        if (details.object(forKey: kQuestionName) as? String) != ""
         {
-            mQuestionLabel.text = (details.objectForKey(kQuestionName) as? String)
+            mQuestionLabel.text = (details.object(forKey: kQuestionName) as? String)
         }
     }
     
@@ -166,24 +166,24 @@ class OneStingQuestionView: UIView,SSStudentDataSourceDelegate
     {
         if  mAnswerTextView.getTextOfCurrentTextView() != ""
         {
-            sendButtonSpinner.hidden = false
+            sendButtonSpinner.isHidden = false
             sendButtonSpinner.startAnimating()
           
-            mReplyStatusLabel.frame = CGRectMake((self.frame.size.width - (mTopbarImageView.frame.size.height * 2)) / 2, 0, mTopbarImageView.frame.size.height * 2, mTopbarImageView.frame.size.height / 1.5)
+            mReplyStatusLabel.frame = CGRect(x: (self.frame.size.width - (mTopbarImageView.frame.size.height * 2)) / 2, y: 0, width: mTopbarImageView.frame.size.height * 2, height: mTopbarImageView.frame.size.height / 1.5)
             
-            mReplyStatusLabel.hidden = false
+            mReplyStatusLabel.isHidden = false
             
             mReplyStatusLabel.text = "Reply sent"
             
-            mTopbarImageView.hidden = true
-            mAnswerTextView.hidden = true
-            mAnswerLabel.text =  mAnswerTextView.getTextOfCurrentTextView().removeWhitespace().removeSpecialCharsFromString().capitalizedString
+            mTopbarImageView.isHidden = true
+            mAnswerTextView.isHidden = true
+            mAnswerLabel.text =  mAnswerTextView.getTextOfCurrentTextView()
             
            
-                      mAnswerTextView.hidden = true
-            mContainerView.hidden = false
+                      mAnswerTextView.isHidden = true
+            mContainerView.isHidden = false
             
-             SSStudentDataSource.sharedDataSource.sendTextAnswer(mAnswerTextView.getTextOfCurrentTextView().removeWhitespace().removeSpecialCharsFromString().capitalizedString, withQuestionType: currentQuestionType, withQuestionLogId: questionLogId, withsessionId: (sessionDetails.objectForKey("SessionId") as! String), withDelegate: self)
+             SSStudentDataSource.sharedDataSource.sendTextAnswer(mAnswerTextView.getTextOfCurrentTextView().removeWhitespace().removeSpecialCharsFromString().capitalized, withQuestionType: currentQuestionType, withQuestionLogId: questionLogId, withsessionId: (sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
             
            
             
@@ -193,12 +193,12 @@ class OneStingQuestionView: UIView,SSStudentDataSourceDelegate
     }
     
     
-    func didGetAnswerSentWithDetails(details: AnyObject)
+    func didGetAnswerSentWithDetails(_ details: AnyObject)
     {
          SSStudentDataSource.sharedDataSource.answerSent = true
-        SSStudentMessageHandler.sharedMessageHandler.sendOneStringAnswerWithAnswer(mAnswerTextView.getTextOfCurrentTextView().removeWhitespace().removeSpecialCharsFromString().capitalizedString)
+        SSStudentMessageHandler.sharedMessageHandler.sendOneStringAnswerWithAnswer(mAnswerTextView.getTextOfCurrentTextView())
         
-        if  let AssessmentAnswerId =  details.objectForKey("AssessmentAnswerId") as? String
+        if  let AssessmentAnswerId =  details.object(forKey: "AssessmentAnswerId") as? String
         {
             
             if currentQuestionType == TextAuto
@@ -206,30 +206,35 @@ class OneStingQuestionView: UIView,SSStudentDataSourceDelegate
                 
                 var isAnswerCorrect :Bool = false
                 
-                let options = currentQuestionDetails.objectForKey(kOptionTagMain)?.objectForKey(kOptionTag)
-               
                  var currentOptionsArray         = NSMutableArray()
-                if options != nil
+                
+                if currentQuestionDetails.object(forKey: kOptionTagMain) != nil
                 {
-                    
-                    if (options!.isKindOfClass(NSMutableArray))
+                    if let options = (currentQuestionDetails.object(forKey: kOptionTagMain) as AnyObject).object(forKey: kOptionTag)as? NSMutableArray
                     {
-                        currentOptionsArray = options as! NSMutableArray
+                        currentOptionsArray = options
                     }
-                    else
-                    {
-                        currentOptionsArray.addObject(options!)
+                    else{
+                        
+                        if let options = (currentQuestionDetails.object(forKey: kOptionTagMain) as AnyObject).object(forKey: kOptionTag) as? NSMutableDictionary
+                        {
+                            currentOptionsArray.add(options)
+                        }
                     }
-                    
                 }
+                
+                
+               
+                
+                
                 
                 
                 
                 for index in currentOptionsArray
                 {
-                    if let optionText = index.objectForKey("OptionText") as? String
+                    if let optionText = (index as AnyObject).object(forKey: "OptionText") as? String
                     {
-                        if optionText.removeWhitespace().removeSpecialCharsFromString().capitalizedString == mAnswerTextView.getTextOfCurrentTextView().removeWhitespace().removeSpecialCharsFromString().capitalizedString
+                        if optionText.removeWhitespace().removeSpecialCharsFromString().capitalized == mAnswerTextView.getTextOfCurrentTextView().removeWhitespace().removeSpecialCharsFromString().capitalized
                         {
                             isAnswerCorrect = true
                             break
@@ -246,32 +251,21 @@ class OneStingQuestionView: UIView,SSStudentDataSourceDelegate
                 {
                      SSStudentDataSource.sharedDataSource.updateStudentAnswerScoreWithAssessmentAnswerId(AssessmentAnswerId, withRating: "1", WithDelegate: self)
                 }
-                
-                
-                
-                
             }
-            
-            
-            
-           
         }
         
-        
-        
-
     }
     
     func onDontKnowButton()
     {
         SSStudentMessageHandler.sharedMessageHandler.sendDontKnowMessageToTeacher()
         
-        mReplyStatusLabel.frame = CGRectMake((self.frame.size.width - (mTopbarImageView.frame.size.height * 2)) / 2, 0, mTopbarImageView.frame.size.height * 2, mTopbarImageView.frame.size.height / 1.5)
-        mReplyStatusLabel.hidden = false
+        mReplyStatusLabel.frame = CGRect(x: (self.frame.size.width - (mTopbarImageView.frame.size.height * 2)) / 2, y: 0, width: mTopbarImageView.frame.size.height * 2, height: mTopbarImageView.frame.size.height / 1.5)
+        mReplyStatusLabel.isHidden = false
         mReplyStatusLabel.text = "Don't Know"
-        mTopbarImageView.hidden = true
-        mAnswerTextView.hidden = true
-        mAnswerLabel.text =  mAnswerTextView.getTextOfCurrentTextView().removeWhitespace().removeSpecialCharsFromString().capitalizedString
+        mTopbarImageView.isHidden = true
+        mAnswerTextView.isHidden = true
+        mAnswerLabel.text =  mAnswerTextView.getTextOfCurrentTextView()
         
         SSStudentDataSource.sharedDataSource.answerSent = true
     }
@@ -288,31 +282,28 @@ class OneStingQuestionView: UIView,SSStudentDataSourceDelegate
         {
             
             var isAnswerCorrect :Bool = false
-            
-            let options = currentQuestionDetails.objectForKey(kOptionTagMain)?.objectForKey(kOptionTag)
-            
-            var currentOptionsArray         = NSMutableArray()
-            if options != nil
-            {
-                
-                if (options!.isKindOfClass(NSMutableArray))
-                {
-                    currentOptionsArray = options as! NSMutableArray
-                }
-                else
-                {
-                    currentOptionsArray.addObject(options!)
-                }
-                
+           var currentOptionsArray         = NSMutableArray()
+           if  let options = (currentQuestionDetails.object(forKey: kOptionTagMain) as AnyObject).object(forKey: kOptionTag) as? NSMutableArray
+           {
+                 currentOptionsArray = options
             }
             
+           else
+           {
+             if let options = (currentQuestionDetails.object(forKey: kOptionTagMain) as AnyObject).object(forKey: kOptionTag) as? NSMutableDictionary
+             {
+                 currentOptionsArray.add(options)
+            }
             
+//                let options = (currentQuestionDetails.object(forKey: kOptionTagMain) as AnyObject).object(forKey: kOptionTag)
+            
+            }
             
             for index in currentOptionsArray
             {
-                if let optionText = index.objectForKey("OptionText") as? String
+                if let optionText = (index as AnyObject).object(forKey: "OptionText") as? String
                 {
-                    if optionText.removeWhitespace().removeSpecialCharsFromString().capitalizedString == mAnswerTextView.getTextOfCurrentTextView().removeWhitespace().removeSpecialCharsFromString().capitalizedString
+                    if optionText.removeWhitespace().removeSpecialCharsFromString().capitalized == mAnswerTextView.getTextOfCurrentTextView().removeWhitespace().removeSpecialCharsFromString().capitalized
                     {
                         isAnswerCorrect = true
                         break
@@ -355,30 +346,30 @@ class OneStingQuestionView: UIView,SSStudentDataSourceDelegate
         
     }
     
-    func delegateTextViewTextChanged(chnagedText:String)
+    func delegateTextViewTextChanged(_ chnagedText:String)
     {
         if chnagedText != ""
         {
-            mSendButton.enabled = true
-            mSendButton.setTitleColor(standard_Button, forState: .Normal)
+            mSendButton.isEnabled = true
+            mSendButton.setTitleColor(standard_Button, for: UIControlState())
             
             
         }
         else
         {
-            mSendButton.enabled = false
-            mSendButton.setTitleColor(lightGrayColor, forState: .Normal)
+            mSendButton.isEnabled = false
+            mSendButton.setTitleColor(lightGrayColor, for: UIControlState())
             
             
         }
     }
     
     
-    func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat
+    func heightForView(_ text:String, font:UIFont, width:CGFloat) -> CGFloat
     {
-        let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max))
+        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
         label.numberOfLines = 0
-        label.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.font = font
         label.text = text
         
@@ -388,35 +379,35 @@ class OneStingQuestionView: UIView,SSStudentDataSourceDelegate
     
     
     
-    func addCorrectAnswerWithArray(correctAnswersArray:NSMutableArray)
+    func addCorrectAnswerWithArray(_ correctAnswersArray:NSMutableArray)
     {
        
-        let mCorrectAnswersScrollView = UIScrollView(frame: CGRectMake(mContainerView.frame.origin.x, mContainerView.frame.origin.y + mContainerView.frame.size.height + 30 ,mContainerView.frame.size.width ,self.frame.size.height - ( mContainerView.frame.origin.y + mContainerView.frame.size.height + 30)))
+        let mCorrectAnswersScrollView = UIScrollView(frame: CGRect(x: mContainerView.frame.origin.x, y: mContainerView.frame.origin.y + mContainerView.frame.size.height + 30 ,width: mContainerView.frame.size.width ,height: self.frame.size.height - ( mContainerView.frame.origin.y + mContainerView.frame.size.height + 30)))
         self.addSubview(mCorrectAnswersScrollView)
         
         
-        let correctOptionsLabel = UILabel(frame: CGRectMake(0,10 ,mCorrectAnswersScrollView.frame.size.width ,30))
+        let correctOptionsLabel = UILabel(frame: CGRect(x: 0,y: 10 ,width: mCorrectAnswersScrollView.frame.size.width ,height: 30))
         mCorrectAnswersScrollView.addSubview(correctOptionsLabel)
         correctOptionsLabel.numberOfLines = 100
-        correctOptionsLabel.lineBreakMode = .ByWordWrapping
+        correctOptionsLabel.lineBreakMode = .byWordWrapping
         
         correctOptionsLabel.text = "Correct options are :"
-        correctOptionsLabel.textAlignment = .Center
+        correctOptionsLabel.textAlignment = .center
         
         
         
         var currentYPOsition = correctOptionsLabel.frame.origin.y + correctOptionsLabel.frame.size.height + 10
         for index in correctAnswersArray
         {
-            if let optionText = index.objectForKey("OptionText") as? String
+            if let optionText = (index as AnyObject).object(forKey: "OptionText") as? String
             {
                 
-                let OptionsLabel = UILabel(frame: CGRectMake(0,currentYPOsition ,mCorrectAnswersScrollView.frame.size.width ,30))
+                let OptionsLabel = UILabel(frame: CGRect(x: 0,y: currentYPOsition ,width: mCorrectAnswersScrollView.frame.size.width ,height: 30))
                 mCorrectAnswersScrollView.addSubview(OptionsLabel)
                 OptionsLabel.numberOfLines = 100
-                OptionsLabel.lineBreakMode = .ByWordWrapping
-                OptionsLabel.textAlignment = .Center
-                OptionsLabel.text = "\(optionText.removeWhitespace().removeSpecialCharsFromString().capitalizedString)"
+                OptionsLabel.lineBreakMode = .byWordWrapping
+                OptionsLabel.textAlignment = .center
+                OptionsLabel.text = "\(optionText.capitalized)"
                 currentYPOsition = currentYPOsition + OptionsLabel.frame.size.height + 10
                 OptionsLabel.textColor = whiteColor
                 OptionsLabel.backgroundColor = standard_Green
@@ -425,7 +416,7 @@ class OneStingQuestionView: UIView,SSStudentDataSourceDelegate
             }
         }
         
-        mCorrectAnswersScrollView.contentSize = CGSizeMake(0, currentYPOsition)
+        mCorrectAnswersScrollView.contentSize = CGSize(width: 0, height: currentYPOsition)
         
     }
     

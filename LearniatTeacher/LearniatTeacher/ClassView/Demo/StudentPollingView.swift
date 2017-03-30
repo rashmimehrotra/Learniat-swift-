@@ -10,7 +10,7 @@ import Foundation
 @objc protocol StudentPollingViewDelegate
 {
     
-    optional func smhDidgetStudentPollWithDetails(optionValue:String)
+    @objc optional func smhDidgetStudentPollWithDetails(_ optionValue:String)
     
     
     
@@ -23,7 +23,7 @@ class StudentPollingView: UIView
     
      var notLiveStudentsDetails = NSMutableArray()
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -46,7 +46,7 @@ class StudentPollingView: UIView
     
     
     
-    func sendDummyPollingWithStudents(studentDetails:NSMutableArray, withOPtionsArray optionArray:NSMutableArray)
+    func sendDummyPollingWithStudents(_ studentDetails:NSMutableArray, withOPtionsArray optionArray:NSMutableArray)
     {
         
         
@@ -54,12 +54,12 @@ class StudentPollingView: UIView
         
         for index in 0..<studentDetails.count
         {
-            let currentStudentsDict = studentDetails.objectAtIndex(index)
-            if let _StudentState = currentStudentsDict.objectForKey("StudentState") as? String
+            let currentStudentsDict = studentDetails.object(at: index)
+            if let _StudentState = (currentStudentsDict as AnyObject).object(forKey: "StudentState") as? String
             {
                 if _StudentState !=  StudentLive && _StudentState !=  StudentLiveBackground
                 {
-                    notLiveStudentsDetails.addObject(currentStudentsDict)
+                    notLiveStudentsDetails.add(currentStudentsDict)
                 }
             }
         }
@@ -78,7 +78,7 @@ class StudentPollingView: UIView
             }
 
             
-            if let optionsString = optionArray.objectAtIndex(aRandomInt) as? String
+            if let optionsString = optionArray.object(at: aRandomInt) as? String
             {
                 delegate().smhDidgetStudentPollWithDetails!(optionsString)
             }
@@ -94,7 +94,7 @@ class StudentPollingView: UIView
         
         
     }
-    func randomInt(min: Int, max:Int) -> Int
+    func randomInt(_ min: Int, max:Int) -> Int
     {
         return min + Int(arc4random_uniform(UInt32(max - min + 1)))
     }

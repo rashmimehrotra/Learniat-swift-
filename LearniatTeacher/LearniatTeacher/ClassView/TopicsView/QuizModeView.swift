@@ -23,41 +23,41 @@ class QuizModeView: UIView
         
         
         
-        let mTopbarImageView = UIImageView(frame: CGRectMake(0, 0,self.frame.size.width, 44))
-        mTopbarImageView.backgroundColor = UIColor.whiteColor()
+        let mTopbarImageView = UIImageView(frame: CGRect(x: 0, y: 0,width: self.frame.size.width, height: 44))
+        mTopbarImageView.backgroundColor = UIColor.white
         self.addSubview(mTopbarImageView)
-        mTopbarImageView.userInteractionEnabled = true
+        mTopbarImageView.isUserInteractionEnabled = true
         
         
         
         
-        let seperatorView = UIView(frame: CGRectMake(0 ,mTopbarImageView.frame.size.height - 1 , mTopbarImageView.frame.size.width,1))
+        let seperatorView = UIView(frame: CGRect(x: 0 ,y: mTopbarImageView.frame.size.height - 1 , width: mTopbarImageView.frame.size.width,height: 1))
         seperatorView.backgroundColor = LineGrayColor;
         mTopbarImageView.addSubview(seperatorView)
         
-        let  mDoneButton = UIButton(frame: CGRectMake(mTopbarImageView.frame.size.width - 210,  0, 200 ,mTopbarImageView.frame.size.height))
+        let  mDoneButton = UIButton(frame: CGRect(x: mTopbarImageView.frame.size.width - 210,  y: 0, width: 200 ,height: mTopbarImageView.frame.size.height))
         mTopbarImageView.addSubview(mDoneButton)
-        mDoneButton.addTarget(self, action: #selector(QuizModeView.onSendButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mDoneButton.setTitleColor(standard_Button, forState: .Normal)
-        mDoneButton.setTitle("Send", forState: .Normal)
-        mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        mDoneButton.addTarget(self, action: #selector(QuizModeView.onSendButton), for: UIControlEvents.touchUpInside)
+        mDoneButton.setTitleColor(standard_Button, for: UIControlState())
+        mDoneButton.setTitle("Send", for: UIControlState())
+        mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         mDoneButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
         
         
         
         
-        let  mBackButton = UIButton(frame: CGRectMake(10,  0, 200 ,mTopbarImageView.frame.size.height))
+        let  mBackButton = UIButton(frame: CGRect(x: 10,  y: 0, width: 200 ,height: mTopbarImageView.frame.size.height))
         mTopbarImageView.addSubview(mBackButton)
-        mBackButton.addTarget(self, action: #selector(QuizModeView.onBackButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mBackButton.setTitleColor(standard_Button, forState: .Normal)
-        mBackButton.setTitle("Back", forState: .Normal)
-        mBackButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
+        mBackButton.addTarget(self, action: #selector(QuizModeView.onBackButton), for: UIControlEvents.touchUpInside)
+        mBackButton.setTitleColor(standard_Button, for: UIControlState())
+        mBackButton.setTitle("Back", for: UIControlState())
+        mBackButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
         mBackButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
 
         
         
         
-        mQuestionsView.frame = CGRectMake(0, mTopbarImageView.frame.size.height , self.frame.size.width, self.frame.size.height - mTopbarImageView.frame.size.height)
+        mQuestionsView.frame = CGRect(x: 0, y: mTopbarImageView.frame.size.height , width: self.frame.size.width, height: self.frame.size.height - mTopbarImageView.frame.size.height)
         self.addSubview(mQuestionsView)
         
     }
@@ -96,7 +96,7 @@ class QuizModeView: UIView
         self.removeFromSuperview()
     }
     
-    func setQuestionWithDetails(questionsArray:NSMutableArray)
+    func setQuestionWithDetails(_ questionsArray:NSMutableArray)
     {
         
         currentQuestionsArray.removeAllObjects()
@@ -105,23 +105,23 @@ class QuizModeView: UIView
         
         for index in 0 ..< questionsArray.count
         {
-            let questionDict  = questionsArray.objectAtIndex(index)
+            let questionDict  = questionsArray.object(at: index)
             
-            if let questionType = questionDict.objectForKey("Type")as? NSString
+            if let questionType = (questionDict as AnyObject).object(forKey: "Type")as? NSString
             {
-                if questionType == kMRQ || questionType == kMCQ
+                if questionType as String == kMRQ || questionType as String == kMCQ
                 {
-                    let mQuizCell = QuizmodeCell(frame:CGRectMake(10,postionY , self.frame.size.width - 20 , 60 ))
+                    let mQuizCell = QuizmodeCell(frame:CGRect(x: 10,y: postionY , width: self.frame.size.width - 20 , height: 60 ))
                     mQuestionsView.addSubview(mQuizCell)
                     postionY = postionY + mQuizCell.frame.size.height + 10
-                    mQuizCell.setQuestionDict(questionDict)
+                    mQuizCell.setQuestionDict(questionDict as AnyObject)
                 }
             }
             
             
         }
         
-        mQuestionsView.contentSize = CGSizeMake(0, postionY)
+        mQuestionsView.contentSize = CGSize(width: 0, height: postionY)
         
     }
     

@@ -13,7 +13,7 @@ import Foundation
 {
     
     
-    optional func delegateWithDrawButtonPressed()
+    @objc optional func delegateWithDrawButtonPressed()
     
 }
 
@@ -43,22 +43,22 @@ class QuerySubview: UIView
         
         super.init(frame:frame)
         
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.white
         
         
         
-        mStudentImage.frame = CGRectMake(10,10 , 40 ,40)
+        mStudentImage.frame = CGRect(x: 10,y: 10 , width: 40 ,height: 40)
         self.addSubview(mStudentImage)
-        mStudentImage.backgroundColor = UIColor.clearColor()
+        mStudentImage.backgroundColor = UIColor.clear
         
         if let StudentId = SSStudentDataSource.sharedDataSource.currentUserId
         {
-            let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_UserProfileImageURL) as! String
+            let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
             
-            if let checkedUrl = NSURL(string: "\(urlString)/\(StudentId)_79px.jpg")
+            if let checkedUrl = URL(string: "\(urlString)/\(StudentId)_79px.jpg")
             {
-                mStudentImage.contentMode = .ScaleAspectFit
-                mStudentImage.downloadImage(checkedUrl, withFolderType: folderType.ProFilePics)
+                mStudentImage.contentMode = .scaleAspectFit
+                mStudentImage.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
             }
         }
         
@@ -69,49 +69,49 @@ class QuerySubview: UIView
         
         
         
-        mStudentName.frame = CGRectMake(mStudentImage.frame.origin.x + mStudentImage.frame.size.width + 10,mStudentImage.frame.origin.y,400,mStudentImage.frame.size.height / 1.8)
-        mStudentName.textAlignment = .Center;
+        mStudentName.frame = CGRect(x: mStudentImage.frame.origin.x + mStudentImage.frame.size.width + 10,y: mStudentImage.frame.origin.y,width: 400,height: mStudentImage.frame.size.height / 1.8)
+        mStudentName.textAlignment = .center;
         mStudentName.textColor = blackTextColor
         self.addSubview(mStudentName)
-        mStudentName.backgroundColor = UIColor.clearColor()
-        mStudentName.textAlignment = .Left;
+        mStudentName.backgroundColor = UIColor.clear
+        mStudentName.textAlignment = .left;
         mStudentName.font = UIFont(name: helveticaMedium, size: 18)
-        mStudentName.text = SSStudentDataSource.sharedDataSource.currentUserName.capitalizedString
+        mStudentName.text = SSStudentDataSource.sharedDataSource.currentUserName.capitalized
         
         
-        mQueryLabel.frame = CGRectMake(mStudentName.frame.origin.x,mStudentImage.frame.origin.y + mStudentImage.frame.size.height  ,self.frame.size.width - mStudentName.frame.origin.x ,mStudentImage.frame.size.height / 2)
-        mQueryLabel.textAlignment = .Left;
+        mQueryLabel.frame = CGRect(x: mStudentName.frame.origin.x,y: mStudentImage.frame.origin.y + mStudentImage.frame.size.height  ,width: self.frame.size.width - mStudentName.frame.origin.x ,height: mStudentImage.frame.size.height / 2)
+        mQueryLabel.textAlignment = .left;
         mQueryLabel.textColor = blackTextColor
         self.addSubview(mQueryLabel)
-        mQueryLabel.backgroundColor = UIColor.clearColor()
+        mQueryLabel.backgroundColor = UIColor.clear
         mQueryLabel.font = UIFont(name: helveticaRegular, size: 18)
-        mQueryLabel.lineBreakMode = .ByTruncatingMiddle
+        mQueryLabel.lineBreakMode = .byTruncatingMiddle
         mQueryLabel.numberOfLines = 20
-        mQueryLabel.contentMode = .Top;
+        mQueryLabel.contentMode = .top;
         
         
-        mWithDrawButton.frame = CGRectMake(self.frame.size.width - 150, 0, 140 , 40)
+        mWithDrawButton.frame = CGRect(x: self.frame.size.width - 150, y: 0, width: 140 , height: 40)
         self.addSubview(mWithDrawButton)
-        mWithDrawButton.addTarget(self, action: #selector(QuerySubview.onDismissButton), forControlEvents: UIControlEvents.TouchUpInside)
-         mWithDrawButton.setTitleColor(standard_Button, forState: .Normal)
-         mWithDrawButton.setTitle("Withdraw", forState: .Normal)
-        mWithDrawButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        mWithDrawButton.addTarget(self, action: #selector(QuerySubview.onDismissButton), for: UIControlEvents.touchUpInside)
+         mWithDrawButton.setTitleColor(standard_Button, for: UIControlState())
+         mWithDrawButton.setTitle("Withdraw", for: UIControlState())
+        mWithDrawButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         
         
         
-        goodQueryLabel = UILabel(frame:  CGRectMake(self.frame.size.width - 130 ,mStudentName.frame.origin.y, 120,mStudentName.frame.size.height))
+        goodQueryLabel = UILabel(frame:  CGRect(x: self.frame.size.width - 130 ,y: mStudentName.frame.origin.y, width: 120,height: mStudentName.frame.size.height))
         self.addSubview(goodQueryLabel)
-        goodQueryLabel.lineBreakMode = .ByTruncatingMiddle
-        goodQueryLabel.textAlignment = .Right
+        goodQueryLabel.lineBreakMode = .byTruncatingMiddle
+        goodQueryLabel.textAlignment = .right
         goodQueryLabel.text = "GOOD QUERY"
         goodQueryLabel.textColor = blackTextColor
         goodQueryLabel.font =  UIFont (name: helveticaMedium, size: 16)
-        goodQueryLabel.hidden = true
+        goodQueryLabel.isHidden = true
         
-        goodImage = UIImageView(frame:  CGRectMake(goodQueryLabel.frame.origin.x - 25 , mStudentName.frame.origin.y, 25,25))
+        goodImage = UIImageView(frame:  CGRect(x: goodQueryLabel.frame.origin.x - 25 , y: mStudentName.frame.origin.y, width: 25,height: 25))
         goodImage.image = UIImage(named:"Thumbs_Up.png")
         self.addSubview(goodImage)
-        goodImage.hidden = true
+        goodImage.isHidden = true
 
         
         
@@ -122,7 +122,7 @@ class QuerySubview: UIView
     }
     
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -133,7 +133,7 @@ class QuerySubview: UIView
     }
     
     
-    func setQueryWithDetails(queryText:String, withQueryId QueryId:String) -> CGFloat
+    func setQueryWithDetails(_ queryText:String, withQueryId QueryId:String) -> CGFloat
     {
         var getQueryHeight :CGFloat = 80
         
@@ -141,7 +141,7 @@ class QuerySubview: UIView
         getQueryHeight = heightForView(queryText, font: mQueryLabel.font, width: mQueryLabel.frame.size.width)
         
         mQueryLabel.text = queryText
-        mQueryLabel.frame = CGRectMake(mQueryLabel.frame.origin.x ,mQueryLabel.frame.origin.y - 5,mQueryLabel.frame.size.width,getQueryHeight)
+        mQueryLabel.frame = CGRect(x: mQueryLabel.frame.origin.x ,y: mQueryLabel.frame.origin.y - 5,width: mQueryLabel.frame.size.width,height: getQueryHeight)
         getQueryHeight = getQueryHeight + 60
         
         if getQueryHeight < 80
@@ -159,11 +159,11 @@ class QuerySubview: UIView
 
     
     
-    func heightForView(text:String, font:UIFont, width:CGFloat) -> CGFloat
+    func heightForView(_ text:String, font:UIFont, width:CGFloat) -> CGFloat
     {
-        let label:UILabel = UILabel(frame: CGRectMake(0, 0, width, CGFloat.max))
+        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
         label.numberOfLines = 0
-        label.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
         label.font = font
         label.text = text
         
@@ -171,11 +171,11 @@ class QuerySubview: UIView
         return label.frame.height
     }
     
-    func setQueryReplyWithDetiails(details:AnyObject)
+    func setQueryReplyWithDetiails(_ details:AnyObject)
     {
         var teacherTextReply = ""
         
-        if  let _teacherTextReply =  ( details.objectForKey("TeacherReplyText") as? String)
+        if  let _teacherTextReply =  ( details.object(forKey: "TeacherReplyText") as? String)
         {
             teacherTextReply = _teacherTextReply
         }
@@ -187,26 +187,26 @@ class QuerySubview: UIView
         
         
         
-        if let badgeId = details.objectForKey("BadgeId") as? String
+        if let badgeId = details.object(forKey: "BadgeId") as? String
         {
             if badgeId == "1"
             {
-               goodQueryLabel.hidden = false
-                 goodImage.hidden = false
+               goodQueryLabel.isHidden = false
+                 goodImage.isHidden = false
             }
             else
             {
-                goodQueryLabel.hidden = true
-                 goodImage.hidden = true
+                goodQueryLabel.isHidden = true
+                 goodImage.isHidden = true
             }
         }
         else
         {
-            goodQueryLabel.hidden = true
+            goodQueryLabel.isHidden = true
         }
         
         
-        let dismissFlag = ( details.objectForKey("DismissFlag") as! String)
+        let dismissFlag = ( details.object(forKey: "DismissFlag") as! String)
         
         
         
@@ -214,7 +214,7 @@ class QuerySubview: UIView
         
         if dismissFlag == "1"
         {
-            if goodQueryLabel.hidden == true
+            if goodQueryLabel.isHidden == true
             {
                 self.backgroundColor = RedCellBackground
             }

@@ -11,7 +11,7 @@ import Foundation
 @objc protocol StudentQuestionViewDelegate
 {
     
-    optional func delegateFullScreenButtonPressedWithOverlayImage(overlay:UIImage)
+    @objc optional func delegateFullScreenButtonPressedWithOverlayImage(_ overlay:UIImage)
     
     
 }
@@ -48,7 +48,7 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
     
     var _delgate: AnyObject!
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -64,15 +64,15 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
         super.init(frame: frame)
         
         
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.white
         
         
-        noQuestionslabel.frame = CGRectMake(10, (self.frame.size.height - 40)/2, self.frame.size.width - 20,40)
+        noQuestionslabel.frame = CGRect(x: 10, y: (self.frame.size.height - 40)/2, width: self.frame.size.width - 20,height: 40)
         noQuestionslabel.font = UIFont(name:helveticaRegular, size: 40)
         noQuestionslabel.text = "There are no questions yet"
         self.addSubview(noQuestionslabel)
         noQuestionslabel.textColor = topbarColor
-        noQuestionslabel.textAlignment = .Center
+        noQuestionslabel.textAlignment = .center
         
         
         
@@ -83,7 +83,7 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setQuestionDetails(questionDetails: AnyObject , withType QuestionType :String, withSessionDetails sessionDetails:AnyObject,withQuestion _logId:String)
+    func setQuestionDetails(_ questionDetails: AnyObject , withType QuestionType :String, withSessionDetails sessionDetails:AnyObject,withQuestion _logId:String)
     {
         
         SSStudentDataSource.sharedDataSource.answerSent = false
@@ -98,7 +98,7 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
         currentQuestionType = QuestionType
         print(questionDetails)
         
-        noQuestionslabel.hidden = true
+        noQuestionslabel.isHidden = true
         
         
         if QuestionType == MultipleChoice || QuestionType == MultipleResponse
@@ -107,24 +107,22 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
                 mMultipleQuestion.removeFromSuperview()
             }
             
-            let options = currentQuestionDetails.objectForKey(kOptionTagMain)?.objectForKey(kOptionTag)
+           if let options = (currentQuestionDetails.object(forKey: kOptionTagMain) as AnyObject).object(forKey: kOptionTag) as? NSMutableArray
+           {
+                currentOptionsArray = options 
+            }
             
+            else
+           {
+               if let options = (currentQuestionDetails.object(forKey: kOptionTagMain) as AnyObject).object(forKey: kOptionTag) as? NSMutableDictionary
+               {
+                    currentOptionsArray.add(options)
+                }
             
-            if options != nil
-            {
-                if (options!.isKindOfClass(NSMutableArray))
-                {
-                    currentOptionsArray = options as! NSMutableArray
-                }
-                else
-                {
-                    currentOptionsArray.addObject(options!)
-                }
-
             }
             
             
-            mMultipleQuestion = MultipleChoiceView(frame:CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
+            mMultipleQuestion = MultipleChoiceView(frame:CGRect(x: 0,y: 0,width: self.frame.size.width,height: self.frame.size.height))
             self.addSubview(mMultipleQuestion)
             mMultipleQuestion.setQuestionDetails(questionDetails ,withsessionDetails: sessionDetails, withQuestionLogId: _logId)
         }
@@ -135,24 +133,25 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
             }
             
             
-            let options = currentQuestionDetails.objectForKey(kOptionTagMain)?.objectForKey(kOptionTag)
+           if let options = (currentQuestionDetails.object(forKey: kOptionTagMain) as AnyObject).object(forKey: kOptionTag)as?NSMutableArray
+           {
+              currentOptionsArray = options 
+            }
+            else
+           {
+//                let options = (currentQuestionDetails.object(forKey: kOptionTagMain) as AnyObject).object(forKey: kOptionTag)
             
-            
-            if options != nil
+            if let options = (currentQuestionDetails.object(forKey: kOptionTagMain) as AnyObject).object(forKey: kOptionTag) as? NSMutableDictionary
             {
-                if (options!.isKindOfClass(NSMutableArray))
-                {
-                    currentOptionsArray = options as! NSMutableArray
-                }
-                else
-                {
-                    currentOptionsArray.addObject(options!)
-                }
-                
+                currentOptionsArray.add(options)
+            }
+            
             }
             
             
-            mMatchColumn = MatchColumnView(frame:CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
+            
+            
+            mMatchColumn = MatchColumnView(frame:CGRect(x: 0,y: 0,width: self.frame.size.width,height: self.frame.size.height))
             self.addSubview(mMatchColumn)
             mMatchColumn.setQuestionDetails(questionDetails ,withsessionDetails: sessionDetails, withQuestionLogId: _logId)
         }
@@ -163,7 +162,7 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
                 mScribbleQuestion.removeFromSuperview()
             }
             
-            mScribbleQuestion = ScribbleQuestionView(frame:CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
+            mScribbleQuestion = ScribbleQuestionView(frame:CGRect(x: 0,y: 0,width: self.frame.size.width,height: self.frame.size.height))
             self.addSubview(mScribbleQuestion)
             mScribbleQuestion.setdelegate(self)
             mScribbleQuestion.setQuestionDetails(questionDetails ,withsessionDetails: sessionDetails, withQuestionLogId: _logId)
@@ -176,7 +175,7 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
             }
             
             
-            mTextQuestion = TextTypeQuestionView(frame:CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
+            mTextQuestion = TextTypeQuestionView(frame:CGRect(x: 0,y: 0,width: self.frame.size.width,height: self.frame.size.height))
             self.addSubview(mTextQuestion)
             mTextQuestion.setdelegate(self)
             mTextQuestion.setQuestionDetails(questionDetails ,withsessionDetails: sessionDetails, withQuestionLogId: _logId)
@@ -189,7 +188,7 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
             }
             
             
-            mOneStringQuestionView = OneStingQuestionView(frame:CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
+            mOneStringQuestionView = OneStingQuestionView(frame:CGRect(x: 0,y: 0,width: self.frame.size.width,height: self.frame.size.height))
             self.addSubview(mOneStringQuestionView)
             mOneStringQuestionView.setdelegate(self)
             mOneStringQuestionView.setQuestionDetails(questionDetails ,withsessionDetails: sessionDetails, withQuestionLogId: _logId)
@@ -224,10 +223,10 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
         }
         
         
-        noQuestionslabel.hidden = false
+        noQuestionslabel.isHidden = false
         if SSStudentDataSource.sharedDataSource.answerSent == true
         {
-            self.makeToast("Question cleared by teacher.", duration: 2.0, position: .Bottom)
+            self.makeToast("Question cleared by teacher.", duration: 2.0, position: .bottom)
         }
         
         if mSharedGraphView != nil
@@ -281,7 +280,7 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
         
     }
     
-    func didGetGraphSharedWithDetails(details:AnyObject)
+    func didGetGraphSharedWithDetails(_ details:AnyObject)
     {
         
         print(details)
@@ -293,9 +292,9 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
         
         if mSharedGraphView == nil
         {
-            mSharedGraphView = StudentAnswerGraphView(frame:CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
+            mSharedGraphView = StudentAnswerGraphView(frame:CGRect(x: 0,y: 0,width: self.frame.size.width,height: self.frame.size.height))
             self.addSubview(mSharedGraphView)
-            self.bringSubviewToFront(mSharedGraphView)
+            self.bringSubview(toFront: mSharedGraphView)
             mSharedGraphView.setdelegate(self)
             
             
@@ -303,9 +302,9 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
             
             if currentQuestionType == MultipleChoice || currentQuestionType == MultipleResponse
             {
-                if (currentQuestionDetails.objectForKey(kQuestionName) as? String) != ""
+                if (currentQuestionDetails.object(forKey: kQuestionName) as? String) != ""
                 {
-                    mSharedGraphView.loadMRQViewWithOPtions(currentOptionsArray, withQuestion: (currentQuestionDetails.objectForKey(kQuestionName) as! String))
+                    mSharedGraphView.loadMRQViewWithOPtions(currentOptionsArray, withQuestion: (currentQuestionDetails.object(forKey: kQuestionName) as! String))
                 }
                 else
                 {
@@ -317,7 +316,7 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
                 
                 var optionsValueDetails = NSMutableDictionary()
                 
-                if let optionsDetails = details.objectForKey("Details") as? NSMutableDictionary
+                if let optionsDetails = details.object(forKey: "Details") as? NSMutableDictionary
                 {
                     optionsValueDetails = optionsDetails
                     
@@ -327,11 +326,11 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
                 for index  in 0 ..< currentOptionsArray.count
                 {
                     
-                    let optionsDict = currentOptionsArray.objectAtIndex(index)
+                    let optionsDict = currentOptionsArray.object(at: index)
                     
-                    if let optionId = optionsDict.objectForKey("OptionId") as? String
+                    if let optionId = (optionsDict as AnyObject).object(forKey: "OptionId") as? String
                     {
-                        if let value = optionsValueDetails.objectForKey("option_\(optionId)") as? String
+                        if let value = optionsValueDetails.object(forKey: "option_\(optionId)") as? String
                         {
                             
                             mSharedGraphView.increaseMultiplevalu(Int(value)!, withOptionId: optionId)
@@ -354,17 +353,17 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
                 for index in 0 ..< currentOptionsArray.count
                 {
                     
-                    let optionDict = currentOptionsArray.objectAtIndex(index)
+                    let optionDict = currentOptionsArray.object(at: index)
                     
-                    if let Column = optionDict.objectForKey("Column") as? String
+                    if let Column = (optionDict as AnyObject).object(forKey: "Column") as? String
                     {
                         if Column == "1"
                         {
-                            leftSideArray.addObject(optionDict)
+                            leftSideArray.add(optionDict)
                         }
                         else if Column == "2"
                         {
-                            RightSideArray.addObject(optionDict)
+                            RightSideArray.add(optionDict)
                             
                         }
                         
@@ -373,10 +372,10 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
                 
                 
                 
-                if (currentQuestionDetails.objectForKey(kQuestionName) as? String) != ""
+                if (currentQuestionDetails.object(forKey: kQuestionName) as? String) != ""
                 {
                     
-                    mSharedGraphView.loadMTCViewWithOPtions(leftSideArray, WithRightSideOptionArray: RightSideArray, withQuestion: (currentQuestionDetails.objectForKey(kQuestionName) as! String))
+                    mSharedGraphView.loadMTCViewWithOPtions(leftSideArray, WithRightSideOptionArray: RightSideArray, withQuestion: (currentQuestionDetails.object(forKey: kQuestionName) as! String))
                    
                 }
                 else
@@ -388,7 +387,7 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
                 
                 var optionsValueDetails = NSMutableDictionary()
                 
-                if let optionsDetails = details.objectForKey("Details") as? NSMutableDictionary
+                if let optionsDetails = details.object(forKey: "Details") as? NSMutableDictionary
                 {
                     optionsValueDetails = optionsDetails
                     
@@ -398,13 +397,13 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
                 for index  in 0 ..< currentOptionsArray.count
                 {
                     
-                    let optionsDict = currentOptionsArray.objectAtIndex(index)
+                    let optionsDict = currentOptionsArray.object(at: index)
                     
-                    if let optionId = optionsDict.objectForKey("OptionId") as? String
+                    if let optionId = (optionsDict as AnyObject).object(forKey: "OptionId") as? String
                     {
-                        if let value = optionsValueDetails.objectForKey("option_\(optionId)") as? String
+                        if let value = optionsValueDetails.object(forKey: "option_\(optionId)") as? String
                         {
-                            if let optiontext = optionsDict.objectForKey("OptionText") as? String
+                            if let optiontext = (optionsDict as AnyObject).object(forKey: "OptionText") as? String
                             {
                                  mSharedGraphView.increaseMTCMultiplevalu(Int(value)!, withOptionText: optiontext)
                             }
@@ -427,11 +426,11 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
         
         if SSStudentDataSource.sharedDataSource.answerSent == true
         {
-            mSharedGraphView.hidden = false
+            mSharedGraphView.isHidden = false
         }
         else
         {
-            mSharedGraphView.hidden = true
+            mSharedGraphView.isHidden = true
         }
         
         
@@ -466,12 +465,12 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
     }
     
     
-    func delegateEditButtonPressedWithOverlayImage(overlay: UIImage)
+    func delegateEditButtonPressedWithOverlayImage(_ overlay: UIImage)
     {
         delegate().delegateFullScreenButtonPressedWithOverlayImage!(overlay)
     }
     
-    func setFullScreenDrawnImage(image:UIImage)
+    func setFullScreenDrawnImage(_ image:UIImage)
     {
         if mScribbleQuestion != nil
         {
@@ -480,14 +479,14 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
 
     }
     
-    func getFeedbackDetailsWithId(AssesmentAnswerId:String)
+    func getFeedbackDetailsWithId(_ AssesmentAnswerId:String)
     {
         SSStudentDataSource.sharedDataSource.getFeedbackFromTeacherForAssesment(AssesmentAnswerId, withDelegate: self)
     }
-    func didGetAnswerFeedBackWithDetails(details: AnyObject) {
+    func didGetAnswerFeedBackWithDetails(_ details: AnyObject) {
         
        
-        
+        print(details)
         
         if currentQuestionType == kOverlayScribble || currentQuestionType == kFreshScribble
         {
@@ -542,7 +541,7 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
        
     }
     
-    func didgetErrorMessage(message: String, WithServiceName serviceName: String) {
+    func didgetErrorMessage(_ message: String, WithServiceName serviceName: String) {
         
     }
     

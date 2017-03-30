@@ -19,9 +19,9 @@ class MTCAggregateView: UIView
         
         super.init(frame:frame)
         
-        studentsScrollview.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)
+        studentsScrollview.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height)
         self.addSubview(studentsScrollview)
-        studentsScrollview.pagingEnabled = true
+        studentsScrollview.isPagingEnabled = true
         
         
         
@@ -38,7 +38,7 @@ class MTCAggregateView: UIView
     
     
     
-    func showAggregateWithDetails(details:AnyObject) -> CGFloat
+    func showAggregateWithDetails(_ details:AnyObject) -> CGFloat
     {
         
         
@@ -54,59 +54,59 @@ class MTCAggregateView: UIView
         
         
         
-        var studentIdArray      = [NSString]()
-        var studentNameArray    = [NSString]()
-        var participationArray  = [NSString]()
-        var graspIndexArray     = [NSString]()
+        var studentIdArray      = [String]()
+        var studentNameArray    = [String]()
+        var participationArray  = [String]()
+        var graspIndexArray     = [String]()
         
         
         
-        var wrongStudentIdArray      = [NSString]()
-        var wrongStudentNameArray    = [NSString]()
-        var wrongParticipationArray  = [NSString]()
-        var wrongGraspIndexArray     = [NSString]()
+        var wrongStudentIdArray      = [String]()
+        var wrongStudentNameArray    = [String]()
+        var wrongParticipationArray  = [String]()
+        var wrongGraspIndexArray     = [String]()
         
         
         
         
-        if let StudentId = details.objectForKey("StudentId") as? NSString
+        if let StudentId = details.object(forKey: "StudentId") as? NSString
         {
-            studentIdArray = StudentId.componentsSeparatedByString(";;;")
+            studentIdArray = StudentId.components(separatedBy: ";;;")
             
-            if let StudentName = details.objectForKey("StudentName") as? NSString
+            if let StudentName = details.object(forKey: "StudentName") as? NSString
             {
-                studentNameArray = StudentName.componentsSeparatedByString(";;;")
+                studentNameArray = StudentName.components(separatedBy: ";;;")
             }
             
-            if let GraspIndex = details.objectForKey("GraspIndex") as? NSString
+            if let GraspIndex = details.object(forKey: "GraspIndex") as? NSString
             {
-                graspIndexArray = GraspIndex.componentsSeparatedByString(";;;")
+                graspIndexArray = GraspIndex.components(separatedBy: ";;;")
             }
             
-            if let ParticipationIndex = details.objectForKey("ParticipationIndex") as? NSString
+            if let ParticipationIndex = details.object(forKey: "ParticipationIndex") as? NSString
             {
-                participationArray = ParticipationIndex.componentsSeparatedByString(";;;")
+                participationArray = ParticipationIndex.components(separatedBy: ";;;")
             }
         }
         
         
-        if let worngStudentId = details.objectForKey("StudentIdWrong") as? NSString
+        if let worngStudentId = details.object(forKey: "StudentIdWrong") as? NSString
         {
-            wrongStudentIdArray = worngStudentId.componentsSeparatedByString(";;;")
+            wrongStudentIdArray = worngStudentId.components(separatedBy: ";;;")
             
-            if let wrongStudentName = details.objectForKey("StudentNameWrong") as? NSString
+            if let wrongStudentName = details.object(forKey: "StudentNameWrong") as? NSString
             {
-                wrongStudentNameArray = wrongStudentName.componentsSeparatedByString(";;;")
+                wrongStudentNameArray = wrongStudentName.components(separatedBy: ";;;")
             }
             
-            if let GraspIndexWrong = details.objectForKey("GraspIndexWrong") as? NSString
+            if let GraspIndexWrong = details.object(forKey: "GraspIndexWrong") as? NSString
             {
-                wrongGraspIndexArray = GraspIndexWrong.componentsSeparatedByString(";;;")
+                wrongGraspIndexArray = GraspIndexWrong.components(separatedBy: ";;;")
             }
             
-            if let ParticipationIndexWrong = details.objectForKey("ParticipationIndexWrong") as? NSString
+            if let ParticipationIndexWrong = details.object(forKey: "ParticipationIndexWrong") as? NSString
             {
-                wrongParticipationArray = ParticipationIndexWrong.componentsSeparatedByString(";;;")
+                wrongParticipationArray = ParticipationIndexWrong.components(separatedBy: ";;;")
             }
         }
         
@@ -117,11 +117,11 @@ class MTCAggregateView: UIView
        
         
         
-        let correctStudentsLabel = UILabel(frame:CGRectMake(0, 0, studentsScrollview.frame.size.width, 40))
+        let correctStudentsLabel = UILabel(frame:CGRect(x: 0, y: 0, width: studentsScrollview.frame.size.width, height: 40))
         correctStudentsLabel.text = "Answered correctly"
         studentsScrollview.addSubview(correctStudentsLabel)
-        correctStudentsLabel.textAlignment = .Center
-        correctStudentsLabel.textColor = UIColor.whiteColor()
+        correctStudentsLabel.textAlignment = .center
+        correctStudentsLabel.textColor = UIColor.white
         correctStudentsLabel.backgroundColor = standard_Green
         correctStudentsLabel.font = UIFont(name: helveticaMedium, size: 18);
         
@@ -135,9 +135,9 @@ class MTCAggregateView: UIView
             let graspIndex = graspIndexArray[index]
             
             
-            let agregateCell = AggregateCell(frame: CGRectMake(0,positionY,studentsScrollview.frame.size.width,70))
+            let agregateCell = AggregateCell(frame: CGRect(x: 0,y: positionY,width: studentsScrollview.frame.size.width,height: 70))
             studentsScrollview.addSubview(agregateCell)
-            agregateCell.addStudentId(studentId, withName: studentName, withgraspLevel: graspIndex, withParticipation: participationIndex.floatValue)
+            agregateCell.addStudentId(studentId as NSString, withName: studentName as NSString, withgraspLevel: graspIndex as NSString, withParticipation: Float(participationIndex)! )
             
             positionY = positionY + agregateCell.frame.size.height
             
@@ -145,11 +145,11 @@ class MTCAggregateView: UIView
         }
         
         
-        let wrongStudentsLabel = UILabel(frame:CGRectMake(studentsScrollview.frame.size.width, 0, studentsScrollview.frame.size.width, 40))
+        let wrongStudentsLabel = UILabel(frame:CGRect(x: studentsScrollview.frame.size.width, y: 0, width: studentsScrollview.frame.size.width, height: 40))
         wrongStudentsLabel.text = "Incorrectly"
         studentsScrollview.addSubview(wrongStudentsLabel)
-        wrongStudentsLabel.textAlignment = .Center
-        wrongStudentsLabel.textColor = UIColor.whiteColor()
+        wrongStudentsLabel.textAlignment = .center
+        wrongStudentsLabel.textColor = UIColor.white
         wrongStudentsLabel.backgroundColor = standard_Red
         wrongStudentsLabel.font = UIFont(name: helveticaMedium, size: 18);
         
@@ -170,12 +170,12 @@ class MTCAggregateView: UIView
         
         
         
-        if height > UIScreen.mainScreen().bounds.height - 100
+        if height > UIScreen.main.bounds.height - 100
         {
-            height = UIScreen.mainScreen().bounds.height - 100
+            height = UIScreen.main.bounds.height - 100
         }
         
-        studentsScrollview.frame = CGRectMake(0, 0, self.frame.size.width, height)
+        studentsScrollview.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: height)
         
         
         positionY = 40
@@ -187,9 +187,9 @@ class MTCAggregateView: UIView
             let graspIndex = wrongGraspIndexArray[index]
             
             
-            let agregateCell = AggregateCell(frame: CGRectMake(studentsScrollview.frame.size.width,positionY,studentsScrollview.frame.size.width,70))
+            let agregateCell = AggregateCell(frame: CGRect(x: studentsScrollview.frame.size.width,y: positionY,width: studentsScrollview.frame.size.width,height: 70))
             studentsScrollview.addSubview(agregateCell)
-            agregateCell.addStudentId(studentId, withName: studentName, withgraspLevel: graspIndex, withParticipation: participationIndex.floatValue)
+            agregateCell.addStudentId(studentId as NSString, withName: studentName as NSString, withgraspLevel: graspIndex as NSString, withParticipation: Float(participationIndex)!)
             
             positionY = positionY + agregateCell.frame.size.height
             
@@ -201,7 +201,7 @@ class MTCAggregateView: UIView
         
         
        
-        studentsScrollview.contentSize = CGSizeMake(studentsScrollview.frame.size.width * 2, positionY)
+        studentsScrollview.contentSize = CGSize(width: studentsScrollview.frame.size.width * 2, height: positionY)
         return height
         
         

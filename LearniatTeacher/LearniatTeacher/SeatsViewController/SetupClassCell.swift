@@ -13,7 +13,7 @@ import UIKit
 {
     
     
-    optional func delegateCellPressedWithSelectedState(State:Bool, withCell seatCell:SetupClassCell)
+    @objc optional func delegateCellPressedWithSelectedState(_ State:Bool, withCell seatCell:SetupClassCell)
     
     
     
@@ -30,7 +30,7 @@ class SetupClassCell: UIView,UIGestureRecognizerDelegate
     
     var _delgate: AnyObject!
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -69,10 +69,10 @@ class SetupClassCell: UIView,UIGestureRecognizerDelegate
         
         
         
-        refrenceDeskImageView.frame = CGRectMake((self.frame.size.width-deskSize)/2, (self.frame.size.height-deskSize)/2,deskSize,deskSize)
+        refrenceDeskImageView.frame = CGRect(x: (self.frame.size.width-deskSize)/2, y: (self.frame.size.height-deskSize)/2,width: deskSize,height: deskSize)
         self.addSubview(refrenceDeskImageView)
-        refrenceDeskImageView.backgroundColor = UIColor.clearColor()
-        refrenceDeskImageView.userInteractionEnabled = true
+        refrenceDeskImageView.backgroundColor = UIColor.clear
+        refrenceDeskImageView.isUserInteractionEnabled = true
         refrenceDeskImageView.borderType = BorderTypeDashed;
         refrenceDeskImageView.dashPattern = 4;
         refrenceDeskImageView.spacePattern = 4;
@@ -86,7 +86,7 @@ class SetupClassCell: UIView,UIGestureRecognizerDelegate
         
         
         
-        EndCornerImageView.frame = CGRectMake(-12,-12, 25,25)
+        EndCornerImageView.frame = CGRect(x: -12,y: -12, width: 25,height: 25)
         EndCornerImageView.image = UIImage(named: "Remove.png")
         refrenceDeskImageView.addSubview(EndCornerImageView)
 
@@ -98,14 +98,14 @@ class SetupClassCell: UIView,UIGestureRecognizerDelegate
         fatalError("init(coder:) has not been implemented")
     }
     
-    func handleTap(sender: UITapGestureRecognizer? = nil) {
+    func handleTap(_ sender: UITapGestureRecognizer? = nil) {
         // handling code
         
         
         if  EndCornerImageView.image == UIImage(named: "Add.png")
         {
                         
-            if delegate().respondsToSelector(#selector(SetupClassCellDelegate.delegateCellPressedWithSelectedState(_:withCell:)))
+            if delegate().responds(to: #selector(SetupClassCellDelegate.delegateCellPressedWithSelectedState(_:withCell:)))
             {
                 delegate().delegateCellPressedWithSelectedState!(true, withCell:self)
                 
@@ -115,13 +115,13 @@ class SetupClassCell: UIView,UIGestureRecognizerDelegate
         else
         {
                         
-            if delegate().respondsToSelector(#selector(SetupClassCellDelegate.delegateCellPressedWithSelectedState(_:withCell:)))
+            if delegate().responds(to: #selector(SetupClassCellDelegate.delegateCellPressedWithSelectedState(_:withCell:)))
             {
                 delegate().delegateCellPressedWithSelectedState!(false, withCell:self)
                 
             }
         }
-        refrenceDeskImageView.bringSubviewToFront(EndCornerImageView)
+        refrenceDeskImageView.bringSubview(toFront: EndCornerImageView)
         
     }
     

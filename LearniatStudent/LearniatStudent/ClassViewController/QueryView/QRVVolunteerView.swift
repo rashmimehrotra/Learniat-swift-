@@ -32,29 +32,29 @@ class QRVVolunteerView: UIView
     
     
     
-    func setStudentImageWithId(studentId:String, withColor color:UIColor)
+    func setStudentImageWithId(_ studentId:String, withColor color:UIColor)
     {
         
-        let studentImageView = UIImageView(frame: CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
+        let studentImageView = CustomProgressImageView(frame: CGRect(x: 0,y: 0,width: self.frame.size.width,height: self.frame.size.height))
         self.addSubview(studentImageView)
         studentImageView.layer.cornerRadius = studentImageView.frame.size.width/2
         studentImageView.layer.masksToBounds = true
-        let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_UserProfileImageURL) as! String
-        if let checkedUrl = NSURL(string: "\(urlString)/\(studentId)_79px.jpg")
+        let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
+        if let checkedUrl = URL(string: "\(urlString)/\(studentId)_79px.jpg")
         {
-            studentImageView.contentMode = .ScaleAspectFit
-            studentImageView.downloadImage(checkedUrl, withFolderType: folderType.ProFilePics)
+            studentImageView.contentMode = .scaleAspectFit
+            studentImageView.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
         }
 
 
         
         
-        let borderCircle = UIImageView(frame: CGRectMake(self.frame.size.width - 10 ,0,10,10))
+        let borderCircle = UIImageView(frame: CGRect(x: self.frame.size.width - 10 ,y: 0,width: 10,height: 10))
         self.addSubview(borderCircle)
         borderCircle.layer.cornerRadius = borderCircle.frame.size.width/2
         borderCircle.layer.masksToBounds = true
         borderCircle.backgroundColor = color
-        borderCircle.layer.borderColor = UIColor.whiteColor().CGColor
+        borderCircle.layer.borderColor = UIColor.white.cgColor
         borderCircle.layer.borderWidth = 2
         
         

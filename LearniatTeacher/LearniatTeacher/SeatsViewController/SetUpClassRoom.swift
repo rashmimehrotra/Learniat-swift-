@@ -56,71 +56,71 @@ class SetUpClassRoom: UIViewController,SetupClassCellDelegate,SSTeacherDataSourc
         
         self.view.backgroundColor = whiteBackgroundColor
         
-        mTopbarImageView = UIImageView(frame: CGRectMake(0, 0, self.view.frame.size.width, (self.view.frame.size.height)/12))
+        mTopbarImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: (self.view.frame.size.height)/12))
         mTopbarImageView.backgroundColor = topbarColor
         self.view.addSubview(mTopbarImageView)
-        mTopbarImageView.userInteractionEnabled = true
-        mTopbarImageView.userInteractionEnabled = true
+        mTopbarImageView.isUserInteractionEnabled = true
+        mTopbarImageView.isUserInteractionEnabled = true
         
-        let  mBackButton = UIButton(frame: CGRectMake(10, 0,mTopbarImageView.frame.size.height * 2,mTopbarImageView.frame.size.height ))
+        let  mBackButton = UIButton(frame: CGRect(x: 10, y: 0,width: mTopbarImageView.frame.size.height * 2,height: mTopbarImageView.frame.size.height ))
         mTopbarImageView.addSubview(mBackButton)
-        mBackButton.setTitle("Back", forState: .Normal)
-        mBackButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        mBackButton.setTitle("Back", for: UIControlState())
+        mBackButton.setTitleColor(UIColor.white, for: UIControlState())
         mBackButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
-        mBackButton.addTarget(self, action: #selector(SetUpClassRoom.onBack), forControlEvents: UIControlEvents.TouchUpInside)
-        mBackButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
+        mBackButton.addTarget(self, action: #selector(SetUpClassRoom.onBack), for: UIControlEvents.touchUpInside)
+        mBackButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
         
         
-        let mPreallocateSeats = UILabel(frame: CGRectMake((mTopbarImageView.frame.size.width - 400)/2, 0, 400, mTopbarImageView.frame.size.height))
+        let mPreallocateSeats = UILabel(frame: CGRect(x: (mTopbarImageView.frame.size.width - 400)/2, y: 0, width: 400, height: mTopbarImageView.frame.size.height))
         mPreallocateSeats.font = UIFont(name:helveticaRegular, size: 20)
         mPreallocateSeats.text = "Setup classRoom seats "
         mTopbarImageView.addSubview(mPreallocateSeats)
-        mPreallocateSeats.textColor = UIColor.whiteColor()
-        mPreallocateSeats.textAlignment = .Center
+        mPreallocateSeats.textColor = UIColor.white
+        mPreallocateSeats.textAlignment = .center
         
         
         
         
-        registerdStudentsLable.frame =  CGRectMake(10,mTopbarImageView.frame.size.height + 10 ,self.view.frame.size.width - 20 ,mTopbarImageView.frame.size.height)
+        registerdStudentsLable.frame =  CGRect(x: 10,y: mTopbarImageView.frame.size.height + 10 ,width: self.view.frame.size.width - 20 ,height: mTopbarImageView.frame.size.height)
         self.view.addSubview(registerdStudentsLable)
         registerdStudentsLable.font = UIFont (name: helveticaRegular, size: 18)
         registerdStudentsLable.textColor = blackTextColor
-        registerdStudentsLable.textAlignment = .Center
+        registerdStudentsLable.textAlignment = .center
         registerdStudentsLable.text = "YOU CAN REMOVE SEATS TO MATCH THE REAL LIFE CLASSROOM"
         
         
         
-        mDoneButton.frame = CGRectMake(mTopbarImageView.frame.size.width - (mTopbarImageView.frame.size.height + 10), 0,mTopbarImageView.frame.size.height ,mTopbarImageView.frame.size.height )
+        mDoneButton.frame = CGRect(x: mTopbarImageView.frame.size.width - (mTopbarImageView.frame.size.height + 10), y: 0,width: mTopbarImageView.frame.size.height ,height: mTopbarImageView.frame.size.height )
         mTopbarImageView.addSubview(mDoneButton)
-        mDoneButton.setTitle("Done", forState: .Normal)
-        mDoneButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        mDoneButton.setTitle("Done", for: UIControlState())
+        mDoneButton.setTitleColor(UIColor.white, for: UIControlState())
         mDoneButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
-        mDoneButton.addTarget(self, action: #selector(SetUpClassRoom.onDoneButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mDoneButton.addTarget(self, action: #selector(SetUpClassRoom.onDoneButton), for: UIControlEvents.touchUpInside)
         
         
        
-        mGridContainerView.frame = CGRectMake(10,(registerdStudentsLable.frame.origin.y + registerdStudentsLable.frame.size.height + 5) ,self.view.frame.size.width - 20 ,self.view.frame.size.height - (registerdStudentsLable.frame.origin.y + registerdStudentsLable.frame.size.height + 50))
+        mGridContainerView.frame = CGRect(x: 10,y: (registerdStudentsLable.frame.origin.y + registerdStudentsLable.frame.size.height + 5) ,width: self.view.frame.size.width - 20 ,height: self.view.frame.size.height - (registerdStudentsLable.frame.origin.y + registerdStudentsLable.frame.size.height + 50))
         self.view.addSubview(mGridContainerView)
-        mGridContainerView.backgroundColor = UIColor.clearColor()
+        mGridContainerView.backgroundColor = UIColor.clear
         //        mGridContainerView.hidden = true
         
         
         
-        let mclassRoomFront = UILabel(frame: CGRectMake(10,self.view.frame.size.height - 40 , self.view.frame.size.width,30))
+        let mclassRoomFront = UILabel(frame: CGRect(x: 10,y: self.view.frame.size.height - 40 , width: self.view.frame.size.width,height: 30))
         mclassRoomFront.font = UIFont(name:helveticaMedium, size: 30)
         mclassRoomFront.text = "Classroom front"
         self.view.addSubview(mclassRoomFront)
         mclassRoomFront.textColor = standard_Green
-        mclassRoomFront.textAlignment = .Center
+        mclassRoomFront.textAlignment = .center
         
         addSeats()
         
         
         
-        mActivityIndicatore = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
+        mActivityIndicatore = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
         mActivityIndicatore.frame = mDoneButton.frame
         mTopbarImageView.addSubview(mActivityIndicatore)
-        mActivityIndicatore.hidden = true
+        mActivityIndicatore.isHidden = true
 
         
     }
@@ -130,7 +130,7 @@ class SetUpClassRoom: UIViewController,SetupClassCellDelegate,SSTeacherDataSourc
     
     // MARK: - datasource delegate Functions
     
-    func SetColumnValue(ColumnValue:Int , withRowvalue rowValue:Int, withMiniumSeats minSetas:Int, withCurrentSessionDetails SessionDetails:AnyObject )
+    func SetColumnValue(_ ColumnValue:Int , withRowvalue rowValue:Int, withMiniumSeats minSetas:Int, withCurrentSessionDetails SessionDetails:AnyObject )
     {
         
         currentColumnValue = ColumnValue
@@ -174,9 +174,9 @@ class SetUpClassRoom: UIViewController,SetupClassCellDelegate,SSTeacherDataSourc
             var positionX :CGFloat = barWidthSpace / 2
             for _ in 0 ..< currentColumnValue 
             {
-                let seatView = SetupClassCell(frame: CGRectMake(positionX, postionY, barWidthvalue, barHeight))
+                let seatView = SetupClassCell(frame: CGRect(x: positionX, y: postionY, width: barWidthvalue, height: barHeight))
                 mGridContainerView.addSubview(seatView)
-                seatView.backgroundColor = UIColor.clearColor()
+                seatView.backgroundColor = UIColor.clear
                 seatView.setdelegate(self)
                 positionX = positionX + barWidthvalue + barWidthSpace
                 seatView.currentSeatString = "A\(totalSeatvalue)"
@@ -195,10 +195,10 @@ class SetUpClassRoom: UIViewController,SetupClassCellDelegate,SSTeacherDataSourc
     
     func onBack()
     {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
-    func delegateCellPressedWithSelectedState(State: Bool, withCell seatCell: SetupClassCell) {
+    func delegateCellPressedWithSelectedState(_ State: Bool, withCell seatCell: SetupClassCell) {
         
         
         
@@ -208,9 +208,9 @@ class SetUpClassRoom: UIViewController,SetupClassCellDelegate,SSTeacherDataSourc
             seatCell.EndCornerImageView.image = UIImage(named: "Remove.png")
             seatCell.refrenceDeskImageView.borderColor = standard_Red;
             
-            if seatIdString.containsObject(seatCell.currentSeatString)
+            if seatIdString.contains(seatCell.currentSeatString)
             {
-                seatIdString.removeObject(seatCell.currentSeatString)
+                seatIdString.remove(seatCell.currentSeatString)
             }
             
             
@@ -227,22 +227,22 @@ class SetUpClassRoom: UIViewController,SetupClassCellDelegate,SSTeacherDataSourc
                 seatCell.refrenceDeskImageView.borderColor = standard_Green;
                 
                 
-                if seatIdString.containsObject(seatCell.currentSeatString)
+                if seatIdString.contains(seatCell.currentSeatString)
                 {
                     
                 }
                 else
                 {
-                    seatIdString.addObject(seatCell.currentSeatString)
+                    seatIdString.add(seatCell.currentSeatString)
                 }
 
                
             }
             else
             {
-                let alert = UIAlertController(title: "Alert", message: "You cannot delete more seats", preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(alert, animated: true, completion: nil)
+                let alert = UIAlertController(title: "Alert", message: "You cannot delete more seats", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
 
             }
             
@@ -253,16 +253,16 @@ class SetUpClassRoom: UIViewController,SetupClassCellDelegate,SSTeacherDataSourc
     func onDoneButton()
     {
         
-        mActivityIndicatore.hidden = false
+        mActivityIndicatore.isHidden = false
         
-        mDoneButton.hidden = true
+        mDoneButton.isHidden = true
         
         mActivityIndicatore.startAnimating()
         
-        let seatsRemovedString = seatIdString.componentsJoinedByString(",")
+        let seatsRemovedString = seatIdString.componentsJoined(by: ",")
         
         
-        if let roomId = _currentSessionDetails.objectForKey("RoomId") as? String
+        if let roomId = _currentSessionDetails.object(forKey: "RoomId") as? String
         {
             SSTeacherDataSource.sharedDataSource.ConfigureSeatsWithRoomId(roomId, withRows: "\(currentRowValue)", withColumnValue: "\(currentColumnValue)", withRemovedSeats: seatsRemovedString, WithDelegate: self)
         }
@@ -271,32 +271,32 @@ class SetUpClassRoom: UIViewController,SetupClassCellDelegate,SSTeacherDataSourc
     }
     
     
-    func didGetSeatsConfiguredWithDetails(details: AnyObject)
+    func didGetSeatsConfiguredWithDetails(_ details: AnyObject)
     {
         
-        mActivityIndicatore.hidden = true
+        mActivityIndicatore.isHidden = true
         
-        mDoneButton.hidden = false
+        mDoneButton.isHidden = false
         
         mActivityIndicatore.stopAnimating()
         
         
             let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let preallotController : PreallocateSeatViewController = storyboard.instantiateViewControllerWithIdentifier("PreallocateSeatViewController") as! PreallocateSeatViewController
+            let preallotController : PreallocateSeatViewController = storyboard.instantiateViewController(withIdentifier: "PreallocateSeatViewController") as! PreallocateSeatViewController
     
             preallotController.setCurrentSessionDetails(_currentSessionDetails)
-            self.presentViewController(preallotController, animated: true, completion: nil)
+            self.present(preallotController, animated: true, completion: nil)
         
 
         
         
     }
     
-    func didgetErrorMessage(message: String, WithServiceName serviceName: String)
+    func didgetErrorMessage(_ message: String, WithServiceName serviceName: String)
     {
-        mActivityIndicatore.hidden = true
+        mActivityIndicatore.isHidden = true
         
-        mDoneButton.hidden = true
+        mDoneButton.isHidden = true
         
         mActivityIndicatore.stopAnimating()
         

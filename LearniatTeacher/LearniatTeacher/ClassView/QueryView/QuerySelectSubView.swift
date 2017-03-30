@@ -12,7 +12,7 @@ class QuerySelectSubView: UIView
 {
     var _delgate: AnyObject!
     
-    var currentQueryDetails:AnyObject!
+    var currentQueryDetails = NSMutableDictionary()
     
     var mStudentImage        = CustomProgressImageView()
     
@@ -37,7 +37,7 @@ class QuerySelectSubView: UIView
         
         super.init(frame:frame)
         
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.white
         
         
         
@@ -48,48 +48,48 @@ class QuerySelectSubView: UIView
         
         
         
-        mStudentImage.frame = CGRectMake(40,10 , 40 ,40)
+        mStudentImage.frame = CGRect(x: 40,y: 10 , width: 40 ,height: 40)
         self.addSubview(mStudentImage)
-        mStudentImage.backgroundColor = UIColor.clearColor()
+        mStudentImage.backgroundColor = UIColor.clear
         mStudentImage.layer.cornerRadius = mStudentImage.frame.size.width/16;
         mStudentImage.layer.masksToBounds = true
         
         
-         m_checkBoxButton.frame = CGRectMake(0, 10, 100,40)
+         m_checkBoxButton.frame = CGRect(x: 0, y: 10, width: 100,height: 40)
         self.addSubview(m_checkBoxButton);
         
-        checkBoxImage.frame = CGRectMake(10  ,10 + (m_checkBoxButton.frame.size .height - 20) / 2,20,20)
+        checkBoxImage.frame = CGRect(x: 10  ,y: 10 + (m_checkBoxButton.frame.size .height - 20) / 2,width: 20,height: 20)
         
         checkBoxImage.image = UIImage(named:"Checked.png");
         
         self.addSubview(checkBoxImage);
-        m_checkBoxButton.addTarget(self, action: #selector(QuerySelectSubView.checkMarkPressed), forControlEvents: UIControlEvents.TouchUpInside)
+        m_checkBoxButton.addTarget(self, action: #selector(QuerySelectSubView.checkMarkPressed), for: UIControlEvents.touchUpInside)
 
         
         
       
-        mStudentName.frame = CGRectMake(mStudentImage.frame.origin.x + mStudentImage.frame.size.width + 10,mStudentImage.frame.origin.y,400,mStudentImage.frame.size.height / 1.8)
-        mStudentName.textAlignment = .Center;
+        mStudentName.frame = CGRect(x: mStudentImage.frame.origin.x + mStudentImage.frame.size.width + 10,y: mStudentImage.frame.origin.y,width: 400,height: mStudentImage.frame.size.height / 1.8)
+        mStudentName.textAlignment = .center;
         mStudentName.textColor = blackTextColor
         self.addSubview(mStudentName)
-        mStudentName.backgroundColor = UIColor.clearColor()
-        mStudentName.textAlignment = .Left;
+        mStudentName.backgroundColor = UIColor.clear
+        mStudentName.textAlignment = .left;
         mStudentName.font = UIFont(name: helveticaMedium, size: 18)
-        mStudentName.contentMode = .Top;
+        mStudentName.contentMode = .top;
 
         
         
-        mQueryLabel.frame = CGRectMake(mStudentName.frame.origin.x,mStudentImage.frame.origin.y + mStudentImage.frame.size.height  ,self.frame.size.width - mStudentName.frame.origin.x ,mStudentImage.frame.size.height / 2)
-        mQueryLabel.textAlignment = .Left;
+        mQueryLabel.frame = CGRect(x: mStudentName.frame.origin.x,y: mStudentImage.frame.origin.y + mStudentImage.frame.size.height  ,width: self.frame.size.width - mStudentName.frame.origin.x ,height: mStudentImage.frame.size.height / 2)
+        mQueryLabel.textAlignment = .left;
         mQueryLabel.textColor = blackTextColor
         self.addSubview(mQueryLabel)
-        mQueryLabel.backgroundColor = UIColor.clearColor()
+        mQueryLabel.backgroundColor = UIColor.clear
         mQueryLabel.font = UIFont(name: helveticaRegular, size: 18)
-        mQueryLabel.lineBreakMode = .ByTruncatingMiddle
+        mQueryLabel.lineBreakMode = .byTruncatingMiddle
         mQueryLabel.numberOfLines = 20
         
         
-        AllowVolunteerSwitch.frame =  CGRectMake(self.frame.size.width - 80, 10, 80, 30)
+        AllowVolunteerSwitch.frame =  CGRect(x: self.frame.size.width - 80, y: 10, width: 80, height: 30)
         self.addSubview(AllowVolunteerSwitch)
         AllowVolunteerSwitch.setOn(true, animated: true)
         
@@ -97,12 +97,12 @@ class QuerySelectSubView: UIView
         
         
         
-        let AllowVolunteerlabel = UILabel(frame: CGRectMake(AllowVolunteerSwitch.frame.origin.x - 130, 10, 120, 30))
+        let AllowVolunteerlabel = UILabel(frame: CGRect(x: AllowVolunteerSwitch.frame.origin.x - 130, y: 10, width: 120, height: 30))
         AllowVolunteerlabel.text = "Allow volunteer"
         self.addSubview(AllowVolunteerlabel)
-        AllowVolunteerlabel.textColor = UIColor.lightGrayColor()
+        AllowVolunteerlabel.textColor = UIColor.lightGray
        AllowVolunteerlabel.font = UIFont(name: helveticaRegular, size: 12)
-        AllowVolunteerlabel.textAlignment = .Right
+        AllowVolunteerlabel.textAlignment = .right
         
         
         
@@ -113,7 +113,7 @@ class QuerySelectSubView: UIView
     }
     
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -124,18 +124,18 @@ class QuerySelectSubView: UIView
     }
     
     
-    func setQueryWithDetails(details:AnyObject) -> CGFloat
+    func setQueryWithDetails(_ details:AnyObject) -> CGFloat
     {
-        currentQueryDetails = details
+        currentQueryDetails = details as! NSMutableDictionary
         var getQueryHeight :CGFloat = 80
         
         
-        if let queryText = details.objectForKey("QueryText") as? String
+        if let queryText = details.object(forKey: "QueryText") as? String
         {
             getQueryHeight = queryText.heightForView(queryText, font: mQueryLabel.font, width: mQueryLabel.frame.size.width)
             
             mQueryLabel.text = queryText
-            mQueryLabel.frame = CGRectMake(mQueryLabel.frame.origin.x ,mQueryLabel.frame.origin.y - 5 ,mQueryLabel.frame.size.width,getQueryHeight)
+            mQueryLabel.frame = CGRect(x: mQueryLabel.frame.origin.x ,y: mQueryLabel.frame.origin.y - 5 ,width: mQueryLabel.frame.size.width,height: getQueryHeight)
             getQueryHeight = getQueryHeight + 60
         }
         
@@ -147,37 +147,37 @@ class QuerySelectSubView: UIView
         
         
         
-        if let StudentName = currentQueryDetails.objectForKey("StudentName") as? String
+        if let StudentName = currentQueryDetails.object(forKey: "StudentName") as? String
         {
             mStudentName.text       = StudentName
         }
         
         
-        if let StudentId = currentQueryDetails.objectForKey("StudentId") as? String
+        if let StudentId = currentQueryDetails.object(forKey: "StudentId") as? String
         {
-            let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_UserProfileImageURL) as! String
+            let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
             
-            if let checkedUrl = NSURL(string: "\(urlString)/\(StudentId)_79px.jpg")
+            if let checkedUrl = URL(string: "\(urlString)/\(StudentId)_79px.jpg")
             {
-                mStudentImage.contentMode = .ScaleAspectFit
-                mStudentImage.downloadImage(checkedUrl, withFolderType: folderType.ProFilePics)
+                mStudentImage.contentMode = .scaleAspectFit
+                mStudentImage.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
             }
         }
         
         
-        if let QueryId = details.objectForKey("QueryId") as? String
+        if let QueryId = details.object(forKey: "QueryId") as? String
         {
-            currentQueryDetails.setObject(QueryId, forKey: "QueryId")
+            currentQueryDetails.setObject(QueryId, forKey: "QueryId" as NSCopying)
         }
         
         
-        if let StudentId = details.objectForKey("StudentId") as? String
+        if let StudentId = details.object(forKey: "StudentId") as? String
         {
-            currentQueryDetails.setObject(StudentId, forKey: "StudentId")
+            currentQueryDetails.setObject(StudentId, forKey: "StudentId" as NSCopying)
         }
         
         
-         m_checkBoxButton.frame = CGRectMake(0, 00, self.frame.size.width,getQueryHeight)
+         m_checkBoxButton.frame = CGRect(x: 0, y: 00, width: self.frame.size.width,height: getQueryHeight)
         
         return getQueryHeight
         
@@ -191,7 +191,7 @@ class QuerySelectSubView: UIView
             checkBoxImage.image = UIImage(named:"Unchecked.png");
             AllowVolunteerSwitch.setOn(false, animated: true)
             isSelected = false
-            self.backgroundColor = UIColor.clearColor()
+            self.backgroundColor = UIColor.clear
             
         }
         else
@@ -199,7 +199,7 @@ class QuerySelectSubView: UIView
             checkBoxImage.image = UIImage(named:"Checked.png");
             AllowVolunteerSwitch.setOn(true, animated: true)
             isSelected = true
-             self.backgroundColor = UIColor.whiteColor()
+             self.backgroundColor = UIColor.white
         }
     }
     
@@ -207,7 +207,7 @@ class QuerySelectSubView: UIView
     
     func getQueryState() -> (checkMarkState:Bool, AllowVolunteerState:Bool,  QueryDetails:AnyObject )
     {
-        return (isSelected, AllowVolunteerSwitch.on, currentQueryDetails)
+        return (isSelected, AllowVolunteerSwitch.isOn, currentQueryDetails)
     }
     
     

@@ -13,10 +13,10 @@ import Foundation
 {
     
     
-    optional func delegateQueryDownloadedWithDetails(queryDetails:AnyObject)
+    @objc optional func delegateQueryDownloadedWithDetails(_ queryDetails:AnyObject)
     
     
-    optional func delegateQueryDeletedWithDetails(queryDetails:AnyObject)
+    @objc optional func delegateQueryDeletedWithDetails(_ queryDetails:AnyObject)
     
     
 }
@@ -47,32 +47,32 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
         super.init(frame:frame)
         
         mScrollView = UIScrollView()
-        mScrollView.frame = CGRectMake(0, 50, self.frame.size.width, self.frame.size.height - 50 )
+        mScrollView.frame = CGRect(x: 0, y: 50, width: self.frame.size.width, height: self.frame.size.height - 50 )
         self.addSubview(mScrollView)
         mScrollView.backgroundColor = whiteBackgroundColor
         
         
-        mTopImageView.frame = CGRectMake(0, 0, self.frame.size.width, 50)
+        mTopImageView.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: 50)
         self.addSubview(mTopImageView)
-        mTopImageView.backgroundColor = UIColor.whiteColor()
-        mTopImageView.userInteractionEnabled = true
+        mTopImageView.backgroundColor = UIColor.white
+        mTopImageView.isUserInteractionEnabled = true
         
         
-        mSocialRankingButton.frame = CGRectMake(self.frame.size.width - 130, 0, 120, mTopImageView.frame.size.height)
-        mSocialRankingButton.setTitle("Social ranking", forState: .Normal)
+        mSocialRankingButton.frame = CGRect(x: self.frame.size.width - 130, y: 0, width: 120, height: mTopImageView.frame.size.height)
+        mSocialRankingButton.setTitle("Social ranking", for: UIControlState())
         mTopImageView.addSubview(mSocialRankingButton)
-        mSocialRankingButton.setTitleColor(standard_Button, forState: .Normal)
-        mSocialRankingButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
-        mSocialRankingButton.addTarget(self, action: #selector(SSTeacherQueryView.onSocialRankingButton), forControlEvents: .TouchUpInside)
-        mQueryCountLabel.frame = CGRectMake(10, 0, 120, mTopImageView.frame.size.height)
+        mSocialRankingButton.setTitleColor(standard_Button, for: UIControlState())
+        mSocialRankingButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
+        mSocialRankingButton.addTarget(self, action: #selector(SSTeacherQueryView.onSocialRankingButton), for: .touchUpInside)
+        mQueryCountLabel.frame = CGRect(x: 10, y: 0, width: 120, height: mTopImageView.frame.size.height)
         self.addSubview(mQueryCountLabel)
         
-        noSubmissionLabel.frame = CGRectMake(0, (self.frame.size.height - 300)/2, self.frame.size.width, 300)
+        noSubmissionLabel.frame = CGRect(x: 0, y: (self.frame.size.height - 300)/2, width: self.frame.size.width, height: 300)
         self.addSubview(noSubmissionLabel)
         noSubmissionLabel.text = "There are no student queries pending"
         noSubmissionLabel.textColor = blackTextColor
-        noSubmissionLabel.hidden = false
-        noSubmissionLabel.textAlignment = .Center
+        noSubmissionLabel.isHidden = false
+        noSubmissionLabel.textAlignment = .center
         noSubmissionLabel.font =  UIFont(name: helveticaMedium, size: 35);
 
        
@@ -84,7 +84,7 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
     }
     
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -94,7 +94,7 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
         return _delgate;
     }
     
-    func queryWithDrawnWithQueryId(queryId:String)
+    func queryWithDrawnWithQueryId(_ queryId:String)
     {
         if let studentqueryView  = mScrollView.viewWithTag(Int(queryId)!) as? QuerySubview
         {
@@ -103,34 +103,34 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
         refreshScrollView()
     }
     
-    func addQueryWithDetails(QueryId:String)
+    func addQueryWithDetails(_ QueryId:String)
     {
         
         SSTeacherDataSource.sharedDataSource.getQueryWithQueryId(QueryId, WithDelegate: self)
     }
     
     
-    func didGetQueryWithDetails(details: AnyObject)
+    func didGetQueryWithDetails(_ details: AnyObject)
     {
         
         
         
-        if let queryDetails = details.objectForKey("Query") 
+        if let queryDetails = details.object(forKey: "Query") 
         {
             
             
-            if delegate().respondsToSelector(#selector(SSTeacherQueryViewDelegate.delegateQueryDownloadedWithDetails(_:)))
+            if delegate().responds(to: #selector(SSTeacherQueryViewDelegate.delegateQueryDownloadedWithDetails(_:)))
             {
-                delegate().delegateQueryDownloadedWithDetails!(queryDetails)
+                delegate().delegateQueryDownloadedWithDetails!(queryDetails as AnyObject)
             }
             
-            let mQuerySubView = QuerySubview(frame: CGRectMake(10 , currentYPosition, self.frame.size.width - 20 ,80))
+            let mQuerySubView = QuerySubview(frame: CGRect(x: 10 , y: currentYPosition, width: self.frame.size.width - 20 ,height: 80))
             mScrollView.addSubview(mQuerySubView)
             mQuerySubView.setdelegate(self)
             
-            mQuerySubView.frame = CGRectMake(10 , currentYPosition, self.frame.size.width - 20 ,mQuerySubView.setQueryWithDetails(queryDetails))
+            mQuerySubView.frame = CGRect(x: 10 , y: currentYPosition, width: self.frame.size.width - 20 ,height: mQuerySubView.setQueryWithDetails(queryDetails as AnyObject))
             
-            if let QueryId = queryDetails.objectForKey("QueryId") as? String
+            if let QueryId = (queryDetails as AnyObject).object(forKey: "QueryId") as? String
             {
                 mQuerySubView.tag = Int(QueryId)!
             }
@@ -155,11 +155,11 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
         let subViews = mScrollView.subviews
         for mQuerySubView in subViews
         {
-            if mQuerySubView.isKindOfClass(QuerySubview)
+            if mQuerySubView.isKind(of: QuerySubview.self)
             {
-                UIView.animateWithDuration(0.2, animations:
+                UIView.animate(withDuration: 0.2, animations:
                     {
-                        mQuerySubView.frame = CGRectMake(mQuerySubView.frame.origin.x ,self.currentYPosition,mQuerySubView.frame.size.width,mQuerySubView.frame.size.height)
+                        mQuerySubView.frame = CGRect(x: mQuerySubView.frame.origin.x ,y: self.currentYPosition,width: mQuerySubView.frame.size.width,height: mQuerySubView.frame.size.height)
                 })
                 
                
@@ -182,31 +182,31 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
         
         if queryCount > 0
         {
-            mSocialRankingButton.setTitleColor(standard_Button, forState: .Normal)
-            mSocialRankingButton.enabled = true
-            noSubmissionLabel.hidden = true
+            mSocialRankingButton.setTitleColor(standard_Button, for: UIControlState())
+            mSocialRankingButton.isEnabled = true
+            noSubmissionLabel.isHidden = true
         }
         else
         {
-            mSocialRankingButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
-            mSocialRankingButton.enabled = false
-            noSubmissionLabel.hidden = false
+            mSocialRankingButton.setTitleColor(UIColor.lightGray, for: UIControlState())
+            mSocialRankingButton.isEnabled = false
+            noSubmissionLabel.isHidden = false
         }
         
-        mScrollView.contentSize = CGSizeMake(0, currentYPosition)
+        mScrollView.contentSize = CGSize(width: 0, height: currentYPosition)
         
     }
     
     
-    func delegateTextReplyButtonPressedWithDetails(queryDetails: AnyObject, withButton textButton: UIButton) {
+    func delegateTextReplyButtonPressedWithDetails(_ queryDetails: AnyObject, withButton textButton: UIButton) {
         
         
         
          
         let _ratingsPopoverController = RatingsPopOverViewController()
-        if let QueryId = queryDetails.objectForKey("QueryId") as? String
+        if let QueryId = queryDetails.object(forKey: "QueryId") as? String
         {
-             _ratingsPopoverController.addTextViewWithDoneButtonWithQueryId(QueryId)
+             _ratingsPopoverController.addTextViewWithDoneButton(withQueryId: QueryId)
         }
        
         let navController = UINavigationController(rootViewController: _ratingsPopoverController)
@@ -214,14 +214,14 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
         _ratingsPopoverController.setDelegate(self)
         
         let PopoverControllerRatings = UIPopoverController(contentViewController: navController)
-        PopoverControllerRatings.popoverContentSize = CGSizeMake(300,100);
+        PopoverControllerRatings.contentSize = CGSize(width: 300,height: 100);
         PopoverControllerRatings.delegate = self;
-        navController.navigationBarHidden = true;
-        _ratingsPopoverController.setPopOverController(PopoverControllerRatings)
+        navController.isNavigationBarHidden = true;
+        _ratingsPopoverController.setPopOver(PopoverControllerRatings)
         
-        let buttonPosition :CGPoint = textButton.convertPoint(CGPointZero, toView: self)
+        let buttonPosition :CGPoint = textButton.convert(CGPoint.zero, to: self)
         
-        PopoverControllerRatings.presentPopoverFromRect(CGRectMake(buttonPosition.x + (textButton.frame.size.width / 2) ,buttonPosition.y + textButton.frame.size.height  , 1, 1), inView: self, permittedArrowDirections: .Up, animated: true)
+        PopoverControllerRatings.present(from: CGRect(x: buttonPosition.x + (textButton.frame.size.width / 2) ,y: buttonPosition.y + textButton.frame.size.height  , width: 1, height: 1), in: self, permittedArrowDirections: .up, animated: true)
         
         
     }
@@ -230,10 +230,10 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
     
     
     
-    func delegateDismissButtonPressedWithDetails(queryDetails: AnyObject) {
+    func delegateDismissButtonPressedWithDetails(_ queryDetails: AnyObject) {
         
         
-        if let QueryId = queryDetails.objectForKey("QueryId") as? String
+        if let QueryId = queryDetails.object(forKey: "QueryId") as? String
         {
             if let studentqueryView  = mScrollView.viewWithTag(Int(QueryId)!) as? QuerySubview
             {
@@ -242,7 +242,7 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
                 
                studentqueryView.removeFromSuperview()
                 
-                if delegate().respondsToSelector(#selector(SSTeacherQueryViewDelegate.delegateQueryDeletedWithDetails(_:)))
+                if delegate().responds(to: #selector(SSTeacherQueryViewDelegate.delegateQueryDeletedWithDetails(_:)))
                 {
                     delegate().delegateQueryDeletedWithDetails!(queryDetails)
                 }
@@ -264,15 +264,15 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
         
         for mQuerySubView in subViews
         {
-            if mQuerySubView.isKindOfClass(QuerySubview)
+            if mQuerySubView.isKind(of: QuerySubview.self)
             {
-              studentsQueryArray.addObject(mQuerySubView.currentQueryDetails)
+              studentsQueryArray.add(mQuerySubView.currentQueryDetails)
             }
         }
         
         if studentsQueryArray.count > 0
         {
-            let querySelectView = SSTeacherQuerySelectView(frame: CGRectMake(0 , 0 , self.frame.size.width, self.frame.size.height))
+            let querySelectView = SSTeacherQuerySelectView(frame: CGRect(x: 0 , y: 0 , width: self.frame.size.width, height: self.frame.size.height))
             self.addSubview(querySelectView)
             querySelectView.setdelegate(self)
             querySelectView.addQueriesWithDetails(studentsQueryArray)
@@ -281,11 +281,11 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
     }
     
     
-    func delegateQueriesSelectedForVolunteer(queryDetails: NSMutableArray)
+    func delegateQueriesSelectedForVolunteer(_ queryDetails: NSMutableArray)
     {
         SSTeacherMessageHandler.sharedMessageHandler.sendVolunteerVoteStartedMessgeToStudents(SSTeacherDataSource.sharedDataSource.currentLiveSessionId)
         
-         queryVolunteerView = SSTeacherVolunteerView(frame: CGRectMake(0 , 0 , self.frame.size.width, self.frame.size.height))
+         queryVolunteerView = SSTeacherVolunteerView(frame: CGRect(x: 0 , y: 0 , width: self.frame.size.width, height: self.frame.size.height))
         self.addSubview(queryVolunteerView)
         queryVolunteerView.setdelegate(self)
         queryVolunteerView.addQueriesWithDetails(queryDetails)
@@ -293,21 +293,21 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
     }
     
     
-    func delegateVolunteerSessionEndedWithRemainingqueries(queryIdArray: NSMutableArray) {
+    func delegateVolunteerSessionEndedWithRemainingqueries(_ queryIdArray: NSMutableArray) {
         
         
         let subViews = mScrollView.subviews.flatMap{ $0 as? QuerySubview }
         for studentqueryView in subViews
         {
-            if studentqueryView.isKindOfClass(QuerySubview)
+            if studentqueryView.isKind(of: QuerySubview.self)
             {
-                if queryIdArray.containsObject("\(studentqueryView.tag)")
+                if queryIdArray.contains("\(studentqueryView.tag)")
                 {
                     
                 }
                 else
                 {
-                    if delegate().respondsToSelector(#selector(SSTeacherQueryViewDelegate.delegateQueryDeletedWithDetails(_:)))
+                    if delegate().responds(to: #selector(SSTeacherQueryViewDelegate.delegateQueryDeletedWithDetails(_:)))
                     {
                         delegate().delegateQueryDeletedWithDetails!(studentqueryView.currentQueryDetails)
                         studentqueryView.removeFromSuperview()
@@ -325,7 +325,7 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
     
     // MARK: - Query Volunteer  functions
     
-    func studentRaisedMeeToWithDetial(details:AnyObject)
+    func studentRaisedMeeToWithDetial(_ details:AnyObject)
     {
         if queryVolunteerView != nil
         {
@@ -334,7 +334,7 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
        
     }
     
-    func studentVolunteerRaisedWithDetails(details:AnyObject)
+    func studentVolunteerRaisedWithDetails(_ details:AnyObject)
     {
         if queryVolunteerView != nil
         {
@@ -344,7 +344,7 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
     }
     
     
-    func studentNewVoteRaised(studentId:String, withVote vote:String, withTotalStudents totalStudents:Int)
+    func studentNewVoteRaised(_ studentId:String, withVote vote:String, withTotalStudents totalStudents:Int)
     {
         if queryVolunteerView != nil
         {
@@ -353,7 +353,7 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
     }
     
     
-    func studentUnderstoodQueryWithId(queryId:String, withStudentId StudentId:String)
+    func studentUnderstoodQueryWithId(_ queryId:String, withStudentId StudentId:String)
     {
         if queryVolunteerView != nil
         {
@@ -363,7 +363,7 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
     
     // MARK: - Query Volunteer  functions
     
-    func delegatePopoverDoneButtonPressedWithText(text: String!, withQueryID queryId: String!)
+    func delegatePopoverDoneButtonPressed(withText text: String!, withQueryID queryId: String!)
     {
         if let studentqueryView  = mScrollView.viewWithTag(Int(queryId)!) as? QuerySubview
         {

@@ -42,81 +42,81 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSou
         self.view.backgroundColor = whiteBackgroundColor
         
         
-        let appLogo = UIImageView(frame: CGRectMake((self.view.frame.size.width - 80 )/2, 80, 80, 80))
+        let appLogo = UIImageView(frame: CGRect(x: (self.view.frame.size.width - 80 )/2, y: 80, width: 80, height: 80))
         appLogo.image = UIImage(named:"Teacher _app_icon.png")
         self.view.addSubview(appLogo)
         
-        mContainerView = UIView(frame: CGRectMake((self.view.frame.size.width - 300 )/2, 200, 300,200))
-        mContainerView.backgroundColor = UIColor.clearColor()
+        mContainerView = UIView(frame: CGRect(x: (self.view.frame.size.width - 300 )/2, y: 200, width: 300,height: 200))
+        mContainerView.backgroundColor = UIColor.clear
         self.view.addSubview(mContainerView)
         
         
-        mUserName = UITextField(frame: CGRectMake(10,10,280,40))
+        mUserName = UITextField(frame: CGRect(x: 10,y: 10,width: 280,height: 40))
         mUserName.placeholder = "Username"
         mContainerView.addSubview(mUserName)
-        mUserName.borderStyle = .RoundedRect
+        mUserName.borderStyle = .roundedRect
         mUserName.delegate  = self
-        mUserName.autocapitalizationType = .None
-        mUserName.autocorrectionType = .No
+        mUserName.autocapitalizationType = .none
+        mUserName.autocorrectionType = .no
         
-        mPassword = UITextField(frame: CGRectMake(10,mUserName.frame.origin.y + mUserName.frame.size.height + 20,280,40))
+        mPassword = UITextField(frame: CGRect(x: 10,y: mUserName.frame.origin.y + mUserName.frame.size.height + 20,width: 280,height: 40))
         mPassword.placeholder = "Password"
         mContainerView.addSubview(mPassword)
-        mPassword.borderStyle = .RoundedRect
+        mPassword.borderStyle = .roundedRect
         mPassword.delegate  = self
-        mPassword.autocapitalizationType = .None
-        mPassword.autocorrectionType = .No
-        mPassword.secureTextEntry = true
+        mPassword.autocapitalizationType = .none
+        mPassword.autocorrectionType = .no
+        mPassword.isSecureTextEntry = true
         
        
-        mSignUpButton =  UIButton(frame: CGRectMake(10, mPassword.frame.origin.y + mPassword.frame.size.height + 20, 120,40))
+        mSignUpButton =  UIButton(frame: CGRect(x: 10, y: mPassword.frame.origin.y + mPassword.frame.size.height + 20, width: 120,height: 40))
         mContainerView.addSubview(mSignUpButton)
-        mSignUpButton.setTitleColor(standard_Green, forState: .Normal)
-        mSignUpButton.layer.borderColor = standard_Green.CGColor
+        mSignUpButton.setTitleColor(standard_Green, for: UIControlState())
+        mSignUpButton.layer.borderColor = standard_Green.cgColor
         mSignUpButton.layer.borderWidth = 1
         mSignUpButton.layer.masksToBounds = true
         mSignUpButton.layer.cornerRadius = 5
-        mSignUpButton.setTitle("Sign Up", forState: .Normal)
+        mSignUpButton.setTitle("Sign Up", for: UIControlState())
         mSignUpButton.titleLabel?.font = UIFont(name:helveticaMedium, size: 20)
-        mSignUpButton.addTarget(self, action: #selector(LoginViewController.onSignUpButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        mSignUpButton.addTarget(self, action: #selector(LoginViewController.onSignUpButton(_:)), for: UIControlEvents.touchUpInside)
         
         
         
-        mLoginButton =  UIButton(frame: CGRectMake(mContainerView.frame.size.width - 130, mPassword.frame.origin.y + mPassword.frame.size.height + 20, 120,40))
+        mLoginButton =  UIButton(frame: CGRect(x: mContainerView.frame.size.width - 130, y: mPassword.frame.origin.y + mPassword.frame.size.height + 20, width: 120,height: 40))
         mContainerView.addSubview(mLoginButton)
-        mLoginButton.setTitleColor(standard_Button, forState: .Normal)
-        mLoginButton.layer.borderColor = standard_Button.CGColor
+        mLoginButton.setTitleColor(standard_Button, for: UIControlState())
+        mLoginButton.layer.borderColor = standard_Button.cgColor
         mLoginButton.layer.borderWidth = 1
         mLoginButton.layer.masksToBounds = true
         mLoginButton.layer.cornerRadius = 5
-        mLoginButton.setTitle("Login", forState: .Normal)
+        mLoginButton.setTitle("Login", for: UIControlState())
         mLoginButton.titleLabel?.font = UIFont(name:helveticaMedium, size: 20)
-        mLoginButton.addTarget(self, action: #selector(LoginViewController.onLoginButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        mLoginButton.addTarget(self, action: #selector(LoginViewController.onLoginButton(_:)), for: UIControlEvents.touchUpInside)
         
-        mActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-        mActivityIndicator.frame = CGRectMake(mContainerView.frame.size.width - 40, mPassword.frame.origin.y + mPassword.frame.size.height + 30, 20,20)
+        mActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        mActivityIndicator.frame = CGRect(x: mContainerView.frame.size.width - 40, y: mPassword.frame.origin.y + mPassword.frame.size.height + 30, width: 20,height: 20)
         mContainerView.addSubview(mActivityIndicator)
-        mActivityIndicator.hidden = true
+        mActivityIndicator.isHidden = true
         
         
         
         
 
-        mActivityIndicator.hidden = true
+        mActivityIndicator.isHidden = true
         
         
         
-        if  let userName = NSUserDefaults.standardUserDefaults().objectForKey(kUserName) as? String
+        if  let userName = UserDefaults.standard.object(forKey: kUserName) as? String
         {
              mUserName.text = userName
             
             
-           if let password  =  NSUserDefaults.standardUserDefaults().objectForKey(kPassword) as? String
+           if let password  =  UserDefaults.standard.object(forKey: kPassword) as? String
            {
             
                 mPassword.text  = password
             
-               if let userId = NSUserDefaults.standardUserDefaults().objectForKey(kUserId) as? String
+               if let userId = UserDefaults.standard.object(forKey: kUserId) as? String
                {
                 SSTeacherDataSource.sharedDataSource.setdelegate(self)
                 SSTeacherDataSource.sharedDataSource.getUserState(userId, withDelegate: self)
@@ -143,7 +143,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSou
     
     
     
-    func onLoginButton(sender: UIButton)
+    func onLoginButton(_ sender: UIButton)
     {
         if mUserName.text!.isEmpty || mPassword.text!.isEmpty
         {
@@ -157,52 +157,52 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSou
     }
    
     
-    func onSignUpButton(sender: UIButton)
+    func onSignUpButton(_ sender: UIButton)
     {
         
     }
     
     
     
-    func loginButtonPressed(state:Bool)
+    func loginButtonPressed(_ state:Bool)
     {
         if state == true
         {
-            mUserName.enabled = false
-            mPassword.enabled = false
-            mLoginButton.enabled = false
-            mSignUpButton.enabled = false
-            mActivityIndicator.hidden = false
+            mUserName.isEnabled = false
+            mPassword.isEnabled = false
+            mLoginButton.isEnabled = false
+            mSignUpButton.isEnabled = false
+            mActivityIndicator.isHidden = false
             mActivityIndicator.startAnimating()
             
-            mSignUpButton.setTitleColor(lightGrayColor, forState: .Normal)
-            mSignUpButton.layer.borderColor = lightGrayColor.CGColor
+            mSignUpButton.setTitleColor(lightGrayColor, for: UIControlState())
+            mSignUpButton.layer.borderColor = lightGrayColor.cgColor
             
-            mLoginButton.setTitleColor(lightGrayColor, forState: .Normal)
-            mLoginButton.layer.borderColor = lightGrayColor.CGColor
+            mLoginButton.setTitleColor(lightGrayColor, for: UIControlState())
+            mLoginButton.layer.borderColor = lightGrayColor.cgColor
 
         }
         else
         {
             
-            mUserName.enabled = true
-            mPassword.enabled = true
-            mLoginButton.enabled = true
-            mSignUpButton.enabled = true
-            mActivityIndicator.hidden = true
+            mUserName.isEnabled = true
+            mPassword.isEnabled = true
+            mLoginButton.isEnabled = true
+            mSignUpButton.isEnabled = true
+            mActivityIndicator.isHidden = true
             mActivityIndicator.stopAnimating()
             
-            mSignUpButton.setTitleColor(standard_Green, forState: .Normal)
-            mSignUpButton.layer.borderColor = standard_Green.CGColor
+            mSignUpButton.setTitleColor(standard_Green, for: UIControlState())
+            mSignUpButton.layer.borderColor = standard_Green.cgColor
            
-            mLoginButton.setTitleColor(standard_Button, forState: .Normal)
-            mLoginButton.layer.borderColor = standard_Button.CGColor
+            mLoginButton.setTitleColor(standard_Button, for: UIControlState())
+            mLoginButton.layer.borderColor = standard_Button.cgColor
 
         }
     }
     
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool
     {
     
         let nextTage=textField.tag+1;
@@ -231,32 +231,32 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSou
      // MARK: - Teacher datasource Delegate
     
     
-    func didGetloginWithDetails(details: AnyObject)
+    func didGetloginWithDetails(_ details: AnyObject)
     {
-        if let status = details.objectForKey("Status") as? String
+        if let status = details.object(forKey: "Status") as? String
         {
             if status == kSuccessString
             {
-               if let currentUserid = details.objectForKey("UserId") as? String
+               if let currentUserid = details.object(forKey: "UserId") as? String
                {
                     SSTeacherDataSource.sharedDataSource.currentUserId = currentUserid
-                    NSUserDefaults.standardUserDefaults().setObject(currentUserid, forKey: kUserId)
+                    UserDefaults.standard.set(currentUserid, forKey: kUserId)
                     SSTeacherMessageHandler.sharedMessageHandler.connectWithUserId(currentUserid, andWithPassword: mPassword.text!, withDelegate: self)
                 }
-                if let currentSchoolId = details.objectForKey("SchoolId") as? String
+                if let currentSchoolId = details.object(forKey: "SchoolId") as? String
                 {
                     SSTeacherDataSource.sharedDataSource.currentSchoolId = currentSchoolId
                 }
             }
             else
             {
-               self.view.makeToast(status, duration: 5.0, position: .Bottom)
+               self.view.makeToast(status, duration: 5.0, position: .bottom)
                  loginButtonPressed(false)
             }
         }
         else
         {
-            self.view.makeToast("User name or password is incorrect, please try again. ", duration: 5.0, position: .Bottom)
+            self.view.makeToast("User name or password is incorrect, please try again. ", duration: 5.0, position: .bottom)
              loginButtonPressed(false)
         }
         
@@ -264,9 +264,9 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSou
         
     }
     
-    func didGetUserStateWithDetails(details: AnyObject) {
+    func didGetUserStateWithDetails(_ details: AnyObject) {
 
-        if let userState = details.objectForKey("UserState") as? String
+        if let userState = details.object(forKey: "UserState") as? String
         {
             if userState == "Signedout"
             {
@@ -284,38 +284,38 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSou
         }
         
     }
-    func didgetErrorMessage(message: String, WithServiceName serviceName: String)
+    func didgetErrorMessage(_ message: String, WithServiceName serviceName: String)
     {
-        self.view.makeToast(message, duration: 5.0, position: .Bottom)
+        self.view.makeToast(message, duration: 5.0, position: .bottom)
         loginButtonPressed(false)
         
     }
     
-    func smhDidRecieveStreamConnectionsState(state: Bool)
+    func smhDidRecieveStreamConnectionsState(_ state: Bool)
     {
         if state == false
         {
-            self.view.makeToast("Stream disconnected ", duration: 5.0, position: .Bottom)
+            self.view.makeToast("Stream disconnected ", duration: 5.0, position: .bottom)
             loginButtonPressed(false)
 
         }
         
     }
     
-    func smhDidReciveAuthenticationState(state: Bool, WithName userName: String)
+    func smhDidReciveAuthenticationState(_ state: Bool, WithName userName: String)
     {
         if state == true
         {
             SSTeacherDataSource.sharedDataSource.currentUserName = mUserName.text!
             SSTeacherDataSource.sharedDataSource.currentPassword = mPassword.text!
-            NSUserDefaults.standardUserDefaults().setObject(mUserName.text!, forKey: kUserName)
-            NSUserDefaults.standardUserDefaults().setObject(mPassword.text!, forKey: kPassword)
+            UserDefaults.standard.set(mUserName.text!, forKey: kUserName)
+            UserDefaults.standard.set(mPassword.text!, forKey: kPassword)
             
-            performSegueWithIdentifier("LoginSuccessSegue", sender: nil)
+            performSegue(withIdentifier: "LoginSuccessSegue", sender: nil)
         }
        else
         {
-            self.view.makeToast("User id or password is incorrect, please try again. ", duration: 5.0, position: .Bottom)
+            self.view.makeToast("User id or password is incorrect, please try again. ", duration: 5.0, position: .bottom)
             loginButtonPressed(false)
         }
     }

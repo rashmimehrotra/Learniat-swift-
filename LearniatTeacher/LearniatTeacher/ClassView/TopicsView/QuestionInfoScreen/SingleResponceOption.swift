@@ -42,19 +42,19 @@ class SingleResponceOption : UIViewController
         
         
         
-        let headerView = UIView(frame: CGRectMake(0, 0, 400, 50))
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 400, height: 50))
         headerView.backgroundColor = lightGrayTopBar
         self.view.addSubview(headerView);
         
         
-        let seperatorView = UIView(frame: CGRectMake(0, headerView.frame.size.height-1, 400, 1))
+        let seperatorView = UIView(frame: CGRect(x: 0, y: headerView.frame.size.height-1, width: 400, height: 1))
         seperatorView.backgroundColor = LineGrayColor
         headerView.addSubview(seperatorView);
         
         
-         headerlabel.frame = CGRectMake(20, 0, 200, 50)
+         headerlabel.frame = CGRect(x: 20, y: 0, width: 200, height: 50)
         
-        if let questionType = cureentQuestionDetails.objectForKey("Type") as? String
+        if let questionType = cureentQuestionDetails.object(forKey: "Type") as? String
         {
             headerlabel.text = questionType
         }
@@ -65,23 +65,23 @@ class SingleResponceOption : UIViewController
         
         
         headerView.addSubview(headerlabel)
-        headerlabel.textAlignment = .Left;
+        headerlabel.textAlignment = .left;
         headerlabel.font = UIFont(name: helveticaRegular, size: 20)
         headerlabel.textColor  = blackTextColor
         
         
         
-        let  mDoneButton = UIButton(frame: CGRectMake(headerView.frame.size.width - 210, 0, 200, 50))
-        mDoneButton.addTarget(self, action: #selector(SingleResponceOption.onDoneButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mDoneButton.setTitleColor(standard_Button, forState: .Normal)
-        mDoneButton.setTitle("Done", forState: .Normal)
-        mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        let  mDoneButton = UIButton(frame: CGRect(x: headerView.frame.size.width - 210, y: 0, width: 200, height: 50))
+        mDoneButton.addTarget(self, action: #selector(SingleResponceOption.onDoneButton), for: UIControlEvents.touchUpInside)
+        mDoneButton.setTitleColor(standard_Button, for: UIControlState())
+        mDoneButton.setTitle("Done", for: UIControlState())
+        mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         mDoneButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
         headerView.addSubview(mDoneButton)
         
         
         self.view.addSubview(optionScrollView)
-        optionScrollView.frame = CGRectMake(0, headerView.frame.size.height, headerView.frame.size.width, 10 )
+        optionScrollView.frame = CGRect(x: 0, y: headerView.frame.size.height, width: headerView.frame.size.width, height: 10 )
         
         
         addOPtionsCells()
@@ -89,13 +89,13 @@ class SingleResponceOption : UIViewController
     
    
     
-    func setQuestionDetails(details:AnyObject)
+    func setQuestionDetails(_ details:AnyObject)
     {
         mAnswerOptions.removeAllObjects()
         cureentQuestionDetails = details
     }
     
-    func setQuestionDetails(details:AnyObject, withAnswerOptions answerOptions:NSMutableArray)
+    func setQuestionDetails(_ details:AnyObject, withAnswerOptions answerOptions:NSMutableArray)
     {
         cureentQuestionDetails = details
         mAnswerOptions = answerOptions
@@ -111,35 +111,35 @@ class SingleResponceOption : UIViewController
         
          var height :CGFloat = 44
         var postionYValue:CGFloat = 0
-        if let options = cureentQuestionDetails.objectForKey("Options")
+        if let options = cureentQuestionDetails.object(forKey: "Options")
         {
-           if let classCheckingVariable = options.objectForKey("Option")
+           if let classCheckingVariable = (options as AnyObject).object(forKey: "Option") as? NSMutableArray
             {
-                    if classCheckingVariable.isKindOfClass(NSMutableArray)
-                    {
-                        optionArray = classCheckingVariable as! NSMutableArray
-                    }
-                    else
-                    {
-                        optionArray.addObject(cureentQuestionDetails.objectForKey("Options")!.objectForKey("Option")!)
-                        
-                    }
                     
+                optionArray = classCheckingVariable
                 
-                   
-                    
-                    
+            }
+           else if (((cureentQuestionDetails.object(forKey: "Options")! as AnyObject).object(forKey: "Option")) as? NSMutableDictionary) != nil
+           {
+                optionArray.add((cureentQuestionDetails.object(forKey: "Options")! as AnyObject).object(forKey: "Option")!)
+            
+            }
+            
+            if (optionArray.count > 0)
+            {
+            
+            
                     for indexValu in 0..<optionArray.count
                     {
-                        let optionDict = optionArray.objectAtIndex(indexValu)
+                        let optionDict = optionArray.object(at: indexValu)
                         
-                        let optionsCell = SingleResponceOptionCell(frame: CGRectMake(0  , postionYValue, optionScrollView.frame.size.width, 50))
+                        let optionsCell = SingleResponceOptionCell(frame: CGRect(x: 0  , y: postionYValue, width: optionScrollView.frame.size.width, height: 50))
                         
-                        optionsCell.frame = CGRectMake(0  , postionYValue, optionScrollView.frame.size.width, optionsCell.getHeightWithDetails(optionDict))
+                        optionsCell.frame = CGRect(x: 0  , y: postionYValue, width: optionScrollView.frame.size.width, height: optionsCell.getHeightWithDetails(optionDict as AnyObject))
                         
                         optionsCell.changeFrameWithSize()
                         
-                        optionsCell.checkValueOfOPtion(optionDict, withanswerOptionsArray: mAnswerOptions)
+                        optionsCell.checkValueOfOPtion(optionDict as AnyObject, withanswerOptionsArray: mAnswerOptions)
                         
                         
                         optionScrollView.addSubview(optionsCell)
@@ -162,34 +162,36 @@ class SingleResponceOption : UIViewController
         
         
         
-        if height > UIScreen.mainScreen().bounds.height - 100
+        if height > UIScreen.main.bounds.height - 100
         {
-            height = UIScreen.mainScreen().bounds.height - 100
+            height = UIScreen.main.bounds.height - 100
         }
         
         
         self.preferredContentSize = CGSize(width: 400, height: height  )
         
-        optionScrollView.frame = CGRectMake(0, 50, optionScrollView.frame.size.width, height - 50)
+        optionScrollView.frame = CGRect(x: 0, y: 50, width: optionScrollView.frame.size.width, height: height - 50)
         
-        optionScrollView.contentSize = CGSizeMake(0, postionYValue)
+        optionScrollView.contentSize = CGSize(width: 0, height: postionYValue)
 
     }
     
-    var _Popover:AnyObject!
     
-    func setPopover(popover:AnyObject)
+    var _Popover:UIPopoverController!
+    
+    func setPopover(_ popover:UIPopoverController)
     {
         _Popover = popover
     }
     
-    func popover()-> AnyObject
+    func popover()-> UIPopoverController
     {
         return _Popover
     }
+    
     func onDoneButton()
     {
-        popover().dismissPopoverAnimated(true)
+       popover().dismiss(animated: true)
         
     }
     

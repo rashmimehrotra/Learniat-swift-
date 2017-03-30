@@ -11,17 +11,17 @@ import Foundation
 {
     
     
-    optional func delegateSubTopicBackButtonPressed()
+    @objc optional func delegateSubTopicBackButtonPressed()
     
-    optional func delegateSubtopicStateChanedWithSubTopicDetails(subTopicDetails:AnyObject, withState state:Bool, withmainTopicName mainTopicName:String)
+    @objc optional func delegateSubtopicStateChanedWithSubTopicDetails(_ subTopicDetails:AnyObject, withState state:Bool, withmainTopicName mainTopicName:String)
     
     
-    optional func delegateQuestionButtonPressedWithSubtopicId(subtopicId:String, withSubTopicName subTopicName:String, withMainTopicId mainTopicId:String, withMainTopicName mainTopicName:String)
+    @objc optional func delegateQuestionButtonPressedWithSubtopicId(_ subtopicId:String, withSubTopicName subTopicName:String, withMainTopicId mainTopicId:String, withMainTopicName mainTopicName:String)
     
 
-    optional func delegateDoneButtonPressed()
+    @objc optional func delegateDoneButtonPressed()
     
-    optional func delegateTopicsSizeChangedWithHeight(height:CGFloat)
+    @objc optional func delegateTopicsSizeChangedWithHeight(_ height:CGFloat)
     
 }
 
@@ -34,7 +34,7 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
     
     var mTopicsContainerView        = UIScrollView()
     
-    var mActivityIndicator  = UIActivityIndicatorView(activityIndicatorStyle:.Gray)
+    var mActivityIndicator  = UIActivityIndicatorView(activityIndicatorStyle:.gray)
     
     var  mTopicName  = UILabel()
     
@@ -46,12 +46,12 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
      var currentMainTopicsViewHeight :CGFloat = 0
     
     
-    var cumulativeTimer                    = NSTimer()
+    var cumulativeTimer                    = Timer()
     
     var currentCumulativeiTime              = ""
     
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -66,59 +66,59 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
         super.init(frame:frame)
         
         
-        let mTopbarImageView = UIImageView(frame: CGRectMake(0, 0, self.frame.size.width, 44))
+        let mTopbarImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 44))
         mTopbarImageView.backgroundColor = lightGrayTopBar
         self.addSubview(mTopbarImageView)
-        mTopbarImageView.userInteractionEnabled = true
+        mTopbarImageView.isUserInteractionEnabled = true
         
         
         
         
         
         
-        mTopicsContainerView.frame = CGRectMake(0, 44, self.frame.size.width, self.frame.size.height - 44)
-        mTopicsContainerView.backgroundColor = UIColor.whiteColor()
+        mTopicsContainerView.frame = CGRect(x: 0, y: 44, width: self.frame.size.width, height: self.frame.size.height - 44)
+        mTopicsContainerView.backgroundColor = UIColor.white
         self.addSubview(mTopicsContainerView)
-        mTopicsContainerView.hidden = true
+        mTopicsContainerView.isHidden = true
         
         
-        let seperatorView = UIView(frame: CGRectMake(0 ,mTopbarImageView.frame.size.height - 1 , mTopbarImageView.frame.size.width,1))
+        let seperatorView = UIView(frame: CGRect(x: 0 ,y: mTopbarImageView.frame.size.height - 1 , width: mTopbarImageView.frame.size.width,height: 1))
         seperatorView.backgroundColor = LineGrayColor;
         mTopbarImageView.addSubview(seperatorView)
         
         
-        let  mDoneButton = UIButton(frame: CGRectMake(mTopbarImageView.frame.size.width - 210,  0, 200 ,mTopbarImageView.frame.size.height))
+        let  mDoneButton = UIButton(frame: CGRect(x: mTopbarImageView.frame.size.width - 210,  y: 0, width: 200 ,height: mTopbarImageView.frame.size.height))
         mTopbarImageView.addSubview(mDoneButton)
-        mDoneButton.addTarget(self, action: #selector(SubTopicsView.onDoneButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mDoneButton.setTitleColor(standard_Button, forState: .Normal)
-        mDoneButton.setTitle("Done", forState: .Normal)
-        mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        mDoneButton.addTarget(self, action: #selector(SubTopicsView.onDoneButton), for: UIControlEvents.touchUpInside)
+        mDoneButton.setTitleColor(standard_Button, for: UIControlState())
+        mDoneButton.setTitle("Done", for: UIControlState())
+        mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         mDoneButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
         
         
         
         
-        let  mBackButton = UIButton(frame: CGRectMake(10,  0, 200 ,mTopbarImageView.frame.size.height))
+        let  mBackButton = UIButton(frame: CGRect(x: 10,  y: 0, width: 200 ,height: mTopbarImageView.frame.size.height))
         mTopbarImageView.addSubview(mBackButton)
-        mBackButton.addTarget(self, action: #selector(SubTopicsView.onBackButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mBackButton.setTitleColor(standard_Button, forState: .Normal)
-        mBackButton.setTitle("Back", forState: .Normal)
-        mBackButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
+        mBackButton.addTarget(self, action: #selector(SubTopicsView.onBackButton), for: UIControlEvents.touchUpInside)
+        mBackButton.setTitleColor(standard_Button, for: UIControlState())
+        mBackButton.setTitle("Back", for: UIControlState())
+        mBackButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
         mBackButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
         
         
-        mTopicName.frame = CGRectMake((mTopbarImageView.frame.size.width - 400)/2, 0 , 400, mTopbarImageView.frame.size.height)
+        mTopicName.frame = CGRect(x: (mTopbarImageView.frame.size.width - 400)/2, y: 0 , width: 400, height: mTopbarImageView.frame.size.height)
         mTopicName.font = UIFont(name:helveticaMedium, size: 20)
         mTopbarImageView.addSubview(mTopicName)
-        mTopicName.textColor = UIColor.blackColor()
+        mTopicName.textColor = UIColor.black
         mTopicName.text = "Sub topics"
-        mTopicName.textAlignment = .Center
-        mTopicName.lineBreakMode = .ByTruncatingMiddle
+        mTopicName.textAlignment = .center
+        mTopicName.lineBreakMode = .byTruncatingMiddle
         
-        mActivityIndicator.frame = CGRectMake(100, 0, mTopbarImageView.frame.size.height,mTopbarImageView.frame.size.height)
+        mActivityIndicator.frame = CGRect(x: 100, y: 0, width: mTopbarImageView.frame.size.height,height: mTopbarImageView.frame.size.height)
         mTopbarImageView.addSubview(mActivityIndicator)
         mActivityIndicator.hidesWhenStopped = true
-        mActivityIndicator.hidden = true
+        mActivityIndicator.isHidden = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -127,7 +127,7 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
     
     
     
-    func setSessionDetails(details:AnyObject)
+    func setSessionDetails(_ details:AnyObject)
     {
         currentSessionDetails = details
        
@@ -137,17 +137,17 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
     
     
     
-    func clearSubTopicDetailsWithMainTopicId(mainTopicId:String)
+    func clearSubTopicDetailsWithMainTopicId(_ mainTopicId:String)
     {
        
-        if SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.objectForKey(mainTopicId) != nil
+        if SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.object(forKey: mainTopicId) != nil
         {
-            SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.removeObjectForKey(mainTopicId)
+            SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.removeObject(forKey: mainTopicId)
         }
     }
     
     
-    func getSubtopicsDetailsWithMainTopicId(mainTopicId:String, withMainTopicName mainTopicname:String, withStartedSubtopicID _startedSubtopicID:String)
+    func getSubtopicsDetailsWithMainTopicId(_ mainTopicId:String, withMainTopicName mainTopicname:String, withStartedSubtopicID _startedSubtopicID:String)
     {
         
         currentMainTopicId = mainTopicId
@@ -159,7 +159,7 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
         
         
         
-        if let currentMainTopicDetails = SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.objectForKey(currentMainTopicId) as? NSMutableArray
+        if let currentMainTopicDetails = SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.object(forKey: currentMainTopicId) as? NSMutableArray
         {
             
             if currentMainTopicDetails.count > 0
@@ -168,12 +168,12 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
             }
             else
             {
-                if let ClassId = currentSessionDetails.objectForKey("ClassId") as? String
+                if let ClassId = currentSessionDetails.object(forKey: "ClassId") as? String
                 {
                     
-                    if let SubjectId = currentSessionDetails.objectForKey("SubjectId") as? String
+                    if let SubjectId = currentSessionDetails.object(forKey: "SubjectId") as? String
                     {
-                        mActivityIndicator.hidden = false
+                        mActivityIndicator.isHidden = false
                         mActivityIndicator.startAnimating()
                         
                         SSTeacherDataSource.sharedDataSource.getAllNodesWithClassId(ClassId, withSubjectId: SubjectId, withTopicId: currentMainTopicId, withType: onlySubTopics, withDelegate: self)
@@ -185,22 +185,22 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
         }
         else
         {
-            if let ClassId = currentSessionDetails.objectForKey("ClassId") as? String
+            if let ClassId = currentSessionDetails.object(forKey: "ClassId") as? String
             {
                 
-                if let SubjectId = currentSessionDetails.objectForKey("SubjectId") as? String
+                if let SubjectId = currentSessionDetails.object(forKey: "SubjectId") as? String
                 {
                     
                     let subViews = mTopicsContainerView.subviews.flatMap{ $0 as? SubTopicCell }
                     
                     for subview in subViews
                     {
-                        if subview.isKindOfClass(SubTopicCell)
+                        if subview.isKind(of: SubTopicCell.self)
                         {
                             subview.removeFromSuperview()
                         }
                     }
-                    mActivityIndicator.hidden = false
+                    mActivityIndicator.isHidden = false
                     mActivityIndicator.startAnimating()
                     
                     SSTeacherDataSource.sharedDataSource.getAllNodesWithClassId(ClassId, withSubjectId: SubjectId, withTopicId: currentMainTopicId, withType: onlySubTopics, withDelegate: self)
@@ -215,11 +215,11 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
     
     
     
-    func updateSubtopicCumulativeTimeWithID(subToicId:String, withCumulativeTime cumulativeTime:String)
+    func updateSubtopicCumulativeTimeWithID(_ subToicId:String, withCumulativeTime cumulativeTime:String)
     {
         if let subTopicView  = mTopicsContainerView.viewWithTag(Int(subToicId)!) as? SubTopicCell
         {
-            subTopicView.m_SubTopicLabel.text = cumulativeTime.capitalizedString
+            subTopicView.m_SubTopicLabel.text = cumulativeTime.capitalized
             
         }
     }
@@ -227,26 +227,22 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
     
     // MARK: - datasource delegate functions
     
-    func didGetAllNodesWithDetails(details: AnyObject) {
+    func didGetAllNodesWithDetails(_ details: AnyObject) {
         
         
-        if let statusString = details.objectForKey("Status") as? String
+        if let statusString = details.object(forKey: "Status") as? String
         {
             if statusString == kSuccessString
             {
                 var mMaintopicsDetails = NSMutableArray()
-                let classCheckingVariable = details.objectForKey("SubTopics")!.objectForKey("SubTopic")!
-                
-                if classCheckingVariable.isKindOfClass(NSMutableArray)
-                {
-                    mMaintopicsDetails = classCheckingVariable as! NSMutableArray
+               if let classCheckingVariable = (details.object(forKey: "SubTopics")! as AnyObject).object(forKey: "SubTopic") as? NSMutableArray
+               {
+                    mMaintopicsDetails = classCheckingVariable
                 }
                 else
-                {
-                    mMaintopicsDetails.addObject(details.objectForKey("SubTopics")!.objectForKey("SubTopic")!)
-                    
+               {
+                    mMaintopicsDetails.add((details.object(forKey: "SubTopics")! as AnyObject).object(forKey: "SubTopic")!)
                 }
-                
                 
                 SSTeacherDataSource.sharedDataSource.setSubTopicDictonaryWithDict(mMaintopicsDetails, withKey: currentMainTopicId)
                 
@@ -259,18 +255,18 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
     }
     
     
-    func addTopicsWithDetailsArray(mMaintopicsDetails:NSMutableArray)
+    func addTopicsWithDetailsArray(_ mMaintopicsDetails:NSMutableArray)
     {
         
         
         
         if mMaintopicsDetails.count <= 0
         {
-            mTopicsContainerView.hidden = true
+            mTopicsContainerView.isHidden = true
         }
         else
         {
-            mTopicsContainerView.hidden = false
+            mTopicsContainerView.isHidden = false
         }
         
         
@@ -280,7 +276,7 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
         
         for subview in subViews
         {
-            if subview.isKindOfClass(SubTopicCell)
+            if subview.isKind(of: SubTopicCell.self)
             {
                 subview.removeFromSuperview()
             }
@@ -293,12 +289,12 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
         {
             
             
-            let currentTopicDetails = mMaintopicsDetails.objectAtIndex(index)
-            if let Tagged = currentTopicDetails.objectForKey("Tagged") as? String
+            let currentTopicDetails = mMaintopicsDetails.object(at: index)
+            if let Tagged = (currentTopicDetails as AnyObject).object(forKey: "Tagged") as? String
             {
                 if Tagged == "1"
                 {
-                    topicsArray.addObject(currentTopicDetails)
+                    topicsArray.add(currentTopicDetails)
                 }
             }
         }
@@ -308,56 +304,56 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
         var height :CGFloat = CGFloat((topicsArray.count * 60) + 44)
         
         
-        if height > UIScreen.mainScreen().bounds.height - 100
+        if height > UIScreen.main.bounds.height - 100
         {
-            height = UIScreen.mainScreen().bounds.height - 100
+            height = UIScreen.main.bounds.height - 100
         }
         
         
         currentMainTopicsViewHeight = height
         
-        UIView.animateWithDuration(0.5, animations:
+        UIView.animate(withDuration: 0.5, animations:
             {
-                self.frame =  CGRectMake(self.frame.origin.x, self.frame.origin.y, 600, height)
+                self.frame =  CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: 600, height: height)
         })
         
         
         
-        mTopicsContainerView.frame = CGRectMake(0, 44, mTopicsContainerView.frame.size.width, height - 44)
+        mTopicsContainerView.frame = CGRect(x: 0, y: 44, width: mTopicsContainerView.frame.size.width, height: height - 44)
         
         var positionY :CGFloat = 0
         
         for index in 0 ..< topicsArray.count
         {
-            let currentTopicDetails = topicsArray.objectAtIndex(index)
+            let currentTopicDetails = topicsArray.object(at: index)
             
-            if let Tagged = currentTopicDetails.objectForKey("Tagged") as? String
+            if let Tagged = (currentTopicDetails as AnyObject).object(forKey: "Tagged") as? String
             {
                 if Tagged == "1"
                 {
-                    let topicCell = SubTopicCell(frame: CGRectMake(0  , positionY, mTopicsContainerView.frame.size.width, 60))
+                    let topicCell = SubTopicCell(frame: CGRect(x: 0  , y: positionY, width: mTopicsContainerView.frame.size.width, height: 60))
                     topicCell.setdelegate(self)
-                    topicCell.setSubTopicDetails(currentTopicDetails)
+                    topicCell.setSubTopicDetails(currentTopicDetails as AnyObject)
                     
                     
-                    if let id = currentTopicDetails.objectForKey("Id") as? String
+                    if let id = (currentTopicDetails as AnyObject).object(forKey: "Id") as? String
                     {
                         if id == SSTeacherDataSource.sharedDataSource.startedSubTopicId && SSTeacherDataSource.sharedDataSource.isSubtopicStarted == true
                         {
-                            topicCell.startButton.setTitle("Stop", forState: .Normal)
-                            topicCell.startButton.setTitleColor(standard_Red, forState: .Normal)
+                            topicCell.startButton.setTitle("Stop", for: UIControlState())
+                            topicCell.startButton.setTitleColor(standard_Red, for: UIControlState())
                             
-                            if let topicName = currentTopicDetails.objectForKey("Name")as? String
+                            if let topicName = (currentTopicDetails as AnyObject).object(forKey: "Name")as? String
                             {
-                                topicCell.m_SubTopicLabel.text = "\(topicName)(\(currentCumulativeiTime))".capitalizedString
+                                topicCell.m_SubTopicLabel.text = "\(topicName)(\(currentCumulativeiTime))".capitalized
                                 
                             }
                            
                         }
                         else
                         {
-                            topicCell.startButton.setTitle("Start", forState: .Normal)
-                            topicCell.startButton.setTitleColor(standard_Green, forState: .Normal)
+                            topicCell.startButton.setTitle("Start", for: UIControlState())
+                            topicCell.startButton.setTitleColor(standard_Green, for: UIControlState())
                         }
                     }
                     
@@ -372,12 +368,12 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
             
         }
         
-        mTopicsContainerView.contentSize = CGSizeMake(0, positionY + 20)
+        mTopicsContainerView.contentSize = CGSize(width: 0, height: positionY + 20)
         
         mActivityIndicator.stopAnimating()
         
         
-        if delegate().respondsToSelector(#selector(SubTopicsViewDelegate.delegateTopicsSizeChangedWithHeight(_:)))
+        if delegate().responds(to: #selector(SubTopicsViewDelegate.delegateTopicsSizeChangedWithHeight(_:)))
         {
             delegate().delegateTopicsSizeChangedWithHeight!(height)
         }
@@ -386,7 +382,7 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
     
     func onBackButton()
     {
-        if delegate().respondsToSelector(#selector(SubTopicsViewDelegate.delegateSubTopicBackButtonPressed))
+        if delegate().responds(to: #selector(SubTopicsViewDelegate.delegateSubTopicBackButtonPressed))
         {
             delegate().delegateSubTopicBackButtonPressed!()
         }
@@ -395,9 +391,9 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
     
     // MARK: - SubTopics delegate functions
     
-    func delegateQuestionButtonPressedWithID(subTopicId: String, withSubTopicName subTopicName: String) {
+    func delegateQuestionButtonPressedWithID(_ subTopicId: String, withSubTopicName subTopicName: String) {
         
-        if delegate().respondsToSelector(#selector(SubTopicsViewDelegate.delegateQuestionButtonPressedWithSubtopicId(_:withSubTopicName:withMainTopicId:withMainTopicName:)))
+        if delegate().responds(to: #selector(SubTopicsViewDelegate.delegateQuestionButtonPressedWithSubtopicId(_:withSubTopicName:withMainTopicId:withMainTopicName:)))
         {
             
             delegate().delegateQuestionButtonPressedWithSubtopicId!(subTopicId, withSubTopicName: subTopicName, withMainTopicId: currentMainTopicId, withMainTopicName: mTopicName.text!)
@@ -409,7 +405,7 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
         
         for subview in subViews
         {
-            if subview.isKindOfClass(SubTopicCell)
+            if subview.isKind(of: SubTopicCell.self)
             {
                 if subview.startButton.titleLabel?.text == "Stop"
                 {
@@ -424,19 +420,19 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
     
     func onDoneButton()
     {
-        if delegate().respondsToSelector(#selector(SubTopicsViewDelegate.delegateDoneButtonPressed))
+        if delegate().responds(to: #selector(SubTopicsViewDelegate.delegateDoneButtonPressed))
         {
             delegate().delegateDoneButtonPressed!()
         }
     }
   
-    func delegateSubTopicCellStartedWithDetails(subTopicDetails: AnyObject, witStatedState isStarted: Bool) {
+    func delegateSubTopicCellStartedWithDetails(_ subTopicDetails: AnyObject, witStatedState isStarted: Bool) {
         
         
         
-        if SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.objectForKey(currentMainTopicId) != nil
+        if SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.object(forKey: currentMainTopicId) != nil
         {
-            SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.removeObjectForKey(currentMainTopicId)
+            SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.removeObject(forKey: currentMainTopicId)
         }
 
         
@@ -447,12 +443,12 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
             {
                 if let subTopicCellView  = mTopicsContainerView.viewWithTag(Int(SSTeacherDataSource.sharedDataSource.startedSubTopicId)!) as? SubTopicCell
                 {
-                    subTopicCellView.startButton.setTitle("Stop", forState: .Normal)
-                    subTopicCellView.startButton.setTitleColor(standard_Red, forState: .Normal)
+                    subTopicCellView.startButton.setTitle("Stop", for: UIControlState())
+                    subTopicCellView.startButton.setTitleColor(standard_Red, for: UIControlState())
                     
                 }
                 
-                if let CumulativeTime = subTopicDetails.objectForKey("CumulativeTime")as? String
+                if let CumulativeTime = subTopicDetails.object(forKey: "CumulativeTime")as? String
                 {
                     currentCumulativeiTime = CumulativeTime
                     
@@ -464,11 +460,11 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
                 
                 
                 
-                cumulativeTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(SubTopicsView.udpateCumulativeTime), userInfo: nil, repeats: true)
+                cumulativeTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(SubTopicsView.udpateCumulativeTime), userInfo: nil, repeats: true)
             }
             else
             {
-                self.makeToast("Please stop current topic to start new topic.", duration: 5.0, position: .Bottom)
+                self.makeToast("Please stop current topic to start new topic.", duration: 5.0, position: .bottom)
             }
             
             
@@ -482,8 +478,8 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
                 
                 if let subTopicCellView  = mTopicsContainerView.viewWithTag(Int(SSTeacherDataSource.sharedDataSource.startedSubTopicId)!) as? SubTopicCell
                 {
-                    subTopicCellView.startButton.setTitle("Resume", forState: .Normal)
-                    subTopicCellView.startButton.setTitleColor(standard_Green, forState: .Normal)
+                    subTopicCellView.startButton.setTitle("Resume", for: UIControlState())
+                    subTopicCellView.startButton.setTitleColor(standard_Green, for: UIControlState())
                     
                 }
             }
@@ -494,7 +490,7 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
 
         }
         
-        if delegate().respondsToSelector(#selector(SubTopicsViewDelegate.delegateSubtopicStateChanedWithSubTopicDetails(_:withState:withmainTopicName:)))
+        if delegate().responds(to: #selector(SubTopicsViewDelegate.delegateSubtopicStateChanedWithSubTopicDetails(_:withState:withmainTopicName:)))
         {
             delegate().delegateSubtopicStateChanedWithSubTopicDetails!(subTopicDetails, withState: isStarted, withmainTopicName: mTopicName.text!)
         }
@@ -503,32 +499,32 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
     
     
     func delegateShowAlert() {
-         self.makeToast("Please stop current topic to start new topic.", duration: 3.0, position: .Bottom)
+         self.makeToast("Please stop current topic to start new topic.", duration: 3.0, position: .bottom)
     }
     
     func udpateCumulativeTime()
     {
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm:ss"
         
         var _string :String = ""
-        var currentDate = NSDate()
+        var currentDate = Date()
         
         if SSTeacherDataSource.sharedDataSource.startedSubTopicId != ""
         {
             if let subTopicCellView  = mTopicsContainerView.viewWithTag(Int(SSTeacherDataSource.sharedDataSource.startedSubTopicId)!) as? SubTopicCell
             {
                 
-                currentDate = currentDate.addSeconds(1, withDate: dateFormatter.dateFromString(currentCumulativeiTime)!)
-                _string = dateFormatter.stringFromDate(currentDate)
+                currentDate = currentDate.addSeconds(1, withDate: dateFormatter.date(from: currentCumulativeiTime)!)
+                _string = dateFormatter.string(from: currentDate)
                 
                 
                 currentCumulativeiTime = _string
                 
                 
-                if let topicName = subTopicCellView.currentSubTopicDetails.objectForKey("Name")as? String
+                if let topicName = subTopicCellView.currentSubTopicDetails.object(forKey: "Name")as? String
                 {
-                    subTopicCellView.m_SubTopicLabel.text = "\(topicName)(\(_string))".capitalizedString
+                    subTopicCellView.m_SubTopicLabel.text = "\(topicName)(\(_string))".capitalized
                     
                 }
             }

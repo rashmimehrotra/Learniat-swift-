@@ -38,50 +38,50 @@ class MultipleChoiceView: UIView,SSStudentDataSourceDelegate
     override init(frame: CGRect)
     {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.white
         
         
-        mTopbarImageView = UIImageView(frame: CGRectMake(0, 0, self.frame.size.width, 60))
+        mTopbarImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 60))
         mTopbarImageView.backgroundColor = lightGrayTopBar
         self.addSubview(mTopbarImageView)
-        mTopbarImageView.userInteractionEnabled = true
-        mTopbarImageView.userInteractionEnabled = true
+        mTopbarImageView.isUserInteractionEnabled = true
+        mTopbarImageView.isUserInteractionEnabled = true
         
         
-        mSendButton.frame = CGRectMake(mTopbarImageView.frame.size.width - 210, 0,200,mTopbarImageView.frame.size.height )
+        mSendButton.frame = CGRect(x: mTopbarImageView.frame.size.width - 210, y: 0,width: 200,height: mTopbarImageView.frame.size.height )
         mTopbarImageView.addSubview(mSendButton)
-        mSendButton.addTarget(self, action: #selector(MultipleChoiceView.onSendButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mSendButton.setTitle("Send", forState: .Normal)
-        mSendButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        mSendButton.addTarget(self, action: #selector(MultipleChoiceView.onSendButton), for: UIControlEvents.touchUpInside)
+        mSendButton.setTitle("Send", for: UIControlState())
+        mSendButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         mSendButton.titleLabel?.font = UIFont (name: helveticaMedium, size: 20)
-        mSendButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
-        mSendButton.enabled = false
+        mSendButton.setTitleColor(UIColor.lightGray, for: UIControlState())
+        mSendButton.isEnabled = false
         
-        mDontKnow.frame = CGRectMake(10, 0,200,mTopbarImageView.frame.size.height )
+        mDontKnow.frame = CGRect(x: 10, y: 0,width: 200,height: mTopbarImageView.frame.size.height )
         mTopbarImageView.addSubview(mDontKnow)
-        mDontKnow.addTarget(self, action: #selector(MultipleChoiceView.onDontKnowButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mDontKnow.setTitle("Don't know", forState: .Normal)
-        mDontKnow.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
-        mDontKnow.setTitleColor(standard_Button, forState: .Normal)
+        mDontKnow.addTarget(self, action: #selector(MultipleChoiceView.onDontKnowButton), for: UIControlEvents.touchUpInside)
+        mDontKnow.setTitle("Don't know", for: UIControlState())
+        mDontKnow.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
+        mDontKnow.setTitleColor(standard_Button, for: UIControlState())
         mDontKnow.titleLabel?.font = UIFont (name: helveticaMedium, size: 20)
         
-        mQuestionLabel.frame = CGRectMake(10, mTopbarImageView.frame.size.height + mTopbarImageView.frame.origin.y, self.frame.size.width-20, 80)
+        mQuestionLabel.frame = CGRect(x: 10, y: mTopbarImageView.frame.size.height + mTopbarImageView.frame.origin.y, width: self.frame.size.width-20, height: 80)
         mQuestionLabel.numberOfLines = 20;
-        mQuestionLabel.textAlignment = .Center
+        mQuestionLabel.textAlignment = .center
         self.addSubview(mQuestionLabel)
         mQuestionLabel.textColor = topbarColor
         mQuestionLabel.font = UIFont (name: helveticaRegular, size: 20)
-        mQuestionLabel.lineBreakMode = .ByTruncatingMiddle
+        mQuestionLabel.lineBreakMode = .byTruncatingMiddle
         
         
-        mOptionsScrollView.frame = CGRectMake(0, mQuestionLabel.frame.origin.y + mQuestionLabel.frame.size.height , self.frame.size.width, self.frame.size.height - (mQuestionLabel.frame.origin.y + mQuestionLabel.frame.size.height))
+        mOptionsScrollView.frame = CGRect(x: 0, y: mQuestionLabel.frame.origin.y + mQuestionLabel.frame.size.height , width: self.frame.size.width, height: self.frame.size.height - (mQuestionLabel.frame.origin.y + mQuestionLabel.frame.size.height))
         self.addSubview(mOptionsScrollView)
         
         self.addSubview(mReplyStatusLabelView)
-        mReplyStatusLabelView.textColor = UIColor.whiteColor()
+        mReplyStatusLabelView.textColor = UIColor.white
         mReplyStatusLabelView.backgroundColor = dark_Yellow
         mReplyStatusLabelView.font = UIFont (name: helveticaBold, size: 16)
-        mReplyStatusLabelView.textAlignment = .Center
+        mReplyStatusLabelView.textAlignment = .center
 
         
     }
@@ -91,83 +91,82 @@ class MultipleChoiceView: UIView,SSStudentDataSourceDelegate
     }
     
     
-    func setQuestionDetails(details:AnyObject, withsessionDetails _sessionDetails:AnyObject, withQuestionLogId _logId:String)
+    func setQuestionDetails(_ details:AnyObject, withsessionDetails _sessionDetails:AnyObject, withQuestionLogId _logId:String)
     {
         currentQuestionDetails = details
         questionLogId = _logId
         sessionDetails = _sessionDetails
         
-         currentQuestionType = (details.objectForKey(kQuestionType) as? String)
+         currentQuestionType = (details.object(forKey: kQuestionType) as? String)
         
         
-        if (details.objectForKey(kQuestionName) as? String) != ""
+        if (details.object(forKey: kQuestionName) as? String) != ""
         {
-            mQuestionLabel.text = (details.objectForKey(kQuestionName) as? String)
+            mQuestionLabel.text = (details.object(forKey: kQuestionName) as? String)
         }
         
         
-          let options = currentQuestionDetails.objectForKey(kOptionTagMain)?.objectForKey(kOptionTag)
-        
-        
-        if options != nil
-        {
-            if (options!.isKindOfClass(NSMutableArray))
+         if let options = (currentQuestionDetails.object(forKey: kOptionTagMain) as AnyObject).object(forKey: kOptionTag) as? NSMutableArray
+         {
+            optionsArray = options
+        }
+        else
+         {
+            if let options = (currentQuestionDetails.object(forKey: kOptionTagMain) as AnyObject).object(forKey: kOptionTag) as? NSMutableDictionary
             {
-                optionsArray = options as! NSMutableArray
+                optionsArray.add(options)
+            }
+            
+            //let options = (currentQuestionDetails.object(forKey: kOptionTagMain) as AnyObject).object(forKey: kOptionTag)
+            
+        }
+        
+        optionsArray.shuffleValue()
+        
+        
+        var positionY :CGFloat = 10
+        
+        var positionX :CGFloat = 10
+        
+        for index in 0  ..< optionsArray.count
+        {
+            let currentOptionDetails = optionsArray.object(at: index)
+            
+            let optionTile = multipleResponseOptionView(frame: CGRect(x: positionX, y: positionY, width: (mOptionsScrollView.frame.size.width/2) - 20, height: 100))
+            
+            optionTile.setOptionDetails(currentOptionDetails as AnyObject)
+            
+            optionTile.setdelegate(self)
+            
+            optionTile.layer.borderColor = standard_Button.cgColor
+            optionTile.layer.cornerRadius = optionTile.frame.size.height / 2
+            optionTile.layer.borderWidth = 1
+            optionTile.layer.masksToBounds = true
+            
+            
+            mOptionsScrollView.addSubview(optionTile)
+            
+            if positionX == 10
+            {
+                positionX = (mOptionsScrollView.frame.size.width/2) + 10
             }
             else
             {
-                optionsArray.addObject(options!)
+                positionX = 10
+                positionY = positionY + optionTile.frame.size.height + 20
             }
             
             
-            optionsArray.shuffleValue()
             
-            
-            var positionY :CGFloat = 10
-            
-            var positionX :CGFloat = 10
-            
-            for index in 0  ..< optionsArray.count
-            {
-                let currentOptionDetails = optionsArray.objectAtIndex(index)
-                
-                let optionTile = multipleResponseOptionView(frame: CGRectMake(positionX, positionY, (mOptionsScrollView.frame.size.width/2) - 20, 100))
-                
-                optionTile.setOptionDetails(currentOptionDetails)
-                
-                optionTile.setdelegate(self)
-                
-                optionTile.layer.borderColor = standard_Button.CGColor
-                optionTile.layer.cornerRadius = optionTile.frame.size.height / 2
-                optionTile.layer.borderWidth = 1
-                optionTile.layer.masksToBounds = true
-
-                
-                mOptionsScrollView.addSubview(optionTile)
-                
-                if positionX == 10
-                {
-                    positionX = (mOptionsScrollView.frame.size.width/2) + 10
-                }
-                else
-                {
-                    positionX = 10
-                     positionY = positionY + optionTile.frame.size.height + 20
-                }
-                
-               
-                
-            }
-            mOptionsScrollView.contentSize = CGSizeMake(0, positionY)
         }
+        mOptionsScrollView.contentSize = CGSize(width: 0, height: positionY)
     }
     
     
     
     // MARK: - options delegate Functions
     
-    func delegateOptionTouchedWithState(state: Bool, withCurrentOptionDetails Details:AnyObject, withCurrentOption mOptionView:multipleResponseOptionView)
+    func delegateOptionTouchedWithState(_ state: Bool, withCurrentOptionDetails Details:AnyObject, withCurrentOption mOptionView:multipleResponseOptionView)
     {
         if currentQuestionType == MultipleChoice
         {
@@ -179,9 +178,9 @@ class MultipleChoiceView: UIView,SSStudentDataSourceDelegate
             
             for optionView in subViews
             {
-                if optionView.isKindOfClass(multipleResponseOptionView)
+                if optionView.isKind(of: multipleResponseOptionView.self)
                 {
-                    array.addObject(optionView)
+                    array.add(optionView)
                 }
             }
             
@@ -189,7 +188,7 @@ class MultipleChoiceView: UIView,SSStudentDataSourceDelegate
             
             for index in 0  ..< array.count  
             {
-                let mOptions :multipleResponseOptionView = array.objectAtIndex(index) as! multipleResponseOptionView
+                let mOptions :multipleResponseOptionView = array.object(at: index) as! multipleResponseOptionView
                 
                 if state == true
                 {
@@ -204,7 +203,7 @@ class MultipleChoiceView: UIView,SSStudentDataSourceDelegate
                     {
                         selectedOptions.removeAllObjects()
                         
-                        selectedOptions.addObject(Details)
+                        selectedOptions.add(Details)
                     }
                 }
                 else
@@ -223,30 +222,30 @@ class MultipleChoiceView: UIView,SSStudentDataSourceDelegate
             
             if state == true
             {
-                if selectedOptions.containsObject(Details) == false
+                if selectedOptions.contains(Details) == false
                 {
-                    selectedOptions.addObject(Details)
+                    selectedOptions.add(Details)
                 }
             }
             else
             {
-                if selectedOptions.containsObject(Details) == true
+                if selectedOptions.contains(Details) == true
                 {
-                    selectedOptions.removeObject(Details)
+                    selectedOptions.remove(Details)
                 }
             }
             
         }
         if selectedOptions.count>0
         {
-            mSendButton.setTitleColor(standard_Button, forState: .Normal)
+            mSendButton.setTitleColor(standard_Button, for: UIControlState())
             
-            mSendButton.enabled = true
+            mSendButton.isEnabled = true
         }
         else{
-            mSendButton.setTitleColor(UIColor.lightGrayColor(), forState: .Normal)
+            mSendButton.setTitleColor(UIColor.lightGray, for: UIControlState())
             
-            mSendButton.enabled = false
+            mSendButton.isEnabled = false
         }
         
     }
@@ -255,7 +254,7 @@ class MultipleChoiceView: UIView,SSStudentDataSourceDelegate
     func onSendButton()
     {
         
-         mTopbarImageView.hidden = true
+         mTopbarImageView.isHidden = true
         if currentQuestionType == MultipleChoice || currentQuestionType == MultipleResponse
         {
             if selectedOptions.count > 0
@@ -264,12 +263,12 @@ class MultipleChoiceView: UIView,SSStudentDataSourceDelegate
                 
                 for index in 0  ..< selectedOptions.count
                 {
-                    let mOptions = selectedOptions.objectAtIndex(index)
+                    let mOptions = selectedOptions.object(at: index)
                     
-                    optionsArray.addObject(mOptions.objectForKey("OptionText") as! String)
+                    optionsArray.add((mOptions as AnyObject).object(forKey: "OptionText") as! String)
                 }
                 
-                 SSStudentDataSource.sharedDataSource.sendObjectvieAnswer(optionsArray.componentsJoinedByString(";;;"), withQuestionType: currentQuestionType, withQuestionLogId: questionLogId, withsessionId: (sessionDetails.objectForKey("SessionId") as! String), withDelegate: self)
+                 SSStudentDataSource.sharedDataSource.sendObjectvieAnswer(optionsArray.componentsJoined(by: ";;;"), withQuestionType: currentQuestionType, withQuestionLogId: questionLogId, withsessionId: (sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
                 
                 
             }
@@ -280,44 +279,44 @@ class MultipleChoiceView: UIView,SSStudentDataSourceDelegate
     {
         SSStudentMessageHandler.sharedMessageHandler.sendDontKnowMessageToTeacher()
        
-        mReplyStatusLabelView.frame = CGRectMake((self.frame.size.width - (mTopbarImageView.frame.size.height * 2)) / 2, 0, mTopbarImageView.frame.size.height * 2, mTopbarImageView.frame.size.height / 1.5)
-        mReplyStatusLabelView.hidden = false
+        mReplyStatusLabelView.frame = CGRect(x: (self.frame.size.width - (mTopbarImageView.frame.size.height * 2)) / 2, y: 0, width: mTopbarImageView.frame.size.height * 2, height: mTopbarImageView.frame.size.height / 1.5)
+        mReplyStatusLabelView.isHidden = false
         mReplyStatusLabelView.text = "Don't Know"
-        mTopbarImageView.hidden = true
+        mTopbarImageView.isHidden = true
         
         let subViews = mOptionsScrollView.subviews
         
         for optionView in subViews
         {
-            if optionView.isKindOfClass(multipleResponseOptionView)
+            if optionView.isKind(of: multipleResponseOptionView.self)
             {
-                optionView.userInteractionEnabled = false
+                optionView.isUserInteractionEnabled = false
             }
         }
          SSStudentDataSource.sharedDataSource.answerSent = true
     }
 
     
-    func didGetAnswerSentWithDetails(details: AnyObject)
+    func didGetAnswerSentWithDetails(_ details: AnyObject)
     {
-    SSStudentMessageHandler.sharedMessageHandler.sendAnswerToQuestionMessageToTeacherWithAnswerString(details.objectForKey("AssessmentAnswerId") as! String)
+    SSStudentMessageHandler.sharedMessageHandler.sendAnswerToQuestionMessageToTeacherWithAnswerString(details.object(forKey: "AssessmentAnswerId") as! String)
         
         
-        mReplyStatusLabelView.frame = CGRectMake((self.frame.size.width - (mTopbarImageView.frame.size.height * 2)) / 2, 0, mTopbarImageView.frame.size.height * 2, mTopbarImageView.frame.size.height / 1.5)
+        mReplyStatusLabelView.frame = CGRect(x: (self.frame.size.width - (mTopbarImageView.frame.size.height * 2)) / 2, y: 0, width: mTopbarImageView.frame.size.height * 2, height: mTopbarImageView.frame.size.height / 1.5)
        
-        mReplyStatusLabelView.hidden = false
+        mReplyStatusLabelView.isHidden = false
         
         mReplyStatusLabelView.text = "Reply sent"
         
-        mTopbarImageView.hidden = true
+        mTopbarImageView.isHidden = true
         
         let subViews = mOptionsScrollView.subviews
         
         for optionView in subViews
         {
-            if optionView.isKindOfClass(multipleResponseOptionView)
+            if optionView.isKind(of: multipleResponseOptionView.self)
             {
-                optionView.userInteractionEnabled = false
+                optionView.isUserInteractionEnabled = false
             }
         }
         
@@ -344,7 +343,7 @@ class MultipleChoiceView: UIView,SSStudentDataSourceDelegate
             
             
             
-            mReplyStatusLabelView.hidden = false
+            mReplyStatusLabelView.isHidden = false
             mReplyStatusLabelView.text = "Frozen"
             
         }
@@ -354,7 +353,7 @@ class MultipleChoiceView: UIView,SSStudentDataSourceDelegate
         
         for mOptions in subViews
         {
-            if mOptions.isKindOfClass(multipleResponseOptionView)
+            if mOptions.isKind(of: multipleResponseOptionView.self)
             {
                 mOptions.checkOptionAnswerState()
             }

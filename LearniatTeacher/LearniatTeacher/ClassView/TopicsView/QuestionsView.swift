@@ -12,21 +12,23 @@ import Foundation
 {
     
     
-    optional func delegateQuestionSentWithQuestionDetails(questionDetails:AnyObject)
+    @objc optional func delegateQuestionSentWithQuestionDetails(_ questionDetails:AnyObject)
     
     
-    optional func delegateQuestionBackButtonPressed(mainTopicId:String, withMainTopicName mainTopicName:String)
+    @objc optional func delegateQuestionBackButtonPressed(_ mainTopicId:String, withMainTopicName mainTopicName:String)
     
-    optional func delegateDoneButtonPressed()
-    
-    
-    optional func delegateScribbleQuestionWithSubtopicId(subTopicID:String)
-    
-    optional func delegateTopicsSizeChangedWithHeight(height:CGFloat)
-    
-    optional func delegateQuizmodePressedwithQuestions(questionArray:NSMutableArray)
+    @objc optional func delegateDoneButtonPressed()
     
     
+    @objc optional func delegateScribbleQuestionWithSubtopicId(_ subTopicID:String)
+    
+    @objc optional func delegateTopicsSizeChangedWithHeight(_ height:CGFloat)
+    
+    @objc optional func delegateQuizmodePressedwithQuestions(_ questionArray:NSMutableArray)
+    
+    @objc optional func delegateMtcQuestionWithSubtopicId(_ subTopicId:String)
+    
+    @objc optional func delegateMRQQuestionWithSubtopicId(_ subTopicId:String)
 }
 
 
@@ -39,7 +41,7 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
     
     var mTopicsContainerView        = UIScrollView()
     
-    var mActivityIndicator  = UIActivityIndicatorView(activityIndicatorStyle:.Gray)
+    var mActivityIndicator  = UIActivityIndicatorView(activityIndicatorStyle:.gray)
     
     var  mSubTopicName  = UILabel()
     
@@ -59,7 +61,7 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
     
     var touchLocation :CGPoint!
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -75,91 +77,97 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
         super.init(frame:frame)
         
         
-        let mTopbarImageView = UIImageView(frame: CGRectMake(0, 0,self.frame.size.width, 44))
-        mTopbarImageView.backgroundColor = UIColor.whiteColor()
+        let mTopbarImageView = UIImageView(frame: CGRect(x: 0, y: 0,width: self.frame.size.width, height: 44))
+        mTopbarImageView.backgroundColor = UIColor.white
         self.addSubview(mTopbarImageView)
-        mTopbarImageView.userInteractionEnabled = true
+        mTopbarImageView.isUserInteractionEnabled = true
         
         
         
         
         
         
-        mTopicsContainerView.frame = CGRectMake(0, 44, self.frame.size.width, self.frame.size.height - 44)
-        mTopicsContainerView.backgroundColor = UIColor.whiteColor()
+        mTopicsContainerView.frame = CGRect(x: 0, y: 44, width: self.frame.size.width, height: self.frame.size.height - 44)
+        mTopicsContainerView.backgroundColor = UIColor.white
         self.addSubview(mTopicsContainerView)
-        mTopicsContainerView.hidden = true
+        mTopicsContainerView.isHidden = true
         
         
-        let seperatorView = UIView(frame: CGRectMake(0 ,mTopbarImageView.frame.size.height - 1 , mTopbarImageView.frame.size.width,1))
+        let seperatorView = UIView(frame: CGRect(x: 0 ,y: mTopbarImageView.frame.size.height - 1 , width: mTopbarImageView.frame.size.width,height: 1))
         seperatorView.backgroundColor = LineGrayColor;
         mTopbarImageView.addSubview(seperatorView)
         
         
-        let  mDoneButton = UIButton(frame: CGRectMake(mTopbarImageView.frame.size.width - 210,  0, 200 ,mTopbarImageView.frame.size.height))
+        let  mDoneButton = UIButton(frame: CGRect(x: mTopbarImageView.frame.size.width - 210,  y: 0, width: 200 ,height: mTopbarImageView.frame.size.height))
         mTopbarImageView.addSubview(mDoneButton)
-        mDoneButton.addTarget(self, action: #selector(QuestionsView.onDoneButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mDoneButton.setTitleColor(standard_Button, forState: .Normal)
-        mDoneButton.setTitle("Done", forState: .Normal)
-        mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        mDoneButton.addTarget(self, action: #selector(QuestionsView.onDoneButton), for: UIControlEvents.touchUpInside)
+        mDoneButton.setTitleColor(standard_Button, for: UIControlState())
+        mDoneButton.setTitle("Done", for: UIControlState())
+        mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         mDoneButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
         
         
         
         
-        let  mBackButton = UIButton(frame: CGRectMake(10,  0, 200 ,mTopbarImageView.frame.size.height))
+        let  mBackButton = UIButton(frame: CGRect(x: 10,  y: 0, width: 200 ,height: mTopbarImageView.frame.size.height))
         mTopbarImageView.addSubview(mBackButton)
-        mBackButton.addTarget(self, action: #selector(QuestionsView.onBackButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mBackButton.setTitleColor(standard_Button, forState: .Normal)
-        mBackButton.setTitle("Back", forState: .Normal)
-        mBackButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
+        mBackButton.addTarget(self, action: #selector(QuestionsView.onBackButton), for: UIControlEvents.touchUpInside)
+        mBackButton.setTitleColor(standard_Button, for: UIControlState())
+        mBackButton.setTitle("Back", for: UIControlState())
+        mBackButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
         mBackButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
         
         
-        mSubTopicName.frame = CGRectMake((mTopbarImageView.frame.size.width - 400)/2, 0 , 400, mTopbarImageView.frame.size.height)
+        mSubTopicName.frame = CGRect(x: (mTopbarImageView.frame.size.width - 400)/2, y: 0 , width: 400, height: mTopbarImageView.frame.size.height)
         mSubTopicName.font = UIFont(name:helveticaMedium, size: 20)
         mTopbarImageView.addSubview(mSubTopicName)
-        mSubTopicName.textColor = UIColor.blackColor()
+        mSubTopicName.textColor = UIColor.black
         mSubTopicName.text = "Questions"
-        mSubTopicName.textAlignment = .Center
-        mSubTopicName.lineBreakMode = .ByTruncatingMiddle
+        mSubTopicName.textAlignment = .center
+        mSubTopicName.lineBreakMode = .byTruncatingMiddle
         
-        mActivityIndicator.frame = CGRectMake(100, 0, mTopbarImageView.frame.size.height,mTopbarImageView.frame.size.height)
+        mActivityIndicator.frame = CGRect(x: 100, y: 0, width: mTopbarImageView.frame.size.height,height: mTopbarImageView.frame.size.height)
         mTopbarImageView.addSubview(mActivityIndicator)
         mActivityIndicator.hidesWhenStopped = true
-        mActivityIndicator.hidden = true
+        mActivityIndicator.isHidden = true
         
         
         
-        questionButtonsView.frame = CGRectMake(0, mTopicsContainerView.frame.size.height + mTopicsContainerView.frame.origin.y, mTopicsContainerView.frame.size.width, 44)
-//        self.addSubview(questionButtonsView)
-        questionButtonsView.backgroundColor = UIColor.whiteColor()
+        questionButtonsView.frame = CGRect(x: 0, y: mTopicsContainerView.frame.size.height + mTopicsContainerView.frame.origin.y, width: mTopicsContainerView.frame.size.width, height: 44)
+       self.addSubview(questionButtonsView)
+        questionButtonsView.backgroundColor = UIColor.white
         
         
-        let  mScribbleButton = UIButton(frame: CGRectMake(20,  0, questionButtonsView.frame.size.width ,mTopbarImageView.frame.size.height))
+        
+        let seperatorView1 = UIView(frame: CGRect(x: 0 ,y: 0 , width: questionButtonsView.frame.size.width,height: 1))
+        seperatorView1.backgroundColor = LineGrayColor;
+        questionButtonsView.addSubview(seperatorView1)
+        
+        
+        let  mScribbleButton = UIButton(frame: CGRect(x: 0,  y: 0, width: questionButtonsView.frame.size.width / 2  ,height: mTopbarImageView.frame.size.height))
         questionButtonsView.addSubview(mScribbleButton)
-        mScribbleButton.addTarget(self, action: #selector(QuestionsView.onQuizmode), forControlEvents: UIControlEvents.TouchUpInside)
-        mScribbleButton.setTitleColor(standard_Button, forState: .Normal)
-        mScribbleButton.setTitle("Quiz mode", forState: .Normal)
-        mScribbleButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
+        mScribbleButton.addTarget(self, action: #selector(QuestionsView.onScribbleButton), for: UIControlEvents.touchUpInside)
+        mScribbleButton.setTitleColor(standard_Button, for: UIControlState())
+        mScribbleButton.setTitle("Scribble", for: UIControlState())
+        mScribbleButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
         mScribbleButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
         
         
-        let  mMatchColumn = UIButton(frame: CGRectMake(220,  0, 160 ,mTopbarImageView.frame.size.height))
+//        let  mMatchColumn = UIButton(frame: CGRectMake(mScribbleButton.frame.origin.x + mScribbleButton.frame.size.width,  0, questionButtonsView.frame.size.width / 3  ,mTopbarImageView.frame.size.height))
 //        questionButtonsView.addSubview(mMatchColumn)
-        mMatchColumn.addTarget(self, action: #selector(QuestionsView.onMTCButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mMatchColumn.setTitleColor(standard_Button, forState: .Normal)
-        mMatchColumn.setTitle("MTC", forState: .Normal)
-        mMatchColumn.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
-        mMatchColumn.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
+//        mMatchColumn.addTarget(self, action: #selector(QuestionsView.onMTCButton), forControlEvents: UIControlEvents.TouchUpInside)
+//        mMatchColumn.setTitleColor(standard_Button, forState: .Normal)
+//        mMatchColumn.setTitle("MTC", forState: .Normal)
+//        mMatchColumn.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
+//        mMatchColumn.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
         
         
-        let  mMRQ = UIButton(frame: CGRectMake(mTopbarImageView.frame.size.width - 180 ,  0, 160 ,mTopbarImageView.frame.size.height))
-//        questionButtonsView.addSubview(mMRQ)
-        mMRQ.addTarget(self, action: #selector(QuestionsView.onMRQButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mMRQ.setTitleColor(standard_Button, forState: .Normal)
-        mMRQ.setTitle("MRQ", forState: .Normal)
-        mMRQ.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        let  mMRQ = UIButton(frame: CGRect(x: mScribbleButton.frame.origin.x + mScribbleButton.frame.size.width ,  y: 0, width: questionButtonsView.frame.size.width / 2  ,height: mTopbarImageView.frame.size.height))
+        questionButtonsView.addSubview(mMRQ)
+        mMRQ.addTarget(self, action: #selector(QuestionsView.onMRQButton), for: UIControlEvents.touchUpInside)
+        mMRQ.setTitleColor(standard_Button, for: UIControlState())
+        mMRQ.setTitle("MRQ", for: UIControlState())
+        mMRQ.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
         mMRQ.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
         
 
@@ -168,12 +176,12 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setSessionDetails(details:AnyObject)
+    func setSessionDetails(_ details:AnyObject)
     {
          currentSessionDetails = details
     }
     
-    func setPreferredSize(size:CGSize, withSessionDetails details:AnyObject)
+    func setPreferredSize(_ size:CGSize, withSessionDetails details:AnyObject)
     {
         
         
@@ -186,24 +194,24 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
     
     
     
-    func clearQuestionTopicId(subTopicId:String)
+    func clearQuestionTopicId(_ subTopicId:String)
     {
         if (questionsDetailsDictonary[subTopicId] != nil)
         {
-            questionsDetailsDictonary.removeValueForKey(subTopicId)
+            questionsDetailsDictonary.removeValue(forKey: subTopicId)
         }
     }
     
     
     
-    func getQuestionsDetailsWithsubTopicId(subTopicId:String, withSubTopicName subTopicName:String, withMainTopicId mainTopicId:String, withMainTopicName mainTopicName:String, withSubtopicStarted isStarted:Bool)
+    func getQuestionsDetailsWithsubTopicId(_ subTopicId:String, withSubTopicName subTopicName:String, withMainTopicId mainTopicId:String, withMainTopicName mainTopicName:String, withSubtopicStarted isStarted:Bool)
     {
         
         let subViews = mTopicsContainerView.subviews.flatMap{ $0 as? QuestionCell }
         
         for subview in subViews
         {
-            if subview.isKindOfClass(QuestionCell)
+            if subview.isKind(of: QuestionCell.self)
             {
                 subview.removeFromSuperview()
             }
@@ -229,22 +237,22 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
             }
             else
             {
-                if let ClassId = currentSessionDetails.objectForKey("ClassId") as? String
+                if let ClassId = currentSessionDetails.object(forKey: "ClassId") as? String
                 {
                     
-                    if let SubjectId = currentSessionDetails.objectForKey("SubjectId") as? String
+                    if let SubjectId = currentSessionDetails.object(forKey: "SubjectId") as? String
                     {
                         
                         let subViews = mTopicsContainerView.subviews.flatMap{ $0 as? SubTopicCell }
                         
                         for subview in subViews
                         {
-                            if subview.isKindOfClass(SubTopicCell)
+                            if subview.isKind(of: SubTopicCell.self)
                             {
                                 subview.removeFromSuperview()
                             }
                         }
-                        mActivityIndicator.hidden = false
+                        mActivityIndicator.isHidden = false
                         mActivityIndicator.startAnimating()
                         
                         SSTeacherDataSource.sharedDataSource.getAllNodesWithClassId(ClassId, withSubjectId: SubjectId, withTopicId: currentSubTopicId, withType: onlyQuestions, withDelegate: self)
@@ -256,22 +264,22 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
         }
         else
         {
-            if let ClassId = currentSessionDetails.objectForKey("ClassId") as? String
+            if let ClassId = currentSessionDetails.object(forKey: "ClassId") as? String
             {
                 
-                if let SubjectId = currentSessionDetails.objectForKey("SubjectId") as? String
+                if let SubjectId = currentSessionDetails.object(forKey: "SubjectId") as? String
                 {
                     
                     let subViews = mTopicsContainerView.subviews.flatMap{ $0 as? SubTopicCell }
                     
                     for subview in subViews
                     {
-                        if subview.isKindOfClass(SubTopicCell)
+                        if subview.isKind(of: SubTopicCell.self)
                         {
                             subview.removeFromSuperview()
                         }
                     }
-                    mActivityIndicator.hidden = false
+                    mActivityIndicator.isHidden = false
                     mActivityIndicator.startAnimating()
                     
                     SSTeacherDataSource.sharedDataSource.getAllNodesWithClassId(ClassId, withSubjectId: SubjectId, withTopicId: currentSubTopicId, withType: onlyQuestions, withDelegate: self)
@@ -285,23 +293,21 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
     
     // MARK: - datasource delegate functions
     
-    func didGetAllNodesWithDetails(details: AnyObject) {
+    func didGetAllNodesWithDetails(_ details: AnyObject) {
         
         
-        if let statusString = details.objectForKey("Status") as? String
+        if let statusString = details.object(forKey: "Status") as? String
         {
             if statusString == kSuccessString
             {
                 var mMaintopicsDetails = NSMutableArray()
-                let classCheckingVariable = details.objectForKey("Questions")!.objectForKey("Question")!
-                
-                if classCheckingVariable.isKindOfClass(NSMutableArray)
-                {
-                    mMaintopicsDetails = classCheckingVariable as! NSMutableArray
+               if let classCheckingVariable = (details.object(forKey: "Questions")! as AnyObject).object(forKey: "Question") as? NSMutableArray
+               {
+                     mMaintopicsDetails = classCheckingVariable
                 }
                 else
                 {
-                    mMaintopicsDetails.addObject(details.objectForKey("Questions")!.objectForKey("Question")!)
+                    mMaintopicsDetails.add((details.object(forKey: "Questions")! as AnyObject).object(forKey: "Question")!)
                     
                 }
                 
@@ -316,18 +322,18 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
     }
     
     
-    func addTopicsWithDetailsArray(mMaintopicsDetails:NSMutableArray)
+    func addTopicsWithDetailsArray(_ mMaintopicsDetails:NSMutableArray)
     {
         
         
         
         if mMaintopicsDetails.count <= 0
         {
-            mTopicsContainerView.hidden = true
+            mTopicsContainerView.isHidden = true
         }
         else
         {
-            mTopicsContainerView.hidden = false
+            mTopicsContainerView.isHidden = false
         }
         
         
@@ -337,28 +343,28 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
         
         for index in 0 ..< mMaintopicsDetails.count
         {
-            let currentTopicDetails = mMaintopicsDetails.objectAtIndex(index)
+            let currentTopicDetails = mMaintopicsDetails.object(at: index)
             
             print(currentTopicDetails)
             
-            let topicCell = QuestionCell(frame: CGRectMake(0  , positionY, mTopicsContainerView.frame.size.width, 60))
+            let topicCell = QuestionCell(frame: CGRect(x: 0  , y: positionY, width: mTopicsContainerView.frame.size.width, height: 60))
             topicCell.setdelegate(self)
             
-            topicCell.frame =   CGRectMake(0  , positionY, mTopicsContainerView.frame.size.width, topicCell.getCurrentCellHeightWithDetails(currentTopicDetails, WIthCountValue: index + 1))
+            topicCell.frame =   CGRect(x: 0  , y: positionY, width: mTopicsContainerView.frame.size.width, height: topicCell.getCurrentCellHeightWithDetails(currentTopicDetails as AnyObject, WIthCountValue: index + 1))
             
             
             if isCurrentSubtopicStarted == true
             {
-                topicCell.mSendButton.hidden = false
+                topicCell.mSendButton.isHidden = false
             }
             else
             {
-                topicCell.mSendButton.hidden = true
+                topicCell.mSendButton.isHidden = true
             }
             
             
             mTopicsContainerView.addSubview(topicCell)
-            height = height + topicCell.frame.size.height
+            height = height + (topicCell.frame.size.height*2)
             
             positionY = positionY + topicCell.frame.size.height
         }
@@ -366,29 +372,31 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
         
         
         
-        if height > UIScreen.mainScreen().bounds.height - 100
+        if height > UIScreen.main.bounds.height - 100
         {
-            height = UIScreen.mainScreen().bounds.height - 100
+            height = UIScreen.main.bounds.height - 100
         }
         
-        UIView.animateWithDuration(0.5, animations:
+        UIView.animate(withDuration: 0.5, animations:
             {
-                self.frame =  CGRectMake(self.frame.origin.x, self.frame.origin.y, 600, height)
+                self.frame =  CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: 600, height: height)
         })
        
         currentMainTopicsViewHeight = height
         
         
-        mTopicsContainerView.frame = CGRectMake(0, 44, mTopicsContainerView.frame.size.width, height - 44)
+        mTopicsContainerView.frame = CGRect(x: 0, y: 44, width: mTopicsContainerView.frame.size.width, height: height - 88)
         
-        mTopicsContainerView.contentSize = CGSizeMake(0, positionY + 20)
+        mTopicsContainerView.contentSize = CGSize(width: 0, height: positionY)
         
-//       questionButtonsView.frame = CGRectMake(0, mTopicsContainerView.frame.size.height + mTopicsContainerView.frame.origin.y, mTopicsContainerView.frame.size.width, 44)
+        questionButtonsView.frame = CGRect(x: 0, y: mTopicsContainerView.frame.size.height + mTopicsContainerView.frame.origin.y, width: mTopicsContainerView.frame.size.width, height: 44)
+        
+        mTopicsContainerView.scrollToTop()
         
         mActivityIndicator.stopAnimating()
         
         
-        if delegate().respondsToSelector(#selector(QuestionsViewDelegate.delegateTopicsSizeChangedWithHeight(_:)))
+        if delegate().responds(to: #selector(QuestionsViewDelegate.delegateTopicsSizeChangedWithHeight(_:)))
         {
             delegate().delegateTopicsSizeChangedWithHeight!(height)
         }
@@ -398,7 +406,7 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
     
     func onDoneButton()
     {
-        if delegate().respondsToSelector(#selector(SubTopicsViewDelegate.delegateDoneButtonPressed))
+        if delegate().responds(to: #selector(SubTopicsViewDelegate.delegateDoneButtonPressed))
         {
             delegate().delegateDoneButtonPressed!()
         }
@@ -409,7 +417,7 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
     
     func onBackButton()
     {
-        if delegate().respondsToSelector(#selector(QuestionsViewDelegate.delegateQuestionBackButtonPressed(_:withMainTopicName:)))
+        if delegate().responds(to: #selector(QuestionsViewDelegate.delegateQuestionBackButtonPressed(_:withMainTopicName:)))
         {
             delegate().delegateQuestionBackButtonPressed!(currentMainTopicID, withMainTopicName: currentMainTopicName)
         }
@@ -425,7 +433,7 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
             
             
             
-            if delegate().respondsToSelector(#selector(QuestionsViewDelegate.delegateScribbleQuestionWithSubtopicId(_:)))
+            if delegate().responds(to: #selector(QuestionsViewDelegate.delegateScribbleQuestionWithSubtopicId(_:)))
             {
                 delegate().delegateScribbleQuestionWithSubtopicId!(currentSubTopicId)
                 
@@ -449,7 +457,7 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
             
               if let currentMainTopicDetails = questionsDetailsDictonary[currentSubTopicId]
               {
-                if delegate().respondsToSelector(#selector(QuestionsViewDelegate.delegateQuizmodePressedwithQuestions(_:)))
+                if delegate().responds(to: #selector(QuestionsViewDelegate.delegateQuizmodePressedwithQuestions(_:)))
                 {
                     delegate().delegateQuizmodePressedwithQuestions!(currentMainTopicDetails)
                     
@@ -461,12 +469,32 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
     
     func onMTCButton()
     {
-        
+        if isCurrentSubtopicStarted == true
+        {
+            
+            
+            
+            if delegate().responds(to: #selector(QuestionsViewDelegate.delegateMtcQuestionWithSubtopicId(_:)))
+            {
+                delegate().delegateMtcQuestionWithSubtopicId!(currentSubTopicId)
+                
+            }
+        }
     }
     
     func onMRQButton()
     {
-        
+        if isCurrentSubtopicStarted == true
+        {
+            
+            
+            
+            if delegate().responds(to: #selector(QuestionsViewDelegate.delegateMRQQuestionWithSubtopicId(_:)))
+            {
+                delegate().delegateMRQQuestionWithSubtopicId!(currentSubTopicId)
+                
+            }
+        }
     }
     
     
@@ -474,25 +502,25 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
     // MARK: - Question delegate functions
     
     
-    func delegateSendQuestionDetails(questionDetails: AnyObject)
+    func delegateSendQuestionDetails(_ questionDetails: AnyObject)
     {
         
         
-        if delegate().respondsToSelector(#selector(QuestionsViewDelegate.delegateQuestionSentWithQuestionDetails(_:)))
+        if delegate().responds(to: #selector(QuestionsViewDelegate.delegateQuestionSentWithQuestionDetails(_:)))
         {
             delegate().delegateQuestionSentWithQuestionDetails!(questionDetails)
             
         }
     }
     
-    func delegateOnInfoButtonWithDetails(questionDetails: AnyObject, withButton infoButton: UIButton) {
+    func delegateOnInfoButtonWithDetails(_ questionDetails: AnyObject, withButton infoButton: UIButton) {
         
         
         
-        let buttonPosition :CGPoint = infoButton.convertPoint(CGPointZero, toView: self)
+        let buttonPosition :CGPoint = infoButton.convert(CGPoint.zero, to: self)
         
         
-        if let questionType = questionDetails.objectForKey("Type") as? String
+        if let questionType = questionDetails.object(forKey: "Type") as? String
         {
             if questionType == kOverlayScribble
             {
@@ -502,18 +530,18 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
                 questionInfoController.setScribbleInfoDetails(questionDetails)
                 
                 
-                questionInfoController.preferredContentSize = CGSizeMake(400,317)
+                questionInfoController.preferredContentSize = CGSize(width: 400,height: 317)
                 
                 let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
                 questionInfoController.setPopover(classViewPopOverController)
-                classViewPopOverController.popoverContentSize = CGSizeMake(400,317);
+                classViewPopOverController.contentSize = CGSize(width: 400,height: 317);
                 classViewPopOverController.delegate = self;
                 
-                classViewPopOverController.presentPopoverFromRect(CGRect(
+                classViewPopOverController.present(from: CGRect(
                     x:buttonPosition.x ,
                     y:buttonPosition.y + infoButton.frame.size.height / 2,
                     width: 1,
-                    height: 1), inView: self, permittedArrowDirections: .Right, animated: true)
+                    height: 1), in: self, permittedArrowDirections: .right, animated: true)
             }
             else if questionType == kMRQ || questionType == kMCQ || questionType == TextAuto
             {
@@ -523,18 +551,18 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
                 questionInfoController.setQuestionDetails(questionDetails)
                 
                 
-                questionInfoController.preferredContentSize = CGSizeMake(400,317)
+                questionInfoController.preferredContentSize = CGSize(width: 400,height: 317)
                 
                 let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
                 questionInfoController.setPopover(classViewPopOverController)
-                classViewPopOverController.popoverContentSize = CGSizeMake(400,317);
+                classViewPopOverController.contentSize = CGSize(width: 400,height: 317);
                 classViewPopOverController.delegate = self;
                 
-                classViewPopOverController.presentPopoverFromRect(CGRect(
+                classViewPopOverController.present(from: CGRect(
                     x:buttonPosition.x ,
                     y:buttonPosition.y + infoButton.frame.size.height / 2,
                     width: 1,
-                    height: 1), inView: self, permittedArrowDirections: .Right, animated: true)
+                    height: 1), in: self, permittedArrowDirections: .right, animated: true)
             }
             else if questionType == kMatchColumn
             {
@@ -544,20 +572,30 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
                 questionInfoController.setQuestionDetails(questionDetails)
                 
                 
-                questionInfoController.preferredContentSize = CGSizeMake(400,317)
+                questionInfoController.preferredContentSize = CGSize(width: 400,height: 317)
                 
                 let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
                 questionInfoController.setPopover(classViewPopOverController)
-                classViewPopOverController.popoverContentSize = CGSizeMake(400,317);
+                classViewPopOverController.contentSize = CGSize(width: 400,height: 317);
                 classViewPopOverController.delegate = self;
                 
-                classViewPopOverController.presentPopoverFromRect(CGRect(
+                classViewPopOverController.present(from: CGRect(
                     x:buttonPosition.x ,
                     y:buttonPosition.y + infoButton.frame.size.height / 2,
                     width: 1,
-                    height: 1), inView: self, permittedArrowDirections: .Right, animated: true)
+                    height: 1), in: self, permittedArrowDirections: .right, animated: true)
             }
         }
     }
     
 }
+
+extension UIScrollView
+{
+    func scrollToTop()
+    {
+        let desiredOffset = CGPoint(x: 0, y: -contentInset.top)
+        setContentOffset(desiredOffset, animated: true)
+    }
+}
+

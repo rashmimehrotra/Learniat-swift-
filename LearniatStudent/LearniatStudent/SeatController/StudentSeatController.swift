@@ -20,7 +20,7 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
     
     var mActivityIndicatore          :UIActivityIndicatorView = UIActivityIndicatorView()
     
-    var mTeacherImageView: UIImageView!
+    var mTeacherImageView: CustomProgressImageView!
     
     var mTeacherName: UILabel!
     
@@ -45,51 +45,55 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
         
         SSStudentMessageHandler.sharedMessageHandler.setdelegate(self)
         
-        mTopbarImageView = UIImageView(frame: CGRectMake(0, 0, self.view.frame.size.width, (self.view.frame.size.height)/12))
+        mTopbarImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: (self.view.frame.size.height)/12))
         mTopbarImageView.backgroundColor = topbarColor
         self.view.addSubview(mTopbarImageView)
-        mTopbarImageView.userInteractionEnabled = true
-        mTopbarImageView.userInteractionEnabled = true
+        mTopbarImageView.isUserInteractionEnabled = true
+        mTopbarImageView.isUserInteractionEnabled = true
         
         
         
-        mTeacherImageView = UIImageView(frame: CGRectMake(15, 15, mTopbarImageView.frame.size.height - 20 ,mTopbarImageView.frame.size.height - 20))
+        mTeacherImageView = CustomProgressImageView(frame: CGRect(x: 15, y: 15, width: mTopbarImageView.frame.size.height - 20 ,height: mTopbarImageView.frame.size.height - 20))
         mTeacherImageView.backgroundColor = lightGrayColor
         mTopbarImageView.addSubview(mTeacherImageView)
         mTeacherImageView.layer.masksToBounds = true
         mTeacherImageView.layer.cornerRadius = 2
         
         
-        let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_UserProfileImageURL) as! String
+        let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
         
-        if let checkedUrl = NSURL(string: "\(urlString)/\(SSStudentDataSource.sharedDataSource.currentUserId)_79px.jpg")
+        let userID = urlString.appending("/").appending(SSStudentDataSource.sharedDataSource.currentUserId)
+        
+        
+        if let checkedUrl = URL(string: "\(userID)_79px.jpg")
+
         {
-            mTeacherImageView.contentMode = .ScaleAspectFit
-            mTeacherImageView.downloadImage(checkedUrl, withFolderType: folderType.ProFilePics)
+            mTeacherImageView.contentMode = .scaleAspectFit
+            mTeacherImageView.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
         }
         
         
         
         
         
-        mTeacherName = UILabel(frame: CGRectMake(mTeacherImageView.frame.origin.x + mTeacherImageView.frame.size.width + 10, mTeacherImageView.frame.origin.y, 200, 20))
+        mTeacherName = UILabel(frame: CGRect(x: mTeacherImageView.frame.origin.x + mTeacherImageView.frame.size.width + 10, y: mTeacherImageView.frame.origin.y, width: 200, height: 20))
         mTeacherName.font = UIFont(name:helveticaMedium, size: 20)
-        mTeacherName.text = SSStudentDataSource.sharedDataSource.currentUserName.capitalizedString
+        mTeacherName.text = SSStudentDataSource.sharedDataSource.currentUserName.capitalized
         mTopbarImageView.addSubview(mTeacherName)
-        mTeacherName.textColor = UIColor.whiteColor()
+        mTeacherName.textColor = UIColor.white
         
         
 
         
         
-        let mPreallocateSeats = UILabel(frame: CGRectMake((mTopbarImageView.frame.size.width - 400)/2, 0, 400, mTopbarImageView.frame.size.height))
+        let mPreallocateSeats = UILabel(frame: CGRect(x: (mTopbarImageView.frame.size.width - 400)/2, y: 0, width: 400, height: mTopbarImageView.frame.size.height))
         mPreallocateSeats.font = UIFont(name:helveticaRegular, size: 20)
        
         mTopbarImageView.addSubview(mPreallocateSeats)
-        mPreallocateSeats.textColor = UIColor.whiteColor()
-        mPreallocateSeats.textAlignment = .Center
+        mPreallocateSeats.textColor = UIColor.white
+        mPreallocateSeats.textAlignment = .center
         
-        if let ClassName = sessionDetails.objectForKey("ClassName") as? String
+        if let ClassName = sessionDetails.object(forKey: "ClassName") as? String
         {
              mPreallocateSeats.text = ClassName
         }
@@ -103,16 +107,16 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
         let remainingHeight = mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + 20
         
         
-        mNoStudentLabel.frame = CGRectMake(10, (self.view.frame.size.height - 40)/2, self.view.frame.size.width - 20,40)
+        mNoStudentLabel.frame = CGRect(x: 10, y: (self.view.frame.size.height - 40)/2, width: self.view.frame.size.width - 20,height: 40)
         mNoStudentLabel.font = UIFont(name:helveticaMedium, size: 30)
         mNoStudentLabel.text = "Please wait for teacher to ressign seats "
         self.view.addSubview(mNoStudentLabel)
-        mNoStudentLabel.textColor = UIColor.whiteColor()
-        mNoStudentLabel.textAlignment = .Center
-        mNoStudentLabel.hidden = true
+        mNoStudentLabel.textColor = UIColor.white
+        mNoStudentLabel.textAlignment = .center
+        mNoStudentLabel.isHidden = true
         
         
-        mGridContainerView.frame = CGRectMake(10, mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + 10  , self.view.frame.size.width - 20, self.view.frame.size.height - remainingHeight )
+        mGridContainerView.frame = CGRect(x: 10, y: mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + 10  , width: self.view.frame.size.width - 20, height: self.view.frame.size.height - remainingHeight )
         self.view.addSubview(mGridContainerView)
         mGridContainerView.backgroundColor = darkBackgroundColor
         //        mGridContainerView.hidden = true
@@ -120,20 +124,20 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
         
         
         
-        mActivityIndicatore = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
-        mActivityIndicatore.frame = CGRectMake((self.view.frame.size.width - 40)/2, (self.view.frame.size.height - 40)/2, 40, 40)
+        mActivityIndicatore = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        mActivityIndicatore.frame = CGRect(x: (self.view.frame.size.width - 40)/2, y: (self.view.frame.size.height - 40)/2, width: 40, height: 40)
         self.view.addSubview(mActivityIndicatore)
         //        mActivityIndicatore.startAnimating()
         
-        if let roomId = sessionDetails.objectForKey("RoomId") as? String
+        if let roomId = sessionDetails.object(forKey: "RoomId") as? String
         {
             SSStudentDataSource.sharedDataSource.getGridDesignDetails(roomId, WithDelegate: self)
         }
         
-        mClassNameButton.frame = CGRectMake((mTopbarImageView.frame.size.width - mPreallocateSeats.frame.size.width)/2 , 0, mPreallocateSeats.frame.size.width, mTopbarImageView.frame.size.height )
+        mClassNameButton.frame = CGRect(x: (mTopbarImageView.frame.size.width - mPreallocateSeats.frame.size.width)/2 , y: 0, width: mPreallocateSeats.frame.size.width, height: mTopbarImageView.frame.size.height )
         mTopbarImageView.addSubview(mClassNameButton)
-        mClassNameButton.addTarget(self, action: #selector(StudentSeatViewController.onClassButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mClassNameButton.backgroundColor = UIColor.clearColor()
+        mClassNameButton.addTarget(self, action: #selector(StudentSeatViewController.onClassButton), for: UIControlEvents.touchUpInside)
+        mClassNameButton.backgroundColor = UIColor.clear
 
         
     }
@@ -144,30 +148,30 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
         
         
         
-        let buttonPosition :CGPoint = mClassNameButton.convertPoint(CGPointZero, toView: self.view)
+        let buttonPosition :CGPoint = mClassNameButton.convert(CGPoint.zero, to: self.view)
         
         let remainingHeight = self.view.frame.size.height - (buttonPosition.y  + mClassNameButton.frame.size.height + mClassNameButton.frame.size.height)
         
         
         let questionInfoController = SSStudentSchedulePopoverController()
         
-        questionInfoController.setCurrentScreenSize(CGSizeMake(400, remainingHeight))
+        questionInfoController.setCurrentScreenSize(CGSize(width: 400, height: remainingHeight))
         questionInfoController.setdelegate(self)
         let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
         
-        classViewPopOverController.popoverContentSize = CGSizeMake(400,remainingHeight);
+        classViewPopOverController.contentSize = CGSize(width: 400,height: remainingHeight);
         classViewPopOverController.delegate = self;
         questionInfoController.setPopover(classViewPopOverController)
-        classViewPopOverController.presentPopoverFromRect(CGRect(
+        classViewPopOverController.present(from: CGRect(
             x:buttonPosition.x + mClassNameButton.frame.size.width / 2,
             y:buttonPosition.y  + mClassNameButton.frame.size.height,
             width: 1,
-            height: 1), inView: self.view, permittedArrowDirections: .Up, animated: true)
+            height: 1), in: self.view, permittedArrowDirections: .up, animated: true)
         
     }
     
     
-    func setCurrentSessionDetails(details: AnyObject)
+    func setCurrentSessionDetails(_ details: AnyObject)
     {
         sessionDetails = details
         
@@ -178,39 +182,39 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
     
     // MARK: - datasource delegate Functions
     
-    func didGetGridDesignWithDetails(details: AnyObject) {
+    func didGetGridDesignWithDetails(_ details: AnyObject) {
         
         
         currentGridDetails = details
         
         mActivityIndicatore.stopAnimating()
-        mActivityIndicatore.hidden = true
+        mActivityIndicatore.isHidden = true
         
         
         
-        if let Columns = details.objectForKey("Columns") as? String
+        if let Columns = details.object(forKey: "Columns") as? String
         {
             columnValue = Int(Columns)!
         }
         
-        if let Rows = details.objectForKey("Rows") as? String
+        if let Rows = details.object(forKey: "Rows") as? String
         {
             rowValue = Int(Rows)!
         }
         
-        if let SeatIdList = details.objectForKey("SeatIdList") as? String
+        if let SeatIdList = details.object(forKey: "SeatIdList") as? String
         {
-            seatsIdArray =  SeatIdList.componentsSeparatedByString(",")
+            seatsIdArray =  SeatIdList.components(separatedBy: ",")
         }
         
-        if let SeatLabelList = details.objectForKey("SeatLabelList") as? String
+        if let SeatLabelList = details.object(forKey: "SeatLabelList") as? String
         {
-            seatsLableArray =  SeatLabelList.componentsSeparatedByString(",")
+            seatsLableArray =  SeatLabelList.components(separatedBy: ",")
         }
         
-        if let SeatsRemoved = details.objectForKey("SeatsRemoved") as? String
+        if let SeatsRemoved = details.object(forKey: "SeatsRemoved") as? String
         {
-            seatsRemovedArray =  SeatsRemoved.componentsSeparatedByString(",")
+            seatsRemovedArray =  SeatsRemoved.components(separatedBy: ",")
         }
         
         
@@ -235,7 +239,7 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
         {
             
             
-            let backGroundImageView = UIImageView(frame:  CGRectMake(0, postionY - barHeightSpace, mGridContainerView.frame.size.width, barHeight + barHeightSpace) )
+            let backGroundImageView = UIImageView(frame:  CGRect(x: 0, y: postionY - barHeightSpace, width: mGridContainerView.frame.size.width, height: barHeight + barHeightSpace) )
             if (columnIndex%2==0)
             {
                 backGroundImageView.backgroundColor = darkBackgroundColor
@@ -258,11 +262,11 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
                 }
                 else
                 {
-                    let seatView = StudentSeatSubView(frame: CGRectMake(positionX, postionY, barWidthvalue, barHeight))
+                    let seatView = StudentSeatSubView(frame: CGRect(x: positionX, y: postionY, width: barWidthvalue, height: barHeight))
                     mGridContainerView.addSubview(seatView)
                     seatView.setdelegate(self)
                     seatView.tag = totalSeatvalue
-                    seatView.backgroundColor = UIColor.clearColor()
+                    seatView.backgroundColor = UIColor.clear
                 }
                 
                 positionX = positionX + barWidthvalue + barWidthSpace
@@ -275,7 +279,7 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
         
         
         
-        if let sessionid = sessionDetails.objectForKey("SessionId") as? String
+        if let sessionid = sessionDetails.object(forKey: "SessionId") as? String
         {
             SSStudentDataSource.sharedDataSource.getSeatAssignmentofSession(sessionid, withDelegate: self)
         }
@@ -283,40 +287,38 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
     
     
     
-    func didGetSeatAssignmentWithDetails(details: AnyObject) {
+    func didGetSeatAssignmentWithDetails(_ details: AnyObject) {
         
-        if let  Status = details.objectForKey("Status") as? String
+        if let  Status = details.object(forKey: "Status") as? String
         {
             if Status == "Success"
             {
                 var studentsDetailsArray = NSMutableArray()
                 
-                let classCheckingVariable = details.objectForKey("Students")!.objectForKey("Student")!
-                
-                if classCheckingVariable.isKindOfClass(NSMutableArray)
-                {
-                    studentsDetailsArray = classCheckingVariable as! NSMutableArray
+               if let classCheckingVariable = (details.object(forKey: "Students")! as AnyObject).object(forKey: "Student") as? NSMutableArray
+               {
+                     studentsDetailsArray = classCheckingVariable
                 }
                 else
                 {
-                    studentsDetailsArray.addObject(details.objectForKey("Students")!.objectForKey("Student")!)
+                    studentsDetailsArray.add((details.object(forKey: "Students")! as AnyObject).object(forKey: "Student")!)
                     
                 }
                 
                 for index in 0 ..< studentsDetailsArray.count
                 {
-                    let studentsDetails = studentsDetailsArray.objectAtIndex(index)
+                    let studentsDetails = studentsDetailsArray.object(at: index)
                     
                     
-                    if var SeatLabel = studentsDetails.objectForKey("SeatLabel") as? String
+                    if var SeatLabel = (studentsDetails as AnyObject).object(forKey: "SeatLabel") as? String
                     {
-                        SeatLabel =  SeatLabel.stringByReplacingOccurrencesOfString("A", withString: "")
+                        SeatLabel =  SeatLabel.replacingOccurrences(of: "A", with: "")
                         
                         if let studentDeskView  = mGridContainerView.viewWithTag(Int(SeatLabel)!) as? StudentSeatSubView
                         {
                             
                             
-                            studentDeskView.setStudentDetails(studentsDetails)
+                            studentDeskView.setStudentDetails(studentsDetails as AnyObject)
                             
                         }
                         
@@ -325,14 +327,14 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
                     
                     
                 }
-                mGridContainerView.hidden = false
-                mNoStudentLabel.hidden = true
+                mGridContainerView.isHidden = false
+                mNoStudentLabel.isHidden = true
 
             }
             else
             {
-                mGridContainerView.hidden = true
-                mNoStudentLabel.hidden = false
+                mGridContainerView.isHidden = true
+                mNoStudentLabel.isHidden = false
             }
         }
         
@@ -343,19 +345,16 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
     
     // MARK: - student Message handler 
     
-    func smhDidGetSeatingChangedWithDetails(details: AnyObject)
+    func smhDidGetSeatingChangedWithDetails(_ details: AnyObject)
     {
         
         
-        for view:AnyObject in mGridContainerView.subviews
+        for view:AnyObject in mGridContainerView.subviews.flatMap({ $0 as? StudentSeatSubView })
         {
-            if view.isKindOfClass(StudentSeatSubView)
-            {
-                view.removeFromSuperview()
-            }
+            view.removeFromSuperview()
         }
         
-        if let roomId = sessionDetails.objectForKey("RoomId") as? String
+        if let roomId = sessionDetails.object(forKey: "RoomId") as? String
         {
             SSStudentDataSource.sharedDataSource.getGridDesignDetails(roomId, WithDelegate: self)
         }
@@ -370,21 +369,21 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
     {
         let ClassViewController = StudentClassViewController()
         ClassViewController.setCurrentSessionDetails(sessionDetails)
-        self.presentViewController(ClassViewController, animated: true, completion: nil)
+        self.present(ClassViewController, animated: true, completion: nil)
     }
     
     
     func onBack()
     {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     
-    func smhDidGetSessionEndMessageWithDetails(details: AnyObject)
+    func smhDidGetSessionEndMessageWithDetails(_ details: AnyObject)
     {
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let preallotController : SSStudentScheduleViewController = storyboard.instantiateViewControllerWithIdentifier("TeacherScheduleViewController") as! SSStudentScheduleViewController
-        self.presentViewController(preallotController, animated: true, completion: nil)
+        let preallotController : SSStudentScheduleViewController = storyboard.instantiateViewController(withIdentifier: "TeacherScheduleViewController") as! SSStudentScheduleViewController
+        self.present(preallotController, animated: true, completion: nil)
     }
    
     // MARK: - Leave class delegate handler
@@ -392,8 +391,8 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
     func delegateSessionEnded()
     {
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let preallotController : SSStudentScheduleViewController = storyboard.instantiateViewControllerWithIdentifier("TeacherScheduleViewController") as! SSStudentScheduleViewController
-        self.presentViewController(preallotController, animated: true, completion: nil)
+        let preallotController : SSStudentScheduleViewController = storyboard.instantiateViewController(withIdentifier: "TeacherScheduleViewController") as! SSStudentScheduleViewController
+        self.present(preallotController, animated: true, completion: nil)
         
     }
     

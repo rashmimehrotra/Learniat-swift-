@@ -7,6 +7,14 @@
 //
 
 import Foundation
+@objc protocol SSTeacherLessonPlanViewDelegate
+{
+    
+    
+    @objc optional func delegateDoneButtonPressed()
+    
+}
+
 class SSTeacherLessonPlanView: UIView,SSTeacherDataSourceDelegate, UISearchBarDelegate,UIPopoverControllerDelegate
 {
     
@@ -26,6 +34,17 @@ class SSTeacherLessonPlanView: UIView,SSTeacherDataSourceDelegate, UISearchBarDe
     
     let lessonPlanSearchBar = UISearchBar()
     
+    var _delgate: AnyObject!
+    
+    func setdelegate(_ delegate:AnyObject)
+    {
+        _delgate = delegate;
+    }
+    
+    func   delegate()->AnyObject
+    {
+        return _delgate;
+    }
     
     
     override init(frame: CGRect)
@@ -38,57 +57,57 @@ class SSTeacherLessonPlanView: UIView,SSTeacherDataSourceDelegate, UISearchBarDe
         
         
         
-         mTopbarImageView.frame = CGRectMake(0, 0, self.frame.size.width, 60)
+         mTopbarImageView.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: 60)
         mTopbarImageView.backgroundColor = topbarColor
         self.addSubview(mTopbarImageView)
-        mTopbarImageView.userInteractionEnabled = true
+        mTopbarImageView.isUserInteractionEnabled = true
         
         
         
         mCancelButton.showsTouchWhenHighlighted = true;
-        mCancelButton.frame = CGRectMake(10 , 0, 100,  mTopbarImageView.frame.size.height);
+        mCancelButton.frame = CGRect(x: 10 , y: 0, width: 100,  height: mTopbarImageView.frame.size.height);
         mTopbarImageView.addSubview(mCancelButton);
-        mCancelButton.setTitle("Cancel", forState:.Normal);
-        mCancelButton.setTitleColor(UIColor.whiteColor(), forState:.Normal);
+        mCancelButton.setTitle("Cancel", for:UIControlState());
+        mCancelButton.setTitleColor(UIColor.white, for:UIControlState());
         mCancelButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20);
-        mCancelButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
-        mCancelButton.addTarget(self, action: #selector(SSTeacherLessonPlanView.onCancelButton), forControlEvents: UIControlEvents.TouchUpInside)
+        mCancelButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
+        mCancelButton.addTarget(self, action: #selector(SSTeacherLessonPlanView.onCancelButton), for: UIControlEvents.touchUpInside)
         
         
-        mSendButton.frame = CGRectMake(mTopbarImageView.frame.size.width - 100 , 0, 100 , mTopbarImageView.frame.size.height );
+        mSendButton.frame = CGRect(x: mTopbarImageView.frame.size.width - 100 , y: 0, width: 100 , height: mTopbarImageView.frame.size.height );
         mTopbarImageView.addSubview(mSendButton);
-        mSendButton.setTitle("Done", forState:.Normal);
-        mSendButton.setTitleColor(UIColor.whiteColor(), forState:.Normal);
+        mSendButton.setTitle("Done", for:UIControlState());
+        mSendButton.setTitleColor(UIColor.white, for:UIControlState());
         mSendButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20);
-        mSendButton.highlighted = false;
-        mSendButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
-        mSendButton.addTarget(self, action: #selector(SSTeacherLessonPlanView.onSendButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mSendButton.hidden = true
+        mSendButton.isHighlighted = false;
+        mSendButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
+        mSendButton.addTarget(self, action: #selector(SSTeacherLessonPlanView.onSendButton), for: UIControlEvents.touchUpInside)
+        mSendButton.isHidden = true
         
-        sendButtonSpinner = UIActivityIndicatorView(activityIndicatorStyle:.WhiteLarge);
+        sendButtonSpinner = UIActivityIndicatorView(activityIndicatorStyle:.whiteLarge);
         sendButtonSpinner.frame = mSendButton.frame;
         mTopbarImageView.addSubview(sendButtonSpinner);
-        sendButtonSpinner.hidden = false;
+        sendButtonSpinner.isHidden = false;
         sendButtonSpinner.startAnimating()
         
         
-        MainTopicsView = LessonPlanMainView(frame: CGRectMake(0,mTopbarImageView.frame.size.height,self.frame.size.width,self.frame.size.height - mTopbarImageView.frame.size.height ))
+        MainTopicsView = LessonPlanMainView(frame: CGRect(x: 0,y: mTopbarImageView.frame.size.height,width: self.frame.size.width,height: self.frame.size.height - mTopbarImageView.frame.size.height ))
         
         self.addSubview(MainTopicsView)
         
-          lessonPlanSearchBar.frame = CGRectMake((mTopbarImageView.frame.size.width - 400)/2 , 20, 400, 40)
+          lessonPlanSearchBar.frame = CGRect(x: (mTopbarImageView.frame.size.width - 400)/2 , y: 10, width: 400, height: 40)
         lessonPlanSearchBar.placeholder = "Search"
         mTopbarImageView.addSubview(lessonPlanSearchBar)
-        lessonPlanSearchBar.backgroundColor = UIColor.clearColor()
+        lessonPlanSearchBar.backgroundColor = UIColor.clear
         lessonPlanSearchBar.barTintColor = topbarColor
         lessonPlanSearchBar.delegate = self
-        lessonPlanSearchBar.barStyle = UIBarStyle.Default
-        lessonPlanSearchBar.translucent = true
-        lessonPlanSearchBar.tintColor = UIColor.whiteColor()
+        lessonPlanSearchBar.barStyle = UIBarStyle.default
+        lessonPlanSearchBar.isTranslucent = true
+        lessonPlanSearchBar.tintColor = UIColor.white
         let image = UIImage()
         lessonPlanSearchBar.backgroundImage = image
-        lessonPlanSearchBar.setImage(UIImage(named: "LessonPLanDismissed.png"), forSearchBarIcon: .Clear, state: .Normal)
-        lessonPlanSearchBar.autocapitalizationType = .None
+        lessonPlanSearchBar.setImage(UIImage(named: "LessonPLanDismissed.png"), for: .clear, state: UIControlState())
+        lessonPlanSearchBar.autocapitalizationType = .none
         
     }
     
@@ -103,33 +122,39 @@ class SSTeacherLessonPlanView: UIView,SSTeacherDataSourceDelegate, UISearchBarDe
     
     func onCancelButton()
     {
+        if delegate().responds(to: #selector(SSTeacherLessonPlanViewDelegate.delegateDoneButtonPressed))
+        {
+            delegate().delegateDoneButtonPressed!()
+        }
+        
         self.removeFromSuperview()
+        
     }
     
     func onSendButton()
     {
         
-        if let ClassId = _currentSessionDetails.objectForKey("ClassId") as? String
+        if let ClassId = _currentSessionDetails.object(forKey: "ClassId") as? String
         {
              SSTeacherDataSource.sharedDataSource.saveLessonPlan(ClassId, withTopicIdList: MainTopicsView.getAllSelectedtopicId(), withDelegate: self)
-            sendButtonSpinner.hidden = false
+            sendButtonSpinner.isHidden = false
             sendButtonSpinner.startAnimating()
-            mSendButton.hidden = true
+            mSendButton.isHidden = true
             
         }
         
     }
     
     
-    func setCurrentSessionDetails(details:AnyObject)
+    func setCurrentSessionDetails(_ details:AnyObject)
     {
         
         _currentSessionDetails = details
         
-        if let ClassId = details.objectForKey("ClassId") as? String
+        if let ClassId = details.object(forKey: "ClassId") as? String
         {
             
-            if let SubjectId = details.objectForKey("SubjectId") as? String
+            if let SubjectId = details.object(forKey: "SubjectId") as? String
             {
                 SSTeacherDataSource.sharedDataSource.getAllNodesWithClassId(ClassId, withSubjectId: SubjectId, withTopicId: "", withType: "", withDelegate: self)
             }
@@ -140,12 +165,12 @@ class SSTeacherLessonPlanView: UIView,SSTeacherDataSourceDelegate, UISearchBarDe
     
      // MARK: - datasource delegate functions
     
-    func didGetAllNodesWithDetails(details: AnyObject)
+    func didGetAllNodesWithDetails(_ details: AnyObject)
     {
         
-        sendButtonSpinner.hidden = true
+        sendButtonSpinner.isHidden = true
         sendButtonSpinner.stopAnimating()
-        mSendButton.hidden = false
+        mSendButton.isHidden = false
 
         fullLessonPlanDetails = details
         SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.removeAllObjects()
@@ -156,25 +181,25 @@ class SSTeacherLessonPlanView: UIView,SSTeacherDataSourceDelegate, UISearchBarDe
         
     }
     
-    func didGetLessonPlanSavedWithdetails(details: AnyObject)
+    func didGetLessonPlanSavedWithdetails(_ details: AnyObject)
     {
-        sendButtonSpinner.hidden = true
+        sendButtonSpinner.isHidden = true
         sendButtonSpinner.stopAnimating()
-        mSendButton.hidden = false
+        mSendButton.isHidden = false
         self.removeFromSuperview()
     }
     
-    func didgetErrorMessage(message: String, WithServiceName serviceName: String)
+    func didgetErrorMessage(_ message: String, WithServiceName serviceName: String)
     {
-        sendButtonSpinner.hidden = true
+        sendButtonSpinner.isHidden = true
         sendButtonSpinner.stopAnimating()
-        mSendButton.hidden = false
+        mSendButton.isHidden = false
     }
     
     
     // MARK: - search bar delegate functions
     
-    func searchBarTextDidBeginEditing(searchBar: UISearchBar)
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar)
     {
         searchBar.showsCancelButton = true
         
@@ -185,7 +210,7 @@ class SSTeacherLessonPlanView: UIView,SSTeacherDataSourceDelegate, UISearchBarDe
         
     }
     
-    func searchBarCancelButtonClicked(searchBar: UISearchBar)
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar)
     {
         searchBar.resignFirstResponder()
         searchBar.showsCancelButton = false
@@ -195,12 +220,12 @@ class SSTeacherLessonPlanView: UIView,SSTeacherDataSourceDelegate, UISearchBarDe
         }
     }
     
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String)
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
     {
         
         if MainTopicsView != nil
         {
-            MainTopicsView.searchingTextWithSearchText(searchText.lowercaseString)
+            MainTopicsView.searchingTextWithSearchText(searchText.lowercased())
         }
     }
     

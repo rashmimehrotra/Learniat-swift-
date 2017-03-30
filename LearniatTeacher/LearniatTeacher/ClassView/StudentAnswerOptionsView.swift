@@ -15,17 +15,18 @@ class StudentAnswerOptionsView: UIView
     
     var _studentFinalAnswerOptions = NSMutableArray()
     
-    var _Popover:AnyObject!
-    func setPopover(popover:AnyObject)
+    
+    var _Popover:UIPopoverController!
+    
+    func setPopover(_ popover:UIPopoverController)
     {
         _Popover = popover
     }
     
-    func popover()-> AnyObject
+    func popover()-> UIPopoverController
     {
         return _Popover
     }
-    
     
     override init(frame: CGRect) {
         
@@ -54,9 +55,9 @@ class StudentAnswerOptionsView: UIView
         }
         
         
-        let mDontKnowImage = UIImageView(frame: CGRectMake(10,10,self.frame.size.width - 20 ,self.frame.size.height - 20 ))
+        let mDontKnowImage = UIImageView(frame: CGRect(x: 10,y: 10,width: self.frame.size.width - 20 ,height: self.frame.size.height - 20 ))
         self.addSubview(mDontKnowImage)
-        mDontKnowImage.contentMode = .ScaleAspectFit
+        mDontKnowImage.contentMode = .scaleAspectFit
         mDontKnowImage.image = UIImage(named: "don't-know.png")
         
         
@@ -65,7 +66,7 @@ class StudentAnswerOptionsView: UIView
     }
     
     
-    func addScribbleWithDetiails(details:AnyObject, withOverlayImage overlayImage:String)
+    func addScribbleWithDetiails(_ details:AnyObject, withOverlayImage overlayImage:String)
     {
         let subViews = self.subviews
         
@@ -80,40 +81,40 @@ class StudentAnswerOptionsView: UIView
         
         if overlayImage != ""
         {
-            let overLayImage = CustomProgressImageView(frame: CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
+            let overLayImage = CustomProgressImageView(frame: CGRect(x: 0,y: 0,width: self.frame.size.width,height: self.frame.size.height))
             self.addSubview(overLayImage)
             
             
-            let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_QuestionsImageUrl) as! String
+            let urlString = UserDefaults.standard.object(forKey: k_INI_QuestionsImageUrl) as! String
             
-            if let checkedUrl = NSURL(string: "\(urlString)/\(overlayImage)")
+            if let checkedUrl = URL(string: "\(urlString)/\(overlayImage)")
             {
-                overLayImage.contentMode = .ScaleAspectFit
+                overLayImage.contentMode = .scaleAspectFit
                 overLayImage.downloadImage(checkedUrl, withFolderType: folderType.questionImage,withResizeValue: self.frame.size)
             }
             
         }
         
         
-        let studentAnswerImage = CustomProgressImageView(frame: CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
+        let studentAnswerImage = CustomProgressImageView(frame: CGRect(x: 0,y: 0,width: self.frame.size.width,height: self.frame.size.height))
         self.addSubview(studentAnswerImage)
        
         
-        if let Scribble = details.objectForKey("Scribble") as? String
+        if let Scribble = details.object(forKey: "Scribble") as? String
         {
-            let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_SCRIBBLE_IMAGE_URL) as! String
+            let urlString = UserDefaults.standard.object(forKey: k_INI_SCRIBBLE_IMAGE_URL) as! String
             
-            if let checkedUrl = NSURL(string: "\(urlString)/\(Scribble)")
+            if let checkedUrl = URL(string: "\(urlString)/\(Scribble)")
             {
-                studentAnswerImage.contentMode = .ScaleAspectFit
-                studentAnswerImage.downloadImage(checkedUrl, withFolderType: folderType.StudentAnswer,withResizeValue: self.frame.size)
+                studentAnswerImage.contentMode = .scaleAspectFit
+                studentAnswerImage.downloadImage(checkedUrl, withFolderType: folderType.studentAnswer,withResizeValue: self.frame.size)
             }
         }
     }
     
     
     
-    func addTextWithDetiails(details:AnyObject)
+    func addTextWithDetiails(_ details:AnyObject)
     {
         let subViews = self.subviews
         
@@ -129,7 +130,7 @@ class StudentAnswerOptionsView: UIView
         
         
         
-        let studentAnswertext = UILabel(frame: CGRectMake((self.frame.size.width - (self.frame.size.width - 5))/2  ,(self.frame.size.height-(self.frame.size.height - 5 ))/2,self.frame.size.width - 5,self.frame.size.height - 5 ))
+        let studentAnswertext = UILabel(frame: CGRect(x: (self.frame.size.width - (self.frame.size.width - 5))/2  ,y: (self.frame.size.height-(self.frame.size.height - 5 ))/2,width: self.frame.size.width - 5,height: self.frame.size.height - 5 ))
         self.addSubview(studentAnswertext)
        
         var fontHeight = studentAnswertext.frame.size.height/3;
@@ -141,10 +142,10 @@ class StudentAnswerOptionsView: UIView
 
         studentAnswertext.font = UIFont(name: RobotItalic, size: fontHeight)
         studentAnswertext.textColor = blackTextColor
-        studentAnswertext.lineBreakMode = .ByTruncatingMiddle
+        studentAnswertext.lineBreakMode = .byTruncatingMiddle
         studentAnswertext.numberOfLines = 10
-        studentAnswertext.textAlignment = .Center
-        if let TextAnswer = details.objectForKey("TextAnswer") as? String
+        studentAnswertext.textAlignment = .center
+        if let TextAnswer = details.object(forKey: "TextAnswer") as? String
         {
            studentAnswertext.text = TextAnswer
         }
@@ -154,7 +155,7 @@ class StudentAnswerOptionsView: UIView
     }
     
     
-    func addOneStringAnswerWithString(answer:String)
+    func addOneStringAnswerWithString(_ answer:String)
     {   
         let subViews = self.subviews
         
@@ -170,7 +171,7 @@ class StudentAnswerOptionsView: UIView
         
         
         
-        let studentAnswertext = UILabel(frame: CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
+        let studentAnswertext = UILabel(frame: CGRect(x: 0,y: 0,width: self.frame.size.width,height: self.frame.size.height))
         self.addSubview(studentAnswertext)
         
         var fontHeight = studentAnswertext.frame.size.height/3;
@@ -182,38 +183,35 @@ class StudentAnswerOptionsView: UIView
         
         studentAnswertext.font = UIFont(name: RobotItalic, size: fontHeight)
         studentAnswertext.textColor = blackTextColor
-        studentAnswertext.lineBreakMode = .ByTruncatingMiddle
+        studentAnswertext.lineBreakMode = .byTruncatingMiddle
         studentAnswertext.numberOfLines = 10
-        studentAnswertext.textAlignment = .Center
+        studentAnswertext.textAlignment = .center
         studentAnswertext.text = answer
         
     }
     
     
-    func addOptionsWithAnswerDetails(answerDetails: AnyObject, withQuestionDetails questionDetails :AnyObject)
+    func addOptionsWithAnswerDetails(_ answerDetails: AnyObject, withQuestionDetails questionDetails :AnyObject)
     {
         _currentQuestionDetials = questionDetails
         var optionArray = NSMutableArray()
         
-        if let options = _currentQuestionDetials.objectForKey("Options")
+        if let options = _currentQuestionDetials.object(forKey: "Options") as? NSMutableDictionary
         {
-            if let classCheckingVariable = options.objectForKey("Option")
+            if let classCheckingVariable = options.object(forKey: "Option") as? NSMutableArray
             {
-                if classCheckingVariable.isKindOfClass(NSMutableArray)
-                {
-                    optionArray = classCheckingVariable as! NSMutableArray
-                }
-                else
-                {
-                    optionArray.addObject(_currentQuestionDetials.objectForKey("Options")!.objectForKey("Option")!)
-                    
-                }
+                
+                optionArray = classCheckingVariable
+            }
+            else if let classCheckingVariable = options.object(forKey: "Option") as? NSMutableDictionary
+            {
+                   optionArray.add(classCheckingVariable)
             }
         }
         
         
         
-        if let Type = _currentQuestionDetials.objectForKey("Type") as? String
+        if let Type = _currentQuestionDetials.object(forKey: "Type") as? String
         {
             if Type == kMCQ
             {
@@ -235,17 +233,17 @@ class StudentAnswerOptionsView: UIView
     }
     
     
-    func addSingleResponseQuestionAnswerWithDetails(answerDetails:AnyObject, withQuestionOptionsArray questionOptions:NSMutableArray)
+    func addSingleResponseQuestionAnswerWithDetails(_ answerDetails:AnyObject, withQuestionOptionsArray questionOptions:NSMutableArray)
     {
         let studentAnsweOption = NSMutableArray()
         
-        if let options = answerDetails.objectForKey("Options")
+        if let options = answerDetails.object(forKey: "Options")
         {
-            if let classCheckingVariable = options.objectForKey("Option")
+            if let classCheckingVariable = (options as AnyObject).object(forKey: "Option")
             {
-                if let _studentAnswerOption = classCheckingVariable.objectForKey("OptionText") as?String
+                if let _studentAnswerOption = (classCheckingVariable as AnyObject).object(forKey: "OptionText") as?String
                 {
-                    studentAnsweOption .addObject( _studentAnswerOption)
+                    studentAnsweOption .add( _studentAnswerOption)
                 }
             }
         }
@@ -258,34 +256,33 @@ class StudentAnswerOptionsView: UIView
         
     }
     
-    func addMultipleResponseQuestionAnswerWithDetails(answerDetails:AnyObject, withQuestionOptionsArray questionOptions:NSMutableArray)
+    func addMultipleResponseQuestionAnswerWithDetails(_ answerDetails:AnyObject, withQuestionOptionsArray questionOptions:NSMutableArray)
     {
         var studentAnsweOptions = NSMutableArray()
-        if let options = answerDetails.objectForKey("Options")
+        if let options = answerDetails.object(forKey: "Options") as? NSMutableDictionary
         {
-            if let classCheckingVariable = options.objectForKey("Option")
+            if let classCheckingVariable = options.object(forKey: "Option") as? NSMutableArray
             {
-                if classCheckingVariable.isKindOfClass(NSMutableArray)
-                {
-                    studentAnsweOptions = classCheckingVariable as! NSMutableArray
-                }
-                else
-                {
-                    studentAnsweOptions.addObject(answerDetails.objectForKey("Options")!.objectForKey("Option")!)
+                studentAnsweOptions = classCheckingVariable
                     
-                }
             }
+            else
+            {
+                 studentAnsweOptions.add(options.object(forKey: "Option")!)
+            }
+            
         }
+        
         
         
         let studentFinalAsnwer = NSMutableArray()
         for answerIndex in 0..<studentAnsweOptions.count
         {
-            let answerOptiondict = studentAnsweOptions.objectAtIndex(answerIndex)
+            let answerOptiondict = studentAnsweOptions.object(at: answerIndex)
             
-            if let answerOptionText = answerOptiondict.objectForKey("OptionText") as? String
+            if let answerOptionText = (answerOptiondict as AnyObject).object(forKey: "OptionText") as? String
             {
-                studentFinalAsnwer.addObject(answerOptionText)
+                studentFinalAsnwer.add(answerOptionText)
                 
             }
         }
@@ -300,23 +297,20 @@ class StudentAnswerOptionsView: UIView
     
     
     
-    func addMatchColumnQuestionAnswerWithDetails(answerOptions:AnyObject)
+    func addMatchColumnQuestionAnswerWithDetails(_ answerOptions:AnyObject)
     {
         
         var studentAnsweOptions = NSMutableArray()
-        if let options = answerOptions.objectForKey("Options")
+        if let options = answerOptions.object(forKey: "Options") as? NSMutableDictionary
         {
-            if let classCheckingVariable = options.objectForKey("Option")
+            if let classCheckingVariable = options.object(forKey: "Option") as? NSMutableArray
             {
-                if classCheckingVariable.isKindOfClass(NSMutableArray)
-                {
-                    studentAnsweOptions = classCheckingVariable as! NSMutableArray
-                }
-                else
-                {
-                    studentAnsweOptions.addObject(answerOptions.objectForKey("Options")!.objectForKey("Option")!)
-                    
-                }
+               studentAnsweOptions = classCheckingVariable
+            }
+            else if let classCheckingVariable = options.object(forKey: "Option") as? NSMutableDictionary
+            {
+                studentAnsweOptions.add(classCheckingVariable)
+                
             }
         }
         
@@ -329,32 +323,32 @@ class StudentAnswerOptionsView: UIView
     
     
     
-    func getOptionsValuesWithOptionsArray(answerOptions:NSMutableArray, withQuestionOptions questionOptions:NSMutableArray)-> NSMutableArray
+    func getOptionsValuesWithOptionsArray(_ answerOptions:NSMutableArray, withQuestionOptions questionOptions:NSMutableArray)-> NSMutableArray
     {
         
         for index in 0..<questionOptions.count
         {
-            let questionOptiondict = questionOptions.objectAtIndex(index)
+            let questionOptiondict = questionOptions.object(at: index)
             
-            if let questionOptionText = questionOptiondict.objectForKey("OptionText") as? String
+            if let questionOptionText = (questionOptiondict as AnyObject).object(forKey: "OptionText") as? String
             {
                 for answerIndex in 0..<answerOptions.count
                 {
-                    if let answerOptionText = answerOptions.objectAtIndex(answerIndex) as? String
+                    if let answerOptionText = answerOptions.object(at: answerIndex) as? String
                     {
                         if answerOptionText == questionOptionText
                         {
-                            if let IsAnswer = questionOptiondict.objectForKey("IsAnswer") as? String
+                            if let IsAnswer = (questionOptiondict as AnyObject).object(forKey: "IsAnswer") as? String
                             {
                                 if IsAnswer == "1"
                                 {
-                                    questionOptiondict.setObject(KCorretValue, forKey: "IsAnswer")
-                                    questionOptions.replaceObjectAtIndex(index, withObject: questionOptiondict)
+                                    (questionOptiondict as AnyObject).set(KCorretValue, forKey: "IsAnswer")
+                                    questionOptions.replaceObject(at: index, with: questionOptiondict)
                                 }
                                 else
                                 {
-                                    questionOptiondict.setObject(kWrongvalue, forKey: "IsAnswer")
-                                    questionOptions.replaceObjectAtIndex(index, withObject: questionOptiondict)
+                                    (questionOptiondict as AnyObject).set(kWrongvalue, forKey: "IsAnswer")
+                                    questionOptions.replaceObject(at: index, with: questionOptiondict)
                                 }
                             }
                             
@@ -369,14 +363,14 @@ class StudentAnswerOptionsView: UIView
         
         for index in 0..<questionOptions.count
         {
-            let questionOptiondict = questionOptions.objectAtIndex(index)
+            let questionOptiondict = questionOptions.object(at: index)
             
-            if let IsAnswer = questionOptiondict.objectForKey("IsAnswer") as? String
+            if let IsAnswer = (questionOptiondict as AnyObject).object(forKey: "IsAnswer") as? String
             {
                 if IsAnswer == "0" || IsAnswer == "1"
                 {
-                    questionOptiondict.setObject(kMissedValue, forKey: "IsAnswer")
-                    questionOptions.replaceObjectAtIndex(index, withObject: questionOptiondict)
+                    (questionOptiondict as AnyObject).set(kMissedValue, forKey: "IsAnswer")
+                    questionOptions.replaceObject(at: index, with: questionOptiondict)
                 }
                 
             }
@@ -388,7 +382,7 @@ class StudentAnswerOptionsView: UIView
     }
     
     
-    func addCheckMarksForMultipleResponseWithOptionsDetails(optionsDetails:NSMutableArray, withAnswerOptions answerOptions:NSMutableArray)
+    func addCheckMarksForMultipleResponseWithOptionsDetails(_ optionsDetails:NSMutableArray, withAnswerOptions answerOptions:NSMutableArray)
     {
         
         
@@ -410,7 +404,7 @@ class StudentAnswerOptionsView: UIView
             
             
             
-            if (count % 2 != 0)
+            if (count.truncatingRemainder(dividingBy: 2) != 0)
             {
                 
                 count = count+1;
@@ -438,50 +432,50 @@ class StudentAnswerOptionsView: UIView
             {
                 for _ in 0..<Int(numberOfcolumn)
                 {
-                    let containerView =  UIImageView(frame:CGRectMake(width, height, barWidth, barHeight))
+                    let containerView =  UIImageView(frame:CGRect(x: width, y: height, width: barWidth, height: barHeight))
                     self.addSubview(containerView);
                     
                     let optionsValueImage = UIImageView()
                     
                     if containerView.frame.size.width > containerView.frame.size.height
                     {
-                        optionsValueImage.frame = CGRectMake((containerView.frame.size.width - containerView.frame.size.height)/2 , (containerView.frame.size.width - containerView.frame.size.height)/2, containerView.frame.size.height, containerView.frame.size.height)
+                        optionsValueImage.frame = CGRect(x: (containerView.frame.size.width - containerView.frame.size.height)/2 , y: (containerView.frame.size.width - containerView.frame.size.height)/2, width: containerView.frame.size.height, height: containerView.frame.size.height)
                     }
                     else
                     {
-                        optionsValueImage.frame = CGRectMake((containerView.frame.size.height - containerView.frame.size.width)/2 , (containerView.frame.size.height - containerView.frame.size.width)/2, containerView.frame.size.width, containerView.frame.size.width)
+                        optionsValueImage.frame = CGRect(x: (containerView.frame.size.height - containerView.frame.size.width)/2 , y: (containerView.frame.size.height - containerView.frame.size.width)/2, width: containerView.frame.size.width, height: containerView.frame.size.width)
                     }
                     
                     containerView.addSubview(optionsValueImage)
                     
-                    optionsValueImage.contentMode = .ScaleAspectFit
+                    optionsValueImage.contentMode = .scaleAspectFit
                     
                     optionsValueImage.backgroundColor = topicsLineColor
                     
                     if optionsArrayCount < optionsDetails.count
                     {
-                        let questionOptiondict = optionsDetails.objectAtIndex(optionsArrayCount)
+                        let questionOptiondict = optionsDetails.object(at: optionsArrayCount)
                         
                         
-                        if let questionOptionText = questionOptiondict.objectForKey("OptionText") as? String
+                        if let questionOptionText = (questionOptiondict as AnyObject).object(forKey: "OptionText") as? String
                         {
                             for answerIndex in 0..<answerOptions.count
                             {
-                                if let answerOptionText = answerOptions.objectAtIndex(answerIndex) as? String
+                                if let answerOptionText = answerOptions.object(at: answerIndex) as? String
                                 {
                                     if answerOptionText == questionOptionText
                                     {
-                                        if let IsAnswer = questionOptiondict.objectForKey("IsAnswer") as? String
+                                        if let IsAnswer = (questionOptiondict as AnyObject).object(forKey: "IsAnswer") as? String
                                         {
                                             if IsAnswer == "1"
                                             {
                                                 optionsValueImage.image = UIImage(named: "Check.png")
-                                                optionsValueImage.backgroundColor = UIColor.clearColor()
+                                                optionsValueImage.backgroundColor = UIColor.clear
                                             }
                                             else if IsAnswer == "0"
                                             {
                                                 optionsValueImage.image = UIImage(named: "X.png")
-                                                optionsValueImage.backgroundColor = UIColor.clearColor()
+                                                optionsValueImage.backgroundColor = UIColor.clear
                                             }
                                         }
                                     }
@@ -501,7 +495,7 @@ class StudentAnswerOptionsView: UIView
         }
     }
     
-    func addCheckMarksForMatchCoulmnWithOptionsDetails(optionsDetails:NSMutableArray)
+    func addCheckMarksForMatchCoulmnWithOptionsDetails(_ optionsDetails:NSMutableArray)
     {
         
         
@@ -523,7 +517,7 @@ class StudentAnswerOptionsView: UIView
             
             
             
-            if (count % 2 != 0)
+            if (count.truncatingRemainder(dividingBy: 2) != 0)
             {
                 
                 count = count+1;
@@ -551,43 +545,43 @@ class StudentAnswerOptionsView: UIView
             {
                 for _ in 0..<Int(numberOfcolumn)
                 {
-                    let containerView =  UIImageView(frame:CGRectMake(width, height, barWidth, barHeight))
+                    let containerView =  UIImageView(frame:CGRect(x: width, y: height, width: barWidth, height: barHeight))
                     self.addSubview(containerView);
                     
                     let studentDesk = UIImageView()
                     
                     if containerView.frame.size.width > containerView.frame.size.height
                     {
-                        studentDesk.frame = CGRectMake((containerView.frame.size.width - containerView.frame.size.height)/2 , (containerView.frame.size.width - containerView.frame.size.height)/2, containerView.frame.size.height, containerView.frame.size.height)
+                        studentDesk.frame = CGRect(x: (containerView.frame.size.width - containerView.frame.size.height)/2 , y: (containerView.frame.size.width - containerView.frame.size.height)/2, width: containerView.frame.size.height, height: containerView.frame.size.height)
                     }
                     else
                     {
-                        studentDesk.frame = CGRectMake((containerView.frame.size.height - containerView.frame.size.width)/2 , (containerView.frame.size.height - containerView.frame.size.width)/2, containerView.frame.size.width, containerView.frame.size.width)
+                        studentDesk.frame = CGRect(x: (containerView.frame.size.height - containerView.frame.size.width)/2 , y: (containerView.frame.size.height - containerView.frame.size.width)/2, width: containerView.frame.size.width, height: containerView.frame.size.width)
                     }
                     
                     containerView.addSubview(studentDesk)
                     
-                    studentDesk.contentMode = .ScaleAspectFit
+                    studentDesk.contentMode = .scaleAspectFit
                     
                     studentDesk.backgroundColor = topicsLineColor
                     
                     if optionsArrayCount < optionsDetails.count
                     {
-                        let questionOptiondict = optionsDetails.objectAtIndex(optionsArrayCount)
+                        let questionOptiondict = optionsDetails.object(at: optionsArrayCount)
                         
-                        if let OldSequence = questionOptiondict.objectForKey("OldSequence") as? String
+                        if let OldSequence = (questionOptiondict as AnyObject).object(forKey: "OldSequence") as? String
                         {
-                            if let Sequence = questionOptiondict.objectForKey("Sequence") as? String
+                            if let Sequence = (questionOptiondict as AnyObject).object(forKey: "Sequence") as? String
                             {
                                 if OldSequence == Sequence
                                 {
                                     studentDesk.image = UIImage(named: "Check.png")
-                                    studentDesk.backgroundColor = UIColor.clearColor()
+                                    studentDesk.backgroundColor = UIColor.clear
                                 }
                                 else
                                 {
                                     studentDesk.image = UIImage(named: "X.png")
-                                    studentDesk.backgroundColor = UIColor.clearColor()
+                                    studentDesk.backgroundColor = UIColor.clear
                                 }
                             }
                         }
@@ -602,7 +596,7 @@ class StudentAnswerOptionsView: UIView
     }
     
     
-    func setStudentEvaluationStatusWithDetails(details:AnyObject)
+    func setStudentEvaluationStatusWithDetails(_ details:AnyObject)
     {
         
         /* 
@@ -616,17 +610,17 @@ class StudentAnswerOptionsView: UIView
         */
 
         
-        if let teacherScribble = details.objectForKey("imageUrl") as? String
+        if let teacherScribble = details.object(forKey: "imageUrl") as? String
         {
-            let overLayImage = CustomProgressImageView(frame: CGRectMake(0,0,self.frame.size.width,self.frame.size.height))
+            let overLayImage = CustomProgressImageView(frame: CGRect(x: 0,y: 0,width: self.frame.size.width,height: self.frame.size.height))
             self.addSubview(overLayImage)
             
             
-            let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_QuestionsImageUrl) as! String
+            let urlString = UserDefaults.standard.object(forKey: k_INI_QuestionsImageUrl) as! String
             
-            if let checkedUrl = NSURL(string: "\(urlString)/\(teacherScribble)")
+            if let checkedUrl = URL(string: "\(urlString)/\(teacherScribble)")
             {
-                overLayImage.contentMode = .ScaleAspectFit
+                overLayImage.contentMode = .scaleAspectFit
                 overLayImage.downloadImage(checkedUrl, withFolderType: folderType.questionImage,withResizeValue: self.frame.size)
             }
             
@@ -640,7 +634,7 @@ class StudentAnswerOptionsView: UIView
         
         
         
-        let mTeacherReplyState = UIImageView(frame: CGRectMake(0,self.frame.size.height - (self.frame.size.height / 3) ,self.frame.size.width,self.frame.size.height / 3))
+        let mTeacherReplyState = UIImageView(frame: CGRect(x: 0,y: self.frame.size.height - (self.frame.size.height / 3) ,width: self.frame.size.width,height: self.frame.size.height / 3))
         self.addSubview(mTeacherReplyState)
         mTeacherReplyState.backgroundColor = UIColor(red: 34/255.0, green:68/255.0, blue:99/255.0, alpha: 0.8)
         
@@ -650,19 +644,19 @@ class StudentAnswerOptionsView: UIView
         
        
         
-        if let Rating = details.objectForKey("Rating") as? String
+        if let Rating = details.object(forKey: "Rating") as? String
         {
             
             ratings = Int(Rating)!
         }
         
-        if let BadgeId = details.objectForKey("BadgeId") as? String
+        if let BadgeId = details.object(forKey: "BadgeId") as? String
         {
             badgeId = Int(BadgeId)!
             
         }
         
-        if let textRating = details.objectForKey("textRating") as? String
+        if let textRating = details.object(forKey: "textRating") as? String
         {
             textReply = textRating
             
@@ -672,24 +666,24 @@ class StudentAnswerOptionsView: UIView
         
         if ratings > 0
         {
-            let starview = StudentStarView(frame: CGRectMake(0,0,mTeacherReplyState.frame.size.width,mTeacherReplyState.frame.size.height))
-           starview.addStarsWithRatings(Int32(ratings), withSize: Float(mTeacherReplyState.frame.size.height))
-            starview.backgroundColor = UIColor.clearColor()
+            let starview = StudentStarView(frame: CGRect(x: 0,y: 0,width: mTeacherReplyState.frame.size.width,height: mTeacherReplyState.frame.size.height))
+           starview.addStars(withRatings: Int32(ratings), withSize: Float(mTeacherReplyState.frame.size.height))
+            starview.backgroundColor = UIColor.clear
             mTeacherReplyState.addSubview(starview)
         }
         else if badgeId > 0
         {
             let imageLoader = ImageUploading()
             
-            let BadgeIdImage = UIImageView(frame: CGRectMake(0,0,mTeacherReplyState.frame.size.width,mTeacherReplyState.frame.size.height))
-            BadgeIdImage.contentMode = .ScaleAspectFit
+            let BadgeIdImage = UIImageView(frame: CGRect(x: 0,y: 0,width: mTeacherReplyState.frame.size.width,height: mTeacherReplyState.frame.size.height))
+            BadgeIdImage.contentMode = .scaleAspectFit
             BadgeIdImage.image = imageLoader.getImageWithBadgeId(Int32(badgeId))
             
             mTeacherReplyState.addSubview(BadgeIdImage)
         }
         else if textReply != ""
         {
-            let studentAnswertext = UILabel(frame: CGRectMake(0,0,mTeacherReplyState.frame.size.width,mTeacherReplyState.frame.size.height))
+            let studentAnswertext = UILabel(frame: CGRect(x: 0,y: 0,width: mTeacherReplyState.frame.size.width,height: mTeacherReplyState.frame.size.height))
             mTeacherReplyState.addSubview(studentAnswertext)
             
             var fontHeight = studentAnswertext.frame.size.height/3;
@@ -700,22 +694,22 @@ class StudentAnswerOptionsView: UIView
             }
             
             studentAnswertext.font = UIFont(name: RobotItalic, size: fontHeight)
-            studentAnswertext.textColor = UIColor.whiteColor()
-            studentAnswertext.lineBreakMode = .ByTruncatingMiddle
+            studentAnswertext.textColor = UIColor.white
+            studentAnswertext.lineBreakMode = .byTruncatingMiddle
             studentAnswertext.numberOfLines = 10
-            studentAnswertext.textAlignment = .Center
+            studentAnswertext.textAlignment = .center
             studentAnswertext.text = textReply
             
         }
         
         
-        if let ModelAnswerFlag = details.objectForKey("ModelAnswerFlag") as? String
+        if let ModelAnswerFlag = details.object(forKey: "ModelAnswerFlag") as? String
         {
             if ModelAnswerFlag == "true"
             {
-                let modelAnswerLabel = UILabel(frame: CGRectMake(0,0,self.frame.size.width,mTeacherReplyState.frame.size.height / 1.8))
+                let modelAnswerLabel = UILabel(frame: CGRect(x: 0,y: 0,width: self.frame.size.width,height: mTeacherReplyState.frame.size.height / 1.8))
                 modelAnswerLabel.backgroundColor = standard_Green
-                modelAnswerLabel.textColor = UIColor.whiteColor()
+                modelAnswerLabel.textColor = UIColor.white
                 
                 var fontHeight = modelAnswerLabel.frame.size.height/1.2;
                 
@@ -725,10 +719,10 @@ class StudentAnswerOptionsView: UIView
                 }
                 
                 modelAnswerLabel.font = UIFont(name: RobotItalic, size: fontHeight)
-                modelAnswerLabel.textColor = UIColor.whiteColor()
-                modelAnswerLabel.lineBreakMode = .ByTruncatingMiddle
+                modelAnswerLabel.textColor = UIColor.white
+                modelAnswerLabel.lineBreakMode = .byTruncatingMiddle
                 modelAnswerLabel.numberOfLines = 10
-                modelAnswerLabel.textAlignment = .Center
+                modelAnswerLabel.textAlignment = .center
                 modelAnswerLabel.text = "Model Answer"
                 self.addSubview(modelAnswerLabel)
                 

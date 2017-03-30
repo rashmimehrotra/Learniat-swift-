@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4D06408D1D0BD3AD00945EE4 /* ATKCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D06408C1D0BD3AD00945EE4 /* ATKCore.framework */; };
 		4D0A7FC81CCF783B001AA119 /* StudentAnswerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0A7FC71CCF783B001AA119 /* StudentAnswerDemo.swift */; };
 		4D0A7FCA1CCF79C6001AA119 /* StudentAnswerSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0A7FC91CCF79C6001AA119 /* StudentAnswerSelectionView.swift */; };
 		4D2A93201CC0C4A9007A1D41 /* SetupClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2A931D1CC0C4A9007A1D41 /* SetupClassCell.swift */; };
@@ -17,7 +16,6 @@
 		4D2A93281CC0C986007A1D41 /* Circle_Green.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D2A93241CC0C986007A1D41 /* Circle_Green.png */; };
 		4D2A93291CC0C986007A1D41 /* Circle_Red.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D2A93251CC0C986007A1D41 /* Circle_Red.png */; };
 		4D2A932A1CC0C986007A1D41 /* Remove.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D2A93261CC0C986007A1D41 /* Remove.png */; };
-		4D496D421CDB5CDD00233E25 /* TeacherMathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D496D411CDB5CDD00233E25 /* TeacherMathView.swift */; };
 		4D496D461CDB5F9B00233E25 /* Equation.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D496D431CDB5F9B00233E25 /* Equation.png */; };
 		4D496D471CDB5F9B00233E25 /* Shapes.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D496D441CDB5F9B00233E25 /* Shapes.png */; };
 		4D496D481CDB5F9B00233E25 /* Text.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D496D451CDB5F9B00233E25 /* Text.png */; };
@@ -32,6 +30,8 @@
 		4DC2465D1CC2450C00E01CA4 /* LessonPlanSubTopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC2465C1CC2450C00E01CA4 /* LessonPlanSubTopicCell.swift */; };
 		4DC2465F1CC24BFF00E01CA4 /* LessonPlanQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC2465E1CC24BFF00E01CA4 /* LessonPlanQuestionView.swift */; };
 		4DC246611CC24E9100E01CA4 /* LessonPlanQuestionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC246601CC24E9100E01CA4 /* LessonPlanQuestionViewCell.swift */; };
+		53005C3C1E884B7500CADA53 /* StudentsStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53005C3B1E884B7500CADA53 /* StudentsStateView.swift */; };
+		53005C3E1E896A4600CADA53 /* StudentStateViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53005C3D1E896A4600CADA53 /* StudentStateViewCell.swift */; };
 		53015B761CE58A3C00BB366C /* VolunteerPopoverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53015B751CE58A3C00BB366C /* VolunteerPopoverController.swift */; };
 		53015B781CE58BBF00BB366C /* VolunteerPopopverCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53015B771CE58BBF00BB366C /* VolunteerPopopverCell.swift */; };
 		53015BA31CE5A53300BB366C /* PNBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 53015B811CE5A53300BB366C /* PNBar.m */; };
@@ -130,21 +130,16 @@
 		532607991CA90AEC002FF684 /* UIDownloadBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5326078A1CA90AEC002FF684 /* UIDownloadBar.m */; };
 		5326079B1CA91788002FF684 /* SingleResponceOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5326079A1CA91788002FF684 /* SingleResponceOption.swift */; };
 		5326079D1CA917EC002FF684 /* SingleResponceOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5326079C1CA917EC002FF684 /* SingleResponceOptionCell.swift */; };
-		532A40D91D0BBFD900FE5E86 /* com.mindshiftapps.learniatTeacher.c in Sources */ = {isa = PBXBuildFile; fileRef = 532A40D81D0BBFD900FE5E86 /* com.mindshiftapps.learniatTeacher.c */; };
 		532A40E01D0BCE2F00FE5E86 /* Icon- 83.png in Resources */ = {isa = PBXBuildFile; fileRef = 532A40DE1D0BCE2F00FE5E86 /* Icon- 83.png */; };
 		532A40E11D0BCE2F00FE5E86 /* Icon- 83@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 532A40DF1D0BCE2F00FE5E86 /* Icon- 83@2x.png */; };
+		532CC5A41E7C1E9800C38629 /* LiveCollaborationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532CC5A31E7C1E9800C38629 /* LiveCollaborationView.swift */; };
 		533063F61CC88F590035CCDE /* SSTeacherScribbleQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533063F51CC88F590035CCDE /* SSTeacherScribbleQuestion.swift */; };
 		5330645F1CC8E3A50035CCDE /* SZTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5330645E1CC8E3A50035CCDE /* SZTextView.m */; };
+		533100681E4E1F0C001B6055 /* CollaborationSuggestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533100671E4E1F0C001B6055 /* CollaborationSuggestionCell.swift */; };
 		533233331CAFD2CE00971EC7 /* SubmissionMRQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533233321CAFD2CE00971EC7 /* SubmissionMRQView.swift */; };
 		533233481CAFE09C00971EC7 /* SSTeacherAggregatePopOverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533233471CAFE09C00971EC7 /* SSTeacherAggregatePopOverController.swift */; };
-		534217631CDC81D90061A7E7 /* ATKMath.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 534217601CDC81D80061A7E7 /* ATKMath.framework */; };
-		534217641CDC81D90061A7E7 /* ATKMathWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 534217611CDC81D90061A7E7 /* ATKMathWidget.framework */; };
-		534217661CDC81ED0061A7E7 /* MathResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 534217651CDC81ED0061A7E7 /* MathResources.bundle */; };
-		5342176B1CDC834A0061A7E7 /* ATKMathWidget.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5342176A1CDC834A0061A7E7 /* ATKMathWidget.bundle */; };
-		5342176D1CDC8D570061A7E7 /* TeacherShapesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5342176C1CDC8D570061A7E7 /* TeacherShapesView.swift */; };
-		534217701CDC8EF90061A7E7 /* ATKGeometry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5342176E1CDC8EF90061A7E7 /* ATKGeometry.framework */; };
-		534217711CDC8EF90061A7E7 /* ATKGeometryWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5342176F1CDC8EF90061A7E7 /* ATKGeometryWidget.framework */; };
-		534217731CDC8F1F0061A7E7 /* ATKGeometryWidget.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 534217721CDC8F1F0061A7E7 /* ATKGeometryWidget.bundle */; };
+		53362BFB1E41A69100413262 /* CollaborationMRQView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53362BFA1E41A69100413262 /* CollaborationMRQView.swift */; };
+		53362BFD1E41C3B200413262 /* CollaborationSuggestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53362BFC1E41C3B200413262 /* CollaborationSuggestionsView.swift */; };
 		53460C311CD1E52900076F85 /* SSTeacherPollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53460C301CD1E52900076F85 /* SSTeacherPollView.swift */; };
 		53460C331CD1E9AE00076F85 /* PollingCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53460C321CD1E9AE00076F85 /* PollingCreationView.swift */; };
 		53460C381CD1F12000076F85 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53460C371CD1F12000076F85 /* CustomTextView.swift */; };
@@ -153,6 +148,8 @@
 		53460C3F1CD22C3F00076F85 /* PollCompletedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53460C3E1CD22C3F00076F85 /* PollCompletedView.swift */; };
 		53576E8D1CD72AC2003AB9C9 /* StudentPollingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53576E8C1CD72AC2003AB9C9 /* StudentPollingView.swift */; };
 		53576E8F1CD7559D003AB9C9 /* LessonPLanDismissed.png in Resources */ = {isa = PBXBuildFile; fileRef = 53576E8E1CD7559D003AB9C9 /* LessonPLanDismissed.png */; };
+		5359D3361E7D5051007426D9 /* CollaborationPreviousCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5359D3351E7D5051007426D9 /* CollaborationPreviousCategoryView.swift */; };
+		5359D3381E7D526E007426D9 /* previousCategoryCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5359D3371E7D526E007426D9 /* previousCategoryCells.swift */; };
 		5360E6BE1CBDF6D400AFE9FF /* StudentEvaluationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5360E6BD1CBDF6D400AFE9FF /* StudentEvaluationDetails.swift */; };
 		5360E6C01CBDFD7000AFE9FF /* Text_on_desk.png in Resources */ = {isa = PBXBuildFile; fileRef = 5360E6BF1CBDFD7000AFE9FF /* Text_on_desk.png */; };
 		5360E6C21CBE425300AFE9FF /* don't-know.png in Resources */ = {isa = PBXBuildFile; fileRef = 5360E6C11CBE425300AFE9FF /* don't-know.png */; };
@@ -434,6 +431,8 @@
 		5377E4381CAB8F1400A11E59 /* X.png in Resources */ = {isa = PBXBuildFile; fileRef = 5377E4361CAB8F1400A11E59 /* X.png */; };
 		5377E43A1CAB951800A11E59 /* MatchColumnOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5377E4391CAB951800A11E59 /* MatchColumnOption.swift */; };
 		5377E43C1CAB9B6600A11E59 /* MatchColumnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5377E43B1CAB9B6600A11E59 /* MatchColumnCell.swift */; };
+		537AC0281E3A44BF00109060 /* CollaborationMRQCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537AC0271E3A44BF00109060 /* CollaborationMRQCategoryView.swift */; };
+		537C3D8D1E4FBD520036FEE7 /* DynamicFontSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 537C3D8C1E4FBD520036FEE7 /* DynamicFontSize.m */; };
 		537D3ECF1CCF25F200D766ED /* LiveQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537D3ECE1CCF25F200D766ED /* LiveQuestionView.swift */; };
 		53909C511CBF570500DDCCD0 /* colorpopOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53909C501CBF570500DDCCD0 /* colorpopOverViewController.m */; };
 		53909C531CBF627B00DDCCD0 /* Sharebutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 53909C521CBF627B00DDCCD0 /* Sharebutton.png */; };
@@ -453,6 +452,7 @@
 		539945DB1CD0A56100007EC7 /* StudentQuerySelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539945DA1CD0A56100007EC7 /* StudentQuerySelectionView.swift */; };
 		539FB61D1D00396700D3C5B1 /* QuizmodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539FB61C1D00396700D3C5B1 /* QuizmodeCell.swift */; };
 		53A3B1C91CDDAE870031E92A /* css in Resources */ = {isa = PBXBuildFile; fileRef = 53A3B1C81CDDAE870031E92A /* css */; };
+		53AD99E51E66C224007DE635 /* CollaborationQuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AD99E41E66C224007DE635 /* CollaborationQuestionCell.swift */; };
 		53B5901C1CB8E02900A69FC1 /* Cb_Like_Disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 53B590161CB8E02900A69FC1 /* Cb_Like_Disabled.png */; };
 		53B5901D1CB8E02900A69FC1 /* Cb_Like_Enabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 53B590171CB8E02900A69FC1 /* Cb_Like_Enabled.png */; };
 		53B5901E1CB8E02900A69FC1 /* Cb_Unlike_Disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 53B590181CB8E02900A69FC1 /* Cb_Unlike_Disabled.png */; };
@@ -460,17 +460,22 @@
 		53B590201CB8E02900A69FC1 /* Cb_Unlike_Enabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 53B5901A1CB8E02900A69FC1 /* Cb_Unlike_Enabled.png */; };
 		53B590211CB8E02900A69FC1 /* Cb_Unlike_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 53B5901B1CB8E02900A69FC1 /* Cb_Unlike_Selected.png */; };
 		53BC8B421CFC36D800BA56F1 /* VolunteeredDotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC8B411CFC36D800BA56F1 /* VolunteeredDotView.swift */; };
+		53BE0F8E1E81BCD1002D2384 /* CollaborationElementCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BE0F8D1E81BCD1002D2384 /* CollaborationElementCell.swift */; };
 		53BFD59C1CEFA59300B52B33 /* SSTeacherPeakViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BFD59B1CEFA59300B52B33 /* SSTeacherPeakViewController.swift */; };
 		53CA5A221CB230BB008C42B0 /* MRQAggregateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CA5A211CB230BB008C42B0 /* MRQAggregateView.swift */; };
 		53CA5A241CB2337D008C42B0 /* AggregateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CA5A231CB2337D008C42B0 /* AggregateCell.swift */; };
 		53CA5A281CB23568008C42B0 /* YLProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 53CA5A271CB23568008C42B0 /* YLProgressBar.m */; };
-		53D1C1561CDC9C5C0095B1EB /* GeometryResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 53D1C1541CDC9C5C0095B1EB /* GeometryResources.bundle */; };
+		53CCAAF71E78211E0004977B /* CollaborationCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CCAAF61E78211E0004977B /* CollaborationCategoryView.swift */; };
 		53D1C15B1CDCA8B20095B1EB /* SPUserResizableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 53D1C15A1CDCA8B20095B1EB /* SPUserResizableView.m */; };
 		53D1C15E1CDCAE9F0095B1EB /* ImageEditorSubView.m in Sources */ = {isa = PBXBuildFile; fileRef = 53D1C15D1CDCAE9F0095B1EB /* ImageEditorSubView.m */; };
 		53D1C1631CDCAFC40095B1EB /* Delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 53D1C15F1CDCAFC40095B1EB /* Delete.png */; };
 		53D1C1641CDCAFC40095B1EB /* dragAndDrop.png in Resources */ = {isa = PBXBuildFile; fileRef = 53D1C1601CDCAFC40095B1EB /* dragAndDrop.png */; };
 		53D1C1651CDCAFC40095B1EB /* Edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 53D1C1611CDCAFC40095B1EB /* Edit.png */; };
 		53D1C1681CDCB30F0095B1EB /* Resize.png in Resources */ = {isa = PBXBuildFile; fileRef = 53D1C1671CDCB30F0095B1EB /* Resize.png */; };
+		53D252AD1E52DE2400056128 /* correctMatch.png in Resources */ = {isa = PBXBuildFile; fileRef = 53D252AA1E52DE2400056128 /* correctMatch.png */; };
+		53D252AE1E52DE2400056128 /* IgnoreCollaboration.png in Resources */ = {isa = PBXBuildFile; fileRef = 53D252AB1E52DE2400056128 /* IgnoreCollaboration.png */; };
+		53D252AF1E52DE2400056128 /* wrongMatch.png in Resources */ = {isa = PBXBuildFile; fileRef = 53D252AC1E52DE2400056128 /* wrongMatch.png */; };
+		53D252B11E53152F00056128 /* CollaborationQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D252B01E53152F00056128 /* CollaborationQuestionView.swift */; };
 		53D8CCAD1CCE1A1200BA838C /* MainTopicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D8CCAC1CCE1A1200BA838C /* MainTopicsView.swift */; };
 		53D8CCAF1CCE1DF300BA838C /* SubTopicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D8CCAE1CCE1DF300BA838C /* SubTopicsView.swift */; };
 		53D8CCB11CCE314E00BA838C /* QuestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D8CCB01CCE314E00BA838C /* QuestionsView.swift */; };
@@ -485,7 +490,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4D06408C1D0BD3AD00945EE4 /* ATKCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ATKCore.framework; path = LearniatTeacher/ATKCore.framework; sourceTree = "<group>"; };
 		4D0A7FC71CCF783B001AA119 /* StudentAnswerDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerDemo.swift; sourceTree = "<group>"; };
 		4D0A7FC91CCF79C6001AA119 /* StudentAnswerSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerSelectionView.swift; sourceTree = "<group>"; };
 		4D2A931D1CC0C4A9007A1D41 /* SetupClassCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetupClassCell.swift; sourceTree = "<group>"; };
@@ -495,7 +499,6 @@
 		4D2A93241CC0C986007A1D41 /* Circle_Green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Circle_Green.png; sourceTree = "<group>"; };
 		4D2A93251CC0C986007A1D41 /* Circle_Red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Circle_Red.png; sourceTree = "<group>"; };
 		4D2A93261CC0C986007A1D41 /* Remove.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Remove.png; sourceTree = "<group>"; };
-		4D496D411CDB5CDD00233E25 /* TeacherMathView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeacherMathView.swift; sourceTree = "<group>"; };
 		4D496D431CDB5F9B00233E25 /* Equation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Equation.png; sourceTree = "<group>"; };
 		4D496D441CDB5F9B00233E25 /* Shapes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Shapes.png; sourceTree = "<group>"; };
 		4D496D451CDB5F9B00233E25 /* Text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Text.png; sourceTree = "<group>"; };
@@ -513,6 +516,8 @@
 		4DC2465C1CC2450C00E01CA4 /* LessonPlanSubTopicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonPlanSubTopicCell.swift; sourceTree = "<group>"; };
 		4DC2465E1CC24BFF00E01CA4 /* LessonPlanQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonPlanQuestionView.swift; sourceTree = "<group>"; };
 		4DC246601CC24E9100E01CA4 /* LessonPlanQuestionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonPlanQuestionViewCell.swift; sourceTree = "<group>"; };
+		53005C3B1E884B7500CADA53 /* StudentsStateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentsStateView.swift; sourceTree = "<group>"; };
+		53005C3D1E896A4600CADA53 /* StudentStateViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentStateViewCell.swift; sourceTree = "<group>"; };
 		53015B751CE58A3C00BB366C /* VolunteerPopoverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolunteerPopoverController.swift; sourceTree = "<group>"; };
 		53015B771CE58BBF00BB366C /* VolunteerPopopverCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolunteerPopopverCell.swift; sourceTree = "<group>"; };
 		53015B801CE5A53300BB366C /* PNBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNBar.h; sourceTree = "<group>"; };
@@ -633,23 +638,17 @@
 		5326078A1CA90AEC002FF684 /* UIDownloadBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIDownloadBar.m; sourceTree = "<group>"; };
 		5326079A1CA91788002FF684 /* SingleResponceOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleResponceOption.swift; sourceTree = "<group>"; };
 		5326079C1CA917EC002FF684 /* SingleResponceOptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleResponceOptionCell.swift; sourceTree = "<group>"; };
-		532A40D81D0BBFD900FE5E86 /* com.mindshiftapps.learniatTeacher.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = com.mindshiftapps.learniatTeacher.c; sourceTree = "<group>"; };
 		532A40DE1D0BCE2F00FE5E86 /* Icon- 83.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon- 83.png"; sourceTree = "<group>"; };
 		532A40DF1D0BCE2F00FE5E86 /* Icon- 83@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon- 83@2x.png"; sourceTree = "<group>"; };
+		532CC5A31E7C1E9800C38629 /* LiveCollaborationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveCollaborationView.swift; sourceTree = "<group>"; };
 		533063F51CC88F590035CCDE /* SSTeacherScribbleQuestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSTeacherScribbleQuestion.swift; sourceTree = "<group>"; };
 		5330645D1CC8E3A50035CCDE /* SZTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SZTextView.h; sourceTree = "<group>"; };
 		5330645E1CC8E3A50035CCDE /* SZTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SZTextView.m; sourceTree = "<group>"; };
+		533100671E4E1F0C001B6055 /* CollaborationSuggestionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollaborationSuggestionCell.swift; sourceTree = "<group>"; };
 		533233321CAFD2CE00971EC7 /* SubmissionMRQView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionMRQView.swift; sourceTree = "<group>"; };
 		533233471CAFE09C00971EC7 /* SSTeacherAggregatePopOverController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSTeacherAggregatePopOverController.swift; sourceTree = "<group>"; };
-		534217601CDC81D80061A7E7 /* ATKMath.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ATKMath.framework; path = LearniatTeacher/ATKMath.framework; sourceTree = "<group>"; };
-		534217611CDC81D90061A7E7 /* ATKMathWidget.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ATKMathWidget.framework; path = LearniatTeacher/ATKMathWidget.framework; sourceTree = "<group>"; };
-		534217651CDC81ED0061A7E7 /* MathResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MathResources.bundle; sourceTree = "<group>"; };
-		534217681CDC82140061A7E7 /* MyCertificate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCertificate.h; sourceTree = "<group>"; };
-		5342176A1CDC834A0061A7E7 /* ATKMathWidget.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ATKMathWidget.bundle; sourceTree = "<group>"; };
-		5342176C1CDC8D570061A7E7 /* TeacherShapesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeacherShapesView.swift; sourceTree = "<group>"; };
-		5342176E1CDC8EF90061A7E7 /* ATKGeometry.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ATKGeometry.framework; path = LearniatTeacher/ATKGeometry.framework; sourceTree = "<group>"; };
-		5342176F1CDC8EF90061A7E7 /* ATKGeometryWidget.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ATKGeometryWidget.framework; path = LearniatTeacher/ATKGeometryWidget.framework; sourceTree = "<group>"; };
-		534217721CDC8F1F0061A7E7 /* ATKGeometryWidget.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ATKGeometryWidget.bundle; sourceTree = "<group>"; };
+		53362BFA1E41A69100413262 /* CollaborationMRQView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollaborationMRQView.swift; sourceTree = "<group>"; };
+		53362BFC1E41C3B200413262 /* CollaborationSuggestionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollaborationSuggestionsView.swift; sourceTree = "<group>"; };
 		53460C301CD1E52900076F85 /* SSTeacherPollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSTeacherPollView.swift; sourceTree = "<group>"; };
 		53460C321CD1E9AE00076F85 /* PollingCreationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PollingCreationView.swift; sourceTree = "<group>"; };
 		53460C371CD1F12000076F85 /* CustomTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
@@ -659,6 +658,8 @@
 		53460C3E1CD22C3F00076F85 /* PollCompletedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PollCompletedView.swift; sourceTree = "<group>"; };
 		53576E8C1CD72AC2003AB9C9 /* StudentPollingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentPollingView.swift; sourceTree = "<group>"; };
 		53576E8E1CD7559D003AB9C9 /* LessonPLanDismissed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LessonPLanDismissed.png; sourceTree = "<group>"; };
+		5359D3351E7D5051007426D9 /* CollaborationPreviousCategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollaborationPreviousCategoryView.swift; sourceTree = "<group>"; };
+		5359D3371E7D526E007426D9 /* previousCategoryCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = previousCategoryCells.swift; sourceTree = "<group>"; };
 		5360E6BD1CBDF6D400AFE9FF /* StudentEvaluationDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentEvaluationDetails.swift; sourceTree = "<group>"; };
 		5360E6BF1CBDFD7000AFE9FF /* Text_on_desk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Text_on_desk.png; sourceTree = "<group>"; };
 		5360E6C11CBE425300AFE9FF /* don't-know.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "don't-know.png"; path = "ScribbleView/don't-know.png"; sourceTree = "<group>"; };
@@ -1109,6 +1110,9 @@
 		5377E4361CAB8F1400A11E59 /* X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = X.png; sourceTree = "<group>"; };
 		5377E4391CAB951800A11E59 /* MatchColumnOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchColumnOption.swift; sourceTree = "<group>"; };
 		5377E43B1CAB9B6600A11E59 /* MatchColumnCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchColumnCell.swift; sourceTree = "<group>"; };
+		537AC0271E3A44BF00109060 /* CollaborationMRQCategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollaborationMRQCategoryView.swift; sourceTree = "<group>"; };
+		537C3D8B1E4FBD520036FEE7 /* DynamicFontSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicFontSize.h; sourceTree = "<group>"; };
+		537C3D8C1E4FBD520036FEE7 /* DynamicFontSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicFontSize.m; sourceTree = "<group>"; };
 		537D3ECE1CCF25F200D766ED /* LiveQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiveQuestionView.swift; sourceTree = "<group>"; };
 		53909C4F1CBF570500DDCCD0 /* colorpopOverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = colorpopOverViewController.h; sourceTree = "<group>"; };
 		53909C501CBF570500DDCCD0 /* colorpopOverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = colorpopOverViewController.m; sourceTree = "<group>"; };
@@ -1131,6 +1135,7 @@
 		539945DA1CD0A56100007EC7 /* StudentQuerySelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentQuerySelectionView.swift; sourceTree = "<group>"; };
 		539FB61C1D00396700D3C5B1 /* QuizmodeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizmodeCell.swift; sourceTree = "<group>"; };
 		53A3B1C81CDDAE870031E92A /* css */ = {isa = PBXFileReference; lastKnownFileType = folder; path = css; sourceTree = "<group>"; };
+		53AD99E41E66C224007DE635 /* CollaborationQuestionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollaborationQuestionCell.swift; sourceTree = "<group>"; };
 		53B590161CB8E02900A69FC1 /* Cb_Like_Disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cb_Like_Disabled.png; sourceTree = "<group>"; };
 		53B590171CB8E02900A69FC1 /* Cb_Like_Enabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cb_Like_Enabled.png; sourceTree = "<group>"; };
 		53B590181CB8E02900A69FC1 /* Cb_Unlike_Disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cb_Unlike_Disabled.png; sourceTree = "<group>"; };
@@ -1138,12 +1143,13 @@
 		53B5901A1CB8E02900A69FC1 /* Cb_Unlike_Enabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cb_Unlike_Enabled.png; sourceTree = "<group>"; };
 		53B5901B1CB8E02900A69FC1 /* Cb_Unlike_Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cb_Unlike_Selected.png; sourceTree = "<group>"; };
 		53BC8B411CFC36D800BA56F1 /* VolunteeredDotView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VolunteeredDotView.swift; sourceTree = "<group>"; };
+		53BE0F8D1E81BCD1002D2384 /* CollaborationElementCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollaborationElementCell.swift; sourceTree = "<group>"; };
 		53BFD59B1CEFA59300B52B33 /* SSTeacherPeakViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSTeacherPeakViewController.swift; sourceTree = "<group>"; };
 		53CA5A211CB230BB008C42B0 /* MRQAggregateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MRQAggregateView.swift; sourceTree = "<group>"; };
 		53CA5A231CB2337D008C42B0 /* AggregateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AggregateCell.swift; sourceTree = "<group>"; };
 		53CA5A261CB23568008C42B0 /* YLProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLProgressBar.h; sourceTree = "<group>"; };
 		53CA5A271CB23568008C42B0 /* YLProgressBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLProgressBar.m; sourceTree = "<group>"; };
-		53D1C1541CDC9C5C0095B1EB /* GeometryResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GeometryResources.bundle; sourceTree = "<group>"; };
+		53CCAAF61E78211E0004977B /* CollaborationCategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollaborationCategoryView.swift; sourceTree = "<group>"; };
 		53D1C1591CDCA8B20095B1EB /* SPUserResizableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPUserResizableView.h; sourceTree = "<group>"; };
 		53D1C15A1CDCA8B20095B1EB /* SPUserResizableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPUserResizableView.m; sourceTree = "<group>"; };
 		53D1C15C1CDCAE9F0095B1EB /* ImageEditorSubView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageEditorSubView.h; sourceTree = "<group>"; };
@@ -1152,6 +1158,10 @@
 		53D1C1601CDCAFC40095B1EB /* dragAndDrop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dragAndDrop.png; sourceTree = "<group>"; };
 		53D1C1611CDCAFC40095B1EB /* Edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Edit.png; sourceTree = "<group>"; };
 		53D1C1671CDCB30F0095B1EB /* Resize.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Resize.png; sourceTree = "<group>"; };
+		53D252AA1E52DE2400056128 /* correctMatch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = correctMatch.png; sourceTree = "<group>"; };
+		53D252AB1E52DE2400056128 /* IgnoreCollaboration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IgnoreCollaboration.png; sourceTree = "<group>"; };
+		53D252AC1E52DE2400056128 /* wrongMatch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrongMatch.png; sourceTree = "<group>"; };
+		53D252B01E53152F00056128 /* CollaborationQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollaborationQuestionView.swift; sourceTree = "<group>"; };
 		53D8CCAC1CCE1A1200BA838C /* MainTopicsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTopicsView.swift; sourceTree = "<group>"; };
 		53D8CCAE1CCE1DF300BA838C /* SubTopicsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubTopicsView.swift; sourceTree = "<group>"; };
 		53D8CCB01CCE314E00BA838C /* QuestionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionsView.swift; sourceTree = "<group>"; };
@@ -1170,10 +1180,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				534217701CDC8EF90061A7E7 /* ATKGeometry.framework in Frameworks */,
-				534217711CDC8EF90061A7E7 /* ATKGeometryWidget.framework in Frameworks */,
-				534217631CDC81D90061A7E7 /* ATKMath.framework in Frameworks */,
-				534217641CDC81D90061A7E7 /* ATKMathWidget.framework in Frameworks */,
 				53676D4E1CA63CAB00CADE4D /* Security.framework in Frameworks */,
 				53676D4C1CA63CA300CADE4D /* CoreLocation.framework in Frameworks */,
 				53676D4A1CA63C9900CADE4D /* SystemConfiguration.framework in Frameworks */,
@@ -1185,7 +1191,6 @@
 				53676D401CA63C6900CADE4D /* UIKit.framework in Frameworks */,
 				53676D3E1CA63C6300CADE4D /* Foundation.framework in Frameworks */,
 				53676D3C1CA63C5B00CADE4D /* CoreGraphics.framework in Frameworks */,
-				4D06408D1D0BD3AD00945EE4 /* ATKCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1339,6 +1344,9 @@
 		531044831CA64296007AE9D5 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				53D252AA1E52DE2400056128 /* correctMatch.png */,
+				53D252AB1E52DE2400056128 /* IgnoreCollaboration.png */,
+				53D252AC1E52DE2400056128 /* wrongMatch.png */,
 				5304415F1D0962E70032D378 /* RobotoTTF */,
 				530720D01D027F08001C85F6 /* Icons */,
 				53015BB51CE5B81500BB366C /* Thumbs_Down.png */,
@@ -1347,8 +1355,6 @@
 				53D1C1611CDCAFC40095B1EB /* Edit.png */,
 				53D1C1671CDCB30F0095B1EB /* Resize.png */,
 				53A3B1C81CDDAE870031E92A /* css */,
-				53D1C1541CDC9C5C0095B1EB /* GeometryResources.bundle */,
-				534217651CDC81ED0061A7E7 /* MathResources.bundle */,
 				4D496D431CDB5F9B00233E25 /* Equation.png */,
 				4D496D441CDB5F9B00233E25 /* Shapes.png */,
 				4D496D451CDB5F9B00233E25 /* Text.png */,
@@ -1453,11 +1459,9 @@
 		533063F41CC88F3F0035CCDE /* QuestionCreation */ = {
 			isa = PBXGroup;
 			children = (
-				532A40D81D0BBFD900FE5E86 /* com.mindshiftapps.learniatTeacher.c */,
 				533063F51CC88F590035CCDE /* SSTeacherScribbleQuestion.swift */,
-				4D496D411CDB5CDD00233E25 /* TeacherMathView.swift */,
-				5342176C1CDC8D570061A7E7 /* TeacherShapesView.swift */,
-				534217681CDC82140061A7E7 /* MyCertificate.h */,
+				537AC0271E3A44BF00109060 /* CollaborationMRQCategoryView.swift */,
+				534111861E3F9B79002E1D6F /* CollaborationMRQ-Obj_C */,
 			);
 			path = QuestionCreation;
 			sourceTree = "<group>";
@@ -1480,6 +1484,30 @@
 				53CA5A231CB2337D008C42B0 /* AggregateCell.swift */,
 			);
 			path = AgregateDrillDown;
+			sourceTree = "<group>";
+		};
+		53362BF91E41A67D00413262 /* CollaborationMRQ */ = {
+			isa = PBXGroup;
+			children = (
+				53362BFA1E41A69100413262 /* CollaborationMRQView.swift */,
+				53CCAAF61E78211E0004977B /* CollaborationCategoryView.swift */,
+				5359D3351E7D5051007426D9 /* CollaborationPreviousCategoryView.swift */,
+				5359D3371E7D526E007426D9 /* previousCategoryCells.swift */,
+				53362BFC1E41C3B200413262 /* CollaborationSuggestionsView.swift */,
+				533100671E4E1F0C001B6055 /* CollaborationSuggestionCell.swift */,
+				53BE0F8D1E81BCD1002D2384 /* CollaborationElementCell.swift */,
+				53D252B01E53152F00056128 /* CollaborationQuestionView.swift */,
+				53AD99E41E66C224007DE635 /* CollaborationQuestionCell.swift */,
+				532CC5A31E7C1E9800C38629 /* LiveCollaborationView.swift */,
+			);
+			path = CollaborationMRQ;
+			sourceTree = "<group>";
+		};
+		534111861E3F9B79002E1D6F /* CollaborationMRQ-Obj_C */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "CollaborationMRQ-Obj_C";
 			sourceTree = "<group>";
 		};
 		53460C2F1CD1D25A00076F85 /* Polling */ = {
@@ -1507,11 +1535,6 @@
 		53676AD81CA63B2000CADE4D = {
 			isa = PBXGroup;
 			children = (
-				4D06408C1D0BD3AD00945EE4 /* ATKCore.framework */,
-				5342176E1CDC8EF90061A7E7 /* ATKGeometry.framework */,
-				5342176F1CDC8EF90061A7E7 /* ATKGeometryWidget.framework */,
-				534217601CDC81D80061A7E7 /* ATKMath.framework */,
-				534217611CDC81D90061A7E7 /* ATKMathWidget.framework */,
 				53676D4D1CA63CAB00CADE4D /* Security.framework */,
 				53676D4B1CA63CA300CADE4D /* CoreLocation.framework */,
 				53676D491CA63C9900CADE4D /* SystemConfiguration.framework */,
@@ -1539,12 +1562,10 @@
 		53676AE31CA63B2000CADE4D /* LearniatTeacher */ = {
 			isa = PBXGroup;
 			children = (
-				534217721CDC8F1F0061A7E7 /* ATKGeometryWidget.bundle */,
-				5342176A1CDC834A0061A7E7 /* ATKMathWidget.bundle */,
+				53676C861CA63B7F00CADE4D /* LoginViewController.swift */,
 				53676AF61CA63B7F00CADE4D /* AppDelegate.swift */,
 				53676AF71CA63B7F00CADE4D /* Common */,
 				53676C851CA63B7F00CADE4D /* INILoader.swift */,
-				53676C861CA63B7F00CADE4D /* LoginViewController.swift */,
 				4DC246491CC1F6B500E01CA4 /* Objective-C_Class */,
 				53676D501CA63D7A00CADE4D /* ClassView */,
 				53676C871CA63B7F00CADE4D /* ScheduleScreen */,
@@ -1563,6 +1584,8 @@
 		53676AF71CA63B7F00CADE4D /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				537C3D8B1E4FBD520036FEE7 /* DynamicFontSize.h */,
+				537C3D8C1E4FBD520036FEE7 /* DynamicFontSize.m */,
 				53015B791CE5A49D00BB366C /* QRV */,
 				5330645C1CC8E3A50035CCDE /* CustomTextView */,
 				5360E6C31CBE456D00AFE9FF /* Donart Chart */,
@@ -2528,6 +2551,8 @@
 			children = (
 				53676C881CA63B7F00CADE4D /* CurrentTimeLineView.swift */,
 				53676C891CA63B7F00CADE4D /* ScheduleDetailView.swift */,
+				53005C3B1E884B7500CADA53 /* StudentsStateView.swift */,
+				53005C3D1E896A4600CADA53 /* StudentStateViewCell.swift */,
 				53676C8A1CA63B7F00CADE4D /* ScheduleScreenLineView.swift */,
 				53676C8B1CA63B7F00CADE4D /* ScheduleScreenTile.swift */,
 				53676C8C1CA63B7F00CADE4D /* TeacherScheduleViewController.swift */,
@@ -2774,6 +2799,7 @@
 				537301101CB62A2B00E76753 /* SubjectiveStudentContainer.swift */,
 				531A683D1CF4587D00D78B08 /* OneStringGraphView.swift */,
 				5367E2EA1CFEA6D000E4FD23 /* OnewordAnswerView.swift */,
+				53362BF91E41A67D00413262 /* CollaborationMRQ */,
 				533233461CAFE05900971EC7 /* AgregateDrillDown */,
 				53FC04401CAFAE1700D7B941 /* GraphView */,
 			);
@@ -2822,6 +2848,8 @@
 					53676AE01CA63B2000CADE4D = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = C744MS63KY;
+						LastSwiftMigration = 0820;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -2875,11 +2903,11 @@
 				530720E91D027F08001C85F6 /* Icon-Small.png in Resources */,
 				53676C981CA63B7F00CADE4D /* NoInternet.xib in Resources */,
 				53909C721CBBAA6F00E8A1C0 /* Query.png in Resources */,
+				53D252AF1E52DE2400056128 /* wrongMatch.png in Resources */,
 				537302461CB6771200E76753 /* halfChecked.png in Resources */,
 				531044A51CA64296007AE9D5 /* 70.png in Resources */,
 				531044A61CA64296007AE9D5 /* 80.png in Resources */,
 				5304417A1D0962E70032D378 /* Roboto-MediumItalic.ttf in Resources */,
-				534217731CDC8F1F0061A7E7 /* ATKGeometryWidget.bundle in Resources */,
 				537302371CB6771200E76753 /* Text_Unselected_AnnotateView@2x.png in Resources */,
 				537302381CB6771200E76753 /* Tick_mark_image.png in Resources */,
 				5373025D1CB6771200E76753 /* Unchecked.png in Resources */,
@@ -2921,7 +2949,6 @@
 				531044A41CA64296007AE9D5 /* 60.png in Resources */,
 				537302331CB6771200E76753 /* Tab_bar_Divider_AnnotateView@2x.png in Resources */,
 				532A40E01D0BCE2F00FE5E86 /* Icon- 83.png in Resources */,
-				53D1C1561CDC9C5C0095B1EB /* GeometryResources.bundle in Resources */,
 				530720E61D027F08001C85F6 /* Icon-iPad-Spotlight-iOS7.png in Resources */,
 				53D1C1681CDCB30F0095B1EB /* Resize.png in Resources */,
 				531044AC1CA66C89007AE9D5 /* lowParticipartion.png in Resources */,
@@ -2958,6 +2985,7 @@
 				530720E11D027F08001C85F6 /* Icon-120.png in Resources */,
 				5326078F1CA90AEC002FF684 /* indicator2.png in Resources */,
 				53D1C1651CDCAFC40095B1EB /* Edit.png in Resources */,
+				53D252AE1E52DE2400056128 /* IgnoreCollaboration.png in Resources */,
 				53D90E021D5DB1EB0096F2AF /* ReadMe in Resources */,
 				530441721D0962E70032D378 /* Roboto-Black.ttf in Resources */,
 				537302491CB6771200E76753 /* Mark_Model_Selected.png in Resources */,
@@ -2976,7 +3004,6 @@
 				531044A71CA64296007AE9D5 /* 90.png in Resources */,
 				5373023C1CB6771200E76753 /* Undo_Active_AnnotateView.png in Resources */,
 				5373023D1CB6771200E76753 /* Undo_Active_AnnotateView@2x.png in Resources */,
-				534217661CDC81ED0061A7E7 /* MathResources.bundle in Resources */,
 				4D496D481CDB5F9B00233E25 /* Text.png in Resources */,
 				532607941CA90AEC002FF684 /* indicator7.png in Resources */,
 				532607921CA90AEC002FF684 /* indicator5.png in Resources */,
@@ -3004,7 +3031,6 @@
 				530441781D0962E70032D378 /* Roboto-LightItalic.ttf in Resources */,
 				5326078C1CA90AEC002FF684 /* indicator10.png in Resources */,
 				531044971CA64296007AE9D5 /* Alert_Icon.png in Resources */,
-				5342176B1CDC834A0061A7E7 /* ATKMathWidget.bundle in Resources */,
 				4D2A932A1CC0C986007A1D41 /* Remove.png in Resources */,
 				53D1C1641CDCAFC40095B1EB /* dragAndDrop.png in Resources */,
 				537302451CB6771200E76753 /* Eraser_Unselected@2x.png in Resources */,
@@ -3016,6 +3042,7 @@
 				530441831D0962E70032D378 /* RobotoCondensed-Regular.ttf in Resources */,
 				531044A81CA64296007AE9D5 /* Teacher _app_icon.png in Resources */,
 				530720EF1D027F08001C85F6 /* iTunesArtwork in Resources */,
+				53D252AD1E52DE2400056128 /* correctMatch.png in Resources */,
 				537302471CB6771200E76753 /* Mark_Model_Not_Selected.png in Resources */,
 				531044A31CA64296007AE9D5 /* 50.png in Resources */,
 				5373022F1CB6771200E76753 /* Star_Unselected_AnnotateView@2x.png in Resources */,
@@ -3049,6 +3076,7 @@
 			files = (
 				53FC04441CAFAE2100D7B941 /* BarView.swift in Sources */,
 				53676CAE1CA63B7F00CADE4D /* XMPPElement.m in Sources */,
+				537AC0281E3A44BF00109060 /* CollaborationMRQCategoryView.swift in Sources */,
 				53676D3A1CA63B7F00CADE4D /* SSTeacherMessageHandler.swift in Sources */,
 				53015BA71CE5A53300BB366C /* PNColor.m in Sources */,
 				53676CDD1CA63B7F00CADE4D /* XMPPvCardTempCoreDataStorageObject.m in Sources */,
@@ -3058,6 +3086,7 @@
 				53909C511CBF570500DDCCD0 /* colorpopOverViewController.m in Sources */,
 				532607991CA90AEC002FF684 /* UIDownloadBar.m in Sources */,
 				53676CA21CA63B7F00CADE4D /* Toast.swift in Sources */,
+				53CCAAF71E78211E0004977B /* CollaborationCategoryView.swift in Sources */,
 				53676CD11CA63B7F00CADE4D /* XMPPRoomMessageHybridCoreDataStorageObject.m in Sources */,
 				53676D381CA63B7F00CADE4D /* PreallocateSeatViewController.swift in Sources */,
 				53015BB21CE5A53300BB366C /* PNScatterChartDataItem.m in Sources */,
@@ -3067,7 +3096,6 @@
 				53015BAE1CE5A53300BB366C /* PNRadarChart.m in Sources */,
 				53676CD81CA63B7F00CADE4D /* XMPPRoom.m in Sources */,
 				53CA5A241CB2337D008C42B0 /* AggregateCell.swift in Sources */,
-				5342176D1CDC8D570061A7E7 /* TeacherShapesView.swift in Sources */,
 				53676D2F1CA63B7F00CADE4D /* LoginViewController.swift in Sources */,
 				53015BB01CE5A53300BB366C /* PNScatterChart.m in Sources */,
 				53D1C15B1CDCA8B20095B1EB /* SPUserResizableView.m in Sources */,
@@ -3098,7 +3126,6 @@
 				53676D151CA63B7F00CADE4D /* SSMessage.m in Sources */,
 				539567261CB52082009B0100 /* StudentSubjectivePopover.swift in Sources */,
 				53676CCF1CA63B7F00CADE4D /* XMPPRoomHybrid.xcdatamodeld in Sources */,
-				4D496D421CDB5CDD00233E25 /* TeacherMathView.swift in Sources */,
 				53778B761CBD2B3C004E6480 /* StudentStarView.m in Sources */,
 				4DC2465D1CC2450C00E01CA4 /* LessonPlanSubTopicCell.swift in Sources */,
 				53676C991CA63B7F00CADE4D /* NoInternetView.m in Sources */,
@@ -3113,6 +3140,7 @@
 				53676CCD1CA63B7F00CADE4D /* XMPPRoomMessageCoreDataStorageObject.m in Sources */,
 				53676D281CA63B7F00CADE4D /* NSString+DDXML.m in Sources */,
 				53676D0E1CA63B7F00CADE4D /* XMPPMessage+XEP_0224.m in Sources */,
+				532CC5A41E7C1E9800C38629 /* LiveCollaborationView.swift in Sources */,
 				53676CC91CA63B7F00CADE4D /* XMPPLastActivity.m in Sources */,
 				53676D1C1CA63B7F00CADE4D /* XMPPStringPrep.m in Sources */,
 				53676CFD1CA63B7F00CADE4D /* XMPPMessageArchiving.m in Sources */,
@@ -3148,6 +3176,7 @@
 				53CA5A221CB230BB008C42B0 /* MRQAggregateView.swift in Sources */,
 				537301071CB618D200E76753 /* SubmissionSubjectiveView.swift in Sources */,
 				53576E8D1CD72AC2003AB9C9 /* StudentPollingView.swift in Sources */,
+				53BE0F8E1E81BCD1002D2384 /* CollaborationElementCell.swift in Sources */,
 				53676C951CA63B7F00CADE4D /* AppDelegate.swift in Sources */,
 				53BC8B421CFC36D800BA56F1 /* VolunteeredDotView.swift in Sources */,
 				4D2A93201CC0C4A9007A1D41 /* SetupClassCell.swift in Sources */,
@@ -3156,6 +3185,7 @@
 				532607761CA90779002FF684 /* ScribbleQuestionInfoScreen.swift in Sources */,
 				53676C9A1CA63B7F00CADE4D /* Reachability.m in Sources */,
 				53460C3B1CD1F82B00076F85 /* PollViewCell.m in Sources */,
+				53D252B11E53152F00056128 /* CollaborationQuestionView.swift in Sources */,
 				53676D131CA63B7F00CADE4D /* XMPPMessage+XEP_0333.m in Sources */,
 				53676D051CA63B7F00CADE4D /* XMPPStreamManagementStanzas.m in Sources */,
 				53676CBC1CA63B7F00CADE4D /* XMPPResourceCoreDataStorageObject.m in Sources */,
@@ -3180,14 +3210,17 @@
 				537301091CB6227000E76753 /* SubjectiveLeftSideView.swift in Sources */,
 				53676D371CA63B7F00CADE4D /* PrealloatSeatSubView.swift in Sources */,
 				5367E2EB1CFEA6D000E4FD23 /* OnewordAnswerView.swift in Sources */,
+				5359D3361E7D5051007426D9 /* CollaborationPreviousCategoryView.swift in Sources */,
 				53676CFF1CA63B7F00CADE4D /* XMPPMessage+XEP_0172.m in Sources */,
 				53676CB11CA63B7F00CADE4D /* XMPPMessage.m in Sources */,
+				53AD99E51E66C224007DE635 /* CollaborationQuestionCell.swift in Sources */,
 				53D8CCAF1CCE1DF300BA838C /* SubTopicsView.swift in Sources */,
 				53676D101CA63B7F00CADE4D /* XMPPMessageCarbons.m in Sources */,
 				539567221CB4C763009B0100 /* SubmissionMTCView.swift in Sources */,
 				53676D341CA63B7F00CADE4D /* TeacherScheduleViewController.swift in Sources */,
 				53676CD21CA63B7F00CADE4D /* XMPPRoomOccupantHybridMemoryStorageObject.m in Sources */,
 				53015BAC1CE5A53300BB366C /* PNPieChart.m in Sources */,
+				53005C3C1E884B7500CADA53 /* StudentsStateView.swift in Sources */,
 				532607971CA90AEC002FF684 /* CustomProgressImageView.m in Sources */,
 				53676D2E1CA63B7F00CADE4D /* INILoader.swift in Sources */,
 				53676D001CA63B7F00CADE4D /* XMPPPresence+XEP_0172.m in Sources */,
@@ -3207,6 +3240,7 @@
 				5330645F1CC8E3A50035CCDE /* SZTextView.m in Sources */,
 				5326079D1CA917EC002FF684 /* SingleResponceOptionCell.swift in Sources */,
 				53676CE11CA63B7F00CADE4D /* XMPPvCardTempBase.m in Sources */,
+				53362BFD1E41C3B200413262 /* CollaborationSuggestionsView.swift in Sources */,
 				53676CEB1CA63B7F00CADE4D /* XMPPIQ+XEP_0066.m in Sources */,
 				53015B761CE58A3C00BB366C /* VolunteerPopoverController.swift in Sources */,
 				537301111CB62A2B00E76753 /* SubjectiveStudentContainer.swift in Sources */,
@@ -3220,6 +3254,7 @@
 				4DC246521CC1F6B500E01CA4 /* SSSettingsViewController.m in Sources */,
 				53676CFE1CA63B7F00CADE4D /* XMPPvCardAvatarModule.m in Sources */,
 				4D2A93221CC0C4A9007A1D41 /* SetupGridview.swift in Sources */,
+				5359D3381E7D526E007426D9 /* previousCategoryCells.swift in Sources */,
 				53015BAF1CE5A53300BB366C /* PNRadarChartDataItem.m in Sources */,
 				53676D291CA63B7F00CADE4D /* DDXMLDocument.m in Sources */,
 				53676C9D1CA63B7F00CADE4D /* NSData+Base64.m in Sources */,
@@ -3236,6 +3271,7 @@
 				53460C3F1CD22C3F00076F85 /* PollCompletedView.swift in Sources */,
 				5309C75E1CD9D9D600481E0C /* ModelAnswerButtonView.swift in Sources */,
 				53676CF21CA63B7F00CADE4D /* XMPPTransports.m in Sources */,
+				533100681E4E1F0C001B6055 /* CollaborationSuggestionCell.swift in Sources */,
 				53015BAA1CE5A53300BB366C /* PNLineChartData.m in Sources */,
 				53676D071CA63B7F00CADE4D /* XMPPAutoPing.m in Sources */,
 				53015B781CE58BBF00BB366C /* VolunteerPopopverCell.swift in Sources */,
@@ -3250,19 +3286,20 @@
 				5360E6C61CBE456D00AFE9FF /* DonutChartView.m in Sources */,
 				53676D5B1CA63D7A00CADE4D /* QuestionCell.swift in Sources */,
 				53015BA91CE5A53300BB366C /* PNLineChart.m in Sources */,
-				532A40D91D0BBFD900FE5E86 /* com.mindshiftapps.learniatTeacher.c in Sources */,
 				537D3ECF1CCF25F200D766ED /* LiveQuestionView.swift in Sources */,
 				53015BB11CE5A53300BB366C /* PNScatterChartData.m in Sources */,
 				53676CAA1CA63B7F00CADE4D /* XMPPXOAuth2Google.m in Sources */,
 				53676CC51CA63B7F00CADE4D /* XMPPIQ+JabberRPC.m in Sources */,
 				53015BAD1CE5A53300BB366C /* PNPieChartDataItem.m in Sources */,
 				53676CCB1CA63B7F00CADE4D /* XMPPRoom.xcdatamodeld in Sources */,
+				537C3D8D1E4FBD520036FEE7 /* DynamicFontSize.m in Sources */,
 				53676D061CA63B7F00CADE4D /* XMPPStreamManagement.m in Sources */,
 				53778B681CBCBD96004E6480 /* QuerySelectSubView.swift in Sources */,
 				53676CE41CA63B7F00CADE4D /* XMPPvCardTempModule.m in Sources */,
 				53015BA61CE5A53300BB366C /* PNCircleChart.m in Sources */,
 				4DC246571CC217C200E01CA4 /* LessonPlanMainView.swift in Sources */,
 				53676D181CA63B7F00CADE4D /* GCDMulticastDelegate.m in Sources */,
+				53005C3E1E896A4600CADA53 /* StudentStateViewCell.swift in Sources */,
 				53D8CCB11CCE314E00BA838C /* QuestionsView.swift in Sources */,
 				5367E2EF1CFEF11C00E4FD23 /* QuizModeView.swift in Sources */,
 				53676CDC1CA63B7F00CADE4D /* XMPPvCardCoreDataStorageObject.m in Sources */,
@@ -3295,6 +3332,7 @@
 				53676D1F1CA63B7F00CADE4D /* DDAbstractDatabaseLogger.m in Sources */,
 				53676C971CA63B7F00CADE4D /* InternetTesting.m in Sources */,
 				53676CD41CA63B7F00CADE4D /* XMPPRoomMessageMemoryStorageObject.m in Sources */,
+				53362BFB1E41A69100413262 /* CollaborationMRQView.swift in Sources */,
 				53015BA41CE5A53300BB366C /* PNBarChart.m in Sources */,
 				53676CB21CA63B7F00CADE4D /* XMPPModule.m in Sources */,
 				53676CA11CA63B7F00CADE4D /* LBorderView.m in Sources */,
@@ -3431,6 +3469,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: deepak mk (862RK2T33X)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: deepak mk (862RK2T33X)";
+				DEVELOPMENT_TEAM = C744MS63KY;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3438,7 +3478,7 @@
 				);
 				INFOPLIST_FILE = LearniatTeacher/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/LearniatTeacher/Common/XMPP/Vendor/libidn",
@@ -3450,8 +3490,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.learniatTeacher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bf448ed6-d1b3-431e-8bf1-ff016bbac1a5";
+				PROVISIONING_PROFILE = "b380fc9e-8574-4d01-89ee-dcdc0240dc28";
+				PROVISIONING_PROFILE_SPECIFIER = "Learniat Teacher Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatTeacher/Swift-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 			};
 			name = Debug;
@@ -3463,6 +3505,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: deepak mk (862RK2T33X)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: deepak mk (862RK2T33X)";
+				DEVELOPMENT_TEAM = C744MS63KY;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3470,7 +3513,7 @@
 				);
 				INFOPLIST_FILE = LearniatTeacher/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/LearniatTeacher/Common/XMPP/Vendor/libidn",
@@ -3482,8 +3525,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.learniatTeacher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bf448ed6-d1b3-431e-8bf1-ff016bbac1a5";
+				PROVISIONING_PROFILE = "b380fc9e-8574-4d01-89ee-dcdc0240dc28";
+				PROVISIONING_PROFILE_SPECIFIER = "Learniat Teacher Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatTeacher/Swift-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 			};
 			name = Release;

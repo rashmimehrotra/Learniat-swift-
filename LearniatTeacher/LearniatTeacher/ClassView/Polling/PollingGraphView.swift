@@ -12,7 +12,7 @@ import Foundation
 {
     
     
-    func delegateStopButtonPressedWithMultiplierValue(multiplier:Int, withOptionsArray optionsArray:NSMutableArray, withOptionsvalue optionsValue:NSMutableArray, withQuestionName questionName: String, withTagValue tag:Int)
+    func delegateStopButtonPressedWithMultiplierValue(_ multiplier:Int, withOptionsArray optionsArray:NSMutableArray, withOptionsvalue optionsValue:NSMutableArray, withQuestionName questionName: String, withTagValue tag:Int)
     
     
 }
@@ -40,7 +40,7 @@ class PollingGraphView: UIView
     
     var _delgate: AnyObject!
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -58,24 +58,24 @@ class PollingGraphView: UIView
         self.backgroundColor = lightGrayTopBar
         
         
-        questionNamelabel.frame =  CGRectMake(10,10,self.frame.size.width - 50 ,40)
+        questionNamelabel.frame =  CGRect(x: 10,y: 10,width: self.frame.size.width - 50 ,height: 40)
         self.addSubview(questionNamelabel)
         questionNamelabel.font = UIFont (name: helveticaRegular, size: 18)
         questionNamelabel.textColor = blackTextColor
-        questionNamelabel.textAlignment = .Center
+        questionNamelabel.textAlignment = .center
         
         
-        shareGraphButton.frame = CGRectMake(self.frame.size.width - 110, 0, 100, 50)
-        shareGraphButton.setTitle("Stop", forState: .Normal)
-        shareGraphButton.setTitleColor(standard_Red, forState: .Normal)
+        shareGraphButton.frame = CGRect(x: self.frame.size.width - 110, y: 0, width: 100, height: 50)
+        shareGraphButton.setTitle("Stop", for: UIControlState())
+        shareGraphButton.setTitleColor(standard_Red, for: UIControlState())
         self.addSubview(shareGraphButton);
-        shareGraphButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
-        shareGraphButton.addTarget(self, action: #selector(PollingGraphView.onStopButton), forControlEvents: UIControlEvents.TouchUpInside)
+        shareGraphButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
+        shareGraphButton.addTarget(self, action: #selector(PollingGraphView.onStopButton), for: UIControlEvents.touchUpInside)
         
         
         
         
-        lineContainerView.frame  = CGRectMake(0, questionNamelabel.frame.size.height + questionNamelabel.frame.origin.y + 20 , self.frame.size.width, self.frame.size.height - (questionNamelabel.frame.size.height + questionNamelabel.frame.origin.y + 100))
+        lineContainerView.frame  = CGRect(x: 0, y: questionNamelabel.frame.size.height + questionNamelabel.frame.origin.y + 20 , width: self.frame.size.width, height: self.frame.size.height - (questionNamelabel.frame.size.height + questionNamelabel.frame.origin.y + 100))
         self.addSubview(lineContainerView)
         
         
@@ -86,7 +86,7 @@ class PollingGraphView: UIView
         fatalError("init(coder:) has not been implemented")
     }
     
-    func loadGraphViewWithOPtions(optionsArray:NSMutableArray, withQuestion questionName:String)
+    func loadGraphViewWithOPtions(_ optionsArray:NSMutableArray, withQuestion questionName:String)
     {
         
         
@@ -105,7 +105,7 @@ class PollingGraphView: UIView
         
         for subview in subViews
         {
-            if subview.isKindOfClass(FXLabel) || subview.isKindOfClass(BarView)
+            if subview.isKind(of: FXLabel.self) || subview.isKind(of: BarView.self)
             {
                 subview.removeFromSuperview()
             }
@@ -123,12 +123,12 @@ class PollingGraphView: UIView
             if (i % 2 == 0)
             {
                 
-                let lineView = UIImageView(frame:CGRectMake(100, height, self.frame.size.width - 100, 1))
+                let lineView = UIImageView(frame:CGRect(x: 100, y: height, width: self.frame.size.width - 100, height: 1))
                 lineView.backgroundColor = UIColor(red: 117/255.0, green: 117/255.0, blue: 117/255.0, alpha: 0.3)
                 lineContainerView.addSubview(lineView);
                 
                 
-                let lable = UILabel(frame:CGRectMake(60, height-25, 100, 50))
+                let lable = UILabel(frame:CGRect(x: 60, y: height-25, width: 100, height: 50))
                 lable.text = "\(i)"
                 lineContainerView.addSubview(lable);
                 lable.textColor = blackTextColor
@@ -138,8 +138,8 @@ class PollingGraphView: UIView
             else
             {
                 
-                let lineView = DottedLine(frame:CGRectMake(100, height, self.frame.size.width - 100, 1))
-                lineView.drawDashedBorderAroundViewWithColor(UIColor(red: 117/255.0, green: 117/255.0, blue: 117/255.0, alpha: 0.3))
+                let lineView = DottedLine(frame:CGRect(x: 100, y: height, width: self.frame.size.width - 100, height: 1))
+                lineView.drawDashedBorderAroundView(with: UIColor(red: 117/255.0, green: 117/255.0, blue: 117/255.0, alpha: 0.3))
                 lineContainerView.addSubview(lineView);
                 
             }
@@ -161,15 +161,15 @@ class PollingGraphView: UIView
         for index in 0 ..< optionsArray.count
         {
             
-            let optionText = optionsArray.objectAtIndex(index) as? String
+            let optionText = optionsArray.object(at: index) as? String
             
             
-            let optionsLabel = FXLabel(frame: CGRectMake(positionX , lineContainerView.frame.origin.y + lineContainerView.frame.size.height + 10, width ,self.frame.size.height - (lineContainerView.frame.origin.y + lineContainerView.frame.size.height + 15)));
+            let optionsLabel = FXLabel(frame: CGRect(x: positionX , y: lineContainerView.frame.origin.y + lineContainerView.frame.size.height + 10, width: width ,height: self.frame.size.height - (lineContainerView.frame.origin.y + lineContainerView.frame.size.height + 15)));
             self.addSubview(optionsLabel)
-            optionsLabel.lineBreakMode = .ByTruncatingMiddle;
+            optionsLabel.lineBreakMode = .byTruncatingMiddle;
             optionsLabel.numberOfLines = 5;
-            optionsLabel.textAlignment = .Center;
-            optionsLabel.contentMode = .Top;
+            optionsLabel.textAlignment = .center;
+            optionsLabel.contentMode = .top;
             optionsLabel.textColor = blackTextColor
             
             var font = UIFont(name:helveticaRegular, size:16)
@@ -184,12 +184,12 @@ class PollingGraphView: UIView
             optionsLabel.font = font
             
             optionsLabel.text = optionText
-            optionsLabel.backgroundColor = UIColor.clearColor()
+            optionsLabel.backgroundColor = UIColor.clear
             
             
-            let barView = BarView(frame: CGRectMake(positionX ,lineContainerView.frame.size.height, width ,0))
+            let barView = BarView(frame: CGRect(x: positionX ,y: lineContainerView.frame.size.height, width: width ,height: 0))
             lineContainerView.addSubview(barView)
-            barView.addTarget(self, action: #selector(StudentAnswerGraphView.onBarButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            barView.addTarget(self, action: #selector(StudentAnswerGraphView.onBarButtonPressed(_:)), for: UIControlEvents.touchUpInside)
             
             barView.tag = optionIndexValue + index
             barView.setBarColor(standard_Button)
@@ -210,16 +210,16 @@ class PollingGraphView: UIView
         let subViews = lineContainerView.subviews.flatMap{ $0 as? BarView }
         for mQuerySubView in subViews
         {
-            if mQuerySubView.isKindOfClass(BarView)
+            if mQuerySubView.isKind(of: BarView.self)
             {
                 
-                optionsValuesArray.addObject(String(format: "\(mQuerySubView.presentValue)"))
+                optionsValuesArray.add(String(format: "\(mQuerySubView.presentValue)"))
                 
             }
         }
         
         
-        if delegate().respondsToSelector(#selector(PollingGraphViewDelegate.delegateStopButtonPressedWithMultiplierValue(_:withOptionsArray:withOptionsvalue:withQuestionName:withTagValue:)))
+        if delegate().responds(to: #selector(PollingGraphViewDelegate.delegateStopButtonPressedWithMultiplierValue(_:withOptionsArray:withOptionsvalue:withQuestionName:withTagValue:)))
          {
             delegate().delegateStopButtonPressedWithMultiplierValue(multipleValue, withOptionsArray: currentOptionsArray, withOptionsvalue: optionsValuesArray, withQuestionName: questionNamelabel.text!,withTagValue: self.tag)
         }
@@ -227,11 +227,11 @@ class PollingGraphView: UIView
         self.removeFromSuperview()
     }
     
-    func increaseBarWithOption(studentOption:String)
+    func increaseBarWithOption(_ studentOption:String)
     {
-        if currentOptionsArray.containsObject(studentOption)
+        if currentOptionsArray.contains(studentOption)
         {
-            var indexValue = currentOptionsArray.indexOfObject(studentOption)
+            var indexValue = currentOptionsArray.index(of: studentOption)
             
             indexValue = indexValue + optionIndexValue
             
@@ -246,7 +246,7 @@ class PollingGraphView: UIView
                 presentValue = presentValue * differenceheight
                 
                 
-                answerBar.frame = CGRectMake(answerBar.frame.origin.x ,self.lineContainerView.frame.size.height - presentValue  , answerBar.frame.size.width ,presentValue)
+                answerBar.frame = CGRect(x: answerBar.frame.origin.x ,y: self.lineContainerView.frame.size.height - presentValue  , width: answerBar.frame.size.width ,height: presentValue)
                 
                 
                 answerBar.changeFrameWithHeight(presentValue)
@@ -261,12 +261,12 @@ class PollingGraphView: UIView
                     let subViews = lineContainerView.subviews.flatMap{ $0 as? BarView }
                     for updatedbarImageview in subViews
                     {
-                        if updatedbarImageview.isKindOfClass(BarView)
+                        if updatedbarImageview.isKind(of: BarView.self)
                         {
                             
                             var presentValue:CGFloat = CGFloat(updatedbarImageview.presentValue)
                             presentValue = presentValue * differenceheight
-                            updatedbarImageview.frame = CGRectMake(updatedbarImageview.frame.origin.x ,self.lineContainerView.frame.size.height - presentValue  , updatedbarImageview.frame.size.width ,presentValue)
+                            updatedbarImageview.frame = CGRect(x: updatedbarImageview.frame.origin.x ,y: self.lineContainerView.frame.size.height - presentValue  , width: updatedbarImageview.frame.size.width ,height: presentValue)
                             updatedbarImageview.changeFrameWithHeight(presentValue)
                             
                             

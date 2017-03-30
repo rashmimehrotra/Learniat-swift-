@@ -23,12 +23,12 @@ class SSTeacherPeakViewController: UIViewController
         
         
         
-        let headerView = UIView(frame: CGRectMake(0, 0, 270, 40))
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 270, height: 40))
         headerView.backgroundColor = lightGrayTopBar
         self.view.addSubview(headerView);
         
         
-        let seperatorView = UIView(frame: CGRectMake(0, headerView.frame.size.height-1, headerView.frame.size.width, 1))
+        let seperatorView = UIView(frame: CGRect(x: 0, y: headerView.frame.size.height-1, width: headerView.frame.size.width, height: 1))
         seperatorView.backgroundColor = LineGrayColor
         headerView.addSubview(seperatorView);
         
@@ -38,20 +38,20 @@ class SSTeacherPeakViewController: UIViewController
         
         
         
-        let headerlabel = UILabel(frame: CGRectMake(20, 0, 200, 40))
+        let headerlabel = UILabel(frame: CGRect(x: 20, y: 0, width: 200, height: 40))
         headerlabel.text = kOverlayScribble
         headerView.addSubview(headerlabel)
-        headerlabel.textAlignment = .Left;
+        headerlabel.textAlignment = .left;
         headerlabel.font = UIFont(name: helveticaRegular, size: 20)
         headerlabel.textColor  = blackTextColor
         
         
         
-        let  mDoneButton = UIButton(frame: CGRectMake(headerView.frame.size.width - 120, 0, 100, 40))
-        mDoneButton.addTarget(self, action: #selector(StudentQueryPopover.onDoneButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mDoneButton.setTitleColor(standard_Button, forState: .Normal)
-        mDoneButton.setTitle("Done", forState: .Normal)
-        mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        let  mDoneButton = UIButton(frame: CGRect(x: headerView.frame.size.width - 120, y: 0, width: 100, height: 40))
+        mDoneButton.addTarget(self, action: #selector(StudentQueryPopover.onDoneButton), for: UIControlEvents.touchUpInside)
+        mDoneButton.setTitleColor(standard_Button, for: UIControlState())
+        mDoneButton.setTitle("Done", for: UIControlState())
+        mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         mDoneButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
         headerView.addSubview(mDoneButton)
         
@@ -62,26 +62,26 @@ class SSTeacherPeakViewController: UIViewController
         
         
         
-        if let StudentName = _currentStudentDict.objectForKey("Name") as? String
+        if let StudentName = _currentStudentDict.object(forKey: "Name") as? String
         {
             headerlabel.text = StudentName
         }
         
-        let overlayimageView =  CustomProgressImageView(frame: CGRectMake(0,headerView.frame.origin.y + headerView.frame.size.height ,headerView.frame.size.width,180))
+        let overlayimageView =  CustomProgressImageView(frame: CGRect(x: 0,y: headerView.frame.origin.y + headerView.frame.size.height ,width: headerView.frame.size.width,height: 180))
         
         self.view.addSubview(overlayimageView);
         
-        let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_SCRIBBLE_IMAGE_URL) as! String
+        let urlString = UserDefaults.standard.object(forKey: k_INI_SCRIBBLE_IMAGE_URL) as! String
         
-        if let checkedUrl = NSURL(string: "\(urlString)/\(SSTeacherDataSource.sharedDataSource.mOverlayImageName)")
+        if let checkedUrl = URL(string: "\(urlString)/\(SSTeacherDataSource.sharedDataSource.mOverlayImageName)")
         {
-            overlayimageView.contentMode = .ScaleAspectFit
+            overlayimageView.contentMode = .scaleAspectFit
             overlayimageView.downloadImage(checkedUrl, withFolderType: folderType.questionImage,withResizeValue: overlayimageView.frame.size)
         }
         
         
         
-        let studentImage  = CustomProgressImageView(frame: CGRectMake(0,headerView.frame.origin.y + headerView.frame.size.height ,headerView.frame.size.width,180))
+        let studentImage  = CustomProgressImageView(frame: CGRect(x: 0,y: headerView.frame.origin.y + headerView.frame.size.height ,width: headerView.frame.size.width,height: 180))
         self.view.addSubview(studentImage)
         studentImage.image = peakImage
         
@@ -90,7 +90,7 @@ class SSTeacherPeakViewController: UIViewController
 
     }
     
-    func setStudentDetails(StudentDict:AnyObject,  withPeakImage _peakImage:UIImage)
+    func setStudentDetails(_ StudentDict:AnyObject,  withPeakImage _peakImage:UIImage)
     {
         _currentStudentDict = StudentDict
         
@@ -102,19 +102,22 @@ class SSTeacherPeakViewController: UIViewController
     
     
     
-    var _Popover:AnyObject!
-    func setPopover(popover:AnyObject)
+    
+    var _Popover:UIPopoverController!
+    
+    func setPopover(_ popover:UIPopoverController)
     {
         _Popover = popover
     }
     
-    func popover()-> AnyObject
+    func popover()-> UIPopoverController
     {
         return _Popover
     }
+    
     func onDoneButton()
     {
-        popover().dismissPopoverAnimated(true)
+        popover().dismiss(animated: true)
         
     }
 }

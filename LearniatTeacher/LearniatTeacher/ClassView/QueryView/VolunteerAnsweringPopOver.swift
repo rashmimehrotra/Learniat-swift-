@@ -13,7 +13,7 @@ import UIKit
 {
     
     
-    optional func delegateStopVolunteeringPressedWithVolunteerDetails(volunteerDetails:AnyObject, withThummbsUp ThummbsUp:String, withThummbsDown ThummbsDown:String, withTotalVotes totalVotes:String)
+    @objc optional func delegateStopVolunteeringPressedWithVolunteerDetails(_ volunteerDetails:AnyObject, withThummbsUp ThummbsUp:String, withThummbsDown ThummbsDown:String, withTotalVotes totalVotes:String)
     
     
     
@@ -54,70 +54,70 @@ class VolunteerAnsweringPopOver: UIView{
         self.backgroundColor = whiteColor
         
         
-        mStudentName.frame = CGRectMake( 10, 10,self.frame.size.width - 20 ,30)
-        mStudentName.textAlignment = .Center;
+        mStudentName.frame = CGRect( x: 10, y: 10,width: self.frame.size.width - 20 ,height: 30)
+        mStudentName.textAlignment = .center;
         mStudentName.textColor = blackTextColor
         self.addSubview(mStudentName)
-        mStudentName.backgroundColor = UIColor.clearColor()
-        mStudentName.textAlignment = .Center;
+        mStudentName.backgroundColor = UIColor.clear
+        mStudentName.textAlignment = .center;
         mStudentName.font = UIFont(name: helveticaMedium, size: 18)
         
         
         
         let _items:NSArray = [PNPieChartDataItem(value:100 , color: lightGrayColor,description: "")]
         
-        mPieChart = PNPieChart(frame:CGRectMake(35, 40, 80,80), items:_items as [AnyObject]);
+        mPieChart = PNPieChart(frame:CGRect(x: 35, y: 40, width: 80,height: 80), items:_items as [AnyObject]);
         mPieChart.descriptionTextColor =  whiteColor
-        mPieChart.strokeChart();
+        mPieChart.stroke();
         mPieChart.duration = 0.5;
         self.addSubview(mPieChart);
         mPieChart.descriptionTextFont  = UIFont(name: helveticaMedium, size: 0)
         
                
-        mDislikeImageView.frame = CGRectMake(25 ,140, 25,25)
+        mDislikeImageView.frame = CGRect(x: 25 ,y: 140, width: 25,height: 25)
         mDislikeImageView.image = UIImage(named:"Thumbs_Down.png");
         self.addSubview(mDislikeImageView);
         
        
         
-        mdislikeImageLabel.frame  = CGRectMake(25 ,175, 25,25);
-        mdislikeImageLabel.textAlignment = .Center;
+        mdislikeImageLabel.frame  = CGRect(x: 25 ,y: 175, width: 25,height: 25);
+        mdislikeImageLabel.textAlignment = .center;
         mdislikeImageLabel.text = "0";
         mdislikeImageLabel.textColor = standard_Red
         self.addSubview(mdislikeImageLabel);
         
         
         
-        let lineView1 = UIImageView(frame:CGRectMake(75, 140, 1, 55))
+        let lineView1 = UIImageView(frame:CGRect(x: 75, y: 140, width: 1, height: 55))
         lineView1.backgroundColor = topicsLineColor
         self.addSubview(lineView1);
 
         
         
         
-        mLikeImageView.frame = CGRectMake(95 ,140, 25,25)
+        mLikeImageView.frame = CGRect(x: 95 ,y: 140, width: 25,height: 25)
         mLikeImageView.image = UIImage(named:"Thumbs_Up.png");
         self.addSubview(mLikeImageView);
         
         
         
         
-        mLikeImageLabel.frame  = CGRectMake(95,175,25, 25);
-        mLikeImageLabel.textAlignment = .Center;
+        mLikeImageLabel.frame  = CGRect(x: 95,y: 175,width: 25, height: 25);
+        mLikeImageLabel.textAlignment = .center;
         mLikeImageLabel.text = "0";
         mLikeImageLabel.textColor = standard_Green
         self.addSubview(mLikeImageLabel);
         
         let mGiveAnswerButton = UIButton()
         
-        mGiveAnswerButton.frame = CGRectMake(0,210,self.frame.size.width ,30)
-        mGiveAnswerButton.setTitle("Stop", forState: .Normal)
+        mGiveAnswerButton.frame = CGRect(x: 0,y: 210,width: self.frame.size.width ,height: 30)
+        mGiveAnswerButton.setTitle("Stop", for: UIControlState())
         self.addSubview(mGiveAnswerButton)
-        mGiveAnswerButton.setTitleColor(standard_Button, forState: .Normal)
-        mGiveAnswerButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Center
+        mGiveAnswerButton.setTitleColor(standard_Button, for: UIControlState())
+        mGiveAnswerButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
         mGiveAnswerButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 16)
-        mGiveAnswerButton.addTarget(self, action: #selector(VolunteerAnsweringPopOver.onStopButton), forControlEvents: .TouchUpInside)
-        mGiveAnswerButton.backgroundColor = UIColor.clearColor()
+        mGiveAnswerButton.addTarget(self, action: #selector(VolunteerAnsweringPopOver.onStopButton), for: .touchUpInside)
+        mGiveAnswerButton.backgroundColor = UIColor.clear
 
         
     }
@@ -128,7 +128,7 @@ class VolunteerAnsweringPopOver: UIView{
     
     var _delgate: AnyObject!
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -138,18 +138,21 @@ class VolunteerAnsweringPopOver: UIView{
         return _delgate;
     }
     
-    var _Popover:AnyObject!
     
-    func setPopover(popover:AnyObject)
+    var _Popover:UIPopoverController!
+    
+    func setPopover(_ popover:UIPopoverController)
     {
         _Popover = popover
     }
     
-    func popover()-> AnyObject
+    func popover()-> UIPopoverController
     {
         return _Popover
     }
-    func setProgressValueWithPercentagePositive( _positive:CGFloat, withNegetive _negetive:CGFloat, witTotalVlaue _totalVlaue:CGFloat)
+    
+    
+    func setProgressValueWithPercentagePositive( _ _positive:CGFloat, withNegetive _negetive:CGFloat, witTotalVlaue _totalVlaue:CGFloat)
     {
         
         
@@ -189,8 +192,8 @@ class VolunteerAnsweringPopOver: UIView{
         
         
         
-        mPieChart.updateChartData(items as [AnyObject]);
-        mPieChart.strokeChart();
+        mPieChart.updateData(items as [AnyObject]);
+        mPieChart.stroke();
         mPieChart.recompute();
         
         
@@ -198,20 +201,20 @@ class VolunteerAnsweringPopOver: UIView{
     }
     
     
-    func setVolunteerDetails(details:AnyObject)
+    func setVolunteerDetails(_ details:AnyObject)
     {
         
         currentVolunteerDetails = details
-        if let StudentName = details.objectForKey("StudentName") as? String
+        if let StudentName = details.object(forKey: "StudentName") as? String
         {
             mStudentName.text = StudentName
             
-            if let QueryId = details.objectForKey("QueryId") as? String
+            if let QueryId = details.object(forKey: "QueryId") as? String
             {
                 
-                if let StudentId = details.objectForKey("StudentId") as? String
+                if let StudentId = details.object(forKey: "StudentId") as? String
                 {
-                     SSTeacherMessageHandler.sharedMessageHandler.sendQRVGiveAnswerMessageToRoom(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, withstudentId: StudentId, withQueryId: QueryId, withStudentName: StudentName)
+                     SSTeacherMessageHandler.sharedMessageHandler.sendQRVGiveAnswerMessageToRoom(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, withstudentId: StudentId as NSString, withQueryId: QueryId, withStudentName: StudentName)
                 }
             }
         }
@@ -220,17 +223,17 @@ class VolunteerAnsweringPopOver: UIView{
     
     
     
-    func sendNewVoteWithStudentId(studentId:String, withVoteValue newVote:String, withTotalStudents totalStudents:Int)
+    func sendNewVoteWithStudentId(_ studentId:String, withVoteValue newVote:String, withTotalStudents totalStudents:Int)
     {
         
         
         liveTotalStudents = totalStudents - 1
         
-        if (votingStudentsDictonary.objectForKey(studentId) != nil)
+        if (votingStudentsDictonary.object(forKey: studentId) != nil)
         {
             valueForOneStudent = 100 / CGFloat(totalStudents)
             
-            let oldvoteValue = votingStudentsDictonary.objectForKey(studentId) as! String
+            let oldvoteValue = votingStudentsDictonary.object(forKey: studentId) as! String
             
             if oldvoteValue == "1"
             {
@@ -258,11 +261,11 @@ class VolunteerAnsweringPopOver: UIView{
             }
             
             
-            votingStudentsDictonary.setObject(newVote, forKey: studentId)
+            votingStudentsDictonary.setObject(newVote, forKey: studentId as NSCopying)
         }
         else
         {
-            votingStudentsDictonary.setObject(newVote, forKey: studentId)
+            votingStudentsDictonary.setObject(newVote, forKey: studentId as NSCopying)
             
             if newVote == "-1"
             {

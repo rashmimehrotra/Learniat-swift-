@@ -14,7 +14,7 @@ let kServiceSaveStudentQuery   =   "SaveStudentQuery"
 {
     
     
-    optional func delegateStudentQueryRecievedWithId(queryId:String, withStudentId stundentId:String)
+    @objc optional func delegateStudentQueryRecievedWithId(_ queryId:String, withStudentId stundentId:String)
     
     
     
@@ -26,7 +26,7 @@ class StudentQuerySelectionView: UIView,APIManagerDelegate
 
     var _delgate: AnyObject!
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -52,7 +52,7 @@ class StudentQuerySelectionView: UIView,APIManagerDelegate
     }
     
     
-    func setQueryWithDetails(queryDetails:NSMutableArray, withStudentDetails studentDetails:AnyObject)
+    func setQueryWithDetails(_ queryDetails:NSMutableArray, withStudentDetails studentDetails:AnyObject)
     {
         
         _currentStudentDetails = studentDetails
@@ -63,7 +63,7 @@ class StudentQuerySelectionView: UIView,APIManagerDelegate
             
            if let queryText = queryDetails.firstObject as? String
            {
-                if let StudentId = _currentStudentDetails.objectForKey("StudentId") as? String
+                if let StudentId = _currentStudentDetails.object(forKey: "StudentId") as? String
                 {
                     if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == true
                     {
@@ -75,30 +75,30 @@ class StudentQuerySelectionView: UIView,APIManagerDelegate
         }
     }
     
-    func sendQueryWithDetails(query:String,witStudentId StudentId:String)
+    func sendQueryWithDetails(_ query:String,witStudentId StudentId:String)
     {
         
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>SaveStudentQuery</Service><StudentId>%@</StudentId><SessionId>%@</SessionId><QueryText>%@</QueryText><Anonymous>0</Anonymous></Action></Sunstone>",URLPrefix,StudentId,SSTeacherDataSource.sharedDataSource.currentLiveSessionId,query)
         
-        manager.downloadDataURL(urlString, withServiceName: kServiceSaveStudentQuery, withDelegate: self, withRequestType: eHTTPGetRequest, withReturningDelegate:delegate())
+        manager.downloadDataURL(urlString, withServiceName: kServiceSaveStudentQuery, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate:delegate())
     }
-    func delegateDidGetServiceResponseWithDetails(dict: NSMutableDictionary!, WIthServiceName serviceName: String!, withRetruningDelegate returningDelegate: AnyObject!) {
+    func delegateDidGetServiceResponse(withDetails dict: NSMutableDictionary!, wIthServiceName serviceName: String!, withRetruningDelegate returningDelegate: AnyObject!) {
         
         if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == true
         {
-            let refinedDetails = dict.objectForKey(kSunstone)!.objectForKey(kSSAction)!
+            let refinedDetails = (dict.object(forKey: kSunstone)! as AnyObject).object(forKey: kSSAction)!
             
             
             if serviceName == kServiceSaveStudentQuery
             {
-                if let QueryId = refinedDetails.objectForKey("QueryId") as? String
+                if let QueryId = (refinedDetails as AnyObject).object(forKey: "QueryId") as? String
                 {
                     
                     
                     
-                    if let StudentId = _currentStudentDetails.objectForKey("StudentId") as? String
+                    if let StudentId = _currentStudentDetails.object(forKey: "StudentId") as? String
                     {
                         delegate().delegateStudentQueryRecievedWithId!(QueryId, withStudentId: StudentId)
                     }
@@ -112,7 +112,7 @@ class StudentQuerySelectionView: UIView,APIManagerDelegate
     
     
     
-    func delegateServiceErrorMessage(message: String!, withServiceName ServiceName: String!, withErrorCode code: String!)
+    func delegateServiceErrorMessage(_ message: String!, withServiceName ServiceName: String!, withErrorCode code: String!)
     {
         
     }

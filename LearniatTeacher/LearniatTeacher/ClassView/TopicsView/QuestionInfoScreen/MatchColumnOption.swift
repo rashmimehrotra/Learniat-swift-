@@ -13,7 +13,6 @@ class MatchColumnOption : UIViewController
     
     var _delgate: AnyObject!
     
-        var _Popover:AnyObject!
     
     var cureentQuestionDetails :AnyObject!
     
@@ -24,7 +23,7 @@ class MatchColumnOption : UIViewController
     
     var studentAnswerArray = NSMutableArray()
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -45,36 +44,36 @@ class MatchColumnOption : UIViewController
         
         
         
-        let headerView = UIView(frame: CGRectMake(0, 0, 500, 50))
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: 500, height: 50))
         headerView.backgroundColor = lightGrayTopBar
         self.view.addSubview(headerView);
         
         
-        let seperatorView = UIView(frame: CGRectMake(0, headerView.frame.size.height-1, 500, 1))
+        let seperatorView = UIView(frame: CGRect(x: 0, y: headerView.frame.size.height-1, width: 500, height: 1))
         seperatorView.backgroundColor = LineGrayColor
         headerView.addSubview(seperatorView);
         
         
-        headerlabel.frame = CGRectMake(20, 0, 200, 50)
+        headerlabel.frame = CGRect(x: 20, y: 0, width: 200, height: 50)
         headerlabel.text = "Match column"
         headerView.addSubview(headerlabel)
-        headerlabel.textAlignment = .Left;
+        headerlabel.textAlignment = .left;
         headerlabel.font = UIFont(name: helveticaRegular, size: 20)
         headerlabel.textColor  = blackTextColor
         
         
         
-        let  mDoneButton = UIButton(frame: CGRectMake(headerView.frame.size.width - 220, 0, 200, 50))
-        mDoneButton.addTarget(self, action: #selector(MatchColumnOption.onDoneButton as (MatchColumnOption) -> () -> ()), forControlEvents: UIControlEvents.TouchUpInside)
-        mDoneButton.setTitleColor(standard_Button, forState: .Normal)
-        mDoneButton.setTitle("Done", forState: .Normal)
-        mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        let  mDoneButton = UIButton(frame: CGRect(x: headerView.frame.size.width - 220, y: 0, width: 200, height: 50))
+        mDoneButton.addTarget(self, action: #selector(MatchColumnOption.onDoneButton as (MatchColumnOption) -> () -> ()), for: UIControlEvents.touchUpInside)
+        mDoneButton.setTitleColor(standard_Button, for: UIControlState())
+        mDoneButton.setTitle("Done", for: UIControlState())
+        mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         mDoneButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
         headerView.addSubview(mDoneButton)
         
         
         self.view.addSubview(optionScrollView)
-        optionScrollView.frame = CGRectMake(0, headerView.frame.size.height, headerView.frame.size.width, 10 )
+        optionScrollView.frame = CGRect(x: 0, y: headerView.frame.size.height, width: headerView.frame.size.width, height: 10 )
         
         
         addOPtionsCells()
@@ -83,12 +82,12 @@ class MatchColumnOption : UIViewController
     
     
     
-    func onDoneButton(sender:AnyObject)
+    func onDoneButton(_ sender:AnyObject)
     {
         
     }
     
-    func setQuestionDetails(details:AnyObject)
+    func setQuestionDetails(_ details:AnyObject)
     {
         cureentQuestionDetails = details
         studentAnswerArray.removeAllObjects()
@@ -96,7 +95,7 @@ class MatchColumnOption : UIViewController
     }
     
     
-    func setQuestionDetails(details:AnyObject, withStudentsAnswer RightSideArray:NSMutableArray)
+    func setQuestionDetails(_ details:AnyObject, withStudentsAnswer RightSideArray:NSMutableArray)
     {
         
         cureentQuestionDetails = details
@@ -120,34 +119,32 @@ class MatchColumnOption : UIViewController
         
         
         
-        let classCheckingVariable = cureentQuestionDetails.objectForKey("Options")!.objectForKey("Option")!
-        
-        if classCheckingVariable.isKindOfClass(NSMutableArray)
-        {
-            optionArray = classCheckingVariable as! NSMutableArray
+      if  let classCheckingVariable = (cureentQuestionDetails.object(forKey: "Options")! as AnyObject).object(forKey: "Option") as? NSMutableArray
+      {
+        optionArray = classCheckingVariable
         }
         else
-        {
-            optionArray.addObject(cureentQuestionDetails.objectForKey("Options")!.objectForKey("Option")!)
-            
+      {
+        optionArray.add((cureentQuestionDetails.object(forKey: "Options")! as AnyObject).object(forKey: "Option")!)
         }
         
+       
         
         
         for index in 0 ..< optionArray.count 
         {
             
-           let optionDict = optionArray.objectAtIndex(index)
+           let optionDict = optionArray.object(at: index)
             
-            if let Column = optionDict.objectForKey("Column") as? String
+            if let Column = (optionDict as AnyObject).object(forKey: "Column") as? String
             {
                 if Column == "1"
                 {
-                    leftSideArray.addObject(optionDict)
+                    leftSideArray.add(optionDict)
                 }
                 else if Column == "2"
                 {
-                    RightSideArray.addObject(optionDict)
+                    RightSideArray.add(optionDict)
                  
                 }
                 
@@ -166,14 +163,14 @@ class MatchColumnOption : UIViewController
             for index in 0 ..< leftSideArray.count 
             {
                 
-                let leftSideOptionDict = leftSideArray.objectAtIndex(index)
-                let rightSideOptionDict = RightSideArray.objectAtIndex(index)
+                let leftSideOptionDict = leftSideArray.object(at: index)
+                let rightSideOptionDict = RightSideArray.object(at: index)
                 
                 
                 
-                let optionsCell = MatchColumnCell(frame: CGRectMake(0  , postionYValue, optionScrollView.frame.size.width, 50))
+                let optionsCell = MatchColumnCell(frame: CGRect(x: 0  , y: postionYValue, width: optionScrollView.frame.size.width, height: 50))
                 
-                optionsCell.frame = CGRectMake(0  , postionYValue, optionScrollView.frame.size.width, optionsCell.getHeightWithDetails(leftSideOptionDict, withRightOptionDetails: rightSideOptionDict))
+                optionsCell.frame = CGRect(x: 0  , y: postionYValue, width: optionScrollView.frame.size.width, height: optionsCell.getHeightWithDetails(leftSideOptionDict as AnyObject, withRightOptionDetails: rightSideOptionDict as AnyObject))
                 
                 optionsCell.changeFrameWithSize()
                 
@@ -181,11 +178,11 @@ class MatchColumnOption : UIViewController
                 
                 if studentAnswerArray.count > 0
                 {
-                    let StudentsAnswerDict = studentAnswerArray.objectAtIndex(index)
+                    let StudentsAnswerDict = studentAnswerArray.object(at: index)
                     
-                    if let OldSequence = StudentsAnswerDict.objectForKey("OldSequence") as? String
+                    if let OldSequence = (StudentsAnswerDict as AnyObject).object(forKey: "OldSequence") as? String
                     {
-                        if let Sequence = StudentsAnswerDict.objectForKey("Sequence") as? String
+                        if let Sequence = (StudentsAnswerDict as AnyObject).object(forKey: "Sequence") as? String
                         {
                             
                             
@@ -213,14 +210,14 @@ class MatchColumnOption : UIViewController
             for index in 0..<leftSideArray.count
             {
                 
-                let leftSideOptionDict = leftSideArray.objectAtIndex(index)
-                let rightSideOptionDict = RightSideArray.objectAtIndex(index)
+                let leftSideOptionDict = leftSideArray.object(at: index)
+                let rightSideOptionDict = RightSideArray.object(at: index)
                 
                 
                 
-                let optionsCell = MatchColumnCell(frame: CGRectMake(0  , postionYValue, optionScrollView.frame.size.width, 50))
+                let optionsCell = MatchColumnCell(frame: CGRect(x: 0  , y: postionYValue, width: optionScrollView.frame.size.width, height: 50))
                 
-                optionsCell.frame = CGRectMake(0  , postionYValue, optionScrollView.frame.size.width, optionsCell.getHeightWithDetails(leftSideOptionDict, withRightOptionDetails: rightSideOptionDict))
+                optionsCell.frame = CGRect(x: 0  , y: postionYValue, width: optionScrollView.frame.size.width, height: optionsCell.getHeightWithDetails(leftSideOptionDict as AnyObject, withRightOptionDetails: rightSideOptionDict as AnyObject))
                 
                 optionsCell.changeFrameWithSize()
                 
@@ -228,11 +225,11 @@ class MatchColumnOption : UIViewController
                 
                 if studentAnswerArray.count > 0
                 {
-                    let StudentsAnswerDict = studentAnswerArray.objectAtIndex(index)
+                    let StudentsAnswerDict = studentAnswerArray.object(at: index)
                     
-                    if let OldSequence = StudentsAnswerDict.objectForKey("OldSequence") as? String
+                    if let OldSequence = (StudentsAnswerDict as AnyObject).object(forKey: "OldSequence") as? String
                     {
-                        if let Sequence = StudentsAnswerDict.objectForKey("Sequence") as? String
+                        if let Sequence = (StudentsAnswerDict as AnyObject).object(forKey: "Sequence") as? String
                         {
                             
                             
@@ -260,14 +257,14 @@ class MatchColumnOption : UIViewController
             for index in 0..<RightSideArray.count 
             {
                 
-                let leftSideOptionDict = leftSideArray.objectAtIndex(index)
-                let rightSideOptionDict = RightSideArray.objectAtIndex(index)
+                let leftSideOptionDict = leftSideArray.object(at: index)
+                let rightSideOptionDict = RightSideArray.object(at: index)
                 
                 
                 
-                let optionsCell = MatchColumnCell(frame: CGRectMake(0  , postionYValue, optionScrollView.frame.size.width, 50))
+                let optionsCell = MatchColumnCell(frame: CGRect(x: 0  , y: postionYValue, width: optionScrollView.frame.size.width, height: 50))
                 
-                optionsCell.frame = CGRectMake(0  , postionYValue, optionScrollView.frame.size.width, optionsCell.getHeightWithDetails(leftSideOptionDict, withRightOptionDetails: rightSideOptionDict))
+                optionsCell.frame = CGRect(x: 0  , y: postionYValue, width: optionScrollView.frame.size.width, height: optionsCell.getHeightWithDetails(leftSideOptionDict as AnyObject, withRightOptionDetails: rightSideOptionDict as AnyObject))
                 
                 optionsCell.changeFrameWithSize()
                 
@@ -276,11 +273,11 @@ class MatchColumnOption : UIViewController
                 
                 if studentAnswerArray.count > 0
                 {
-                    let StudentsAnswerDict = studentAnswerArray.objectAtIndex(index)
+                    let StudentsAnswerDict = studentAnswerArray.object(at: index)
                    
-                    if let OldSequence = StudentsAnswerDict.objectForKey("OldSequence") as? String
+                    if let OldSequence = (StudentsAnswerDict as AnyObject).object(forKey: "OldSequence") as? String
                     {
-                        if let Sequence = StudentsAnswerDict.objectForKey("Sequence") as? String
+                        if let Sequence = (StudentsAnswerDict as AnyObject).object(forKey: "Sequence") as? String
                         {
                             
                             
@@ -312,35 +309,39 @@ class MatchColumnOption : UIViewController
         }
         
         
-        if height > UIScreen.mainScreen().bounds.height - 100
+        if height > UIScreen.main.bounds.height - 100
         {
-            height = UIScreen.mainScreen().bounds.height - 100
+            height = UIScreen.main.bounds.height - 100
         }
         
         
         
         self.preferredContentSize = CGSize(width: 500, height: height  )
         
-        optionScrollView.frame = CGRectMake(0, 50, optionScrollView.frame.size.width, height - 50)
+        optionScrollView.frame = CGRect(x: 0, y: 50, width: optionScrollView.frame.size.width, height: height - 50)
         
-        optionScrollView.contentSize = CGSizeMake(0, postionYValue)
+        optionScrollView.contentSize = CGSize(width: 0, height: postionYValue)
         
     }
     
     
 
-    func setPopover(popover:AnyObject)
+    
+    var _Popover:UIPopoverController!
+    
+    func setPopover(_ popover:UIPopoverController)
     {
         _Popover = popover
     }
     
-    func popover()-> AnyObject
+    func popover()-> UIPopoverController
     {
         return _Popover
     }
     func onDoneButton()
     {
-        popover().dismissPopoverAnimated(true)
+        
+        popover().dismiss(animated: true)
         
     }
     

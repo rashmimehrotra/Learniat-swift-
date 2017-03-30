@@ -12,7 +12,7 @@ import Foundation
 @objc protocol ScribbleQuestionViewDelegate
 {
     
-    optional func delegateEditButtonPressedWithOverlayImage(overlay:UIImage)
+    @objc optional func delegateEditButtonPressedWithOverlayImage(_ overlay:UIImage)
     
     
 }
@@ -64,7 +64,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
     
     var modelAnswerArray = NSMutableArray()
     
-    func setdelegate(delegate:AnyObject)
+    func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
@@ -83,50 +83,50 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         
         imageUploading.setDelegate(self)
         
-        mTopbarImageView = UIImageView(frame: CGRectMake(0, 0, self.frame.size.width, 60))
+        mTopbarImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 60))
         mTopbarImageView.backgroundColor = lightGrayTopBar
         self.addSubview(mTopbarImageView)
-        mTopbarImageView.userInteractionEnabled = true
-        mTopbarImageView.userInteractionEnabled = true
+        mTopbarImageView.isUserInteractionEnabled = true
+        mTopbarImageView.isUserInteractionEnabled = true
         
         
-        mSendButton.frame = CGRectMake(mTopbarImageView.frame.size.width - 210, 0,200,mTopbarImageView.frame.size.height )
+        mSendButton.frame = CGRect(x: mTopbarImageView.frame.size.width - 210, y: 0,width: 200,height: mTopbarImageView.frame.size.height )
         mTopbarImageView.addSubview(mSendButton)
-        mSendButton.addTarget(self, action: #selector(ScribbleQuestionView.onSendButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mSendButton.setTitle("Send", forState: .Normal)
-        mSendButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Right
+        mSendButton.addTarget(self, action: #selector(ScribbleQuestionView.onSendButton), for: UIControlEvents.touchUpInside)
+        mSendButton.setTitle("Send", for: UIControlState())
+        mSendButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         mSendButton.titleLabel?.font = UIFont (name: helveticaMedium, size: 20)
-        mSendButton.setTitleColor(standard_Button, forState: .Normal)
+        mSendButton.setTitleColor(standard_Button, for: UIControlState())
         
         
         
-        sendButtonSpinner = UIActivityIndicatorView(activityIndicatorStyle:.WhiteLarge);
+        sendButtonSpinner = UIActivityIndicatorView(activityIndicatorStyle:.whiteLarge);
         sendButtonSpinner.frame = mSendButton.frame;
         mTopbarImageView.addSubview(sendButtonSpinner);
-        sendButtonSpinner.hidden = true;
+        sendButtonSpinner.isHidden = true;
         
         
         
-        mDontKnow.frame = CGRectMake(10, 0,200,mTopbarImageView.frame.size.height )
+        mDontKnow.frame = CGRect(x: 10, y: 0,width: 200,height: mTopbarImageView.frame.size.height )
         mTopbarImageView.addSubview(mDontKnow)
-        mDontKnow.addTarget(self, action: #selector(ScribbleQuestionView.onDontKnowButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mDontKnow.setTitle("Don't know", forState: .Normal)
-        mDontKnow.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
-        mDontKnow.setTitleColor(standard_Button, forState: .Normal)
+        mDontKnow.addTarget(self, action: #selector(ScribbleQuestionView.onDontKnowButton), for: UIControlEvents.touchUpInside)
+        mDontKnow.setTitle("Don't know", for: UIControlState())
+        mDontKnow.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
+        mDontKnow.setTitleColor(standard_Button, for: UIControlState())
         mDontKnow.titleLabel?.font = UIFont (name: helveticaMedium, size: 20)
         
-        mQuestionLabel.frame = CGRectMake(10, mTopbarImageView.frame.size.height + mTopbarImageView.frame.origin.y, self.frame.size.width-20, 80)
+        mQuestionLabel.frame = CGRect(x: 10, y: mTopbarImageView.frame.size.height + mTopbarImageView.frame.origin.y, width: self.frame.size.width-20, height: 80)
         mQuestionLabel.numberOfLines = 20;
-        mQuestionLabel.textAlignment = .Center
+        mQuestionLabel.textAlignment = .center
         self.addSubview(mQuestionLabel)
         mQuestionLabel.textColor = topbarColor
         mQuestionLabel.font = UIFont (name: helveticaRegular, size: 20)
-        mQuestionLabel.lineBreakMode = .ByTruncatingMiddle
+        mQuestionLabel.lineBreakMode = .byTruncatingMiddle
         self.addSubview(mReplyStatusLabelView)
-        mReplyStatusLabelView.textColor = UIColor.whiteColor()
+        mReplyStatusLabelView.textColor = UIColor.white
         mReplyStatusLabelView.backgroundColor = dark_Yellow
         mReplyStatusLabelView.font = UIFont (name: helveticaBold, size: 16)
-        mReplyStatusLabelView.textAlignment = .Center
+        mReplyStatusLabelView.textAlignment = .center
         
         
         
@@ -136,54 +136,54 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         remainingHeight = remainingHeight / 1.2
         
         
-        mContainerView.frame = CGRectMake((self.frame.size.width - (remainingHeight * 1.5))/2 ,mQuestionLabel.frame.size.height + mQuestionLabel.frame.origin.y , remainingHeight * 1.5 , remainingHeight)
+        mContainerView.frame = CGRect(x: (self.frame.size.width - (remainingHeight * 1.5))/2 ,y: mQuestionLabel.frame.size.height + mQuestionLabel.frame.origin.y , width: remainingHeight * 1.5 , height: remainingHeight)
         self.addSubview(mContainerView)
-        mContainerView.backgroundColor = UIColor.whiteColor()
-        mContainerView.layer.shadowColor = progressviewBackground.CGColor;
-        mContainerView.layer.shadowOffset = CGSizeMake(0,0);
+        mContainerView.backgroundColor = UIColor.white
+        mContainerView.layer.shadowColor = progressviewBackground.cgColor;
+        mContainerView.layer.shadowOffset = CGSize(width: 0,height: 0);
         mContainerView.layer.shadowOpacity = 1;
         mContainerView.layer.shadowRadius = 1.0;
         mContainerView.clipsToBounds = false;
-        mContainerView.layer.borderColor = topicsLineColor.CGColor
+        mContainerView.layer.borderColor = topicsLineColor.cgColor
         mContainerView.layer.borderWidth = 1
         
-        mEditButton.frame = CGRectMake(mContainerView.frame.origin.x, mContainerView.frame.size.height + mContainerView.frame.origin.y, mContainerView.frame.size.width, 40)
+        mEditButton.frame = CGRect(x: mContainerView.frame.origin.x, y: mContainerView.frame.size.height + mContainerView.frame.origin.y, width: mContainerView.frame.size.width, height: 40)
         self.addSubview(mEditButton)
-        mEditButton.setTitle("Edit", forState: .Normal)
-        mEditButton.setTitleColor(standard_Button, forState: .Normal)
-         mEditButton.addTarget(self, action: #selector(ScribbleQuestionView.onEditButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mEditButton.layer.borderColor = topicsLineColor.CGColor
+        mEditButton.setTitle("Edit", for: UIControlState())
+        mEditButton.setTitleColor(standard_Button, for: UIControlState())
+         mEditButton.addTarget(self, action: #selector(ScribbleQuestionView.onEditButton), for: UIControlEvents.touchUpInside)
+        mEditButton.layer.borderColor = topicsLineColor.cgColor
         mEditButton.layer.borderWidth = 1
         mEditButton.backgroundColor = whiteColor
         
         
         
-        mWithDrawButton.frame = CGRectMake(mContainerView.frame.origin.x, mContainerView.frame.size.height + mContainerView.frame.origin.y, mContainerView.frame.size.width, 40)
+        mWithDrawButton.frame = CGRect(x: mContainerView.frame.origin.x, y: mContainerView.frame.size.height + mContainerView.frame.origin.y, width: mContainerView.frame.size.width, height: 40)
         self.addSubview(mWithDrawButton)
-        mWithDrawButton.setTitle("Withdraw", forState: .Normal)
-        mWithDrawButton.setTitleColor(standard_Button, forState: .Normal)
-        mWithDrawButton.addTarget(self, action: #selector(ScribbleQuestionView.onWithDrawButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mWithDrawButton.layer.borderColor = topicsLineColor.CGColor
+        mWithDrawButton.setTitle("Withdraw", for: UIControlState())
+        mWithDrawButton.setTitleColor(standard_Button, for: UIControlState())
+        mWithDrawButton.addTarget(self, action: #selector(ScribbleQuestionView.onWithDrawButton), for: UIControlEvents.touchUpInside)
+        mWithDrawButton.layer.borderColor = topicsLineColor.cgColor
         mWithDrawButton.layer.borderWidth = 1
         mWithDrawButton.backgroundColor = whiteColor
-        mWithDrawButton.hidden = true
+        mWithDrawButton.isHidden = true
 
         
         
         
-        mOverlayImageView.frame = CGRectMake(0 ,0 , mContainerView.frame.size.width ,mContainerView.frame.size.height)
+        mOverlayImageView.frame = CGRect(x: 0 ,y: 0 , width: mContainerView.frame.size.width ,height: mContainerView.frame.size.height)
         mContainerView.addSubview(mOverlayImageView)
         
         
-        mAnswerImage.frame = CGRectMake(0 ,0 , mContainerView.frame.size.width ,mContainerView.frame.size.height)
+        mAnswerImage.frame = CGRect(x: 0 ,y: 0 , width: mContainerView.frame.size.width ,height: mContainerView.frame.size.height)
         mContainerView.addSubview(mAnswerImage)
         
         
         
-        modelAnswerScrollView.frame = CGRectMake(self.frame.size.width - 110, mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height, 110, self.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height));
+        modelAnswerScrollView.frame = CGRect(x: self.frame.size.width - 110, y: mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height, width: 110, height: self.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height));
         self.addSubview(modelAnswerScrollView)
-        modelAnswerScrollView.hidden = true
-        modelAnswerScrollView.userInteractionEnabled = true
+        modelAnswerScrollView.isHidden = true
+        modelAnswerScrollView.isUserInteractionEnabled = true
         
         
         
@@ -201,7 +201,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
     func Long()
     {
         
-        let modelAnswerFullView = ModelAnswerFullView(frame:CGRectMake(10,10,self.frame.size.width - 20, self.frame.size.height - 20 ))
+        let modelAnswerFullView = ModelAnswerFullView(frame:CGRect(x: 10,y: 10,width: self.frame.size.width - 20, height: self.frame.size.height - 20 ))
         self.addSubview(modelAnswerFullView)
         
         if mOverlayImageView.image != nil
@@ -216,9 +216,9 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         
         modelAnswerFullView.layer.shadowRadius = 1.0;
         
-        modelAnswerFullView.layer.shadowColor = UIColor.blackColor().CGColor
+        modelAnswerFullView.layer.shadowColor = UIColor.black.cgColor
         modelAnswerFullView.layer.shadowOpacity = 0.3
-        modelAnswerFullView.layer.shadowOffset = CGSizeZero
+        modelAnswerFullView.layer.shadowOffset = CGSize.zero
         modelAnswerFullView.layer.shadowRadius = 10
 
         
@@ -250,15 +250,15 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
     
     func onWithDrawButton()
     {
-        mContainerView.hidden = false
-        mEditButton.hidden = false
-        mReplyStatusLabelView.hidden = true
-        mTopbarImageView.hidden = false
+        mContainerView.isHidden = false
+        mEditButton.isHidden = false
+        mReplyStatusLabelView.isHidden = true
+        mTopbarImageView.isHidden = false
         SSStudentDataSource.sharedDataSource.answerSent = false
-        mWithDrawButton.hidden = true
-        sendButtonSpinner.hidden = true
+        mWithDrawButton.isHidden = true
+        sendButtonSpinner.isHidden = true
         sendButtonSpinner.stopAnimating()
-        mSendButton.hidden = false
+        mSendButton.isHidden = false
         SSStudentMessageHandler.sharedMessageHandler.sendWithDrawMessageToTeacher()
     }
     
@@ -266,25 +266,28 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
     {
         if mAnswerImage.image != nil
         {
-            let currentDate = NSDate()
+            let currentDate = Date()
             
-            let dateFormatter = NSDateFormatter()
+            let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-mm-dd HH:mm:ss"
             
-            sendButtonSpinner.hidden = false
+            sendButtonSpinner.isHidden = false
             sendButtonSpinner.startAnimating()
-            mSendButton.hidden = true
-            mEditButton.hidden = true
-            mWithDrawButton.hidden = true
+            mSendButton.isHidden = true
+            mEditButton.isHidden = true
+            mWithDrawButton.isHidden = true
             
-            let currentDateString = dateFormatter.stringFromDate(currentDate)
+            let currentDateString = dateFormatter.string(from: currentDate)
             
-            
-            var nameOfImage  = "SS-\(SSStudentDataSource.sharedDataSource.currentUserId)-\(SSStudentDataSource.sharedDataSource.currentLiveSessionId)-\(currentDateString)"
-            nameOfImage =  nameOfImage.stringByReplacingOccurrencesOfString(" ", withString: "")
+            let imagePathString = SSStudentDataSource.sharedDataSource.currentUserId.appending("-").appending(SSStudentDataSource.sharedDataSource.currentLiveSessionId).appending("-").appending(currentDateString)
             
             
-            imageUploading.uploadImageWithImage(mAnswerImage.image, withImageName: nameOfImage, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
+            
+            var nameOfImage  = "SS-".appending(imagePathString)
+            nameOfImage =  nameOfImage.replacingOccurrences(of: " ", with: "")
+            
+            
+            imageUploading.uploadImage(with: mAnswerImage.image, withImageName: nameOfImage, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
         }
         
         
@@ -294,45 +297,45 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
     {
         SSStudentMessageHandler.sharedMessageHandler.sendDontKnowMessageToTeacher()
         
-        mReplyStatusLabelView.frame = CGRectMake((self.frame.size.width - (mTopbarImageView.frame.size.height * 2)) / 2, 0, mTopbarImageView.frame.size.height * 2, mTopbarImageView.frame.size.height / 1.5)
-        mReplyStatusLabelView.hidden = false
+        mReplyStatusLabelView.frame = CGRect(x: (self.frame.size.width - (mTopbarImageView.frame.size.height * 2)) / 2, y: 0, width: mTopbarImageView.frame.size.height * 2, height: mTopbarImageView.frame.size.height / 1.5)
+        mReplyStatusLabelView.isHidden = false
         mReplyStatusLabelView.text = "Don't Know"
-        mTopbarImageView.hidden = true
+        mTopbarImageView.isHidden = true
         
-       mEditButton.hidden = true
-        mWithDrawButton.hidden = true
+       mEditButton.isHidden = true
+        mWithDrawButton.isHidden = true
         SSStudentDataSource.sharedDataSource.answerSent = true
     }
     
     
-    func setQuestionDetails(details:AnyObject, withsessionDetails _sessionDetails:AnyObject, withQuestionLogId _logId:String)
+    func setQuestionDetails(_ details:AnyObject, withsessionDetails _sessionDetails:AnyObject, withQuestionLogId _logId:String)
     {
         currentQuestionDetails = details
         questionLogId = _logId
         sessionDetails = _sessionDetails
         
-        currentQuestionType = (details.objectForKey(kQuestionType) as? String)
+        currentQuestionType = (details.object(forKey: kQuestionType) as? String)
         
         
-        if (details.objectForKey(kQuestionName) as? String) != ""
+        if (details.object(forKey: kQuestionName) as? String) != ""
         {
-            mQuestionLabel.text = (details.objectForKey(kQuestionName) as? String)
+            mQuestionLabel.text = (details.object(forKey: kQuestionName) as? String)
         }
         
         
         
         
-        if (details.objectForKey("Scribble") != nil)
+        if (details.object(forKey: "Scribble") != nil)
         {
         
             
-            if let Scribble = details.objectForKey("Scribble") as? String
+            if let Scribble = details.object(forKey: "Scribble") as? String
             {
-                let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_QuestionsImageUrl) as! String
+                let urlString = UserDefaults.standard.object(forKey: k_INI_QuestionsImageUrl) as! String
                 
-                if let checkedUrl = NSURL(string: "\(urlString)/\(Scribble)")
+                if let checkedUrl = URL(string: "\(urlString)/\(Scribble)")
                 {
-                    mOverlayImageView.contentMode = .ScaleAspectFit
+                    mOverlayImageView.contentMode = .scaleAspectFit
                     mOverlayImageView.downloadImage(checkedUrl, withFolderType: folderType.questionImage)
                 }
             }
@@ -348,7 +351,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
     
     
     
-    func setDrawnImage(image:UIImage)
+    func setDrawnImage(_ image:UIImage)
     {
        mAnswerImage.image = image
     }
@@ -356,50 +359,50 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
     
     // MARK: - ImageUploading delegate
     
-    func ImageUploadedWithName(name: String!)
+    func imageUploaded(withName name: String!)
     {
         var nameOfImage = name
-        if name.rangeOfString(".png") == nil
+        if name.range(of: ".png") == nil
         {
-           nameOfImage = "upload/\(name).png"
+           nameOfImage = "upload/".appending(name).appending(".png")
         }
         
         
         
         
-       SSStudentDataSource.sharedDataSource.sendScribbleAnswer(nameOfImage, withQuestionType: currentQuestionType, withQuestionLogId: questionLogId, withsessionId: (sessionDetails.objectForKey("SessionId") as! String), withDelegate: self)
+       SSStudentDataSource.sharedDataSource.sendScribbleAnswer(nameOfImage!, withQuestionType: currentQuestionType, withQuestionLogId: questionLogId, withsessionId: (sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
        
     }
     
-    func ErrorInUploadingWithName(name: String!) {
+    func errorInUploading(withName name: String!) {
         
-        sendButtonSpinner.hidden = true
+        sendButtonSpinner.isHidden = true
         sendButtonSpinner.stopAnimating()
-        mSendButton.hidden = false
-        mEditButton.hidden = false
-        mWithDrawButton.hidden = true
+        mSendButton.isHidden = false
+        mEditButton.isHidden = false
+        mWithDrawButton.isHidden = true
     }
     
     
-    func didGetAnswerSentWithDetails(details: AnyObject)
+    func didGetAnswerSentWithDetails(_ details: AnyObject)
     {
-        SSStudentMessageHandler.sharedMessageHandler.sendAnswerToQuestionMessageToTeacherWithAnswerString(details.objectForKey("AssessmentAnswerId") as! String)
+        SSStudentMessageHandler.sharedMessageHandler.sendAnswerToQuestionMessageToTeacherWithAnswerString(details.object(forKey: "AssessmentAnswerId") as! String)
         
         
-        mReplyStatusLabelView.frame = CGRectMake((self.frame.size.width - (mTopbarImageView.frame.size.height * 2)) / 2, 0, mTopbarImageView.frame.size.height * 2, mTopbarImageView.frame.size.height / 1.5)
+        mReplyStatusLabelView.frame = CGRect(x: (self.frame.size.width - (mTopbarImageView.frame.size.height * 2)) / 2, y: 0, width: mTopbarImageView.frame.size.height * 2, height: mTopbarImageView.frame.size.height / 1.5)
         
-        mReplyStatusLabelView.hidden = false
+        mReplyStatusLabelView.isHidden = false
         
         mReplyStatusLabelView.text = "Reply sent"
         
-        mTopbarImageView.hidden = true
+        mTopbarImageView.isHidden = true
         
-        mEditButton.hidden = true
+        mEditButton.isHidden = true
         
-        mWithDrawButton.hidden = false
+        mWithDrawButton.isHidden = false
         
         SSStudentDataSource.sharedDataSource.answerSent = true
-        mWithDrawButton.hidden = false
+        mWithDrawButton.isHidden = false
         
         
         if isModelAnswerRecieved  == true
@@ -412,7 +415,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
     }
     
     
-    func didGetAllModelAnswerWithDetails(details: AnyObject)
+    func didGetAllModelAnswerWithDetails(_ details: AnyObject)
     {
         
         
@@ -423,13 +426,13 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         
         for subview in subViews
         {
-            if subview.isKindOfClass(ModelAnswerView)
+            if subview.isKind(of: ModelAnswerView.self)
             {
                 subview.removeFromSuperview()
             }
         }
         
-        if let _modelAnswerArray = details.objectForKey("AssessmentAnswerIdList")?.objectForKey("AssessmentAnswerId") as? NSMutableArray
+        if let _modelAnswerArray = (details.object(forKey: "AssessmentAnswerIdList") as AnyObject).object(forKey: "AssessmentAnswerId") as? NSMutableArray
         {
             showModelAnswerWithDetailsArray(_modelAnswerArray)
             modelAnswerArray = _modelAnswerArray
@@ -438,7 +441,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         else
         {
             let testVariable :NSMutableArray = NSMutableArray()
-            testVariable.addObject(details.objectForKey("AssessmentAnswerIdList")!.objectForKey("AssessmentAnswerId")!)
+            testVariable.add((details.object(forKey: "AssessmentAnswerIdList")! as AnyObject).object(forKey: "AssessmentAnswerId")!)
             showModelAnswerWithDetailsArray(testVariable)
             
             modelAnswerArray = testVariable
@@ -450,7 +453,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         
     }
     
-    func showModelAnswerWithDetailsArray(modelAnswersArray:NSMutableArray)
+    func showModelAnswerWithDetailsArray(_ modelAnswersArray:NSMutableArray)
     {
         print(modelAnswersArray)
         
@@ -459,14 +462,14 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         
         for subview in subViews
         {
-            if subview.isKindOfClass(ModelAnswerView)
+            if subview.isKind(of: ModelAnswerView.self)
             {
                 subview.removeFromSuperview()
             }
         }
         
         
-        modelAnswerScrollView.hidden = false
+        modelAnswerScrollView.isHidden = false
         
         
         var positionY:CGFloat = 10
@@ -474,14 +477,14 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         for index in 0  ..< modelAnswersArray.count 
         {
             
-            let dict = modelAnswersArray.objectAtIndex(index)
+            let dict = modelAnswersArray.object(at: index)
             
             print(dict)
-            let modelAnswer  = ModelAnswerView(frame: CGRectMake(5, positionY, 100, 100))
+            let modelAnswer  = ModelAnswerView(frame: CGRect(x: 5, y: positionY, width: 100, height: 100))
             modelAnswerScrollView.addSubview(modelAnswer)
-            if dict.objectForKey("Image") != nil
+            if (dict as AnyObject).object(forKey: "Image") != nil
             {
-                if let ScribbleName = dict.objectForKey("Image") as? String
+                if let ScribbleName = (dict as AnyObject).object(forKey: "Image") as? String
                 {
                     if mOverlayImageView.image != nil
                     {
@@ -498,7 +501,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
             
             
             
-            if dict.objectForKey("StudentId") as! String == SSStudentDataSource.sharedDataSource.currentUserId
+            if (dict as AnyObject).object(forKey: "StudentId") as! String == SSStudentDataSource.sharedDataSource.currentUserId
             {
                 modelAnswer.backgroundColor = standard_Green
                 modelAnswer.modelAnswerLabel.text = "Your answer selected"
@@ -514,37 +517,37 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
             
         }
         
-        modelAnswerScrollView.contentSize = CGSizeMake(0,positionY)
-         mEditButton.hidden = true
-        mWithDrawButton.hidden = true
-        mTopbarImageView.hidden = true
+        modelAnswerScrollView.contentSize = CGSize(width: 0,height: positionY)
+         mEditButton.isHidden = true
+        mWithDrawButton.isHidden = true
+        mTopbarImageView.isHidden = true
         
         
     }
     
     
-    func didgetErrorMessage(message: String, WithServiceName serviceName: String)
+    func didgetErrorMessage(_ message: String, WithServiceName serviceName: String)
     {
-        sendButtonSpinner.hidden = true
+        sendButtonSpinner.isHidden = true
         sendButtonSpinner.stopAnimating()
-        mSendButton.hidden = false
-        mEditButton.hidden = false
+        mSendButton.isHidden = false
+        mEditButton.isHidden = false
         
     }
     
     func didGetEvaluatingMessage()
     {
-        mWithDrawButton.hidden = true
+        mWithDrawButton.isHidden = true
          mReplyStatusLabelView.text = "Evaluating..."
     }
     
-    func getFeedBackDetails(details:AnyObject)
+    func getFeedBackDetails(_ details:AnyObject)
     {
         
         
         mReplyStatusLabelView.text = "Evaluated"
         
-        let teacherReplyStatusView = UIImageView(frame:CGRectMake(mWithDrawButton.frame.origin.x, mWithDrawButton.frame.origin.y, mWithDrawButton.frame.size.width, mWithDrawButton.frame.size.height))
+        let teacherReplyStatusView = UIImageView(frame:CGRect(x: mWithDrawButton.frame.origin.x, y: mWithDrawButton.frame.origin.y, width: mWithDrawButton.frame.size.width, height: 0))
         teacherReplyStatusView.backgroundColor = topbarColor
         self.addSubview(teacherReplyStatusView)
         
@@ -553,18 +556,18 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         var badgeValue    = 0
         var starCount   = 0
         
-        if (details.objectForKey("BadgeId") != nil)
+        if (details.object(forKey: "BadgeId") != nil)
         {
-            if let badgeId = details.objectForKey("BadgeId") as? String
+            if let badgeId = details.object(forKey: "BadgeId") as? String
             {
                  badgeValue = Int(badgeId)!
             }
         }
         
         
-        if (details.objectForKey("Rating") != nil)
+        if (details.object(forKey: "Rating") != nil)
         {
-            if let Rating = details.objectForKey("Rating") as? String
+            if let Rating = details.object(forKey: "Rating") as? String
             {
                 starCount = Int(Rating)!
             }
@@ -574,6 +577,10 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         if starCount > 0
         {
             
+            
+            teacherReplyStatusView.frame = CGRect(x: mWithDrawButton.frame.origin.x, y: mWithDrawButton.frame.origin.y, width: mWithDrawButton.frame.size.width, height: mWithDrawButton.frame.size.height)
+            
+            
             var width = (teacherReplyStatusView.frame.size.width -  (teacherReplyStatusView.frame.size.height*CGFloat(starCount) ))/2
             
             if badgeValue > 0
@@ -582,9 +589,9 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
             }
             
             
-            let starBackGround = UIImageView(frame: CGRectMake(width, 0, teacherReplyStatusView.frame.size.height*CGFloat(starCount) , teacherReplyStatusView.frame.size.height))
+            let starBackGround = UIImageView(frame: CGRect(x: width, y: 0, width: teacherReplyStatusView.frame.size.height*CGFloat(starCount) , height: teacherReplyStatusView.frame.size.height))
             teacherReplyStatusView.addSubview(starBackGround)
-            starBackGround.backgroundColor = UIColor.clearColor()
+            starBackGround.backgroundColor = UIColor.clear
             
             
             
@@ -600,10 +607,10 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
             var positionX:CGFloat = 0
             for _ in 0  ..< starCount
             {
-                let starImage = UIImageView(frame: CGRectMake(positionX,0, starWidth ,starBackGround.frame.size.height))
+                let starImage = UIImageView(frame: CGRect(x: positionX,y: 0, width: starWidth ,height: starBackGround.frame.size.height))
                 starBackGround.addSubview(starImage)
                 starImage.image = UIImage(named: "Star_Selected.png")
-                starImage.contentMode = .ScaleAspectFit
+                starImage.contentMode = .scaleAspectFit
                 positionX = positionX + starImage.frame.size.width + starSpace
             }
             
@@ -615,47 +622,93 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
             if badgeValue > 0
             {
                 
-                let badgeImage = UIImageView(frame: CGRectMake(teacherReplyStatusView.frame.size.width - (starWidth + 10) ,0, starWidth ,starBackGround.frame.size.height))
+                let badgeImage = CustomProgressImageView(frame: CGRect(x: teacherReplyStatusView.frame.size.width - (starWidth + 10) ,y: 0, width: starWidth ,height: starBackGround.frame.size.height))
                 teacherReplyStatusView.addSubview(badgeImage)
                 badgeImage.image = UIImage(named: "ic_thumb_up_green_48dp.png")
 
                 
                 
-                let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_Badges) as! String
+                let urlString = UserDefaults.standard.object(forKey: k_INI_Badges) as! String
                
-                if let checkedUrl = NSURL(string: ("\(urlString)/\(badgeValue).png"))
+                if let checkedUrl = URL(string: ("\(urlString)/\(badgeValue).png"))
                 {
-                    badgeImage.contentMode = .ScaleAspectFit
+                    badgeImage.contentMode = .scaleAspectFit
                     badgeImage.downloadImage(checkedUrl, withFolderType: folderType.badgesImages)
                 }
-                
-                
-                
             }
-            
-           
-            
         }
-        
-        
-        if (details.objectForKey("ImagePath") != nil)
+        else
         {
-            if let Scribble = details.objectForKey("ImagePath") as? String
+            if badgeValue > 0
             {
-                let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_QuestionsImageUrl) as! String
                 
-                if let checkedUrl = NSURL(string: "\(urlString)/\(Scribble).png")
+                
+                 teacherReplyStatusView.frame = CGRect(x: mWithDrawButton.frame.origin.x, y: mWithDrawButton.frame.origin.y, width: mWithDrawButton.frame.size.width, height: mWithDrawButton.frame.size.height)
+                
+                
+                let badgeImage = CustomProgressImageView(frame: CGRect(x: (teacherReplyStatusView.frame.size.width - teacherReplyStatusView.frame.size.height)/2 ,y: 0, width: teacherReplyStatusView.frame.size.height ,height: teacherReplyStatusView.frame.size.height))
+                teacherReplyStatusView.addSubview(badgeImage)
+                badgeImage.image = UIImage(named: "ic_thumb_up_green_48dp.png")
+                
+                
+                
+                let urlString = UserDefaults.standard.object(forKey: k_INI_Badges) as! String
+                
+                if let checkedUrl = URL(string: ("\(urlString)/\(badgeValue).png"))
                 {
-                    let teacherImage = UIImageView(frame:mOverlayImageView.frame)
-                    mContainerView.addSubview(teacherImage)
-                    teacherImage.contentMode = .ScaleAspectFit
-                    teacherImage.downloadImage(checkedUrl, withFolderType: folderType.questionImage)
+                    badgeImage.contentMode = .scaleAspectFit
+                    badgeImage.downloadImage(checkedUrl, withFolderType: folderType.badgesImages)
                 }
             }
         }
         
         
         
+        
+        if   let mTextValue = details.object(forKey: "TextRating")  as? String
+        {
+            
+            
+            
+            
+            let height = mTextValue.heightForView(mTextValue, font: UIFont (name: helveticaMedium, size: 20)!, width: teacherReplyStatusView.frame.size.width)
+            
+           let mTextReplyLabel = UILabel(frame: CGRect(x: 0, y: teacherReplyStatusView.frame.size.height, width: teacherReplyStatusView.frame.size.width, height: height))
+            teacherReplyStatusView.addSubview(mTextReplyLabel)
+            mTextReplyLabel.numberOfLines = 4
+            mTextReplyLabel.lineBreakMode = .byTruncatingMiddle
+            mTextReplyLabel.textAlignment = .center
+            mTextReplyLabel.text = mTextValue
+            mTextReplyLabel.textColor = UIColor.white
+            
+            
+             teacherReplyStatusView.frame = CGRect(x: mWithDrawButton.frame.origin.x, y: mWithDrawButton.frame.origin.y, width: mWithDrawButton.frame.size.width, height: teacherReplyStatusView.frame.size.height + height)
+            
+        }
+        
+        
+        if (details.object(forKey: "ImagePath") != nil)
+        {
+            if let Scribble = details.object(forKey: "ImagePath") as? String
+            {
+                var urlString = UserDefaults.standard.object(forKey: k_INI_QuestionsImageUrl) as! String
+                urlString = urlString.appending("/").appending(Scribble)
+                
+                if urlString.contains(".png") == false
+                {
+                    urlString = urlString.appending(".png")
+                }
+                
+                if let checkedUrl = URL(string: urlString)
+                {
+                    let teacherImage = CustomProgressImageView(frame:mOverlayImageView.frame)
+                    mContainerView.addSubview(teacherImage)
+                    teacherImage.contentMode = .scaleAspectFit
+                    teacherImage.downloadImage(checkedUrl, withFolderType: folderType.questionImage)
+                    mContainerView.bringSubview(toFront: teacherImage)
+                }
+            }
+        }
     }
     
     
@@ -667,7 +720,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
             
         }
         
-        mReplyStatusLabelView.hidden = false
+        mReplyStatusLabelView.isHidden = false
         mReplyStatusLabelView.text = "Frozen"
     }
     
@@ -676,8 +729,8 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         if mAnswerImage.image != nil
         {
             //Now use image to create into NSData format
-            let imageData:NSData = UIImagePNGRepresentation(mAnswerImage.image!)!
-            let strBase64:String = imageData.base64EncodedStringWithOptions(.Encoding64CharacterLineLength)
+            let imageData:Data = UIImagePNGRepresentation(mAnswerImage.image!)!
+            let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
             SSStudentMessageHandler.sharedMessageHandler.sendPeakViewMessageToTeacherWithImageData(strBase64)
 
         }

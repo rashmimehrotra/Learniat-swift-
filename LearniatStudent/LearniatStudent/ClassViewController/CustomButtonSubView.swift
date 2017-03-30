@@ -42,24 +42,24 @@ class CustomButtonSubView: UIButton
     
     
     
-    func setImage(_selectedImageName:String, _unselectedImageName:String, withText text:String)
+    func setImage(_ _selectedImageName:String, _unselectedImageName:String, withText text:String)
     {
         
         
         
         
-        buttonImage.frame = CGRectMake((self.frame.size.width - (self.frame.size .height - 40))/2, 10, self.frame.size .height - 40 , self.frame.size .height - 40 )
+        buttonImage.frame = CGRect(x: (self.frame.size.width - (self.frame.size .height - 40))/2, y: 10, width: self.frame.size .height - 40 , height: self.frame.size .height - 40 )
         self.addSubview(buttonImage)
-        buttonImage.contentMode = .ScaleAspectFit
+        buttonImage.contentMode = .scaleAspectFit
         
         
-        buttonLabel.frame = CGRectMake(5, buttonImage.frame.size.height + buttonImage.frame.origin.y + 5 , self.frame.size.width - 10, 20)
+        buttonLabel.frame = CGRect(x: 5, y: buttonImage.frame.size.height + buttonImage.frame.origin.y + 5 , width: self.frame.size.width - 10, height: 20)
         self.addSubview(buttonLabel)
-        buttonLabel.textColor = UIColor.whiteColor()
+        buttonLabel.textColor = UIColor.white
         buttonLabel.text = text
         
         
-        buttonLabel.textAlignment = .Center
+        buttonLabel.textAlignment = .center
         
         selectedImage = UIImage(named: _selectedImageName)!
         
@@ -68,15 +68,15 @@ class CustomButtonSubView: UIButton
         
         
         
-        eventBubble.frame =  CGRectMake(self.frame.size.width - 25, 0, 20, 20)
+        eventBubble.frame =  CGRect(x: self.frame.size.width - 25, y: 0, width: 20, height: 20)
         eventBubble.backgroundColor = standard_Red
         self.addSubview(eventBubble)
         eventBubble.layer.cornerRadius = eventBubble.frame.size.width / 2
         eventBubble.textColor = whiteColor
         eventBubble.layer.masksToBounds = true
-        eventBubble.textAlignment = .Center
+        eventBubble.textAlignment = .center
         eventBubble.font = UIFont(name:helveticaMedium, size: 16)
-        eventBubble.hidden = true
+        eventBubble.isHidden = true
         
     }
     
@@ -86,7 +86,7 @@ class CustomButtonSubView: UIButton
         buttonImage.image = selectedImage
         buttonLabel.textColor = standard_Yellow
         self.backgroundColor = UIColor(red: 29/255.0, green: 54/255.0, blue: 79/255.0, alpha: 1)
-        eventBubble.hidden = true
+        eventBubble.isHidden = true
         eventValue = 0
     }
     
@@ -94,8 +94,8 @@ class CustomButtonSubView: UIButton
     func buttonUnSelected()
     {
         buttonImage.image = unSelectedImage
-        buttonLabel.textColor = UIColor.whiteColor()
-        self.backgroundColor = UIColor.clearColor()
+        buttonLabel.textColor = UIColor.white
+        self.backgroundColor = UIColor.clear
     }
     
     
@@ -106,13 +106,13 @@ class CustomButtonSubView: UIButton
         if buttonImage.image == unSelectedImage
         {
             eventValue = eventValue + 1
-             eventBubble.hidden = false
+             eventBubble.isHidden = false
             eventBubble.text = "\(eventValue)"
         }
         else
         {
             eventValue = 0
-             eventBubble.hidden = true
+             eventBubble.isHidden = true
         }
     }
     

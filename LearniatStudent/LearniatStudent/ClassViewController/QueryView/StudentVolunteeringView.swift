@@ -36,9 +36,9 @@ class StudentVolunteeringView: UIView,SSStudentDataSourceDelegate
         
         
         
-        mStudentImage.frame = CGRectMake((self.frame.size.width - 80 )/2,60 , 80 ,80)
+        mStudentImage.frame = CGRect(x: (self.frame.size.width - 80 )/2,y: 60 , width: 80 ,height: 80)
         self.addSubview(mStudentImage)
-        mStudentImage.backgroundColor = UIColor.clearColor()
+        mStudentImage.backgroundColor = UIColor.clear
         
         
         
@@ -49,53 +49,53 @@ class StudentVolunteeringView: UIView,SSStudentDataSourceDelegate
         
         
         
-        mStudentName.frame = CGRectMake(10,mStudentImage.frame.origin.y + mStudentImage.frame.size.height ,self.frame.size.width - 20, mStudentImage.frame.size.height)
-        mStudentName.textAlignment = .Center;
+        mStudentName.frame = CGRect(x: 10,y: mStudentImage.frame.origin.y + mStudentImage.frame.size.height ,width: self.frame.size.width - 20, height: mStudentImage.frame.size.height)
+        mStudentName.textAlignment = .center;
         mStudentName.textColor = blackTextColor
         self.addSubview(mStudentName)
-        mStudentName.backgroundColor = UIColor.clearColor()
-        mStudentName.textAlignment = .Center;
+        mStudentName.backgroundColor = UIColor.clear
+        mStudentName.textAlignment = .center;
         mStudentName.font = UIFont(name: helveticaMedium, size: 25)
         
         
         
         
         
-        mAnsweringLabel.frame = CGRectMake(10,mStudentName.frame.origin.y + mStudentName.frame.size.height ,self.frame.size.width - 20, mStudentImage.frame.size.height)
-        mAnsweringLabel.textAlignment = .Center;
+        mAnsweringLabel.frame = CGRect(x: 10,y: mStudentName.frame.origin.y + mStudentName.frame.size.height ,width: self.frame.size.width - 20, height: mStudentImage.frame.size.height)
+        mAnsweringLabel.textAlignment = .center;
         mAnsweringLabel.textColor = blackTextColor
         self.addSubview(mAnsweringLabel)
-        mAnsweringLabel.backgroundColor = UIColor.clearColor()
-        mAnsweringLabel.textAlignment = .Center;
+        mAnsweringLabel.backgroundColor = UIColor.clear
+        mAnsweringLabel.textAlignment = .center;
         mStudentName.font = UIFont(name: helveticaMedium, size: 16)
 
         
         
         
-        mQueryLabel.frame = CGRectMake(10,(self.frame.size.height - self.frame.size.height/2)/2,self.frame.size.width - 20,self.frame.size.height / 2)
-        mQueryLabel.textAlignment = .Center;
+        mQueryLabel.frame = CGRect(x: 10,y: (self.frame.size.height - self.frame.size.height/2)/2,width: self.frame.size.width - 20,height: self.frame.size.height / 2)
+        mQueryLabel.textAlignment = .center;
         mQueryLabel.textColor = blackTextColor
         self.addSubview(mQueryLabel)
-        mQueryLabel.backgroundColor = UIColor.clearColor()
+        mQueryLabel.backgroundColor = UIColor.clear
         mQueryLabel.font = UIFont(name: HelveticaNeueThin, size: 20)
-        mQueryLabel.lineBreakMode = .ByTruncatingMiddle
+        mQueryLabel.lineBreakMode = .byTruncatingMiddle
         mQueryLabel.numberOfLines = 20
-        mQueryLabel.contentMode = .Top;
+        mQueryLabel.contentMode = .top;
         
         
-        mDislikeButton.frame = CGRectMake(10,mQueryLabel.frame.origin.y  + mQueryLabel.frame.size .height + 20 ,self.frame.size.width/4 , 40)
+        mDislikeButton.frame = CGRect(x: 10,y: mQueryLabel.frame.origin.y  + mQueryLabel.frame.size .height + 20 ,width: self.frame.size.width/4 , height: 40)
 
         self.addSubview(mDislikeButton)
-        mDislikeButton.addTarget(self, action: #selector(StudentVolunteeringView.onDislikeButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mDislikeButton.setImage(UIImage(named: "Unlike_Selected.png"), forState: .Normal)
-        mDislikeButton.imageView?.contentMode = .ScaleAspectFit
+        mDislikeButton.addTarget(self, action: #selector(StudentVolunteeringView.onDislikeButton), for: UIControlEvents.touchUpInside)
+        mDislikeButton.setImage(UIImage(named: "Unlike_Selected.png"), for: UIControlState())
+        mDislikeButton.imageView?.contentMode = .scaleAspectFit
         
-        mLikeButton.frame = CGRectMake(self.frame.size.width - (10 + self.frame.size.width/4),mQueryLabel.frame.origin.y  + mQueryLabel.frame.size .height + 20 ,self.frame.size.width/4 , 40)
+        mLikeButton.frame = CGRect(x: self.frame.size.width - (10 + self.frame.size.width/4),y: mQueryLabel.frame.origin.y  + mQueryLabel.frame.size .height + 20 ,width: self.frame.size.width/4 , height: 40)
         
         self.addSubview(mLikeButton)
-        mLikeButton.addTarget(self, action: #selector(StudentVolunteeringView.onLikeButton), forControlEvents: UIControlEvents.TouchUpInside)
-        mLikeButton.setImage(UIImage(named: "Like_Selected.png"), forState: .Normal)
-        mLikeButton.imageView?.contentMode = .ScaleAspectFit
+        mLikeButton.addTarget(self, action: #selector(StudentVolunteeringView.onLikeButton), for: UIControlEvents.touchUpInside)
+        mLikeButton.setImage(UIImage(named: "Like_Selected.png"), for: UIControlState())
+        mLikeButton.imageView?.contentMode = .scaleAspectFit
         
     }
     
@@ -110,67 +110,67 @@ class StudentVolunteeringView: UIView,SSStudentDataSourceDelegate
         newVote = "1"
         
         SSStudentMessageHandler.sharedMessageHandler.sendQueryLikedAndDislikeMessagetoTeacherwithNewVote(newVote)
-        mLikeButton.enabled = false
-        mDislikeButton.enabled = true
-        mDislikeButton.setImage(UIImage(named: "Unlike_Selected.png"), forState: .Normal)
-         mLikeButton.setImage(UIImage(named: "Like_Disabled.png"), forState: .Normal)
+        mLikeButton.isEnabled = false
+        mDislikeButton.isEnabled = true
+        mDislikeButton.setImage(UIImage(named: "Unlike_Selected.png"), for: UIControlState())
+         mLikeButton.setImage(UIImage(named: "Like_Disabled.png"), for: UIControlState())
     }
     
     func onDislikeButton()
     {
         newVote = "-1"
         SSStudentMessageHandler.sharedMessageHandler.sendQueryLikedAndDislikeMessagetoTeacherwithNewVote(newVote)
-        mLikeButton.enabled = true
-        mDislikeButton.enabled = false
-         mLikeButton.setImage(UIImage(named: "Like_Selected.png"), forState: .Normal)
-        mDislikeButton.setImage(UIImage(named: "Unlike_Disabled.png"), forState: .Normal)
+        mLikeButton.isEnabled = true
+        mDislikeButton.isEnabled = false
+         mLikeButton.setImage(UIImage(named: "Like_Selected.png"), for: UIControlState())
+        mDislikeButton.setImage(UIImage(named: "Unlike_Disabled.png"), for: UIControlState())
     }
     
     
     
-    func setVolunteeringDetails(details:AnyObject)
+    func setVolunteeringDetails(_ details:AnyObject)
     {
         
         
-        if let StudentId = details.objectForKey("AnsweringStudentId") as? String
+        if let StudentId = details.object(forKey: "AnsweringStudentId") as? String
         {
             
             if StudentId == SSStudentDataSource.sharedDataSource.currentUserId
             {
-                mStudentImage.contentMode = .ScaleAspectFit
+                mStudentImage.contentMode = .scaleAspectFit
                 mStudentImage.image = UIImage(named: "MikeImage.png")
                 mAnsweringLabel.text = "Please answer the following query"
-               mLikeButton.hidden = true
-                mDislikeButton.hidden = true
+               mLikeButton.isHidden = true
+                mDislikeButton.isHidden = true
                 
             }
             else
             {
                 mAnsweringLabel.text = "Answering query"
-                mLikeButton.hidden = false
-                mDislikeButton.hidden = false
-                let urlString = NSUserDefaults.standardUserDefaults().objectForKey(k_INI_UserProfileImageURL) as! String
+                mLikeButton.isHidden = false
+                mDislikeButton.isHidden = false
+                let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
                 
-                if let checkedUrl = NSURL(string: "\(urlString)/\(StudentId)_79px.jpg")
+                if let checkedUrl = URL(string: "\(urlString)/\(StudentId)_79px.jpg")
                 {
-                    mStudentImage.contentMode = .ScaleAspectFit
-                    mStudentImage.downloadImage(checkedUrl, withFolderType: folderType.ProFilePics)
+                    mStudentImage.contentMode = .scaleAspectFit
+                    mStudentImage.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
                 }
             }
         }
         
-        if let StudentName = details.objectForKey("StudentName") as? String
+        if let StudentName = details.object(forKey: "StudentName") as? String
         {
             mStudentName.text = StudentName
         }
         
-        if let QueryId = details.objectForKey("QueryId") as? String
+        if let QueryId = details.object(forKey: "QueryId") as? String
         {
             
             
-            if SSStudentDataSource.sharedDataSource.QRVQueryDictonary.objectForKey(QueryId) != nil
+            if SSStudentDataSource.sharedDataSource.QRVQueryDictonary.object(forKey: QueryId) != nil
             {
-                if let queryText = SSStudentDataSource.sharedDataSource.QRVQueryDictonary.objectForKey(QueryId) as? String
+                if let queryText = SSStudentDataSource.sharedDataSource.QRVQueryDictonary.object(forKey: QueryId) as? String
                 {
                     mQueryLabel.text = queryText
                 }
