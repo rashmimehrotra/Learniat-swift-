@@ -309,7 +309,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         mTopicsViewButton.setTitle("View", for: UIControlState())
         mTopicsViewButton.setTitleColor(standard_Button, for: UIControlState())
         mTopicsViewButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
-        mTopicsViewButton.addTarget(self, action: #selector(ScheduleDetailView.onViewStudentsButton), for: UIControlEvents.touchUpInside)
+        mTopicsViewButton.addTarget(self, action: #selector(ScheduleDetailView.onViewTopicsButton), for: UIControlEvents.touchUpInside)
         mTopicsViewButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
         
         
