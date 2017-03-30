@@ -164,7 +164,7 @@ class OneStringGraphView: UIView
         if optionIdDictionary.object(forKey: optionString.removeWhitespace().removeSpecialCharsFromString().capitalized) == nil
         {
             optionIdDictionary.setObject("\(OptionIdValue)", forKey: optionString.removeWhitespace().removeSpecialCharsFromString().capitalized as NSCopying)
-            
+
             let optionsLabel = FXLabel(frame: CGRect(x: positionX , y: lineContainerView.frame.size.height + 5, width: 100 ,height: optionsScrollView.frame.size.height - (lineContainerView.frame.size.height + 10)));
             optionsScrollView.addSubview(optionsLabel)
             optionsLabel.lineBreakMode = .byTruncatingMiddle;
@@ -229,6 +229,7 @@ class OneStringGraphView: UIView
         else
         {
           if  let optionStringValue = optionIdDictionary.object(forKey: (optionString.removeWhitespace().removeSpecialCharsFromString().capitalized)) as? String
+
           {
                 let optionValue = Int(optionStringValue)
                 if let answerBar  = self.viewWithTag(optionValue!) as? BarView

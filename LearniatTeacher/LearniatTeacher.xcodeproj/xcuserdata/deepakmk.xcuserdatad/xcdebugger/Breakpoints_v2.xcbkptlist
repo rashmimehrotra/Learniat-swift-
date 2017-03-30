@@ -106,12 +106,12 @@
                   moduleName = "Learniat Teacher"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/QueryView/QuerySubview.swift"
-                  timestampString = "512518448.42443"
+                  timestampString = "512594494.130496"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "165"
                   endingLineNumber = "165"
-                  offsetFromSymbolStart = "125">
+                  offsetFromSymbolStart = "108">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -121,12 +121,12 @@
                   moduleName = "Learniat Teacher"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/QueryView/QuerySubview.swift"
-                  timestampString = "512518448.427958"
+                  timestampString = "512594494.133439"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "165"
                   endingLineNumber = "165"
-                  offsetFromSymbolStart = "945">
+                  offsetFromSymbolStart = "916">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -154,12 +154,12 @@
                   moduleName = "Learniat Teacher"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/QueryView/QuerySubview.swift"
-                  timestampString = "512518448.436396"
+                  timestampString = "512594494.141924"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "200"
                   endingLineNumber = "200"
-                  offsetFromSymbolStart = "5632">
+                  offsetFromSymbolStart = "5564">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -169,12 +169,12 @@
                   moduleName = "Learniat Teacher"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/QueryView/QuerySubview.swift"
-                  timestampString = "512518448.439946"
+                  timestampString = "512594494.144969"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "200"
                   endingLineNumber = "200"
-                  offsetFromSymbolStart = "6524">
+                  offsetFromSymbolStart = "6368">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -410,12 +410,12 @@
                   moduleName = "Learniat Teacher"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ScheduleScreen/StudentsStateView.swift"
-                  timestampString = "512518448.547131"
+                  timestampString = "512594494.271935"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "374"
                   endingLineNumber = "374"
-                  offsetFromSymbolStart = "50">
+                  offsetFromSymbolStart = "52">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -425,12 +425,12 @@
                   moduleName = "Learniat Teacher"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ScheduleScreen/StudentsStateView.swift"
-                  timestampString = "512518448.551171"
+                  timestampString = "512594494.275262"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "374"
                   endingLineNumber = "374"
-                  offsetFromSymbolStart = "427">
+                  offsetFromSymbolStart = "552">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -506,12 +506,12 @@
                   moduleName = "Learniat Teacher"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/SetUpLessonPlan/LessonPlanMainViewCell.swift"
-                  timestampString = "512518448.578462"
+                  timestampString = "512594494.326256"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "180"
                   endingLineNumber = "180"
-                  offsetFromSymbolStart = "156">
+                  offsetFromSymbolStart = "116">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -521,12 +521,12 @@
                   moduleName = "Learniat Teacher"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/SetUpLessonPlan/LessonPlanMainViewCell.swift"
-                  timestampString = "512518448.581957"
+                  timestampString = "512594494.33016"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "180"
                   endingLineNumber = "180"
-                  offsetFromSymbolStart = "1146">
+                  offsetFromSymbolStart = "1080">
                </Location>
             </Locations>
          </BreakpointContent>

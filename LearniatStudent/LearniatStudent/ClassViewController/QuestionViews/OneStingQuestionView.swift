@@ -175,8 +175,10 @@ class OneStingQuestionView: UIView,SSStudentDataSourceDelegate
             
             mReplyStatusLabel.text = "Reply sent"
             
+
             mTopbarImageView.isHidden = true
             mAnswerTextView.isHidden = true
+
             mAnswerLabel.text =  mAnswerTextView.getTextOfCurrentTextView()
             
            
@@ -263,6 +265,7 @@ class OneStingQuestionView: UIView,SSStudentDataSourceDelegate
         mReplyStatusLabel.frame = CGRect(x: (self.frame.size.width - (mTopbarImageView.frame.size.height * 2)) / 2, y: 0, width: mTopbarImageView.frame.size.height * 2, height: mTopbarImageView.frame.size.height / 1.5)
         mReplyStatusLabel.isHidden = false
         mReplyStatusLabel.text = "Don't Know"
+
         mTopbarImageView.isHidden = true
         mAnswerTextView.isHidden = true
         mAnswerLabel.text =  mAnswerTextView.getTextOfCurrentTextView()
