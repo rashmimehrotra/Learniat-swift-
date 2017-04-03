@@ -566,7 +566,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         mSubTopicNamelabel.frame =  CGRect(x: mTeacherName.frame.origin.x + mTeacherName.frame.size.width + 10 , y: mTeacherName.frame.origin.y, width: mBottomBarImageView.frame.size.width - (mTeacherName.frame.origin.x + mTeacherName.frame.size.width + 20),height: mTeacherName.frame.size.height )
         mBottomBarImageView.addSubview(mSubTopicNamelabel)
         mSubTopicNamelabel.text = "No subtopic"
-        mSubTopicNamelabel.font = UIFont(name:helveticaMedium, size: 20)
+        mSubTopicNamelabel.font = UIFont(name:helveticaMedium, size: 16)
         mSubTopicNamelabel.textColor = UIColor.white
         mSubTopicNamelabel.textAlignment = .right
         

@@ -229,13 +229,17 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         mRefreshButton.isHidden = false
         
         
-        mAppVersionNumber = UILabel(frame: CGRect(x: mRefreshButton.frame.origin.x - (mRefreshButton.frame.size.width + 10), y: 0,width: mTopbarImageView.frame.size.height,height: mTopbarImageView.frame.size.height ))
+        mAppVersionNumber = UILabel(frame: CGRect(x: mRefreshButton.frame.origin.x - (mRefreshButton.frame.size.width + mRefreshButton.frame.size.width + 10), y: 0,width: (mRefreshButton.frame.size.width*2),height: mTopbarImageView.frame.size.height ))
         
         mTopbarImageView.addSubview(mAppVersionNumber)
-        mAppVersionNumber.textAlignment = .left
+        mAppVersionNumber.textAlignment = .right
         mAppVersionNumber.textColor = UIColor.white
-        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
-            mAppVersionNumber.text = "V = \(version)"
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        {
+            let buildNumber: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
+
+            
+            mAppVersionNumber.text = "V = \(version).".appending(buildNumber)
         }
         
         
@@ -1406,6 +1410,26 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         }
         else
         {
+            
+            if mStudentsLessonPlanView != nil
+            { // Make sure the view exists
+                
+                if self.view.subviews.contains(mStudentsLessonPlanView) == false
+                {
+                    mStudentsLessonPlanView =  SSTeacherLessonPlanView(frame: CGRect(x: 0, y: mTopbarImageView.frame.size.height + 10, width: self.view.frame.size.width, height: self.view.frame.size.height - (mTopbarImageView.frame.size.height + 20)))
+                    mStudentsLessonPlanView.layer.shadowColor = UIColor.black.cgColor
+                    mStudentsLessonPlanView.layer.shadowOpacity = 0.3
+                    mStudentsLessonPlanView.layer.shadowOffset = CGSize.zero
+                    mStudentsLessonPlanView.layer.shadowRadius = 10
+                    self.view.addSubview(mStudentsLessonPlanView)
+                    mStudentsLessonPlanView.setdelegate(self)
+                    
+                }
+                
+            }
+            
+            
+            
             mStudentsLessonPlanView.isHidden = false
             self.view.bringSubview(toFront: mStudentsLessonPlanView)
             

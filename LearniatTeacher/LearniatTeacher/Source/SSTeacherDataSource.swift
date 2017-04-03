@@ -235,36 +235,35 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     var currentUSerState    :String!
     
-    var currentUserName     :String     = String()
+    var currentUserName     :String             = String()
     
-    var currentPassword     :String     = String()
+    var currentPassword     :String             = String()
     
-    var currentLiveSessionId        = ""
+    var currentLiveSessionId                    = ""
     
-    var isSubtopicStarted           = false
+    var isSubtopicStarted                       = false
     
-    var isQuestionSent              = false
+    var isQuestionSent                          = false
     
-    var subTopicDetailsDictonary            = NSMutableDictionary()
+    var subTopicDetailsDictonary                = NSMutableDictionary()
     
-    var questionsDictonary                  = NSMutableDictionary()
+    var questionsDictonary                      = NSMutableDictionary()
     
-    var currentQuestionLogId                = ""
+    var currentQuestionLogId                    = ""
     
-    var startedSubTopicId                   = ""
+    var startedSubTopicId                       = ""
     
-    var startedMainTopicId                  = ""
+    var startedMainTopicId                      = ""
     
-    var startedSubTopicName                 = ""
+    var startedSubTopicName                     = ""
     
-    var startedMainTopicName                = ""
+    var startedMainTopicName                    = ""
     
-    var taggedTopicIdArray                  = NSMutableArray()
+    var taggedTopicIdArray                      = NSMutableArray()
     
-    var isVolunteerAnswering                = false
+    var isVolunteerAnswering                    = false
     
-    var isSimulationEnabled   :Bool         = false
-    
+    var isSimulationEnabled   :Bool             = false
     
     var mDemoQuerySubTopicsArray                = NSMutableArray()
     
@@ -272,8 +271,8 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     var mDemoQuestionsIdArray                   = NSMutableArray()
     
-    
     var mOverlayImageName                       = ""
+    
     
     func setSubTopicDictonaryWithDict(_ details:NSMutableArray,withKey key:String)
     {
@@ -697,33 +696,10 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         }
         
         
-        
-        
-        
         let urlString = String(format: "%@<Sunstone><Action><Service>SendFeedback</Service><AssessmentAnswerIdList>%@</AssessmentAnswerIdList><TeacherId>%@</TeacherId><URL>%@</URL><Rating>%@</Rating><TextRating>%@</TextRating><BadgeId>%@</BadgeId><StudentId>%@</StudentId><ModelAnswerFlag>%@</ModelAnswerFlag></Action></Sunstone>",URLPrefix,assessmentId,currentUserId,imageUrl,ratings,textRating,badgeId,studentId,modelAnswerFalg)
         
         manager.downloadDataURL(urlString, withServiceName: kServiceSendFeedback, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
-    
-    
-    
-//    
-//    func sendFeedbackToStudentWithDetails(details:AnyObject, WithDelegate delegate:SSTeacherDataSourceDelegate)
-//    {
-//        setdelegate(delegate)
-//        
-//       
-//        
-//        
-//        
-//        
-//        
-//        let urlString = String(format: "%@<Sunstone><Action><Service>SendFeedback</Service><AssessmentAnswerIdList>%@</AssessmentAnswerIdList><TeacherId>%@</TeacherId><URL>%@</URL><Rating>%@</Rating><TextRating>%@</TextRating><BadgeId>%@</BadgeId><StudentId>%@</StudentId><ModelAnswerFlag>%@</ModelAnswerFlag></Action></Sunstone>",URLPrefix,assessmentId,currentUserId,imageUrl,ratings,textRating,badgeId,studentId,modelAnswerFalg)
-//        
-//        manager.downloadDataURL(urlString, withServiceName: kServiceSendFeedback, withDelegate: self, withRequestType: eHTTPGetRequest)
-//    }
-//    
-//    
     
     
     func getQueryWithQueryId(_ QueryId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
@@ -741,11 +717,6 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     func replyToDoubtWithDetails(_ details:AnyObject, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
 
-        
-        
-        
-        
-        
         
         var QueryId = ""
         
@@ -787,15 +758,6 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         }
 
 
-        
-        
-        
-        
-        
-        
-        
-        
-        
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>RespondToQuery</Service><QueryId>%@</QueryId><TeacherReplyText>%@</TeacherReplyText><BadgeId>%@</BadgeId><DismissFlag>%@</DismissFlag><StudentId>%@</StudentId></Action></Sunstone>",URLPrefix,QueryId,TeacherReplyText,BadgeId,DismissFlag,StudentId)
@@ -854,17 +816,10 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         manager.downloadDataURL(urlString, withServiceName: kServiceEndVolunteeringSession, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
-    
-    
-    
     func uploadTeacherScribble(_ ScribbleId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
-
         
         let manager = APIManager()
-        
-        
-        
         let urlString = String(format: "%@<Sunstone><Action><Service>UploadTeacherScribble</Service><ImagePath>%@</ImagePath><TeacherId>%@</TeacherId></Action></Sunstone>",URLPrefix,ScribbleId,currentUserId)
         
         manager.downloadDataURL(urlString, withServiceName: kuploadTeacherScribble, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
@@ -882,6 +837,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         manager.downloadDataURL(urlString, withServiceName: kRecordQuestion, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
+    
     
     func updateRecorededQuestionWithQuestionLogId(_ questionLogId:String, withQuestionName QuestionName:String, withQuestionOptions QuestionOptions:String, withAnswerStates answerStates:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
     {
@@ -937,8 +893,6 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         let urlString = String(format: "%@<Sunstone><Action><Service>FetchCategory</Service><InputCategory>%@</InputCategory><TopicId>%@</TopicId><UserId>%@</UserId><UUID>%@</UUID></Action></Sunstone>",URLPrefix,InputCategoryname,topicId,SSTeacherDataSource.sharedDataSource.currentUserId,uuidString)
         
         manager.downloadDataURL(urlString, withServiceName: kFetchCategory, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
-        
-
     }
     
     func sendCategoryWithName(category:String,withDescrpition CategoryDescription:String, withTopicID topicId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
@@ -1284,8 +1238,6 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     }
     
 
-    
-    
     
     
     func delegateServiceErrorMessage(_ message: String!, withServiceName ServiceName: String!, withErrorCode code: String!, withRetruningDelegate returningDelegate: Any!)

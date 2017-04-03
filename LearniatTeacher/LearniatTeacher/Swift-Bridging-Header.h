@@ -33,4 +33,6 @@
 #import "ImageEditorSubView.h"
 #import "PNChart.h"
 #import "DynamicFontSize.h"
+#import "YIInnerShadowView.h"
+#import  "UIView+InnerShadow.h"
 #endif /* Swift_Bridging_Header_h */

@@ -187,6 +187,7 @@ class SSTeacherLessonPlanView: UIView,SSTeacherDataSourceDelegate, UISearchBarDe
         sendButtonSpinner.stopAnimating()
         mSendButton.isHidden = false
         self.removeFromSuperview()
+        
     }
     
     func didgetErrorMessage(_ message: String, WithServiceName serviceName: String)

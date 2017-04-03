@@ -71,7 +71,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     var mDeskFrame :CGRect!
     
     
-    var mStudentName  = FXLabel()
+    var mStudentName  = UILabel()
     
     var mMiddleStudentName = UILabel()
     
@@ -170,7 +170,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         answerDeskImageView.spacePattern = 4;
         answerDeskImageView.borderWidth = kDeskBorderWidth;
         answerDeskImageView.borderColor = LineGrayColor;
-        
+        answerDeskImageView.cornerRadius = 3
         
         mDeskFrame = answerDeskImageView.frame
         
@@ -210,7 +210,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         mStudentName.textColor = blackTextColor
         refrenceDeskImageView.addSubview(mStudentName)
         mStudentName.backgroundColor = UIColor.clear
-        mStudentName.allowOrphans = true;
+//        mStudentName.allowOrphans = true;
         mStudentName.textAlignment = .center;
         mStudentName.contentMode = .center;
         mStudentName.isHidden = false
@@ -270,6 +270,12 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         mProgressView.isHidden = true
         let transform = CGAffineTransform(scaleX: 1.0, y: 3.2);
         mProgressView.transform = transform;
+        
+//        mProgressView.frame = CGRect(x: mProgressView.frame.origin.x,
+//                                     y: mProgressView.frame.origin.y,
+//                                     width: mProgressView.frame.size.width,
+//                                     height: mProgressView.frame.size.height);
+        
         mProgressView.layer.cornerRadius = mProgressView.frame.size.height/2;
         mProgressView.layer.masksToBounds = true;
 
@@ -359,7 +365,9 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         
         StudentState = state;
         mStudentImage.isHidden = false
-       
+       mStudentImage.alpha = 0.5
+        self.answerDeskImageView.removeInnerShadow()
+        answerDeskImageView.backgroundColor = UIColor.clear
         UIView.animate(withDuration: 0.5, animations:
             {
                 switch (state)
@@ -369,15 +377,14 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
                     
                     self.answerDeskImageView.borderType = BorderTypeDashed;
                     self.answerDeskImageView.borderWidth = kDeskBorderWidth;
-                    self.answerDeskImageView.borderColor = standard_Red
-                    self.mStudentImage.isHidden = true
+                    self.answerDeskImageView.borderColor = LineGrayColor
                     
                     break;
                     
                 case StudentFree:
                     self.answerDeskImageView.borderType = BorderTypeDashed;
                     self.answerDeskImageView.borderWidth = kDeskBorderWidth;
-                    self.answerDeskImageView.borderColor = LineGrayColor;
+                    self.answerDeskImageView.borderColor = standard_Red;
                     
                     break;
                     
@@ -386,7 +393,10 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
                     
                     self.answerDeskImageView.borderType = BorderTypeSolid;
                     self.answerDeskImageView.borderWidth = kDeskBorderWidth;
-                    self.answerDeskImageView.borderColor = standard_Green
+                    self.answerDeskImageView.borderColor = LineGrayColor
+                    self.mStudentImage.alpha = 1
+                    self.answerDeskImageView.addInnerShadow(withRadius: 3, andAlpha: 0.25)
+                    self.answerDeskImageView.backgroundColor = UIColor.white
                     
                     break;
                     
@@ -402,7 +412,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
                     
                     self.answerDeskImageView.borderType = BorderTypeDashed;
                     self.answerDeskImageView.borderWidth = kDeskBorderWidth;
-                    self.answerDeskImageView.borderColor = LineGrayColor
+                    self.answerDeskImageView.borderColor = standard_Red
                     
                     break;
                     
@@ -410,7 +420,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
                     
                     self.answerDeskImageView.borderType = BorderTypeDashed;
                     self.answerDeskImageView.borderWidth = kDeskBorderWidth;
-                    self.answerDeskImageView.borderColor = LineGrayColor
+                    self.answerDeskImageView.borderColor = standard_Red
                     
                     break
                     

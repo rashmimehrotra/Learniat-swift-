@@ -420,6 +420,8 @@
 		5373025F1CB6771200E76753 /* Undo_Active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 537302161CB6771200E76753 /* Undo_Active@2x.png */; };
 		537302601CB6771200E76753 /* Undo_Disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 537302171CB6771200E76753 /* Undo_Disabled.png */; };
 		537302611CB6771200E76753 /* Undo_Disabled@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 537302181CB6771200E76753 /* Undo_Disabled@2x.png */; };
+		5377628F1E9036430004B99D /* YIInnerShadowLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5377628C1E9036430004B99D /* YIInnerShadowLayer.m */; };
+		537762901E9036430004B99D /* YIInnerShadowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5377628E1E9036430004B99D /* YIInnerShadowView.m */; };
 		53778B641CBCB3C8004E6480 /* StudentQueryPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53778B631CBCB3C8004E6480 /* StudentQueryPopover.swift */; };
 		53778B661CBCBB1C004E6480 /* SSTeacherQuerySelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53778B651CBCBB1C004E6480 /* SSTeacherQuerySelectView.swift */; };
 		53778B681CBCBD96004E6480 /* QuerySelectSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53778B671CBCBD96004E6480 /* QuerySelectSubView.swift */; };
@@ -431,6 +433,7 @@
 		5377E4381CAB8F1400A11E59 /* X.png in Resources */ = {isa = PBXBuildFile; fileRef = 5377E4361CAB8F1400A11E59 /* X.png */; };
 		5377E43A1CAB951800A11E59 /* MatchColumnOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5377E4391CAB951800A11E59 /* MatchColumnOption.swift */; };
 		5377E43C1CAB9B6600A11E59 /* MatchColumnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5377E43B1CAB9B6600A11E59 /* MatchColumnCell.swift */; };
+		5378D1B51E903A9100912822 /* UIView+InnerShadow.m in Sources */ = {isa = PBXBuildFile; fileRef = 5378D1B41E903A9100912822 /* UIView+InnerShadow.m */; };
 		537AC0281E3A44BF00109060 /* CollaborationMRQCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537AC0271E3A44BF00109060 /* CollaborationMRQCategoryView.swift */; };
 		537C3D8D1E4FBD520036FEE7 /* DynamicFontSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 537C3D8C1E4FBD520036FEE7 /* DynamicFontSize.m */; };
 		537D3ECF1CCF25F200D766ED /* LiveQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537D3ECE1CCF25F200D766ED /* LiveQuestionView.swift */; };
@@ -1098,6 +1101,10 @@
 		537302161CB6771200E76753 /* Undo_Active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Undo_Active@2x.png"; sourceTree = "<group>"; };
 		537302171CB6771200E76753 /* Undo_Disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Undo_Disabled.png; sourceTree = "<group>"; };
 		537302181CB6771200E76753 /* Undo_Disabled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Undo_Disabled@2x.png"; sourceTree = "<group>"; };
+		5377628B1E9036430004B99D /* YIInnerShadowLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YIInnerShadowLayer.h; sourceTree = "<group>"; };
+		5377628C1E9036430004B99D /* YIInnerShadowLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YIInnerShadowLayer.m; sourceTree = "<group>"; };
+		5377628D1E9036430004B99D /* YIInnerShadowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YIInnerShadowView.h; sourceTree = "<group>"; };
+		5377628E1E9036430004B99D /* YIInnerShadowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YIInnerShadowView.m; sourceTree = "<group>"; };
 		53778B631CBCB3C8004E6480 /* StudentQueryPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentQueryPopover.swift; sourceTree = "<group>"; };
 		53778B651CBCBB1C004E6480 /* SSTeacherQuerySelectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSTeacherQuerySelectView.swift; sourceTree = "<group>"; };
 		53778B671CBCBD96004E6480 /* QuerySelectSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuerySelectSubView.swift; sourceTree = "<group>"; };
@@ -1110,6 +1117,8 @@
 		5377E4361CAB8F1400A11E59 /* X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = X.png; sourceTree = "<group>"; };
 		5377E4391CAB951800A11E59 /* MatchColumnOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchColumnOption.swift; sourceTree = "<group>"; };
 		5377E43B1CAB9B6600A11E59 /* MatchColumnCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchColumnCell.swift; sourceTree = "<group>"; };
+		5378D1B31E903A9100912822 /* UIView+InnerShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+InnerShadow.h"; sourceTree = "<group>"; };
+		5378D1B41E903A9100912822 /* UIView+InnerShadow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+InnerShadow.m"; sourceTree = "<group>"; };
 		537AC0271E3A44BF00109060 /* CollaborationMRQCategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollaborationMRQCategoryView.swift; sourceTree = "<group>"; };
 		537C3D8B1E4FBD520036FEE7 /* DynamicFontSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicFontSize.h; sourceTree = "<group>"; };
 		537C3D8C1E4FBD520036FEE7 /* DynamicFontSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicFontSize.m; sourceTree = "<group>"; };
@@ -1584,6 +1593,12 @@
 		53676AF71CA63B7F00CADE4D /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				5378D1B31E903A9100912822 /* UIView+InnerShadow.h */,
+				5378D1B41E903A9100912822 /* UIView+InnerShadow.m */,
+				5377628B1E9036430004B99D /* YIInnerShadowLayer.h */,
+				5377628C1E9036430004B99D /* YIInnerShadowLayer.m */,
+				5377628D1E9036430004B99D /* YIInnerShadowView.h */,
+				5377628E1E9036430004B99D /* YIInnerShadowView.m */,
 				537C3D8B1E4FBD520036FEE7 /* DynamicFontSize.h */,
 				537C3D8C1E4FBD520036FEE7 /* DynamicFontSize.m */,
 				53015B791CE5A49D00BB366C /* QRV */,
@@ -3075,6 +3090,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				53FC04441CAFAE2100D7B941 /* BarView.swift in Sources */,
+				5378D1B51E903A9100912822 /* UIView+InnerShadow.m in Sources */,
 				53676CAE1CA63B7F00CADE4D /* XMPPElement.m in Sources */,
 				537AC0281E3A44BF00109060 /* CollaborationMRQCategoryView.swift in Sources */,
 				53676D3A1CA63B7F00CADE4D /* SSTeacherMessageHandler.swift in Sources */,
@@ -3115,6 +3131,7 @@
 				533063F61CC88F590035CCDE /* SSTeacherScribbleQuestion.swift in Sources */,
 				53676D0F1CA63B7F00CADE4D /* XMPPMessage+XEP_0280.m in Sources */,
 				53778B6C1CBCED72004E6480 /* QueryVolunteerSubView.swift in Sources */,
+				537762901E9036430004B99D /* YIInnerShadowView.m in Sources */,
 				5377E43C1CAB9B6600A11E59 /* MatchColumnCell.swift in Sources */,
 				53676CD51CA63B7F00CADE4D /* XMPPRoomOccupantMemoryStorageObject.m in Sources */,
 				539945DB1CD0A56100007EC7 /* StudentQuerySelectionView.swift in Sources */,
@@ -3144,6 +3161,7 @@
 				53676CC91CA63B7F00CADE4D /* XMPPLastActivity.m in Sources */,
 				53676D1C1CA63B7F00CADE4D /* XMPPStringPrep.m in Sources */,
 				53676CFD1CA63B7F00CADE4D /* XMPPMessageArchiving.m in Sources */,
+				5377628F1E9036430004B99D /* YIInnerShadowLayer.m in Sources */,
 				53676CBD1CA63B7F00CADE4D /* XMPPRoster.xcdatamodel in Sources */,
 				53676CD61CA63B7F00CADE4D /* XMPPMessage+XEP0045.m in Sources */,
 				5360E6C81CBE53A900AFE9FF /* SSTeacherSchedulePopoverController.swift in Sources */,
