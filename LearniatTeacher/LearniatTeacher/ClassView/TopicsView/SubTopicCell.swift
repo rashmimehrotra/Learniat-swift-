@@ -317,10 +317,13 @@ class SubTopicCell: UIView{
             }
             else
             {
+                if SSTeacherDataSource.sharedDataSource.isQuestionSent == false
+                {
+                    delegate().delegateSubTopicCellStartedWithDetails!(currentSubTopicDetails, witStatedState: false)
+                    
+                    SSTeacherDataSource.sharedDataSource.isSubtopicStarted = false
+                }
                 
-                delegate().delegateSubTopicCellStartedWithDetails!(currentSubTopicDetails, witStatedState: false)
-               
-               SSTeacherDataSource.sharedDataSource.isSubtopicStarted = false
             }
             
         }

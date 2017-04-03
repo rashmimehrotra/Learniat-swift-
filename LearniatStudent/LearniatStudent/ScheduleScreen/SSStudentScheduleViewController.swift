@@ -671,6 +671,7 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     
     func Settings_performLogout()
     {
+        
         SSStudentDataSource.sharedDataSource.updateStudentStatus(kuserStateSignedOut, ofSession: SSStudentDataSource.sharedDataSource.currentLiveSessionId, withDelegate: self)
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()

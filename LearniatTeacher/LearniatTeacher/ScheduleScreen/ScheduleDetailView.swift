@@ -118,6 +118,9 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
     
     var mJoinedStudentsLabel            = UILabel()
     
+    
+    var mProgressContainerView = UIImageView()
+    
     override init(frame: CGRect) {
         
         super.init(frame:frame)
@@ -342,14 +345,14 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         
         
         
-        let mContainerView  = UIImageView(frame: CGRect(x: 0, y: LineView6.frame.origin.y + 10, width: loadingView.frame.size.width, height: loadingView.frame.size.height - (LineView6.frame.origin.y + 20 + loadingView.frame.size.width/12)))
-        mContainerView.backgroundColor = UIColor.clear
-        loadingView.addSubview(mContainerView)
-        mContainerView.isUserInteractionEnabled = true
+        mProgressContainerView  = UIImageView(frame: CGRect(x: 0, y: LineView6.frame.origin.y + 10, width: loadingView.frame.size.width, height: loadingView.frame.size.height - (LineView6.frame.origin.y + 20 + loadingView.frame.size.width/12)))
+        mProgressContainerView.backgroundColor = UIColor.clear
+        loadingView.addSubview(mProgressContainerView)
+        mProgressContainerView.isUserInteractionEnabled = true
         
         
-        mJoinStudentProgressBar.frame = CGRect(x: (mContainerView.frame.size.width - (mContainerView.frame.size.width / 1.6) ) /  2 , y: (mContainerView.frame.size.height - (mContainerView.frame.size.width / 1.6) ) /  2 , width: (mContainerView.frame.size.width / 1.6), height: (mContainerView.frame.size.width / 1.6))
-        mContainerView.addSubview(mJoinStudentProgressBar)
+        mJoinStudentProgressBar.frame = CGRect(x: (mProgressContainerView.frame.size.width - (mProgressContainerView.frame.size.width / 1.6) ) /  2 , y: (mProgressContainerView.frame.size.height - (mProgressContainerView.frame.size.width / 1.6) ) /  2 , width: (mProgressContainerView.frame.size.width / 1.6), height: (mProgressContainerView.frame.size.width / 1.6))
+        mProgressContainerView.addSubview(mJoinStudentProgressBar)
         mJoinStudentProgressBar.backgroundColor = UIColor.clear
         mJoinStudentProgressBar.progress = 20
         
@@ -691,6 +694,20 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
             questionConfiguredLabel.text = QuestionsConfigured
         }
         
+        
+        
+        if let SessionState = details.object(forKey:"SessionState") as? String
+        {
+            if SessionState == "2"
+            {
+                mProgressContainerView.isHidden = false
+            }
+            else
+            {
+                mProgressContainerView.isHidden = true
+            }
+            
+        }
         
         
         let dateFormatter = DateFormatter()

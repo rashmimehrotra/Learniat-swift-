@@ -284,7 +284,11 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         print("App moved to background!")
         
          SSStudentMessageHandler.sharedMessageHandler.sendStudentBenchStatus(kUserStateBackGround)
-        SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateBackGround, ofSession:(sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+        if SSStudentDataSource.sharedDataSource.currentUSerState != kUserStateBackGround
+        {
+             SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateBackGround, ofSession:(sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+        }
+       
         
     }
     
@@ -295,7 +299,12 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
        
         SSStudentMessageHandler.sharedMessageHandler.sendStudentBenchStatus(kUserStateLive)
         
-        SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateLive, ofSession:(sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+        if SSStudentDataSource.sharedDataSource.currentUSerState != kUserStateLive
+        {
+            SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateLive, ofSession:(sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+            
+        }
+        
         
         
         
@@ -320,7 +329,12 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         classStartedView.isHidden = false
         mClassStatedLabel.text = "Started: \(_string)"
         
-        SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateLive, ofSession:(sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+        if SSStudentDataSource.sharedDataSource.currentUSerState != kUserStateLive
+        {
+            SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateLive, ofSession:(sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+
+        }
+        
         
         startedTimeUpdatingTimer.invalidate()
         startedTimeUpdatingTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(StudentClassViewController.startTimeUpdating), userInfo: nil, repeats: true)
@@ -351,7 +365,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             y:buttonPosition.y  + mClassNameButton.frame.size.height,
             width: 1,
             height: 1), in: self.view, permittedArrowDirections: .up, animated: true)
-        
+    
     }
     
     
@@ -395,7 +409,11 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                 classStartedView.isHidden = false
                 if let sessionId = sessionDetails.object(forKey: kSessionId) as? String
                 {
-                     SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateLive, ofSession: sessionId, withDelegate: self)
+                    if SSStudentDataSource.sharedDataSource.currentUSerState != kUserStateLive
+                    {
+                        SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateLive, ofSession: sessionId, withDelegate: self)
+                    }
+                    
                 }
             }
             else
@@ -404,7 +422,11 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                  classStartedView.isHidden = true
                 if let sessionId = sessionDetails.object(forKey: kSessionId) as? String
                 {
-                    SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserOccupied, ofSession: sessionId, withDelegate: self)
+                    if SSStudentDataSource.sharedDataSource.currentUSerState != kUserOccupied
+                    {
+
+                        SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserOccupied, ofSession: sessionId, withDelegate: self)
+                    }
                 }
 
             }
@@ -519,8 +541,11 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     func delegateSessionEnded()
     {
+        if SSStudentDataSource.sharedDataSource.currentUSerState != kUserStateFree
+        {
+            SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateFree, ofSession: (sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+        }
         
-         SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateFree, ofSession: (sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
         
     }
     
@@ -659,8 +684,13 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     {
         if state == true
         {
-            SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateLive, ofSession:(sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
-             AppDelegate.sharedDataSource.hideReconnecting()
+            if SSStudentDataSource.sharedDataSource.currentUSerState != kUserStateLive
+            {
+                SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateLive, ofSession:(sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+
+            }
+            
+            AppDelegate.sharedDataSource.hideReconnecting()
         }
     }
     
@@ -687,7 +717,11 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     func smhDidGetSessionEndMessageWithDetails(_ details: AnyObject)
     {
-        SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateFree, ofSession: (sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+        if SSStudentDataSource.sharedDataSource.currentUSerState != kUserStateFree
+        {
+            SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateFree, ofSession: (sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+        }
+        
         
     }
     

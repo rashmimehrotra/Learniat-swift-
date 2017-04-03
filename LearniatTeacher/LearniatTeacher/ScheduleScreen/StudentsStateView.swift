@@ -67,6 +67,17 @@ class StudentsStateView: UIView,  SSTeacherDataSourceDelegate
         mTopicsViewButton.layer.cornerRadius = 5
         mTopicsViewButton.layer.borderWidth = 1
         mTopicsViewButton.layer.borderColor = standard_Button.cgColor
+        
+        
+        
+        
+        
+        
+       let  mRefreshButton = UIButton(frame: CGRect(x: mTopicsViewButton.frame.origin.x - (mTopicsViewButton.frame.size.width + 5), y: 10,width: 50,height: 50 ))
+        mRefreshButton.setImage(UIImage(named: "refresh.png"), for: UIControlState())
+        self.addSubview(mRefreshButton)
+        mRefreshButton.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
+        mRefreshButton.addTarget(self, action: #selector(StudentsStateView.onRefreshButton), for: UIControlEvents.touchUpInside)
 
         
         editSeatButton.frame = CGRect(x: 10 , y: 10, width: 100 ,  height: 40)
@@ -306,7 +317,7 @@ class StudentsStateView: UIView,  SSTeacherDataSourceDelegate
                     }
                     else
                     {
-                        StudentsDetailsArray.add(classCheckingVariable.object(forKey: "Student") as? AnyObject)
+                        StudentsDetailsArray.add(classCheckingVariable.object(forKey: "Student"))
                     }
                 }
             }
@@ -378,4 +389,18 @@ class StudentsStateView: UIView,  SSTeacherDataSourceDelegate
     }
     
 
+    
+    
+    func onRefreshButton()
+    {
+        if let sessionId = mCurrentSessionDetails.object(forKey: "RoomId") as? String
+        {
+            
+            addStudentsWithRoomId(RoomId: sessionId, withDetails: mCurrentSessionDetails)
+        }
+
+        
+        
+    }
+    
 }

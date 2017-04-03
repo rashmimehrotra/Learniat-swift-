@@ -112,6 +112,20 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSStudentDataSou
         }
         
         
+        let mAppVersionNumber = UILabel(frame: CGRect(x: appLogo.frame.origin.x + appLogo.frame.size.width , y: appLogo.frame.origin.y,width: 300,height: 60))
+        
+        self.view.addSubview(mAppVersionNumber)
+        mAppVersionNumber.textAlignment = .right
+        mAppVersionNumber.textColor = UIColor.white
+        if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        {
+            let buildNumber: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
+            
+            
+            mAppVersionNumber.text = "V = \(version).".appending(buildNumber)
+        }
+        
+        
         INILoader.sharediniLoader.loadNewFileFromServer()
         
     }

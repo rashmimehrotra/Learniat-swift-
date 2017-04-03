@@ -330,11 +330,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatStudent/ClassViewController/StudentClassViewController.swift"
-            timestampString = "511905217.547528"
+            timestampString = "512909612.943065"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "930"
-            endingLineNumber = "930"
+            startingLineNumber = "964"
+            endingLineNumber = "964"
             landmarkName = "smhdidRecieveQueryVolunteeringEnded()"
             landmarkType = "7">
          </BreakpointContent>
@@ -352,6 +352,22 @@
             startingLineNumber = "193"
             endingLineNumber = "193"
             landmarkName = "addreplyView()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatStudent/ClassViewController/StudentClassViewController.swift"
+            timestampString = "512909612.943065"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "404"
+            endingLineNumber = "404"
+            landmarkName = "didGetSessionInfoWithDetials(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

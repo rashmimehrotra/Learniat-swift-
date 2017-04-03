@@ -407,7 +407,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
                         let studentAnswerImage = CustomProgressImageView(frame: CGRect(x: 0, y: 0, width: containerview.frame.size.width, height: containerview.frame.size.height))
                         studentAnswerImage.tag  = Int(studentId)!
                         containerview.addSubview(studentAnswerImage)
-                        
+                        containerview.bringSubview(toFront: studentAnswerImage)
                         
                         
                         let urlString = UserDefaults.standard.object(forKey: k_INI_SCRIBBLE_IMAGE_URL) as! String
