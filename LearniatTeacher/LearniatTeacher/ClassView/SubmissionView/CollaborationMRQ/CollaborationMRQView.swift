@@ -130,15 +130,22 @@ class CollaborationMRQView: UIView,SSTeacherDataSourceDelegate,CollaborationCate
    func delegateCollaborationQuestionSentWithDetails(details:AnyObject)
    {
      getDelegate().delegateQuestionSentWithDetails!(details: details)
+    
+         SSTeacherMessageHandler.sharedMessageHandler.sendCollaborationQuestionEnded(SSTeacherDataSource.sharedDataSource.currentLiveSessionId)
+    
     }
    func delegateQuestionUpdatedAndSaved()
    {
         getDelegate().delegateQuestionCreationDismissed!()
+     SSTeacherMessageHandler.sharedMessageHandler.sendCollaborationQuestionEnded(SSTeacherDataSource.sharedDataSource.currentLiveSessionId)
+    
     
     }
    func delegateCollaborationDismissed()
    {
         getDelegate().delegateQuestionCreationDismissed!()
+    
+        SSTeacherMessageHandler.sharedMessageHandler.sendCollaborationQuestionEnded(SSTeacherDataSource.sharedDataSource.currentLiveSessionId)
     }
  
 

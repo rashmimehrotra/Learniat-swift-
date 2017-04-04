@@ -161,4 +161,33 @@ class StudentCollaborationView: UIView,SSStudentDataSourceDelegate
     }
     
     
+    func setSuggestionStatus(status:String)
+    {
+        
+        let lable = UILabel(frame:CGRect(x: mAnswerTextView.frame.origin.x, y: mAnswerTextView.frame.origin.y + mAnswerTextView.frame.size.height, width:mAnswerTextView.frame.size.width, height: 50))
+        self.addSubview(lable);
+       lable.textColor = UIColor.white
+        lable.font = UIFont (name: helveticaMedium, size: 20)
+        lable.textAlignment = .center
+        
+        if status == "29"
+        {
+            lable.backgroundColor = standard_Green
+            
+            lable.text = "Selected"
+        }
+        else if status == "28"
+        {
+            lable.backgroundColor = standard_Red
+             lable.text = "Rejected"
+        }
+        else
+        {
+            lable.backgroundColor = standard_TextGrey
+            lable.text = "Ignored"
+        }
+        
+    }
+    
+    
 }

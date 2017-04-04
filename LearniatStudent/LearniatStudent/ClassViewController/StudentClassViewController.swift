@@ -113,7 +113,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         
         
         mClassName = UILabel(frame: CGRect(x: mTopbarImageView.frame.size.width/2 - 100 , y: 15, width: 500, height: 20))
-        mClassName.font = UIFont(name:helveticaRegular, size: 20)
+        mClassName.font = UIFont(name:helveticaRegular, size: 17)
         
         mTopbarImageView.addSubview(mClassName)
         mClassName.textColor = UIColor.white
@@ -1155,6 +1155,26 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         
     }
     
+    
+    func smhDidRecieveSuggestionStatusFromTeacher(_ details: AnyObject) {
+        print(details)
+        
+        
+        if let status = details.object(forKey: "status") as? String
+        {
+            mOTFView.didGetsuggestionStatusWithState(state: status)
+            
+        }
+        
+    }
+    
+    func smhDidRecieveCollaborationEndedFromTeacher()
+    {
+        mOTFView.didGetCollaborationStopped()
+        
+    }
+    
+    
    
     // MARK: - message handler functions
     func showAlertWithMessage(_ message:String)
@@ -1215,6 +1235,9 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         SSStudentMessageHandler.sharedMessageHandler.performReconnet()
       
     }
+    
+    
+    
     
     
     

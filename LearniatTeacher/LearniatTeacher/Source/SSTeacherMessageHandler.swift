@@ -57,6 +57,8 @@ let kSendPeakView                   = "705"
 let kQueryUnderstood                = "1102"
 let kSendSingleString               = "1101"
 let kTeacherQuizSubmitted           = "1103"
+let kCollaborationCancelled         = "1104"
+let kCollaborationStatusChanged     = "1105"
 
 import Foundation
 
@@ -495,6 +497,37 @@ open class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Mess
             MessageManager.sharedMessageHandler().sendMessage(to: "\(studentId)@\(kBaseXMPPURL)", withContents: xmlBody)
         }
     }
+    
+    
+    func sendCollaborationQuestionStatus(_ studentId:String, withStatus status:String)
+    {
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
+        {
+            
+            
+            
+            let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
+            let msgType             = kCollaborationStatusChanged
+            
+            
+            let messageBody = ["status":status]
+            
+            
+            
+            let details:NSMutableDictionary = ["From":userId!,
+                                               "To":studentId,
+                                               "Type":msgType,
+                                               "Body":messageBody];
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.xmlMessage()
+            
+            MessageManager.sharedMessageHandler().sendMessage(to: "\(studentId)@\(kBaseXMPPURL)", withContents: xmlBody)
+        }
+    }
+    
     
     //MARK: Group   Messages
     func sendExtendedTimetoRoom(_ roomId:String, withClassName className:String, withStartTime StartTime:String, withDelayTime timeDelay:String)
@@ -1103,6 +1136,37 @@ open class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Mess
     }
     
     
+    
+    
+    func sendCollaborationQuestionEnded(_ _roomId:String)
+    {
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
+        {
+            
+            
+            let roomId = "room_\(_roomId)@conference.\(kBaseXMPPURL)";
+            
+            let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
+            let msgType             = kCollaborationCancelled
+            
+            
+            let messageBody = ["Type":"MRQ"]
+            
+            
+            
+            let details:NSMutableDictionary = ["From":userId!,
+                                               "To":roomId,
+                                               "Type":msgType,
+                                               "Body":messageBody];
+            
+            let msg = SSMessage()
+            msg.setMsgDetails( details)
+            
+            let xmlBody:String = msg.xmlMessage()
+            
+            MessageManager.sharedMessageHandler().sendGroupMessage(withBody: xmlBody, withRoomId: roomId)
+        }
+    }
     
     
     //MARK: Recieve Message

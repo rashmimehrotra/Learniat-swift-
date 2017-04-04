@@ -237,12 +237,13 @@ class CollaborationSuggestionsView: UIView,SSTeacherDataSourceDelegate
     
    
     
-    func getSelectedSuggestions()->(selected:NSMutableArray, SuggestionIDList:String, mSugeestionStateLIst:String, suggestionTextDictonary:NSMutableDictionary)
+    func getSelectedSuggestions()->(selected:NSMutableArray, SuggestionIDList:String, mSugeestionStateLIst:String, suggestionTextDictonary:NSMutableDictionary, studentsIdArrya:NSMutableArray)
     {
         let selectedSuggestions = NSMutableArray()
         let suggestionsId = NSMutableArray()
         let suggestionsStates = NSMutableArray()
         let suggestionsDictonary = NSMutableDictionary()
+        let StudentsIDArray = NSMutableArray()
         
         
         let SuggestionCellSubViews = mScrollView.subviews.flatMap{ $0 as? CollaborationSuggestionCell }
@@ -250,6 +251,15 @@ class CollaborationSuggestionsView: UIView,SSTeacherDataSourceDelegate
         {
             if mSuggestionsSubView.isKind(of: CollaborationSuggestionCell.self)
             {
+                
+                
+                
+                if let studentId = mSuggestionsSubView.mSuggestionDetails.object(forKey:"studentID") as? String
+                {
+                    StudentsIDArray.add(studentId)
+                }
+                
+                
                 if  mSuggestionsSubView.mCurrentSelectedState == .selected
                 {
                     
@@ -308,7 +318,7 @@ class CollaborationSuggestionsView: UIView,SSTeacherDataSourceDelegate
         }
         
         
-        return (selectedSuggestions,suggestionsId.componentsJoined(by: ";;;"),suggestionsStates.componentsJoined(by: ";;;"),suggestionsDictonary)
+        return (selectedSuggestions,suggestionsId.componentsJoined(by: ";;;"),suggestionsStates.componentsJoined(by: ";;;"),suggestionsDictonary,StudentsIDArray)
         
     }
     
@@ -340,6 +350,26 @@ class CollaborationSuggestionsView: UIView,SSTeacherDataSourceDelegate
         
         
         mSavedSuggestionsDetails = details
+        
+        
+        
+        
+        let mSuggestionStateArray = getSelectedSuggestions().mSugeestionStateLIst.components(separatedBy: ";;;")
+        
+        let mStudentsIdsArray = getSelectedSuggestions().studentsIdArrya
+        
+        
+        
+        for indexValue in 0 ..< mStudentsIdsArray.count
+        {
+            SSTeacherMessageHandler.sharedMessageHandler.sendCollaborationQuestionStatus(mStudentsIdsArray.object(at: indexValue) as! String , withStatus: mSuggestionStateArray[indexValue] )
+            
+        }
+        
+        
+        
+        
+        
         
         if isSaveAndExit == true
         {

@@ -19,7 +19,7 @@ import Foundation
 
 
 
-class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDelegate
+class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDelegate,UIPopoverControllerDelegate
 {
    
     var currentQuestionDetails:AnyObject!
@@ -48,9 +48,11 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
     var mOverlayImageView        = CustomProgressImageView()
     
     
-    var mAnswerImage            = UIImageView()
     
-    var mEditButton         = UIButton()
+   var mEditButton         = UIButton()
+    
+    var mBottomToolBarImageView :UIImageView!
+    
     
     var mWithDrawButton     = UIButton()
 
@@ -59,6 +61,19 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
     var _delgate: AnyObject!
     
      var modelAnswerScrollView = UIScrollView()
+    
+    let m_BrushButton = UIButton()
+    
+    let m_EraserButton = UIButton()
+    
+    let m_RedoButton = UIButton()
+    
+    let m_UndoButton = UIButton()
+    
+    let bottomtoolSelectedImageView = UIImageView()
+    
+    var mScribbleView : SmoothLineView!
+    
     
     var isModelAnswerRecieved = false
     
@@ -147,14 +162,14 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         mContainerView.layer.borderColor = topicsLineColor.cgColor
         mContainerView.layer.borderWidth = 1
         
-        mEditButton.frame = CGRect(x: mContainerView.frame.origin.x, y: mContainerView.frame.size.height + mContainerView.frame.origin.y, width: mContainerView.frame.size.width, height: 40)
-        self.addSubview(mEditButton)
-        mEditButton.setTitle("Edit", for: UIControlState())
-        mEditButton.setTitleColor(standard_Button, for: UIControlState())
-         mEditButton.addTarget(self, action: #selector(ScribbleQuestionView.onEditButton), for: UIControlEvents.touchUpInside)
-        mEditButton.layer.borderColor = topicsLineColor.cgColor
-        mEditButton.layer.borderWidth = 1
-        mEditButton.backgroundColor = whiteColor
+//        mEditButton.frame = CGRect(x: mContainerView.frame.origin.x, y: mContainerView.frame.size.height + mContainerView.frame.origin.y, width: mContainerView.frame.size.width, height: 40)
+//        self.addSubview(mEditButton)
+//        mEditButton.setTitle("Edit", for: UIControlState())
+//        mEditButton.setTitleColor(standard_Button, for: UIControlState())
+//         mEditButton.addTarget(self, action: #selector(ScribbleQuestionView.onEditButton), for: UIControlEvents.touchUpInside)
+//        mEditButton.layer.borderColor = topicsLineColor.cgColor
+//        mEditButton.layer.borderWidth = 1
+//        mEditButton.backgroundColor = whiteColor
         
         
         
@@ -175,8 +190,20 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         mContainerView.addSubview(mOverlayImageView)
         
         
-        mAnswerImage.frame = CGRect(x: 0 ,y: 0 , width: mContainerView.frame.size.width ,height: mContainerView.frame.size.height)
-        mContainerView.addSubview(mAnswerImage)
+        
+        mScribbleView = SmoothLineView(frame: CGRect(x: 0,y: 0,width: mContainerView.frame.size.width, height: mContainerView.frame.size.height))
+        mScribbleView.delegate = self
+        mContainerView.addSubview(mScribbleView);
+        mScribbleView.isUserInteractionEnabled = true
+        mScribbleView.setDrawing(blackTextColor);
+        mScribbleView.setBrushWidth(5)
+        mScribbleView.setDrawing(kBrushTool)
+        mScribbleView.isHidden = false
+
+        
+        
+        
+        
         
         
         
@@ -193,6 +220,52 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         modelAnswerScrollView.addGestureRecognizer(longGesture)
         longGesture.numberOfTapsRequired = 1
 
+        
+        mBottomToolBarImageView = UIImageView(frame: CGRect(x: mContainerView.frame.origin.x, y: mContainerView.frame.origin.y + mContainerView.frame.size.height, width: mContainerView.frame.size.width, height: 60))
+        mBottomToolBarImageView.backgroundColor = whiteColor
+        self.addSubview(mBottomToolBarImageView)
+        mBottomToolBarImageView.isUserInteractionEnabled = true
+        
+        
+        
+        
+        m_UndoButton.frame = CGRect(x: 0, y: 0, width: mBottomToolBarImageView.frame.size.height, height: mBottomToolBarImageView.frame.size.height)
+        m_UndoButton.setImage(UIImage(named:"Undo_Disabled.png"),for:UIControlState());
+        mBottomToolBarImageView.addSubview(m_UndoButton);
+        m_UndoButton.imageView?.contentMode = .scaleAspectFit
+        m_UndoButton.addTarget(self, action: #selector(ScribbleQuestionView.onUndoButton), for: UIControlEvents.touchUpInside)
+        m_UndoButton.isEnabled = false
+        
+        bottomtoolSelectedImageView.backgroundColor = UIColor.white;
+        mBottomToolBarImageView.addSubview(bottomtoolSelectedImageView);
+        
+        
+        m_BrushButton.frame = CGRect(x: (mBottomToolBarImageView.frame.size.width/2) - (mBottomToolBarImageView.frame.size.height + 10) ,y: 5, width: mBottomToolBarImageView.frame.size.height ,height: mBottomToolBarImageView.frame.size.height - 10)
+        m_BrushButton.setImage(UIImage(named:"Marker_Selected.png"), for:UIControlState())
+        mBottomToolBarImageView.addSubview(m_BrushButton);
+        m_BrushButton.imageView?.contentMode = .scaleAspectFit
+        m_BrushButton.addTarget(self, action: #selector(ScribbleQuestionView.onBrushButton), for: UIControlEvents.touchUpInside)
+        bottomtoolSelectedImageView.frame = m_BrushButton.frame
+        
+        
+        
+        
+        m_EraserButton.frame = CGRect(x: (mBottomToolBarImageView.frame.size.width/2) + 10  ,y: 5, width: mBottomToolBarImageView.frame.size.height ,height: mBottomToolBarImageView.frame.size.height - 10)
+        m_EraserButton.setImage(UIImage(named:"Eraser_Unselected.png"), for:UIControlState());
+        mBottomToolBarImageView.addSubview(m_EraserButton);
+        m_EraserButton.imageView?.contentMode = .scaleAspectFit
+        m_EraserButton.addTarget(self, action: #selector(ScribbleQuestionView.onEraserButton), for: UIControlEvents.touchUpInside)
+        
+        
+        m_RedoButton.frame = CGRect(x: mBottomToolBarImageView.frame.size.width - mBottomToolBarImageView.frame.size.height ,y: 0, width: mBottomToolBarImageView.frame.size.height ,height: mBottomToolBarImageView.frame.size.height)
+        m_RedoButton.setImage(UIImage(named:"Redo_Disabled.png"), for:UIControlState());
+        mBottomToolBarImageView.addSubview(m_RedoButton);
+        m_RedoButton.imageView?.contentMode = .scaleAspectFit
+        m_RedoButton.addTarget(self, action: #selector(ScribbleQuestionView.onRedoButton), for: UIControlEvents.touchUpInside)
+        m_RedoButton.isEnabled = false
+        
+
+        
         
 
         
@@ -236,6 +309,108 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
     }
     
     
+    // MARK: - Buttons  delegate
+    
+    func onUndoButton()
+    {
+        mScribbleView.undoButtonClicked()
+    }
+    
+    func onBrushButton()
+    {
+        
+        
+        
+        if bottomtoolSelectedImageView.frame == m_BrushButton.frame
+        {
+            
+            let buttonPosition :CGPoint = m_BrushButton.convert(CGPoint.zero, to: self)
+            
+            
+            let colorSelectContoller = colorpopOverViewController()
+            colorSelectContoller.setSelectTab(1);
+            colorSelectContoller.setDelegate(self);
+            colorSelectContoller.setRect(CGRect(x: 0,y: 0,width: 400,height: 400));
+            
+            
+            colorSelectContoller.title = "Brush Size & Colour";
+            
+            let navController = UINavigationController(rootViewController:colorSelectContoller)
+            
+            let colorPopoverController = UIPopoverController(contentViewController:navController);
+            colorPopoverController.contentSize = CGSize(width: 400, height: 400);
+            colorPopoverController.delegate = self;
+            colorSelectContoller.setPopOver(colorPopoverController);
+            
+            colorPopoverController.present(from: CGRect(x: buttonPosition.x  + (m_BrushButton.frame.size.width/2),y: buttonPosition.y,width: 1,height: 1), in: self, permittedArrowDirections: .down, animated: true)
+            
+        }
+        
+        bottomtoolSelectedImageView.frame = m_BrushButton.frame
+        m_BrushButton.setImage(UIImage(named:"Marker_Selected.png"), for:UIControlState())
+        m_EraserButton.setImage(UIImage(named:"Eraser_Unselected.png"), for:UIControlState())
+        mScribbleView.setDrawing(kBrushTool)
+        
+        
+        
+        
+        
+        
+    }
+    
+    func onEraserButton()
+    {
+        
+        
+        if bottomtoolSelectedImageView.frame == m_EraserButton.frame
+        {
+            
+            let buttonPosition :CGPoint = m_EraserButton.convert(CGPoint.zero, to: self)
+            
+            
+            let colorSelectContoller = colorpopOverViewController()
+            colorSelectContoller.setSelectTab(2);
+            colorSelectContoller.setDelegate(self);
+            colorSelectContoller.setRect(CGRect(x: 0,y: 0,width: 200,height: 200));
+            
+            
+            colorSelectContoller.title = "Eraser Size & Colour";
+            
+            let navController = UINavigationController(rootViewController:colorSelectContoller)
+            
+            let colorPopoverController = UIPopoverController(contentViewController:navController);
+            colorPopoverController.contentSize = CGSize(width: 200, height: 150);
+            colorPopoverController.delegate = self;
+            colorSelectContoller.setPopOver(colorPopoverController);
+            
+            colorPopoverController.present(from: CGRect(x: buttonPosition.x  + (m_EraserButton.frame.size.width/2),y: buttonPosition.y,width: 1,height: 1), in: self, permittedArrowDirections: .down, animated: true)
+            
+        }
+        
+        
+        
+        
+        bottomtoolSelectedImageView.frame = m_EraserButton.frame
+        m_BrushButton.setImage(UIImage(named:"Marker_Unselected.png"), for:UIControlState())
+        m_EraserButton.setImage(UIImage(named:"Eraser_Selected.png"), for:UIControlState())
+        mScribbleView.setDrawing(kEraserTool)
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    }
+    
+    func onRedoButton()
+    {
+        mScribbleView.redoButtonClicked()
+    }
+    
+    
     func onEditButton()
     {
         if mOverlayImageView.image != nil
@@ -259,13 +434,17 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         sendButtonSpinner.isHidden = true
         sendButtonSpinner.stopAnimating()
         mSendButton.isHidden = false
+        mScribbleView.isUserInteractionEnabled = true
+        mBottomToolBarImageView.isHidden = false
         SSStudentMessageHandler.sharedMessageHandler.sendWithDrawMessageToTeacher()
     }
     
     func onSendButton()
     {
-        if mAnswerImage.image != nil
+        if mScribbleView.curImage != nil
         {
+            mScribbleView.isUserInteractionEnabled = false
+            mBottomToolBarImageView.isHidden = true
             let currentDate = Date()
             
             let dateFormatter = DateFormatter()
@@ -287,7 +466,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
             nameOfImage =  nameOfImage.replacingOccurrences(of: " ", with: "")
             
             
-            imageUploading.uploadImage(with: mAnswerImage.image, withImageName: nameOfImage, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
+            imageUploading.uploadImage(with: mScribbleView.curImage, withImageName: nameOfImage, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
         }
         
         
@@ -305,6 +484,9 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
        mEditButton.isHidden = true
         mWithDrawButton.isHidden = true
         SSStudentDataSource.sharedDataSource.answerSent = true
+        
+        mScribbleView.isUserInteractionEnabled = false
+        mBottomToolBarImageView.isHidden = true
     }
     
     
@@ -353,7 +535,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
     
     func setDrawnImage(_ image:UIImage)
     {
-       mAnswerImage.image = image
+        
     }
     
     
@@ -381,6 +563,9 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         mSendButton.isHidden = false
         mEditButton.isHidden = false
         mWithDrawButton.isHidden = true
+        
+        mScribbleView.isUserInteractionEnabled = true
+        mBottomToolBarImageView.isHidden = false
     }
     
     
@@ -726,10 +911,10 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
     
     func getPeakViewMessageFromTeacher()
     {
-        if mAnswerImage.image != nil
+        if mScribbleView.curImage != nil
         {
             //Now use image to create into NSData format
-            let imageData:Data = UIImagePNGRepresentation(mAnswerImage.image!)!
+            let imageData:Data = UIImagePNGRepresentation(mScribbleView.curImage!)!
             let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
             SSStudentMessageHandler.sharedMessageHandler.sendPeakViewMessageToTeacherWithImageData(strBase64)
 
@@ -754,5 +939,72 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
             isModelAnswerRecieved = true
         }
     }
+    
+    
+    
+    // MARK: - Smooth line delegate
+    
+    func setUndoButtonEnable(_ enable: NSNumber!)
+    {
+        if enable == 1
+        {
+            m_UndoButton.setImage(UIImage(named:"Undo_Active.png"),for:UIControlState());
+            m_UndoButton.isEnabled = true
+        }
+        else
+        {
+            m_UndoButton.setImage(UIImage(named:"Undo_Disabled.png"),for:UIControlState());
+            m_UndoButton.isEnabled = false
+        }
+        
+    }
+    
+    func setRedoButtonEnable(_ enable: NSNumber!)
+    {
+        if enable == 1
+        {
+            m_RedoButton.setImage(UIImage(named:"Redo_Active.png"),for:UIControlState());
+            m_RedoButton.isEnabled = true
+        }
+        else
+        {
+            m_RedoButton.setImage(UIImage(named:"Redo_Disabled.png"),for:UIControlState());
+            m_RedoButton.isEnabled = false
+        }
+        
+        
+    }
+    
+    func lineDrawnChanged()
+    {
+        
+    }
+    
+    
+    
+   
+    
+    // MARK: - Color popover delegate
+    
+    func selectedbrushSize(_ sender: AnyObject!, withSelectedTab tabTag: Int32)
+    {
+        
+        if let progressView = sender as? UISlider
+        {
+            mScribbleView.setBrushWidth(Int32(progressView.value));
+        }
+        
+        
+    }
+    
+    func selectedColor(_ sender: AnyObject!, withSelectedTab tabTag: Int32)
+    {
+        if let progressColor = sender as? UIColor
+        {
+            mScribbleView.setDrawing(progressColor);
+        }
+    }
+    
+
     
 }

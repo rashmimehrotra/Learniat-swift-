@@ -63,12 +63,30 @@ class StudentOTFView: UIView
     }
     
     
+    func didGetsuggestionStatusWithState(state:String)
+    {
+        if mStudentCollaborationView != nil
+        {
+            mStudentCollaborationView.setSuggestionStatus(status: state)
+        }
+    }
+    
     func didGetPollingStopped()
     {
         if mStudentSidePolling != nil
         {
             mStudentSidePolling.removeFromSuperview()
             mStudentSidePolling = nil
+            
+        }
+    }
+    
+    func didGetCollaborationStopped()
+    {
+        if mStudentCollaborationView != nil
+        {
+            mStudentCollaborationView.removeFromSuperview()
+            mStudentCollaborationView = nil
             
         }
     }

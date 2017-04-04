@@ -171,4 +171,20 @@ class CustomTextView: UIView,UITextViewDelegate
         return true
     }
     
+    
+    
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool
+    {
+        return false
+    }
+    
+}
+
+
+extension UITextView {
+    open override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool
+    {
+        
+        return false
+    }
 }

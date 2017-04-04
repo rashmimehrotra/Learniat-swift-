@@ -96,7 +96,7 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
         if isQuerySent == false
         {
             
-            SSStudentDataSource.sharedDataSource.sendQueryWithQueryText(mQueryTextView.mQuestionTextView.text, withAnonymous: "0", withDelegate: self)
+            SSStudentDataSource.sharedDataSource.sendQueryWithQueryText(mQueryTextView.mQuestionTextView.text!, withAnonymous: "0", withDelegate: self)
         }
       
     }
@@ -202,7 +202,7 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
                 querySubView.layer.shadowOpacity = 0.3
                 querySubView.layer.shadowRadius = 2
                 querySubView.setdelegate(self)
-                let size = querySubView.getQueryTextSizeWithText(mQueryTextView.mQuestionTextView.text)
+                let size = querySubView.getQueryTextSizeWithText(mQueryTextView.mQuestionTextView.text!)
                 querySubView.layer.cornerRadius = 2
                 querySubView.frame = CGRect(x: 10,  y: 10 ,width: self.frame.size.width-20,height: size)
                 mQueryScrollView.addSubview(querySubView)

@@ -12,7 +12,7 @@ import Foundation
     
     func delegateOnResendButtonPressedWithOptions(_ optionsArray:NSMutableArray, withQuestionName questionName:String,withTagValue tagValue:Int)
     
-    
+    func delegateOnFullScreenButtonPressedWithOPtions(_ optionsArray:NSMutableArray, withQuestionName questionName:String,withTagValue tagValue:Int)
     
 }
 
@@ -122,7 +122,19 @@ class PollCompletedView: UIView
     
     func onFullScreenButton()
     {
-        
+        if delegate().responds(to: #selector(PollCompletedViewDelegate.delegateOnFullScreenButtonPressedWithOPtions(_:withQuestionName:withTagValue:)))
+        {
+            
+            if currentOptionsArray.count > 0
+            {
+                
+                let optionsValue = currentOptionsArray.componentsJoined(by: ";;;")
+                
+                SSTeacherMessageHandler.sharedMessageHandler.sendLikertPollMessageToRoom(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, withSelectedOption: optionsValue, withQuestionName: questionNamelabel.text!)
+                
+                delegate().delegateOnFullScreenButtonPressedWithOPtions(currentOptionsArray, withQuestionName: questionNamelabel.text!, withTagValue: self.tag)
+            }
+        }
     }
     
     

@@ -56,6 +56,9 @@ let kQueryUnderstood                = "1102"
 let kSendPeakView                   = "705"
 let kSendSingleString               = "1101"
 let kModelAnswerDetails             = "179"
+let kCollaborationCancelled         = "1104"
+let kCollaborationStatusChanged     = "1105"
+
 
 
 
@@ -122,6 +125,10 @@ import Foundation
     
     
     @objc optional func smhDidRecieveCollaborationPingFromTeacher(_ details:AnyObject)
+    
+    @objc optional func smhDidRecieveSuggestionStatusFromTeacher(_ details:AnyObject)
+    
+    @objc optional func smhDidRecieveCollaborationEndedFromTeacher()
     
     
 }
@@ -1011,6 +1018,25 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
                 }
             }
         }
+        else if message?.messageType() == kCollaborationStatusChanged
+        {
+            if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidRecieveSuggestionStatusFromTeacher(_:)))
+            {
+                if message?.messageBody() != nil
+                {
+                    delegate().smhDidRecieveSuggestionStatusFromTeacher!((message!.messageBody() as AnyObject))
+                }
+            }
+        }
+        else if message?.messageType() == kCollaborationCancelled
+        {
+            if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidRecieveCollaborationEndedFromTeacher))
+            {
+                delegate().smhDidRecieveCollaborationEndedFromTeacher!()
+            }
+        }
+        
+        
         
     }
 }

@@ -149,7 +149,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         
         
         
-        mStudentImage.frame = CGRect(x: (refrenceDeskImageView.frame.size.width - refrenceDeskImageView.frame.size.width / 1.2 )/2, y: (refrenceDeskImageView.frame.size.height / 4.5) / 8, width: refrenceDeskImageView.frame.size.width / 4.5, height: refrenceDeskImageView.frame.size.width / 4.5)
+        mStudentImage.frame = CGRect(x: (refrenceDeskImageView.frame.size.width - refrenceDeskImageView.frame.size.width / 1.2 )/2, y: (refrenceDeskImageView.frame.size.height / 4) / 8, width: refrenceDeskImageView.frame.size.width / 4, height: refrenceDeskImageView.frame.size.width / 4)
         refrenceDeskImageView.addSubview(mStudentImage)
         mStudentImage.backgroundColor = UIColor.clear
         mStudentImage.layer.cornerRadius = mStudentImage.frame.size.width/16;

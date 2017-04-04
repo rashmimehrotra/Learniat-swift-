@@ -179,6 +179,14 @@ class SSTeacherPollView: UIView,PollingCreationViewDelegate,PollingGraphViewDele
     }
     
     
+    
+    func delegateOnFullScreenButtonPressedWithOPtions(_ optionsArray:NSMutableArray, withQuestionName questionName:String,withTagValue tagValue:Int)
+    {
+        
+    }
+
+    
+    
     func didGetStudentPollValue(_ optionValue:String)
     {
         if mPollGraphView != nil
