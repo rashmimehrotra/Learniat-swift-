@@ -10,7 +10,7 @@ import Foundation
 class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,SSStudentMessageHandlerDelegate,StudentQuestionViewDelegate,SSStudentFullscreenScribbleQuestionDelegate,UIPopoverControllerDelegate,SSStudentSchedulePopoverControllerDelegate
 {
     
-    var sessionDetails               :AnyObject!
+    var sessionDetails               = NSMutableDictionary()
     
     var mTopbarImageView             :UIImageView           = UIImageView()
     
@@ -218,18 +218,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             case kLiveString:
                 
                 
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-                
-                var _string :String = ""
-                let currentDate = Date()
-                
-                
-                
-                _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: (sessionDetails.object(forKey: "StartTime") as! String))!)).fullString
-                
                 mstatusImage.backgroundColor = UIColor(red: 76.0/255.0, green: 217.0/255.0, blue: 100.0/255.0, alpha: 1)
-                mClassStatedLabel.text = "Started: \(_string)"
                 mNoStudentLabel.isHidden = true
                 classStartedView.isHidden = false
                 
@@ -316,28 +305,13 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         
         
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
-        var _string :String = ""
-        let currentDate = Date()
-        _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: (sessionDetails.object(forKey: "StartTime") as! String))!)).fullString
-        
-        
-        mstatusImage.backgroundColor = UIColor(red: 76.0/255.0, green: 217.0/255.0, blue: 100.0/255.0, alpha: 1)
-        mNoStudentLabel.isHidden = true
-        classStartedView.isHidden = false
-        mClassStatedLabel.text = "Started: \(_string)"
-        
-        if SSStudentDataSource.sharedDataSource.currentUSerState != kUserStateLive
+        if let sessionId = sessionDetails.object(forKey: kSessionId) as? String
         {
-            SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateLive, ofSession:(sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
-
+            SSStudentDataSource.sharedDataSource.currentLiveSessionId = sessionId
+            SSStudentDataSource.sharedDataSource.getUserSessionWithDetails(sessionId, withDelegate: self)
+            
         }
-        
-        
-        startedTimeUpdatingTimer.invalidate()
-        startedTimeUpdatingTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(StudentClassViewController.startTimeUpdating), userInfo: nil, repeats: true)
+       
         
     }
     
@@ -381,15 +355,35 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         let currentDate = Date()
         _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: (sessionDetails.object(forKey: "StartTime") as! String))!)).fullString
         mClassStatedLabel.text = "Started: \(_string)"
+        
+        
+        /*
+         
+        let isgreatervalue :Bool ;
+        
+        isgreatervalue = currentDate.isGreaterThanDate(dateFormatter.date(from: sessionDetails.object(forKey: "EndTime") as! String)!)
+        
+         if isgreatervalue
+        {
+            if let sessionId = sessionDetails.object(forKey: kSessionId) as? String
+            {
+                startedTimeUpdatingTimer.invalidate()
+                SSStudentDataSource.sharedDataSource.currentLiveSessionId = sessionId
+                SSStudentDataSource.sharedDataSource.getUserSessionWithDetails(sessionId, withDelegate: self)
+                
+            }
+            
+        }
+ */
+        
     }
     
     
     
     func setCurrentSessionDetails(_ details: AnyObject)
     {
-        sessionDetails = details
-        
-        
+        sessionDetails = details as! NSMutableDictionary
+    
     }
     
     
@@ -398,13 +392,18 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     func didGetSessionInfoWithDetials(_ details: AnyObject)
     {
-        print(details)
         
+        print(details)
+        sessionDetails.setObject((details.object(forKey: "StartTime")) ?? String(), forKey: "StartTime" as NSCopying)
+        sessionDetails.setObject((details.object(forKey: "EndTime")) ?? String(), forKey: "EndTime" as NSCopying)
         
         if let sessionState = details.object(forKey: "SessionState") as? String
         {
             if sessionState == "1"
             {
+                
+            
+                
                mNoStudentLabel.isHidden = true
                 classStartedView.isHidden = false
                 if let sessionId = sessionDetails.object(forKey: kSessionId) as? String
@@ -415,8 +414,19 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                     }
                     
                 }
+                
+                
+                mstatusImage.backgroundColor = UIColor(red: 76.0/255.0, green: 217.0/255.0, blue: 100.0/255.0, alpha: 1)
+                mNoStudentLabel.isHidden = true
+                classStartedView.isHidden = false
+
+                startedTimeUpdatingTimer.invalidate()
+                startedTimeUpdatingTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(StudentClassViewController.startTimeUpdating), userInfo: nil, repeats: true)
+                
+                
+                
             }
-            else
+            else if sessionState == "2"
             {
                 mNoStudentLabel.isHidden = false
                  classStartedView.isHidden = true
@@ -429,6 +439,10 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                     }
                 }
 
+            }
+            else if (sessionState == "4" || sessionState == "5" || sessionState == "6")
+            {
+                delegateSessionEnded()
             }
         }
         else
@@ -544,6 +558,8 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         if SSStudentDataSource.sharedDataSource.currentUSerState != kUserStateFree
         {
             SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateFree, ofSession: (sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+            startedTimeUpdatingTimer.invalidate()
+
         }
         
         

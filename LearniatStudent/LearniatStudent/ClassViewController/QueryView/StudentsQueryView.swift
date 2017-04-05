@@ -44,10 +44,15 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
         mSendButton.isEnabled = false
         
         
+        
         mQueryTextView = CustomTextView(frame:CGRect(x: 10, y: mTopbarImageView.frame.size.height + 10 ,width: self.frame.size.width - 20 ,height: 100))
         self.addSubview(mQueryTextView)
         mQueryTextView.setdelegate(self)
         mQueryTextView.setPlaceHolder("Write your query", withStartSting: "Query")
+        
+        
+        mQueryTextView.isHidden = true
+        mTopbarImageView.isHidden = true
         
         
         mQueryScrollView.frame = CGRect(x: 0, y: mQueryTextView.frame.size.height + mQueryTextView.frame.origin.y + 10, width: self.frame.size.width, height: self.frame.size.height - (mQueryTextView.frame.size.height + mQueryTextView.frame.origin.y + 10))

@@ -173,11 +173,7 @@ class CustomTextView: UIView,UITextViewDelegate
     
     
     
-    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool
-    {
-        return false
-    }
-    
+       
 }
 
 
