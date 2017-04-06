@@ -63,7 +63,7 @@ class QuestionCell: UIView
         self.addSubview(mQuestionNameLabel)
         mQuestionNameLabel.textColor = blackTextColor
         mQuestionNameLabel.textAlignment = .left
-        mQuestionNameLabel.lineBreakMode = .byTruncatingMiddle
+        mQuestionNameLabel.lineBreakMode = .byWordWrapping
         mQuestionNameLabel.numberOfLines  = 20
         
         

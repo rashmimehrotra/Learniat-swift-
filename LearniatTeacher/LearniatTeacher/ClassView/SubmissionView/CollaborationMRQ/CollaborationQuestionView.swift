@@ -290,6 +290,13 @@ class CollaborationQuestionView: UIView,SSTeacherDataSourceDelegate
         
         if isQuestionCreationCreationCompleted() == true
         {
+            mSaveQuestionButton.isHidden = true
+            
+            mAddQuestionButton.setTitleColor(standard_TextGrey, for: .normal)
+            mAddQuestionButton.isEnabled = false
+            
+
+            
             mQuestionTextView.resignFirstResponder()
             isSaveAndSend = true
             SSTeacherDataSource.sharedDataSource.updateRecorededQuestionWithQuestionLogId(mCurrentQuestionID, withQuestionName: getQestionName().questionName, withQuestionOptions: getQestionName().optionsDetails, withAnswerStates: getQestionName().optionsState, WithDelegate: self)
@@ -304,6 +311,11 @@ class CollaborationQuestionView: UIView,SSTeacherDataSourceDelegate
         if isQuestionCreationCreationCompleted() == true
         {
              isSaveAndSend = false
+            mAddQuestionButton.isHidden = true
+            
+            mSaveQuestionButton.setTitleColor(standard_TextGrey, for: .normal)
+            mSaveQuestionButton.isEnabled = false
+            
             mQuestionTextView.resignFirstResponder()
             SSTeacherDataSource.sharedDataSource.updateRecorededQuestionWithQuestionLogId(mCurrentQuestionID, withQuestionName: getQestionName().questionName, withQuestionOptions: getQestionName().optionsDetails, withAnswerStates: getQestionName().optionsState, WithDelegate: self)
         }
@@ -321,6 +333,8 @@ class CollaborationQuestionView: UIView,SSTeacherDataSourceDelegate
         else
         {
             getDelegate().delegateQuestionUpdatedAndSaved!()
+            
+            
         }
         
     }
@@ -328,6 +342,9 @@ class CollaborationQuestionView: UIView,SSTeacherDataSourceDelegate
     
     func didGetQuestionWithDetails(_ details: AnyObject)
     {
+        
+        
+        
         let questionDetails:NSMutableDictionary = details as! NSMutableDictionary
         questionDetails.setObject(mCurrentQuestionID, forKey: "Id" as NSCopying)
         questionDetails.setObject(mQuestionTextView.text!, forKey: "Name" as NSCopying)

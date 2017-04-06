@@ -357,7 +357,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         mClassStatedLabel.text = "Started: \(_string)"
         
         
-        /*
+        
          
         let isgreatervalue :Bool ;
         
@@ -374,7 +374,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             }
             
         }
- */
+ 
         
     }
     
@@ -593,7 +593,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         mQueryView.isHidden = true
         
         mSubmissionButton.frame = CGRect(x: 10 , y: mQueryButton.frame.origin.y + mQueryButton.frame.size.height + 20 , width: 100, height: 100)
-         mSubmissionButton.setImage("poll_icon_selected.png",  _unselectedImageName: "poll_icon_unselected.png", withText: "OTF")
+         mSubmissionButton.setImage("poll_icon_selected.png",  _unselectedImageName: "poll_icon_unselected.png", withText: "POLL")
         classStartedView.addSubview(mSubmissionButton)
         mSubmissionButton.buttonUnSelected()
          mSubmissionButton.addTarget(self, action: #selector(StudentClassViewController.onOTFButton), for: UIControlEvents.touchUpInside)

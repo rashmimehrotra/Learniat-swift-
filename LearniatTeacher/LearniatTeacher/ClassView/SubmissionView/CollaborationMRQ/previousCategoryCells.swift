@@ -23,8 +23,6 @@ class previousCategoryCells: UIView {
     
     var mCategoryLabel = UILabel()
     
-    var mTopicLabel = UILabel()
-    
     var _delgate: AnyObject!
     
     func setdelegate(_ delegate:AnyObject)
@@ -51,16 +49,6 @@ class previousCategoryCells: UIView {
         mCategoryLabel.lineBreakMode = .byTruncatingMiddle
         mCategoryLabel.numberOfLines  = 20
         mCategoryLabel.text = ""
-        
-        mTopicLabel.frame = CGRect(x: 10 , y: mCategoryLabel.frame.origin.y + mCategoryLabel.frame.size.height + 5 , width: self.frame.size.width - 10 , height: 20)
-        mTopicLabel.font = UIFont(name:helveticaRegular, size: 12)
-        self.addSubview(mTopicLabel)
-        mTopicLabel.textColor = standard_TextGrey
-        mTopicLabel.textAlignment = .left
-        mTopicLabel.lineBreakMode = .byTruncatingMiddle
-        mTopicLabel.numberOfLines  = 20
-        mTopicLabel.text = ""
-
         
         let longGesture = UITapGestureRecognizer(target: self, action: #selector(previousCategoryCells.CellPressed)) //Long function will call when user long press on button.
         self.addGestureRecognizer(longGesture)
@@ -108,32 +96,30 @@ class previousCategoryCells: UIView {
              mCategoryLabel.text = "Category :- ".appending(categroyName)
         }
         
-       
+        if let SubjectName = details.object(forKey: "SubTopicName") as? String
+        {
+            mCategoryLabel.text = mCategoryLabel.text?.appending(" / Subject:- ").appending(SubjectName)
+        }
         
-       
-        mCategoryLabel.frame = CGRect(x: mCategoryLabel.frame.origin.x, y: mCategoryLabel.frame.origin.y, width: mCategoryLabel.frame.size.width, height: heightForView(mCategoryLabel.text!, font: mCategoryLabel.font, width: mCategoryLabel.frame.size.width))
+        
         
         if let topicName = details.object(forKey: "TopicName") as? String
         {
-            mTopicLabel.text = "/ Topic :- ".appending(topicName)
+            mCategoryLabel.text =  mCategoryLabel.text?.appending(" / Topic :- ").appending(topicName)
            
         }
         
         if let subTopicName = details.object(forKey: "SubTopicName") as? String
         {
-            mTopicLabel.text = mTopicLabel.text?.appending(" / subTopic:- ").appending(subTopicName)
+            mCategoryLabel.text = mCategoryLabel.text?.appending(" / subTopic:- ").appending(subTopicName)
         }
         
-        if let SubjectName = details.object(forKey: "SubTopicName") as? String
-        {
-            mTopicLabel.text = mTopicLabel.text?.appending("/ Subject:- ").appending(SubjectName)
-        }
-        
-        mTopicLabel.frame = CGRect(x: mTopicLabel.frame.origin.x, y: mCategoryLabel.frame.origin.y + mCategoryLabel.frame.size.height , width: mCategoryLabel.frame.size.width, height: heightForView(mTopicLabel.text!, font: mTopicLabel.font, width: mTopicLabel.frame.size.width) + 20)
         
         
+        mCategoryLabel.frame = CGRect(x: mCategoryLabel.frame.origin.x, y: mCategoryLabel.frame.origin.y, width: mCategoryLabel.frame.size.width, height: heightForView(mCategoryLabel.text!, font: mCategoryLabel.font, width: mCategoryLabel.frame.size.width))
         
-        cellHeight = mTopicLabel.frame.origin.y + mTopicLabel.frame.size.height + 5
+        
+        cellHeight = mCategoryLabel.frame.origin.y + mCategoryLabel.frame.size.height + 5
         
         return cellHeight
         

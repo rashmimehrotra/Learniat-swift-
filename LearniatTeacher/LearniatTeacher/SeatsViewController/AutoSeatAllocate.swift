@@ -58,6 +58,10 @@ class AutoSeatAllocate: UIViewController,SSTeacherDataSourceDelegate
         mTopbarImageView.isUserInteractionEnabled = true
         mTopbarImageView.isUserInteractionEnabled = true
         
+       
+      
+        
+        
         let  mBackButton = UIButton(frame: CGRect(x: 10, y: 0,width: mTopbarImageView.frame.size.height * 2,height: mTopbarImageView.frame.size.height ))
         mTopbarImageView.addSubview(mBackButton)
         mBackButton.setTitle("Back", for: UIControlState())
@@ -65,6 +69,28 @@ class AutoSeatAllocate: UIViewController,SSTeacherDataSourceDelegate
         mBackButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
         mBackButton.addTarget(self, action: #selector(AutoSeatAllocate.onBack), for: UIControlEvents.touchUpInside)
         mBackButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
+        
+        
+        let  mRandomButton = UIButton(frame: CGRect(x: mBackButton.frame.origin.x + mBackButton.frame.size.width + 5, y: 0,width: mTopbarImageView.frame.size.height * 2,height: mTopbarImageView.frame.size.height ))
+        mTopbarImageView.addSubview(mRandomButton)
+        mRandomButton.setTitle("Random", for: UIControlState())
+        mRandomButton.setTitleColor(UIColor.white, for: UIControlState())
+        mRandomButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
+        mRandomButton.addTarget(self, action: #selector(AutoSeatAllocate.onRandomSeat), for: UIControlEvents.touchUpInside)
+        mRandomButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
+        
+        
+//        let  mRandomButton = UIButton(frame: CGRect(x: mBackButton.frame.origin.x + mBackButton.frame.size.width + 5, y: 0,width: mTopbarImageView.frame.size.height * 2,height: mTopbarImageView.frame.size.height ))
+//        mTopbarImageView.addSubview(mRandomButton)
+//        mRandomButton.setTitle("Random", for: UIControlState())
+//        mRandomButton.setTitleColor(UIColor.white, for: UIControlState())
+//        mRandomButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
+//        mRandomButton.addTarget(self, action: #selector(AutoSeatAllocate.onBack), for: UIControlEvents.touchUpInside)
+//        mRandomButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
+        
+       
+        
+        
         
         
         let mPreallocateSeats = UILabel(frame: CGRect(x: (mTopbarImageView.frame.size.width - 200)/2, y: 0, width: 200, height: mTopbarImageView.frame.size.height))
@@ -332,6 +358,36 @@ class AutoSeatAllocate: UIViewController,SSTeacherDataSourceDelegate
         }
     }
     
+    
+    
+    func onRandomSeat()
+    {
+        
+      StudentsArray.shuffle()
+        
+        
+        for index in 0  ..< StudentsArray.count
+        {
+            let studentsDict = StudentsArray.object(at: index)
+            
+            
+            if availabletags.count > index
+            {
+                if let studentImageView  = mGridContainerView.viewWithTag(availabletags[index]) as? AutoSeatSubView
+                {
+                    if let StudentId = (studentsDict as AnyObject).object(forKey: "StudentId") as? String
+                    {
+                        if let Name = (studentsDict as AnyObject).object(forKey: "Name") as? String
+                        {
+                            
+                            studentImageView.setSeatIdValue(seatsIdArray[index])
+                            studentImageView.setStudentImageWithID(StudentId, WithStudentname: Name)
+                        }
+                    }
+                }
+            }
+        }
+    }
     
     
     

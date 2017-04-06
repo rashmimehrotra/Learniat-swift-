@@ -507,6 +507,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
     // MARK: - Teacher datasource delegate functions
     func didGetSessionSummaryDetials(_ details: AnyObject)
     {
+       print(details)
         setcurrentViewDetails(details)
     }
 
@@ -678,9 +679,16 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
             }
         }
         
-        if let TopicsConfigured = details.object(forKey: "TopicsConfigured") as? String
+        if let TopicsConfigured = details.object(forKey: "TotalSubtopicsConfigured") as? String
         {
+            
             topicsConfiguredLabel.text = TopicsConfigured
+            
+            
+            if let TotalSubTopicsCompleted = details.object(forKey: "TotalSubTopicsCompleted") as? String
+            {
+                topicsConfiguredLabel.text = TotalSubTopicsCompleted.appending(" of ").appending(TopicsConfigured)
+            }
         }
         
         
@@ -692,6 +700,12 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         if let QuestionsConfigured = details.object(forKey: "QuestionsConfigured") as? String
         {
             questionConfiguredLabel.text = QuestionsConfigured
+            
+            if let TotalQuestionsCompleted =  details.object(forKey: "TotalQuestionsCompleted") as? String
+            {
+                questionConfiguredLabel.text = TotalQuestionsCompleted.appending(" of ").appending(QuestionsConfigured)
+            }
+            
         }
         
         

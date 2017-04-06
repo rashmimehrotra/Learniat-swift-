@@ -15,6 +15,8 @@ import Foundation
     
     @objc optional func delegateQuestionCreationDismissed()
     
+    @objc optional func delegateQuestionSaved()
+    
     
     @objc optional func delegateQuestionSentWithDetails(details:AnyObject)
     
@@ -136,8 +138,10 @@ class CollaborationMRQView: UIView,SSTeacherDataSourceDelegate,CollaborationCate
     }
    func delegateQuestionUpdatedAndSaved()
    {
-        getDelegate().delegateQuestionCreationDismissed!()
+        getDelegate().delegateQuestionSaved!()
      SSTeacherMessageHandler.sharedMessageHandler.sendCollaborationQuestionEnded(SSTeacherDataSource.sharedDataSource.currentLiveSessionId)
+    
+    
     
     
     }

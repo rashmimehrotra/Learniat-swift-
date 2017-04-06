@@ -432,6 +432,21 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
 
     }
     
+    func delegateQuestionSaved()
+    {
+        
+        self.makeToast("New question added", duration: 5.0, position: .bottom)
+        if mCollaborationMRQView != nil
+        {
+            mCollaborationMRQView.isHidden = true
+            mCollaborationMRQView.removeFromSuperview()
+            mCollaborationMRQView = nil
+            noSubmissionLabel.isHidden = false
+        }
+       
+    }
+    
+    
     func delegateQuestionSentWithDetails(details:AnyObject)
     {
         mCollaborationMRQView.isHidden = true

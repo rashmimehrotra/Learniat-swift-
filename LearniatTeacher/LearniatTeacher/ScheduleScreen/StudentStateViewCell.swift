@@ -119,26 +119,31 @@ class StudentStateViewCell: UIImageView {
     func setStudentState(_StudentState:String)
     {
         mStateLabel.isHidden = false
-        
-        if _StudentState ==  StudentSignedout || _StudentState == "8"
-        {
-            mStateLabel.text = StudentSignedout
-            mStateLabel.backgroundColor = standard_Red
-        }
-        else if _StudentState ==  StudentFree || _StudentState ==  StudentPreAllocated || _StudentState == "7" || _StudentState == "9"
-        {
-            mStateLabel.text = StudentFree
-            mStateLabel.backgroundColor = standard_TextGrey
-        }
-        else if _StudentState == StudentOccupied || _StudentState == "10"
-        {
-            mStateLabel.text = StudentOccupied
-            mStateLabel.backgroundColor = standard_Button
-        }
-        else
-        {
-            mStateLabel.isHidden = true
-        }
+         self.alpha = 1
+        UIView.animate(withDuration: 0.5, animations:
+            {
+                if _StudentState ==  StudentSignedout || _StudentState == "8"
+                {
+                    self.mStateLabel.text = StudentSignedout
+                    self.mStateLabel.backgroundColor = standard_Red
+                    self.alpha = 0.5
+                }
+                else if _StudentState ==  StudentFree || _StudentState ==  StudentPreAllocated || _StudentState == "7" || _StudentState == "9"
+                {
+                    self.mStateLabel.text = StudentFree
+                    self.mStateLabel.backgroundColor = standard_TextGrey
+                }
+                else if _StudentState == StudentOccupied || _StudentState == "10"
+                {
+                    self.mStateLabel.text = "Joined"
+                    self.mStateLabel.backgroundColor = standard_Green
+                }
+                else
+                {
+                    self.mStateLabel.isHidden = true
+                }
+                
+        })
     }
     
     

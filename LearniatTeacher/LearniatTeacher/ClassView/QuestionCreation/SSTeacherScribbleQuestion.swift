@@ -93,7 +93,7 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         
         mQuestionNametextView =  CustomTextView(frame:CGRect(x: (mTopbarImageView.frame.size.width - 600) / 2, y: 20, width: 600, height: mTopbarImageView.frame.size.height - 30))
         mQuestionNametextView.setdelegate(self)
-         mQuestionNametextView.setPlaceHolder("Please type Question name", withStartSting: "Question:-")
+         mQuestionNametextView.setPlaceHolder("Please type Question text", withStartSting: "Question:-")
         mTopbarImageView.addSubview(mQuestionNametextView)
 
 
@@ -200,37 +200,37 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         
         
         
-        let  mEquationButton = UIButton(frame: CGRect(x: m_RedoButton.frame.origin.x - 140,  y: bottomtoolSelectedImageView.frame.origin.y,width: 130 ,height: bottomtoolSelectedImageView.frame.size.height))
-        mBottomToolBarImageView.addSubview(mEquationButton)
-        mEquationButton.addTarget(self, action: #selector(SSTeacherScribbleQuestion.onEquationButton), for: UIControlEvents.touchUpInside)
-        mEquationButton.imageView?.contentMode = .scaleAspectFit
-        mEquationButton.setTitle("Equation", for: UIControlState())
-        mEquationButton.setTitleColor(standard_Button, for: UIControlState())
-         mEquationButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
-        mEquationButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18);
-        
-        let mEquationImage = UIImageView(frame:CGRect(x: 10, y: 10, width: mEquationButton.frame.size.height - 20 ,height: mEquationButton.frame.size.height - 20 ))
-        mEquationImage.image = UIImage(named: "Equation.png")
-        mEquationImage.contentMode = .scaleAspectFit
-        mEquationButton.addSubview(mEquationImage)
-        
-        
+//        let  mEquationButton = UIButton(frame: CGRect(x: m_RedoButton.frame.origin.x - 140,  y: bottomtoolSelectedImageView.frame.origin.y,width: 130 ,height: bottomtoolSelectedImageView.frame.size.height))
+//        mBottomToolBarImageView.addSubview(mEquationButton)
+//        mEquationButton.addTarget(self, action: #selector(SSTeacherScribbleQuestion.onEquationButton), for: UIControlEvents.touchUpInside)
+//        mEquationButton.imageView?.contentMode = .scaleAspectFit
+//        mEquationButton.setTitle("Equation", for: UIControlState())
+//        mEquationButton.setTitleColor(standard_Button, for: UIControlState())
+//         mEquationButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
+//        mEquationButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18);
+//        
+//        let mEquationImage = UIImageView(frame:CGRect(x: 10, y: 10, width: mEquationButton.frame.size.height - 20 ,height: mEquationButton.frame.size.height - 20 ))
+//        mEquationImage.image = UIImage(named: "Equation.png")
+//        mEquationImage.contentMode = .scaleAspectFit
+//        mEquationButton.addSubview(mEquationImage)
         
         
         
-        let  mShapesButton = UIButton(frame: CGRect(x: mEquationButton.frame.origin.x - 120,  y: bottomtoolSelectedImageView.frame.origin.y,width: 110 ,height: bottomtoolSelectedImageView.frame.size.height  ))
-        mBottomToolBarImageView.addSubview(mShapesButton)
-        mShapesButton.addTarget(self, action: #selector(SSTeacherScribbleQuestion.onShapesButton), for: UIControlEvents.touchUpInside)
-        mShapesButton.imageView?.contentMode = .scaleAspectFit
-        mShapesButton.setTitle("Shapes", for: UIControlState())
-        mShapesButton.setTitleColor(standard_Button, for: UIControlState())
-        mShapesButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
-        mShapesButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
         
-        let mShapesImage = UIImageView(frame:CGRect(x: 10, y: 10, width: mShapesButton.frame.size.height - 20 ,height: mShapesButton.frame.size.height - 20 ))
-        mShapesImage.image = UIImage(named: "Shapes.png")
-        mShapesImage.contentMode = .scaleAspectFit
-        mShapesButton.addSubview(mShapesImage)
+        
+//        let  mShapesButton = UIButton(frame: CGRect(x: mEquationButton.frame.origin.x - 120,  y: bottomtoolSelectedImageView.frame.origin.y,width: 110 ,height: bottomtoolSelectedImageView.frame.size.height  ))
+//        mBottomToolBarImageView.addSubview(mShapesButton)
+//        mShapesButton.addTarget(self, action: #selector(SSTeacherScribbleQuestion.onShapesButton), for: UIControlEvents.touchUpInside)
+//        mShapesButton.imageView?.contentMode = .scaleAspectFit
+//        mShapesButton.setTitle("Shapes", for: UIControlState())
+//        mShapesButton.setTitleColor(standard_Button, for: UIControlState())
+//        mShapesButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
+//        mShapesButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
+//        
+//        let mShapesImage = UIImageView(frame:CGRect(x: 10, y: 10, width: mShapesButton.frame.size.height - 20 ,height: mShapesButton.frame.size.height - 20 ))
+//        mShapesImage.image = UIImage(named: "Shapes.png")
+//        mShapesImage.contentMode = .scaleAspectFit
+//        mShapesButton.addSubview(mShapesImage)
         
         
         

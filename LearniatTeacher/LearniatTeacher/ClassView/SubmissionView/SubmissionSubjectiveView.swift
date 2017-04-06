@@ -161,12 +161,13 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         mSelectionCountLabel.frame = CGRect(x: containerview.frame.origin.x, y: topImageView.frame.origin.y + topImageView.frame.size.height, width: topImageView.frame.size.width, height: topImageView.frame.size.height/2)
         mainContainerView.addSubview(mSelectionCountLabel)
         mSelectionCountLabel.text = "No submission selected"
-        mSelectionCountLabel.textColor = whiteColor
-        mSelectionCountLabel.isHidden = false
+        mSelectionCountLabel.textColor = blackTextColor
+        mSelectionCountLabel.isHidden = true
         mSelectionCountLabel.textAlignment = .center
         mSelectionCountLabel.font =  UIFont(name: helveticaMedium, size: 14);
         mSelectionCountLabel.backgroundColor = standard_Green
-        mSelectionCountLabel.alpha = 0.5
+        mSelectionCountLabel.alpha = 1
+        
         
         
         mCancelButton.showsTouchWhenHighlighted = true;
@@ -375,14 +376,18 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         if selectedStudentsArray.count == 1
         {
             mSelectionCountLabel.text = "1 submission selected"
+            mSelectionCountLabel.isHidden = false
         }
         else if selectedStudentsArray.count > 1
         {
             mSelectionCountLabel.text = "\(selectedStudentsArray.count) submissions selected "
+            
+            mSelectionCountLabel.isHidden = false
         }
         else
         {
             mSelectionCountLabel.text = "No submission selected"
+            mSelectionCountLabel.isHidden = true
         }
         
         mainContainerView.bringSubview(toFront: mSelectionCountLabel)
@@ -465,14 +470,18 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         if selectedStudentsArray.count == 1
         {
             mSelectionCountLabel.text = "1 submission selected"
+            mSelectionCountLabel.isHidden = false
         }
         else if selectedStudentsArray.count > 1
         {
             mSelectionCountLabel.text = "\(selectedStudentsArray.count) submissions selected "
+            
+            mSelectionCountLabel.isHidden = false
         }
         else
         {
             mSelectionCountLabel.text = "No submission selected"
+            mSelectionCountLabel.isHidden = true
         }
         
         mainContainerView.bringSubview(toFront: mSelectionCountLabel)
@@ -509,14 +518,18 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         if selectedStudentsArray.count == 1
         {
             mSelectionCountLabel.text = "1 submission selected"
+            mSelectionCountLabel.isHidden = false
         }
         else if selectedStudentsArray.count > 1
         {
             mSelectionCountLabel.text = "\(selectedStudentsArray.count) submissions selected "
+            
+            mSelectionCountLabel.isHidden = false
         }
         else
         {
             mSelectionCountLabel.text = "No submission selected"
+            mSelectionCountLabel.isHidden = true
         }
         
         mainContainerView.bringSubview(toFront: mSelectionCountLabel)
