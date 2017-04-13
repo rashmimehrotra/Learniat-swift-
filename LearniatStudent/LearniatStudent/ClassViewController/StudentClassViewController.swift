@@ -770,11 +770,20 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                     mSubTopicNamelabel.text = "No subtopic"
                 }
                 
+                
+                
+                self.view.makeToast("Started Topic: ".appending(mSubTopicNamelabel.text!), duration: 2.0, position: .bottom)
+                
+                
+                
             }
             else
             {
                  mQueryView.queryPresentState(false)
                 mSubTopicNamelabel.text = "No subtopic"
+                
+                self.view.makeToast("Stopped Topic: ".appending(mSubTopicNamelabel.text!), duration: 2.0, position: .bottom)
+                
             }
             
             

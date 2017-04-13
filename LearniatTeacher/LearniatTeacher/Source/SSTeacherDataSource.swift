@@ -323,7 +323,9 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         let manager = APIManager()
         let uuidString:String = UIDevice.current.identifierForVendor!.uuidString
         
-        let urlString = String(format: "%@<Sunstone><Action><Service>Login</Service><UserName>%@</UserName><UserPassword>%@</UserPassword><AppVersion>%@</AppVersion><DeviceId>%@</DeviceId><IsTeacher>1</IsTeacher></Action></Sunstone>",URLPrefix,userId, Password,APP_VERSION,uuidString)
+        
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>Login</Service><UserName>%@</UserName><UserPassword>%@</UserPassword><AppVersion>%@</AppVersion><UUID>%@</UUID><AppId>1</AppId><Latitude>-27.96310183</Latitude><Longitude>153.41311552</Longitude></Action></Sunstone>",URLPrefix,userId, Password,APP_VERSION,uuidString)
         
         manager.downloadDataURL(urlString, withServiceName:kServiceUserLogin, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
@@ -940,7 +942,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     func delegateDidGetServiceResponse(withDetails dict: NSMutableDictionary!, wIthServiceName serviceName: String!, withRetruningDelegate returningDelegate: Any!)
     {
         
-        let refinedDetails = (dict.object(forKey: kSunstone)! as AnyObject).object(forKey: kSSAction)!
+        let refinedDetails = ((dict.object(forKey: kSunstone) ??  NSMutableDictionary()) as AnyObject).object(forKey: kSSAction) ?? NSMutableDictionary()
         
         let mReturningDelegate = returningDelegate as AnyObject
         

@@ -183,8 +183,15 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
             let mQuerySubView = QueryVolunteerSubView(frame: CGRect(x: 10 , y: currentYPosition, width: self.frame.size.width - 20 ,height: 80))
             mScrollView.addSubview(mQuerySubView)
             mQuerySubView.setdelegate(self)
+           
+             mQuerySubView.setQueryWithDetails(queryDict as AnyObject)
             
-            mQuerySubView.setQueryWithDetails(queryDict as AnyObject)
+            if let StudentId = (queryDict as AnyObject).object(forKey: "StudentId") as? String
+            {
+                 mQuerySubView.setMeTooSelectedStudents(StudentId)
+            }
+
+           
             
             
             if let queryText = (queryDict as AnyObject).object(forKey: "QueryText") as? String

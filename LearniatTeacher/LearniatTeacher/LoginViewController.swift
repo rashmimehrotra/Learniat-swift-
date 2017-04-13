@@ -248,6 +248,8 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSou
     
     func didGetloginWithDetails(_ details: AnyObject)
     {
+        
+        print(details)
         if let status = details.object(forKey: "Status") as? String
         {
             if status == kSuccessString

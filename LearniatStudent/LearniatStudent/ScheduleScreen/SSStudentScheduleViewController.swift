@@ -558,15 +558,19 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
             if SessionState == kScheduledString
             {
                  self.view.makeToast("You can not enter to scheduled session" , duration: 0.5, position: .bottom)
+                onRefreshButton(UIButton())
+                
             }
             else  if SessionState == kCanClledString
             {
                 self.view.makeToast("This class was cancelled.", duration: 0.5, position: .bottom)
+                onRefreshButton(UIButton())
                 
             }
             else  if SessionState == kEndedString
             {
                 self.view.makeToast("This class has already ended.", duration: 0.5, position: .bottom)
+                onRefreshButton(UIButton())
             }
             else if SessionState == kLiveString
             {

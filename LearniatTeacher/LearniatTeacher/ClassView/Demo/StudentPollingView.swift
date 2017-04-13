@@ -10,7 +10,7 @@ import Foundation
 @objc protocol StudentPollingViewDelegate
 {
     
-    @objc optional func smhDidgetStudentPollWithDetails(_ optionValue:String)
+    @objc optional func smhDidgetStudentPollWithDetails(optionValue:NSMutableDictionary)
     
     
     
@@ -68,7 +68,7 @@ class StudentPollingView: UIView
        
         
         
-        for _  in 0..<notLiveStudentsDetails.count
+        for index  in 0..<notLiveStudentsDetails.count
         {
             var aRandomInt = randomInt(1, max: optionArray.count - 1)
             
@@ -80,7 +80,22 @@ class StudentPollingView: UIView
             
             if let optionsString = optionArray.object(at: aRandomInt) as? String
             {
-                delegate().smhDidgetStudentPollWithDetails!(optionsString)
+               if let studentdetails  = notLiveStudentsDetails.index(of: index) as? NSMutableDictionary
+               {
+                if let studentId = studentdetails.object(forKey: "StudentId")  //objectFor("StudentId") as? String
+                {
+                    
+                    let messageBody = ["option":optionsString,
+                                       "studentID":studentId]
+                    
+                    
+                    delegate().smhDidgetStudentPollWithDetails!(optionValue: (messageBody as! NSMutableDictionary))
+                }
+                
+                }
+                
+               
+                
             }
 
         }

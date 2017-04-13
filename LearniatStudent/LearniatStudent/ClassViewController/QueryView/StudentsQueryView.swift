@@ -10,7 +10,7 @@ import Foundation
 class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelegate,StudentQuerySubViewDelegate
 {
     var mTopbarImageView = UIImageView()
-    var mSendButton = UIButton()
+    var mSendButton : SpinnerButtonView!
     var mQueryTextView : CustomTextView!
     var mQueryScrollView    = UIScrollView()
     var currentYPosition: CGFloat = 5
@@ -34,15 +34,12 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
         mTopbarImageView.isUserInteractionEnabled = true
         
         
-        mSendButton.frame = CGRect(x: mTopbarImageView.frame.size.width - 210, y: 0,width: 200,height: mTopbarImageView.frame.size.height )
+        mSendButton =  SpinnerButtonView(frame: CGRect(x: mTopbarImageView.frame.size.width - 110, y: 0,width: 100,height: mTopbarImageView.frame.size.height ))
         mTopbarImageView.addSubview(mSendButton)
-        mSendButton.addTarget(self, action: #selector(StudentsQueryView.onSendButton), for: UIControlEvents.touchUpInside)
-        mSendButton.setTitle("Send", for: UIControlState())
-        mSendButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
-        mSendButton.titleLabel?.font = UIFont (name: helveticaMedium, size: 20)
-        mSendButton.setTitleColor(UIColor.lightGray, for: UIControlState())
-        mSendButton.isEnabled = false
-        
+        mSendButton.setButtonTex(text: "Send", withFont: UIFont (name: helveticaMedium, size: 20)!, withColor: standard_Button)
+        mSendButton.setdelegate(self)
+        mSendButton.mButtonLabel.textColor = UIColor.lightGray
+        mSendButton.isUserInteractionEnabled = false
         
         
         mQueryTextView = CustomTextView(frame:CGRect(x: 10, y: mTopbarImageView.frame.size.height + 10 ,width: self.frame.size.width - 20 ,height: 100))
@@ -80,13 +77,13 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
        
         if chnagedText != ""
         {
-            mSendButton.isEnabled = true
-            mSendButton.setTitleColor(standard_Button, for: UIControlState())
+            mSendButton.isUserInteractionEnabled = true
+            mSendButton.mButtonLabel.textColor = standard_Button
         }
         else
         {
-            mSendButton.setTitleColor(UIColor.lightGray, for: UIControlState())
-            mSendButton.isEnabled = false
+            mSendButton.mButtonLabel.textColor = UIColor.lightGray
+            mSendButton.isUserInteractionEnabled = false
         }
     }
     
@@ -98,11 +95,7 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
         mTopbarImageView.isHidden = true
         mQueryTextView.mQuestionTextView.resignFirstResponder()
         
-        if isQuerySent == false
-        {
-            
-            SSStudentDataSource.sharedDataSource.sendQueryWithQueryText(mQueryTextView.mQuestionTextView.text!, withAnonymous: "0", withDelegate: self)
-        }
+       SSStudentDataSource.sharedDataSource.sendQueryWithQueryText(mQueryTextView.mQuestionTextView.text!, withAnonymous: "0", withDelegate: self)
       
     }
     
@@ -195,11 +188,6 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
         {
             if Status == kSuccessString
             {
-                
-              
-                
-                
-                
                 let querySubView = StudentQuerySubView(frame:  CGRect(x: 10,  y: 10 ,width: self.frame.size.width-20,height: 80))
                 querySubView.backgroundColor = UIColor.white
                 querySubView.layer.shadowColor = UIColor.black.cgColor
@@ -212,12 +200,6 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
                 querySubView.frame = CGRect(x: 10,  y: 10 ,width: self.frame.size.width-20,height: size)
                 mQueryScrollView.addSubview(querySubView)
                 
-                
-                
-                
-                
-                
-                
                 if let QueryId = detail.object(forKey: "QueryId") as? String
                 {
                     querySubView.tag = Int(QueryId)!
@@ -228,18 +210,12 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
                 
                 currentYPosition = currentYPosition + querySubView.frame.size.height + 5
                 mQueryScrollView.contentSize = CGSize(width: 0 , height: currentYPosition)
-                
-                ShowHideQueryTextView(isHidden: true)
-                isQuerySent = true
-                
             }
             else
             {
-//                mSendButton.enabled = true
-//                mSendButton.setTitleColor(standard_Button, forState: .Normal)
                 self.makeToast("Error in sending query.", duration: 3.0, position: .bottom)
                 
-                ShowHideQueryTextView(isHidden: false)
+                
                 
             }
         }
@@ -248,10 +224,13 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
             self.makeToast("Error in sending query.", duration: 3.0, position: .bottom)
             
             
-            ShowHideQueryTextView(isHidden: false)
+           
             
             
         }
+        
+        
+        ShowHideQueryTextView(isHidden: false)
         
         refreshScrollView()
         
@@ -371,7 +350,11 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
                 {
                     
                     self.mQueryTextView.isHidden = false
+                    self.mQueryTextView.mQuestionTextView.text = ""
                     self.mTopbarImageView.isHidden = false
+                    self.mSendButton.restartButton()
+                    self.mSendButton.mButtonLabel.textColor = UIColor.lightGray
+                    self.mSendButton.isUserInteractionEnabled = false
                     self.mQueryScrollView.frame = CGRect(x: 0, y: self.mQueryTextView.frame.size.height + self.mQueryTextView.frame.origin.y + 10, width: self.frame.size.width, height: self.frame.size.height - (self.mQueryTextView.frame.size.height + self.mQueryTextView.frame.origin.y + 10))
             })
         }
@@ -565,5 +548,13 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
         mQRVScrollView.contentSize = CGSize(width: 0,  height: positionY )
         
     }
+    
+    
+    func delegateButtonPressedWithButtonText(buttonText:String)
+    {
+        mQueryTextView.mQuestionTextView.resignFirstResponder()
+        SSStudentDataSource.sharedDataSource.sendQueryWithQueryText(mQueryTextView.mQuestionTextView.text!, withAnonymous: "0", withDelegate: self)
+    }
+    
     
 }

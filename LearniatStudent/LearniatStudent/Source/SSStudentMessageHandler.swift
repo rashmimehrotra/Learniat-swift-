@@ -681,7 +681,8 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
             let teacherID           = SSStudentDataSource.sharedDataSource.currentTeacherId
             
             
-            let messageBody = ["option":optiontext]
+            let messageBody = ["option":optiontext,
+                               "studentID":studentID]
             
             
             

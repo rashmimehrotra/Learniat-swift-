@@ -90,7 +90,7 @@ import Foundation
     
     @objc optional func smhDidgetQueryWithdrawnWithDetails(_ queryId:String, withStudentId studentId:String)
     
-    @objc optional func smhDidgetStudentPollWithDetails(_ optionValue:String)
+    @objc optional func smhDidgetStudentPollWithDetails(optionValue:NSMutableDictionary)
     
     @objc optional func smhDidgetMeTooValueWithDetails(_ details:AnyObject)
     
@@ -1262,14 +1262,11 @@ open class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Mess
             
         case kSendSelectedPollToTeacher?:
             
-            if delegate().responds(to: #selector(SSTeacherMessagehandlerDelegate.smhDidgetStudentPollWithDetails(_:)))
+            if delegate().responds(to: #selector(SSTeacherMessagehandlerDelegate.smhDidgetStudentPollWithDetails(optionValue:)))
             {
                 if message?.messageBody() != nil
                 {
-                    if let optionsValue =  (message?.messageBody() as AnyObject).object(forKey: "option") as? String
-                    {
-                        delegate().smhDidgetStudentPollWithDetails!(optionsValue)
-                    }
+                   delegate().smhDidgetStudentPollWithDetails!(optionValue: message!.messageBody() as! NSMutableDictionary)
                     
                 }
             }

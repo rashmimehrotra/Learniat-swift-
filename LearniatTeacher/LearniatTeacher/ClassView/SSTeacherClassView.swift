@@ -132,9 +132,13 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     var queryNotificationLabel                  = UILabel()
     
+    var PollNotificationLabel                  = UILabel()
+    
     var newSubmissionRecieved               = NSMutableArray()
     
     var newQueryRecieved                    = NSMutableArray()
+    
+    var newPollRecieved                     = NSMutableArray()
     
      var seatsIdArray                       = [String]()
     
@@ -261,6 +265,13 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mQueryViewButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
         
         
+        
+        
+        
+        
+        
+        
+        
         mPollViewButton.frame  = CGRect(x: mQueryViewButton.frame.origin.x + (mQueryViewButton.frame.size.width + 10)  , y: 0, width: mQuestionViewButton.frame.size.width, height: mQuestionViewButton.frame.size.height)
         mBottombarImageView.addSubview(mPollViewButton)
         mPollViewButton.addTarget(self, action: #selector(SSTeacherClassView.onPollView), for: UIControlEvents.touchUpInside)
@@ -271,6 +282,18 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
 
         
+        PollNotificationLabel.frame = CGRect(x: mPollViewButton.frame.origin.x + mPollViewButton.frame.size.width - 25 , y: mQuestionViewButton.frame.origin.y + 5 , width: 40, height: 30)
+        PollNotificationLabel.backgroundColor = standard_Red
+        PollNotificationLabel.textColor = UIColor.white
+        mBottombarImageView.addSubview(PollNotificationLabel)
+        PollNotificationLabel.layer.cornerRadius = 11.0;
+        PollNotificationLabel.layer.masksToBounds = true;
+        PollNotificationLabel.text = "0"
+        PollNotificationLabel.font = UIFont(name: helveticaBold, size: 20)
+        PollNotificationLabel.textAlignment = .center
+        PollNotificationLabel.isHidden = true
+        
+
         
         
         
@@ -853,12 +876,11 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mPollingView.isHidden      = false
         currentScreen  = kQueryView
         
-        queryNotificationLabel.isHidden = true
-        if newQueryRecieved.count > 0
+        PollNotificationLabel.isHidden = true
+        if newPollRecieved.count > 0
         {
-            SSTeacherMessageHandler.sharedMessageHandler.sendQueryRecievedMessageToRoom(currentSessionId)
             
-            newQueryRecieved.removeAllObjects()
+            newPollRecieved.removeAllObjects()
         }
         
         
@@ -2324,12 +2346,48 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         }
     }
     
-    func smhDidgetStudentPollWithDetails(_ optionValue: String)
+    func smhDidgetStudentPollWithDetails(optionValue:NSMutableDictionary)
     {
+       
+        
+        print(optionValue)
+        
+        
+        if let studentID =  optionValue.object(forKey: "studentID") as? String
+        {
+            if newQueryRecieved.contains(studentID) == false
+            {
+                newPollRecieved.add(studentID)
+            }
+            
+        }
+        
+        
+        if currentScreen != kPollView
+        {
+            
+            PollNotificationLabel.isHidden = false
+            
+            PollNotificationLabel.text = "\(newPollRecieved.count)"
+        }
+        else
+        {
+            PollNotificationLabel.isHidden = true
+        }
+        
+        
         
         if mPollingView != nil
         {
-            mPollingView.didGetStudentPollValue(optionValue)
+            
+            
+            if let options =  optionValue.object(forKey: "option") as? String
+            {
+                mPollingView.didGetStudentPollValue(options)
+            }
+            
+            
+            
         }
         
     }

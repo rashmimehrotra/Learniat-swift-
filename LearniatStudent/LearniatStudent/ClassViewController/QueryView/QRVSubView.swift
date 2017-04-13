@@ -43,6 +43,9 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
     
     var currentSelectionState = ""
     
+    
+    let underStoodButton = UIButton()
+    
     override init(frame: CGRect)
     {
         super.init(frame:frame)
@@ -84,9 +87,8 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
         myQuerylabel.text = "My query"
         myQuerylabel.font =  UIFont (name: HelveticaNeueThin, size: 16)
         self.addSubview(myQuerylabel)
-        myQuerylabel.isHidden = true
         myQuerylabel.textColor = lightGrayColor
-        
+        myQuerylabel.isHidden = true
         
         
        let countLabel = UILabel(frame: CGRect(x: 10, y: 5, width: 30 , height: 30))
@@ -135,6 +137,27 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
         meeTooButton.setTitleColor(standard_Button, for: UIControlState())
         meeTooButton.titleLabel?.font = UIFont (name: helveticaRegular, size: 16)
         meeTooButton.addTarget(self, action: #selector(QRVSubView.onMeeTooButton), for: UIControlEvents.touchUpInside)
+        meeTooButton.isHidden = true
+        
+        if isMyQuery == false
+        {
+            
+
+            meeTooButton.isHidden = false
+            
+        }
+        else
+        {
+            underStoodButton.frame = CGRect(x: meeTooButton.frame.origin.x + meeTooButton.frame.size.width + 20 ,y: meeTooButton.frame.origin.y ,width: meeTooButton.frame.size.width * 2 ,height: meeTooButton.frame.size.height)
+            underStoodButton.setTitle("UNDERSTOOD", for: UIControlState())
+            underStoodButton.contentHorizontalAlignment = .left
+            self.addSubview(underStoodButton)
+            underStoodButton.setTitleColor(standard_Button, for: UIControlState())
+            underStoodButton.titleLabel?.font = UIFont (name: helveticaRegular, size: 16)
+            underStoodButton.addTarget(self, action: #selector(QRVSubView.onUnderStoodButton(_:)), for: UIControlEvents.touchUpInside)
+            meeTooButton.isHidden = true
+        }
+       
         
     }
     
@@ -193,7 +216,7 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
         
         
         
-        let underStoodButton = UIButton()
+        
         
         underStoodButton.frame = CGRect(x: meeTooButton.frame.origin.x + meeTooButton.frame.size.width + 20 ,y: meeTooButton.frame.origin.y ,width: meeTooButton.frame.size.width * 2 ,height: meeTooButton.frame.size.height)
         underStoodButton.setTitle("UNDERSTOOD", for: UIControlState())

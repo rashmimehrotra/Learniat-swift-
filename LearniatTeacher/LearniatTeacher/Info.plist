@@ -88,5 +88,9 @@ RobotoCondensed-Regular.ttf</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Your Permission required</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Permission required</string>
 </dict>
 </plist>

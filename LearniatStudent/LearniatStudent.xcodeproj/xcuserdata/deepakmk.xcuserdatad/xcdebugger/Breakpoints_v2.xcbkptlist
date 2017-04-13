@@ -298,11 +298,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatStudent/Source/SSStudentMessageHandler.swift"
-            timestampString = "512994607.533181"
+            timestampString = "513743544.330881"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "897"
-            endingLineNumber = "897"
+            startingLineNumber = "898"
+            endingLineNumber = "898"
             landmarkName = "didReceiveMessage(withBody:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -314,11 +314,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatStudent/ClassViewController/StudentClassViewController.swift"
-            timestampString = "513021149.151309"
+            timestampString = "513745109.234412"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "980"
-            endingLineNumber = "980"
+            startingLineNumber = "989"
+            endingLineNumber = "989"
             landmarkName = "smhdidRecieveQueryVolunteeringEnded()"
             landmarkType = "7">
          </BreakpointContent>
@@ -329,13 +329,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LearniatStudent/ClassViewController/QueryView/StudentQuerySubView.swift"
-            timestampString = "512506132.809492"
+            filePath = "LearniatStudent/Source/SSStudentMessageHandler.swift"
+            timestampString = "513743544.330881"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "193"
-            endingLineNumber = "193"
-            landmarkName = "addreplyView()"
+            startingLineNumber = "1034"
+            endingLineNumber = "1034"
+            landmarkName = "didReceiveMessage(withBody:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -345,13 +345,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LearniatStudent/Source/SSStudentMessageHandler.swift"
-            timestampString = "512994607.533181"
+            filePath = "LearniatStudent/ClassViewController/QueryView/StudentsQueryView.swift"
+            timestampString = "513254006.560987"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1033"
-            endingLineNumber = "1033"
-            landmarkName = "didReceiveMessage(withBody:)"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
+            landmarkName = "onSendButton()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

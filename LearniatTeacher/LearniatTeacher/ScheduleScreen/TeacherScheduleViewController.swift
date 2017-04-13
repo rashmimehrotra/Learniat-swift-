@@ -292,6 +292,10 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         mScrollView.bringSubview(toFront: mCurrentTimeLine)
         
          timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(TeacherScheduleViewController.timerAction), userInfo: nil, repeats: true)
+        
+        
+        
+        
     }
    
     deinit {
@@ -652,6 +656,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
         
+        
     }
     
     func didGetSessionUpdatedWithDetials(_ details: AnyObject)
@@ -679,6 +684,12 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
         activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
+        
+        
+        
+
+        
+        
     }
     
     func didGetSessionExtendedDetials(_ details: AnyObject) {

@@ -329,6 +329,7 @@
 		533255D41CEDC40600653C00 /* Shapes.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255CD1CEDC40600653C00 /* Shapes.png */; };
 		533255D51CEDC40600653C00 /* Text.png in Resources */ = {isa = PBXBuildFile; fileRef = 533255CE1CEDC40600653C00 /* Text.png */; };
 		53362BFF1E42FE1A00413262 /* StudentCollaborationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53362BFE1E42FE1A00413262 /* StudentCollaborationView.swift */; };
+		533A8FCB1E97A16A00A38019 /* SpinnerButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533A8FCA1E97A16A00A38019 /* SpinnerButtonView.swift */; };
 		535B8B1F1CE1A20F008B2D7F /* Query_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 535B8B191CE1A20F008B2D7F /* Query_Selected.png */; };
 		535B8B201CE1A20F008B2D7F /* Query.png in Resources */ = {isa = PBXBuildFile; fileRef = 535B8B1A1CE1A20F008B2D7F /* Query.png */; };
 		535B8B211CE1A20F008B2D7F /* Questions_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 535B8B1B1CE1A20F008B2D7F /* Questions_Selected.png */; };
@@ -880,6 +881,7 @@
 		533255CD1CEDC40600653C00 /* Shapes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Shapes.png; sourceTree = "<group>"; };
 		533255CE1CEDC40600653C00 /* Text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Text.png; sourceTree = "<group>"; };
 		53362BFE1E42FE1A00413262 /* StudentCollaborationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentCollaborationView.swift; sourceTree = "<group>"; };
+		533A8FCA1E97A16A00A38019 /* SpinnerButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinnerButtonView.swift; sourceTree = "<group>"; };
 		535B8B191CE1A20F008B2D7F /* Query_Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Query_Selected.png; sourceTree = "<group>"; };
 		535B8B1A1CE1A20F008B2D7F /* Query.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Query.png; sourceTree = "<group>"; };
 		535B8B1B1CE1A20F008B2D7F /* Questions_Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Questions_Selected.png; sourceTree = "<group>"; };
@@ -1088,6 +1090,7 @@
 		533064A71CC9E52E0035CCDE /* common */ = {
 			isa = PBXGroup;
 			children = (
+				533A8FCA1E97A16A00A38019 /* SpinnerButtonView.swift */,
 				53A552201CF9A8B70093634A /* PlistDownloder.h */,
 				53A552211CF9A8B70093634A /* PlistDownloder.m */,
 				53A5521D1CF9A70F0093634A /* SSSettingsViewController.h */,
@@ -2667,6 +2670,7 @@
 				5330665F1CC9E5F40035CCDE /* XMPPLastActivity.m in Sources */,
 				533255291CEDBEFB00653C00 /* UIImage-Extensions.m in Sources */,
 				53EEABF31CED9B2D005E4566 /* BarView.swift in Sources */,
+				533A8FCB1E97A16A00A38019 /* SpinnerButtonView.swift in Sources */,
 				5330669B1CC9E5F40035CCDE /* XMPPStreamManagementStanzas.m in Sources */,
 				533066631CC9E5F40035CCDE /* XMPPRoomMessageCoreDataStorageObject.m in Sources */,
 				533066881CC9E5F40035CCDE /* XMPPTransports.m in Sources */,

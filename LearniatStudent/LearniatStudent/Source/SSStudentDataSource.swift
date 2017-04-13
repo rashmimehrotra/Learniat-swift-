@@ -216,7 +216,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         let manager = APIManager()
         let uuidString:String = UIDevice.current.identifierForVendor!.uuidString
         
-        let urlString = String(format: "%@<Sunstone><Action><Service>Login</Service><UserName>%@</UserName><UserPassword>%@</UserPassword><AppVersion>%@</AppVersion><DeviceId>%@</DeviceId><IsTeacher>0</IsTeacher></Action></Sunstone>",URLPrefix,userId, Password,APP_VERSION,uuidString)
+        let urlString = String(format: "%@<Sunstone><Action><Service>Login</Service><UserName>%@</UserName><UserPassword>%@</UserPassword><AppVersion>%@</AppVersion><UUID>%@</UUID><AppId>2</AppId><Latitude>-27.96310183</Latitude><Longitude>153.41311552</Longitude></Action></Sunstone>",URLPrefix,userId,Password,APP_VERSION,uuidString)
         
         manager.downloadDataURL(urlString, withServiceName:kServiceUserLogin, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
