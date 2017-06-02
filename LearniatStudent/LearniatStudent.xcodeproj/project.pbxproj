@@ -339,6 +339,8 @@
 		535B8B261CE1A2A4008B2D7F /* CustomButtonSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535B8B251CE1A2A4008B2D7F /* CustomButtonSubView.swift */; };
 		535B8B2D1CE1F8DE008B2D7F /* correct.png in Resources */ = {isa = PBXBuildFile; fileRef = 535B8B2B1CE1F8DE008B2D7F /* correct.png */; };
 		535B8B2E1CE1F8DE008B2D7F /* wrong.png in Resources */ = {isa = PBXBuildFile; fileRef = 535B8B2C1CE1F8DE008B2D7F /* wrong.png */; };
+		536A009C1EE1CCD200F982A6 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 536A009A1EE1CCD200F982A6 /* Fabric.framework */; };
+		536A009D1EE1CCD200F982A6 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 536A009B1EE1CCD200F982A6 /* Crashlytics.framework */; };
 		53A482A51CE2F6A900C90451 /* LPRTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A482A41CE2F6A900C90451 /* LPRTableView.swift */; };
 		53A482B31CE31B1A00C90451 /* matchColoumnTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A482AC1CE31B1A00C90451 /* matchColoumnTableViewCell.m */; };
 		53A482B41CE31B1A00C90451 /* NoShadowTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A482AE1CE31B1A00C90451 /* NoShadowTableView.m */; };
@@ -891,6 +893,8 @@
 		535B8B251CE1A2A4008B2D7F /* CustomButtonSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButtonSubView.swift; sourceTree = "<group>"; };
 		535B8B2B1CE1F8DE008B2D7F /* correct.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = correct.png; sourceTree = "<group>"; };
 		535B8B2C1CE1F8DE008B2D7F /* wrong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrong.png; sourceTree = "<group>"; };
+		536A009A1EE1CCD200F982A6 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		536A009B1EE1CCD200F982A6 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		53A482A41CE2F6A900C90451 /* LPRTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LPRTableView.swift; sourceTree = "<group>"; };
 		53A482AB1CE31B1A00C90451 /* matchColoumnTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matchColoumnTableViewCell.h; sourceTree = "<group>"; };
 		53A482AC1CE31B1A00C90451 /* matchColoumnTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = matchColoumnTableViewCell.m; sourceTree = "<group>"; };
@@ -956,6 +960,7 @@
 			files = (
 				533066D71CC9E6710035CCDE /* Security.framework in Frameworks */,
 				533066D51CC9E65D0035CCDE /* CoreLocation.framework in Frameworks */,
+				536A009D1EE1CCD200F982A6 /* Crashlytics.framework in Frameworks */,
 				533066D31CC9E6540035CCDE /* SystemConfiguration.framework in Frameworks */,
 				533066D11CC9E6490035CCDE /* CoreData.framework in Frameworks */,
 				533066CF1CC9E6400035CCDE /* libresolv.tbd in Frameworks */,
@@ -965,6 +970,7 @@
 				533066C71CC9E6180035CCDE /* Foundation.framework in Frameworks */,
 				533066C51CC9E60D0035CCDE /* CoreGraphics.framework in Frameworks */,
 				533066C31CC9E5F40035CCDE /* libidn.a in Frameworks */,
+				536A009C1EE1CCD200F982A6 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1060,6 +1066,8 @@
 		5330646B1CC9DAAE0035CCDE /* LearniatStudent */ = {
 			isa = PBXGroup;
 			children = (
+				536A009A1EE1CCD200F982A6 /* Fabric.framework */,
+				536A009B1EE1CCD200F982A6 /* Crashlytics.framework */,
 				533064A71CC9E52E0035CCDE /* common */,
 				5330646C1CC9DAAE0035CCDE /* AppDelegate.swift */,
 				5330647E1CC9E2FC0035CCDE /* INILoader.swift */,
@@ -2362,6 +2370,7 @@
 				533064651CC9DAAE0035CCDE /* Sources */,
 				533064661CC9DAAE0035CCDE /* Frameworks */,
 				533064671CC9DAAE0035CCDE /* Resources */,
+				536A00991EE1CC6F00F982A6 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2386,7 +2395,7 @@
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = C744MS63KY;
 						LastSwiftMigration = 0820;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -2583,6 +2592,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		536A00991EE1CC6F00F982A6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 7b9a4b3713318af099905ee53802ed6a6e84a1bc aa5530afb30032923bb8b696429c236ef57bb928cd758d01cb9915f45ee77512";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		533064651CC9DAAE0035CCDE /* Sources */ = {
@@ -2907,8 +2932,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: deepak mk (862RK2T33X)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: deepak mk (862RK2T33X)";
-				DEVELOPMENT_TEAM = C744MS63KY;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2928,8 +2953,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.LearniatStudent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ddd4186b-af15-48e8-bedb-19aafceaa67d";
-				PROVISIONING_PROFILE_SPECIFIER = "Learniat Student";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatStudent/LearniatStudent-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -2944,8 +2969,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: deepak mk (862RK2T33X)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: deepak mk (862RK2T33X)";
-				DEVELOPMENT_TEAM = C744MS63KY;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2965,8 +2990,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.LearniatStudent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ddd4186b-af15-48e8-bedb-19aafceaa67d";
-				PROVISIONING_PROFILE_SPECIFIER = "Learniat Student";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatStudent/LearniatStudent-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";

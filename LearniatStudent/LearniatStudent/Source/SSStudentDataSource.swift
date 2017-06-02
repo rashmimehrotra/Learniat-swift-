@@ -197,10 +197,6 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
     {
         let manager = APIManager()
         
-        let uuid = UUID().uuidString
-        
-        let Identifier = UIDevice.current.identifierForVendor
-
         
         let urlString = String(format: "%@<Sunstone><Action><Service>GetMyState</Service><UserId>%@</UserId></Action></Sunstone>",URLPrefix,userId)
         
