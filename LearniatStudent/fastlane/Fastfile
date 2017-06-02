@@ -29,10 +29,15 @@ platform :ios do
 
   desc "Submit a new Beta Build to Apple TestFlight"
   desc "This will also make sure the profile is up to date"
-  lane :beta do
+  lane :hockeyBuilding do
     # match(type: "appstore") # more information: https://codesigning.guide
     gym # Build your app - more options available
     pilot
+        # Bump build number
+    increment_build_number
+
+
+  hockey(api_token: "ce977544acdf4b57a1ae4cf70b06dd2c")
 
     # sh "your_script.sh"
     # You can also use other beta testing services here (run `fastlane actions`)
@@ -108,6 +113,7 @@ lane :build do |options|
 
 	gym(args)
 end
+
 end
 
 

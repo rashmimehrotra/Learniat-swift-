@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import HockeySDK
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -35,7 +37,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         
-        
+        BITHockeyManager.shared().configure(withIdentifier: "2416e4efc85e4c2dab6b12f45e7f0335")
+        // Do some additional configuration if needed here
+        BITHockeyManager.shared().start()
+        BITHockeyManager.shared().authenticator.authenticateInstallation()
+
         
         
         

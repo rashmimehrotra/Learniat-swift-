@@ -7,8 +7,7 @@
 //
 
 import UIKit
-import Fabric
-import Crashlytics
+import HockeySDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -32,8 +31,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         lagFreeField.removeFromSuperview()
         
         UIApplication.shared.isIdleTimerDisabled = true
-        Fabric.with([Crashlytics.self])
-
+        
+        
+        
+        BITHockeyManager.shared().configure(withIdentifier: "ce977544acdf4b57a1ae4cf70b06dd2c")
+        // Do some additional configuration if needed here
+        BITHockeyManager.shared().start()
+        BITHockeyManager.shared().authenticator.authenticateInstallation()
+      
         return true
     }
 

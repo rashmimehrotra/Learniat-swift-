@@ -340,6 +340,8 @@
 		53676D5F1CA63D7A00CADE4D /* SubTopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53676D581CA63D7A00CADE4D /* SubTopicCell.swift */; };
 		5367E2EB1CFEA6D000E4FD23 /* OnewordAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5367E2EA1CFEA6D000E4FD23 /* OnewordAnswerView.swift */; };
 		5367E2EF1CFEF11C00E4FD23 /* QuizModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5367E2EE1CFEF11C00E4FD23 /* QuizModeView.swift */; };
+		536A00A21EE1D6D600F982A6 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 536A00A01EE1D6D600F982A6 /* HockeySDK.framework */; };
+		536A00A31EE1D6D600F982A6 /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 536A00A11EE1D6D600F982A6 /* HockeySDKResources.bundle */; };
 		537301071CB618D200E76753 /* SubmissionSubjectiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537301061CB618D200E76753 /* SubmissionSubjectiveView.swift */; };
 		537301091CB6227000E76753 /* SubjectiveLeftSideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537301081CB6227000E76753 /* SubjectiveLeftSideView.swift */; };
 		537301111CB62A2B00E76753 /* SubjectiveStudentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537301101CB62A2B00E76753 /* SubjectiveStudentContainer.swift */; };
@@ -1019,6 +1021,8 @@
 		53676D581CA63D7A00CADE4D /* SubTopicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubTopicCell.swift; sourceTree = "<group>"; };
 		5367E2EA1CFEA6D000E4FD23 /* OnewordAnswerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnewordAnswerView.swift; sourceTree = "<group>"; };
 		5367E2EE1CFEF11C00E4FD23 /* QuizModeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuizModeView.swift; sourceTree = "<group>"; };
+		536A00A01EE1D6D600F982A6 /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HockeySDK.framework; sourceTree = "<group>"; };
+		536A00A11EE1D6D600F982A6 /* HockeySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = HockeySDKResources.bundle; sourceTree = "<group>"; };
 		537301061CB618D200E76753 /* SubmissionSubjectiveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmissionSubjectiveView.swift; sourceTree = "<group>"; };
 		537301081CB6227000E76753 /* SubjectiveLeftSideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubjectiveLeftSideView.swift; sourceTree = "<group>"; };
 		537301101CB62A2B00E76753 /* SubjectiveStudentContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubjectiveStudentContainer.swift; sourceTree = "<group>"; };
@@ -1197,6 +1201,7 @@
 				53676D461CA63C8400CADE4D /* libresolv.tbd in Frameworks */,
 				53676D441CA63C7B00CADE4D /* CFNetwork.framework in Frameworks */,
 				53676D421CA63C7300CADE4D /* libxml2.tbd in Frameworks */,
+				536A00A21EE1D6D600F982A6 /* HockeySDK.framework in Frameworks */,
 				53676D401CA63C6900CADE4D /* UIKit.framework in Frameworks */,
 				53676D3E1CA63C6300CADE4D /* Foundation.framework in Frameworks */,
 				53676D3C1CA63C5B00CADE4D /* CoreGraphics.framework in Frameworks */,
@@ -1544,6 +1549,7 @@
 		53676AD81CA63B2000CADE4D = {
 			isa = PBXGroup;
 			children = (
+				536A009F1EE1D6D600F982A6 /* HockeySDK.embeddedframework */,
 				53676D4D1CA63CAB00CADE4D /* Security.framework */,
 				53676D4B1CA63CA300CADE4D /* CoreLocation.framework */,
 				53676D491CA63C9900CADE4D /* SystemConfiguration.framework */,
@@ -2642,6 +2648,16 @@
 			path = TopicsView;
 			sourceTree = "<group>";
 		};
+		536A009F1EE1D6D600F982A6 /* HockeySDK.embeddedframework */ = {
+			isa = PBXGroup;
+			children = (
+				536A00A01EE1D6D600F982A6 /* HockeySDK.framework */,
+				536A00A11EE1D6D600F982A6 /* HockeySDKResources.bundle */,
+			);
+			name = HockeySDK.embeddedframework;
+			path = "HockeySDK-iOS/HockeySDK.embeddedframework";
+			sourceTree = "<group>";
+		};
 		5373011E1CB665E300E76753 /* Drawing */ = {
 			isa = PBXGroup;
 			children = (
@@ -2840,6 +2856,7 @@
 				53676ADD1CA63B2000CADE4D /* Sources */,
 				53676ADE1CA63B2000CADE4D /* Frameworks */,
 				53676ADF1CA63B2000CADE4D /* Resources */,
+				536A009E1EE1D6B800F982A6 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2864,7 +2881,7 @@
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = C744MS63KY;
 						LastSwiftMigration = 0820;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -2998,6 +3015,7 @@
 				5373025A1CB6771200E76753 /* Text_Selected@2x.png in Resources */,
 				537302241CB6771200E76753 /* Marker_Selected_scribble.png in Resources */,
 				530720E11D027F08001C85F6 /* Icon-120.png in Resources */,
+				536A00A31EE1D6D600F982A6 /* HockeySDKResources.bundle in Resources */,
 				5326078F1CA90AEC002FF684 /* indicator2.png in Resources */,
 				53D1C1651CDCAFC40095B1EB /* Edit.png in Resources */,
 				53D252AE1E52DE2400056128 /* IgnoreCollaboration.png in Resources */,
@@ -3083,6 +3101,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		536A009E1EE1D6B800F982A6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "FILE=\"${SRCROOT}/HockeySDK-iOS/BuildAgent\"\nif [ -f \"$FILE\" ]; then\n\"$FILE\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		53676ADD1CA63B2000CADE4D /* Sources */ = {
@@ -3487,12 +3521,13 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: deepak mk (862RK2T33X)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: deepak mk (862RK2T33X)";
-				DEVELOPMENT_TEAM = C744MS63KY;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/LearniatTeacher",
+					"$(PROJECT_DIR)/HockeySDK-iOS/HockeySDK.embeddedframework",
 				);
 				INFOPLIST_FILE = LearniatTeacher/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -3508,8 +3543,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.learniatTeacher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b380fc9e-8574-4d01-89ee-dcdc0240dc28";
-				PROVISIONING_PROFILE_SPECIFIER = "Learniat Teacher Development";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatTeacher/Swift-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
@@ -3522,12 +3557,13 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: deepak mk (862RK2T33X)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: deepak mk (862RK2T33X)";
-				DEVELOPMENT_TEAM = C744MS63KY;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/LearniatTeacher",
+					"$(PROJECT_DIR)/HockeySDK-iOS/HockeySDK.embeddedframework",
 				);
 				INFOPLIST_FILE = LearniatTeacher/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -3543,8 +3579,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.learniatTeacher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b380fc9e-8574-4d01-89ee-dcdc0240dc28";
-				PROVISIONING_PROFILE_SPECIFIER = "Learniat Teacher Development";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatTeacher/Swift-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";

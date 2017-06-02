@@ -35,9 +35,9 @@ xcode-select --install
 fastlane ios test
 ```
 Runs all the tests
-### ios beta
+### ios hockeyBuilding
 ```
-fastlane ios beta
+fastlane ios hockeyBuilding
 ```
 Submit a new Beta Build to Apple TestFlight
 
