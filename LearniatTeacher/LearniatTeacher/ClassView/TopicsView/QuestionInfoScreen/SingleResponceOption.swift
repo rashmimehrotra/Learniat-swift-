@@ -111,7 +111,7 @@ class SingleResponceOption : UIViewController
         
          var height :CGFloat = 44
         var postionYValue:CGFloat = 0
-        if let options = cureentQuestionDetails.object(forKey: "Options")
+        if let options = cureentQuestionDetails.object(forKey: kOptionTagMain)
         {
            if let classCheckingVariable = (options as AnyObject).object(forKey: "Option") as? NSMutableArray
             {
@@ -119,9 +119,9 @@ class SingleResponceOption : UIViewController
                 optionArray = classCheckingVariable
                 
             }
-           else if (((cureentQuestionDetails.object(forKey: "Options")! as AnyObject).object(forKey: "Option")) as? NSMutableDictionary) != nil
+           else if (((cureentQuestionDetails.object(forKey: kOptionTagMain)! as AnyObject).object(forKey: "Option")) as? NSMutableDictionary) != nil
            {
-                optionArray.add((cureentQuestionDetails.object(forKey: "Options")! as AnyObject).object(forKey: "Option")!)
+                optionArray.add((cureentQuestionDetails.object(forKey: kOptionTagMain)! as AnyObject).object(forKey: "Option")!)
             
             }
             

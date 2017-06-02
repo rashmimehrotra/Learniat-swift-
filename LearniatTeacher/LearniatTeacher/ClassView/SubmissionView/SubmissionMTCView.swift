@@ -56,7 +56,7 @@ class SubmissionMTCView: UIView,StudentAnswerGraphViewDelegate
         
         var optionArray = NSMutableArray()
         
-        if let options = _currentQuestionDetials.object(forKey: "Options")
+        if let options = _currentQuestionDetials.object(forKey: kOptionTagMain)
         {
             if let classCheckingVariable = (options as AnyObject).object(forKey: "Option") as? NSMutableArray
             {
@@ -64,7 +64,7 @@ class SubmissionMTCView: UIView,StudentAnswerGraphViewDelegate
             }
             else
             {
-                optionArray.add((_currentQuestionDetials.object(forKey: "Options")! as AnyObject).object(forKey: "Option")!)
+                optionArray.add((_currentQuestionDetials.object(forKey: kOptionTagMain)! as AnyObject).object(forKey: "Option")!)
                 
             }
         }
@@ -126,7 +126,7 @@ class SubmissionMTCView: UIView,StudentAnswerGraphViewDelegate
     {
         
         var studentAnsweOptions = NSMutableArray()
-        if let options = details.object(forKey: "Options")
+        if let options = details.object(forKey: kOptionTagMain)
         {
             if let classCheckingVariable = (options as AnyObject).object(forKey: "Option") as? NSMutableArray
             {
@@ -134,7 +134,7 @@ class SubmissionMTCView: UIView,StudentAnswerGraphViewDelegate
             }
             else
             {
-                studentAnsweOptions.add((details.object(forKey: "Options")! as AnyObject).object(forKey: "Option")!)
+                studentAnsweOptions.add((details.object(forKey: kOptionTagMain)! as AnyObject).object(forKey: "Option")!)
                 
             }
         }

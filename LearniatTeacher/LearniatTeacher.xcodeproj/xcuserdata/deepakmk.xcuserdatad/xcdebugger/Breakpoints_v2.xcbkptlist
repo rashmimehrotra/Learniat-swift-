@@ -51,5 +51,421 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatTeacher/Source/SSTeacherDataSource.swift"
+            timestampString = "514315507.782254"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "574"
+            endingLineNumber = "574"
+            landmarkName = "getStudentsAswerWithAnswerId(_:withDelegate:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatTeacher/Source/SSTeacherDataSource.swift"
+            timestampString = "514315514.521168"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1082"
+            endingLineNumber = "1082"
+            landmarkName = "delegateDidGetServiceResponse(withDetails:wIthServiceName:withRetruningDelegate:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatTeacher/ClassView/StundentDeskView.swift"
+            timestampString = "514315621.844131"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "532"
+            endingLineNumber = "532"
+            landmarkName = "didGetStudentsAnswerWithDetails(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatTeacher/Source/SSTeacherDataSource.swift"
+            timestampString = "514317079.26061"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "330"
+            endingLineNumber = "330"
+            landmarkName = "LoginWithUserId(_:andPassword:withDelegate:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatTeacher/ClassView/SubmissionView/SSTeacherSubmissionView.swift"
+            timestampString = "517163682.020424"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "219"
+            endingLineNumber = "219"
+            landmarkName = "studentAnswerRecievedWIthDetails(_:withStudentDict:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatTeacher/ClassView/SubmissionView/SubmissionMRQView.swift"
+            timestampString = "517163688.947295"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
+            landmarkName = "didgetStudentsAnswerWithDetails(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatTeacher/ClassView/SubmissionView/SubmissionMTCView.swift"
+            timestampString = "517163691.489059"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "didgetStudentsAnswerWithDetails(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatTeacher/ClassView/StudentAnswerOptionsView.swift"
+            timestampString = "517163713.205117"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "199"
+            endingLineNumber = "199"
+            landmarkName = "addOptionsWithAnswerDetails(_:withQuestionDetails:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Learniat_Teacher.StudentAnswerOptionsView.addOptionsWithAnswerDetails (Swift.AnyObject, withQuestionDetails : Swift.AnyObject) -&gt; ()"
+                  moduleName = "Learniat Teacher"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/StudentAnswerOptionsView.swift"
+                  timestampString = "517164344.707306"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "199"
+                  endingLineNumber = "199"
+                  offsetFromSymbolStart = "130">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Learniat_Teacher.StudentAnswerOptionsView.addOptionsWithAnswerDetails (Swift.AnyObject, withQuestionDetails : Swift.AnyObject) -&gt; ()"
+                  moduleName = "Learniat Teacher"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/StudentAnswerOptionsView.swift"
+                  timestampString = "517164344.710592"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "199"
+                  endingLineNumber = "199"
+                  offsetFromSymbolStart = "946">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatTeacher/ClassView/StudentAnswerOptionsView.swift"
+            timestampString = "517163773.555662"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "239"
+            endingLineNumber = "239"
+            landmarkName = "addSingleResponseQuestionAnswerWithDetails(_:withQuestionOptionsArray:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatTeacher/ClassView/StudentAnswerOptionsView.swift"
+            timestampString = "517163783.738775"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "390"
+            endingLineNumber = "390"
+            landmarkName = "addCheckMarksForMultipleResponseWithOptionsDetails(_:withAnswerOptions:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatTeacher/ClassView/StudentAnswerOptionsView.swift"
+            timestampString = "517163796.774057"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "464"
+            endingLineNumber = "464"
+            landmarkName = "addCheckMarksForMultipleResponseWithOptionsDetails(_:withAnswerOptions:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatTeacher/ClassView/TopicsView/QuestionInfoScreen/SingleResponceOptionCell.swift"
+            timestampString = "517163816.568326"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "getHeightWithDetails(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Learniat_Teacher.SingleResponceOptionCell.getHeightWithDetails (Swift.AnyObject) -&gt; CoreGraphics.CGFloat"
+                  moduleName = "Learniat Teacher"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/TopicsView/QuestionInfoScreen/SingleResponceOptionCell.swift"
+                  timestampString = "517164344.734126"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "63"
+                  endingLineNumber = "63"
+                  offsetFromSymbolStart = "1386">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Learniat_Teacher.SingleResponceOptionCell.getHeightWithDetails (Swift.AnyObject) -&gt; CoreGraphics.CGFloat"
+                  moduleName = "Learniat Teacher"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/TopicsView/QuestionInfoScreen/SingleResponceOptionCell.swift"
+                  timestampString = "517164344.737597"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "63"
+                  endingLineNumber = "63"
+                  offsetFromSymbolStart = "2260">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatTeacher/ClassView/TopicsView/QuestionInfoScreen/SingleResponceOptionCell.swift"
+            timestampString = "517163820.291983"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
+            landmarkName = "checkValueOfOPtion(_:withanswerOptionsArray:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Learniat_Teacher.SingleResponceOptionCell.checkValueOfOPtion (Swift.AnyObject, withanswerOptionsArray : __ObjC.NSMutableArray) -&gt; ()"
+                  moduleName = "Learniat Teacher"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/TopicsView/QuestionInfoScreen/SingleResponceOptionCell.swift"
+                  timestampString = "517164344.74408"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "114"
+                  endingLineNumber = "114"
+                  offsetFromSymbolStart = "2106">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Learniat_Teacher.SingleResponceOptionCell.checkValueOfOPtion (Swift.AnyObject, withanswerOptionsArray : __ObjC.NSMutableArray) -&gt; ()"
+                  moduleName = "Learniat Teacher"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/TopicsView/QuestionInfoScreen/SingleResponceOptionCell.swift"
+                  timestampString = "517164344.747247"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "114"
+                  endingLineNumber = "114"
+                  offsetFromSymbolStart = "3047">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatTeacher/ClassView/SubmissionView/GraphView/StudentAnswerGraphView.swift"
+            timestampString = "517163823.611343"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
+            landmarkName = "loadMRQViewWithOPtions(_:withQuestion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatTeacher/ClassView/StudentAnswerOptionsView.swift"
+            timestampString = "517163828.251162"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "341"
+            endingLineNumber = "341"
+            landmarkName = "getOptionsValuesWithOptionsArray(_:withQuestionOptions:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Learniat_Teacher.StudentAnswerOptionsView.getOptionsValuesWithOptionsArray (__ObjC.NSMutableArray, withQuestionOptions : __ObjC.NSMutableArray) -&gt; __ObjC.NSMutableArray"
+                  moduleName = "Learniat Teacher"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/StudentAnswerOptionsView.swift"
+                  timestampString = "517164344.760407"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "341"
+                  endingLineNumber = "341"
+                  offsetFromSymbolStart = "2513">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Learniat_Teacher.StudentAnswerOptionsView.getOptionsValuesWithOptionsArray (__ObjC.NSMutableArray, withQuestionOptions : __ObjC.NSMutableArray) -&gt; __ObjC.NSMutableArray"
+                  moduleName = "Learniat Teacher"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/StudentAnswerOptionsView.swift"
+                  timestampString = "517164344.763727"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "341"
+                  endingLineNumber = "341"
+                  offsetFromSymbolStart = "3574">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatTeacher/ClassView/StudentAnswerOptionsView.swift"
+            timestampString = "517163834.386525"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "368"
+            endingLineNumber = "368"
+            landmarkName = "getOptionsValuesWithOptionsArray(_:withQuestionOptions:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Learniat_Teacher.StudentAnswerOptionsView.getOptionsValuesWithOptionsArray (__ObjC.NSMutableArray, withQuestionOptions : __ObjC.NSMutableArray) -&gt; __ObjC.NSMutableArray"
+                  moduleName = "Learniat Teacher"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/StudentAnswerOptionsView.swift"
+                  timestampString = "517164344.770054"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "368"
+                  endingLineNumber = "368"
+                  offsetFromSymbolStart = "5647">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Learniat_Teacher.StudentAnswerOptionsView.getOptionsValuesWithOptionsArray (__ObjC.NSMutableArray, withQuestionOptions : __ObjC.NSMutableArray) -&gt; __ObjC.NSMutableArray"
+                  moduleName = "Learniat Teacher"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/StudentAnswerOptionsView.swift"
+                  timestampString = "517164344.774312"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "368"
+                  endingLineNumber = "368"
+                  offsetFromSymbolStart = "6669">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

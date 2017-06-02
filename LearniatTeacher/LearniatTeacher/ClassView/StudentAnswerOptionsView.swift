@@ -196,7 +196,7 @@ class StudentAnswerOptionsView: UIView
         _currentQuestionDetials = questionDetails
         var optionArray = NSMutableArray()
         
-        if let options = _currentQuestionDetials.object(forKey: "Options") as? NSMutableDictionary
+        if let options = _currentQuestionDetials.object(forKey: kOptionTagMain) as? NSMutableDictionary
         {
             if let classCheckingVariable = options.object(forKey: "Option") as? NSMutableArray
             {
@@ -237,7 +237,7 @@ class StudentAnswerOptionsView: UIView
     {
         let studentAnsweOption = NSMutableArray()
         
-        if let options = answerDetails.object(forKey: "Options")
+        if let options = answerDetails.object(forKey: kOptionTagMain)
         {
             if let classCheckingVariable = (options as AnyObject).object(forKey: "Option")
             {
@@ -259,7 +259,7 @@ class StudentAnswerOptionsView: UIView
     func addMultipleResponseQuestionAnswerWithDetails(_ answerDetails:AnyObject, withQuestionOptionsArray questionOptions:NSMutableArray)
     {
         var studentAnsweOptions = NSMutableArray()
-        if let options = answerDetails.object(forKey: "Options") as? NSMutableDictionary
+        if let options = answerDetails.object(forKey: kOptionTagMain) as? NSMutableDictionary
         {
             if let classCheckingVariable = options.object(forKey: "Option") as? NSMutableArray
             {
@@ -301,7 +301,7 @@ class StudentAnswerOptionsView: UIView
     {
         
         var studentAnsweOptions = NSMutableArray()
-        if let options = answerOptions.object(forKey: "Options") as? NSMutableDictionary
+        if let options = answerOptions.object(forKey: kOptionTagMain) as? NSMutableDictionary
         {
             if let classCheckingVariable = options.object(forKey: "Option") as? NSMutableArray
             {

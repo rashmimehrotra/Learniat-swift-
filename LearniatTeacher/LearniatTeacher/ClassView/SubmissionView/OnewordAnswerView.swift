@@ -81,7 +81,7 @@ class OnewordAnswerView: UIView
         
         currentOptionsArray.removeAllObjects()
         
-        if let options = details.object(forKey: "Options")
+        if let options = details.object(forKey: kOptionTagMain)
         {
             if let classCheckingVariable = (options as AnyObject).object(forKey: "Option") as? NSMutableArray
             {
@@ -90,7 +90,7 @@ class OnewordAnswerView: UIView
             }
             else
             {
-                currentOptionsArray.add((details.object(forKey: "Options")! as AnyObject).object(forKey: "Option")!)
+                currentOptionsArray.add((details.object(forKey: kOptionTagMain)! as AnyObject).object(forKey: "Option")!)
                 
             }
         }

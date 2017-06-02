@@ -141,7 +141,7 @@ class OneStringGraphView: UIView
         print(details)
         currentOptionsArray.removeAllObjects()
         
-        if let options = details.object(forKey: "Options")
+        if let options = details.object(forKey: kOptionTagMain)
         {
             if let classCheckingVariable = (options as AnyObject).object(forKey: "Option") as? NSMutableArray
             {
@@ -149,7 +149,7 @@ class OneStringGraphView: UIView
             }
             else
             {
-                currentOptionsArray.add((details.object(forKey: "Options")! as AnyObject).object(forKey: "Option")!)
+                currentOptionsArray.add((details.object(forKey: kOptionTagMain)! as AnyObject).object(forKey: "Option")!)
                 
             }
         }

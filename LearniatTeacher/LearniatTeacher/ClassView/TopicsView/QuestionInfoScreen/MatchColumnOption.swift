@@ -119,13 +119,13 @@ class MatchColumnOption : UIViewController
         
         
         
-      if  let classCheckingVariable = (cureentQuestionDetails.object(forKey: "Options")! as AnyObject).object(forKey: "Option") as? NSMutableArray
+      if  let classCheckingVariable = (cureentQuestionDetails.object(forKey: kOptionTagMain)! as AnyObject).object(forKey: "Option") as? NSMutableArray
       {
         optionArray = classCheckingVariable
         }
         else
       {
-        optionArray.add((cureentQuestionDetails.object(forKey: "Options")! as AnyObject).object(forKey: "Option")!)
+        optionArray.add((cureentQuestionDetails.object(forKey: kOptionTagMain)! as AnyObject).object(forKey: "Option")!)
         }
         
        

@@ -95,7 +95,7 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
         
         var optionArray = NSMutableArray()
         
-        if let options = questionDetails.object(forKey: "Options")
+        if let options = questionDetails.object(forKey: kOptionTagMain)
         {
             if let classCheckingVariable = (options as AnyObject).object(forKey: "Option") as? NSMutableArray
             {
@@ -105,7 +105,7 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
             }
             else
             {
-                optionArray.add((questionDetails.object(forKey: "Options")! as AnyObject).object(forKey: "Option")!)
+                optionArray.add((questionDetails.object(forKey: kOptionTagMain)! as AnyObject).object(forKey: "Option")!)
                 
             }
         }
@@ -155,7 +155,7 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
         
         var optionArray = NSMutableArray()
         
-        if let options = questionDetails.object(forKey: "Options")
+        if let options = questionDetails.object(forKey: kOptionTagMain)
         {
             if let classCheckingVariable = (options as AnyObject).object(forKey: "Option") as? NSMutableArray
             {
@@ -166,7 +166,7 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
             }
             else
             {
-                optionArray.add((questionDetails.object(forKey: "Options")! as AnyObject).object(forKey: "Option")!)
+                optionArray.add((questionDetails.object(forKey: kOptionTagMain)! as AnyObject).object(forKey: "Option")!)
                 
             }
         }
@@ -230,13 +230,13 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
         
         
         
-       if let classCheckingVariable = (questionDetails.object(forKey: "Options")! as AnyObject).object(forKey: "Option") as? NSMutableArray
+       if let classCheckingVariable = (questionDetails.object(forKey: kOptionTagMain)! as AnyObject).object(forKey: "Option") as? NSMutableArray
        {
             optionArray = classCheckingVariable
         }
         else
         {
-            optionArray.add((questionDetails.object(forKey: "Options")! as AnyObject).object(forKey: "Option")!)
+            optionArray.add((questionDetails.object(forKey: kOptionTagMain)! as AnyObject).object(forKey: "Option")!)
             
         }
         
