@@ -30,22 +30,14 @@ xcode-select --install
 
 # Available Actions
 ## iOS
-### ios test
-```
-fastlane ios test
-```
-Runs all the tests
-### ios hockeyBuilding
-```
-fastlane ios hockeyBuilding
-```
-Submit a new Beta Build to Apple TestFlight
-
-This will also make sure the profile is up to date
 ### ios release
 ```
 fastlane ios release
 ```
+Submit a new Beta Build to Apple TestFlight
+
+This will also make sure the profile is up to date
+
 Deploy a new version to the App Store
 ### ios build
 ```
@@ -54,6 +46,11 @@ fastlane ios build
 Builds the project and produces an .ipa. Pass in the build_number as a param. Default is 1.
 
 Docs on how to pass in parameters are here: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Advanced.md#passing-parameters
+### ios development
+```
+fastlane ios development
+```
+Builds development target and uploads to HockeyApp
 
 ----
 

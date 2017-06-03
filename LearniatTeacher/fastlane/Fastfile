@@ -63,6 +63,34 @@ platform :ios do
     #   success: false
     # )
   end
+  
+   desc "Builds development target and uploads to HockeyApp"
+        lane :development do
+
+        increment_build_number({
+        build_number: latest_testflight_build_number(
+        app_identifier: "com.mindshiftapps.learniatTeacher"
+        ) + 1
+        })
+
+        gym(
+            configuration: "Release",
+            scheme: "development",
+            silent: true,
+            clean: true,
+            export_method: "ad-hoc"
+        )
+
+        # Push to Hockey
+        markdown_type = 1
+        release_notes = "test hockey app"
+        hockey(
+        api_token:"af160cec3d0c4ec094c9f8a018cc33cf"
+        )
+
+
+        end
+  
 end
 
 

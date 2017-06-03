@@ -22,29 +22,13 @@ platform :ios do
     
   end
 
-  desc "Runs all the tests"
-  lane :test do
-    scan
-  end
+ 
 
   desc "Submit a new Beta Build to Apple TestFlight"
   desc "This will also make sure the profile is up to date"
-  lane :hockeyBuilding do
-    # match(type: "appstore") # more information: https://codesigning.guide
-    gym # Build your app - more options available
-    pilot
-        # Bump build number
-    increment_build_number
-
-
-  hockey(api_token: "ce977544acdf4b57a1ae4cf70b06dd2c")
-
-    # sh "your_script.sh"
-    # You can also use other beta testing services here (run `fastlane actions`)
-  end
-
   desc "Deploy a new version to the App Store"
-  lane :release do
+
+lane :release do
     # match(type: "appstore")
     # snapshot
     gym # Build your app - more options available
@@ -113,6 +97,34 @@ lane :build do |options|
 
 	gym(args)
 end
+
+        desc "Builds development target and uploads to HockeyApp"
+        lane :development do
+
+        increment_build_number({
+        build_number: latest_testflight_build_number(
+        app_identifier: "com.mindshiftapps.LearniatStudent"
+        ) + 1
+        })
+
+        gym(
+            configuration: "Release",
+            scheme: "development",
+            silent: true,
+            clean: true,
+            export_method: "ad-hoc"
+        )
+
+        # Push to Hockey
+        markdown_type = 1
+        release_notes = "test hockey app"
+        hockey(
+        api_token:"82a1413c825d4a2ca4f3bb17a76cb0c2"
+        )
+
+
+        end
+
 
 end
 

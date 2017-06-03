@@ -1,0 +1,11 @@
+git_url "https://deepakMindshiftapps@bitbucket.org/deepakMindshiftapps/matchfiles.git"
+
+type "adhoc" # The default type, can be: appstore, adhoc, enterprise or development
+
+app_identifier "com.mindshiftapps.learniatTeacher"
+username "deepak@mindshiftapps.com"
+
+# username "user@fastlane.tools" # Your Apple Developer Portal username
+
+# For all available options run `fastlane match --help`
+# Remove the # in the beginning of the line to enable the other options
