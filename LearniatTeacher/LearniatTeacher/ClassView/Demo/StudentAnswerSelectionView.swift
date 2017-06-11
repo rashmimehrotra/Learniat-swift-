@@ -59,7 +59,7 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
         _currentQuestionDetails = questionDetails
         _currentStudentDetails = studentDetail
         
-        if let questionType = _currentQuestionDetails.object(forKey: "Type") as? String
+        if let questionType = _currentQuestionDetails.object(forKey: kQuestionType) as? String
         {
             if (questionType == kMCQ)
             {
@@ -125,7 +125,7 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
             {
                 if let StudentId = _currentStudentDetails.object(forKey: "StudentId") as? String
                 {
-                    if let Type = _currentQuestionDetails.object(forKey: "Type") as? String
+                    if let Type = _currentQuestionDetails.object(forKey: kQuestionType) as? String
                     {
                         if SSTeacherDataSource.sharedDataSource.currentQuestionLogId != ""
                         {
@@ -197,7 +197,7 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
             let optionsString = optionSelectedArray.componentsJoined(by: ";;;")
             if let StudentId = _currentStudentDetails.object(forKey: "StudentId") as? String
             {
-                if let Type = _currentQuestionDetails.object(forKey: "Type") as? String
+                if let Type = _currentQuestionDetails.object(forKey: kQuestionType) as? String
                 {
                     if SSTeacherDataSource.sharedDataSource.currentQuestionLogId != ""
                     {
@@ -275,7 +275,7 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
             let optionsString = sequenceArray.componentsJoined(by: ";;;")
             if let StudentId = _currentStudentDetails.object(forKey: "StudentId") as? String
             {
-                if let Type = _currentQuestionDetails.object(forKey: "Type") as? String
+                if let Type = _currentQuestionDetails.object(forKey: kQuestionType) as? String
                 {
                     if SSTeacherDataSource.sharedDataSource.currentQuestionLogId != ""
                     {
@@ -330,7 +330,7 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
                         {
                             if let StudentId = _currentStudentDetails.object(forKey: "StudentId") as? String
                             {
-                                if let Type = _currentQuestionDetails.object(forKey: "Type") as? String
+                                if let Type = _currentQuestionDetails.object(forKey: kQuestionType) as? String
                                 {
                                     if SSTeacherDataSource.sharedDataSource.currentQuestionLogId != ""
                                     {
@@ -388,7 +388,7 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
                         {
                             if let StudentId = _currentStudentDetails.object(forKey: "StudentId") as? String
                             {
-                                if let Type = _currentQuestionDetails.object(forKey: "Type") as? String
+                                if let Type = _currentQuestionDetails.object(forKey: kQuestionType) as? String
                                 {
                                     if SSTeacherDataSource.sharedDataSource.currentQuestionLogId != ""
                                     {

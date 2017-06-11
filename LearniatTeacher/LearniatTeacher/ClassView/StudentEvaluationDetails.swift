@@ -160,7 +160,7 @@ class StudentEvaluationDetails: UIViewController,SSStarRatingViewDelegate
         
         
         
-        if let questionType = _currentQuestiondetails.object(forKey: "Type") as? String
+        if let questionType = _currentQuestiondetails.object(forKey: kQuestionType) as? String
         {
             if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
             {

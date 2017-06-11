@@ -232,7 +232,7 @@ class QuestionCell: UIView
         
         
         
-        if let questionType = details.object(forKey: "Type")as? NSString
+        if let questionType = details.object(forKey: kQuestionType)as? NSString
         {
             if(questionType.isEqual(to: kText))
             {

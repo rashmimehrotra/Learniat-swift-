@@ -253,7 +253,7 @@ class LessonPlanQuestionView: UIView,SSTeacherDataSourceDelegate,UIGestureRecogn
         let buttonPosition :CGPoint = infoButton.convert(CGPoint.zero, to: self)
         
         
-        if let questionType = questionDetails.object(forKey: "Type") as? String
+        if let questionType = questionDetails.object(forKey: kQuestionType) as? String
         {
             if questionType == kOverlayScribble
             {

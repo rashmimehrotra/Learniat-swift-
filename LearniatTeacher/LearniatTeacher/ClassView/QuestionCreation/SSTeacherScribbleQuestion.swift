@@ -715,7 +715,7 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         }
         
         questionDiconary.setObject(mQuestionNametextView.mQuestionTextView.text, forKey: "Name" as NSCopying)
-        questionDiconary.setObject(kOverlayScribble, forKey: "Type" as NSCopying)
+        questionDiconary.setObject(kOverlayScribble, forKey: kQuestionType as NSCopying)
         questionDiconary.setObject("upload/".appending(nameOfImage).appending(".png"), forKey: "Scribble" as NSCopying)
        
         

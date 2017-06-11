@@ -192,7 +192,7 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
         
         noSubmissionLabel.isHidden = true
         
-        if let questionType = mCurrentQuestionDetails.object(forKey: "Type") as? String
+        if let questionType = mCurrentQuestionDetails.object(forKey: kQuestionType) as? String
         {
             
             if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
@@ -230,7 +230,7 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
        
         if mOneStringQuestionView !=  nil
         {            
-            if let questionType = mCurrentQuestionDetails.object(forKey: "Type") as? String
+            if let questionType = mCurrentQuestionDetails.object(forKey: kQuestionType) as? String
             {
                 if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
                 {

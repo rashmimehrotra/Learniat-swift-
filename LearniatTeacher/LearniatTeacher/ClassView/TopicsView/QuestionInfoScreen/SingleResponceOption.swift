@@ -54,7 +54,7 @@ class SingleResponceOption : UIViewController
         
          headerlabel.frame = CGRect(x: 20, y: 0, width: 200, height: 50)
         
-        if let questionType = cureentQuestionDetails.object(forKey: "Type") as? String
+        if let questionType = cureentQuestionDetails.object(forKey: kQuestionType) as? String
         {
             headerlabel.text = questionType
         }

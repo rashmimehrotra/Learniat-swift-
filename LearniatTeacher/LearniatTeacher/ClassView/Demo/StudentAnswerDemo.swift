@@ -86,7 +86,7 @@ class StudentAnswerDemo: UIView,StudentAnswerSelectionViewDelegate
         {
             totalStudentsCount = notLiveStudentsDetails.count - 1
         }
-        if let questionType = questionDetails.object(forKey: "Type") as? String
+        if let questionType = questionDetails.object(forKey: kQuestionType) as? String
         {
             if (questionType == kOverlayScribble || questionType == kFreshScribble )
             {

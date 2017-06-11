@@ -49,6 +49,7 @@ let kMissedValue            = "6"
 
 
 let kOptionTagMain              = "OptionContainer"
+let kQuestionType               = "QuestionType"
 let kOptionTag                  = "Option"
 
 

@@ -107,7 +107,7 @@ class QuizModeView: UIView
         {
             let questionDict  = questionsArray.object(at: index)
             
-            if let questionType = (questionDict as AnyObject).object(forKey: "Type")as? NSString
+            if let questionType = (questionDict as AnyObject).object(forKey: kQuestionType)as? NSString
             {
                 if questionType as String == kMRQ || questionType as String == kMCQ
                 {

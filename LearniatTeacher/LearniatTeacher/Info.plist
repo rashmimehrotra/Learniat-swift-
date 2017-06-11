@@ -19,7 +19,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>4</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -27,6 +27,10 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSLocationUsageDescription</key>
+	<string>Permission required</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Your Permission required</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string></string>
@@ -88,9 +92,5 @@ RobotoCondensed-Regular.ttf</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Your Permission required</string>
-	<key>NSLocationUsageDescription</key>
-	<string>Permission required</string>
 </dict>
 </plist>

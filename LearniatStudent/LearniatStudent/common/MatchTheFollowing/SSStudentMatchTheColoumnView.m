@@ -45,7 +45,7 @@
     mRightSequenceArray =[[NSMutableArray alloc]init];
     
     
-   NSMutableArray* questionArray=[[dict objectForKey:@"Options"] objectForKey:@"Option"];
+   NSMutableArray* questionArray=[[dict objectForKey:@"OptionContainer"] objectForKey:@"Option"];
     
     for (int i=0; i< [questionArray count]; i++)
     {

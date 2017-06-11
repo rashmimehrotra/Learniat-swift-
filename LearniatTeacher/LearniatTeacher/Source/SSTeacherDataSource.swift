@@ -329,7 +329,24 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         manager.downloadDataURL(urlString, withServiceName:kServiceUserLogin, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
+ 
 
+    
+    /*
+    func LoginWithUserId(userId :String , andPassword Password:String, withDelegate Delegate:SSTeacherDataSourceDelegate)
+    {
+        setdelegate(Delegate)
+        
+        
+        let manager = APIManager()
+        let uuidString:String = UIDevice.current.identifierForVendor!.uuidString
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>Login</Service><UserName>%@</UserName><UserPassword>%@</UserPassword><AppVersion>%@</AppVersion><DeviceId>%@</DeviceId><IsTeacher>1</IsTeacher></Action></Sunstone>",URLPrefix,userId, Password,APP_VERSION,uuidString)
+        
+        manager.downloadDataURL(urlString, withServiceName:kServiceUserLogin, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: Delegate)
+    }
+    
+ */
     
     
     func getScheduleOfTeacher(_ delegate:SSTeacherDataSourceDelegate)

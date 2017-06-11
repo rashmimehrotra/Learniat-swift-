@@ -303,7 +303,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         
         if mQuestionStateImage.isHidden == false
         {
-            if let questionType = _currentQuestionDetials.object(forKey: "Type") as? String
+            if let questionType = _currentQuestionDetials.object(forKey: kQuestionType) as? String
             {
                 
                 if (questionType  == kOverlayScribble  || questionType == kFreshScribble || questionType == kText)
@@ -541,7 +541,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
             
         }
         
-        if let questionType = _currentQuestionDetials.object(forKey: "Type") as? String
+        if let questionType = _currentQuestionDetials.object(forKey: kQuestionType) as? String
         {
             
             if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
@@ -614,7 +614,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         
         if currentAnswerState == .answerRecieved
         {
-                if let questionType = _currentQuestionDetials.object(forKey: "Type") as? String
+                if let questionType = _currentQuestionDetials.object(forKey: kQuestionType) as? String
                 {
                     
                     if (questionType  == kOverlayScribble  || questionType == kFreshScribble)

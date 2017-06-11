@@ -299,7 +299,7 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
         
         
         
-        if let questionType = currentQuestionDetails.object(forKey: "Type")as? NSString
+        if let questionType = currentQuestionDetails.object(forKey: kQuestionType)as? NSString
         {
             if(questionType.isEqual(to: kText))
             {
@@ -441,7 +441,7 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
     func onInfoButton()
     {
         
-        if let questionType = currentQuestionDetails.object(forKey: "Type") as? String
+        if let questionType = currentQuestionDetails.object(forKey: kQuestionType) as? String
         {
             if questionType == kOverlayScribble
             {

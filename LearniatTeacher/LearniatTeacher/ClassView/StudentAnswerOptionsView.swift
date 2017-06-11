@@ -211,7 +211,7 @@ class StudentAnswerOptionsView: UIView
         
         
         
-        if let Type = _currentQuestionDetials.object(forKey: "Type") as? String
+        if let Type = _currentQuestionDetials.object(forKey: kQuestionType) as? String
         {
             if Type == kMCQ
             {

@@ -1042,14 +1042,14 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             
             SSTeacherDataSource.sharedDataSource.currentQuestionLogId = QuestionLogId
             
-            if let Type = currentQuestionDetails.object(forKey: "Type") as? String
+            if let Type = currentQuestionDetails.object(forKey: kQuestionType) as? String
             {
                 SSTeacherMessageHandler.sharedMessageHandler.sendQuestionWithRoomName("question_\(currentSessionId)", withQuestionLogId: SSTeacherDataSource.sharedDataSource.currentQuestionLogId, withQuestionType: Type)
                 
                 
                 
                 
-                if let questionType = currentQuestionDetails.object(forKey: "Type") as? String
+                if let questionType = currentQuestionDetails.object(forKey: kQuestionType) as? String
                 {
                     
 //                    print(currentQuestionDetails)
@@ -2236,9 +2236,9 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         if let studentDeskView  = mClassView.viewWithTag(Int(StudentId)!) as? StundentDeskView
         {
            
-            if currentQuestionDetails.object(forKey: "Type") != nil
+            if currentQuestionDetails.object(forKey: kQuestionType) != nil
             {
-                if let questionType = currentQuestionDetails.object(forKey: "Type") as? String
+                if let questionType = currentQuestionDetails.object(forKey: kQuestionType) as? String
                 {
                     
                     if (questionType  == kOverlayScribble  || questionType == kFreshScribble || questionType  == kText)
@@ -2512,9 +2512,9 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                     studentDeskView.setOneStringAnswerWithText(OneStringAnswer)
                     
                     
-                    if currentQuestionDetails.object(forKey: "Type") != nil
+                    if currentQuestionDetails.object(forKey: kQuestionType) != nil
                     {
-                        if let questionType = currentQuestionDetails.object(forKey: "Type") as? String
+                        if let questionType = currentQuestionDetails.object(forKey: kQuestionType) as? String
                         {
                             if questionType == OneString || questionType  == TextAuto
                             {
@@ -2552,7 +2552,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         }
         
         
-        if let _ = currentQuestionDetails.object(forKey: "Type") as? String
+        if let _ = currentQuestionDetails.object(forKey: kQuestionType) as? String
         {
             
             if currentScreen != kSubmissionView
@@ -2594,7 +2594,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         {
             let buttonPosition :CGPoint = studentDeskView.convert(CGPoint.zero, to: self.view)
            
-            if let questionType = currentQuestionDetails.object(forKey: "Type") as? String
+            if let questionType = currentQuestionDetails.object(forKey: kQuestionType) as? String
             {
                 
                 if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
@@ -2671,7 +2671,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         {
             let buttonPosition :CGPoint = studentDeskView.convert(CGPoint.zero, to: self.view)
             
-            if let questionType = currentQuestionDetails.object(forKey: "Type") as? String
+            if let questionType = currentQuestionDetails.object(forKey: kQuestionType) as? String
             {
                 
                 if (questionType  == kOverlayScribble  || questionType == kFreshScribble || questionType == kText)
@@ -2804,7 +2804,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         questionInfoController.setdelegate(self)
         
         
-        if let questionType = currentQuestionDetails.object(forKey: "Type") as? String
+        if let questionType = currentQuestionDetails.object(forKey: kQuestionType) as? String
         {
             
             questionInfoController.AggregateDrillDownWithOptionId(optionId, withQuestionDetails: currentQuestionDetails, withQuestionLogId: SSTeacherDataSource.sharedDataSource.currentQuestionLogId,withQuestionTye:questionType )
