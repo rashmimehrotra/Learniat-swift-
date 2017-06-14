@@ -47,7 +47,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
     
     var mOverlayImageView        = CustomProgressImageView()
     
-    
+    var mAnswerImageView        = UIImageView()
     
    var mEditButton         = UIButton()
     
@@ -162,14 +162,20 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         mContainerView.layer.borderColor = topicsLineColor.cgColor
         mContainerView.layer.borderWidth = 1
         
-//        mEditButton.frame = CGRect(x: mContainerView.frame.origin.x, y: mContainerView.frame.size.height + mContainerView.frame.origin.y, width: mContainerView.frame.size.width, height: 40)
-//        self.addSubview(mEditButton)
-//        mEditButton.setTitle("Edit", for: UIControlState())
-//        mEditButton.setTitleColor(standard_Button, for: UIControlState())
-//         mEditButton.addTarget(self, action: #selector(ScribbleQuestionView.onEditButton), for: UIControlEvents.touchUpInside)
-//        mEditButton.layer.borderColor = topicsLineColor.cgColor
-//        mEditButton.layer.borderWidth = 1
-//        mEditButton.backgroundColor = whiteColor
+        mEditButton.frame = CGRect(x: mContainerView.frame.origin.x, y: mContainerView.frame.origin.y + mContainerView.frame.size.height, width: mContainerView.frame.size.width, height: 50)
+        self.addSubview(mEditButton)
+        mEditButton.setTitle("Tap to answer", for: UIControlState())
+        mEditButton.titleLabel?.font = UIFont (name: helveticaMedium, size: 30)
+        mEditButton.setTitleColor(standard_Button, for: UIControlState())
+         mEditButton.addTarget(self, action: #selector(ScribbleQuestionView.onEditButton), for: UIControlEvents.touchUpInside)
+        mEditButton.layer.borderColor = topicsLineColor.cgColor
+        mEditButton.layer.borderWidth = 1
+        mEditButton.backgroundColor = whiteColor
+        
+        let mFullScreenEditButton = UIButton(frame: CGRect(x: mContainerView.frame.origin.x, y: mContainerView.frame.origin.y, width: mContainerView.frame.size.width, height: mContainerView.frame.size.height))
+        self.addSubview(mFullScreenEditButton)
+         mFullScreenEditButton.addTarget(self, action: #selector(ScribbleQuestionView.onEditButton), for: UIControlEvents.touchUpInside)
+        
         
         
         
@@ -191,13 +197,23 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         
         
         
+        
+        mAnswerImageView.frame = CGRect(x: 0 ,y: 0 , width: mContainerView.frame.size.width ,height: mContainerView.frame.size.height)
+        mContainerView.addSubview(mAnswerImageView)
+        
         mScribbleView = SmoothLineView(frame: CGRect(x: 0,y: 0,width: mContainerView.frame.size.width, height: mContainerView.frame.size.height))
         mScribbleView.delegate = self
-        mContainerView.addSubview(mScribbleView);
-        mScribbleView.isUserInteractionEnabled = true
+//        mContainerView.addSubview(mScribbleView);
+        mScribbleView.isUserInteractionEnabled = false
         mScribbleView.setDrawing(blackTextColor);
         mScribbleView.setBrushWidth(5)
         mScribbleView.setDrawing(kBrushTool)
+        var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
+        if brushSize < 5
+        {
+            brushSize = 5
+        }
+        mScribbleView.setBrushWidth(Int32(brushSize))
         mScribbleView.isHidden = false
 
         
@@ -223,7 +239,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         
         mBottomToolBarImageView = UIImageView(frame: CGRect(x: mContainerView.frame.origin.x, y: mContainerView.frame.origin.y + mContainerView.frame.size.height, width: mContainerView.frame.size.width, height: 60))
         mBottomToolBarImageView.backgroundColor = whiteColor
-        self.addSubview(mBottomToolBarImageView)
+//        self.addSubview(mBottomToolBarImageView)
         mBottomToolBarImageView.isUserInteractionEnabled = true
         
         
@@ -350,6 +366,12 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         m_BrushButton.setImage(UIImage(named:"Marker_Selected.png"), for:UIControlState())
         m_EraserButton.setImage(UIImage(named:"Eraser_Unselected.png"), for:UIControlState())
         mScribbleView.setDrawing(kBrushTool)
+        var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
+        if brushSize < 5
+        {
+            brushSize = 5
+        }
+        mScribbleView.setBrushWidth(Int32(brushSize))
         
         
         
@@ -394,6 +416,8 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         m_BrushButton.setImage(UIImage(named:"Marker_Unselected.png"), for:UIControlState())
         m_EraserButton.setImage(UIImage(named:"Eraser_Selected.png"), for:UIControlState())
         mScribbleView.setDrawing(kEraserTool)
+        let eraserSize = UserDefaults.standard.float(forKey: "selectedEraserSize")
+        mScribbleView.setBrushWidth(Int32(eraserSize))
         
         
         
@@ -413,14 +437,18 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
     
     func onEditButton()
     {
-        if mOverlayImageView.image != nil
+        if mEditButton.isHidden == false
         {
-            delegate().delegateEditButtonPressedWithOverlayImage!(mOverlayImageView.image!)
+            if mOverlayImageView.image != nil
+            {
+                delegate().delegateEditButtonPressedWithOverlayImage!(mOverlayImageView.image!)
+            }
+            else
+            {
+                delegate().delegateEditButtonPressedWithOverlayImage!(UIImage())
+            }
         }
-        else
-        {
-            delegate().delegateEditButtonPressedWithOverlayImage!(UIImage())
-        }
+       
     }
     
     func onWithDrawButton()
@@ -434,16 +462,15 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         sendButtonSpinner.isHidden = true
         sendButtonSpinner.stopAnimating()
         mSendButton.isHidden = false
-        mScribbleView.isUserInteractionEnabled = true
         mBottomToolBarImageView.isHidden = false
         SSStudentMessageHandler.sharedMessageHandler.sendWithDrawMessageToTeacher()
     }
     
     func onSendButton()
     {
-        if mScribbleView.curImage != nil
+        if mAnswerImageView.image != nil
         {
-            mScribbleView.isUserInteractionEnabled = false
+            
             mBottomToolBarImageView.isHidden = true
             let currentDate = Date()
             
@@ -466,7 +493,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
             nameOfImage =  nameOfImage.replacingOccurrences(of: " ", with: "")
             
             
-            imageUploading.uploadImage(with: mScribbleView.curImage, withImageName: nameOfImage, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
+            imageUploading.uploadImage(with: mAnswerImageView.image, withImageName: nameOfImage, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
         }
         
         
@@ -485,7 +512,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         mWithDrawButton.isHidden = true
         SSStudentDataSource.sharedDataSource.answerSent = true
         
-        mScribbleView.isUserInteractionEnabled = false
+        
         mBottomToolBarImageView.isHidden = true
     }
     
@@ -535,7 +562,8 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
     
     func setDrawnImage(_ image:UIImage)
     {
-        
+        mAnswerImageView.image = image
+        mContainerView.bringSubview(toFront: mAnswerImageView) 
     }
     
     
@@ -564,7 +592,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         mEditButton.isHidden = false
         mWithDrawButton.isHidden = true
         
-        mScribbleView.isUserInteractionEnabled = true
+        
         mBottomToolBarImageView.isHidden = false
     }
     

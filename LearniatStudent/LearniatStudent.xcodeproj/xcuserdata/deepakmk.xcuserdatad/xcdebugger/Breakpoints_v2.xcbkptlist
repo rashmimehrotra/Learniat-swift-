@@ -314,7 +314,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatStudent/ClassViewController/StudentClassViewController.swift"
-            timestampString = "519150110.357481"
+            timestampString = "519153244.336424"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "990"
@@ -378,7 +378,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatStudent/ClassViewController/StudentClassViewController.swift"
-            timestampString = "519150110.357481"
+            timestampString = "519153244.336424"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1189"
@@ -394,11 +394,11 @@
                   moduleName = "LearniatStudent"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatStudent/LearniatStudent/ClassViewController/StudentClassViewController.swift"
-                  timestampString = "519147062.875846"
+                  timestampString = "519154046.884191"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1188"
-                  endingLineNumber = "1188"
+                  startingLineNumber = "1189"
+                  endingLineNumber = "1189"
                   offsetFromSymbolStart = "176">
                </Location>
                <Location
@@ -409,11 +409,11 @@
                   moduleName = "LearniatStudent"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatStudent/LearniatStudent/ClassViewController/StudentClassViewController.swift"
-                  timestampString = "519147062.87939"
+                  timestampString = "519154046.887229"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1188"
-                  endingLineNumber = "1188"
+                  startingLineNumber = "1189"
+                  endingLineNumber = "1189"
                   offsetFromSymbolStart = "980">
                </Location>
             </Locations>
@@ -474,12 +474,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatStudent/ClassViewController/StudentClassViewController.swift"
-            timestampString = "519150110.357481"
+            timestampString = "519153244.336424"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "696"
             endingLineNumber = "696"
             landmarkName = "smhDidReciveAuthenticationState(_:WithName:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatStudent/ClassViewController/QuestionViews/StudentQuestionView.swift"
+            timestampString = "519153668.518046"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "475"
+            endingLineNumber = "475"
+            landmarkName = "setFullScreenDrawnImage(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatStudent/ClassViewController/QuestionViews/ScribbleQuestionView.swift"
+            timestampString = "519155421.128537"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "566"
+            endingLineNumber = "566"
+            landmarkName = "setDrawnImage(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

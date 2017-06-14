@@ -35,6 +35,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIApplication.shared.isIdleTimerDisabled = true
         
+         let eraseWidth = UserDefaults.standard.float(forKey: "selectedEraserSize")
+        if eraseWidth < 25
+        {
+            UserDefaults.standard.set(25, forKey: "selectedEraserSize")
+        }
+        
+        
+        let brushWith = UserDefaults.standard.float(forKey: "selectedBrushsize")
+        if brushWith < 8
+        {
+            UserDefaults.standard.set(8, forKey: "selectedBrushsize")
+        }
+        
+        
         
         
         BITHockeyManager.shared().configure(withIdentifier: "2416e4efc85e4c2dab6b12f45e7f0335")

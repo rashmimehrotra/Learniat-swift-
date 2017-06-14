@@ -155,6 +155,12 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         mScribbleView.setDrawing(blackTextColor);
         mScribbleView.setBrushWidth(5)
         mScribbleView.setDrawing(kBrushTool)
+        var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
+        if brushSize < 5
+        {
+            brushSize = 5
+        }
+        mScribbleView.setBrushWidth(Int32(brushSize))
         mScribbleView.isHidden = false
         
         
@@ -354,6 +360,17 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         m_EraserButton.setImage(UIImage(named:"Eraser_Unselected.png"), for:UIControlState())
         mScribbleView.setDrawing(kBrushTool)
         
+        var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
+        if brushSize < 5
+        {
+            brushSize = 5
+        }
+        mScribbleView.setBrushWidth(Int32(brushSize))
+       
+        
+        
+
+        
         
         
         
@@ -398,6 +415,8 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         m_EraserButton.setImage(UIImage(named:"Eraser_Selected.png"), for:UIControlState())
         mScribbleView.setDrawing(kEraserTool)
         
+        let eraserSize = UserDefaults.standard.float(forKey: "selectedEraserSize")
+        mScribbleView.setBrushWidth(Int32(eraserSize))
         
         
         

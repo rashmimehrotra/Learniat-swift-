@@ -110,8 +110,9 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
         /* Add Cancel button target Cancel button should deselect all the selected submissions *defect 142 */
         mCancelButton.frame = CGRect(x: 10 , y: 0, width: 100,  height: mTopbarImageView.frame.size.height);
         mTopbarImageView.addSubview(mCancelButton);
-        mCancelButton.setTitle("Cancel", for:UIControlState());
+        mCancelButton.setTitle("Back", for:UIControlState());
         mCancelButton.setTitleColor(standard_Button, for:UIControlState());
+        
         mCancelButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20);
         mCancelButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
         mCancelButton.addTarget(self, action: #selector(SSStudentFullscreenScribbleQuestion.onCancelButton), for: UIControlEvents.touchUpInside)
@@ -170,6 +171,12 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
         mScribbleView.setDrawing(blackTextColor);
         mScribbleView.setBrushWidth(5)
         mScribbleView.setDrawing(kBrushTool)
+        var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
+        if brushSize < 5
+        {
+            brushSize = 5
+        }
+        mScribbleView.setBrushWidth(Int32(brushSize))
         mScribbleView.isHidden = false
         
         
@@ -210,45 +217,6 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
         m_RedoButton.imageView?.contentMode = .scaleAspectFit
         m_RedoButton.addTarget(self, action: #selector(SSStudentFullscreenScribbleQuestion.onRedoButton), for: UIControlEvents.touchUpInside)
         m_RedoButton.isEnabled = false
-        
-        
-        
-        
-        let  mEquationButton = UIButton(frame: CGRect(x: m_RedoButton.frame.origin.x - 140,  y: bottomtoolSelectedImageView.frame.origin.y,width: 130 ,height: bottomtoolSelectedImageView.frame.size.height))
-        mBottomToolBarImageView.addSubview(mEquationButton)
-        mEquationButton.addTarget(self, action: #selector(SSStudentFullscreenScribbleQuestion.onEquationButton), for: UIControlEvents.touchUpInside)
-        mEquationButton.imageView?.contentMode = .scaleAspectFit
-        mEquationButton.setTitle("Equation", for: UIControlState())
-        mEquationButton.setTitleColor(standard_Button, for: UIControlState())
-         mEquationButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
-        mEquationButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18);
-        
-        let mEquationImage = UIImageView(frame:CGRect(x: 10, y: 10, width: mEquationButton.frame.size.height - 20 ,height: mEquationButton.frame.size.height - 20 ))
-        mEquationImage.image = UIImage(named: "Equation.png")
-        mEquationImage.contentMode = .scaleAspectFit
-        mEquationButton.addSubview(mEquationImage)
-        
-        
-        
-        
-        
-        let  mShapesButton = UIButton(frame: CGRect(x: mEquationButton.frame.origin.x - 120,  y: bottomtoolSelectedImageView.frame.origin.y,width: 110 ,height: bottomtoolSelectedImageView.frame.size.height  ))
-        mBottomToolBarImageView.addSubview(mShapesButton)
-        mShapesButton.addTarget(self, action: #selector(SSStudentFullscreenScribbleQuestion.onShapesButton), for: UIControlEvents.touchUpInside)
-        mShapesButton.imageView?.contentMode = .scaleAspectFit
-        mShapesButton.setTitle("Shapes", for: UIControlState())
-        mShapesButton.setTitleColor(standard_Button, for: UIControlState())
-        mShapesButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
-        mShapesButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
-        
-        let mShapesImage = UIImageView(frame:CGRect(x: 10, y: 10, width: mShapesButton.frame.size.height - 20 ,height: mShapesButton.frame.size.height - 20 ))
-        mShapesImage.image = UIImage(named: "Shapes.png")
-        mShapesImage.contentMode = .scaleAspectFit
-        mShapesButton.addSubview(mShapesImage)
-        
-        
-        
-        
         
         
         
@@ -344,6 +312,12 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
         m_BrushButton.setImage(UIImage(named:"Marker_Selected.png"), for:UIControlState())
         m_EraserButton.setImage(UIImage(named:"Eraser_Unselected.png"), for:UIControlState())
         mScribbleView.setDrawing(kBrushTool)
+        var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
+        if brushSize < 5
+        {
+            brushSize = 5
+        }
+        mScribbleView.setBrushWidth(Int32(brushSize))
         
         
         
@@ -388,6 +362,8 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
         m_BrushButton.setImage(UIImage(named:"Marker_Unselected.png"), for:UIControlState())
         m_EraserButton.setImage(UIImage(named:"Eraser_Selected.png"), for:UIControlState())
         mScribbleView.setDrawing(kEraserTool)
+        let eraserSize = UserDefaults.standard.float(forKey: "selectedEraserSize")
+        mScribbleView.setBrushWidth(Int32(eraserSize))
         
         
         

@@ -265,6 +265,12 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         mScribbleView.setDrawing(standard_Red);
         mScribbleView.setBrushWidth(5)
         mScribbleView.setDrawing(kBrushTool)
+        var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
+        if brushSize < 5
+        {
+            brushSize = 5
+        }
+        mScribbleView.setBrushWidth(Int32(brushSize))
         mScribbleView.isHidden = false
         
         bottomview.frame = CGRect(x: topImageView.frame.origin.x, y: containerview.frame.origin.y + containerview.frame.size.height , width: topImageView.frame.size.width,height: topImageView.frame.size.height)
@@ -683,6 +689,12 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
          m_BrushButton.setImage(UIImage(named:"Marker_Selected.png"), for:UIControlState())
          m_EraserButton.setImage(UIImage(named:"Eraser_Unselected.png"), for:UIControlState())
         mScribbleView.setDrawing(kBrushTool)
+        var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
+        if brushSize < 5
+        {
+            brushSize = 5
+        }
+        mScribbleView.setBrushWidth(Int32(brushSize))
         
         
         
@@ -717,7 +729,6 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
             colorSelectContoller.setPopOver(colorPopoverController);
             
             colorPopoverController.present(from: CGRect(x: buttonPosition.x  + (m_EraserButton.frame.size.width/2),y: buttonPosition.y,width: 1,height: 1), in: self, permittedArrowDirections: .down, animated: true)
-            
         }
         
         
@@ -729,6 +740,8 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         
         mScribbleView.setDrawing(kEraserTool)
         
+        let eraserSize = UserDefaults.standard.float(forKey: "selectedEraserSize")
+        mScribbleView.setBrushWidth(Int32(eraserSize))
         
         
         

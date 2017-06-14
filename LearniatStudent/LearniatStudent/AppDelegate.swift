@@ -38,6 +38,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Do some additional configuration if needed here
         BITHockeyManager.shared().start()
         BITHockeyManager.shared().authenticator.authenticateInstallation()
+        
+        
+        let eraseWidth = UserDefaults.standard.float(forKey: "selectedEraserSize")
+        if eraseWidth < 25
+        {
+            UserDefaults.standard.set(25, forKey: "selectedEraserSize")
+        }
+        
+        
+        let brushWith = UserDefaults.standard.float(forKey: "selectedBrushsize")
+        if brushWith < 8
+        {
+            UserDefaults.standard.set(8, forKey: "selectedBrushsize")
+        }
+        
       
         return true
     }

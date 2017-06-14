@@ -252,6 +252,12 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         mScribbleView.setDrawing(standard_Red);
         mScribbleView.setBrushWidth(5)
         mScribbleView.setDrawing(kBrushTool)
+        var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
+        if brushSize < 5
+        {
+            brushSize = 5
+        }
+        mScribbleView.setBrushWidth(Int32(brushSize))
         mScribbleView.isHidden = false
         
 
@@ -559,6 +565,12 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         m_BrushButton.setImage(UIImage(named:"Marker_Selected.png"), for:UIControlState())
         m_EraserButton.setImage(UIImage(named:"Eraser_Unselected.png"), for:UIControlState())
         mScribbleView.setDrawing(kBrushTool)
+        var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
+        if brushSize < 5
+        {
+            brushSize = 5
+        }
+        mScribbleView.setBrushWidth(Int32(brushSize))
         
         
         
@@ -604,7 +616,8 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         m_EraserButton.setImage(UIImage(named:"Eraser_Selected.png"), for:UIControlState())
         
         mScribbleView.setDrawing(kEraserTool)
-        
+        let eraserSize = UserDefaults.standard.float(forKey: "selectedEraserSize")
+        mScribbleView.setBrushWidth(Int32(eraserSize))
         
         
         

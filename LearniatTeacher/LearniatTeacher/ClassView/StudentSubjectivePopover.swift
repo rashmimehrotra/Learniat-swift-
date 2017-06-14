@@ -238,6 +238,12 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         mScribbleView.setDrawing(standard_Red);
         mScribbleView.setBrushWidth(3)
         mScribbleView.setDrawing(kBrushTool)
+        var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
+        if brushSize < 5
+        {
+            brushSize = 5
+        }
+        mScribbleView.setBrushWidth(Int32(brushSize))
         mScribbleView.isHidden = false
 
         
