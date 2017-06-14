@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatTeacher/ClassView/SSTeacherClassView.swift"
-            timestampString = "513742806.970634"
+            timestampString = "519151483.161492"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2355"
-            endingLineNumber = "2355"
+            startingLineNumber = "2338"
+            endingLineNumber = "2338"
             landmarkName = "smhDidgetStudentPollWithDetails(optionValue:)"
             landmarkType = "7">
          </BreakpointContent>

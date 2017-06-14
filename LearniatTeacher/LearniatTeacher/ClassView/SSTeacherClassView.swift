@@ -1207,24 +1207,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     func didGetSessionUpdatedWithDetials(_ details: AnyObject)
     {
-        
-        
-        
-        
-        SSTeacherMessageHandler.sharedMessageHandler.sendEndSessionMessageToRoom(currentSessionId)
-
-        
-         performSegue(withIdentifier: "ClassViewToSchedule", sender: nil)
-        
-        //        let scheduleScreenView  = TeacherScheduleViewController()
-        SSTeacherDataSource.sharedDataSource.isQuestionSent = false
-        
-        SSTeacherDataSource.sharedDataSource.isSubtopicStarted = false
-        SSTeacherDataSource.sharedDataSource.startedSubTopicId = ""
-        SSTeacherDataSource.sharedDataSource.startedMainTopicId = ""
-        SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.removeAllObjects()
-        SSTeacherDataSource.sharedDataSource.questionsDictonary.removeAllObjects()
-        mStartLabelUpdater.invalidate()
+       
         
 //       self.presentViewController(scheduleScreenView, animated: true, completion: nil)
     }
@@ -3040,6 +3023,24 @@ func delegateAnnotateButtonPressedWithAnswerDetails(_ answerDetails:AnyObject, w
             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(sessionId, WithStatusvalue: "5", WithDelegate: self)
         
         }
+        
+        
+        
+        SSTeacherMessageHandler.sharedMessageHandler.sendEndSessionMessageToRoom(currentSessionId)
+        
+        
+        performSegue(withIdentifier: "ClassViewToSchedule", sender: nil)
+        
+        //        let scheduleScreenView  = TeacherScheduleViewController()
+        SSTeacherDataSource.sharedDataSource.isQuestionSent = false
+        
+        SSTeacherDataSource.sharedDataSource.isSubtopicStarted = false
+        SSTeacherDataSource.sharedDataSource.startedSubTopicId = ""
+        SSTeacherDataSource.sharedDataSource.startedMainTopicId = ""
+        SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.removeAllObjects()
+        SSTeacherDataSource.sharedDataSource.questionsDictonary.removeAllObjects()
+        mStartLabelUpdater.invalidate()
+        
        
     }
     
