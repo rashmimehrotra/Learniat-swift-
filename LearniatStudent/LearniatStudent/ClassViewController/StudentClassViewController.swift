@@ -298,10 +298,6 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateLive, ofSession:(sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
             
         }
-        
-        
-        
-        
     }
 
     

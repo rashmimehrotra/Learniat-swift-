@@ -314,11 +314,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatStudent/ClassViewController/StudentClassViewController.swift"
-            timestampString = "519147569.303412"
+            timestampString = "519150110.357481"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "994"
-            endingLineNumber = "994"
+            startingLineNumber = "990"
+            endingLineNumber = "990"
             landmarkName = "smhdidRecieveQueryVolunteeringEnded()"
             landmarkType = "7">
          </BreakpointContent>
@@ -378,11 +378,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatStudent/ClassViewController/StudentClassViewController.swift"
-            timestampString = "519147569.303412"
+            timestampString = "519150110.357481"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1193"
-            endingLineNumber = "1193"
+            startingLineNumber = "1189"
+            endingLineNumber = "1189"
             landmarkName = "smhDidRecieveSuggestionStatusFromTeacher(_:)"
             landmarkType = "7">
             <Locations>
@@ -474,11 +474,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatStudent/ClassViewController/StudentClassViewController.swift"
-            timestampString = "519147569.303412"
+            timestampString = "519150110.357481"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "700"
-            endingLineNumber = "700"
+            startingLineNumber = "696"
+            endingLineNumber = "696"
             landmarkName = "smhDidReciveAuthenticationState(_:WithName:)"
             landmarkType = "7">
          </BreakpointContent>
