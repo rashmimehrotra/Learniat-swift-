@@ -286,6 +286,11 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         print("App moved to background!")
         
        
+        if SSStudentMessageHandler.sharedMessageHandler.getConnectedState() == false
+        {
+             SSStudentMessageHandler.sharedMessageHandler.performReconnet()
+        }
+        
         SSStudentMessageHandler.sharedMessageHandler.sendStudentBenchStatus(kUserStateLive)
         
         if SSStudentDataSource.sharedDataSource.currentUSerState != kUserStateLive
@@ -673,16 +678,8 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     // MARK: - message handler functions
     
     func smhDidRecieveStreamConnectionsState(_ state: Bool) {
-        if state == false
-        {
-             mstatusImage.backgroundColor = standard_Red
-        }
-        else
-        {
-              mstatusImage.backgroundColor = standard_Green
-        }
-        AppDelegate.sharedDataSource.hideReconnecting()
-        
+       
+         mstatusImage.backgroundColor = standard_Red
     }
     
 
@@ -698,16 +695,24 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     func smhDidReciveAuthenticationState(_ state: Bool, WithName userName: String)
     {
-        if state == true
+        
+        
+        
+        if state == false
         {
-            if SSStudentDataSource.sharedDataSource.currentUSerState != kUserStateLive
-            {
-                SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateLive, ofSession:(sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
-
-            }
+            mstatusImage.backgroundColor = standard_Red
             
-            AppDelegate.sharedDataSource.hideReconnecting()
+            self.view.makeToast("Not Able to Authenticate current user. Plese try again", duration: 0.5, position: .bottom)
         }
+        else
+        {
+            mstatusImage.backgroundColor = standard_Green
+            
+           SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateLive, ofSession:(sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+        }
+        AppDelegate.sharedDataSource.hideReconnecting()
+        
+        
     }
     
     func smhDidgetTimeExtendedWithDetails(_ Details: AnyObject)

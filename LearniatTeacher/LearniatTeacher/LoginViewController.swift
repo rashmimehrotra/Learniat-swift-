@@ -332,7 +332,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSou
         }
        else
         {
-            self.view.makeToast("User id or password is incorrect, please try again. ", duration: 5.0, position: .bottom)
+            self.view.makeToast("User id or password is incorrect in Xmpp server, please try again. ", duration: 5.0, position: .bottom)
             loginButtonPressed(false)
         }
     }

@@ -64,7 +64,7 @@ class PollCompletedView: UIView
         mFullScreenButton.imageView?.contentMode = .scaleAspectFit
         mFullScreenButton.addTarget(self, action: #selector(PollCompletedView.onFullScreenButton), for: UIControlEvents.touchUpInside)
         mFullScreenButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
-        
+        mFullScreenButton.isHidden = true
         
         
         

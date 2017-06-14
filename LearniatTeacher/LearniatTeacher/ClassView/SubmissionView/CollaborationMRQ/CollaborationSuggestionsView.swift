@@ -45,6 +45,8 @@ class CollaborationSuggestionsView: UIView,SSTeacherDataSourceDelegate
     
     var mSavedSuggestionsDetails:AnyObject!
     
+    var selectedCount = 0
+    
     var _delgate: AnyObject!
     
     func setdelegate(_ delegate:AnyObject)
@@ -66,6 +68,9 @@ class CollaborationSuggestionsView: UIView,SSTeacherDataSourceDelegate
         
     }
     
+    
+    
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -85,7 +90,7 @@ class CollaborationSuggestionsView: UIView,SSTeacherDataSourceDelegate
         mAddQuestionButton = UIButton(frame: CGRect(x: mTopbarImageView.frame.size.width - 410,  y: 0, width: 400 ,height: mTopbarImageView.frame.size.height))
         mTopbarImageView.addSubview(mAddQuestionButton)
         mAddQuestionButton.addTarget(self, action: #selector(CollaborationSuggestionsView.onAddQuestion), for: UIControlEvents.touchUpInside)
-        mAddQuestionButton.setTitleColor(standard_Button, for: UIControlState())
+        mAddQuestionButton.setTitleColor(lightGrayColor, for: UIControlState())
         mAddQuestionButton.setTitle("Add Question", for: UIControlState())
         mAddQuestionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         mAddQuestionButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
@@ -200,17 +205,9 @@ class CollaborationSuggestionsView: UIView,SSTeacherDataSourceDelegate
     
     func addSuggestionWithDetails(_ details:AnyObject)
     {
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+       
         let msuggestionCell = CollaborationSuggestionCell(frame: CGRect(x: 10, y: currentYPosition, width: 0, height: 50))
+        msuggestionCell.setdelegate(self)
         
         if currentX + msuggestionCell.SetSuggestionDetails(details).width > self.frame.size.width
         {
@@ -417,6 +414,18 @@ class CollaborationSuggestionsView: UIView,SSTeacherDataSourceDelegate
     func onDismissQuestion()
     {
         getDelegate().delegateCollaborationDismissed!()
+    }
+    
+    func delegateOptionTouched()
+    {
+        if getSelectedSuggestions().selected.count >= 2
+        {
+            mAddQuestionButton.setTitleColor(standard_Button, for: UIControlState())
+        }
+        else
+        {
+            mAddQuestionButton.setTitleColor(lightGrayColor, for: UIControlState())
+        }
     }
     
 }

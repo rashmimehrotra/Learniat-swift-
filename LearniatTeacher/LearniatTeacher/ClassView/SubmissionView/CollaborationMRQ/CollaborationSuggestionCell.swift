@@ -8,6 +8,17 @@
 
 import Foundation
 
+
+
+@objc protocol CollaborationSuggestionCellDelegate
+{
+    
+    @objc optional func delegateOptionTouched()
+    
+    
+}
+
+
 enum collaborationState : Int {
     case selected = 0
     case rejected = 1
@@ -32,6 +43,19 @@ class CollaborationSuggestionCell: UIView
     var mCurrentSelectedState    = collaborationState.ignored
     
     var mSuggestionDetails :AnyObject!
+    
+    var _delgate: AnyObject!
+    
+    func setdelegate(_ delegate:AnyObject)
+    {
+        _delgate = delegate;
+    }
+    
+    func   getDelegate()->AnyObject
+    {
+        return _delgate;
+    }
+
     
     override init(frame: CGRect)
     {
@@ -156,6 +180,19 @@ class CollaborationSuggestionCell: UIView
         mIgnoreButton.isHidden = false
         self.backgroundColor = UIColor(red: 76/255.0, green:217/255.0, blue:100/255.0, alpha: 0.3)
         mCurrentSelectedState    = collaborationState.selected
+        
+        
+        getDelegate().delegateOptionTouched!()
+        
+        
+         if let StudentId = mSuggestionDetails.object(forKey: "studentID") as? String
+         {
+            SSTeacherMessageHandler.sharedMessageHandler.sendCollaborationQuestionStatus(StudentId , withStatus: "29")
+        }
+        
+        
+    
+        
     }
     
     
@@ -167,6 +204,11 @@ class CollaborationSuggestionCell: UIView
         mIgnoreButton.isHidden = false
         self.backgroundColor = UIColor(red: 255/255.0, green:59/255.0, blue:48/255.0, alpha: 0.3)
         mCurrentSelectedState    = collaborationState.rejected
+        
+        if let StudentId = mSuggestionDetails.object(forKey: "studentID") as? String
+        {
+            SSTeacherMessageHandler.sharedMessageHandler.sendCollaborationQuestionStatus(StudentId , withStatus: "28")
+        }
     }
     
     func onIgnoreButtonPressed()
@@ -177,6 +219,14 @@ class CollaborationSuggestionCell: UIView
         mIgnoreButton.isHidden = true
         self.backgroundColor = UIColor.white
         mCurrentSelectedState    = collaborationState.ignored
+        
+        getDelegate().delegateOptionTouched!()
+        
+        if let StudentId = mSuggestionDetails.object(forKey: "studentID") as? String
+        {
+            SSTeacherMessageHandler.sharedMessageHandler.sendCollaborationQuestionStatus(StudentId , withStatus: "27")
+        }
+
     }
     
     

@@ -100,6 +100,13 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
         
         mCurrentQuestionDetails = details
         
+        if mCollaborationMRQView != nil
+        {
+            mCollaborationMRQView.removeFromSuperview()
+            mCollaborationMRQView = nil
+            
+        }
+        
     }
     
     func addMTCQuestionWithDetails(_ details:AnyObject)
@@ -115,6 +122,13 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
         noSubmissionLabel.isHidden = true
         mMTCSubmissionView.isHidden = false
          mCurrentQuestionDetails = details
+        
+        if mCollaborationMRQView != nil
+        {
+            mCollaborationMRQView.removeFromSuperview()
+            mCollaborationMRQView = nil
+            
+        }
     }
     
     
@@ -130,6 +144,12 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
         noSubmissionLabel.isHidden = false
         mScribbleSubmissionView.isHidden = true
         mCurrentQuestionDetails = details
+        if mCollaborationMRQView != nil
+        {
+            mCollaborationMRQView.removeFromSuperview()
+            mCollaborationMRQView = nil
+            
+        }
     }
     
     
@@ -146,6 +166,7 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
             {
                 mOneStringQuestionView.setQuestionName(questionName , withDetails:details )
             }
+            
         }
         
         if mOneWordQuestionView == nil
@@ -168,6 +189,12 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
         noSubmissionLabel.isHidden = true
         mOneStringQuestionView.isHidden = false
         mCurrentQuestionDetails = details
+        if mCollaborationMRQView != nil
+        {
+            mCollaborationMRQView.removeFromSuperview()
+            mCollaborationMRQView = nil
+            
+        }
     }
     
     
@@ -178,6 +205,13 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
 //        noSubmissionLabel.hidden = true
 //        mOneWordQuestionView.hidden = false
 //        mCurrentQuestionDetails = details
+        
+        if mCollaborationMRQView != nil
+        {
+            mCollaborationMRQView.removeFromSuperview()
+            mCollaborationMRQView = nil
+            
+        }
     }
     
     
@@ -274,6 +308,8 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
             if mScribbleSubmissionView.removeStudentAnswerWithStudentId(studentId) <= 0
             {
                 mScribbleSubmissionView.isHidden = true
+                mScribbleSubmissionView.resetAllButtonState()
+                
                 noSubmissionLabel.isHidden = false
             }
             
@@ -342,8 +378,12 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
         if SubmissionCount <= 0
         {
             mScribbleSubmissionView.isHidden = true
+            mScribbleSubmissionView.resetAllButtonState()
             noSubmissionLabel.isHidden = false
         }
+        
+        mScribbleSubmissionView.resetAllButtonState()
+
         
         if delegate().responds(to: #selector(SSTeacherSubmissionViewDelegate.delegateTeacherEvaluatedReplyWithDetails(_:withStudentId:)))
         {

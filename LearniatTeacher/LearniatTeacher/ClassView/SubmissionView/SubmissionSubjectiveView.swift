@@ -413,7 +413,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
                         studentAnswerImage.tag  = Int(studentId)!
                         containerview.addSubview(studentAnswerImage)
                         containerview.bringSubview(toFront: studentAnswerImage)
-                        
+                        mainContainerView.bringSubview(toFront: containerview)
                         
                         let urlString = UserDefaults.standard.object(forKey: k_INI_SCRIBBLE_IMAGE_URL) as! String
                         
@@ -1126,5 +1126,26 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         }
     }
     
+    
+    func resetAllButtonState()
+    {
+        
+        mScribbleView.clearButtonClicked()
+        givenBadgeId = 0
+        givenStarRatings = 0
+        givenTextReply = ""
+        mScribbleView.clearButtonClicked()
+        mStarRatingView.setStarRating(0)
+        m_badgeButton.setImage(UIImage(named:"Cb_Like_Disabled.png"), for:UIControlState());
+        m_textButton.setImage(UIImage(named:"Text_Unselected.png"), for:UIControlState());
+        mMarkModelButton.setImage(UIImage(named:"Mark_Model_Not_Selected.png"), for:UIControlState())
+        isModelAnswerSelected = false
+
+        
+        mSendButton.setTitleColor(lightGrayColor, for:UIControlState());
+        mSendButton.isEnabled = false
+        
+        
+    }
     
 }

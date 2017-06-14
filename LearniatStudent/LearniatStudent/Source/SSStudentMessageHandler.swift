@@ -168,6 +168,11 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
         MessageManager.sharedMessageHandler().setupStream()
     }
     
+    
+    func getConnectedState()->Bool
+    {
+        return MessageManager.sharedMessageHandler().xmppStream.isAuthenticated()
+    }
     //MARK: - Registration Function
     
     func registerStudentWithUserName(_ userName:String , withPassword password:String, withEmailId EmailId:String)
@@ -246,7 +251,8 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
         
         if let password  =  UserDefaults.standard.object(forKey: kPassword) as? String
         {
-            MessageManager.sharedMessageHandler().connect(withUserId: "\(SSStudentDataSource.sharedDataSource.currentUserId)@\(kBaseXMPPURL)", withPassword: password)
+            let connectionUrl = SSStudentDataSource.sharedDataSource.currentUserId.appending("@").appending(kBaseXMPPURL)
+            MessageManager.sharedMessageHandler().connect(withUserId: connectionUrl, withPassword: password)
         }
         
     }
