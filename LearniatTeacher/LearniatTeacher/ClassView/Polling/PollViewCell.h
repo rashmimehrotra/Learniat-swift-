@@ -52,6 +52,8 @@
 
 - (id)   delegate;
 
+- (void) changeButtonStateToNotSelected;
+
 
 @end
 

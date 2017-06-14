@@ -104,6 +104,15 @@ mMainOptionlabel;
     subCellState=state;
 }
 
+- (void) changeButtonStateToNotSelected
+{
+    subCellState = kNotSelected;
+    [mSelectButton setHidden:YES];
+    [mIgnoreButon setHidden:NO];
+    [self setBackgroundColor:[UIColor colorWithRed:235.0/255.0 green:235.0/255.0 blue:235.0/255.0 alpha:1.0]];
+
+}
+
 - (NSString*)getPollSubcellState
 {
     return subCellState;

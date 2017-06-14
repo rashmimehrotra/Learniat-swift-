@@ -109,7 +109,7 @@ end
 
         gym(
             configuration: "Release",
-            scheme: "development",
+            scheme: "Debug",
             silent: true,
             clean: true,
             export_method: "ad-hoc"

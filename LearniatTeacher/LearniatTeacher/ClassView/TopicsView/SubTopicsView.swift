@@ -464,7 +464,15 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
             }
             else
             {
-                self.makeToast("Please stop current topic to start new topic.", duration: 5.0, position: .bottom)
+                if SSTeacherDataSource.sharedDataSource.isQuestionSent
+                {
+                    self.makeToast("A question is live with the previous topic. Please close the question before switching the topic", duration: 5.0, position: .bottom)
+                }
+                else
+                {
+                   self.makeToast("Please stop current topic to start new topic.", duration: 5.0, position: .bottom)
+                }
+                
             }
             
             
@@ -498,8 +506,17 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
     }
     
     
-    func delegateShowAlert() {
-         self.makeToast("Please stop current topic to start new topic.", duration: 3.0, position: .bottom)
+    func delegateShowAlert()
+    {
+        if SSTeacherDataSource.sharedDataSource.isQuestionSent == true
+        {
+             self.makeToast("A question is live with the previous topic. Please close the question before switching the topic", duration: 5.0, position: .bottom)
+        }
+        else
+        {
+            self.makeToast("Please stop current topic to start new topic.", duration: 3.0, position: .bottom)
+        }
+        
     }
     
     func udpateCumulativeTime()

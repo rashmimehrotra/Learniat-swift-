@@ -69,7 +69,7 @@ class PollingCreationView: UIView,PollViewCellDelegate
         mStartButton.setTitleColor(standard_Button, for: UIControlState())
         mStartButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         mStartButton.addTarget(self, action: #selector(PollingCreationView.onSendButton), for: .touchUpInside)
-        
+        mStartButton.isHidden = false
         
     }
     
@@ -110,6 +110,7 @@ class PollingCreationView: UIView,PollViewCellDelegate
             cellView.backgroundColor = pollCellBackgroundColor
             cellView.setdelegate(self);
             cellView.setSelectedState(kNotSelected)
+            cellView.changeButtonStateToNotSelected()
             
             positionXvalue=positionXvalue+cellView.frame.size.width+20;
             switch (index)
@@ -142,6 +143,7 @@ class PollingCreationView: UIView,PollViewCellDelegate
             }
         }
         mLikerScaleScrollView.contentSize = CGSize(width: positionXvalue, height: 0)
+        mStartButton.isHidden = false
 
        
     }
@@ -163,6 +165,9 @@ class PollingCreationView: UIView,PollViewCellDelegate
     {
         if mQuestionTextView.getTextOfCurrentTextView() != ""
         {
+            mStartButton.isHidden = true
+            
+            
             let subViews = mLikerScaleScrollView.subviews.flatMap{ $0 as? PollViewCell }
             for mQuerySubView in subViews
             {
@@ -207,6 +212,7 @@ class PollingCreationView: UIView,PollViewCellDelegate
                 {
                     mQuerySubView.setSelectedState(kNotSelected)
                     mQuerySubView.backgroundColor = pollCellBackgroundColor
+                    mQuerySubView.changeButtonStateToNotSelected()
                 }
 
             }
@@ -227,6 +233,7 @@ class PollingCreationView: UIView,PollViewCellDelegate
                 {
                     mQuerySubView.setSelectedState(kNotSelected)
                     mQuerySubView.backgroundColor = pollCellBackgroundColor
+                     mQuerySubView.changeButtonStateToNotSelected()
                 }
                
             }
