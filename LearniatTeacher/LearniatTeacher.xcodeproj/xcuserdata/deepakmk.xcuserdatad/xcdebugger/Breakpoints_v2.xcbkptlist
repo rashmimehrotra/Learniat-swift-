@@ -17,6 +17,38 @@
             endingLineNumber = "271"
             landmarkName = "endVolunteeringSession()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Learniat_Teacher.SSTeacherVolunteerView.endVolunteeringSession () -&gt; ()"
+                  moduleName = "Learniat Teacher"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/QueryView/SSTeacherVolunteerView.swift"
+                  timestampString = "519555914.589059"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "271"
+                  endingLineNumber = "271"
+                  offsetFromSymbolStart = "1763">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Learniat_Teacher.SSTeacherVolunteerView.endVolunteeringSession () -&gt; ()"
+                  moduleName = "Learniat Teacher"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/QueryView/SSTeacherVolunteerView.swift"
+                  timestampString = "519555914.59336"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "271"
+                  endingLineNumber = "271"
+                  offsetFromSymbolStart = "3125">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -26,13 +58,45 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatTeacher/ClassView/SSTeacherClassView.swift"
-            timestampString = "519151483.161492"
+            timestampString = "519590029.400563"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2338"
-            endingLineNumber = "2338"
+            startingLineNumber = "2355"
+            endingLineNumber = "2355"
             landmarkName = "smhDidgetStudentPollWithDetails(optionValue:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Learniat_Teacher.SSTeacherClassView.smhDidgetStudentPollWithDetails (optionValue : __ObjC.NSMutableDictionary) -&gt; ()"
+                  moduleName = "Learniat Teacher"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/SSTeacherClassView.swift"
+                  timestampString = "519555914.602893"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2339"
+                  endingLineNumber = "2339"
+                  offsetFromSymbolStart = "219">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Learniat_Teacher.SSTeacherClassView.smhDidgetStudentPollWithDetails (optionValue : __ObjC.NSMutableDictionary) -&gt; ()"
+                  moduleName = "Learniat Teacher"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/SSTeacherClassView.swift"
+                  timestampString = "519555914.606608"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "2339"
+                  endingLineNumber = "2339"
+                  offsetFromSymbolStart = "1062">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -170,7 +234,7 @@
                   moduleName = "Learniat Teacher"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/StudentAnswerOptionsView.swift"
-                  timestampString = "519152582.462466"
+                  timestampString = "519555914.677325"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "199"
@@ -185,7 +249,7 @@
                   moduleName = "Learniat Teacher"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/StudentAnswerOptionsView.swift"
-                  timestampString = "519152582.465794"
+                  timestampString = "519555914.683881"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "199"
@@ -266,7 +330,7 @@
                   moduleName = "Learniat Teacher"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/TopicsView/QuestionInfoScreen/SingleResponceOptionCell.swift"
-                  timestampString = "519152582.497666"
+                  timestampString = "519555914.722263"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "63"
@@ -281,7 +345,7 @@
                   moduleName = "Learniat Teacher"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/TopicsView/QuestionInfoScreen/SingleResponceOptionCell.swift"
-                  timestampString = "519152582.501038"
+                  timestampString = "519555914.727043"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "63"
@@ -314,7 +378,7 @@
                   moduleName = "Learniat Teacher"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/TopicsView/QuestionInfoScreen/SingleResponceOptionCell.swift"
-                  timestampString = "519152582.509365"
+                  timestampString = "519555914.739444"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "114"
@@ -329,7 +393,7 @@
                   moduleName = "Learniat Teacher"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/TopicsView/QuestionInfoScreen/SingleResponceOptionCell.swift"
-                  timestampString = "519152582.512718"
+                  timestampString = "519555914.746764"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "114"
@@ -378,7 +442,7 @@
                   moduleName = "Learniat Teacher"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/StudentAnswerOptionsView.swift"
-                  timestampString = "519152582.528094"
+                  timestampString = "519555914.765627"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "341"
@@ -393,7 +457,7 @@
                   moduleName = "Learniat Teacher"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/StudentAnswerOptionsView.swift"
-                  timestampString = "519152582.531475"
+                  timestampString = "519555914.769372"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "341"
@@ -426,7 +490,7 @@
                   moduleName = "Learniat Teacher"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/StudentAnswerOptionsView.swift"
-                  timestampString = "519152582.540941"
+                  timestampString = "519555914.781199"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "368"
@@ -441,7 +505,7 @@
                   moduleName = "Learniat Teacher"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ClassView/StudentAnswerOptionsView.swift"
-                  timestampString = "519152582.546129"
+                  timestampString = "519555914.784406"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "368"
@@ -465,22 +529,6 @@
             endingLineNumber = "330"
             landmarkName = "LoginWithUserId(_:andPassword:withDelegate:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/Source/SSTeacherDataSource.swift"
-            timestampString = "518721075.920568"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "344"
-            endingLineNumber = "344"
-            landmarkName = "SSTeacherDataSource"
-            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -560,22 +608,6 @@
             startingLineNumber = "114"
             endingLineNumber = "114"
             landmarkName = "addOPtionsCells()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatTeacher/Common/API+XMPParser+Internet/API/APIManager.m"
-            timestampString = "518886805.639135"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "217"
-            endingLineNumber = "217"
-            landmarkName = "-connectionDidFinishLoading:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -721,6 +753,54 @@
             endingLineNumber = "37"
             landmarkName = "application(_:didFinishLaunchingWithOptions:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LearniatTeacher/ScheduleScreen/ScheduleDetailView.swift"
+            timestampString = "519555903.233695"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "533"
+            endingLineNumber = "533"
+            landmarkName = "setcurrentViewDetails(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Learniat_Teacher.ScheduleDetailView.setcurrentViewDetails (Swift.AnyObject) -&gt; ()"
+                  moduleName = "Learniat Teacher"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ScheduleScreen/ScheduleDetailView.swift"
+                  timestampString = "519555914.572767"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "536"
+                  endingLineNumber = "536"
+                  offsetFromSymbolStart = "157">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Learniat_Teacher.ScheduleDetailView.setcurrentViewDetails (Swift.AnyObject) -&gt; ()"
+                  moduleName = "Learniat Teacher"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/deepakmk/Learniat-swift-/LearniatTeacher/LearniatTeacher/ScheduleScreen/ScheduleDetailView.swift"
+                  timestampString = "519555914.577276"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "536"
+                  endingLineNumber = "536"
+                  offsetFromSymbolStart = "1001">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -57,6 +57,7 @@ class CustomTextView: UIView,UITextFieldDelegate
         mQuestionTextView.font =  UIFont(name: helveticaRegular, size: 16);
         mQuestionTextView.textAlignment = .left
         mQuestionTextView.minimumFontSize = 0.4
+        UIMenuController.shared.isMenuVisible = false
         
         let mStartButton = UIButton(frame:CGRect(x: 0, y: 0, width: self.frame.size.width,height: self.frame.size.height))
         self.addSubview(mStartButton)

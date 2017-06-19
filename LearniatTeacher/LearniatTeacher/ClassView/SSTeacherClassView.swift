@@ -1209,7 +1209,24 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     {
        
         
-//       self.presentViewController(scheduleScreenView, animated: true, completion: nil)
+        
+        
+        
+        SSTeacherMessageHandler.sharedMessageHandler.sendEndSessionMessageToRoom(currentSessionId)
+        
+        
+        performSegue(withIdentifier: "ClassViewToSchedule", sender: nil)
+        
+        //        let scheduleScreenView  = TeacherScheduleViewController()
+        SSTeacherDataSource.sharedDataSource.isQuestionSent = false
+        
+        SSTeacherDataSource.sharedDataSource.isSubtopicStarted = false
+        SSTeacherDataSource.sharedDataSource.startedSubTopicId = ""
+        SSTeacherDataSource.sharedDataSource.startedMainTopicId = ""
+        SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.removeAllObjects()
+        SSTeacherDataSource.sharedDataSource.questionsDictonary.removeAllObjects()
+        mStartLabelUpdater.invalidate()
+        
     }
     
     func didGetMycurrentSessionWithDetials(_ details: AnyObject)
@@ -3021,26 +3038,10 @@ func delegateAnnotateButtonPressedWithAnswerDetails(_ answerDetails:AnyObject, w
         if let sessionId = (currentSessionDetails.object(forKey: kSessionId)) as? String
         {
             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(sessionId, WithStatusvalue: "5", WithDelegate: self)
+            
+            self.view.isUserInteractionEnabled = false
         
         }
-        
-        
-        
-        SSTeacherMessageHandler.sharedMessageHandler.sendEndSessionMessageToRoom(currentSessionId)
-        
-        
-        performSegue(withIdentifier: "ClassViewToSchedule", sender: nil)
-        
-        //        let scheduleScreenView  = TeacherScheduleViewController()
-        SSTeacherDataSource.sharedDataSource.isQuestionSent = false
-        
-        SSTeacherDataSource.sharedDataSource.isSubtopicStarted = false
-        SSTeacherDataSource.sharedDataSource.startedSubTopicId = ""
-        SSTeacherDataSource.sharedDataSource.startedMainTopicId = ""
-        SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.removeAllObjects()
-        SSTeacherDataSource.sharedDataSource.questionsDictonary.removeAllObjects()
-        mStartLabelUpdater.invalidate()
-        
        
     }
     

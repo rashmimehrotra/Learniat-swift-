@@ -419,7 +419,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
                         studentAnswerImage.tag  = Int(studentId)!
                         containerview.addSubview(studentAnswerImage)
                         containerview.bringSubview(toFront: studentAnswerImage)
-                        mainContainerView.bringSubview(toFront: containerview)
+//                        mainContainerView.bringSubview(toFront: containerview)
                         
                         let urlString = UserDefaults.standard.object(forKey: k_INI_SCRIBBLE_IMAGE_URL) as! String
                         

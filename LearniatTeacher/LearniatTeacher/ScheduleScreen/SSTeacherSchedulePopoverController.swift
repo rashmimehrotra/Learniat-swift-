@@ -34,6 +34,7 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
     
     var timer = Timer()
     
+    var  mEndClassButton = UIButton()
     
     override func viewWillDisappear(_ animated: Bool)
     {
@@ -89,7 +90,7 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
           addNumberOfLinesToScrollView()
         
         
-        let  mEndClassButton = UIButton(frame: CGRect(x: 0, y: _currentScreenSize.height - 50 , width: _currentScreenSize.width, height: 50))
+          mEndClassButton = UIButton(frame: CGRect(x: 0, y: _currentScreenSize.height - 50 , width: _currentScreenSize.width, height: 50))
         mEndClassButton.addTarget(self, action: #selector(SSTeacherSchedulePopoverController.onEndSession), for: UIControlEvents.touchUpInside)
         mEndClassButton.setTitleColor(standard_Red, for: UIControlState())
         mEndClassButton.setTitle("End class", for: UIControlState())
@@ -216,13 +217,19 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
     
     func onEndSession()
     {
-       popover().dismiss(animated: true)
-        
         if delegate().responds(to: #selector(SSTeacherSchedulePopoverControllerDelegate.delegateSessionEnded))
         {
             delegate().delegateSessionEnded!()
+            
+            mEndClassButton.setTitleColor(lightGrayColor, for: UIControlState())
+            mEndClassButton.setTitle("Ending session, Please wait", for: UIControlState())
+            mEndClassButton.isUserInteractionEnabled = false
+            self.view.isUserInteractionEnabled = false 
+            
         }
     }
+    
+    
     
     func timerAction()
     {
