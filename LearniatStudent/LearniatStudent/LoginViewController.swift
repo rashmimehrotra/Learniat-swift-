@@ -233,11 +233,11 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSStudentDataSou
         {
             if status == kSuccessString
             {
-                if let currentUserid = details.object(forKey: kUserId) as? String
+                if let currentUserid = details.object(forKey: kUserId) as? Int
                 {
-                    SSStudentDataSource.sharedDataSource.currentUserId = currentUserid
+                    SSStudentDataSource.sharedDataSource.currentUserId = "\(currentUserid)"
                     UserDefaults.standard.set(currentUserid, forKey: kUserId)
-                    SSStudentMessageHandler.sharedMessageHandler.connectWithUserId(currentUserid, andWithPassword: mPassword.text!, withDelegate: self)
+                    SSStudentMessageHandler.sharedMessageHandler.connectWithUserId("\(currentUserid)", andWithPassword: mPassword.text!, withDelegate: self)
                 }
                 if let currentSchoolId = details.object(forKey: kSchoolId) as? String
                 {
@@ -282,6 +282,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSStudentDataSou
                 onLoginButton(mLoginButton)
             }
             
+            
         }
         else
         {
@@ -316,7 +317,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSStudentDataSou
             UserDefaults.standard.set(mUserName.text!, forKey: kUserName)
             UserDefaults.standard.set(mPassword.text!, forKey: kPassword)
             
-            SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateFree, ofSession: "", withDelegate: self)
+            SSStudentDataSource.sharedDataSource.updateStudentStatus(UserState.Free.rawValue, ofSession: "", withDelegate: self)
             
             performSegue(withIdentifier: "LoginSuccessSegue", sender: nil)
         }

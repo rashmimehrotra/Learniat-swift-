@@ -1,0 +1,6 @@
+framework module Pods_Learniat_Teacher {
+  umbrella header "Pods-Learniat Teacher-umbrella.h"
+
+  export *
+  module * { export * }
+}

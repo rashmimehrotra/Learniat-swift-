@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		172D7126C53BA6D5181A000F /* Pods_Learniat_Teacher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B4B751E33157602F99CFF41 /* Pods_Learniat_Teacher.framework */; };
 		4D0A7FC81CCF783B001AA119 /* StudentAnswerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0A7FC71CCF783B001AA119 /* StudentAnswerDemo.swift */; };
 		4D0A7FCA1CCF79C6001AA119 /* StudentAnswerSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0A7FC91CCF79C6001AA119 /* StudentAnswerSelectionView.swift */; };
 		4D2A93201CC0C4A9007A1D41 /* SetupClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2A931D1CC0C4A9007A1D41 /* SetupClassCell.swift */; };
@@ -488,6 +489,9 @@
 		53E5BBAB1CAE3B7D00358ED8 /* StudentThinking.png in Resources */ = {isa = PBXBuildFile; fileRef = 53E5BBA81CAE3B7D00358ED8 /* StudentThinking.png */; };
 		53E5BBAC1CAE3B7D00358ED8 /* StudentWriting.png in Resources */ = {isa = PBXBuildFile; fileRef = 53E5BBA91CAE3B7D00358ED8 /* StudentWriting.png */; };
 		53E5BBAE1CAE80F400358ED8 /* StudentAnswerOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E5BBAD1CAE80F400358ED8 /* StudentAnswerOptionsView.swift */; };
+		53E658E61F066E7C00EAB2E4 /* ApiResponseLogging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E658E31F066E7C00EAB2E4 /* ApiResponseLogging.swift */; };
+		53E658E71F066E7C00EAB2E4 /* WebServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E658E41F066E7C00EAB2E4 /* WebServiceManager.swift */; };
+		53E658E81F066E7C00EAB2E4 /* WebServicesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E658E51F066E7C00EAB2E4 /* WebServicesAPI.swift */; };
 		53FC04371CAF8C4200D7B941 /* SSTeacherSubmissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FC04361CAF8C4200D7B941 /* SSTeacherSubmissionView.swift */; };
 		53FC04391CAF8CBC00D7B941 /* SSTeacherQueryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FC04381CAF8CBC00D7B941 /* SSTeacherQueryView.swift */; };
 		53FC04421CAFAE1700D7B941 /* StudentAnswerGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FC04411CAFAE1700D7B941 /* StudentAnswerGraphView.swift */; };
@@ -495,6 +499,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B4B751E33157602F99CFF41 /* Pods_Learniat_Teacher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Learniat_Teacher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D0A7FC71CCF783B001AA119 /* StudentAnswerDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerDemo.swift; sourceTree = "<group>"; };
 		4D0A7FC91CCF79C6001AA119 /* StudentAnswerSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerSelectionView.swift; sourceTree = "<group>"; };
 		4D2A931D1CC0C4A9007A1D41 /* SetupClassCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetupClassCell.swift; sourceTree = "<group>"; };
@@ -1182,10 +1187,15 @@
 		53E5BBA81CAE3B7D00358ED8 /* StudentThinking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StudentThinking.png; sourceTree = "<group>"; };
 		53E5BBA91CAE3B7D00358ED8 /* StudentWriting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StudentWriting.png; sourceTree = "<group>"; };
 		53E5BBAD1CAE80F400358ED8 /* StudentAnswerOptionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerOptionsView.swift; sourceTree = "<group>"; };
+		53E658E31F066E7C00EAB2E4 /* ApiResponseLogging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiResponseLogging.swift; sourceTree = "<group>"; };
+		53E658E41F066E7C00EAB2E4 /* WebServiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServiceManager.swift; sourceTree = "<group>"; };
+		53E658E51F066E7C00EAB2E4 /* WebServicesAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServicesAPI.swift; sourceTree = "<group>"; };
 		53FC04361CAF8C4200D7B941 /* SSTeacherSubmissionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSTeacherSubmissionView.swift; sourceTree = "<group>"; };
 		53FC04381CAF8CBC00D7B941 /* SSTeacherQueryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSTeacherQueryView.swift; sourceTree = "<group>"; };
 		53FC04411CAFAE1700D7B941 /* StudentAnswerGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerGraphView.swift; sourceTree = "<group>"; };
 		53FC04431CAFAE2100D7B941 /* BarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
+		687F2D0C68E715964B861326 /* Pods-Learniat Teacher.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Learniat Teacher.release.xcconfig"; path = "Pods/Target Support Files/Pods-Learniat Teacher/Pods-Learniat Teacher.release.xcconfig"; sourceTree = "<group>"; };
+		799FF32578B62CCC9786815B /* Pods-Learniat Teacher.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Learniat Teacher.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Learniat Teacher/Pods-Learniat Teacher.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1205,12 +1215,22 @@
 				53676D401CA63C6900CADE4D /* UIKit.framework in Frameworks */,
 				53676D3E1CA63C6300CADE4D /* Foundation.framework in Frameworks */,
 				53676D3C1CA63C5B00CADE4D /* CoreGraphics.framework in Frameworks */,
+				172D7126C53BA6D5181A000F /* Pods_Learniat_Teacher.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3858849BC0FEF611419F5D58 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				799FF32578B62CCC9786815B /* Pods-Learniat Teacher.debug.xcconfig */,
+				687F2D0C68E715964B861326 /* Pods-Learniat Teacher.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		4D0A7FC61CCF7822001AA119 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
@@ -1563,6 +1583,8 @@
 				53676AE31CA63B2000CADE4D /* LearniatTeacher */,
 				53676AE21CA63B2000CADE4D /* Products */,
 				53D90E011D5DB1EB0096F2AF /* ReadMe */,
+				3858849BC0FEF611419F5D58 /* Pods */,
+				61879604B469D911F7E19B60 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2599,6 +2621,9 @@
 		53676C921CA63B7F00CADE4D /* Main Source */ = {
 			isa = PBXGroup;
 			children = (
+				53E658E31F066E7C00EAB2E4 /* ApiResponseLogging.swift */,
+				53E658E41F066E7C00EAB2E4 /* WebServiceManager.swift */,
+				53E658E51F066E7C00EAB2E4 /* WebServicesAPI.swift */,
 				53676C931CA63B7F00CADE4D /* SSTeacherDataSource.swift */,
 				53676C941CA63B7F00CADE4D /* SSTeacherMessageHandler.swift */,
 			);
@@ -2846,6 +2871,14 @@
 			path = GraphView;
 			sourceTree = "<group>";
 		};
+		61879604B469D911F7E19B60 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0B4B751E33157602F99CFF41 /* Pods_Learniat_Teacher.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2853,10 +2886,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 53676AF31CA63B2300CADE4D /* Build configuration list for PBXNativeTarget "Learniat Teacher" */;
 			buildPhases = (
+				D3A5CE81CF5DEC33F86F7855 /* [CP] Check Pods Manifest.lock */,
 				53676ADD1CA63B2000CADE4D /* Sources */,
 				53676ADE1CA63B2000CADE4D /* Frameworks */,
 				53676ADF1CA63B2000CADE4D /* Resources */,
 				536A009E1EE1D6B800F982A6 /* ShellScript */,
+				8E8DD0C4A1F594EE60ED3B05 /* [CP] Embed Pods Frameworks */,
+				95CF76DBA3DCEE5AFF20428E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -3116,6 +3152,51 @@
 			shellPath = /bin/sh;
 			shellScript = "FILE=\"${SRCROOT}/HockeySDK-iOS/BuildAgent\"\nif [ -f \"$FILE\" ]; then\n\"$FILE\"\nfi";
 		};
+		8E8DD0C4A1F594EE60ED3B05 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Learniat Teacher/Pods-Learniat Teacher-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		95CF76DBA3DCEE5AFF20428E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Learniat Teacher/Pods-Learniat Teacher-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D3A5CE81CF5DEC33F86F7855 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -3160,6 +3241,7 @@
 				53015BA31CE5A53300BB366C /* PNBar.m in Sources */,
 				53676D591CA63D7A00CADE4D /* SSTeacherClassView.swift in Sources */,
 				53676CEC1CA63B7F00CADE4D /* XMPPMessage+XEP_0066.m in Sources */,
+				53E658E61F066E7C00EAB2E4 /* ApiResponseLogging.swift in Sources */,
 				4DC246511CC1F6B500E01CA4 /* RatingsPopOverViewController.m in Sources */,
 				53676CD71CA63B7F00CADE4D /* XMPPMUC.m in Sources */,
 				533063F61CC88F590035CCDE /* SSTeacherScribbleQuestion.swift in Sources */,
@@ -3225,6 +3307,7 @@
 				53676CB01CA63B7F00CADE4D /* XMPPJID.m in Sources */,
 				53676CCA1CA63B7F00CADE4D /* XMPPPrivacy.m in Sources */,
 				53909C671CBB58FF00E8A1C0 /* QuerySubview.swift in Sources */,
+				53E658E81F066E7C00EAB2E4 /* WebServicesAPI.swift in Sources */,
 				53CA5A221CB230BB008C42B0 /* MRQAggregateView.swift in Sources */,
 				537301071CB618D200E76753 /* SubmissionSubjectiveView.swift in Sources */,
 				53576E8D1CD72AC2003AB9C9 /* StudentPollingView.swift in Sources */,
@@ -3394,6 +3477,7 @@
 				53676D211CA63B7F00CADE4D /* DDFileLogger.m in Sources */,
 				537301281CB665E300E76753 /* UIImage-Extensions.m in Sources */,
 				53676CA91CA63B7F00CADE4D /* XMPPXFacebookPlatformAuthentication.m in Sources */,
+				53E658E71F066E7C00EAB2E4 /* WebServiceManager.swift in Sources */,
 				53460C311CD1E52900076F85 /* SSTeacherPollView.swift in Sources */,
 				53676CDB1CA63B7F00CADE4D /* XMPPvCardCoreDataStorage.m in Sources */,
 				53676D1E1CA63B7F00CADE4D /* GCDAsyncSocket.m in Sources */,
@@ -3517,6 +3601,7 @@
 		};
 		53676AF41CA63B2300CADE4D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 799FF32578B62CCC9786815B /* Pods-Learniat Teacher.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -3553,6 +3638,7 @@
 		};
 		53676AF51CA63B2300CADE4D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 687F2D0C68E715964B861326 /* Pods-Learniat Teacher.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;

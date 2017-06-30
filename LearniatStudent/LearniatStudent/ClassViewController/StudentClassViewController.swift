@@ -272,10 +272,10 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     {
         print("App moved to background!")
         
-         SSStudentMessageHandler.sharedMessageHandler.sendStudentBenchStatus(kUserStateBackGround)
-        if SSStudentDataSource.sharedDataSource.currentUSerState != kUserStateBackGround
+         SSStudentMessageHandler.sharedMessageHandler.sendStudentBenchStatus(.BackGround)
+        if SSStudentDataSource.sharedDataSource.currentUSerState != UserState.BackGround
         {
-             SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateBackGround, ofSession:(sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+             SSStudentDataSource.sharedDataSource.updateStudentStatus(UserState.BackGround.rawValue, ofSession:(sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
         }
        
         
@@ -291,11 +291,11 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
              SSStudentMessageHandler.sharedMessageHandler.performReconnet()
         }
         
-        SSStudentMessageHandler.sharedMessageHandler.sendStudentBenchStatus(kUserStateLive)
+        SSStudentMessageHandler.sharedMessageHandler.sendStudentBenchStatus(.Live)
         
-        if SSStudentDataSource.sharedDataSource.currentUSerState != kUserStateLive
+        if SSStudentDataSource.sharedDataSource.currentUSerState != UserState.Live
         {
-            SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateLive, ofSession:(sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+            SSStudentDataSource.sharedDataSource.updateStudentStatus(UserState.Live.rawValue, ofSession:(sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
             
         }
     }
@@ -409,9 +409,9 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                 classStartedView.isHidden = false
                 if let sessionId = sessionDetails.object(forKey: kSessionId) as? String
                 {
-                    if SSStudentDataSource.sharedDataSource.currentUSerState != kUserStateLive
+                    if SSStudentDataSource.sharedDataSource.currentUSerState != UserState.Live
                     {
-                        SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateLive, ofSession: sessionId, withDelegate: self)
+                        SSStudentDataSource.sharedDataSource.updateStudentStatus(UserState.Live.rawValue, ofSession: sessionId, withDelegate: self)
                     }
                     
                 }
@@ -433,10 +433,10 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                  classStartedView.isHidden = true
                 if let sessionId = sessionDetails.object(forKey: kSessionId) as? String
                 {
-                    if SSStudentDataSource.sharedDataSource.currentUSerState != kUserOccupied
+                    if SSStudentDataSource.sharedDataSource.currentUSerState != UserState.Occupied
                     {
 
-                        SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserOccupied, ofSession: sessionId, withDelegate: self)
+                        SSStudentDataSource.sharedDataSource.updateStudentStatus(UserState.Occupied.rawValue, ofSession: sessionId, withDelegate: self)
                     }
                 }
 
@@ -487,7 +487,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         
         SSStudentMessageHandler.sharedMessageHandler.sendStudentBenchStatus(SSStudentDataSource.sharedDataSource.currentUSerState)
         
-        if SSStudentDataSource.sharedDataSource.currentUSerState == kUserStateFree
+        if SSStudentDataSource.sharedDataSource.currentUSerState == UserState.Free
         {
             
             let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -556,9 +556,9 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     func delegateSessionEnded()
     {
-        if SSStudentDataSource.sharedDataSource.currentUSerState != kUserStateFree
+        if SSStudentDataSource.sharedDataSource.currentUSerState != UserState.Free
         {
-            SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateFree, ofSession: (sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+            SSStudentDataSource.sharedDataSource.updateStudentStatus(UserState.Free.rawValue, ofSession: (sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
             startedTimeUpdatingTimer.invalidate()
 
         }
@@ -704,7 +704,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         {
             mstatusImage.backgroundColor = standard_Green
             
-           SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateLive, ofSession:(sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+           SSStudentDataSource.sharedDataSource.updateStudentStatus(UserState.Live.rawValue, ofSession:(sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
         }
         AppDelegate.sharedDataSource.hideReconnecting()
         
@@ -734,9 +734,9 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     func smhDidGetSessionEndMessageWithDetails(_ details: AnyObject)
     {
-        if SSStudentDataSource.sharedDataSource.currentUSerState != kUserStateFree
+        if SSStudentDataSource.sharedDataSource.currentUSerState != UserState.Free
         {
-            SSStudentDataSource.sharedDataSource.updateStudentStatus(kUserStateFree, ofSession: (sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+            SSStudentDataSource.sharedDataSource.updateStudentStatus(UserState.Free.rawValue, ofSession: (sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
         }
         
         
@@ -1206,7 +1206,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     func showAlertWithMessage(_ message:String)
     {
         
-        if SSStudentDataSource.sharedDataSource.currentUSerState == kUserStateLive || SSStudentDataSource.sharedDataSource.currentUSerState == kUserStateBackGround
+        if SSStudentDataSource.sharedDataSource.currentUSerState == UserState.Live || SSStudentDataSource.sharedDataSource.currentUSerState == UserState.BackGround
         {
             
             if questionAcceptAlert.isVisible == true{

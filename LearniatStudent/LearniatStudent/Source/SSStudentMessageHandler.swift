@@ -336,7 +336,7 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
     
     
     
-    func sendStudentBenchStatus( _ status:String)
+    func sendStudentBenchStatus( _ status:UserState)
     {
         
         
@@ -347,7 +347,7 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
             let teacherID           = SSStudentDataSource.sharedDataSource.currentTeacherId
             
             
-            let messageBody = [kBenchState:status]
+            let messageBody = [kBenchState:status.rawValue]
             
             
             

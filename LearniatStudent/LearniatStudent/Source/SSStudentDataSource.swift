@@ -24,14 +24,6 @@ let kErrorMessage               = "error_message"
 
 
 
-let     kUserStateLive          =  "1"
-let     kUserStateBackGround    =  "11"
-let     kUserStateFree          =  "7"
-let     kuserStateSignedOut     =  "8"
-let     kUserOccupied           =  "10"
-
-
-
 
 let URLPrefix                       =   "http://54.251.104.13/Jupiter/sun.php?api="
 
@@ -137,7 +129,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
     
     var currentSchoolId     :String!
     
-    var currentUSerState    :String!
+    var currentUSerState    :UserState!
     
     var currentUserName     :String     = String()
     
@@ -232,7 +224,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
     func  updateStudentStatus(_ status:String, ofSession sessionId:String, withDelegate  delegate:SSStudentDataSourceDelegate)
     {
 
-        currentUSerState = status
+        currentUSerState = UserState(rawValue: status)
         
         let manager = APIManager()
         

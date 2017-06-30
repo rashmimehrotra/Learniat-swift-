@@ -320,6 +320,20 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
 
         
         
+        WebServicesAPI().getRequest(fromUrl: "http://54.251.104.13:8000/login?app_id=3&user_name=\(userId)&pass=\(Password)", details: nil, success: { (result) in
+            if (delegate as AnyObject).responds(to: #selector(SSTeacherDataSourceDelegate.didGetloginWithDetails(_:)))
+            {
+                delegate.didGetloginWithDetails!(result as AnyObject)
+            }
+            
+        }) { (error) in
+            
+            delegate.didGetloginWithDetails!(NSMutableDictionary())
+        }
+        
+        
+        
+        /*
         let manager = APIManager()
         let uuidString:String = UIDevice.current.identifierForVendor!.uuidString
         
@@ -328,6 +342,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         let urlString = String(format: "%@<Sunstone><Action><Service>Login</Service><UserName>%@</UserName><UserPassword>%@</UserPassword><AppVersion>%@</AppVersion><UUID>%@</UUID><AppId>1</AppId><Latitude>-27.96310183</Latitude><Longitude>153.41311552</Longitude></Action></Sunstone>",URLPrefix,userId, Password,APP_VERSION,uuidString)
         
         manager.downloadDataURL(urlString, withServiceName:kServiceUserLogin, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
+ */
     }
  
 

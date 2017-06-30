@@ -381,6 +381,7 @@
 		53E658D91F06380A00EAB2E4 /* WebServicesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E658D81F06380A00EAB2E4 /* WebServicesAPI.swift */; };
 		53E658DB1F06397300EAB2E4 /* WebServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E658DA1F06397300EAB2E4 /* WebServiceManager.swift */; };
 		53E658DD1F063A5400EAB2E4 /* ApiResponseLogging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E658DC1F063A5400EAB2E4 /* ApiResponseLogging.swift */; };
+		53E658E01F064CA700EAB2E4 /* Enumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E658DF1F064CA700EAB2E4 /* Enumerations.swift */; };
 		53EA248C1D4C77DB0046C8B4 /* Icon-83.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 53EA248A1D4C77DB0046C8B4 /* Icon-83.5.png */; };
 		53EA248D1D4C77DB0046C8B4 /* Icon-83.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53EA248B1D4C77DB0046C8B4 /* Icon-83.5@2x.png */; };
 		53EEABF31CED9B2D005E4566 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EEABF11CED9B2D005E4566 /* BarView.swift */; };
@@ -950,6 +951,7 @@
 		53E658D81F06380A00EAB2E4 /* WebServicesAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServicesAPI.swift; sourceTree = "<group>"; };
 		53E658DA1F06397300EAB2E4 /* WebServiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServiceManager.swift; sourceTree = "<group>"; };
 		53E658DC1F063A5400EAB2E4 /* ApiResponseLogging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiResponseLogging.swift; sourceTree = "<group>"; };
+		53E658DF1F064CA700EAB2E4 /* Enumerations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enumerations.swift; sourceTree = "<group>"; };
 		53EA248A1D4C77DB0046C8B4 /* Icon-83.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-83.5.png"; sourceTree = "<group>"; };
 		53EA248B1D4C77DB0046C8B4 /* Icon-83.5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-83.5@2x.png"; sourceTree = "<group>"; };
 		53EEABF11CED9B2D005E4566 /* BarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
@@ -1097,6 +1099,7 @@
 		5330646B1CC9DAAE0035CCDE /* LearniatStudent */ = {
 			isa = PBXGroup;
 			children = (
+				53E658DE1F064C9100EAB2E4 /* Helpers */,
 				533064A71CC9E52E0035CCDE /* common */,
 				5330646C1CC9DAAE0035CCDE /* AppDelegate.swift */,
 				5330647E1CC9E2FC0035CCDE /* INILoader.swift */,
@@ -2352,6 +2355,14 @@
 			path = AnimationIMage;
 			sourceTree = "<group>";
 		};
+		53E658DE1F064C9100EAB2E4 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				53E658DF1F064CA700EAB2E4 /* Enumerations.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		53EEABF01CED9B2D005E4566 /* GraphView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2802,6 +2813,7 @@
 				533064BF1CC9E52E0035CCDE /* APIManager.m in Sources */,
 				53A482B51CE31B1A00C90451 /* SSStudentMatchTheColoumnView.m in Sources */,
 				5330669A1CC9E5F40035CCDE /* XMPPStreamManagementMemoryStorage.m in Sources */,
+				53E658E01F064CA700EAB2E4 /* Enumerations.swift in Sources */,
 				533066AF1CC9E5F40035CCDE /* RFImageToDataTransformer.m in Sources */,
 				533066401CC9E5F40035CCDE /* XMPPXOAuth2Google.m in Sources */,
 				533066951CC9E5F40035CCDE /* XMPPMessage+XEP_0172.m in Sources */,

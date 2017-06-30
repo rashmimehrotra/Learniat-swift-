@@ -254,11 +254,11 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSou
         {
             if status == kSuccessString
             {
-               if let currentUserid = details.object(forKey: "UserId") as? String
+               if let currentUserid = details.object(forKey: "UserId") as? Int
                {
-                    SSTeacherDataSource.sharedDataSource.currentUserId = currentUserid
+                    SSTeacherDataSource.sharedDataSource.currentUserId = "\(currentUserid)"
                     UserDefaults.standard.set(currentUserid, forKey: kUserId)
-                    SSTeacherMessageHandler.sharedMessageHandler.connectWithUserId(currentUserid, andWithPassword: mPassword.text!, withDelegate: self)
+                    SSTeacherMessageHandler.sharedMessageHandler.connectWithUserId("\(currentUserid)", andWithPassword: mPassword.text!, withDelegate: self)
                 }
                 if let currentSchoolId = details.object(forKey: "SchoolId") as? String
                 {
