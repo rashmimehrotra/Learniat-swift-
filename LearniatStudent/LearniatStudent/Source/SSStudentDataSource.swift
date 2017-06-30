@@ -84,7 +84,7 @@ let kServiceSendFeedback                    =   "SendFeedback"
     
     @objc optional func didGetUserStateWithDetails(_ details:AnyObject)
     
-    @objc optional func didGetloginWithDetails(_ details:AnyObject)
+    @objc optional func didGetloginWithDetails(_ details: AnyObject, withError error:NSError?)
     
     @objc optional func didGetSchedulesWithDetials(_ details:AnyObject)
     
@@ -200,15 +200,16 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
     {
         
         WebServicesAPI().getRequest(fromUrl: "http://54.251.104.13:8000/login?app_id=4&user_name=\(userId)&pass=\(Password)", details: nil, success: { (result) in
-            if (delegate as AnyObject).responds(to: #selector(SSStudentDataSourceDelegate.didGetloginWithDetails(_:)))
+            if (delegate as AnyObject).responds(to: #selector(SSStudentDataSourceDelegate.didGetloginWithDetails(_:withError:)))
             {
-                delegate.didGetloginWithDetails!(result)
+                delegate.didGetloginWithDetails!(result as AnyObject,withError: nil)
             }
             
         }) { (error) in
             
-            delegate.didGetloginWithDetails!(NSMutableDictionary())
+            delegate.didGetloginWithDetails!(NSMutableDictionary(),withError:error)
         }
+
         
         
         /*
@@ -486,10 +487,12 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         }
         else if serviceName == kServiceUserLogin
         {
-            if mReturningDelegate.responds(to: #selector(SSStudentDataSourceDelegate.didGetloginWithDetails(_:)))
+            if mReturningDelegate.responds(to: #selector(SSStudentDataSourceDelegate.didGetloginWithDetails(_:withError:)))
             {
-                mReturningDelegate.didGetloginWithDetails!(refinedDetails as AnyObject)
+                mReturningDelegate.didGetloginWithDetails!(refinedDetails as AnyObject,withError: nil)
+                
             }
+
         }
         else if serviceName == kServiceGetThisStudentSessions
         {

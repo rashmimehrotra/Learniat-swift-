@@ -225,43 +225,50 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSStudentDataSou
     // MARK: - Teacher datasource Delegate
     
     
-    func didGetloginWithDetails(_ details: AnyObject)
+    func didGetloginWithDetails(_ details: AnyObject, withError error:NSError?)
     {
-       
-        
-        if let status = details.object(forKey: kStatus) as? String
+        if error == nil
         {
-            if status == kSuccessString
+            if let status = details.object(forKey: kStatus) as? String
             {
-                if let currentUserid = details.object(forKey: kUserId) as? Int
+                if status == kSuccessString
                 {
-                    SSStudentDataSource.sharedDataSource.currentUserId = "\(currentUserid)"
-                    UserDefaults.standard.set(currentUserid, forKey: kUserId)
-                    SSStudentMessageHandler.sharedMessageHandler.connectWithUserId("\(currentUserid)", andWithPassword: mPassword.text!, withDelegate: self)
+                    if let currentUserid = details.object(forKey: kUserId) as? Int
+                    {
+                        SSStudentDataSource.sharedDataSource.currentUserId = "\(currentUserid)"
+                        UserDefaults.standard.set(currentUserid, forKey: kUserId)
+                        SSStudentMessageHandler.sharedMessageHandler.connectWithUserId("\(currentUserid)", andWithPassword: mPassword.text!, withDelegate: self)
+                    }
+                    if let currentSchoolId = details.object(forKey: kSchoolId) as? String
+                    {
+                        SSStudentDataSource.sharedDataSource.currentSchoolId = currentSchoolId
+                    }
                 }
-                if let currentSchoolId = details.object(forKey: kSchoolId) as? String
+                else
                 {
-                    SSStudentDataSource.sharedDataSource.currentSchoolId = currentSchoolId
+                    if let error_message = details.object(forKey: kErrorMessage) as? String
+                    {
+                        self.view.makeToast(error_message, duration: 2.0, position: .bottom)
+                    }
+                    else
+                    {
+                        self.view.makeToast(status, duration: 2.0, position: .bottom)
+                    }
+                    
+                    
+                    loginButtonPressed(false)
                 }
             }
             else
             {
-                if let error_message = details.object(forKey: kErrorMessage) as? String
-                {
-                    self.view.makeToast(error_message, duration: 2.0, position: .bottom)
-                }
-                else
-                {
-                    self.view.makeToast(status, duration: 2.0, position: .bottom)
-                }
-                
-                
+                self.view.makeToast("User name or password is incorrect, please try again. ", duration: 2.0, position: .bottom)
                 loginButtonPressed(false)
             }
+            
         }
         else
         {
-            self.view.makeToast("User name or password is incorrect, please try again. ", duration: 2.0, position: .bottom)
+            self.view.makeToast("Error\((error?.code)!)-\((error?.localizedDescription)!)", duration: 5.0, position: .bottom)
             loginButtonPressed(false)
         }
         
@@ -281,8 +288,6 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSStudentDataSou
             {
                 onLoginButton(mLoginButton)
             }
-            
-            
         }
         else
         {

@@ -20,6 +20,8 @@ let kUserId                     = "UserId"
 let kSchoolId                   = "SchoolId"
 let kUserName                   = "UserName"
 let kPassword                   = "Password"
+let kErrorMessage               = "error_message"
+
 
 
 
@@ -129,7 +131,7 @@ let kSaveSuggestionState            =   "SaveSuggestionState"
     
     @objc optional func didGetStudentsStateWithDetails(_ details:AnyObject)
     
-    @objc optional func didGetloginWithDetails(_ details:AnyObject)
+    @objc optional func didGetloginWithDetails(_ details: AnyObject, withError error:NSError?)
     
     @objc optional func didGetSchedulesWithDetials(_ details:AnyObject)
     
@@ -321,14 +323,14 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         
         WebServicesAPI().getRequest(fromUrl: "http://54.251.104.13:8000/login?app_id=3&user_name=\(userId)&pass=\(Password)", details: nil, success: { (result) in
-            if (delegate as AnyObject).responds(to: #selector(SSTeacherDataSourceDelegate.didGetloginWithDetails(_:)))
+            if (delegate as AnyObject).responds(to: #selector(SSTeacherDataSourceDelegate.didGetloginWithDetails(_:withError:)))
             {
-                delegate.didGetloginWithDetails!(result as AnyObject)
+                delegate.didGetloginWithDetails!(result as AnyObject,withError: nil)
             }
             
         }) { (error) in
             
-            delegate.didGetloginWithDetails!(NSMutableDictionary())
+            delegate.didGetloginWithDetails!(NSMutableDictionary(),withError:error)
         }
         
         
@@ -997,9 +999,10 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         }
         else if serviceName == kServiceUserLogin
         {
-            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetloginWithDetails(_:)))
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetloginWithDetails(_:withError:)))
             {
-                mReturningDelegate.didGetloginWithDetails!(refinedDetails as AnyObject)
+                mReturningDelegate.didGetloginWithDetails!(refinedDetails as AnyObject,withError: nil)
+                
             }
         }
         else if serviceName == kServiceGetSchedules
