@@ -100,13 +100,6 @@ end
 
         desc "Builds development target and uploads to HockeyApp"
         lane :development do
-
-        increment_build_number({
-        build_number: latest_testflight_build_number(
-        app_identifier: "com.mindshiftapps.LearniatStudent"
-        ) + 1
-        })
-
         gym(
             configuration: "Release",
             scheme: "Debug",

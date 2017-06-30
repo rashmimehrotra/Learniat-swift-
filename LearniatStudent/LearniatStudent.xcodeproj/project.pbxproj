@@ -378,6 +378,9 @@
 		53D414A01CF76AE70085C38E /* ModelAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4149F1CF76AE70085C38E /* ModelAnswerView.swift */; };
 		53D414A21CF77FDD0085C38E /* ModelAnswerFullView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D414A11CF77FDD0085C38E /* ModelAnswerFullView.swift */; };
 		53D414A41CF780210085C38E /* ModelAnswerFullViewSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D414A31CF780210085C38E /* ModelAnswerFullViewSubView.swift */; };
+		53E658D91F06380A00EAB2E4 /* WebServicesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E658D81F06380A00EAB2E4 /* WebServicesAPI.swift */; };
+		53E658DB1F06397300EAB2E4 /* WebServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E658DA1F06397300EAB2E4 /* WebServiceManager.swift */; };
+		53E658DD1F063A5400EAB2E4 /* ApiResponseLogging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53E658DC1F063A5400EAB2E4 /* ApiResponseLogging.swift */; };
 		53EA248C1D4C77DB0046C8B4 /* Icon-83.5.png in Resources */ = {isa = PBXBuildFile; fileRef = 53EA248A1D4C77DB0046C8B4 /* Icon-83.5.png */; };
 		53EA248D1D4C77DB0046C8B4 /* Icon-83.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 53EA248B1D4C77DB0046C8B4 /* Icon-83.5@2x.png */; };
 		53EEABF31CED9B2D005E4566 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EEABF11CED9B2D005E4566 /* BarView.swift */; };
@@ -387,9 +390,12 @@
 		53FFD2C01CE1FC3700A5AA28 /* multipleResponseOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFD2BD1CE1FC3700A5AA28 /* multipleResponseOptionView.swift */; };
 		53FFD2C11CE1FC3700A5AA28 /* StudentQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFD2BE1CE1FC3700A5AA28 /* StudentQuestionView.swift */; };
 		53FFD2C41CE1FC4A00A5AA28 /* StudentsQueryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFD2C31CE1FC4A00A5AA28 /* StudentsQueryView.swift */; };
+		8ED28149084591F1216F11FD /* Pods_LearniatStudent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7778052390C6C02A1FEBCB /* Pods_LearniatStudent.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4603009CFA2404778386D823 /* Pods-LearniatStudent.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearniatStudent.release.xcconfig"; path = "Pods/Target Support Files/Pods-LearniatStudent/Pods-LearniatStudent.release.xcconfig"; sourceTree = "<group>"; };
+		4807AA5F0E5F952C2FC55D75 /* Pods-LearniatStudent.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearniatStudent.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LearniatStudent/Pods-LearniatStudent.debug.xcconfig"; sourceTree = "<group>"; };
 		53015BB71CE5D93C00BB366C /* Like_Disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Like_Disabled.png; sourceTree = "<group>"; };
 		53015BB81CE5D93C00BB366C /* Like_Selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Like_Selected.png; sourceTree = "<group>"; };
 		53015BB91CE5D93C00BB366C /* Unlike_Disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Unlike_Disabled.png; sourceTree = "<group>"; };
@@ -941,6 +947,9 @@
 		53D4149F1CF76AE70085C38E /* ModelAnswerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelAnswerView.swift; sourceTree = "<group>"; };
 		53D414A11CF77FDD0085C38E /* ModelAnswerFullView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelAnswerFullView.swift; sourceTree = "<group>"; };
 		53D414A31CF780210085C38E /* ModelAnswerFullViewSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelAnswerFullViewSubView.swift; sourceTree = "<group>"; };
+		53E658D81F06380A00EAB2E4 /* WebServicesAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServicesAPI.swift; sourceTree = "<group>"; };
+		53E658DA1F06397300EAB2E4 /* WebServiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServiceManager.swift; sourceTree = "<group>"; };
+		53E658DC1F063A5400EAB2E4 /* ApiResponseLogging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiResponseLogging.swift; sourceTree = "<group>"; };
 		53EA248A1D4C77DB0046C8B4 /* Icon-83.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-83.5.png"; sourceTree = "<group>"; };
 		53EA248B1D4C77DB0046C8B4 /* Icon-83.5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-83.5@2x.png"; sourceTree = "<group>"; };
 		53EEABF11CED9B2D005E4566 /* BarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
@@ -951,6 +960,7 @@
 		53FFD2BD1CE1FC3700A5AA28 /* multipleResponseOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = multipleResponseOptionView.swift; sourceTree = "<group>"; };
 		53FFD2BE1CE1FC3700A5AA28 /* StudentQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentQuestionView.swift; sourceTree = "<group>"; };
 		53FFD2C31CE1FC4A00A5AA28 /* StudentsQueryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentsQueryView.swift; sourceTree = "<group>"; };
+		6C7778052390C6C02A1FEBCB /* Pods_LearniatStudent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LearniatStudent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -970,12 +980,21 @@
 				533066C71CC9E6180035CCDE /* Foundation.framework in Frameworks */,
 				533066C51CC9E60D0035CCDE /* CoreGraphics.framework in Frameworks */,
 				533066C31CC9E5F40035CCDE /* libidn.a in Frameworks */,
+				8ED28149084591F1216F11FD /* Pods_LearniatStudent.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4EC68A6DBD23B1087C8E65AD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6C7778052390C6C02A1FEBCB /* Pods_LearniatStudent.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		530720B11D027E5E001C85F6 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
@@ -1062,6 +1081,8 @@
 				533066C41CC9E60D0035CCDE /* CoreGraphics.framework */,
 				5330646B1CC9DAAE0035CCDE /* LearniatStudent */,
 				5330646A1CC9DAAE0035CCDE /* Products */,
+				CE8CEB73A78A1F126D772581 /* Pods */,
+				4EC68A6DBD23B1087C8E65AD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1097,6 +1118,9 @@
 		533064801CC9E3270035CCDE /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				53E658D81F06380A00EAB2E4 /* WebServicesAPI.swift */,
+				53E658DC1F063A5400EAB2E4 /* ApiResponseLogging.swift */,
+				53E658DA1F06397300EAB2E4 /* WebServiceManager.swift */,
 				533066DB1CC9EB0F0035CCDE /* SSStudentMessageHandler.swift */,
 				533064811CC9E3270035CCDE /* SSStudentDataSource.swift */,
 			);
@@ -2368,6 +2392,15 @@
 			path = QueryView;
 			sourceTree = "<group>";
 		};
+		CE8CEB73A78A1F126D772581 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4807AA5F0E5F952C2FC55D75 /* Pods-LearniatStudent.debug.xcconfig */,
+				4603009CFA2404778386D823 /* Pods-LearniatStudent.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2375,10 +2408,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5330647B1CC9DAAE0035CCDE /* Build configuration list for PBXNativeTarget "LearniatStudent" */;
 			buildPhases = (
+				A10A1AF4A8F4131659EDFFFA /* [CP] Check Pods Manifest.lock */,
 				533064651CC9DAAE0035CCDE /* Sources */,
 				533064661CC9DAAE0035CCDE /* Frameworks */,
 				533064671CC9DAAE0035CCDE /* Resources */,
 				532BEA041EE1E435008277C9 /* ShellScript */,
+				13CFE5BC9B82569758A03802 /* [CP] Embed Pods Frameworks */,
+				E48A4DACF7273C8C4E774B88 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2403,7 +2439,7 @@
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = C744MS63KY;
 						LastSwiftMigration = 0820;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -2603,6 +2639,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		13CFE5BC9B82569758A03802 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LearniatStudent/Pods-LearniatStudent-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		532BEA041EE1E435008277C9 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2615,6 +2666,36 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "FILE=\"${SRCROOT}/HockeySDK-iOS/BuildAgent\"\nif [ -f \"$FILE\" ]; then\n\"$FILE\"\nfi";
+		};
+		A10A1AF4A8F4131659EDFFFA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E48A4DACF7273C8C4E774B88 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LearniatStudent/Pods-LearniatStudent-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2752,6 +2833,7 @@
 				533066A61CC9E5F40035CCDE /* XMPPMessageCarbons.m in Sources */,
 				533064C81CC9E52E0035CCDE /* Toast.swift in Sources */,
 				533066B81CC9E5F40035CCDE /* DDLog.m in Sources */,
+				53E658D91F06380A00EAB2E4 /* WebServicesAPI.swift in Sources */,
 				533066411CC9E5F40035CCDE /* NSData+XMPP.m in Sources */,
 				533066421CC9E5F40035CCDE /* NSNumber+XMPP.m in Sources */,
 				533066941CC9E5F40035CCDE /* XMPPvCardAvatarModule.m in Sources */,
@@ -2763,6 +2845,7 @@
 				533064C21CC9E52E0035CCDE /* NoInternetView.m in Sources */,
 				533066731CC9E5F40035CCDE /* XMPPvCardTempCoreDataStorageObject.m in Sources */,
 				533066511CC9E5F40035CCDE /* XMPPGroupCoreDataStorageObject.m in Sources */,
+				53E658DB1F06397300EAB2E4 /* WebServiceManager.swift in Sources */,
 				533066F91CCA37C80035CCDE /* StudentClassViewController.swift in Sources */,
 				533066391CC9E5F40035CCDE /* XMPPAnonymousAuthentication.m in Sources */,
 				53A482B61CE31B1A00C90451 /* UIView+SubviewHunting.m in Sources */,
@@ -2796,6 +2879,7 @@
 				533066581CC9E5F40035CCDE /* XMPPUserMemoryStorageObject.m in Sources */,
 				53A482EB1CE48F1500C90451 /* QRVVolunteerView.swift in Sources */,
 				533066C11CC9E5F40035CCDE /* DDXMLNode.m in Sources */,
+				53E658DD1F063A5400EAB2E4 /* ApiResponseLogging.swift in Sources */,
 				5330664C1CC9E5F40035CCDE /* XMPPBandwidthMonitor.m in Sources */,
 				5330668E1CC9E5F40035CCDE /* XMPPCapabilities.m in Sources */,
 				5330663B1CC9E5F40035CCDE /* XMPPDeprecatedPlainAuthentication.m in Sources */,
@@ -2936,12 +3020,13 @@
 		};
 		5330647C1CC9DAAE0035CCDE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4807AA5F0E5F952C2FC55D75 /* Pods-LearniatStudent.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: deepak mk (862RK2T33X)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = C744MS63KY;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2963,8 +3048,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.LearniatStudent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "6fadc170-7514-421d-9edb-75fe39a1c9a1";
+				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.mindshiftapps.LearniatStudent";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatStudent/LearniatStudent-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -2974,12 +3059,13 @@
 		};
 		5330647D1CC9DAAE0035CCDE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4603009CFA2404778386D823 /* Pods-LearniatStudent.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Mindshift Applications & Solutions Pvt. Ltd. (C744MS63KY)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = C744MS63KY;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3001,8 +3087,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.LearniatStudent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "6fadc170-7514-421d-9edb-75fe39a1c9a1";
+				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.mindshiftapps.LearniatStudent";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatStudent/LearniatStudent-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";

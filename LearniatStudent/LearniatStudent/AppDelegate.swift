@@ -24,34 +24,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        let  lagFreeField = UITextField();
-        window!.addSubview(lagFreeField)
-        lagFreeField.becomeFirstResponder();
-        lagFreeField.resignFirstResponder();
-        lagFreeField.removeFromSuperview()
-        
-        UIApplication.shared.isIdleTimerDisabled = true
-        
-        
-        
-        BITHockeyManager.shared().configure(withIdentifier: "ce977544acdf4b57a1ae4cf70b06dd2c")
-        // Do some additional configuration if needed here
-        BITHockeyManager.shared().start()
-        BITHockeyManager.shared().authenticator.authenticateInstallation()
-        
-        
-        let eraseWidth = UserDefaults.standard.float(forKey: "selectedEraserSize")
-        if eraseWidth < 25
-        {
-            UserDefaults.standard.set(25, forKey: "selectedEraserSize")
+      
+        DispatchQueue.main.async {
+            UIApplication.shared.isIdleTimerDisabled = true
+            
+            
+            
+            BITHockeyManager.shared().configure(withIdentifier: "ce977544acdf4b57a1ae4cf70b06dd2c")
+            // Do some additional configuration if needed here
+            BITHockeyManager.shared().start()
+            BITHockeyManager.shared().authenticator.authenticateInstallation()
+            BITHockeyManager.shared().isCrashManagerDisabled = true
+            
+            
+            let eraseWidth = UserDefaults.standard.float(forKey: "selectedEraserSize")
+            if eraseWidth < 25
+            {
+                UserDefaults.standard.set(25, forKey: "selectedEraserSize")
+            }
+            
+            
+            let brushWith = UserDefaults.standard.float(forKey: "selectedBrushsize")
+            if brushWith < 8
+            {
+                UserDefaults.standard.set(8, forKey: "selectedBrushsize")
+            }
         }
         
         
-        let brushWith = UserDefaults.standard.float(forKey: "selectedBrushsize")
-        if brushWith < 8
-        {
-            UserDefaults.standard.set(8, forKey: "selectedBrushsize")
-        }
+       
         
       
         return true

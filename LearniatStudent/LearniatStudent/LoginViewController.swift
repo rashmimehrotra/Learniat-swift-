@@ -227,24 +227,35 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSStudentDataSou
     
     func didGetloginWithDetails(_ details: AnyObject)
     {
-        if let status = details.object(forKey: "Status") as? String
+       
+        
+        if let status = details.object(forKey: kStatus) as? String
         {
             if status == kSuccessString
             {
-                if let currentUserid = details.object(forKey: "UserId") as? String
+                if let currentUserid = details.object(forKey: kUserId) as? String
                 {
                     SSStudentDataSource.sharedDataSource.currentUserId = currentUserid
                     UserDefaults.standard.set(currentUserid, forKey: kUserId)
                     SSStudentMessageHandler.sharedMessageHandler.connectWithUserId(currentUserid, andWithPassword: mPassword.text!, withDelegate: self)
                 }
-                if let currentSchoolId = details.object(forKey: "SchoolId") as? String
+                if let currentSchoolId = details.object(forKey: kSchoolId) as? String
                 {
                     SSStudentDataSource.sharedDataSource.currentSchoolId = currentSchoolId
                 }
             }
             else
             {
-                self.view.makeToast(status, duration: 2.0, position: .bottom)
+                if let error_message = details.object(forKey: kErrorMessage) as? String
+                {
+                    self.view.makeToast(error_message, duration: 2.0, position: .bottom)
+                }
+                else
+                {
+                    self.view.makeToast(status, duration: 2.0, position: .bottom)
+                }
+                
+                
                 loginButtonPressed(false)
             }
         }

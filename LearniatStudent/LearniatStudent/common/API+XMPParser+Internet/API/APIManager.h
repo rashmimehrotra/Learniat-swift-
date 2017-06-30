@@ -46,6 +46,11 @@ typedef enum {
 
 -(void)downloadDataURL:(NSString *)urlString WithServiceName:(NSString*)serviceName withDelegate:(id)del withRequestType:(eHTTPRequestType)requestType withReturningDelegate:(id)returningDelegate;
 
+
+
+-(void)downloadJsonWithURL:(NSString *)urlString WithServiceName:(NSString*)serviceName withDelegate:(id)del withRequestType:(eHTTPRequestType)requestType withReturningDelegate:(id)returningDelegate;
+
+
 - (NSMutableDictionary*)parseDataWithString:(NSString*)parsingString;
 
 - (void) retrySameApiAgain;

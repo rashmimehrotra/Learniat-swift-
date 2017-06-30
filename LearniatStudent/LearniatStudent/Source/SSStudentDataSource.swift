@@ -20,6 +20,7 @@ let kUserId                     = "UserId"
 let kSchoolId                   = "SchoolId"
 let kUserName                   = "UserName"
 let kPassword                   = "Password"
+let kErrorMessage               = "error_message"
 
 
 
@@ -188,8 +189,6 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         questionsDictonary.setObject(details, forKey: key as NSCopying)
     }
     
-    
-    
     // MARK: - API Functions
     
     
@@ -208,13 +207,26 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
     func LoginWithUserId(_ userId :String , andPassword Password:String, withDelegate delegate:SSStudentDataSourceDelegate)
     {
         
+        WebServicesAPI().getRequest(fromUrl: "http://54.251.104.13:8000/login?app_id=4&user_name=\(userId)&pass=\(Password)", details: nil, success: { (result) in
+            if (delegate as AnyObject).responds(to: #selector(SSStudentDataSourceDelegate.didGetloginWithDetails(_:)))
+            {
+                delegate.didGetloginWithDetails!(result)
+            }
+            
+        }) { (error) in
+            
+            delegate.didGetloginWithDetails!(NSMutableDictionary())
+        }
         
+        
+        /*
         let manager = APIManager()
         let uuidString:String = UIDevice.current.identifierForVendor!.uuidString
         
         let urlString = String(format: "%@<Sunstone><Action><Service>Login</Service><UserName>%@</UserName><UserPassword>%@</UserPassword><AppVersion>%@</AppVersion><UUID>%@</UUID><AppId>2</AppId><Latitude>-27.96310183</Latitude><Longitude>153.41311552</Longitude></Action></Sunstone>",URLPrefix,userId,Password,APP_VERSION,uuidString)
         
         manager.downloadDataURL(urlString, withServiceName:kServiceUserLogin, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
+ */
     }
     
     func  updateStudentStatus(_ status:String, ofSession sessionId:String, withDelegate  delegate:SSStudentDataSourceDelegate)
