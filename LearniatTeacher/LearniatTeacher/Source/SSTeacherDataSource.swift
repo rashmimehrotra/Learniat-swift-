@@ -321,7 +321,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func LoginWithUserId(_ userId :String , andPassword Password:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler)
     {
-        WebServicesAPI().getRequest(fromUrl: "http://54.251.104.13:8000/login?app_id=3&user_name=\(userId)&pass=\(Password)", details: nil, success: { (result) in
+        WebServicesAPI().getRequest(fromUrl: AppAPI.Login(UserName: userId, Password: Password).path, details: nil, success: { (result) in
             
             
             let JsonValue = result.parseJSONString
@@ -369,6 +369,32 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         print("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kServiceGetSchedules, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
+    
+    
+    
+    /*
+    func getScheduleOfTeacher(success:@escaping (_ result: NSArray) -> (), withfailurehandler failure:@escaping ApiErrorHandler)
+    {
+        WebServicesAPI().getRequest(fromUrl:  AppAPI.TodaysTimeTable(UserId: self.currentUserId).path, details: nil, success: { (result) in
+            
+            let JsonValue = result.ParseForArrayOfJson
+            
+            if(JsonValue.arrayObjects != nil)
+            {
+                success(JsonValue.arrayObjects!)
+            }
+            else
+            {
+                failure(JsonValue.error!)
+            }
+            
+        }) { (error) in
+            failure(error as NSError)
+        }
+        
+    }
+    */
+    
     
     
     func getMyCurrentSessionOfTeacher(_ delegate:SSTeacherDataSourceDelegate)
@@ -1313,6 +1339,38 @@ extension String
                 else
                 {
                     return (message as AnyObject, nil)
+                }
+            }
+            catch let error as NSError
+            {
+                return (nil,error)
+            }
+        }
+        else
+        {
+            // Lossless conversion of the string was not possible
+            return (nil,customErrors.jsonParsingError as NSError)
+        }
+    }
+    
+    var ParseForArrayOfJson:(arrayObjects:NSArray?,error:NSError?)
+    {
+        let data = self.data(using: String.Encoding.utf8, allowLossyConversion: false)
+        if let jsonData = data
+        {
+            // Will return an object or nil if JSON decoding fails
+            do
+            {
+                let message = try JSONSerialization.jsonObject(with: jsonData, options:.mutableContainers)
+                
+                
+                if message is NSArray
+                {
+                    return (message as? NSArray,nil)
+                }
+                else
+                {
+                    return (nil,customErrors.jsonParsingError as NSError)
                 }
             }
             catch let error as NSError

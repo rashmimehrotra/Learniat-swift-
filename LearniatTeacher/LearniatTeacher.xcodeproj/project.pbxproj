@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00E18E991F082BA900D9705C /* AppAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E18E981F082BA900D9705C /* AppAPI.swift */; };
+		00E18E9F1F082D7200D9705C /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 00E18E9D1F082D7200D9705C /* Config.plist */; };
+		00E18EA01F082D7200D9705C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E18E9E1F082D7200D9705C /* Config.swift */; };
 		172D7126C53BA6D5181A000F /* Pods_Learniat_Teacher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B4B751E33157602F99CFF41 /* Pods_Learniat_Teacher.framework */; };
 		4D0A7FC81CCF783B001AA119 /* StudentAnswerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0A7FC71CCF783B001AA119 /* StudentAnswerDemo.swift */; };
 		4D0A7FCA1CCF79C6001AA119 /* StudentAnswerSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0A7FC91CCF79C6001AA119 /* StudentAnswerSelectionView.swift */; };
@@ -499,6 +502,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		00E18E981F082BA900D9705C /* AppAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAPI.swift; sourceTree = "<group>"; };
+		00E18E9D1F082D7200D9705C /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
+		00E18E9E1F082D7200D9705C /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		043FC926B6D655FCF5339E70 /* Pods-Learniat Teacher.development.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Learniat Teacher.development.xcconfig"; path = "Pods/Target Support Files/Pods-Learniat Teacher/Pods-Learniat Teacher.development.xcconfig"; sourceTree = "<group>"; };
 		0B4B751E33157602F99CFF41 /* Pods_Learniat_Teacher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Learniat_Teacher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D0A7FC71CCF783B001AA119 /* StudentAnswerDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerDemo.swift; sourceTree = "<group>"; };
 		4D0A7FC91CCF79C6001AA119 /* StudentAnswerSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerSelectionView.swift; sourceTree = "<group>"; };
@@ -1196,6 +1203,7 @@
 		53FC04431CAFAE2100D7B941 /* BarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		687F2D0C68E715964B861326 /* Pods-Learniat Teacher.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Learniat Teacher.release.xcconfig"; path = "Pods/Target Support Files/Pods-Learniat Teacher/Pods-Learniat Teacher.release.xcconfig"; sourceTree = "<group>"; };
 		799FF32578B62CCC9786815B /* Pods-Learniat Teacher.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Learniat Teacher.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Learniat Teacher/Pods-Learniat Teacher.debug.xcconfig"; sourceTree = "<group>"; };
+		F2A8F26BC695B8FC631E65D1 /* Pods-Learniat Teacher.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Learniat Teacher.production.xcconfig"; path = "Pods/Target Support Files/Pods-Learniat Teacher/Pods-Learniat Teacher.production.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1222,11 +1230,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00E18E9C1F082D7200D9705C /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				00E18E9D1F082D7200D9705C /* Config.plist */,
+				00E18E9E1F082D7200D9705C /* Config.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 		3858849BC0FEF611419F5D58 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
 				799FF32578B62CCC9786815B /* Pods-Learniat Teacher.debug.xcconfig */,
 				687F2D0C68E715964B861326 /* Pods-Learniat Teacher.release.xcconfig */,
+				043FC926B6D655FCF5339E70 /* Pods-Learniat Teacher.development.xcconfig */,
+				F2A8F26BC695B8FC631E65D1 /* Pods-Learniat Teacher.production.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1601,6 +1620,7 @@
 			children = (
 				53676C861CA63B7F00CADE4D /* LoginViewController.swift */,
 				53676AF61CA63B7F00CADE4D /* AppDelegate.swift */,
+				00E18E9C1F082D7200D9705C /* Config */,
 				53676AF71CA63B7F00CADE4D /* Common */,
 				53676C851CA63B7F00CADE4D /* INILoader.swift */,
 				4DC246491CC1F6B500E01CA4 /* Objective-C_Class */,
@@ -2621,6 +2641,7 @@
 		53676C921CA63B7F00CADE4D /* Main Source */ = {
 			isa = PBXGroup;
 			children = (
+				00E18E981F082BA900D9705C /* AppAPI.swift */,
 				53E658E31F066E7C00EAB2E4 /* ApiResponseLogging.swift */,
 				53E658E41F066E7C00EAB2E4 /* WebServiceManager.swift */,
 				53E658E51F066E7C00EAB2E4 /* WebServicesAPI.swift */,
@@ -2962,6 +2983,7 @@
 				5309C7601CD9DEB200481E0C /* Share.png in Resources */,
 				537302341CB6771200E76753 /* Text_Selected_AnnotateView.png in Resources */,
 				5310449C1CA64296007AE9D5 /* refresh.png in Resources */,
+				00E18E9F1F082D7200D9705C /* Config.plist in Resources */,
 				5373025C1CB6771200E76753 /* Text_Unselected@2x.png in Resources */,
 				5326078D1CA90AEC002FF684 /* indicator11.png in Resources */,
 				531044A21CA64296007AE9D5 /* 40.png in Resources */,
@@ -3194,7 +3216,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -3302,6 +3324,7 @@
 				53676CA01CA63B7F00CADE4D /* DottedLine.m in Sources */,
 				539945D91CD0A54B00007EC7 /* StudentQueryDemo.swift in Sources */,
 				53676C961CA63B7F00CADE4D /* APIManager.m in Sources */,
+				00E18E991F082BA900D9705C /* AppAPI.swift in Sources */,
 				53676CBE1CA63B7F00CADE4D /* XMPPRosterCoreDataStorage.m in Sources */,
 				53676D301CA63B7F00CADE4D /* CurrentTimeLineView.swift in Sources */,
 				53676CB01CA63B7F00CADE4D /* XMPPJID.m in Sources */,
@@ -3428,6 +3451,7 @@
 				53015BAD1CE5A53300BB366C /* PNPieChartDataItem.m in Sources */,
 				53676CCB1CA63B7F00CADE4D /* XMPPRoom.xcdatamodeld in Sources */,
 				537C3D8D1E4FBD520036FEE7 /* DynamicFontSize.m in Sources */,
+				00E18EA01F082D7200D9705C /* Config.swift in Sources */,
 				53676D061CA63B7F00CADE4D /* XMPPStreamManagement.m in Sources */,
 				53778B681CBCBD96004E6480 /* QuerySelectSubView.swift in Sources */,
 				53676CE41CA63B7F00CADE4D /* XMPPvCardTempModule.m in Sources */,
@@ -3516,7 +3540,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		53676AF11CA63B2300CADE4D /* Debug */ = {
+		53676AF11CA63B2300CADE4D /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -3559,9 +3583,9 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
-			name = Debug;
+			name = Development;
 		};
-		53676AF21CA63B2300CADE4D /* Release */ = {
+		53676AF21CA63B2300CADE4D /* Production */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -3597,11 +3621,11 @@
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
 			};
-			name = Release;
+			name = Production;
 		};
-		53676AF41CA63B2300CADE4D /* Debug */ = {
+		53676AF41CA63B2300CADE4D /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 799FF32578B62CCC9786815B /* Pods-Learniat Teacher.debug.xcconfig */;
+			baseConfigurationReference = 043FC926B6D655FCF5339E70 /* Pods-Learniat Teacher.development.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -3634,11 +3658,11 @@
 				SWIFT_VERSION = 3.0;
 				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 			};
-			name = Debug;
+			name = Development;
 		};
-		53676AF51CA63B2300CADE4D /* Release */ = {
+		53676AF51CA63B2300CADE4D /* Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 687F2D0C68E715964B861326 /* Pods-Learniat Teacher.release.xcconfig */;
+			baseConfigurationReference = F2A8F26BC695B8FC631E65D1 /* Pods-Learniat Teacher.production.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -3671,7 +3695,7 @@
 				SWIFT_VERSION = 3.0;
 				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 			};
-			name = Release;
+			name = Production;
 		};
 /* End XCBuildConfiguration section */
 
@@ -3679,20 +3703,20 @@
 		53676ADC1CA63B2000CADE4D /* Build configuration list for PBXProject "LearniatTeacher" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				53676AF11CA63B2300CADE4D /* Debug */,
-				53676AF21CA63B2300CADE4D /* Release */,
+				53676AF11CA63B2300CADE4D /* Development */,
+				53676AF21CA63B2300CADE4D /* Production */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Production;
 		};
 		53676AF31CA63B2300CADE4D /* Build configuration list for PBXNativeTarget "Learniat Teacher" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				53676AF41CA63B2300CADE4D /* Debug */,
-				53676AF51CA63B2300CADE4D /* Release */,
+				53676AF41CA63B2300CADE4D /* Development */,
+				53676AF51CA63B2300CADE4D /* Production */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Production;
 		};
 /* End XCConfigurationList section */
 

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00E18EA41F08385C00D9705C /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 00E18EA21F08385C00D9705C /* Config.plist */; };
+		00E18EA51F08385C00D9705C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E18EA31F08385C00D9705C /* Config.swift */; };
+		00E18EA71F0839E700D9705C /* AppAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E18EA61F0839E700D9705C /* AppAPI.swift */; };
 		53015BBB1CE5D93C00BB366C /* Like_Disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 53015BB71CE5D93C00BB366C /* Like_Disabled.png */; };
 		53015BBC1CE5D93C00BB366C /* Like_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 53015BB81CE5D93C00BB366C /* Like_Selected.png */; };
 		53015BBD1CE5D93C00BB366C /* Unlike_Disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 53015BB91CE5D93C00BB366C /* Unlike_Disabled.png */; };
@@ -395,6 +398,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		00E18EA21F08385C00D9705C /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
+		00E18EA31F08385C00D9705C /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		00E18EA61F0839E700D9705C /* AppAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAPI.swift; sourceTree = "<group>"; };
 		4603009CFA2404778386D823 /* Pods-LearniatStudent.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearniatStudent.release.xcconfig"; path = "Pods/Target Support Files/Pods-LearniatStudent/Pods-LearniatStudent.release.xcconfig"; sourceTree = "<group>"; };
 		4807AA5F0E5F952C2FC55D75 /* Pods-LearniatStudent.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearniatStudent.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LearniatStudent/Pods-LearniatStudent.debug.xcconfig"; sourceTree = "<group>"; };
 		53015BB71CE5D93C00BB366C /* Like_Disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Like_Disabled.png; sourceTree = "<group>"; };
@@ -963,6 +969,8 @@
 		53FFD2BE1CE1FC3700A5AA28 /* StudentQuestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentQuestionView.swift; sourceTree = "<group>"; };
 		53FFD2C31CE1FC4A00A5AA28 /* StudentsQueryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentsQueryView.swift; sourceTree = "<group>"; };
 		6C7778052390C6C02A1FEBCB /* Pods_LearniatStudent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LearniatStudent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7188E25CD8AAF1A0CF653BC2 /* Pods-LearniatStudent.development.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearniatStudent.development.xcconfig"; path = "Pods/Target Support Files/Pods-LearniatStudent/Pods-LearniatStudent.development.xcconfig"; sourceTree = "<group>"; };
+		94D27346B45531BCCFF47B00 /* Pods-LearniatStudent.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearniatStudent.production.xcconfig"; path = "Pods/Target Support Files/Pods-LearniatStudent/Pods-LearniatStudent.production.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -989,6 +997,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00E18EA11F08385C00D9705C /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				00E18EA21F08385C00D9705C /* Config.plist */,
+				00E18EA31F08385C00D9705C /* Config.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 		4EC68A6DBD23B1087C8E65AD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1099,6 +1116,7 @@
 		5330646B1CC9DAAE0035CCDE /* LearniatStudent */ = {
 			isa = PBXGroup;
 			children = (
+				00E18EA11F08385C00D9705C /* Config */,
 				53E658DE1F064C9100EAB2E4 /* Helpers */,
 				533064A71CC9E52E0035CCDE /* common */,
 				5330646C1CC9DAAE0035CCDE /* AppDelegate.swift */,
@@ -1121,6 +1139,7 @@
 		533064801CC9E3270035CCDE /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				00E18EA61F0839E700D9705C /* AppAPI.swift */,
 				53E658D81F06380A00EAB2E4 /* WebServicesAPI.swift */,
 				53E658DC1F063A5400EAB2E4 /* ApiResponseLogging.swift */,
 				53E658DA1F06397300EAB2E4 /* WebServiceManager.swift */,
@@ -2408,6 +2427,8 @@
 			children = (
 				4807AA5F0E5F952C2FC55D75 /* Pods-LearniatStudent.debug.xcconfig */,
 				4603009CFA2404778386D823 /* Pods-LearniatStudent.release.xcconfig */,
+				7188E25CD8AAF1A0CF653BC2 /* Pods-LearniatStudent.development.xcconfig */,
+				94D27346B45531BCCFF47B00 /* Pods-LearniatStudent.production.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -2450,7 +2471,7 @@
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = C744MS63KY;
 						LastSwiftMigration = 0820;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -2553,6 +2574,7 @@
 				533255991CEDC2A500653C00 /* Text_Unselected_AnnotateView@2x.png in Resources */,
 				53A482DE1CE45FD000C90451 /* indicator7.png in Resources */,
 				532D28001CE9CA9C009FDF6A /* poll_icon_selected.png in Resources */,
+				00E18EA41F08385C00D9705C /* Config.plist in Resources */,
 				53015BBC1CE5D93C00BB366C /* Like_Selected.png in Resources */,
 				533066DA1CC9E8FE0035CCDE /* Student_app_icon.png in Resources */,
 				535B8B231CE1A20F008B2D7F /* Submission_Selected.png in Resources */,
@@ -2690,7 +2712,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		E48A4DACF7273C8C4E774B88 /* [CP] Copy Pods Resources */ = {
@@ -2748,6 +2770,7 @@
 				533066531CC9E5F40035CCDE /* XMPPRoster.xcdatamodel in Sources */,
 				533066621CC9E5F40035CCDE /* XMPPRoomCoreDataStorage.m in Sources */,
 				532D27FA1CE9B2C7009FDF6A /* StudentOTFView.swift in Sources */,
+				00E18EA51F08385C00D9705C /* Config.swift in Sources */,
 				53A482BE1CE4506A00C90451 /* CustomTextView.swift in Sources */,
 				53A482A51CE2F6A900C90451 /* LPRTableView.swift in Sources */,
 				533066541CC9E5F40035CCDE /* XMPPRosterCoreDataStorage.m in Sources */,
@@ -2812,6 +2835,7 @@
 				533066A41CC9E5F40035CCDE /* XMPPMessage+XEP_0224.m in Sources */,
 				533064BF1CC9E52E0035CCDE /* APIManager.m in Sources */,
 				53A482B51CE31B1A00C90451 /* SSStudentMatchTheColoumnView.m in Sources */,
+				00E18EA71F0839E700D9705C /* AppAPI.swift in Sources */,
 				5330669A1CC9E5F40035CCDE /* XMPPStreamManagementMemoryStorage.m in Sources */,
 				53E658E01F064CA700EAB2E4 /* Enumerations.swift in Sources */,
 				533066AF1CC9E5F40035CCDE /* RFImageToDataTransformer.m in Sources */,
@@ -2945,7 +2969,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		533064791CC9DAAE0035CCDE /* Debug */ = {
+		533064791CC9DAAE0035CCDE /* Development */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -2989,9 +3013,9 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
-			name = Debug;
+			name = Development;
 		};
-		5330647A1CC9DAAE0035CCDE /* Release */ = {
+		5330647A1CC9DAAE0035CCDE /* Production */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -3028,17 +3052,17 @@
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
 			};
-			name = Release;
+			name = Production;
 		};
-		5330647C1CC9DAAE0035CCDE /* Debug */ = {
+		5330647C1CC9DAAE0035CCDE /* Development */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4807AA5F0E5F952C2FC55D75 /* Pods-LearniatStudent.debug.xcconfig */;
+			baseConfigurationReference = 7188E25CD8AAF1A0CF653BC2 /* Pods-LearniatStudent.development.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: deepak mk (862RK2T33X)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = C744MS63KY;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3060,24 +3084,24 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.LearniatStudent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6fadc170-7514-421d-9edb-75fe39a1c9a1";
-				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.mindshiftapps.LearniatStudent";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatStudent/LearniatStudent-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 			};
-			name = Debug;
+			name = Development;
 		};
-		5330647D1CC9DAAE0035CCDE /* Release */ = {
+		5330647D1CC9DAAE0035CCDE /* Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4603009CFA2404778386D823 /* Pods-LearniatStudent.release.xcconfig */;
+			baseConfigurationReference = 94D27346B45531BCCFF47B00 /* Pods-LearniatStudent.production.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Mindshift Applications & Solutions Pvt. Ltd. (C744MS63KY)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = C744MS63KY;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3099,13 +3123,13 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.LearniatStudent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6fadc170-7514-421d-9edb-75fe39a1c9a1";
-				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.mindshiftapps.LearniatStudent";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatStudent/LearniatStudent-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 			};
-			name = Release;
+			name = Production;
 		};
 /* End XCBuildConfiguration section */
 
@@ -3113,20 +3137,20 @@
 		533064641CC9DAAE0035CCDE /* Build configuration list for PBXProject "LearniatStudent" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				533064791CC9DAAE0035CCDE /* Debug */,
-				5330647A1CC9DAAE0035CCDE /* Release */,
+				533064791CC9DAAE0035CCDE /* Development */,
+				5330647A1CC9DAAE0035CCDE /* Production */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Production;
 		};
 		5330647B1CC9DAAE0035CCDE /* Build configuration list for PBXNativeTarget "LearniatStudent" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				5330647C1CC9DAAE0035CCDE /* Debug */,
-				5330647D1CC9DAAE0035CCDE /* Release */,
+				5330647C1CC9DAAE0035CCDE /* Development */,
+				5330647D1CC9DAAE0035CCDE /* Production */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Production;
 		};
 /* End XCConfigurationList section */
 

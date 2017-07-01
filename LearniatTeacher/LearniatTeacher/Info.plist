@@ -92,5 +92,7 @@ RobotoCondensed-Regular.ttf</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>Config</key>
+	<string>$(CONFIGURATION)</string>
 </dict>
 </plist>

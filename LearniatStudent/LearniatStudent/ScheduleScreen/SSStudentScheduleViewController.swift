@@ -386,6 +386,8 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     func didGetSchedulesWithDetials(_ details: AnyObject)
     {
 
+      
+        
         sessionUpdatedLive = false
         print(details)
         
