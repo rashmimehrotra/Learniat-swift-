@@ -196,19 +196,13 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
     
     
     
-    func LoginWithUserId(_ userId :String , andPassword Password:String, withDelegate delegate:SSStudentDataSourceDelegate)
+    func LoginWithUserId(_ userId :String , andPassword Password:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler)
     {
-        
-        WebServicesAPI().getRequest(fromUrl: "http://54.251.104.13:8000/login?app_id=4&user_name=\(userId)&pass=\(Password)", details: nil,
-            success: { (result) in
-            if (delegate as AnyObject).responds(to: #selector(SSStudentDataSourceDelegate.didGetloginWithDetails(_:withError:)))
-            {
-                delegate.didGetloginWithDetails!(result.parseJSONString as AnyObject,withError: nil)
-            }},
-            failure: { (error) in
-            
-            delegate.didGetloginWithDetails!(NSMutableDictionary(),withError:error)
-        })
+        WebServicesAPI().getRequest(fromUrl: "http://54.251.104.13:8000/login?app_id=4&user_name=\(userId)&pass=\(Password)", details: nil, success: { (result) in
+            success(result.parseJSONString!)
+        }) { (error) in
+            failure(error as NSError)
+        }
     }
     
     func  updateStudentStatus(_ status:String, ofSession sessionId:String, withDelegate  delegate:SSStudentDataSourceDelegate)

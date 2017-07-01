@@ -9,7 +9,8 @@
 import Foundation
 import Alamofire
 
-typealias ApiSuccessHandler = (_ result: String) -> ()
+typealias ApiSuccessStringHandler = (_ result: String) -> ()
+typealias ApiSuccessHandler = (_ result: AnyObject) -> ()
 typealias ApiErrorHandler = (_ error:NSError) -> ()
 
 class WebServicesAPI: NSObject, WebServicesManager {
@@ -21,12 +22,12 @@ class WebServicesAPI: NSObject, WebServicesManager {
         timeoutInterval = timeout
     }
     
-    func getRequest(fromUrl path: String, details: NSDictionary?, success: @escaping ApiSuccessHandler,
+    func getRequest(fromUrl path: String, details: NSDictionary?, success: @escaping ApiSuccessStringHandler,
                    failure: @escaping ApiErrorHandler) {
         callAPI(forUrl: path, httpMethod: HTTPMethod.get, details: details, successHandler: success, failureHandler: failure)
     }
     
-    func postRequest(toUrl path: String, details: NSDictionary, isWritingToWebSocket: Bool = false, success: @escaping ApiSuccessHandler, failure: @escaping ApiErrorHandler) {
+    func postRequest(toUrl path: String, details: NSDictionary, isWritingToWebSocket: Bool = false, success: @escaping ApiSuccessStringHandler, failure: @escaping ApiErrorHandler) {
        
         callAPI(forUrl: path, httpMethod: HTTPMethod.post, details: details, successHandler: success, failureHandler: failure)
     }

@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatStudent/Source/SSStudentDataSource.swift"
-            timestampString = "520590304.452398"
+            timestampString = "520597577.955452"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "238"
-            endingLineNumber = "238"
+            startingLineNumber = "232"
+            endingLineNumber = "232"
             landmarkName = "getScheduleOfTheDay(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatStudent/Source/SSStudentDataSource.swift"
-            timestampString = "520590324.170282"
+            timestampString = "520597577.955452"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "240"
-            endingLineNumber = "240"
+            startingLineNumber = "234"
+            endingLineNumber = "234"
             landmarkName = "getScheduleOfTheDay(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,27 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LearniatStudent/LoginViewController.swift"
-            timestampString = "520591407.441802"
+            timestampString = "520597577.955452"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "230"
-            endingLineNumber = "230"
-            landmarkName = "didGetloginWithDetails(_:withError:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatStudent/LoginViewController.swift"
-            timestampString = "520592881.323778"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "319"
-            endingLineNumber = "319"
+            startingLineNumber = "311"
+            endingLineNumber = "311"
             landmarkName = "smhDidReciveAuthenticationState(_:WithName:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -81,54 +65,6 @@
             endingLineNumber = "93"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LearniatStudent/LoginViewController.swift"
-            timestampString = "520592933.384935"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "236"
-            endingLineNumber = "236"
-            landmarkName = "didGetloginWithDetails(_:withError:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "LearniatStudent.LoginViewController.didGetloginWithDetails (Swift.AnyObject, withError : Swift.Optional&lt;__ObjC.NSError&gt;) -&gt; ()"
-                  moduleName = "LearniatStudent"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/administrator/Documents/GitHub/Learniat-swift-/LearniatStudent/LearniatStudent/LoginViewController.swift"
-                  timestampString = "520593012.995802"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "236"
-                  endingLineNumber = "236"
-                  offsetFromSymbolStart = "1183">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "LearniatStudent.LoginViewController.didGetloginWithDetails (Swift.AnyObject, withError : Swift.Optional&lt;__ObjC.NSError&gt;) -&gt; ()"
-                  moduleName = "LearniatStudent"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/administrator/Documents/GitHub/Learniat-swift-/LearniatStudent/LearniatStudent/LoginViewController.swift"
-                  timestampString = "520593012.999884"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "236"
-                  endingLineNumber = "236"
-                  offsetFromSymbolStart = "1932">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

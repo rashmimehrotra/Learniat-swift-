@@ -35,7 +35,7 @@ extension WebServicesManager {
     }
     
     func callAPI(forUrl path: String, httpMethod: HTTPMethod, details: NSDictionary?,
-                 successHandler: @escaping ApiSuccessHandler,
+                 successHandler: @escaping ApiSuccessStringHandler,
                  failureHandler: @escaping ApiErrorHandler) {
         
         let request =  createRequest(forPath: path, httpMethod: httpMethod, details: details,withHeader: nil)
