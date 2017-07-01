@@ -40,38 +40,26 @@ extension WebServicesManager {
         
         let request =  createRequest(forPath: path, httpMethod: httpMethod, details: details,withHeader: nil)
 
-        request.validate().responseJSON {(response: DataResponse<Any>) in
-            ApiResponseLogging.logResponse(request: request, response: response)
-            
+        
+        request.validate().responseString { response in
+             ApiResponseLogging.logResponse(request: request, response: response)
             switch response.result {
-            case .success(let json):
+            case .success(let responseString):
                 
-                var jsonData = NSDictionary()
-                if json is NSArray
-                {
-                    
-                    jsonData = (json as AnyObject).firstObject as! NSDictionary
-                    successHandler(jsonData as AnyObject)
-                }
-                else
-                {
-                   successHandler(json as AnyObject)
-                }
-                
-                
-                
-                break
+               successHandler(responseString)
+               
+               break
                 
             case .failure(let error):
                 if (error as NSError).code == NSURLErrorNotConnectedToInternet
                 {
-                   failureHandler(error as NSError)
+                    failureHandler(error as NSError)
                     
                 } else
                 {
                     failureHandler(error as NSError)
                 }
-
+                
                 break
             }
         }

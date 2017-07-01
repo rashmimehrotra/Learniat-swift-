@@ -236,7 +236,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSStudentDataSou
                     if let currentUserid = details.object(forKey: kUserId) as? Int
                     {
                         SSStudentDataSource.sharedDataSource.currentUserId = "\(currentUserid)"
-                        UserDefaults.standard.set(currentUserid, forKey: kUserId)
+                        UserDefaults.standard.set("\(currentUserid)", forKey: kUserId)
                         SSStudentMessageHandler.sharedMessageHandler.connectWithUserId("\(currentUserid)", andWithPassword: mPassword.text!, withDelegate: self)
                     }
                     if let currentSchoolId = details.object(forKey: kSchoolId) as? String

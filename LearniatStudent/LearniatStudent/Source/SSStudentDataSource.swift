@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-
+import Alamofire
 
 let	kSunstone                   = "SunStone"
 let	kSSAction                   = "Action"
@@ -190,7 +190,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         
         
         let urlString = String(format: "%@<Sunstone><Action><Service>GetMyState</Service><UserId>%@</UserId></Action></Sunstone>",URLPrefix,userId)
-        
+        print("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName:kServiceGetMyState, withDelegate: self, with: eHTTPGetRequest , withReturningDelegate:delegate )
     }
     
@@ -199,27 +199,16 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
     func LoginWithUserId(_ userId :String , andPassword Password:String, withDelegate delegate:SSStudentDataSourceDelegate)
     {
         
-        WebServicesAPI().getRequest(fromUrl: "http://54.251.104.13:8000/login?app_id=4&user_name=\(userId)&pass=\(Password)", details: nil, success: { (result) in
+        WebServicesAPI().getRequest(fromUrl: "http://54.251.104.13:8000/login?app_id=4&user_name=\(userId)&pass=\(Password)", details: nil,
+            success: { (result) in
             if (delegate as AnyObject).responds(to: #selector(SSStudentDataSourceDelegate.didGetloginWithDetails(_:withError:)))
             {
-                delegate.didGetloginWithDetails!(result as AnyObject,withError: nil)
-            }
-            
-        }) { (error) in
+                delegate.didGetloginWithDetails!(result.parseJSONString as AnyObject,withError: nil)
+            }},
+            failure: { (error) in
             
             delegate.didGetloginWithDetails!(NSMutableDictionary(),withError:error)
-        }
-
-        
-        
-        /*
-        let manager = APIManager()
-        let uuidString:String = UIDevice.current.identifierForVendor!.uuidString
-        
-        let urlString = String(format: "%@<Sunstone><Action><Service>Login</Service><UserName>%@</UserName><UserPassword>%@</UserPassword><AppVersion>%@</AppVersion><UUID>%@</UUID><AppId>2</AppId><Latitude>-27.96310183</Latitude><Longitude>153.41311552</Longitude></Action></Sunstone>",URLPrefix,userId,Password,APP_VERSION,uuidString)
-        
-        manager.downloadDataURL(urlString, withServiceName:kServiceUserLogin, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
- */
+        })
     }
     
     func  updateStudentStatus(_ status:String, ofSession sessionId:String, withDelegate  delegate:SSStudentDataSourceDelegate)
@@ -230,7 +219,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>UpdateUserState</Service><UserId>%@</UserId><StatusId>%@</StatusId><SessionId>%@</SessionId></Action></Sunstone>",URLPrefix,currentUserId,status,sessionId)
-        
+        print("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kServiceUpdateUserStatus, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
         
     }
@@ -239,11 +228,22 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
     
     func getScheduleOfTheDay(_ delegate:SSStudentDataSourceDelegate)
     {
+       
+      
+//        urlString = urlString.encodeUrl()
+//        
+//        
+//        
+//        WebServicesAPI().getRequest(fromUrl: urlString, details: nil, success: { (result) in
+//          print(result)
+//        }) { (error) in
+//            print(error)
+//        }
         
         let manager = APIManager()
         
-        let urlString = String(format: "%@<Sunstone><Action><Service>GetThisStudentSessions</Service><UserId>%@</UserId></Action></Sunstone>",URLPrefix,currentUserId)
-        
+         let urlString = String(format: "%@<Sunstone><Action><Service>GetThisStudentSessions</Service><UserId>%@</UserId></Action></Sunstone>",URLPrefix,currentUserId)
+        print("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kServiceGetThisStudentSessions, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
@@ -255,7 +255,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>RetrieveGridDesign</Service><RoomId>%@</RoomId></Action></Sunstone>",URLPrefix,roomId)
-        
+        print("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kServiceGetGridDesign, withDelegate: self, with: eHTTPGetRequest,withReturningDelegate: delegate)
         
     }
@@ -267,7 +267,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>RetrieveSeatAssignments</Service><SessionId>%@</SessionId></Action></Sunstone>",URLPrefix,sessionId)
-        
+        print("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kServiceGetSeatAssignment, withDelegate: self, with: eHTTPGetRequest,withReturningDelegate: delegate)
     }
     
@@ -281,7 +281,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>GetSessionInfo</Service><SessionId>%@</SessionId></Action></Sunstone>",URLPrefix,sessionId)
-        
+        print("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kServiceGetSessionInfo, withDelegate: self, with: eHTTPGetRequest,withReturningDelegate: delegate)
     }
     
@@ -296,7 +296,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>SendFeedback</Service><AssessmentAnswerIdList>%@</AssessmentAnswerIdList><TeacherId>%@</TeacherId><Rating>%@</Rating><StudentId>%@</StudentId><ModelAnswerFlag>0</ModelAnswerFlag></Action></Sunstone>",URLPrefix,assessmentId,currentTeacherId,ratings,currentUserId)
-        
+        print("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kServiceSendFeedback, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
@@ -316,7 +316,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>FetchQuestion</Service><QuestionLogId>%@</QuestionLogId></Action></Sunstone>",URLPrefix,questionLogId)
-        
+        print("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kServiceGetQuestion, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
 
@@ -328,7 +328,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>SendAnswer</Service><StudentId>%@</StudentId><OptionText>%@</OptionText><SessionId>%@</SessionId><QuestionLogId>%@</QuestionLogId><QuestionType>%@</QuestionType></Action></Sunstone>",URLPrefix,currentUserId, optionsList,currentSessionId, questionLogId, questionType )
-        
+        print("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kServiceSendAnswer, withDelegate: self, with: eHTTPGetRequest,withReturningDelegate:delegate)
     }
     
@@ -339,7 +339,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>SendAnswer</Service><StudentId>%@</StudentId><ImagePath>%@</ImagePath><SessionId>%@</SessionId><QuestionLogId>%@</QuestionLogId><QuestionType>%@</QuestionType></Action></Sunstone>",URLPrefix,currentUserId, ImagePath,currentSessionId, questionLogId, questionType )
-        
+        print("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kServiceSendAnswer, withDelegate: self, with: eHTTPGetRequest,withReturningDelegate:delegate)
     }
     
@@ -351,7 +351,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>SendAnswer</Service><StudentId>%@</StudentId><TextAnswer>%@</TextAnswer><SessionId>%@</SessionId><QuestionLogId>%@</QuestionLogId><QuestionType>%@</QuestionType></Action></Sunstone>",URLPrefix,currentUserId, TextReply,currentSessionId, questionLogId, questionType )
-        
+        print("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kServiceSendAnswer, withDelegate: self, with: eHTTPGetRequest,withReturningDelegate:delegate)
     }
  
@@ -366,7 +366,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>SendAnswer</Service><StudentId>%@</StudentId><Sequence>%@</Sequence><SessionId>%@</SessionId><QuestionLogId>%@</QuestionLogId><QuestionType>%@</QuestionType></Action></Sunstone>",URLPrefix,currentUserId, sequenceList,currentSessionId, questionLogId, questionType )
-        
+        print("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kServiceSendAnswer, withDelegate: self, with: eHTTPGetRequest,withReturningDelegate:delegate)
     }
     
@@ -378,7 +378,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         
         
         let urlString = String(format: "%@<Sunstone><Action><Service>SaveStudentQuery</Service><StudentId>%@</StudentId><SessionId>%@</SessionId><QueryText>%@</QueryText><Anonymous>%@</Anonymous></Action></Sunstone>",URLPrefix,currentUserId,currentLiveSessionId,queryText,isAnonymous)
-        
+        print("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kServiceSetDoubt, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
@@ -389,7 +389,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>GetQueryResponse</Service><QueryId>%@</QueryId></Action></Sunstone>",URLPrefix,doubtId)
-        
+        print("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kGetResponseToQuery, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
@@ -400,7 +400,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>FetchSRQ</Service><SessionId>%@</SessionId></Action></Sunstone>",URLPrefix,sessionId)
-        
+        print("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kServiceFetchSRQ, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
@@ -412,7 +412,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>VolunteerRegister</Service><StudentId>%@</StudentId><QueryId>%@</QueryId></Action></Sunstone>",URLPrefix,self.currentUserId,doubtId)
-        
+        print("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kServiceVolunteerRegister, withDelegate: self, with: eHTTPGetRequest , withReturningDelegate: delegate)
     }
     
@@ -424,7 +424,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>GetFeedback</Service><AssessmentAnswerId>%@</AssessmentAnswerId></Action></Sunstone>",URLPrefix,assesmentId)
-        
+        print("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kServiceGetFeedBack, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
 
@@ -435,7 +435,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>GetAllModelAnswers</Service><QuestionLogId>%@</QuestionLogId></Action></Sunstone>",URLPrefix,QuestionLogId)
-        
+        print("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kGetAllModelAnswer, withDelegate: self, with: eHTTPGetRequest,
                                 withReturningDelegate: delegate)
     }
@@ -448,7 +448,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>WithdrawStudentSubmission</Service><QueryId>%@</QueryId></Action></Sunstone>",URLPrefix,queryId)
-        
+        print("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kServiceWithDrawQuery, withDelegate: self, with: eHTTPGetRequest,withReturningDelegate: delegate)
     }
     
@@ -463,7 +463,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>RecordSuggestion</Service><StudentId>%@</StudentId><SuggestTxt>%@</SuggestTxt><CategoryId>%@</CategoryId><SessionId>%@</SessionId><TopicId>%@</TopicId><DeviceId>%@</DeviceId><UUID>%@</UUID></Action></Sunstone>",URLPrefix,currentUserId,Suggestion,CategoryID,currentLiveSessionId,topicId,uuidString,uuidString)
-        
+        print("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kRecordSuggestion, withDelegate: self, with: eHTTPGetRequest,withReturningDelegate: delegate)
     }
     
@@ -628,4 +628,78 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         
     }
     
+}
+
+extension user: URLConvertible
+{
+    
+    static let baseURLString = "http://54.251.104.13/Jupiter/sun.php?api="
+    
+    public func asURL() throws -> URL
+    {
+        let urlString = user.baseURLString
+        return try urlString.asURL()
+    }
+    
+    
+    func getScheudelSummary(sufix:String) -> URL
+    {
+        
+        let urlString = user.baseURLString + sufix
+        return  try! urlString.asURL()
+    }
+    
+    
+    
+}
+
+extension String
+{
+    func encodeUrl() -> String
+    {
+        return self.addingPercentEncoding( withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+    }
+    func decodeUrl() -> String
+    {
+        return self.removingPercentEncoding!
+    }
+    
+}
+
+extension String
+{
+    var parseJSONString: AnyObject?
+    {
+        let data = self.data(using: String.Encoding.utf8, allowLossyConversion: false)
+        if let jsonData = data
+        {
+            // Will return an object or nil if JSON decoding fails
+            do
+            {
+                let message = try JSONSerialization.jsonObject(with: jsonData, options:.mutableContainers)
+                
+                
+                var jsonValue = NSDictionary()
+                if message is NSArray
+                {
+                    jsonValue = (message as AnyObject).firstObject as! NSDictionary
+                    return jsonValue
+                }
+                else
+                {
+                    return message as AnyObject
+                }
+            }
+            catch let error as NSError
+            {
+                print("An error occurred: \(error)")
+                return nil
+            }
+        }
+        else
+        {
+            // Lossless conversion of the string was not possible
+            return nil
+        }
+    }
 }

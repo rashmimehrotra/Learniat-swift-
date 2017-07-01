@@ -67,7 +67,7 @@ class ApiResponseLogging: NSObject
        
     }
     
-    static func logResponse(request: DataRequest?, response: DataResponse<Any>?)
+    static func logResponse(request: DataRequest?, response: DataResponse<String>?)
     {
         
         

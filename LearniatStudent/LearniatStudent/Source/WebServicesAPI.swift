@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-typealias ApiSuccessHandler = (_ result: AnyObject) -> ()
+typealias ApiSuccessHandler = (_ result: String) -> ()
 typealias ApiErrorHandler = (_ error:NSError) -> ()
 
 class WebServicesAPI: NSObject, WebServicesManager {
@@ -30,6 +30,11 @@ class WebServicesAPI: NSObject, WebServicesManager {
        
         callAPI(forUrl: path, httpMethod: HTTPMethod.post, details: details, successHandler: success, failureHandler: failure)
     }
+    
+    
+    
+    
+    
  
     //MARK: - WebServicesManager
     func getTimeoutInterval() -> TimeInterval {
