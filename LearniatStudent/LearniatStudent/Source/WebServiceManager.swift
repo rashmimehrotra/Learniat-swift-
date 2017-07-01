@@ -124,7 +124,7 @@ extension WebServicesManager {
 
 public enum customErrors: Error
 {
-    case RegisterationError
+    case jsonParsingError
     case CustomErrorMessage(msg:String)
 
 }
@@ -134,8 +134,8 @@ extension customErrors: LocalizedError
     public var errorDescription: String? {
         switch self
         {
-        case .RegisterationError:
-            return NSLocalizedString("Error ", comment: "")
+        case .jsonParsingError:
+            return NSLocalizedString("Error in json format ", comment: "")
             
         case .CustomErrorMessage(let message):
             return NSLocalizedString(message, comment: "")

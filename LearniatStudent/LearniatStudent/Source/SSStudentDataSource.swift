@@ -199,7 +199,19 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
     func LoginWithUserId(_ userId :String , andPassword Password:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler)
     {
         WebServicesAPI().getRequest(fromUrl: "http://54.251.104.13:8000/login?app_id=4&user_name=\(userId)&pass=\(Password)", details: nil, success: { (result) in
-            success(result.parseJSONString!)
+            
+            
+            let JsonValue = result.parseJSONString
+            
+            if(JsonValue.jsonData != nil)
+            {
+                success(JsonValue.jsonData!)
+            }
+            else
+            {
+                failure(JsonValue.error!)
+            }
+            
         }) { (error) in
             failure(error as NSError)
         }
@@ -662,7 +674,7 @@ extension String
 
 extension String
 {
-    var parseJSONString: AnyObject?
+    var parseJSONString: (jsonData:AnyObject?,error:NSError?)
     {
         let data = self.data(using: String.Encoding.utf8, allowLossyConversion: false)
         if let jsonData = data
@@ -673,27 +685,29 @@ extension String
                 let message = try JSONSerialization.jsonObject(with: jsonData, options:.mutableContainers)
                 
                 
-                var jsonValue = NSDictionary()
                 if message is NSArray
                 {
-                    jsonValue = (message as AnyObject).firstObject as! NSDictionary
-                    return jsonValue
+                    if let jsonValue =  (message as AnyObject).firstObject as? NSDictionary
+                    {
+                        return (jsonValue,nil)
+                    }
+
+                        return (nil,customErrors.jsonParsingError as NSError)
                 }
                 else
                 {
-                    return message as AnyObject
+                    return (message as AnyObject, nil)
                 }
             }
             catch let error as NSError
             {
-                print("An error occurred: \(error)")
-                return nil
+                 return (nil,error)
             }
         }
         else
         {
             // Lossless conversion of the string was not possible
-            return nil
+             return (nil,customErrors.jsonParsingError as NSError)
         }
     }
 }

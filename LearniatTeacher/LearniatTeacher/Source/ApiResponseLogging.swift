@@ -54,20 +54,20 @@ class ApiResponseLogging: NSObject
     static func logAPIForRequest(request: DataRequest, options: [LogOption])
     {
         
-            let method = request.request?.httpMethod
-            let url = request.request?.url?.absoluteString ?? ""
-            let headers = prettyPrintedString(from: request.request?.allHTTPHeaderFields) ?? ""
-            let body = string(from: request.request?.httpBody, prettyPrint: true) ?? ""
-
+        let method = request.request?.httpMethod
+        let url = request.request?.url?.absoluteString ?? ""
+        let headers = prettyPrintedString(from: request.request?.allHTTPHeaderFields) ?? ""
+        let body = string(from: request.request?.httpBody, prettyPrint: true) ?? ""
         
         
         
-            print("\n\n\(separatorString) \n Request \(String(describing: method)) \n'\(url)':\n\n[Headers]\n\(String(describing: headers))\n\n[Body]\n\(body)\n\(separatorString)")
         
-       
+        print("\n\n\(separatorString) \n Request \(String(describing: method)) \n'\(url)':\n\n[Headers]\n\(String(describing: headers))\n\n[Body]\n\(body)\n\(separatorString)")
+        
+        
     }
     
-    static func logResponse(request: DataRequest?, response: DataResponse<Any>?)
+    static func logResponse(request: DataRequest?, response: DataResponse<String>?)
     {
         
         
@@ -108,10 +108,10 @@ class ApiResponseLogging: NSObject
         
         print("\n\n\n\n\(separatorString)\n\(responseTitle) Method: \(requestMethod) \nStatus:\(responseStatusCode) '\(requestUrl)' \(elapsedTimeString):\n\n[Headers]:\n\(responseHeaders)\n\n[Body]\n\(responseData )\(separatorString)")
         
-      
-
+        
+        
     }
-   
+    
     
     
     private static func prettyPrintedString(from json: Any?) -> String? {
@@ -162,7 +162,7 @@ class AlamoFireManager
         let manager = Alamofire.SessionManager.default
         manager.session.configuration.timeoutIntervalForRequest = 120
         manager.session.configuration.httpShouldUsePipelining = true
-
+        
         return manager
     }
 }

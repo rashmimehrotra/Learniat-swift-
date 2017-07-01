@@ -167,7 +167,57 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSou
         else
         {
            loginButtonPressed(true)
-           SSTeacherDataSource.sharedDataSource.LoginWithUserId(mUserName.text!, andPassword: mPassword.text!, withDelegate: self)
+            
+            SSTeacherDataSource.sharedDataSource.LoginWithUserId(mUserName.text!, andPassword: mPassword.text!, withSuccessHandle: { (details) in
+                if let status = details.object(forKey: kStatus) as? String
+                {
+                    if status == kSuccessString
+                    {
+                        if let currentUserid = details.object(forKey: kUserId) as? Int
+                        {
+                            SSTeacherDataSource.sharedDataSource.currentUserId = "\(currentUserid)"
+                            UserDefaults.standard.set("\(currentUserid)", forKey: kUserId)
+                            SSTeacherMessageHandler.sharedMessageHandler.connectWithUserId("\(currentUserid)", andWithPassword: self.mPassword.text!, withDelegate: self)
+                            
+                        }
+                        if let currentSchoolId = details.object(forKey: kSchoolId) as? String
+                        {
+                            SSTeacherDataSource.sharedDataSource.currentSchoolId = currentSchoolId
+                        }
+                    }
+                    else
+                    {
+                        if let error_message = details.object(forKey: kErrorMessage) as? String
+                        {
+                            self.view.makeToast(error_message, duration: 2.0, position: .bottom)
+                        }
+                        else
+                        {
+                            self.view.makeToast(status, duration: 2.0, position: .bottom)
+                        }
+                        
+                        
+                        self.loginButtonPressed(false)
+                    }
+                }
+                else
+                {
+                    if let error_message = details.object(forKey: kErrorMessage) as? String
+                    {
+                        self.view.makeToast(error_message, duration: 2.0, position: .bottom)
+                    }
+                    else
+                    {
+                        self.view.makeToast("User name or password is incorrect, please try again. ", duration: 5.0, position: .bottom)
+                    }
+                    
+                    
+                    self.loginButtonPressed(false)
+                }
+            }, withfailurehandler: { (error) in
+                self.view.makeToast("Error\((error.code))-\((error.localizedDescription))", duration: 5.0, position: .bottom)
+                self.loginButtonPressed(false)
+            })
         }
     }
    

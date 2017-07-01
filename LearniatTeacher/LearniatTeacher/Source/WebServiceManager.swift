@@ -35,43 +35,31 @@ extension WebServicesManager {
     }
     
     func callAPI(forUrl path: String, httpMethod: HTTPMethod, details: NSDictionary?,
-                 successHandler: @escaping ApiSuccessHandler,
+                 successHandler: @escaping ApiSuccessStringHandler,
                  failureHandler: @escaping ApiErrorHandler) {
         
         let request =  createRequest(forPath: path, httpMethod: httpMethod, details: details,withHeader: nil)
-
-        request.validate().responseJSON {(response: DataResponse<Any>) in
+        
+        
+        request.validate().responseString { response in
             ApiResponseLogging.logResponse(request: request, response: response)
-            
             switch response.result {
-            case .success(let json):
+            case .success(let responseString):
                 
-                var jsonData = NSDictionary()
-                if json is NSArray
-                {
-                    
-                    jsonData = (json as AnyObject).firstObject as! NSDictionary
-                    successHandler(jsonData as AnyObject)
-                }
-                else
-                {
-                   successHandler(json as AnyObject)
-                }
-                
-                
+                successHandler(responseString)
                 
                 break
                 
             case .failure(let error):
                 if (error as NSError).code == NSURLErrorNotConnectedToInternet
                 {
-                   failureHandler(error as NSError)
+                    failureHandler(error as NSError)
                     
                 } else
                 {
                     failureHandler(error as NSError)
                 }
-
+                
                 break
             }
         }
@@ -120,7 +108,7 @@ extension WebServicesManager {
         return imgOptions
     }
     
-   
+    
     private func parseResponse(response: NSDictionary) -> (isSuccess: Bool, msg: String?) {
         if let status  =  response["status"] as? String {
             if status == "error" {
@@ -136,9 +124,9 @@ extension WebServicesManager {
 
 public enum customErrors: Error
 {
-    case RegisterationError
+    case jsonParsingError
     case CustomErrorMessage(msg:String)
-
+    
 }
 
 extension customErrors: LocalizedError
@@ -146,13 +134,13 @@ extension customErrors: LocalizedError
     public var errorDescription: String? {
         switch self
         {
-        case .RegisterationError:
-            return NSLocalizedString("Error ", comment: "")
+        case .jsonParsingError:
+            return NSLocalizedString("Error in json format ", comment: "")
             
         case .CustomErrorMessage(let message):
             return NSLocalizedString(message, comment: "")
-
-        
+            
+            
         }
     }
 }

@@ -319,34 +319,25 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     
     
-    func LoginWithUserId(_ userId :String , andPassword Password:String, withDelegate delegate:SSTeacherDataSourceDelegate)
+    func LoginWithUserId(_ userId :String , andPassword Password:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler)
     {
-
-        
-        
         WebServicesAPI().getRequest(fromUrl: "http://54.251.104.13:8000/login?app_id=3&user_name=\(userId)&pass=\(Password)", details: nil, success: { (result) in
-            if (delegate as AnyObject).responds(to: #selector(SSTeacherDataSourceDelegate.didGetloginWithDetails(_:withError:)))
+            
+            
+            let JsonValue = result.parseJSONString
+            
+            if(JsonValue.jsonData != nil)
             {
-                delegate.didGetloginWithDetails!(result as AnyObject,withError: nil)
+                success(JsonValue.jsonData!)
+            }
+            else
+            {
+                failure(JsonValue.error!)
             }
             
         }) { (error) in
-            
-            delegate.didGetloginWithDetails!(NSMutableDictionary(),withError:error)
+            failure(error as NSError)
         }
-        
-        
-        
-        /*
-        let manager = APIManager()
-        let uuidString:String = UIDevice.current.identifierForVendor!.uuidString
-        
-        
-        
-        let urlString = String(format: "%@<Sunstone><Action><Service>Login</Service><UserName>%@</UserName><UserPassword>%@</UserPassword><AppVersion>%@</AppVersion><UUID>%@</UUID><AppId>1</AppId><Latitude>-27.96310183</Latitude><Longitude>153.41311552</Longitude></Action></Sunstone>",URLPrefix,userId, Password,APP_VERSION,uuidString)
-        
-        manager.downloadDataURL(urlString, withServiceName:kServiceUserLogin, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
- */
     }
  
 
@@ -1294,4 +1285,45 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
     }
     
+}
+
+
+extension String
+{
+    var parseJSONString: (jsonData:AnyObject?,error:NSError?)
+    {
+        let data = self.data(using: String.Encoding.utf8, allowLossyConversion: false)
+        if let jsonData = data
+        {
+            // Will return an object or nil if JSON decoding fails
+            do
+            {
+                let message = try JSONSerialization.jsonObject(with: jsonData, options:.mutableContainers)
+                
+                
+                if message is NSArray
+                {
+                    if let jsonValue =  (message as AnyObject).firstObject as? NSDictionary
+                    {
+                        return (jsonValue,nil)
+                    }
+                    
+                    return (nil,customErrors.jsonParsingError as NSError)
+                }
+                else
+                {
+                    return (message as AnyObject, nil)
+                }
+            }
+            catch let error as NSError
+            {
+                return (nil,error)
+            }
+        }
+        else
+        {
+            // Lossless conversion of the string was not possible
+            return (nil,customErrors.jsonParsingError as NSError)
+        }
+    }
 }
