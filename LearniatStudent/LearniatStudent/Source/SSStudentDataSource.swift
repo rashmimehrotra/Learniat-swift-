@@ -25,7 +25,7 @@ let kErrorMessage               = "error_message"
 
 
 
-let URLPrefix                       =   "http://54.251.104.13/Jupiter/sun.php?api="
+var URLPrefix                       =   "http://54.251.104.13/Jupiter/sun.php?api="
 
 let APP_VERSION                     =   "1.6"
 
@@ -633,29 +633,6 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         print("Error in API \(ServiceName)")
         
     }
-    
-}
-
-extension user: URLConvertible
-{
-    
-    static let baseURLString = "http://54.251.104.13/Jupiter/sun.php?api="
-    
-    public func asURL() throws -> URL
-    {
-        let urlString = user.baseURLString
-        return try urlString.asURL()
-    }
-    
-    
-    func getScheudelSummary(sufix:String) -> URL
-    {
-        
-        let urlString = user.baseURLString + sufix
-        return  try! urlString.asURL()
-    }
-    
-    
     
 }
 

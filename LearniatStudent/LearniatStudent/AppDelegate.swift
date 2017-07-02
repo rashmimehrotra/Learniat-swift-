@@ -53,7 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
        
-        
+        URLPrefix = Config.sharedInstance.getPhpUrl()
       
         return true
     }

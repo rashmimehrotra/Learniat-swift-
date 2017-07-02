@@ -57,7 +57,7 @@ class CollaborationQuestionCell: UIButton {
     {
         optionDetails = details
         
-        if let mSuggestion = details.object(forKey: "SuggestionText") as? String
+        if let mSuggestion = details.object(forKey: "SuggestTxt") as? String
         {
             mSuggestiontext.text = mSuggestion
             

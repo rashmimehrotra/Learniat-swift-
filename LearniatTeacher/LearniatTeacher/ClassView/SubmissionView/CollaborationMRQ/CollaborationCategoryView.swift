@@ -314,7 +314,7 @@ class CollaborationCategoryView: UIView,SSTeacherDataSourceDelegate,UITextFieldD
             
             
         }
-        if let ElementList = details.object(forKey: "ElementList") as? NSMutableDictionary
+        if let ElementList = details.object(forKey: "ElementContainer") as? NSMutableDictionary
         {
             if let elements = ElementList.object(forKey: "Element") as? NSMutableArray
             {

@@ -37,25 +37,25 @@ import UIKit
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
 // Consider refactoring the code to use the non-optional operators.
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
+    switch (lhs, rhs) {
+    case let (l?, r?):
+        return l < r
+    case (nil, _?):
+        return true
+    default:
+        return false
+    }
 }
 
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
 // Consider refactoring the code to use the non-optional operators.
 fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
+    switch (lhs, rhs) {
+    case let (l?, r?):
+        return l > r
+    default:
+        return rhs < lhs
+    }
 }
 
 
@@ -67,7 +67,7 @@ let halfHourMultipleRatio : CGFloat = (oneHourDiff / 2)/(30)
 class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegate,ScheduleScreenTileDelegate,SSTeacherMessagehandlerDelegate,CustomAlertViewDelegate,ScheduleDetailViewDelegate,SSSettingsViewControllerDelegate
 {
     var mTeacherImageView: CustomProgressImageView!
-   
+    
     var mTopbarImageView: UIImageView!
     
     var mTeacherName: UILabel!
@@ -82,7 +82,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     
     var mScrollView:UIScrollView!
     
-    var sessionDetailsArray = [TimeTableModel]()
+    var sessionDetailsArray:NSMutableArray = NSMutableArray()
     
     var positionsArray:Dictionary<String,CGFloat> = Dictionary()
     
@@ -97,7 +97,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     var mAppVersionNumber               = UILabel();
     
     var mExtTimelabel: UILabel = UILabel();
-
+    
     
     var extendTimeSessiondetails : AnyObject!
     
@@ -116,14 +116,14 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     
     var mStudentsLessonPlanView      : SSTeacherLessonPlanView!
     
-     fileprivate var foregroundNotification: NSObjectProtocol!
+    fileprivate var foregroundNotification: NSObjectProtocol!
     
     
     override func viewDidAppear(_ animated: Bool)
     {
         super.viewDidAppear(animated)
         
-        getTodaySchedules()
+        SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
         
@@ -140,21 +140,21 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
         self.view.setNeedsLayout()
         self.view.layoutIfNeeded()
-
+        
         
         
         foregroundNotification = NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillEnterForeground, object: nil, queue: OperationQueue.main) {
             [unowned self] notification in
             
-//            if self.sessionAlertView != nil
-//            {
-//                if self.sessionAlertView.isBeingPresented()
-//                {
-//                    self.sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
-//                }
-//            }
+            //            if self.sessionAlertView != nil
+            //            {
+            //                if self.sessionAlertView.isBeingPresented()
+            //                {
+            //                    self.sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
+            //                }
+            //            }
             
-             self.getTodaySchedules()
+            SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
         }
         
         
@@ -237,7 +237,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         {
             let buildNumber: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
-
+            
             
             mAppVersionNumber.text = "V = \(version).".appending(buildNumber)
         }
@@ -246,7 +246,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         activityIndicator.frame = CGRect(x: mRefreshButton.frame.origin.x - 60,  y: 0,width: mTopbarImageView.frame.size.height,height: mTopbarImageView.frame.size.height)
         mTopbarImageView.addSubview(activityIndicator)
         activityIndicator.isHidden = true
-       
+        
         
         mNoSessionLabel = UILabel(frame: CGRect(x: 10, y: (self.view.frame.size.height - 40)/2, width: self.view.frame.size.width - 20,height: 40))
         mNoSessionLabel.font = UIFont(name:helveticaMedium, size: 30)
@@ -272,7 +272,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         self.view.addSubview(mScrollView)
         mScrollView.isHidden = true
         
-        getTodaySchedules()
+        SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
         
@@ -291,169 +291,18 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
         mScrollView.bringSubview(toFront: mCurrentTimeLine)
         
-         timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(TeacherScheduleViewController.timerAction), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(TeacherScheduleViewController.timerAction), userInfo: nil, repeats: true)
         
         
         
         
     }
-   
+    
     deinit {
         // make sure to remove the observer when this view controller is dismissed/deallocated
         
         NotificationCenter.default.removeObserver(foregroundNotification)
     }
-    
-    
-    
-    func getTodaySchedules()
-    {
-        TimeTableDataManager().getTodaySchedules { (timeTables) in
-            
-            if timeTables?.count > 0
-            {
-                self.dispalySessionsOnScreenWithSessions(sessions: timeTables!)
-            }
-            else{
-               self.getSchedulesFromServer()
-            }
-            
-        }
-    }
-    
-    
-    
-    func getSchedulesFromServer()
-    {
-        SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(success: { (timeTables) in
-            
-           if timeTables.count > 0
-           {
-                self.saveTimeTableWithDetails(sessions: timeTables)
-                self.getTodaySchedules()
-            }
-            
-            
-        }) { (error) in
-            
-        }
-    }
-    
-    
-    private func saveTimeTableWithDetails(sessions:NSArray)
-    {
-        
-        for session in sessions
-        {
-            TimeTableDataManager().saveTimeTableDataWithJsonData(userValue: session as AnyObject)
-        }
-        
-    }
-    
-    
-    
-    func dispalySessionsOnScreenWithSessions(sessions:[TimeTableModel])
-    {
-        
-        for index in 0 ..< sessionDetailsArray.count
-        {
-            let dict = sessionDetailsArray[index]
-            let sessionid = dict.SessionId
-            
-            if let scheduleTileView  = mScrollView.viewWithTag(sessionid) as? ScheduleScreenTile
-            {
-                scheduleTileView.stopAllTimmers()
-                scheduleTileView.removeFromSuperview()
-            }
-        }
-        
-        
-        sessionDetailsArray.removeAll()
-        
-        sessionDetailsArray = sessions
-        
-        if sessionDetailsArray.count > 0
-        {
-            mNoSessionLabel.isHidden = true
-            mNoSessionSubLabel.isHidden = true
-            mScrollView.isHidden = false
-
-            
-        }
-        else
-        {
-            mNoSessionLabel.isHidden = false
-            mNoSessionSubLabel.isHidden = false
-            mScrollView.isHidden = true
-        }
-        
-        
-        
-        
-        
-        
-        for index in 0 ..< sessionDetailsArray.count
-        {
-            let schedule = sessionDetailsArray[index]
-            
-            let startDate :String = schedule.StartTime!
-            let endDate :String = schedule.EndTime!
-            let totalSize = getSizeOfCalendarEvernWithStarthour(startDate.hourValue(), withstartMinute: startDate.minuteValue(), withEndHour: (endDate.hourValue()), withEndMinute: (endDate.minuteValue()))
-            let StartPositionOfTile = getPositionWithHour(startDate.hourValue(), withMinute: startDate.minuteValue())
-            
-            
-            let scheduleTileView = ScheduleScreenTile(frame: CGRect(x: 80, y: StartPositionOfTile, width: self.view.frame.size.width-90, height: totalSize))
-            mScrollView.addSubview(scheduleTileView)
-            scheduleTileView.setdelegate(self)
-            
-            let sessionid :String = "\(schedule.SessionId)"
-            
-            sessionIdDictonary[sessionid] = schedule as AnyObject?
-            scheduleTileView.tag = Int(sessionid)!
-           scheduleTileView.setCurrentSessionDetails(schedule)
-            
-            let sessionState = "\(schedule.SessionState)"
-            if sessionState == kLive || sessionState == kopened || sessionState == kScheduled
-            {
-                SSTeacherMessageHandler.sharedMessageHandler.createRoomWithRoomName(String(format:"room_%d",schedule.SessionId), withHistory: "0")
-            }
-            else
-            {
-                SSTeacherMessageHandler.sharedMessageHandler.checkAndRemoveJoinedRoomsArrayWithRoomid(String(format:"room_%d",schedule.SessionId))
-            }
-            
-            
-            
-            
-        }
-        
-        
-        
-        let currentDate = Date()
-        let currentHour = (currentDate.hour())
-        mCurrentTimeLine.addToCurrentTimewithHours(getPositionWithHour(currentHour, withMinute: currentDate.minute()))
-        
-        mCurrentTimeLine.setCurrentTimeLabel(currentDate.toShortTimeString())
-        mScrollView.bringSubview(toFront: mCurrentTimeLine)
-        checkToHideLabelwithDate(currentDate)
-        
-        UIView.animate(withDuration: 0.5, animations: {
-            self.mScrollView.contentOffset = CGPoint(x: 0,y: self.mCurrentTimeLine.frame.origin.y - self.view.frame.size.height/3);
-        })
-        
-        
-//        if sessionDetailsArray.count > 0
-//        {
-//            SSTeacherDataSource.sharedDataSource.getMyCurrentSessionOfTeacher(self)
-//        }
-//        else
-//        {
-//            activityIndicator.isHidden = true
-//            activityIndicator.stopAnimating()
-//        }
-        
-    }
-    
     
     
     func addNumberOfLinesToScrollView()
@@ -506,10 +355,10 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
                 
                 mScrollView.addSubview(halfHourLineView)
                 halfHourLineView.drawDashedBorderAroundView(with: UIColor(red: 153/255.0, green: 153/255.0, blue: 153/255.0, alpha: 1))
-                 positionY = positionY + oneHourDiff
+                positionY = positionY + oneHourDiff
             }
             
-           
+            
         }
         
         mScrollView.contentSize = CGSize(width: 0, height: positionY + oneHourDiff / 2 )
@@ -523,7 +372,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     
     func onRefreshButton(_ sender: AnyObject)
     {
-        getSchedulesFromServer()
+        SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
     }
@@ -570,6 +419,15 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
     }
     
     // MARK: - Returning Functions
@@ -605,14 +463,14 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
         return sizeOfEvent
     }
-
+    
     
     
     // MARK: - Teacher datasource Error
-
+    
     func didgetErrorMessage(_ message: String, WithServiceName serviceName: String)
     {
-         self.view.makeToast(message, duration: 5.0, position: .bottom)
+        self.view.makeToast(message, duration: 5.0, position: .bottom)
         
         activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
@@ -623,7 +481,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     
     func didGetSchedulesWithDetials(_ details: AnyObject)
     {
-
+        
         sessionUpdatedLive = false
         
         if mScheduleDetailView != nil
@@ -634,14 +492,122 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
         
         print(details)
-//        if self.sessionAlertView != nil
-//        {
-//            if self.sessionAlertView.isBeingPresented()
-//            {
-//                self.sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
-//            }
-//        }
+        //        if self.sessionAlertView != nil
+        //        {
+        //            if self.sessionAlertView.isBeingPresented()
+        //            {
+        //                self.sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
+        //            }
+        //        }
         
+        
+        for index in 0 ..< sessionDetailsArray.count
+        {
+            let dict = sessionDetailsArray.object(at: index)
+            let sessionid = (dict as AnyObject).object(forKey: kSessionId) as! String
+            
+            if let scheduleTileView  = mScrollView.viewWithTag(Int(sessionid)!) as? ScheduleScreenTile
+            {
+                scheduleTileView.stopAllTimmers()
+                scheduleTileView.removeFromSuperview()
+            }
+        }
+        
+        
+        sessionDetailsArray.removeAllObjects()
+        if let statusString = details.object(forKey: "Status") as? String
+        {
+            if statusString == kSuccessString
+            {
+                mNoSessionLabel.isHidden = true
+                mNoSessionSubLabel.isHidden = true
+                mScrollView.isHidden = false
+                
+                if  let classCheckingVariable = (details.object(forKey: kSessions)! as AnyObject).object(forKey: kSubSession) as? NSMutableArray
+                {
+                    sessionDetailsArray = classCheckingVariable
+                }
+                else
+                {
+                    sessionDetailsArray.add((details.object(forKey: kSessions)! as AnyObject).object(forKey: kSubSession)!)
+                    
+                }
+                
+                
+            }
+            else
+            {
+                mNoSessionLabel.isHidden = false
+                mNoSessionSubLabel.isHidden = false
+                mScrollView.isHidden = true
+            }
+        }
+        
+        
+        
+        
+        
+        
+        for index in 0 ..< sessionDetailsArray.count
+        {
+            let dict = sessionDetailsArray.object(at: index)
+            
+            let startDate :String = ((dict as AnyObject).object(forKey: kStartTime) as! String)
+            let endDate = ((dict as AnyObject).object(forKey: kEndTime) as! String!)
+            let totalSize = getSizeOfCalendarEvernWithStarthour(startDate.hourValue(), withstartMinute: startDate.minuteValue(), withEndHour: (endDate?.hourValue())!, withEndMinute: (endDate?.minuteValue())!)
+            let StartPositionOfTile = getPositionWithHour(startDate.hourValue(), withMinute: startDate.minuteValue())
+            
+            
+            let scheduleTileView = ScheduleScreenTile(frame: CGRect(x: 80, y: StartPositionOfTile, width: self.view.frame.size.width-90, height: totalSize))
+            mScrollView.addSubview(scheduleTileView)
+            scheduleTileView.setdelegate(self)
+            
+            
+            let sessionid = (dict as AnyObject).object(forKey: kSessionId) as! String
+            
+            sessionIdDictonary[sessionid] = dict as AnyObject?
+            scheduleTileView.tag = Int(sessionid)!
+            scheduleTileView.setCurrentSessionDetails(dict as AnyObject)
+            
+            let sessionState = (dict as AnyObject).object(forKey: kSessionState) as! String
+            if sessionState == kLive || sessionState == kopened || sessionState == kScheduled
+            {
+                SSTeacherMessageHandler.sharedMessageHandler.createRoomWithRoomName(String(format:"room_%@",((dict as AnyObject).object(forKey: kSessionId) as! String)), withHistory: "0")
+            }
+            else
+            {
+                SSTeacherMessageHandler.sharedMessageHandler.checkAndRemoveJoinedRoomsArrayWithRoomid(String(format:"room_%@",((dict as AnyObject).object(forKey: kSessionId) as! String)))
+            }
+            
+            
+            
+            
+        }
+        
+        
+        
+        let currentDate = Date()
+        let currentHour = (currentDate.hour())
+        mCurrentTimeLine.addToCurrentTimewithHours(getPositionWithHour(currentHour, withMinute: currentDate.minute()))
+        
+        mCurrentTimeLine.setCurrentTimeLabel(currentDate.toShortTimeString())
+        mScrollView.bringSubview(toFront: mCurrentTimeLine)
+        checkToHideLabelwithDate(currentDate)
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.mScrollView.contentOffset = CGPoint(x: 0,y: self.mCurrentTimeLine.frame.origin.y - self.view.frame.size.height/3);
+        })
+        
+        
+        if sessionDetailsArray.count > 0
+        {
+            SSTeacherDataSource.sharedDataSource.getMyCurrentSessionOfTeacher(self)
+        }
+        else
+        {
+            activityIndicator.isHidden = true
+            activityIndicator.stopAnimating()
+        }
         
         
     }
@@ -696,35 +662,40 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     func didGetSessionUpdatedWithDetials(_ details: AnyObject)
     {
         
-            if sessionUpdatedLive == false
-            {
-                getTodaySchedules()
+        if sessionUpdatedLive == false
+        {
+            SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
         }
         else
-            {
-                let currentDate = Date()
-                
-                
-                let startTime = dateFormatter.string(from: currentDate)
-                liveSessionDetails.setValue(startTime, forKey: "StartTime" )
-                
-//                liveSessionDetails.set(startTime, forKey: "StartTime")
-//                liveSessionDetails.set(dateFormatter.string(from: currentDate), forKey: "StartTime")
-                
-                beginClassWithDetails(liveSessionDetails)
-                
-                
+        {
+            let currentDate = Date()
+            
+            
+            let startTime = dateFormatter.string(from: currentDate)
+            liveSessionDetails.setValue(startTime, forKey: "StartTime" )
+            
+            //                liveSessionDetails.set(startTime, forKey: "StartTime")
+            //                liveSessionDetails.set(dateFormatter.string(from: currentDate), forKey: "StartTime")
+            
+            beginClassWithDetails(liveSessionDetails)
+            
+            
         }
         
         activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
+        
+        
+        
+        
+        
         
     }
     
     func didGetSessionExtendedDetials(_ details: AnyObject) {
         
         
-        getTodaySchedules()
+        SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
         
@@ -735,7 +706,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             
             self.sendTimeExtendMessageWithDetails(currentSessionDetails, withMessage: timeDelayString)
         }
-
+        
         
         
     }
@@ -750,8 +721,8 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             {
                 if status == kSuccessString
                 {
-                     if UserDefaults.standard.object(forKey: kPassword) != nil
-                     {
+                    if UserDefaults.standard.object(forKey: kPassword) != nil
+                    {
                         UserDefaults.standard.removeObject(forKey: kPassword)
                     }
                     
@@ -761,7 +732,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
                     
                     activityIndicator.isHidden = true
                     activityIndicator.stopAnimating()
-
+                    
                 }
             }
         }
@@ -830,7 +801,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
                     showScheduleScreenAlertWithDetails(currentSessionDetails, withMessage: "Your class is OVERDUE")
                 }
                 
-               
+                
             }
             
             
@@ -844,8 +815,8 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     func delegateScheduleTileTouchedWithState(_ state: String, withCurrentTileDetails Details: AnyObject)
     {
         
-       if let SessionState = Details.object(forKey: "SessionState") as? String
-       {
+        if let SessionState = Details.object(forKey: "SessionState") as? String
+        {
             if SessionState == kScheduled || SessionState == kopened
             {
                 if let _ = Details.object(forKey: "SessionId") as? String
@@ -874,8 +845,8 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
                     
                     UIView.animate(withDuration: 0.5, animations: {
                         self.mScheduleDetailView.frame = CGRect(x: self.view.frame.size.width - (self.view.frame.size.width / 2), y: self.mScrollView.frame.origin.y ,width: self.view.frame.size.width / 2 , height: self.mScrollView.frame.size.height)
-                        }, completion: { finished in
-                            
+                    }, completion: { finished in
+                        
                     })
                     
                     mScheduleDetailView.setClassname((Details.object(forKey: "ClassName") as! String),withSessionDetails: Details)
@@ -910,7 +881,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     
     func delegateRefreshSchedule()
     {
-        getTodaySchedules()
+        SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
         
@@ -935,7 +906,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
                     if Int(StudentsRegistered) > Int(PreAllocatedSeats)! + Int(OccupiedSeats)!
                     {
                         
-                       showAllocateSeatAlertWithSessionId(currentSessionDetails.object(forKey: "SessionId") as! String , withMessage:message )
+                        showAllocateSeatAlertWithSessionId(currentSessionDetails.object(forKey: "SessionId") as! String , withMessage:message )
                     }
                     else if let SessionState = currentSessionDetails.object(forKey: "SessionState") as? String
                     {
@@ -956,66 +927,66 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     
     func showAllocateSeatAlertWithSessionId(_ SessionId:String, withMessage message:String)
     {
-       
         
         
         
-//        if sessionAlertView != nil
-//        {
-//            if sessionAlertView.isBeingPresented()
-//            {
-//                sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
-//            }
-//        }
+        
+        //        if sessionAlertView != nil
+        //        {
+        //            if sessionAlertView.isBeingPresented()
+        //            {
+        //                sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
+        //            }
+        //        }
         
         
-//        sessionAlertView = UIAlertController(title: "AllocateSeat", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-//        sessionAlertView.addAction(UIAlertAction(title: "Allocate seats", style: .Default, handler: { action in
-//            
-//            if let currentSessionDetails = self.sessionIdDictonary[SessionId]
-//            {
-//                self.allocateSeatsWithDetails(currentSessionDetails)
-//            }
-//            
-//            
-//            
-//        }))
+        //        sessionAlertView = UIAlertController(title: "AllocateSeat", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        //        sessionAlertView.addAction(UIAlertAction(title: "Allocate seats", style: .Default, handler: { action in
+        //
+        //            if let currentSessionDetails = self.sessionIdDictonary[SessionId]
+        //            {
+        //                self.allocateSeatsWithDetails(currentSessionDetails)
+        //            }
+        //
+        //
+        //
+        //        }))
         
-//        sessionAlertView.addAction(UIAlertAction(title: "Cancel Class", style: .Default, handler: { action in
-//            
-//            SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SessionId, WithStatusvalue: kCanClled, WithDelegate: self)
-//            
-//            if let currentSessionDetails = self.sessionIdDictonary[SessionId]
-//            {
-//                self.sendTimeExtendMessageWithDetails(currentSessionDetails, withMessage: "Class has been cancelled")
-//            }
-//            
-//            
-//           
-//            
-//            
-//        }))
+        //        sessionAlertView.addAction(UIAlertAction(title: "Cancel Class", style: .Default, handler: { action in
+        //
+        //            SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SessionId, WithStatusvalue: kCanClled, WithDelegate: self)
+        //
+        //            if let currentSessionDetails = self.sessionIdDictonary[SessionId]
+        //            {
+        //                self.sendTimeExtendMessageWithDetails(currentSessionDetails, withMessage: "Class has been cancelled")
+        //            }
+        //
+        //
+        //
+        //
+        //
+        //        }))
         
-//        sessionAlertView.addAction(UIAlertAction(title: "Extendtime", style: .Default, handler: { action in
-//            
-//            if let currentSessionDetails = self.sessionIdDictonary[SessionId]
-//            {
-//                self.showExtendTimeAlertForSessionDetaisl(currentSessionDetails)
-//            }
-//            
-//        }))
+        //        sessionAlertView.addAction(UIAlertAction(title: "Extendtime", style: .Default, handler: { action in
+        //
+        //            if let currentSessionDetails = self.sessionIdDictonary[SessionId]
+        //            {
+        //                self.showExtendTimeAlertForSessionDetaisl(currentSessionDetails)
+        //            }
+        //
+        //        }))
         
-//        sessionAlertView.addAction(UIAlertAction(title: "Dismiss", style: .Cancel, handler: { action in
-//            
-//            
-//                if let scheduleTileView  = self.mScrollView.viewWithTag(Int(SessionId)!) as? ScheduleScreenTile
-//                {
-//                    scheduleTileView.alertDismissed()
-//                }
-//            
-//        }))
-//        
-//        self.presentViewController(sessionAlertView, animated: true, completion: nil)
+        //        sessionAlertView.addAction(UIAlertAction(title: "Dismiss", style: .Cancel, handler: { action in
+        //
+        //
+        //                if let scheduleTileView  = self.mScrollView.viewWithTag(Int(SessionId)!) as? ScheduleScreenTile
+        //                {
+        //                    scheduleTileView.alertDismissed()
+        //                }
+        //
+        //        }))
+        //
+        //        self.presentViewController(sessionAlertView, animated: true, completion: nil)
     }
     
     
@@ -1023,110 +994,110 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     
     func showOpenClassAlertWithSessionId(_ SessionId:String, withMessage message:String)
     {
-//        if sessionAlertView != nil
-//        {
-//            if sessionAlertView.isBeingPresented()
-//            {
-//                sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
-//            }
-//        }
-
+        //        if sessionAlertView != nil
+        //        {
+        //            if sessionAlertView.isBeingPresented()
+        //            {
+        //                sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
+        //            }
+        //        }
         
-//        sessionAlertView = UIAlertController(title: "OpenClass", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-//        sessionAlertView.addAction(UIAlertAction(title: "Open Class", style: .Default, handler: { action in
-//             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SessionId, WithStatusvalue: kopened, WithDelegate: self)
-//            
-//            if let currentSessionDetails = self.sessionIdDictonary[SessionId]
-//            {
-//                self.sendTimeExtendMessageWithDetails(currentSessionDetails, withMessage: "Class has been opened")
-//            }
-//
-//            
-//        }))
         
-//        sessionAlertView.addAction(UIAlertAction(title: "Cancel Class", style: .Default, handler: { action in
-//            
-//             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SessionId, WithStatusvalue: kCanClled, WithDelegate: self)
-//            
-//        }))
+        //        sessionAlertView = UIAlertController(title: "OpenClass", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        //        sessionAlertView.addAction(UIAlertAction(title: "Open Class", style: .Default, handler: { action in
+        //             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SessionId, WithStatusvalue: kopened, WithDelegate: self)
+        //
+        //            if let currentSessionDetails = self.sessionIdDictonary[SessionId]
+        //            {
+        //                self.sendTimeExtendMessageWithDetails(currentSessionDetails, withMessage: "Class has been opened")
+        //            }
+        //
+        //
+        //        }))
         
-//        sessionAlertView.addAction(UIAlertAction(title: "Extendtime", style: .Default, handler: { action in
-//            
-//            if let currentSessionDetails = self.sessionIdDictonary[SessionId]
-//            {
-//                self.showExtendTimeAlertForSessionDetaisl(currentSessionDetails)
-//            }
-//            
-//            
-//            
-//        }))
-//        
-//        sessionAlertView.addAction(UIAlertAction(title: "Dismiss", style: .Cancel, handler: { action in
-//            
-//            
-//            if let scheduleTileView  = self.mScrollView.viewWithTag(Int(SessionId)!) as? ScheduleScreenTile
-//            {
-//                scheduleTileView.alertDismissed()
-//            }
-//
-//            
-//        }))
-//        
-//        self.presentViewController(sessionAlertView, animated: true, completion: nil)
+        //        sessionAlertView.addAction(UIAlertAction(title: "Cancel Class", style: .Default, handler: { action in
+        //
+        //             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SessionId, WithStatusvalue: kCanClled, WithDelegate: self)
+        //
+        //        }))
+        
+        //        sessionAlertView.addAction(UIAlertAction(title: "Extendtime", style: .Default, handler: { action in
+        //
+        //            if let currentSessionDetails = self.sessionIdDictonary[SessionId]
+        //            {
+        //                self.showExtendTimeAlertForSessionDetaisl(currentSessionDetails)
+        //            }
+        //
+        //
+        //
+        //        }))
+        //
+        //        sessionAlertView.addAction(UIAlertAction(title: "Dismiss", style: .Cancel, handler: { action in
+        //
+        //
+        //            if let scheduleTileView  = self.mScrollView.viewWithTag(Int(SessionId)!) as? ScheduleScreenTile
+        //            {
+        //                scheduleTileView.alertDismissed()
+        //            }
+        //
+        //
+        //        }))
+        //
+        //        self.presentViewController(sessionAlertView, animated: true, completion: nil)
     }
     
     func showBeginClassAlertWithSessionId(_ SessionId:String, withMessage message:String)
     {
-//        if sessionAlertView != nil
-//        {
-//            if sessionAlertView.isBeingPresented()
-//            {
-//                sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
-//            }
-//        }
-
+        //        if sessionAlertView != nil
+        //        {
+        //            if sessionAlertView.isBeingPresented()
+        //            {
+        //                sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
+        //            }
+        //        }
         
-//        sessionAlertView = UIAlertController(title: "BeginClass", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-//        sessionAlertView.addAction(UIAlertAction(title: "Begin Class", style: .Default, handler: { action in
-//            
-//            
-//            self.sessionUpdatedLive = true
-//             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SessionId, WithStatusvalue: kLive, WithDelegate: self)
-//            
-//            if let currentSessionDetails = self.sessionIdDictonary[SessionId]
-//            {
-//               
-//                
-//                self.liveSessionDetails = currentSessionDetails
-//            }
-//            
-//        }))
         
-//        sessionAlertView.addAction(UIAlertAction(title: "Cancel Class", style: .Default, handler: { action in
-//            
-//             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SessionId, WithStatusvalue: kCanClled, WithDelegate: self)
-//            
-//        }))
+        //        sessionAlertView = UIAlertController(title: "BeginClass", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        //        sessionAlertView.addAction(UIAlertAction(title: "Begin Class", style: .Default, handler: { action in
+        //
+        //
+        //            self.sessionUpdatedLive = true
+        //             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SessionId, WithStatusvalue: kLive, WithDelegate: self)
+        //
+        //            if let currentSessionDetails = self.sessionIdDictonary[SessionId]
+        //            {
+        //
+        //
+        //                self.liveSessionDetails = currentSessionDetails
+        //            }
+        //
+        //        }))
         
-//        sessionAlertView.addAction(UIAlertAction(title: "Extendtime", style: .Default, handler: { action in
-//            
-//            if let currentSessionDetails = self.sessionIdDictonary[SessionId]
-//            {
-//                self.showExtendTimeAlertForSessionDetaisl(currentSessionDetails)
-//            }
-//            
-//        }))
+        //        sessionAlertView.addAction(UIAlertAction(title: "Cancel Class", style: .Default, handler: { action in
+        //
+        //             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SessionId, WithStatusvalue: kCanClled, WithDelegate: self)
+        //
+        //        }))
         
-//        sessionAlertView.addAction(UIAlertAction(title: "Dismiss", style: .Cancel, handler: { action in
-//            
-//            if let scheduleTileView  = self.mScrollView.viewWithTag(Int(SessionId)!) as? ScheduleScreenTile
-//            {
-//                scheduleTileView.alertDismissed()
-//            }
-//
-//        }))
-//        
-//        self.presentViewController(sessionAlertView, animated: true, completion: nil)
+        //        sessionAlertView.addAction(UIAlertAction(title: "Extendtime", style: .Default, handler: { action in
+        //
+        //            if let currentSessionDetails = self.sessionIdDictonary[SessionId]
+        //            {
+        //                self.showExtendTimeAlertForSessionDetaisl(currentSessionDetails)
+        //            }
+        //
+        //        }))
+        
+        //        sessionAlertView.addAction(UIAlertAction(title: "Dismiss", style: .Cancel, handler: { action in
+        //
+        //            if let scheduleTileView  = self.mScrollView.viewWithTag(Int(SessionId)!) as? ScheduleScreenTile
+        //            {
+        //                scheduleTileView.alertDismissed()
+        //            }
+        //
+        //        }))
+        //
+        //        self.presentViewController(sessionAlertView, animated: true, completion: nil)
     }
     
     
@@ -1135,11 +1106,11 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     
     
     
-     // MARK: - message handler functions
+    // MARK: - message handler functions
     
     func smhDidRecieveStreamConnectionsState(_ state: Bool) {
         
-//        self.view.makeToast("Xmpp Stream disconnected.", duration: 0.2, position: .Bottom)
+        //        self.view.makeToast("Xmpp Stream disconnected.", duration: 0.2, position: .Bottom)
         
         activityIndicator.stopAnimating()
         activityIndicator.isHidden = true
@@ -1157,7 +1128,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     
     func smhStreamReconnectingWithDelay(_ delay: Int32)
     {
-       self.view.makeToast("Reconnecting in \(delay) seconds", duration: 3, position: .bottom)
+        self.view.makeToast("Reconnecting in \(delay) seconds", duration: 3, position: .bottom)
         
         activityIndicator.startAnimating()
         activityIndicator.isHidden = false
@@ -1171,8 +1142,8 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     {
         if mScheduleDetailView != nil
         {
-             if mScheduleDetailView.isHidden == false
-             {
+            if mScheduleDetailView.isHidden == false
+            {
                 mScheduleDetailView.refreshView()
             }
         }
@@ -1189,7 +1160,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     }
     
     
-     // MARK: - Extra functions
+    // MARK: - Extra functions
     
     func secondsToMinutesSeconds (_ seconds : Double) -> (Double, Double)
     {
@@ -1223,7 +1194,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
         alertView.delegate = self
         
-         delayTime = 1;
+        delayTime = 1;
         
         
         alertView.useMotionEffects = true;
@@ -1231,7 +1202,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         let mySlider = UISlider(frame:CGRect(x: 15, y: 90, width: 320, height: 20))
         
         let currentDate = Date()
-         let differenceMinutes  = currentDate.minutesDiffernceBetweenDates(dateFormatter.date(from: extendTimeSessiondetails.object(forKey: "StartTime") as! String)!, endDate: dateFormatter.date(from: extendTimeSessiondetails.object(forKey: "EndTime") as! String)!)
+        let differenceMinutes  = currentDate.minutesDiffernceBetweenDates(dateFormatter.date(from: extendTimeSessiondetails.object(forKey: "StartTime") as! String)!, endDate: dateFormatter.date(from: extendTimeSessiondetails.object(forKey: "EndTime") as! String)!)
         
         if differenceMinutes > 20
         {
@@ -1244,7 +1215,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         }
         
         mySlider.minimumValue=1.00;
-
+        
         mySlider.addTarget(self, action: #selector(TeacherScheduleViewController.sliderHandler(_:)), for: UIControlEvents.valueChanged)
         mySlider.tintColor = UIColor.green;
         
@@ -1255,7 +1226,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         alertView.containerView.addSubview(mExtTimelabel);
         alertView.containerView.addSubview(mySlider);
         alertView.show();
-
+        
         
         
         
@@ -1283,17 +1254,17 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
         if buttonIndex == 1
         {
-             let currentDate = Date()
-
+            let currentDate = Date()
+            
             let differenceMinutes  = currentDate.minutesDiffernceBetweenDates(dateFormatter.date(from: extendTimeSessiondetails.object(forKey: "StartTime") as! String)!, endDate: currentDate)
             
             delayTime = delayTime + Float(differenceMinutes)
             
             if let currentSessionDetails = extendTimeSessiondetails
             {
-                 SSTeacherDataSource.sharedDataSource.extendSessionWithSessionId(currentSessionDetails.object(forKey: "SessionId") as! String, withTime: "\(Int(delayTime))", WithDelegate: self)
+                SSTeacherDataSource.sharedDataSource.extendSessionWithSessionId(currentSessionDetails.object(forKey: "SessionId") as! String, withTime: "\(Int(delayTime))", WithDelegate: self)
             }
-           
+            
             
         }
         else
@@ -1315,7 +1286,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     func delegateAllocateSeatPressedWithDetails(_ details: AnyObject)
     {
         self.allocateSeatsWithDetails(details)
-
+        
     }
     func delegateEditSeatPressedWithDetails(_ details: AnyObject)
     {
@@ -1323,19 +1294,19 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     }
     func delegateConfigureGridPressedWithDetails(_ details: AnyObject)
     {
-            let gridView = SetupGridview()
-            gridView.setCurrentSessionDetails(details)
-            present(gridView, animated: true, completion: nil)
-
+        let gridView = SetupGridview()
+        gridView.setCurrentSessionDetails(details)
+        present(gridView, animated: true, completion: nil)
+        
     }
     func delegateCancelClassPressedWithDetails(_ details: AnyObject)
     {
         
         
-      let  sessionAlertView = UIAlertController(title: "Cancel class", message: "Do you really want to Cancel this class? \n You cannot reverse this action!", preferredStyle: UIAlertControllerStyle.alert)
+        let  sessionAlertView = UIAlertController(title: "Cancel class", message: "Do you really want to Cancel this class? \n You cannot reverse this action!", preferredStyle: UIAlertControllerStyle.alert)
         sessionAlertView.addAction(UIAlertAction(title: "Cancel class", style: .default, handler: { action in
             
-        
+            
             if let sessionid = details.object(forKey: kSessionId) as? String
             {
                 SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(sessionid, WithStatusvalue: kCanClled, WithDelegate: self)
@@ -1346,7 +1317,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
                 
                 self.mScheduleDetailView.onDoneButton()
             }
-
+            
             
         }))
         
@@ -1387,7 +1358,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     {
         if let sessionid = details.object(forKey: kSessionId) as? String
         {
-             self.sessionUpdatedLive = true
+            self.sessionUpdatedLive = true
             self.liveSessionDetails = details as! NSMutableDictionary
             
             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(sessionid, WithStatusvalue: kLive, WithDelegate: self)
@@ -1407,7 +1378,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     {
         if mStudentsStateView == nil
         {
-                mStudentsStateView =  StudentsStateView(frame: CGRect(x: 10, y: mTopbarImageView.frame.size.height + 10, width: self.view.frame.size.width - 20, height: self.view.frame.size.height - (mTopbarImageView.frame.size.height + 20)))
+            mStudentsStateView =  StudentsStateView(frame: CGRect(x: 10, y: mTopbarImageView.frame.size.height + 10, width: self.view.frame.size.width - 20, height: self.view.frame.size.height - (mTopbarImageView.frame.size.height + 20)))
             mStudentsStateView.setdelegate(self)
             mStudentsStateView.layer.shadowColor = UIColor.black.cgColor
             mStudentsStateView.layer.shadowOpacity = 0.3
@@ -1509,15 +1480,15 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
         for index in 0 ..< sessionDetailsArray.count
         {
-            let dict = sessionDetailsArray[index]
-            let sessionid = dict.SessionId
+            let dict = sessionDetailsArray.object(at: index)
+            let sessionid = (dict as AnyObject).object(forKey: kSessionId) as! String
             
-            if let scheduleTileView  = mScrollView.viewWithTag(sessionid) as? ScheduleScreenTile
+            if let scheduleTileView  = mScrollView.viewWithTag(Int(sessionid)!) as? ScheduleScreenTile
             {
                 scheduleTileView.stopAllTimmers()
             }
         }
-       
+        
         
         if (details.object(forKey: kSessionId) != nil)
         {
@@ -1533,8 +1504,8 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         }
         else
         {
-//            delegateRefreshSchedule()
-             self.view.makeToast("Error in schedule. Please refresh...", duration:3.0, position: .bottom)
+            //            delegateRefreshSchedule()
+            self.view.makeToast("Error in schedule. Please refresh...", duration:3.0, position: .bottom)
         }
         
         
@@ -1568,7 +1539,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             }
         }
         
-
+        
     }
     
     func settings_performLogout()

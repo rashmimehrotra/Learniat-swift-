@@ -144,7 +144,7 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
         questionButtonsView.addSubview(seperatorView1)
         
         
-        let  mScribbleButton = UIButton(frame: CGRect(x: 0,  y: 0, width: questionButtonsView.frame.size.width / 2  ,height: mTopbarImageView.frame.size.height))
+        let  mScribbleButton = UIButton(frame: CGRect(x: 0,  y: 0, width: questionButtonsView.frame.size.width ,height: mTopbarImageView.frame.size.height))
         questionButtonsView.addSubview(mScribbleButton)
         mScribbleButton.addTarget(self, action: #selector(QuestionsView.onScribbleButton), for: UIControlEvents.touchUpInside)
         mScribbleButton.setTitleColor(standard_Button, for: UIControlState())
@@ -163,7 +163,7 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
         
         
         let  mMRQ = UIButton(frame: CGRect(x: mScribbleButton.frame.origin.x + mScribbleButton.frame.size.width ,  y: 0, width: questionButtonsView.frame.size.width / 2  ,height: mTopbarImageView.frame.size.height))
-        questionButtonsView.addSubview(mMRQ)
+//        questionButtonsView.addSubview(mMRQ)
         mMRQ.addTarget(self, action: #selector(QuestionsView.onMRQButton), for: UIControlEvents.touchUpInside)
         mMRQ.setTitleColor(standard_Button, for: UIControlState())
         mMRQ.setTitle("MRQ", for: UIControlState())

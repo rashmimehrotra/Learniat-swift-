@@ -26,7 +26,7 @@ let kErrorMessage               = "error_message"
 
 
 
-let URLPrefix                       =   "http://54.251.104.13/Jupiter/sun.php?api="
+var URLPrefix                       =   "http://54.251.104.13/Jupiter/sun.php?api="
 
 let APP_VERSION                     =   "1.6"
 
@@ -359,16 +359,20 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
  */
     
     
+    
+   
+    
+    
     func getScheduleOfTeacher(_ delegate:SSTeacherDataSourceDelegate)
     {
-/*
+
         
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>GetMyTodaysSessions</Service><UserId>%@</UserId></Action></Sunstone>",URLPrefix,currentUserId)
         print("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kServiceGetSchedules, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
- */
+ 
     }
     
     

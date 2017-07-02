@@ -19,9 +19,9 @@ import Foundation
 
 
 
-class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDelegate,UIPopoverControllerDelegate
+class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDelegate
 {
-   
+    
     var currentQuestionDetails:AnyObject!
     
     var mTopbarImageView = UIImageView()
@@ -31,7 +31,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
     var mSendButton = UIButton()
     
     var mDontKnow = UIButton()
-
+    
     var sessionDetails:AnyObject!
     
     var questionLogId = ""
@@ -48,32 +48,17 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
     var mOverlayImageView        = CustomProgressImageView()
     
     
+    var mAnswerImage            = UIImageView()
     
-   var mEditButton         = UIButton()
-    
-    var mBottomToolBarImageView :UIImageView!
-    
+    var mEditButton         = UIButton()
     
     var mWithDrawButton     = UIButton()
-
+    
     var sendButtonSpinner : UIActivityIndicatorView!
     
     var _delgate: AnyObject!
     
-     var modelAnswerScrollView = UIScrollView()
-    
-    let m_BrushButton = UIButton()
-    
-    let m_EraserButton = UIButton()
-    
-    let m_RedoButton = UIButton()
-    
-    let m_UndoButton = UIButton()
-    
-    let bottomtoolSelectedImageView = UIImageView()
-    
-    var mScribbleView : SmoothLineView!
-    
+    var modelAnswerScrollView = UIScrollView()
     
     var isModelAnswerRecieved = false
     
@@ -162,14 +147,14 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         mContainerView.layer.borderColor = topicsLineColor.cgColor
         mContainerView.layer.borderWidth = 1
         
-//        mEditButton.frame = CGRect(x: mContainerView.frame.origin.x, y: mContainerView.frame.size.height + mContainerView.frame.origin.y, width: mContainerView.frame.size.width, height: 40)
-//        self.addSubview(mEditButton)
-//        mEditButton.setTitle("Edit", for: UIControlState())
-//        mEditButton.setTitleColor(standard_Button, for: UIControlState())
-//         mEditButton.addTarget(self, action: #selector(ScribbleQuestionView.onEditButton), for: UIControlEvents.touchUpInside)
-//        mEditButton.layer.borderColor = topicsLineColor.cgColor
-//        mEditButton.layer.borderWidth = 1
-//        mEditButton.backgroundColor = whiteColor
+        mEditButton.frame = CGRect(x: mContainerView.frame.origin.x, y: mContainerView.frame.size.height + mContainerView.frame.origin.y, width: mContainerView.frame.size.width, height: 40)
+        self.addSubview(mEditButton)
+        mEditButton.setTitle("Tap to answer", for: UIControlState())
+        mEditButton.setTitleColor(standard_Button, for: UIControlState())
+        mEditButton.addTarget(self, action: #selector(ScribbleQuestionView.onEditButton), for: UIControlEvents.touchUpInside)
+        mEditButton.layer.borderColor = topicsLineColor.cgColor
+        mEditButton.layer.borderWidth = 1
+        mEditButton.backgroundColor = whiteColor
         
         
         
@@ -182,7 +167,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         mWithDrawButton.layer.borderWidth = 1
         mWithDrawButton.backgroundColor = whiteColor
         mWithDrawButton.isHidden = true
-
+        
         
         
         
@@ -190,26 +175,8 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         mContainerView.addSubview(mOverlayImageView)
         
         
-        
-        mScribbleView = SmoothLineView(frame: CGRect(x: 0,y: 0,width: mContainerView.frame.size.width, height: mContainerView.frame.size.height))
-        mScribbleView.delegate = self
-        mContainerView.addSubview(mScribbleView);
-        mScribbleView.isUserInteractionEnabled = true
-        mScribbleView.setDrawing(blackTextColor);
-        mScribbleView.setBrushWidth(5)
-        mScribbleView.setDrawing(kBrushTool)
-        var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
-        if brushSize < 5
-        {
-            brushSize = 5
-        }
-        mScribbleView.setBrushWidth(Int32(brushSize))
-        mScribbleView.isHidden = false
-
-        
-        
-        
-        
+        mAnswerImage.frame = CGRect(x: 0 ,y: 0 , width: mContainerView.frame.size.width ,height: mContainerView.frame.size.height)
+        mContainerView.addSubview(mAnswerImage)
         
         
         
@@ -225,55 +192,9 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         let longGesture = UITapGestureRecognizer(target: self, action: #selector(ScribbleQuestionView.Long)) //Long function will call when user long press on button.
         modelAnswerScrollView.addGestureRecognizer(longGesture)
         longGesture.numberOfTapsRequired = 1
-
-        
-        mBottomToolBarImageView = UIImageView(frame: CGRect(x: mContainerView.frame.origin.x, y: mContainerView.frame.origin.y + mContainerView.frame.size.height, width: mContainerView.frame.size.width, height: 60))
-        mBottomToolBarImageView.backgroundColor = whiteColor
-        self.addSubview(mBottomToolBarImageView)
-        mBottomToolBarImageView.isUserInteractionEnabled = true
         
         
         
-        
-        m_UndoButton.frame = CGRect(x: 0, y: 0, width: mBottomToolBarImageView.frame.size.height, height: mBottomToolBarImageView.frame.size.height)
-        m_UndoButton.setImage(UIImage(named:"Undo_Disabled.png"),for:UIControlState());
-        mBottomToolBarImageView.addSubview(m_UndoButton);
-        m_UndoButton.imageView?.contentMode = .scaleAspectFit
-        m_UndoButton.addTarget(self, action: #selector(ScribbleQuestionView.onUndoButton), for: UIControlEvents.touchUpInside)
-        m_UndoButton.isEnabled = false
-        
-        bottomtoolSelectedImageView.backgroundColor = UIColor.white;
-        mBottomToolBarImageView.addSubview(bottomtoolSelectedImageView);
-        
-        
-        m_BrushButton.frame = CGRect(x: (mBottomToolBarImageView.frame.size.width/2) - (mBottomToolBarImageView.frame.size.height + 10) ,y: 5, width: mBottomToolBarImageView.frame.size.height ,height: mBottomToolBarImageView.frame.size.height - 10)
-        m_BrushButton.setImage(UIImage(named:"Marker_Selected.png"), for:UIControlState())
-        mBottomToolBarImageView.addSubview(m_BrushButton);
-        m_BrushButton.imageView?.contentMode = .scaleAspectFit
-        m_BrushButton.addTarget(self, action: #selector(ScribbleQuestionView.onBrushButton), for: UIControlEvents.touchUpInside)
-        bottomtoolSelectedImageView.frame = m_BrushButton.frame
-        
-        
-        
-        
-        m_EraserButton.frame = CGRect(x: (mBottomToolBarImageView.frame.size.width/2) + 10  ,y: 5, width: mBottomToolBarImageView.frame.size.height ,height: mBottomToolBarImageView.frame.size.height - 10)
-        m_EraserButton.setImage(UIImage(named:"Eraser_Unselected.png"), for:UIControlState());
-        mBottomToolBarImageView.addSubview(m_EraserButton);
-        m_EraserButton.imageView?.contentMode = .scaleAspectFit
-        m_EraserButton.addTarget(self, action: #selector(ScribbleQuestionView.onEraserButton), for: UIControlEvents.touchUpInside)
-        
-        
-        m_RedoButton.frame = CGRect(x: mBottomToolBarImageView.frame.size.width - mBottomToolBarImageView.frame.size.height ,y: 0, width: mBottomToolBarImageView.frame.size.height ,height: mBottomToolBarImageView.frame.size.height)
-        m_RedoButton.setImage(UIImage(named:"Redo_Disabled.png"), for:UIControlState());
-        mBottomToolBarImageView.addSubview(m_RedoButton);
-        m_RedoButton.imageView?.contentMode = .scaleAspectFit
-        m_RedoButton.addTarget(self, action: #selector(ScribbleQuestionView.onRedoButton), for: UIControlEvents.touchUpInside)
-        m_RedoButton.isEnabled = false
-        
-
-        
-        
-
         
     }
     
@@ -285,7 +206,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         
         if mOverlayImageView.image != nil
         {
-           modelAnswerFullView.setModelAnswerDetailsArray(modelAnswerArray, withQuestionName: mQuestionLabel.text!, withOverlayImage: mOverlayImageView.image!)
+            modelAnswerFullView.setModelAnswerDetailsArray(modelAnswerArray, withQuestionName: mQuestionLabel.text!, withOverlayImage: mOverlayImageView.image!)
         }
         else
         {
@@ -299,129 +220,19 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         modelAnswerFullView.layer.shadowOpacity = 0.3
         modelAnswerFullView.layer.shadowOffset = CGSize.zero
         modelAnswerFullView.layer.shadowRadius = 10
-
         
         
-//        modelAnswerFullView.layer.shadowColor = progressviewBackground.CGColor;
-//        modelAnswerFullView.layer.shadowOffset = CGSizeMake(0,0);
-//        modelAnswerFullView.layer.shadowOpacity = 1;
-//        modelAnswerFullView.layer.shadowRadius = 1.0;
-
+        
+        //        modelAnswerFullView.layer.shadowColor = progressviewBackground.CGColor;
+        //        modelAnswerFullView.layer.shadowOffset = CGSizeMake(0,0);
+        //        modelAnswerFullView.layer.shadowOpacity = 1;
+        //        modelAnswerFullView.layer.shadowRadius = 1.0;
+        
     }
     
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    
-    // MARK: - Buttons  delegate
-    
-    func onUndoButton()
-    {
-        mScribbleView.undoButtonClicked()
-    }
-    
-    func onBrushButton()
-    {
-        
-        
-        
-        if bottomtoolSelectedImageView.frame == m_BrushButton.frame
-        {
-            
-            let buttonPosition :CGPoint = m_BrushButton.convert(CGPoint.zero, to: self)
-            
-            
-            let colorSelectContoller = colorpopOverViewController()
-            colorSelectContoller.setSelectTab(1);
-            colorSelectContoller.setDelegate(self);
-            colorSelectContoller.setRect(CGRect(x: 0,y: 0,width: 400,height: 400));
-            
-            
-            colorSelectContoller.title = "Brush Size & Colour";
-            
-            let navController = UINavigationController(rootViewController:colorSelectContoller)
-            
-            let colorPopoverController = UIPopoverController(contentViewController:navController);
-            colorPopoverController.contentSize = CGSize(width: 400, height: 400);
-            colorPopoverController.delegate = self;
-            colorSelectContoller.setPopOver(colorPopoverController);
-            
-            colorPopoverController.present(from: CGRect(x: buttonPosition.x  + (m_BrushButton.frame.size.width/2),y: buttonPosition.y,width: 1,height: 1), in: self, permittedArrowDirections: .down, animated: true)
-            
-        }
-        
-        bottomtoolSelectedImageView.frame = m_BrushButton.frame
-        m_BrushButton.setImage(UIImage(named:"Marker_Selected.png"), for:UIControlState())
-        m_EraserButton.setImage(UIImage(named:"Eraser_Unselected.png"), for:UIControlState())
-        mScribbleView.setDrawing(kBrushTool)
-        var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
-        if brushSize < 5
-        {
-            brushSize = 5
-        }
-        mScribbleView.setBrushWidth(Int32(brushSize))
-        
-        
-        
-        
-        
-        
-    }
-    
-    func onEraserButton()
-    {
-        
-        
-        if bottomtoolSelectedImageView.frame == m_EraserButton.frame
-        {
-            
-            let buttonPosition :CGPoint = m_EraserButton.convert(CGPoint.zero, to: self)
-            
-            
-            let colorSelectContoller = colorpopOverViewController()
-            colorSelectContoller.setSelectTab(2);
-            colorSelectContoller.setDelegate(self);
-            colorSelectContoller.setRect(CGRect(x: 0,y: 0,width: 200,height: 200));
-            
-            
-            colorSelectContoller.title = "Eraser Size & Colour";
-            
-            let navController = UINavigationController(rootViewController:colorSelectContoller)
-            
-            let colorPopoverController = UIPopoverController(contentViewController:navController);
-            colorPopoverController.contentSize = CGSize(width: 200, height: 150);
-            colorPopoverController.delegate = self;
-            colorSelectContoller.setPopOver(colorPopoverController);
-            
-            colorPopoverController.present(from: CGRect(x: buttonPosition.x  + (m_EraserButton.frame.size.width/2),y: buttonPosition.y,width: 1,height: 1), in: self, permittedArrowDirections: .down, animated: true)
-            
-        }
-        
-        
-        
-        
-        bottomtoolSelectedImageView.frame = m_EraserButton.frame
-        m_BrushButton.setImage(UIImage(named:"Marker_Unselected.png"), for:UIControlState())
-        m_EraserButton.setImage(UIImage(named:"Eraser_Selected.png"), for:UIControlState())
-        mScribbleView.setDrawing(kEraserTool)
-        let eraserSize = UserDefaults.standard.float(forKey: "selectedEraserSize")
-        mScribbleView.setBrushWidth(Int32(eraserSize))
-        
-        
-        
-        
-        
-        
-        
-        
-        
-    }
-    
-    func onRedoButton()
-    {
-        mScribbleView.redoButtonClicked()
     }
     
     
@@ -448,17 +259,13 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         sendButtonSpinner.isHidden = true
         sendButtonSpinner.stopAnimating()
         mSendButton.isHidden = false
-        mScribbleView.isUserInteractionEnabled = true
-        mBottomToolBarImageView.isHidden = false
         SSStudentMessageHandler.sharedMessageHandler.sendWithDrawMessageToTeacher()
     }
     
     func onSendButton()
     {
-        if mScribbleView.curImage != nil
+        if mAnswerImage.image != nil
         {
-            mScribbleView.isUserInteractionEnabled = false
-            mBottomToolBarImageView.isHidden = true
             let currentDate = Date()
             
             let dateFormatter = DateFormatter()
@@ -480,7 +287,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
             nameOfImage =  nameOfImage.replacingOccurrences(of: " ", with: "")
             
             
-            imageUploading.uploadImage(with: mScribbleView.curImage, withImageName: nameOfImage, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
+            imageUploading.uploadImage(with: mAnswerImage.image, withImageName: nameOfImage, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
         }
         
         
@@ -495,12 +302,9 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         mReplyStatusLabelView.text = "Don't Know"
         mTopbarImageView.isHidden = true
         
-       mEditButton.isHidden = true
+        mEditButton.isHidden = true
         mWithDrawButton.isHidden = true
         SSStudentDataSource.sharedDataSource.answerSent = true
-        
-        mScribbleView.isUserInteractionEnabled = false
-        mBottomToolBarImageView.isHidden = true
     }
     
     
@@ -523,7 +327,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         
         if (details.object(forKey: "Scribble") != nil)
         {
-        
+            
             
             if let Scribble = details.object(forKey: "Scribble") as? String
             {
@@ -536,20 +340,20 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
                 }
             }
         }
-       
         
-
+        
+        
         
         print(details)
         
-
+        
     }
     
     
     
     func setDrawnImage(_ image:UIImage)
     {
-        
+        mAnswerImage.image = image
     }
     
     
@@ -560,14 +364,14 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         var nameOfImage = name
         if name.range(of: ".png") == nil
         {
-           nameOfImage = "upload/".appending(name).appending(".png")
+            nameOfImage = "upload/".appending(name).appending(".png")
         }
         
         
         
         
-       SSStudentDataSource.sharedDataSource.sendScribbleAnswer(nameOfImage!, withQuestionType: currentQuestionType, withQuestionLogId: questionLogId, withsessionId: (sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
-       
+        SSStudentDataSource.sharedDataSource.sendScribbleAnswer(nameOfImage!, withQuestionType: currentQuestionType, withQuestionLogId: questionLogId, withsessionId: (sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+        
     }
     
     func errorInUploading(withName name: String!) {
@@ -577,9 +381,8 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         mSendButton.isHidden = false
         mEditButton.isHidden = false
         mWithDrawButton.isHidden = true
+        self.makeToast("Error in uploading image", duration: 2.0, position: .bottom)
         
-        mScribbleView.isUserInteractionEnabled = true
-        mBottomToolBarImageView.isHidden = false
     }
     
     
@@ -609,7 +412,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
             SSStudentDataSource.sharedDataSource.getModelAnswerFromTeacherForQuestionLogId(questionLogId, withDelegate: self)
         }
         
-
+        
         
     }
     
@@ -673,7 +476,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         
         var positionY:CGFloat = 10
         
-        for index in 0  ..< modelAnswersArray.count 
+        for index in 0  ..< modelAnswersArray.count
         {
             
             let dict = modelAnswersArray.object(at: index)
@@ -690,8 +493,8 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
                         modelAnswer.setScribbleImageName(ScribbleName, withOverlayImage: mOverlayImageView.image!)
                     }
                     else
-                        {
-                            modelAnswer.setScribbleImageName(ScribbleName, withOverlayImage: UIImage())
+                    {
+                        modelAnswer.setScribbleImageName(ScribbleName, withOverlayImage: UIImage())
                     }
                     
                 }
@@ -717,7 +520,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         }
         
         modelAnswerScrollView.contentSize = CGSize(width: 0,height: positionY)
-         mEditButton.isHidden = true
+        mEditButton.isHidden = true
         mWithDrawButton.isHidden = true
         mTopbarImageView.isHidden = true
         
@@ -737,7 +540,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
     func didGetEvaluatingMessage()
     {
         mWithDrawButton.isHidden = true
-         mReplyStatusLabelView.text = "Evaluating..."
+        mReplyStatusLabelView.text = "Evaluating..."
     }
     
     func getFeedBackDetails(_ details:AnyObject)
@@ -759,7 +562,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         {
             if let badgeId = details.object(forKey: "BadgeId") as? String
             {
-                 badgeValue = Int(badgeId)!
+                badgeValue = Int(badgeId)!
             }
         }
         
@@ -824,11 +627,11 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
                 let badgeImage = CustomProgressImageView(frame: CGRect(x: teacherReplyStatusView.frame.size.width - (starWidth + 10) ,y: 0, width: starWidth ,height: starBackGround.frame.size.height))
                 teacherReplyStatusView.addSubview(badgeImage)
                 badgeImage.image = UIImage(named: "ic_thumb_up_green_48dp.png")
-
+                
                 
                 
                 let urlString = UserDefaults.standard.object(forKey: k_INI_Badges) as! String
-               
+                
                 if let checkedUrl = URL(string: ("\(urlString)/\(badgeValue).png"))
                 {
                     badgeImage.contentMode = .scaleAspectFit
@@ -842,7 +645,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
             {
                 
                 
-                 teacherReplyStatusView.frame = CGRect(x: mWithDrawButton.frame.origin.x, y: mWithDrawButton.frame.origin.y, width: mWithDrawButton.frame.size.width, height: mWithDrawButton.frame.size.height)
+                teacherReplyStatusView.frame = CGRect(x: mWithDrawButton.frame.origin.x, y: mWithDrawButton.frame.origin.y, width: mWithDrawButton.frame.size.width, height: mWithDrawButton.frame.size.height)
                 
                 
                 let badgeImage = CustomProgressImageView(frame: CGRect(x: (teacherReplyStatusView.frame.size.width - teacherReplyStatusView.frame.size.height)/2 ,y: 0, width: teacherReplyStatusView.frame.size.height ,height: teacherReplyStatusView.frame.size.height))
@@ -872,7 +675,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
             
             let height = mTextValue.heightForView(mTextValue, font: UIFont (name: helveticaMedium, size: 20)!, width: teacherReplyStatusView.frame.size.width)
             
-           let mTextReplyLabel = UILabel(frame: CGRect(x: 0, y: teacherReplyStatusView.frame.size.height, width: teacherReplyStatusView.frame.size.width, height: height))
+            let mTextReplyLabel = UILabel(frame: CGRect(x: 0, y: teacherReplyStatusView.frame.size.height, width: teacherReplyStatusView.frame.size.width, height: height))
             teacherReplyStatusView.addSubview(mTextReplyLabel)
             mTextReplyLabel.numberOfLines = 4
             mTextReplyLabel.lineBreakMode = .byTruncatingMiddle
@@ -881,7 +684,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
             mTextReplyLabel.textColor = UIColor.white
             
             
-             teacherReplyStatusView.frame = CGRect(x: mWithDrawButton.frame.origin.x, y: mWithDrawButton.frame.origin.y, width: mWithDrawButton.frame.size.width, height: teacherReplyStatusView.frame.size.height + height)
+            teacherReplyStatusView.frame = CGRect(x: mWithDrawButton.frame.origin.x, y: mWithDrawButton.frame.origin.y, width: mWithDrawButton.frame.size.width, height: teacherReplyStatusView.frame.size.height + height)
             
         }
         
@@ -925,18 +728,18 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
     
     func getPeakViewMessageFromTeacher()
     {
-        if mScribbleView.curImage != nil
+        if mAnswerImage.image != nil
         {
             //Now use image to create into NSData format
-            let imageData:Data = UIImagePNGRepresentation(mScribbleView.curImage!)!
+            let imageData:Data = UIImagePNGRepresentation(mAnswerImage.image!)!
             let strBase64:String = imageData.base64EncodedString(options: .lineLength64Characters)
             SSStudentMessageHandler.sharedMessageHandler.sendPeakViewMessageToTeacherWithImageData(strBase64)
-
+            
         }
         else{
             
             SSStudentMessageHandler.sharedMessageHandler.sendPeakViewMessageToTeacherWithImageData(" ")
-
+            
         }
     }
     
@@ -953,72 +756,5 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
             isModelAnswerRecieved = true
         }
     }
-    
-    
-    
-    // MARK: - Smooth line delegate
-    
-    func setUndoButtonEnable(_ enable: NSNumber!)
-    {
-        if enable == 1
-        {
-            m_UndoButton.setImage(UIImage(named:"Undo_Active.png"),for:UIControlState());
-            m_UndoButton.isEnabled = true
-        }
-        else
-        {
-            m_UndoButton.setImage(UIImage(named:"Undo_Disabled.png"),for:UIControlState());
-            m_UndoButton.isEnabled = false
-        }
-        
-    }
-    
-    func setRedoButtonEnable(_ enable: NSNumber!)
-    {
-        if enable == 1
-        {
-            m_RedoButton.setImage(UIImage(named:"Redo_Active.png"),for:UIControlState());
-            m_RedoButton.isEnabled = true
-        }
-        else
-        {
-            m_RedoButton.setImage(UIImage(named:"Redo_Disabled.png"),for:UIControlState());
-            m_RedoButton.isEnabled = false
-        }
-        
-        
-    }
-    
-    func lineDrawnChanged()
-    {
-        
-    }
-    
-    
-    
-   
-    
-    // MARK: - Color popover delegate
-    
-    func selectedbrushSize(_ sender: AnyObject!, withSelectedTab tabTag: Int32)
-    {
-        
-        if let progressView = sender as? UISlider
-        {
-            mScribbleView.setBrushWidth(Int32(progressView.value));
-        }
-        
-        
-    }
-    
-    func selectedColor(_ sender: AnyObject!, withSelectedTab tabTag: Int32)
-    {
-        if let progressColor = sender as? UIColor
-        {
-            mScribbleView.setDrawing(progressColor);
-        }
-    }
-    
-
     
 }

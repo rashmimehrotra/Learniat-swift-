@@ -36,6 +36,10 @@ extension Config {
         return configs.object(forKey: "BaseUrl") as! String
     }
     
+    func getPhpUrl()->String{
+        return configs.object(forKey: "PHPURL") as! String
+    }
+
     func getCurrentScheme() -> Schemes {
         let currentConfiguration = Bundle.main.object(forInfoDictionaryKey: "Config")!
         return Schemes(rawValue: currentConfiguration as! String)!

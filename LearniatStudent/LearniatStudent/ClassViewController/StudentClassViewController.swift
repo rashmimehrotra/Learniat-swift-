@@ -136,7 +136,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         
         
         mstatusImage .frame = CGRect(x: mClassName.frame.origin.x  - (mClassName.frame.size.height + 5),y: mClassName.frame.origin.y  ,width: mClassName.frame.size.height,height: mClassName.frame.size.height)
-        mstatusImage.backgroundColor  = UIColor(red: 255/255.0, green: 59/255.0, blue: 48/255.0, alpha: 1)
+        mstatusImage.backgroundColor = standard_Green
         mTopbarImageView.addSubview(mstatusImage)
         mstatusImage.layer.cornerRadius = mstatusImage.frame.size.width/2
         
@@ -208,7 +208,6 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         switch (sessionDetails.object(forKey: "SessionState") as! String)
         {
             case kopenedString:
-                mstatusImage.backgroundColor = UIColor(red: 255/255.0, green: 59/255.0, blue: 48/255.0, alpha: 1)
                 mClassStatedLabel.text = "Class not started yet"
                 mNoStudentLabel.isHidden = false
                 classStartedView.isHidden = true
@@ -218,7 +217,6 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             case kLiveString:
                 
                 
-                mstatusImage.backgroundColor = UIColor(red: 76.0/255.0, green: 217.0/255.0, blue: 100.0/255.0, alpha: 1)
                 mNoStudentLabel.isHidden = true
                 classStartedView.isHidden = false
                 
@@ -228,7 +226,6 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                 break
             
             default:
-                mstatusImage.backgroundColor =  UIColor(red: 255/255.0, green: 59/255.0, blue: 48/255.0, alpha: 1)
                 break
         }
          loadSubview()
@@ -283,7 +280,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     func appMovedToForeground()
     {
-        print("App moved to background!")
+        print("App moved to Forground!")
         
        
         if SSStudentMessageHandler.sharedMessageHandler.getConnectedState() == false
@@ -417,7 +414,6 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                 }
                 
                 
-                mstatusImage.backgroundColor = UIColor(red: 76.0/255.0, green: 217.0/255.0, blue: 100.0/255.0, alpha: 1)
                 mNoStudentLabel.isHidden = true
                 classStartedView.isHidden = false
 

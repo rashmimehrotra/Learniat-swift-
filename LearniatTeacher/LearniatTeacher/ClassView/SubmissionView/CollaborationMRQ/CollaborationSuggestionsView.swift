@@ -374,7 +374,7 @@ class CollaborationSuggestionsView: UIView,SSTeacherDataSourceDelegate
         }
         else
         {
-            SSTeacherDataSource.sharedDataSource.recordQuestionWithScribbleId("", withQuestionName: "", WithType: "2", withTopicId: SSTeacherDataSource.sharedDataSource.startedSubTopicId, WithDelegate: self)
+            SSTeacherDataSource.sharedDataSource.recordQuestionWithScribbleId("", withQuestionName: "t", WithType: "2", withTopicId: SSTeacherDataSource.sharedDataSource.startedSubTopicId, WithDelegate: self)
         }
     }
     
@@ -389,9 +389,9 @@ class CollaborationSuggestionsView: UIView,SSTeacherDataSourceDelegate
         
         let mElementsList = NSMutableArray()
         
-        if let mSuggestionsList =  mSavedSuggestionsDetails.object(forKey: "SuggestionsList") as? NSMutableDictionary
+        if let mSuggestionsList =  mSavedSuggestionsDetails.object(forKey: "SuggestionContainer") as? NSMutableDictionary
         {
-            if let mSuggestionsList =  mSuggestionsList.object(forKey: "Suggestions") as? NSMutableArray
+            if let mSuggestionsList =  mSuggestionsList.object(forKey: "SuggestionArray") as? NSMutableArray
             {
                 for mElements in mSuggestionsList
                 {

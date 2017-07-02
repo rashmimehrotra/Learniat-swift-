@@ -254,7 +254,7 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
     
     // MARK: - Teacher datasource Delegate
    
-    /*
+    
     func didGetSchedulesWithDetials(_ details: AnyObject)
     {
         var sessionDetailsArray = NSMutableArray()
@@ -329,7 +329,7 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
         
     }
     
-    */
+ 
     
     // MARK: - Returning Functions
     

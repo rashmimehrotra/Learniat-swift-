@@ -11,25 +11,25 @@ import Foundation
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
 // Consider refactoring the code to use the non-optional operators.
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
+    switch (lhs, rhs) {
+    case let (l?, r?):
+        return l < r
+    case (nil, _?):
+        return true
+    default:
+        return false
+    }
 }
 
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
 // Consider refactoring the code to use the non-optional operators.
 fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
+    switch (lhs, rhs) {
+    case let (l?, r?):
+        return l > r
+    default:
+        return rhs < lhs
+    }
 }
 
 
@@ -54,7 +54,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
     
     var _delgate: AnyObject!
     
-    var sessionDetails : TimeTableModel!
+    var sessionDetails : AnyObject!
     
     
     var circleImage                     = UIImageView()
@@ -129,7 +129,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         circleImage.isHidden = true
         
         
-       
+        
         
         self.addSubview(mSeatingLabel)
         mSeatingLabel.adjustsFontSizeToFitWidth = true
@@ -158,7 +158,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         mSeatingAlertImageView.image = UIImage(named: "Alert_Icon.png")
         self.addSubview(mSeatingAlertImageView)
         mSeatingAlertImageView.isHidden = true
-
+        
         
     }
     
@@ -166,7 +166,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
     {
         // handling code
         
-        let sessionState :String = "\(sessionDetails.SessionState)"
+        let sessionState = sessionDetails.object(forKey: kSessionState) as! String
         
         
         if delegate().responds(to: #selector(ScheduleScreenTileDelegate.delegateScheduleTileTouchedWithState(_:withCurrentTileDetails:)))
@@ -178,7 +178,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         
     }
     
-    func setCurrentSessionDetails(_ details :TimeTableModel)
+    func setCurrentSessionDetails(_ details :AnyObject)
     {
         
         
@@ -187,13 +187,13 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         
         
         sessionDetails = details
-
-        updateSessionColorWithSessionState("\(sessionDetails.SessionState)")
+        
+        updateSessionColorWithSessionState(sessionDetails.object(forKey: kSessionState) as! String)
         
         updatSeatinglabelWithDetials(details)
-        let classNameWithRoom = String(format:"%@ (%@) (%d)",sessionDetails.ClassName!,sessionDetails.RoomName!,sessionDetails.SessionId)
+        let classNameWithRoom = String(format:"%@ (%@) (%@)",(details.object(forKey: kClassName) as! String),(details.object(forKey: kRoomName) as! String),(details.object(forKey: kSessionId) as! String))
         mClassName.text = classNameWithRoom
-    
+        
         
         self.layer.masksToBounds = true
         
@@ -213,93 +213,93 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         
         switch sessionState
         {
-            case kScheduled:
-                self.backgroundColor = scheduledColor
-                self.layer.borderColor = scheduledBorderColor.cgColor
-                self.layer.borderWidth = 1
-                mClassName.textColor = UIColor.black
+        case kScheduled:
+            self.backgroundColor = scheduledColor
+            self.layer.borderColor = scheduledBorderColor.cgColor
+            self.layer.borderWidth = 1
+            mClassName.textColor = UIColor.black
+            
+            setClassNameWithFont(helveticaMedium)
+            circleImage.backgroundColor = scheduledBorderColor
+            
+            break
+            
+        case kopened:
+            self.backgroundColor = OpenedColor
+            self.layer.borderColor = OpenedBorderColor.cgColor
+            self.layer.borderWidth = 1
+            mClassName.textColor = UIColor.black
+            
+            setClassNameWithFont(helveticaRegular)
+            circleImage.backgroundColor = OpenedBorderColor
+            
+            
+            break
+            
+        case kLive:
+            self.backgroundColor = LiveColor
+            mClassName.textColor = UIColor.white
+            
+            setClassNameWithFont(helveticaRegular)
+            circleImage.backgroundColor = UIColor.white
+            
+            
+            if self.frame.size.height > 40
+            {
+                circleImage.frame = CGRect(x: 10, y: 8, width: 24, height: 24)
+                circleImage.layer.cornerRadius = circleImage.frame.size.width/2
+                circleImage.layer.masksToBounds = true
                 
-                setClassNameWithFont(helveticaMedium)
-                circleImage.backgroundColor = scheduledBorderColor
+                let LiveLabel = UILabel(frame: CGRect(x: 0,y: 0,width: circleImage.frame.size.width,height: circleImage.frame.size.height))
+                circleImage.addSubview(LiveLabel)
+                LiveLabel.text = "Live"
+                LiveLabel.font = UIFont(name:helveticaRegular, size: 9)
+                LiveLabel.textColor = LiveColor
+                LiveLabel.textAlignment = .center
+            }
                 
-                break
+            else
+            {
+                circleImage.frame = CGRect(x: 10, y: 2, width: self.frame.size.height - 4,height: self.frame.size.height - 4)
+                circleImage.layer.cornerRadius = circleImage.frame.size.width/2
+                circleImage.layer.masksToBounds = true
                 
-            case kopened:
-                self.backgroundColor = OpenedColor
-                self.layer.borderColor = OpenedBorderColor.cgColor
-                self.layer.borderWidth = 1
-                mClassName.textColor = UIColor.black
-                
-                setClassNameWithFont(helveticaRegular)
-                circleImage.backgroundColor = OpenedBorderColor
-                
-                
-                break
-                
-            case kLive:
-                self.backgroundColor = LiveColor
-                mClassName.textColor = UIColor.white
-                
-                setClassNameWithFont(helveticaRegular)
-                circleImage.backgroundColor = UIColor.white
-                
-                
-                if self.frame.size.height > 40
-                {
-                    circleImage.frame = CGRect(x: 10, y: 8, width: 24, height: 24)
-                    circleImage.layer.cornerRadius = circleImage.frame.size.width/2
-                    circleImage.layer.masksToBounds = true
-                    
-                    let LiveLabel = UILabel(frame: CGRect(x: 0,y: 0,width: circleImage.frame.size.width,height: circleImage.frame.size.height))
-                    circleImage.addSubview(LiveLabel)
-                    LiveLabel.text = "Live"
-                    LiveLabel.font = UIFont(name:helveticaRegular, size: 9)
-                    LiveLabel.textColor = LiveColor
-                    LiveLabel.textAlignment = .center
-                }
-                
-                else
-                {
-                    circleImage.frame = CGRect(x: 10, y: 2, width: self.frame.size.height - 4,height: self.frame.size.height - 4)
-                    circleImage.layer.cornerRadius = circleImage.frame.size.width/2
-                    circleImage.layer.masksToBounds = true
-                    
-                    let LiveLabel = UILabel(frame: CGRect(x: 0,y: 0,width: circleImage.frame.size.width,height: circleImage.frame.size.height))
-                    circleImage.addSubview(LiveLabel)
-                    LiveLabel.text = "Live"
-                    LiveLabel.font = UIFont(name:helveticaRegular, size: 9)
-                    LiveLabel.textColor = LiveColor
-                    LiveLabel.textAlignment = .center
-                }
-                
-               
-
-                
-                break
-                
-            case kCanClled:
-                
-                self.layer.borderColor = CancelledBorderColor.cgColor
-                self.layer.borderWidth = 1
-                mClassName.textColor = standard_TextGrey
-                cancelledImageView.isHidden = false
-                setClassNameWithFont(helveticaRegular)
-                circleImage.backgroundColor = CancelledBorderColor
-
-                break
-                
-            case kEnded:
-                self.backgroundColor = EndedColor
-                mClassName.textColor = standard_TextGrey
-                setClassNameWithFont(helveticaRegular)
-
-                circleImage.isHidden = true
-                
-                break
-                
-                
-            default: break
-                
+                let LiveLabel = UILabel(frame: CGRect(x: 0,y: 0,width: circleImage.frame.size.width,height: circleImage.frame.size.height))
+                circleImage.addSubview(LiveLabel)
+                LiveLabel.text = "Live"
+                LiveLabel.font = UIFont(name:helveticaRegular, size: 9)
+                LiveLabel.textColor = LiveColor
+                LiveLabel.textAlignment = .center
+            }
+            
+            
+            
+            
+            break
+            
+        case kCanClled:
+            
+            self.layer.borderColor = CancelledBorderColor.cgColor
+            self.layer.borderWidth = 1
+            mClassName.textColor = standard_TextGrey
+            cancelledImageView.isHidden = false
+            setClassNameWithFont(helveticaRegular)
+            circleImage.backgroundColor = CancelledBorderColor
+            
+            break
+            
+        case kEnded:
+            self.backgroundColor = EndedColor
+            mClassName.textColor = standard_TextGrey
+            setClassNameWithFont(helveticaRegular)
+            
+            circleImage.isHidden = true
+            
+            break
+            
+            
+        default: break
+            
         }
     }
     
@@ -310,9 +310,9 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
     {
         
         
-         mSeatingLabel.isHidden = true
-         mSeatingAlertImageView.isHidden = true
-       if let sessionState = details.object(forKey: kSessionState) as? String
+        mSeatingLabel.isHidden = true
+        mSeatingAlertImageView.isHidden = true
+        if let sessionState = details.object(forKey: kSessionState) as? String
         {
             
             
@@ -320,66 +320,66 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
             
             switch sessionState
             {
-                case kScheduled:
-                   if let StudentsRegistered = details.object(forKey: "StudentsRegistered") as? String
-                   {
-                        if let PreAllocatedSeats = details.object(forKey: "PreAllocatedSeats") as? String
-                        {
-                            if let OccupiedSeats = details.object(forKey: "OccupiedSeats") as? String
-                            {
-                                
-                                if Int(StudentsRegistered) > Int(PreAllocatedSeats)! + Int(OccupiedSeats)!
-                                {
-                                    
-                                    mSeatingLabel.isHidden = false
-                                     mSeatingAlertImageView.isHidden = false
-                                     if (Int(StudentsRegistered)>1)
-                                     {
-                                        mSeatingLabel.text = "\(Int(StudentsRegistered)! - (Int(PreAllocatedSeats)! + Int(OccupiedSeats)!)) Students are not allocated"
-                                    }
-                                    else
-                                     {
-                                         mSeatingLabel.text = "\(Int(StudentsRegistered)! - (Int(PreAllocatedSeats)! + Int(OccupiedSeats)!)) Student is not allocated"
-                                    }
-                                }
-                            }
-                        }
-                   }
-                    break
-                    
-                case kopened:
-                    if let StudentsRegistered = details.object(forKey: "StudentsRegistered") as? String
+            case kScheduled:
+                if let StudentsRegistered = details.object(forKey: "StudentsRegistered") as? String
+                {
+                    if let PreAllocatedSeats = details.object(forKey: "PreAllocatedSeats") as? String
                     {
-                        if let PreAllocatedSeats = details.object(forKey: "PreAllocatedSeats") as? String
+                        if let OccupiedSeats = details.object(forKey: "OccupiedSeats") as? String
                         {
-                            if let OccupiedSeats = details.object(forKey: "OccupiedSeats") as? String
+                            
+                            if Int(StudentsRegistered) > Int(PreAllocatedSeats)! + Int(OccupiedSeats)!
                             {
                                 
-                                if Int(StudentsRegistered) > Int(PreAllocatedSeats)! + Int(OccupiedSeats)!
+                                mSeatingLabel.isHidden = false
+                                mSeatingAlertImageView.isHidden = false
+                                if (Int(StudentsRegistered)>1)
                                 {
-                                    
-                                    mSeatingLabel.isHidden = false
-                                    mSeatingAlertImageView.isHidden = false
-                                    if (Int(StudentsRegistered)>1)
-                                    {
-                                        mSeatingLabel.text = "\(Int(StudentsRegistered)! - (Int(PreAllocatedSeats)! + Int(OccupiedSeats)!)) Students are not allocated"
-                                    }
-                                    else
-                                    {
-                                        mSeatingLabel.text = "\(Int(StudentsRegistered)! - (Int(PreAllocatedSeats)! + Int(OccupiedSeats)!)) Student is not allocated"
-                                    }
+                                    mSeatingLabel.text = "\(Int(StudentsRegistered)! - (Int(PreAllocatedSeats)! + Int(OccupiedSeats)!)) Students are not allocated"
+                                }
+                                else
+                                {
+                                    mSeatingLabel.text = "\(Int(StudentsRegistered)! - (Int(PreAllocatedSeats)! + Int(OccupiedSeats)!)) Student is not allocated"
                                 }
                             }
                         }
                     }
-                    
-                    break
-                    
-                default:
-                    mSeatingLabel.isHidden = true
-                    break
+                }
+                break
+                
+            case kopened:
+                if let StudentsRegistered = details.object(forKey: "StudentsRegistered") as? String
+                {
+                    if let PreAllocatedSeats = details.object(forKey: "PreAllocatedSeats") as? String
+                    {
+                        if let OccupiedSeats = details.object(forKey: "OccupiedSeats") as? String
+                        {
+                            
+                            if Int(StudentsRegistered) > Int(PreAllocatedSeats)! + Int(OccupiedSeats)!
+                            {
+                                
+                                mSeatingLabel.isHidden = false
+                                mSeatingAlertImageView.isHidden = false
+                                if (Int(StudentsRegistered)>1)
+                                {
+                                    mSeatingLabel.text = "\(Int(StudentsRegistered)! - (Int(PreAllocatedSeats)! + Int(OccupiedSeats)!)) Students are not allocated"
+                                }
+                                else
+                                {
+                                    mSeatingLabel.text = "\(Int(StudentsRegistered)! - (Int(PreAllocatedSeats)! + Int(OccupiedSeats)!)) Student is not allocated"
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                break
+                
+            default:
+                mSeatingLabel.isHidden = true
+                break
             }
-
+            
         }
         
     }
@@ -405,7 +405,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
             
             
             mDifferenceTimeLabel.frame = CGRect(x: mClassName.frame.origin.x  + mClassName.frame.size.width + 20, y: 4, width: self.frame.size.width/3 , height: (self.frame.size.height/1.2))
-             mDifferenceTimeLabel.font = UIFont(name: helveticaRegular, size: (self.frame.size.height/2))
+            mDifferenceTimeLabel.font = UIFont(name: helveticaRegular, size: (self.frame.size.height/2))
             
             
         }
@@ -427,13 +427,13 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
             
             mDifferenceTimeLabel.frame = CGRect(x: mClassName.frame.origin.x  + mClassName.frame.size.width + 20, y: 10, width: self.frame.size.width/4 , height: (self.frame.size.height/1.2))
             mDifferenceTimeLabel.font = UIFont(name: helveticaRegular, size: 18)
-
             
-
+            
+            
         }
         circleImage.layer.cornerRadius = circleImage.frame.size.width/2
         circleImage.layer.masksToBounds = true
-
+        
     }
     
     
@@ -444,7 +444,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         
         var _string :String = ""
         let currentDate = Date()
-        _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: sessionDetails.StartTime!)!)).fullString
+        _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: (sessionDetails.object(forKey: "StartTime") as! String))!)).fullString
         
         mDifferenceTimeLabel.text = "Overdue: \(_string)"
         
@@ -467,27 +467,28 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         
         var _string :String = ""
         let currentDate = Date()
-        
-        
-        
-        _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: sessionDetails.StartTime!)!)).fullString
+        _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: (sessionDetails.object(forKey: "StartTime") as! String))!)).fullString
         
         mDifferenceTimeLabel.text = "Overdue: \(_string)"
         
         
         
-        let endTime = sessionDetails.EndTime
         
-        let isGreater = currentDate.isGreaterThanDate((dateFormatter.date(from: endTime!)!))
-        
-        let isEqual = currentDate == (dateFormatter.date(from: endTime!)!)
-        
-        if isGreater == true || isEqual == true
+        if let endTime = sessionDetails.object(forKey: "EndTime") as? String
         {
-            if delegate().responds(to: #selector(ScheduleScreenTileDelegate.delegateRefreshSchedule))
+            let isGreater = currentDate.isGreaterThanDate((dateFormatter.date(from: endTime)!))
+            
+            let isEqual = currentDate == (dateFormatter.date(from: endTime)!)
+            
+            if isGreater == true || isEqual == true
             {
-                delegate().delegateRefreshSchedule!()
+                if delegate().responds(to: #selector(ScheduleScreenTileDelegate.delegateRefreshSchedule))
+                {
+                    delegate().delegateRefreshSchedule!()
+                }
             }
+            
+            
         }
         
     }
@@ -502,20 +503,16 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         
         var _string :String = ""
         let currentDate = Date()
-        
-        
-
-        
-        _string = _string.stringFromTimeInterval(dateFormatter.date(from: sessionDetails.StartTime!)!.timeIntervalSince(currentDate)).fullString
+        _string = _string.stringFromTimeInterval(dateFormatter.date(from: (sessionDetails.object(forKey: "StartTime") as! String))!.timeIntervalSince(currentDate)).fullString
         
         mDifferenceTimeLabel.text = "Starts in about: \(_string)"
-
+        
         overDueTimer.invalidate()
         nextSessionTimer.invalidate()
         nextSessionTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ScheduleScreenTile.updateNextSession), userInfo: nil, repeats: true)
         
         
-         let differenceMinutes  = currentDate.minutesAndSecondsDiffernceBetweenDates(currentDate, endDate: dateFormatter.date(from: sessionDetails.StartTime!)!)
+        let differenceMinutes  = currentDate.minutesAndSecondsDiffernceBetweenDates(currentDate, endDate: dateFormatter.date(from: sessionDetails.object(forKey: "StartTime") as! String)!)
         
         if differenceMinutes.second < alertTimeConditionValue
         {
@@ -535,18 +532,18 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         
         var _string :String = ""
         let currentDate = Date()
-        _string = _string.stringFromTimeInterval(dateFormatter.date(from: sessionDetails.StartTime!)!.timeIntervalSince(currentDate)).fullString
+        _string = _string.stringFromTimeInterval(dateFormatter.date(from: (sessionDetails.object(forKey: "StartTime") as! String))!.timeIntervalSince(currentDate)).fullString
         
         mDifferenceTimeLabel.text = "Starts in about: \(_string)"
         
         
         
-        let differenceMinutes  = currentDate.minutesAndSecondsDiffernceBetweenDates(currentDate, endDate: dateFormatter.date(from: sessionDetails.StartTime!)!)
+        let differenceMinutes  = currentDate.minutesAndSecondsDiffernceBetweenDates(currentDate, endDate: dateFormatter.date(from: sessionDetails.object(forKey: "StartTime") as! String)!)
         
         
         if differenceMinutes.second <= 0
         {
-            let isLesserValue = currentDate.isGreaterThanDate(dateFormatter.date(from: sessionDetails.StartTime!)!)
+            let isLesserValue = currentDate.isGreaterThanDate(dateFormatter.date(from: sessionDetails.object(forKey: "StartTime") as! String)!)
             
             if isLesserValue == true
             {

@@ -156,6 +156,8 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     var plistLoader = PlistDownloder()
     
+    let schedulePopOverController = SSTeacherSchedulePopoverController()
+    
    var checkingClassEndTime                 = false
     
     
@@ -619,16 +621,16 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     func onScheduleScreenPopupPressed(_ sender:UIButton)
     {
-        let questionInfoController = SSTeacherSchedulePopoverController()
-        questionInfoController.setdelegate(self)
+        
+        schedulePopOverController.setdelegate(self)
         
         let height = self.view.frame.size.height - (mTopbarImageView.frame.size.height + 20 )
-        questionInfoController.setdelegate(self)
-        questionInfoController.setCurrentScreenSize(CGSize(width: 600,height: height))
-        questionInfoController.preferredContentSize = CGSize(width: 600,height: height)
+        schedulePopOverController.setdelegate(self)
+        schedulePopOverController.setCurrentScreenSize(CGSize(width: 600,height: height))
+        schedulePopOverController.preferredContentSize = CGSize(width: 600,height: height)
         
-        let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
-        questionInfoController.setPopover(classViewPopOverController)
+        let   classViewPopOverController = UIPopoverController(contentViewController: schedulePopOverController)
+        schedulePopOverController.setPopover(classViewPopOverController)
         classViewPopOverController.contentSize = CGSize(width: 600,height: height);
         classViewPopOverController.delegate = self;
         
@@ -1122,7 +1124,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             else if let questionDetails = currentQuestionDetails.object(forKey: "Question") as? AnyObject
             {
                 
-                if let questionType = questionDetails.object(forKey: "QuestionType") as? String
+                if let questionType = questionDetails.object(forKey: kQuestionType) as? String
                 {
                     SSTeacherMessageHandler.sharedMessageHandler.sendQuestionWithRoomName("question_\(currentSessionId)", withQuestionLogId: SSTeacherDataSource.sharedDataSource.currentQuestionLogId, withQuestionType: questionType)
                     
@@ -1214,7 +1216,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
         SSTeacherMessageHandler.sharedMessageHandler.sendEndSessionMessageToRoom(currentSessionId)
         
-        
+        schedulePopOverController.onDoneButton()
         performSegue(withIdentifier: "ClassViewToSchedule", sender: nil)
         
         //        let scheduleScreenView  = TeacherScheduleViewController()

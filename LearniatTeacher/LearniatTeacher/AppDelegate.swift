@@ -61,7 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         BITHockeyManager.shared().authenticator.authenticateInstallation()
 
         
-        
+        URLPrefix = Config.sharedInstance.getPhpUrl()
         
         return true
     }
