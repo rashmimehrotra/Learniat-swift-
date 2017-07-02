@@ -27,6 +27,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         
+        
+        print(applicationDocumentsDirectory)
+        
+        
         let  lagFreeField = UITextField();
         window!.addSubview(lagFreeField)
         lagFreeField.becomeFirstResponder();
@@ -124,6 +128,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     
+    
+    lazy var applicationDocumentsDirectory: NSURL = {
+        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return urls[urls.count-1] as NSURL
+    }()
+
     
     
 

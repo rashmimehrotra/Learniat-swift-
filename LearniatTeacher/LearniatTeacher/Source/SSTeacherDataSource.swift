@@ -361,18 +361,19 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     func getScheduleOfTeacher(_ delegate:SSTeacherDataSourceDelegate)
     {
-
+/*
         
         let manager = APIManager()
         
         let urlString = String(format: "%@<Sunstone><Action><Service>GetMyTodaysSessions</Service><UserId>%@</UserId></Action></Sunstone>",URLPrefix,currentUserId)
         print("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kServiceGetSchedules, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
+ */
     }
     
     
     
-    /*
+    
     func getScheduleOfTeacher(success:@escaping (_ result: NSArray) -> (), withfailurehandler failure:@escaping ApiErrorHandler)
     {
         WebServicesAPI().getRequest(fromUrl:  AppAPI.TodaysTimeTable(UserId: self.currentUserId).path, details: nil, success: { (result) in
@@ -393,7 +394,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         }
         
     }
-    */
+    
     
     
     

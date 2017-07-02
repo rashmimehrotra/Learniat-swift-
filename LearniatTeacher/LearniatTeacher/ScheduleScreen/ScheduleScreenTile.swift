@@ -54,7 +54,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
     
     var _delgate: AnyObject!
     
-    var sessionDetails : AnyObject!
+    var sessionDetails : TimeTableModel!
     
     
     var circleImage                     = UIImageView()
@@ -166,7 +166,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
     {
         // handling code
         
-        let sessionState = sessionDetails.object(forKey: kSessionState) as! String
+        let sessionState :String = "\(sessionDetails.SessionState)"
         
         
         if delegate().responds(to: #selector(ScheduleScreenTileDelegate.delegateScheduleTileTouchedWithState(_:withCurrentTileDetails:)))
@@ -178,7 +178,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         
     }
     
-    func setCurrentSessionDetails(_ details :AnyObject)
+    func setCurrentSessionDetails(_ details :TimeTableModel)
     {
         
         
@@ -188,10 +188,10 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         
         sessionDetails = details
 
-        updateSessionColorWithSessionState(sessionDetails.object(forKey: kSessionState) as! String)
+        updateSessionColorWithSessionState("\(sessionDetails.SessionState)")
         
         updatSeatinglabelWithDetials(details)
-        let classNameWithRoom = String(format:"%@ (%@) (%@)",(details.object(forKey: kClassName) as! String),(details.object(forKey: kRoomName) as! String),(details.object(forKey: kSessionId) as! String))
+        let classNameWithRoom = String(format:"%@ (%@) (%d)",sessionDetails.ClassName!,sessionDetails.RoomName!,sessionDetails.SessionId)
         mClassName.text = classNameWithRoom
     
         
@@ -444,7 +444,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         
         var _string :String = ""
         let currentDate = Date()
-        _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: (sessionDetails.object(forKey: "StartTime") as! String))!)).fullString
+        _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: sessionDetails.StartTime!)!)).fullString
         
         mDifferenceTimeLabel.text = "Overdue: \(_string)"
         
@@ -467,28 +467,27 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         
         var _string :String = ""
         let currentDate = Date()
-        _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: (sessionDetails.object(forKey: "StartTime") as! String))!)).fullString
+        
+        
+        
+        _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: sessionDetails.StartTime!)!)).fullString
         
         mDifferenceTimeLabel.text = "Overdue: \(_string)"
         
         
         
+        let endTime = sessionDetails.EndTime
         
-        if let endTime = sessionDetails.object(forKey: "EndTime") as? String
+        let isGreater = currentDate.isGreaterThanDate((dateFormatter.date(from: endTime!)!))
+        
+        let isEqual = currentDate == (dateFormatter.date(from: endTime!)!)
+        
+        if isGreater == true || isEqual == true
         {
-            let isGreater = currentDate.isGreaterThanDate((dateFormatter.date(from: endTime)!))
-            
-            let isEqual = currentDate == (dateFormatter.date(from: endTime)!)
-           
-            if isGreater == true || isEqual == true
+            if delegate().responds(to: #selector(ScheduleScreenTileDelegate.delegateRefreshSchedule))
             {
-                if delegate().responds(to: #selector(ScheduleScreenTileDelegate.delegateRefreshSchedule))
-                {
-                    delegate().delegateRefreshSchedule!()
-                }
+                delegate().delegateRefreshSchedule!()
             }
-            
-           
         }
         
     }
@@ -503,7 +502,11 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         
         var _string :String = ""
         let currentDate = Date()
-        _string = _string.stringFromTimeInterval(dateFormatter.date(from: (sessionDetails.object(forKey: "StartTime") as! String))!.timeIntervalSince(currentDate)).fullString
+        
+        
+
+        
+        _string = _string.stringFromTimeInterval(dateFormatter.date(from: sessionDetails.StartTime!)!.timeIntervalSince(currentDate)).fullString
         
         mDifferenceTimeLabel.text = "Starts in about: \(_string)"
 
@@ -512,7 +515,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         nextSessionTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ScheduleScreenTile.updateNextSession), userInfo: nil, repeats: true)
         
         
-         let differenceMinutes  = currentDate.minutesAndSecondsDiffernceBetweenDates(currentDate, endDate: dateFormatter.date(from: sessionDetails.object(forKey: "StartTime") as! String)!)
+         let differenceMinutes  = currentDate.minutesAndSecondsDiffernceBetweenDates(currentDate, endDate: dateFormatter.date(from: sessionDetails.StartTime!)!)
         
         if differenceMinutes.second < alertTimeConditionValue
         {
@@ -532,18 +535,18 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         
         var _string :String = ""
         let currentDate = Date()
-        _string = _string.stringFromTimeInterval(dateFormatter.date(from: (sessionDetails.object(forKey: "StartTime") as! String))!.timeIntervalSince(currentDate)).fullString
+        _string = _string.stringFromTimeInterval(dateFormatter.date(from: sessionDetails.StartTime!)!.timeIntervalSince(currentDate)).fullString
         
         mDifferenceTimeLabel.text = "Starts in about: \(_string)"
         
         
         
-        let differenceMinutes  = currentDate.minutesAndSecondsDiffernceBetweenDates(currentDate, endDate: dateFormatter.date(from: sessionDetails.object(forKey: "StartTime") as! String)!)
+        let differenceMinutes  = currentDate.minutesAndSecondsDiffernceBetweenDates(currentDate, endDate: dateFormatter.date(from: sessionDetails.StartTime!)!)
         
         
         if differenceMinutes.second <= 0
         {
-            let isLesserValue = currentDate.isGreaterThanDate(dateFormatter.date(from: sessionDetails.object(forKey: "StartTime") as! String)!)
+            let isLesserValue = currentDate.isGreaterThanDate(dateFormatter.date(from: sessionDetails.StartTime!)!)
             
             if isLesserValue == true
             {

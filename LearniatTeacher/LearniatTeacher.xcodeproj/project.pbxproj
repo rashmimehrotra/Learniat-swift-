@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		001228541F08DBB9005E8286 /* TimeTableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0012284D1F08DBB9005E8286 /* TimeTableModel.swift */; };
+		001228551F08DBB9005E8286 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0012284E1F08DBB9005E8286 /* UserModel.swift */; };
+		001228561F08DBB9005E8286 /* RealmConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001228501F08DBB9005E8286 /* RealmConfigManager.swift */; };
+		001228571F08DBB9005E8286 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001228511F08DBB9005E8286 /* RealmManager.swift */; };
+		001228581F08DBB9005E8286 /* TimeTableDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001228521F08DBB9005E8286 /* TimeTableDataManager.swift */; };
+		001228591F08DBB9005E8286 /* UserDataManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001228531F08DBB9005E8286 /* UserDataManger.swift */; };
 		00E18E991F082BA900D9705C /* AppAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E18E981F082BA900D9705C /* AppAPI.swift */; };
 		00E18E9F1F082D7200D9705C /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 00E18E9D1F082D7200D9705C /* Config.plist */; };
 		00E18EA01F082D7200D9705C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E18E9E1F082D7200D9705C /* Config.swift */; };
@@ -502,6 +508,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0012284D1F08DBB9005E8286 /* TimeTableModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeTableModel.swift; sourceTree = "<group>"; };
+		0012284E1F08DBB9005E8286 /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		001228501F08DBB9005E8286 /* RealmConfigManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmConfigManager.swift; sourceTree = "<group>"; };
+		001228511F08DBB9005E8286 /* RealmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		001228521F08DBB9005E8286 /* TimeTableDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeTableDataManager.swift; sourceTree = "<group>"; };
+		001228531F08DBB9005E8286 /* UserDataManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataManger.swift; sourceTree = "<group>"; };
 		00E18E981F082BA900D9705C /* AppAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAPI.swift; sourceTree = "<group>"; };
 		00E18E9D1F082D7200D9705C /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		00E18E9E1F082D7200D9705C /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
@@ -1230,6 +1242,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0012284C1F08DBB9005E8286 /* RealmModels */ = {
+			isa = PBXGroup;
+			children = (
+				0012284D1F08DBB9005E8286 /* TimeTableModel.swift */,
+				0012284E1F08DBB9005E8286 /* UserModel.swift */,
+			);
+			path = RealmModels;
+			sourceTree = "<group>";
+		};
+		0012284F1F08DBB9005E8286 /* RealmWorkers */ = {
+			isa = PBXGroup;
+			children = (
+				001228501F08DBB9005E8286 /* RealmConfigManager.swift */,
+				001228511F08DBB9005E8286 /* RealmManager.swift */,
+				001228521F08DBB9005E8286 /* TimeTableDataManager.swift */,
+				001228531F08DBB9005E8286 /* UserDataManger.swift */,
+			);
+			path = RealmWorkers;
+			sourceTree = "<group>";
+		};
 		00E18E9C1F082D7200D9705C /* Config */ = {
 			isa = PBXGroup;
 			children = (
@@ -1618,6 +1650,8 @@
 		53676AE31CA63B2000CADE4D /* LearniatTeacher */ = {
 			isa = PBXGroup;
 			children = (
+				0012284C1F08DBB9005E8286 /* RealmModels */,
+				0012284F1F08DBB9005E8286 /* RealmWorkers */,
 				53676C861CA63B7F00CADE4D /* LoginViewController.swift */,
 				53676AF61CA63B7F00CADE4D /* AppDelegate.swift */,
 				00E18E9C1F082D7200D9705C /* Config */,
@@ -3383,6 +3417,7 @@
 				53676D2E1CA63B7F00CADE4D /* INILoader.swift in Sources */,
 				53676D001CA63B7F00CADE4D /* XMPPPresence+XEP_0172.m in Sources */,
 				4D2A93211CC0C4A9007A1D41 /* SetUpClassRoom.swift in Sources */,
+				001228581F08DBB9005E8286 /* TimeTableDataManager.swift in Sources */,
 				4DC246591CC21DC800E01CA4 /* LessonPlanMainViewCell.swift in Sources */,
 				53FC04371CAF8C4200D7B941 /* SSTeacherSubmissionView.swift in Sources */,
 				53676CC41CA63B7F00CADE4D /* XMPPSystemInputActivityMonitor.m in Sources */,
@@ -3397,6 +3432,7 @@
 				53676D1A1CA63B7F00CADE4D /* XMPPIDTracker.m in Sources */,
 				5330645F1CC8E3A50035CCDE /* SZTextView.m in Sources */,
 				5326079D1CA917EC002FF684 /* SingleResponceOptionCell.swift in Sources */,
+				001228541F08DBB9005E8286 /* TimeTableModel.swift in Sources */,
 				53676CE11CA63B7F00CADE4D /* XMPPvCardTempBase.m in Sources */,
 				53362BFD1E41C3B200413262 /* CollaborationSuggestionsView.swift in Sources */,
 				53676CEB1CA63B7F00CADE4D /* XMPPIQ+XEP_0066.m in Sources */,
@@ -3430,6 +3466,7 @@
 				5309C75E1CD9D9D600481E0C /* ModelAnswerButtonView.swift in Sources */,
 				53676CF21CA63B7F00CADE4D /* XMPPTransports.m in Sources */,
 				533100681E4E1F0C001B6055 /* CollaborationSuggestionCell.swift in Sources */,
+				001228551F08DBB9005E8286 /* UserModel.swift in Sources */,
 				53015BAA1CE5A53300BB366C /* PNLineChartData.m in Sources */,
 				53676D071CA63B7F00CADE4D /* XMPPAutoPing.m in Sources */,
 				53015B781CE58BBF00BB366C /* VolunteerPopopverCell.swift in Sources */,
@@ -3473,6 +3510,7 @@
 				4DC2465B1CC2353200E01CA4 /* LessonPlanSubTopicsView.swift in Sources */,
 				53676D0D1CA63B7F00CADE4D /* XMPPAttentionModule.m in Sources */,
 				53778B641CBCB3C8004E6480 /* StudentQueryPopover.swift in Sources */,
+				001228571F08DBB9005E8286 /* RealmManager.swift in Sources */,
 				53676D191CA63B7F00CADE4D /* RFImageToDataTransformer.m in Sources */,
 				53676D0C1CA63B7F00CADE4D /* XEP_0223.m in Sources */,
 				53676CC81CA63B7F00CADE4D /* XMPPIQ+LastActivity.m in Sources */,
@@ -3485,8 +3523,10 @@
 				5360E6BE1CBDF6D400AFE9FF /* StudentEvaluationDetails.swift in Sources */,
 				53676D161CA63B7F00CADE4D /* MessageManager.m in Sources */,
 				53460C381CD1F12000076F85 /* CustomTextView.swift in Sources */,
+				001228561F08DBB9005E8286 /* RealmConfigManager.swift in Sources */,
 				53676CBB1CA63B7F00CADE4D /* XMPPGroupCoreDataStorageObject.m in Sources */,
 				53676D0A1CA63B7F00CADE4D /* XMPPTime.m in Sources */,
+				001228591F08DBB9005E8286 /* UserDataManger.swift in Sources */,
 				4DC246611CC24E9100E01CA4 /* LessonPlanQuestionViewCell.swift in Sources */,
 				53676D1F1CA63B7F00CADE4D /* DDAbstractDatabaseLogger.m in Sources */,
 				53676C971CA63B7F00CADE4D /* InternetTesting.m in Sources */,
