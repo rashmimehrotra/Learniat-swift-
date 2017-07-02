@@ -11,7 +11,7 @@ import Foundation
 @objc protocol StudentQuestionViewDelegate
 {
     
-    @objc optional func delegateFullScreenButtonPressedWithOverlayImage(_ overlay:UIImage)
+    @objc optional func delegateFullScreenButtonPressedWithOverlayImage(_ overlay:UIImage, withQuestionName name:String)
     
     
 }
@@ -467,7 +467,16 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
     
     func delegateEditButtonPressedWithOverlayImage(_ overlay: UIImage)
     {
-        delegate().delegateFullScreenButtonPressedWithOverlayImage!(overlay)
+        if (currentQuestionDetails.object(forKey: kQuestionName) as? String) != ""
+        {
+          delegate().delegateFullScreenButtonPressedWithOverlayImage!(overlay, withQuestionName: (currentQuestionDetails.object(forKey: kQuestionName) as! String))
+        }
+        else
+        {
+             delegate().delegateFullScreenButtonPressedWithOverlayImage!(overlay, withQuestionName: "")
+        }
+        
+        
     }
     
     func setFullScreenDrawnImage(_ image:UIImage)

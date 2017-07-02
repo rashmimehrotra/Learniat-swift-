@@ -28,7 +28,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
     
     var mQuestionLabel = UILabel()
     
-    var mSendButton = UIButton()
+    var mSendButton = RNLoadingButton()
     
     var mDontKnow = UIButton()
     
@@ -97,12 +97,15 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         mSendButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         mSendButton.titleLabel?.font = UIFont (name: helveticaMedium, size: 20)
         mSendButton.setTitleColor(standard_Button, for: UIControlState())
+        mSendButton.hideTextWhenLoading = true
+        mSendButton.isLoading = false
+        mSendButton.activityIndicatorAlignment = RNActivityIndicatorAlignment.right
+        mSendButton.activityIndicatorViewStyle = .gray
         
         
-        
-        sendButtonSpinner = UIActivityIndicatorView(activityIndicatorStyle:.whiteLarge);
-        sendButtonSpinner.frame = mSendButton.frame;
-        mTopbarImageView.addSubview(sendButtonSpinner);
+        sendButtonSpinner = UIActivityIndicatorView(activityIndicatorStyle:.gray);
+        sendButtonSpinner.frame = CGRect(x: mSendButton.frame.size.width/2 + mSendButton.frame.origin.x, y: mSendButton.frame.origin.y, width: mSendButton.frame.size.width / 2, height: mSendButton.frame.size.height);
+//        mTopbarImageView.addSubview(sendButtonSpinner);
         sendButtonSpinner.isHidden = true;
         
         
@@ -259,6 +262,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         sendButtonSpinner.isHidden = true
         sendButtonSpinner.stopAnimating()
         mSendButton.isHidden = false
+        mSendButton.isLoading = false
         SSStudentMessageHandler.sharedMessageHandler.sendWithDrawMessageToTeacher()
     }
     
@@ -273,7 +277,8 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
             
             sendButtonSpinner.isHidden = false
             sendButtonSpinner.startAnimating()
-            mSendButton.isHidden = true
+//            mSendButton.isHidden = true
+            mSendButton.isLoading = true
             mEditButton.isHidden = true
             mWithDrawButton.isHidden = true
             
@@ -379,6 +384,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         sendButtonSpinner.isHidden = true
         sendButtonSpinner.stopAnimating()
         mSendButton.isHidden = false
+        mSendButton.isLoading = false
         mEditButton.isHidden = false
         mWithDrawButton.isHidden = true
         self.makeToast("Error in uploading image", duration: 2.0, position: .bottom)
@@ -533,6 +539,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         sendButtonSpinner.isHidden = true
         sendButtonSpinner.stopAnimating()
         mSendButton.isHidden = false
+        mSendButton.isLoading = false
         mEditButton.isHidden = false
         
     }

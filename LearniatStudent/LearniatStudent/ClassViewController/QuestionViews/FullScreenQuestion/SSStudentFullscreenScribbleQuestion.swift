@@ -65,6 +65,8 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
     
     var _delgate: AnyObject!
     
+    var questionText = UILabel()
+    
     
     func setdelegate(_ delegate:AnyObject)
     {
@@ -118,6 +120,10 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
         mCancelButton.addTarget(self, action: #selector(SSStudentFullscreenScribbleQuestion.onCancelButton), for: UIControlEvents.touchUpInside)
         
         
+      
+
+        
+        
         mSendButton.frame = CGRect(x: mTopbarImageView.frame.size.width - 100 , y: 0, width: 100 , height: mTopbarImageView.frame.size.height );
         mTopbarImageView.addSubview(mSendButton);
         mSendButton.setTitle("Done", for:UIControlState());
@@ -127,6 +133,17 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
         mSendButton.isHighlighted = false;
         mSendButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
         mSendButton.addTarget(self, action: #selector(SSStudentFullscreenScribbleQuestion.onSendButton), for: UIControlEvents.touchUpInside)
+        
+        
+        let remainSpaceForQuestion = self.frame.size.width - (mCancelButton.frame.origin.x + mCancelButton.frame.size.width + 20 + mSendButton.frame.size.width)
+        
+        questionText.frame = CGRect(x: (mCancelButton.frame.origin.x + mCancelButton.frame.size.width + 10), y: 0, width: remainSpaceForQuestion,height: mTopbarImageView.frame.size.height)
+        questionText.font = UIFont(name:HelveticaNeueItalic, size: 22)
+        questionText.text = ""
+        self.addSubview(questionText)
+        questionText.textColor = topbarColor
+        questionText.textAlignment = .center
+        questionText.lineBreakMode = .byTruncatingMiddle
         
         
         sendButtonSpinner = UIActivityIndicatorView(activityIndicatorStyle:.whiteLarge);

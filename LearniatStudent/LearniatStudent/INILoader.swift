@@ -60,6 +60,8 @@ let helveticaBold         = "HelveticaNeue-Bold"
 
 let HelveticaNeueThin     = "HelveticaNeue-Thin"
 
+let HelveticaNeueItalic     = "HelveticaNeue-Italic"
+
 
 let kClassName      = "ClassName"
 

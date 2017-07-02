@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		003343A41F09369F00B69625 /* RNLoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003343A31F09369F00B69625 /* RNLoadingButton.swift */; };
 		00E18EA41F08385C00D9705C /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 00E18EA21F08385C00D9705C /* Config.plist */; };
 		00E18EA51F08385C00D9705C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E18EA31F08385C00D9705C /* Config.swift */; };
 		00E18EA71F0839E700D9705C /* AppAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E18EA61F0839E700D9705C /* AppAPI.swift */; };
@@ -398,6 +399,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		003343A31F09369F00B69625 /* RNLoadingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNLoadingButton.swift; sourceTree = "<group>"; };
 		00E18EA21F08385C00D9705C /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		00E18EA31F08385C00D9705C /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		00E18EA61F0839E700D9705C /* AppAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAPI.swift; sourceTree = "<group>"; };
@@ -1152,6 +1154,7 @@
 		533064A71CC9E52E0035CCDE /* common */ = {
 			isa = PBXGroup;
 			children = (
+				003343A31F09369F00B69625 /* RNLoadingButton.swift */,
 				533A8FCA1E97A16A00A38019 /* SpinnerButtonView.swift */,
 				53A552201CF9A8B70093634A /* PlistDownloder.h */,
 				53A552211CF9A8B70093634A /* PlistDownloder.m */,
@@ -2828,6 +2831,7 @@
 				533066641CC9E5F40035CCDE /* XMPPRoomOccupantCoreDataStorageObject.m in Sources */,
 				5330667C1CC9E5F40035CCDE /* NSXMLElement+XEP_0059.m in Sources */,
 				53FFD2C01CE1FC3700A5AA28 /* multipleResponseOptionView.swift in Sources */,
+				003343A41F09369F00B69625 /* RNLoadingButton.swift in Sources */,
 				533066B91CC9E5F40035CCDE /* DDTTYLogger.m in Sources */,
 				5330664D1CC9E5F40035CCDE /* XMPPCoreDataStorage.m in Sources */,
 				533066991CC9E5F40035CCDE /* XMPPBlocking.m in Sources */,

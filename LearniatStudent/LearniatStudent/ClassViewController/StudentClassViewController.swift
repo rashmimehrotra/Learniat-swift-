@@ -526,7 +526,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     
     // MARK: - Questions delegate 
-    func delegateFullScreenButtonPressedWithOverlayImage(_ overlay: UIImage)
+    func delegateFullScreenButtonPressedWithOverlayImage(_ overlay:UIImage, withQuestionName name:String)
     {
         if mFullScreenView == nil{
             mFullScreenView = SSStudentFullscreenScribbleQuestion(frame:CGRect(x: 0,y: 0,width: self.view.frame.size.width,height: self.view.frame.size.height))
@@ -538,6 +538,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         mFullScreenView.isHidden = false
         
         mFullScreenView.setOverlayImage(overlay)
+        mFullScreenView.questionText.text = name
     }
     
     
