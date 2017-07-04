@@ -18,5 +18,4 @@
 #import "SmoothLineView.h"
 #import "colorpopOverViewController.h"
 #import "SSSettingsViewController.h"
-#import "UIButton+Activity.h"
 #endif

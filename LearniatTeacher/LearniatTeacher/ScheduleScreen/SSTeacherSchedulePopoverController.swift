@@ -219,6 +219,8 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
     {
         if delegate().responds(to: #selector(SSTeacherSchedulePopoverControllerDelegate.delegateSessionEnded))
         {
+            popover().dismiss(animated: true)
+            
             delegate().delegateSessionEnded!()
             
             mEndClassButton.setTitleColor(lightGrayColor, for: UIControlState())

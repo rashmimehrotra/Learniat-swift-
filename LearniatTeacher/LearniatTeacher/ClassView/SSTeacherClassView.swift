@@ -59,6 +59,8 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     var mStartTimeLabel = UILabel()
     
+    var mEndCounterlabel = UILabel()
+    
     let dateFormatter = DateFormatter()
     
     var mStartLabelUpdater                    = Timer()
@@ -156,7 +158,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     var plistLoader = PlistDownloder()
     
-    let schedulePopOverController = SSTeacherSchedulePopoverController()
+    var schedulePopOverController : SSTeacherSchedulePopoverController!
     
    var checkingClassEndTime                 = false
     
@@ -267,6 +269,15 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mQueryViewButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
         
         
+        
+        
+        
+        mEndCounterlabel.frame = CGRect(x: mBottombarImageView.frame.width - 100, y: 0 , width: 100, height: mQuestionViewButton.frame.size.height)
+        mEndCounterlabel.font = UIFont(name:helveticaRegular, size: 22)
+        mBottombarImageView.addSubview(mEndCounterlabel)
+        mEndCounterlabel.textColor = standard_Red
+        mEndCounterlabel.isHidden = true
+        mEndCounterlabel.font = UIFont(name: helveticaBold, size: 18)
         
         
         
@@ -621,7 +632,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     func onScheduleScreenPopupPressed(_ sender:UIButton)
     {
-        
+        schedulePopOverController = SSTeacherSchedulePopoverController()
         schedulePopOverController.setdelegate(self)
         
         let height = self.view.frame.size.height - (mTopbarImageView.frame.size.height + 20 )
@@ -679,7 +690,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 
                 let classEndingRemainingTime = currentDate.minutesDiffernceBetweenDates(currentDate, endDate:dateFormatter.date(from: EndTime )! )
                 
-                if classEndingRemainingTime <= 4
+                if classEndingRemainingTime <= 0
                 {
                     mStartLabelUpdater.invalidate()
                     delegateSessionEnded()
@@ -691,16 +702,42 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                         checkingClassEndTime = true
                         SSTeacherDataSource.sharedDataSource.getMyCurrentSessionOfTeacher(self)
                     }
+                    
+                    
+                    
+                    
+                    
+                    hmsFrom(seconds: currentDate.secondsDiffernceBetweenDates(currentDate, endDate:dateFormatter.date(from: EndTime )! )) { hours, minutes, seconds in
+                        
+                        let minutes = self.getStringFrom(seconds: minutes)
+                        let seconds = self.getStringFrom(seconds: seconds)
+                        self.mEndCounterlabel.text = "\(minutes):\(seconds)"
+                    }
+                    
+                    mEndCounterlabel.isHidden = false
                 }
                 else
                 {
                     checkingClassEndTime = false
+                    
+                    mEndCounterlabel.isHidden = true
                 }
             }
             
         }
     }
     
+    
+    func hmsFrom(seconds: Int, completion: @escaping (_ hours: Int, _ minutes: Int, _ seconds: Int)->()) {
+        
+        completion(seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
+        
+    }
+    
+    func getStringFrom(seconds: Int) -> String {
+        
+        return seconds < 10 ? "0\(seconds)" : "\(seconds)"
+    }
 
     // MARK: - Buttons Functions
     
@@ -1211,23 +1248,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     {
        
         
-        
-        
-        
-        SSTeacherMessageHandler.sharedMessageHandler.sendEndSessionMessageToRoom(currentSessionId)
-        
-        schedulePopOverController.onDoneButton()
-        performSegue(withIdentifier: "ClassViewToSchedule", sender: nil)
-        
-        //        let scheduleScreenView  = TeacherScheduleViewController()
-        SSTeacherDataSource.sharedDataSource.isQuestionSent = false
-        
-        SSTeacherDataSource.sharedDataSource.isSubtopicStarted = false
-        SSTeacherDataSource.sharedDataSource.startedSubTopicId = ""
-        SSTeacherDataSource.sharedDataSource.startedMainTopicId = ""
-        SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.removeAllObjects()
-        SSTeacherDataSource.sharedDataSource.questionsDictonary.removeAllObjects()
-        mStartLabelUpdater.invalidate()
+     
         
     }
     
@@ -3032,6 +3053,10 @@ func delegateAnnotateButtonPressedWithAnswerDetails(_ answerDetails:AnyObject, w
         SSTeacherMessageHandler.sharedMessageHandler.performReconnet()
     }
     
+    
+    
+   
+    
      // MARK: - SSTeacherSchedulePopoverController Delegate  functions
     
     func delegateSessionEnded()
@@ -3041,7 +3066,27 @@ func delegateAnnotateButtonPressedWithAnswerDetails(_ answerDetails:AnyObject, w
         {
             SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(sessionId, WithStatusvalue: "5", WithDelegate: self)
             
-            self.view.isUserInteractionEnabled = false
+            
+            
+            SSTeacherMessageHandler.sharedMessageHandler.sendEndSessionMessageToRoom(currentSessionId)
+            
+            if schedulePopOverController != nil
+            {
+                
+                schedulePopOverController.onDoneButton()
+            }
+            
+            performSegue(withIdentifier: "ClassViewToSchedule", sender: nil)
+            
+            //        let scheduleScreenView  = TeacherScheduleViewController()
+            SSTeacherDataSource.sharedDataSource.isQuestionSent = false
+            
+            SSTeacherDataSource.sharedDataSource.isSubtopicStarted = false
+            SSTeacherDataSource.sharedDataSource.startedSubTopicId = ""
+            SSTeacherDataSource.sharedDataSource.startedMainTopicId = ""
+            SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.removeAllObjects()
+            SSTeacherDataSource.sharedDataSource.questionsDictonary.removeAllObjects()
+            mStartLabelUpdater.invalidate()
         
         }
        

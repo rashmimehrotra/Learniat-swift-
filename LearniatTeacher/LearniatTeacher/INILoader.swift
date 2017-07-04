@@ -706,6 +706,20 @@ extension Date
         return (minutesComponents.minute )!
     }
     
+    // MARK: - FUNC008	Minutes difference betweeen two dates
+    func secondsDiffernceBetweenDates(_ startDate: Date, endDate: Date) -> (Int)
+    {
+        let calendar = Calendar.current
+        
+        let minutesComponents = (calendar as NSCalendar).components([.second], from: startDate, to: endDate, options: [])
+        
+        
+        return (minutesComponents.second )!
+    }
+
+    
+    
+    
     
     
     

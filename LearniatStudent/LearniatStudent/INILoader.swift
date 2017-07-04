@@ -28,7 +28,7 @@ let kQuestionTag                = "Question"
 let kQuestionName               = "Name"
 let kQuestionType               = "QuestionType"
 let kScribble                   = "Scribble"
-let kOptionTagMain              = "Options"
+let kOptionTagMain              = "OptionContainer"
 
 let kOptionTag                  = "Option"
 
