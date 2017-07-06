@@ -342,6 +342,28 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
  
 
     
+    
+    func InsertScribbleFileName(Scribblename:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler)
+    {
+        WebServicesAPI().getRequest(fromUrl: AppAPI.InsertScribbleFileName(userId: currentUserId, FileName: Scribblename).path, details: nil, success: { (result) in
+            
+            
+            let JsonValue = result.parseJSONString
+            
+            if(JsonValue.jsonData != nil)
+            {
+                success(JsonValue.jsonData!)
+            }
+            else
+            {
+                failure(JsonValue.error!)
+            }
+            
+        }) { (error) in
+            failure(error as NSError)
+        }
+    }
+    
     /*
     func LoginWithUserId(userId :String , andPassword Password:String, withDelegate Delegate:SSTeacherDataSourceDelegate)
     {
