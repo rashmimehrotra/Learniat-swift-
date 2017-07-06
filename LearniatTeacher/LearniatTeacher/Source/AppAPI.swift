@@ -46,7 +46,7 @@ extension AppAPI {
             return "\(self.base)/getMyTodaysSessions?user_id=\(userID)"
             
         case .InsertScribbleFileName(let userId, let FileName):
-            return "\(self.base)/InsertScribbleFileName?user_id=\(userID)&filename=\(FileName)"
+            return "\(self.base)/InsertScribbleFileName?user_id=\(userId)&filename=\(FileName)"
             
         }
     }
