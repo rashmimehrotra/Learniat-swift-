@@ -472,7 +472,16 @@ extension CustomProgressImageView
         {
             if newSize.height < 100
             {
-                self.image = self.resizeImage( UIImage(contentsOfFile: pngPath)!, newSize: newSize)
+                
+                if let image = self.resizeImage( UIImage(contentsOfFile: pngPath)!, newSize: newSize)
+                {
+                    self.image = image
+                }
+                else
+                {
+                    self.image = UIImage(contentsOfFile: pngPath)
+                }
+                
             }
             else
             {
@@ -489,7 +498,7 @@ extension CustomProgressImageView
     
     // MARK: - FUNC002	Resize Image
     
-    func resizeImage(_ image: UIImage, newSize: CGSize) -> UIImage {
+    func resizeImage(_ image: UIImage, newSize: CGSize) -> UIImage? {
         
         UIGraphicsBeginImageContext(newSize)
         
@@ -498,8 +507,12 @@ extension CustomProgressImageView
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         
         UIGraphicsEndImageContext()
+        if newImage != nil
+        {
+            return newImage
+        }
         
-        return newImage!
+        return nil
     }
 
     
