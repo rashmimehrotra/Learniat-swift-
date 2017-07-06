@@ -356,7 +356,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         
         
         
-         
+        /* 
         let isgreatervalue :Bool ;
         
         isgreatervalue = currentDate.isGreaterThanDate(dateFormatter.date(from: sessionDetails.object(forKey: "EndTime") as! String)!)
@@ -367,11 +367,12 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             {
                 startedTimeUpdatingTimer.invalidate()
                 SSStudentDataSource.sharedDataSource.currentLiveSessionId = sessionId
-                SSStudentDataSource.sharedDataSource.getUserSessionWithDetails(sessionId, withDelegate: self)
+//                SSStudentDataSource.sharedDataSource.getUserSessionWithDetails(sessionId, withDelegate: self)
                 
             }
             
         }
+         */
  
         
     }

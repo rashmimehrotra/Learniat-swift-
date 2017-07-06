@@ -1102,8 +1102,18 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     
     func imageUploaded(withName name: String!)
     {
-        newImageUploadedWithName(name)
-        currentTeacherImageURl = name
+        SSTeacherDataSource.sharedDataSource.InsertScribbleFileName(Scribblename: "upload/".appending(name).appending(".png"), withSuccessHandle: { (details) in
+            self.newImageUploadedWithName(name)
+            self.currentTeacherImageURl = name
+        }) { (error) in
+            self.sendButtonSpinner.isHidden = true
+            self.sendButtonSpinner.stopAnimating()
+            self.mSendButton.isHidden = false
+            self.mScribbleView.clearButtonClicked()
+            self.currentTeacherImageURl = ""
+        }
+        
+       
     }
     
     

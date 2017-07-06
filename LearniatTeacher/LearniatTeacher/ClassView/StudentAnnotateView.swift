@@ -845,8 +845,21 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
     
     func ImageUploadedWithName(_ name: String!)
     {
-        newImageUploadedWithName(name)
-        currentTeacherImageURl = name
+        SSTeacherDataSource.sharedDataSource.InsertScribbleFileName(Scribblename: name, withSuccessHandle: { (details) in
+            self.newImageUploadedWithName(name)
+             self.currentTeacherImageURl = name
+        }) { (error) in
+            
+            self.sendButtonSpinner.isHidden = true
+            self.sendButtonSpinner.stopAnimating()
+            self.mSendButton.isHidden = false
+            self.mScribbleView.clearButtonClicked()
+            self.currentTeacherImageURl = ""
+        }
+        
+        
+        
+       
     }
     
     func ErrorInUploadingWithName(_ name: String!)

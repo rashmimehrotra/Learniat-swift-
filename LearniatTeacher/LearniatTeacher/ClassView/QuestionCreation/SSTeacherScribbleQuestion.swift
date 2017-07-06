@@ -678,6 +678,32 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
 //        newImageUploadedWithName(name)
 //        currentTeacherImageURl = name
         
+        
+        SSTeacherDataSource.sharedDataSource.InsertScribbleFileName(Scribblename: "upload/".appending(name).appending(".png"), withSuccessHandle: { (details) in
+            if self.mQuestionNametextView.mQuestionTextView.text == nil
+            {
+                self.mQuestionNametextView.mQuestionTextView.text = ""
+            }
+            
+            if (self.mQuestionNametextView.mQuestionTextView.text?.isEmpty)!
+            {
+                self.makeToast("Please type question name ", duration: 5.0, position: .bottom)
+            }
+            else
+            {
+                if let ScribbleId = details.object(forKey: "ScribbleId") as? String
+                {
+                    SSTeacherDataSource.sharedDataSource.recordQuestionWithScribbleId(ScribbleId, withQuestionName: self.mQuestionNametextView.mQuestionTextView.text!, WithType: "4", withTopicId: self._currentTopicId, WithDelegate: self)
+                }
+            }
+        }) { (error) in
+            self.sendButtonSpinner.isHidden = true
+            self.sendButtonSpinner.stopAnimating()
+            self.mSendButton.isHidden = false
+            self.mScribbleView.clearButtonClicked()
+        }
+        
+        
         SSTeacherDataSource.sharedDataSource.uploadTeacherScribble("upload/".appending(name).appending(".png"), WithDelegate: self)
         
     }

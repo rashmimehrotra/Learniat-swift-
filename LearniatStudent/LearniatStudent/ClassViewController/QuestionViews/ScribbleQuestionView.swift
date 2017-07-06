@@ -374,8 +374,16 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         
         
         
+        SSStudentDataSource.sharedDataSource.InsertScribbleFileName(Scribblename: nameOfImage!, withSuccessHandle: { (etails) in
+             SSStudentDataSource.sharedDataSource.sendScribbleAnswer(nameOfImage!, withQuestionType: self.currentQuestionType, withQuestionLogId: self.questionLogId, withsessionId: (self.sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+            
+        }) { (error) in
+            self.errorInUploading(withName: nameOfImage)
+        }
         
-        SSStudentDataSource.sharedDataSource.sendScribbleAnswer(nameOfImage!, withQuestionType: currentQuestionType, withQuestionLogId: questionLogId, withsessionId: (sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+        
+        
+       
         
     }
     

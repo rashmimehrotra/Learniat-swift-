@@ -420,7 +420,16 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
     
     func ImageUploadedWithName(_ name: String!)
     {
-        newImageUploadedWithName(name)
+        SSTeacherDataSource.sharedDataSource.InsertScribbleFileName(Scribblename: name, withSuccessHandle: { (details) in
+            self.newImageUploadedWithName(name)
+        }) { (error) in
+            self.sendButtonSpinner.isHidden = true
+            self.sendButtonSpinner.stopAnimating()
+            self.mDoneButton.isHidden = false
+            self.mScribbleView.clearButtonClicked()
+        }
+        
+        
     }
     
     func ErrorInUploadingWithName(_ name: String!)
