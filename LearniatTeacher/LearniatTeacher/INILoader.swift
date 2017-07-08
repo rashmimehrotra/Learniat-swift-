@@ -48,7 +48,7 @@ let kMissedValue            = "6"
 /*-----*/
 
 
-let kOptionTagMain              = "OptionContainer"
+let kOptionTagMain              = "Options"
 let kQuestionType               = "Type"//"QuestionType"
 let kOptionTag                  = "Option"
 
@@ -106,12 +106,12 @@ let kCanClled       =  "6"
 let kEnded          =  "5"
 
 
-let kTeacherName = "TeacherName"
-let kTeacherId   = "TeacherId"
-let kClassId     = "ClassId"
-let kSubjectName = "SubjectName"
-let kSubjectId   = "SubjectId"
-let kSeatsConfigured = "SeatsConfigured"
+let kTeacherName        = "TeacherName"
+let kTeacherId              = "TeacherId"
+let kClassId            = "ClassId"
+let kSubjectName        = "SubjectName"
+let kSubjectId          = "SubjectId"
+let kSeatsConfigured    = "SeatsConfigured"
 let kStudentsRegistered = "StudentsRegistered"
 let kPreallocatedSeats  = "PreallocatedSeats"
 let kExisting_state     = "existing_state"

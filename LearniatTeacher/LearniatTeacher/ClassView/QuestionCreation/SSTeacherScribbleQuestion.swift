@@ -691,9 +691,17 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
             }
             else
             {
-                if let ScribbleId = details.object(forKey: "ScribbleId") as? String
+                if let ScribbleId = details.object(forKey: "image_id") as? Int
                 {
-                    SSTeacherDataSource.sharedDataSource.recordQuestionWithScribbleId(ScribbleId, withQuestionName: self.mQuestionNametextView.mQuestionTextView.text!, WithType: "4", withTopicId: self._currentTopicId, WithDelegate: self)
+                    SSTeacherDataSource.sharedDataSource.recordQuestionWithScribbleId("\(ScribbleId)", withQuestionName: self.mQuestionNametextView.mQuestionTextView.text!, WithType: "4", withTopicId: self._currentTopicId, WithDelegate: self)
+                }
+                else
+                {
+                    self.sendButtonSpinner.isHidden = true
+                    self.sendButtonSpinner.stopAnimating()
+                    self.mSendButton.isHidden = false
+                    self.mScribbleView.clearButtonClicked()
+
                 }
             }
         }) { (error) in

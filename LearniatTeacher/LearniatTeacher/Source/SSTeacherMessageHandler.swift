@@ -115,13 +115,19 @@ open class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Mess
     var currentUserName:String!
    
     let Error_NotConnectedToInternetSignal = Signal<(Bool)>()
-
+    var kBaseXMPPURL	=	""
     
-   open  static let sharedMessageHandler = SSTeacherMessageHandler()
+    open  static let sharedMessageHandler :SSTeacherMessageHandler = {
+        
+        
+        let instance = SSTeacherMessageHandler()
+        
+        return instance
+    }()
     
     
     
-  let kBaseXMPPURL	=	UserDefaults.standard.object(forKey: k_INI_BaseXMPPURL) as! String
+  
     
     
     // MARK: - Delegate Functions
@@ -141,6 +147,9 @@ open class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Mess
     
     func setUpMessangerStream()
     {
+        
+        
+        
         
         MessageManager.sharedMessageHandler().setdelegate(self)
         MessageManager.sharedMessageHandler().setupStream()
@@ -173,6 +182,12 @@ open class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Mess
     /*- this function is called to connect to XMPP Server -*/
     func connectWithUserId(_ userID:String, andWithPassword password:String, withDelegate delegate:SSTeacherMessagehandlerDelegate)
     {
+        
+        if let baseXmppUrl = UserDefaults.standard.object(forKey: k_INI_BaseXMPPURL) as? String
+        {
+            kBaseXMPPURL = baseXmppUrl
+        }
+        
         guard userID.characters.count>0 || password.characters.count>0  else
         {
             return

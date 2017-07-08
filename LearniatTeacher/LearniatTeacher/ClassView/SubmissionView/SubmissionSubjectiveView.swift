@@ -132,8 +132,12 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         heightRemaining = mainContainerView.frame.size.height - heightRemaining
         
         
+        overlayimageView.frame = CGRect(x: (mainContainerView.frame.size.width - (heightRemaining *  kAspectRation)) / 2 ,y: (mainContainerView.frame.size.height - heightRemaining) / 2 ,  width: heightRemaining *  kAspectRation ,height: heightRemaining)
+        mainContainerView.addSubview(overlayimageView);
+        
+        
         containerview.frame = CGRect(x: (mainContainerView.frame.size.width - (heightRemaining *  kAspectRation)) / 2 ,y: (mainContainerView.frame.size.height - heightRemaining) / 2 ,  width: heightRemaining *  kAspectRation ,height: heightRemaining)
-        containerview.backgroundColor = UIColor.white
+        containerview.backgroundColor = UIColor.clear
         mainContainerView.addSubview(containerview);
         containerview.layer.shadowColor = progressviewBackground.cgColor;
         containerview.layer.shadowOffset = CGSize(width: 0,height: 0);
@@ -143,6 +147,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
 
         
         
+       
         
         
         
@@ -255,8 +260,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         mMarkModelButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20);
         mMarkModelButton.addTarget(self, action: #selector(SubmissionSubjectiveView.onModelAnswerButton), for: UIControlEvents.touchUpInside)
         
-        overlayimageView.frame = containerview.frame
-        mainContainerView.addSubview(overlayimageView);
+      
 
         mScribbleView = SmoothLineView(frame: containerview.frame)
         mScribbleView.delegate = self

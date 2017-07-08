@@ -71,7 +71,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             else
             {
-                self.showReconnecting()
+                if (UserDefaults.standard.object(forKey: kPassword) as? String) != nil
+                {
+                    self.showReconnecting()
+                }
+               
             }
             
         }

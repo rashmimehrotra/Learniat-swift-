@@ -146,9 +146,9 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
     let Error_NotConnectedToInternetSignal = Signal<(Bool)>()
     
 
+    var kBaseXMPPURL = ""
     
     
-  let kBaseXMPPURL	=	UserDefaults.standard.object(forKey: k_INI_BaseXMPPURL) as! String
     
     
     // MARK: - Delegate Functions
@@ -208,6 +208,11 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
         guard userID.characters.count>0 || password.characters.count>0  else
         {
             return
+        }
+        
+        if let baseXmppUrl = UserDefaults.standard.object(forKey: k_INI_BaseXMPPURL) as? String
+        {
+            kBaseXMPPURL = baseXmppUrl
         }
         
         setdelegate(delegate)
