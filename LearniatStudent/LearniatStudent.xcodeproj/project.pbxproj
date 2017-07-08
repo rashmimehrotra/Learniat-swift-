@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		003343A41F09369F00B69625 /* RNLoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003343A31F09369F00B69625 /* RNLoadingButton.swift */; };
+		0087A34F1F10C1C1008E6153 /* InternetDisconnected.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0087A34E1F10C1C1008E6153 /* InternetDisconnected.xib */; };
+		0087A3511F10C230008E6153 /* No_Internet_Connection_Screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 0087A3501F10C230008E6153 /* No_Internet_Connection_Screen.png */; };
+		0087A3531F10C29B008E6153 /* InternetDisconnected.png in Resources */ = {isa = PBXBuildFile; fileRef = 0087A3521F10C29B008E6153 /* InternetDisconnected.png */; };
+		0087A3551F10C5BB008E6153 /* InternetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0087A3541F10C5BB008E6153 /* InternetConnection.swift */; };
 		00E18EA41F08385C00D9705C /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 00E18EA21F08385C00D9705C /* Config.plist */; };
 		00E18EA51F08385C00D9705C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E18EA31F08385C00D9705C /* Config.swift */; };
 		00E18EA71F0839E700D9705C /* AppAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E18EA61F0839E700D9705C /* AppAPI.swift */; };
@@ -400,6 +404,10 @@
 
 /* Begin PBXFileReference section */
 		003343A31F09369F00B69625 /* RNLoadingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNLoadingButton.swift; sourceTree = "<group>"; };
+		0087A34E1F10C1C1008E6153 /* InternetDisconnected.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InternetDisconnected.xib; sourceTree = "<group>"; };
+		0087A3501F10C230008E6153 /* No_Internet_Connection_Screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = No_Internet_Connection_Screen.png; sourceTree = "<group>"; };
+		0087A3521F10C29B008E6153 /* InternetDisconnected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InternetDisconnected.png; sourceTree = "<group>"; };
+		0087A3541F10C5BB008E6153 /* InternetConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternetConnection.swift; sourceTree = "<group>"; };
 		00E18EA21F08385C00D9705C /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		00E18EA31F08385C00D9705C /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		00E18EA61F0839E700D9705C /* AppAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAPI.swift; sourceTree = "<group>"; };
@@ -1122,6 +1130,8 @@
 				53E658DE1F064C9100EAB2E4 /* Helpers */,
 				533064A71CC9E52E0035CCDE /* common */,
 				5330646C1CC9DAAE0035CCDE /* AppDelegate.swift */,
+				0087A34E1F10C1C1008E6153 /* InternetDisconnected.xib */,
+				0087A3541F10C5BB008E6153 /* InternetConnection.swift */,
 				5330647E1CC9E2FC0035CCDE /* INILoader.swift */,
 				5330646E1CC9DAAE0035CCDE /* LoginViewController.swift */,
 				533066DD1CC9EDD90035CCDE /* ScheduleScreen */,
@@ -2123,6 +2133,8 @@
 		533066D81CC9E8FE0035CCDE /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				0087A3521F10C29B008E6153 /* InternetDisconnected.png */,
+				0087A3501F10C230008E6153 /* No_Internet_Connection_Screen.png */,
 				530720B11D027E5E001C85F6 /* Icons */,
 				53BC8B3F1CFC318800BA56F1 /* StudentMuted.png */,
 				53BFD5971CEF87E600B52B33 /* Star.png */,
@@ -2532,6 +2544,7 @@
 				5332557A1CEDC2A500653C00 /* Dark_Blue_Circle.png in Resources */,
 				53015BBD1CE5D93C00BB366C /* Unlike_Disabled.png in Resources */,
 				533255C41CEDC2A500653C00 /* Undo_Active.png in Resources */,
+				0087A3511F10C230008E6153 /* No_Internet_Connection_Screen.png in Resources */,
 				53BFD5991CEF87E600B52B33 /* Star.png in Resources */,
 				533255801CEDC2A500653C00 /* Eraser_Unselected_AnnotateView@2x.png in Resources */,
 				531FB4441CE5EB5B00DC0C6F /* Roboto-BlackItalic.ttf in Resources */,
@@ -2576,6 +2589,7 @@
 				53A482DA1CE45FD000C90451 /* indicator3.png in Resources */,
 				533255991CEDC2A500653C00 /* Text_Unselected_AnnotateView@2x.png in Resources */,
 				53A482DE1CE45FD000C90451 /* indicator7.png in Resources */,
+				0087A34F1F10C1C1008E6153 /* InternetDisconnected.xib in Resources */,
 				532D28001CE9CA9C009FDF6A /* poll_icon_selected.png in Resources */,
 				00E18EA41F08385C00D9705C /* Config.plist in Resources */,
 				53015BBC1CE5D93C00BB366C /* Like_Selected.png in Resources */,
@@ -2584,6 +2598,7 @@
 				53A482D61CE45FD000C90451 /* indicator10.png in Resources */,
 				533255AB1CEDC2A500653C00 /* Mark_Model_Not_Selected@2x.png in Resources */,
 				533255B91CEDC2A500653C00 /* Sharebutton.png in Resources */,
+				0087A3531F10C29B008E6153 /* InternetDisconnected.png in Resources */,
 				533255AE1CEDC2A500653C00 /* Marker_Selected.png in Resources */,
 				533255AA1CEDC2A500653C00 /* Mark_Model_Not_Selected.png in Resources */,
 				530720C61D027E5E001C85F6 /* Icon-iPad-Spotlight-iOS7@2x.png in Resources */,
@@ -2771,6 +2786,7 @@
 				53A482E91CE48E0400C90451 /* QRVSubView.swift in Sources */,
 				532D28031CE9CF73009FDF6A /* ScribbleQuestionView.swift in Sources */,
 				533066531CC9E5F40035CCDE /* XMPPRoster.xcdatamodel in Sources */,
+				0087A3551F10C5BB008E6153 /* InternetConnection.swift in Sources */,
 				533066621CC9E5F40035CCDE /* XMPPRoomCoreDataStorage.m in Sources */,
 				532D27FA1CE9B2C7009FDF6A /* StudentOTFView.swift in Sources */,
 				00E18EA51F08385C00D9705C /* Config.swift in Sources */,

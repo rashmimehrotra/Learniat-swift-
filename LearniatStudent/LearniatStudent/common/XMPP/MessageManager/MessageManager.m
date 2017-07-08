@@ -80,11 +80,11 @@ static MessageManager *sharedMessageHandler = nil;
     
     
     
-    xmppReconnect = [[XMPPReconnect alloc] init];
-    [xmppReconnect activate:self.xmppStream];
-    [xmppReconnect addDelegate:self delegateQueue:dispatch_get_main_queue()];
-    xmppReconnect.reconnectTimerInterval = 0;
-    xmppReconnect.reconnectDelay = 10 ;
+//    xmppReconnect = [[XMPPReconnect alloc] init];
+//    [xmppReconnect activate:self.xmppStream];
+//    [xmppReconnect addDelegate:self delegateQueue:dispatch_get_main_queue()];
+//    xmppReconnect.reconnectTimerInterval = 0;
+//    xmppReconnect.reconnectDelay = 10 ;
     
 	
 }
@@ -267,10 +267,7 @@ static MessageManager *sharedMessageHandler = nil;
 {
     NSLog(@"shouldAttemptAutoReconnect:%u %f %f",reachabilityFlags,sender.reconnectTimerInterval,xmppReconnect.reconnectDelay);
     
-    xmppReconnect.reconnectDelay = 20;
-    xmppReconnect.reconnectTimerInterval = 20;
-    
-    return YES;
+    return NO;
 }
 
 

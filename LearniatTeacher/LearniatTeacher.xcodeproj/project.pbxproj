@@ -13,6 +13,10 @@
 		001228571F08DBB9005E8286 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001228511F08DBB9005E8286 /* RealmManager.swift */; };
 		001228581F08DBB9005E8286 /* TimeTableDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001228521F08DBB9005E8286 /* TimeTableDataManager.swift */; };
 		001228591F08DBB9005E8286 /* UserDataManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001228531F08DBB9005E8286 /* UserDataManger.swift */; };
+		0087A3581F10CBD6008E6153 /* InternetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0087A3561F10CBD6008E6153 /* InternetConnection.swift */; };
+		0087A3591F10CBD6008E6153 /* InternetDisconnected.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0087A3571F10CBD6008E6153 /* InternetDisconnected.xib */; };
+		0087A35B1F10CC78008E6153 /* RNLoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0087A35A1F10CC78008E6153 /* RNLoadingButton.swift */; };
+		0087A35D1F10CD21008E6153 /* InternetDisconnected.png in Resources */ = {isa = PBXBuildFile; fileRef = 0087A35C1F10CD21008E6153 /* InternetDisconnected.png */; };
 		00E18E991F082BA900D9705C /* AppAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E18E981F082BA900D9705C /* AppAPI.swift */; };
 		00E18E9F1F082D7200D9705C /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 00E18E9D1F082D7200D9705C /* Config.plist */; };
 		00E18EA01F082D7200D9705C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E18E9E1F082D7200D9705C /* Config.swift */; };
@@ -514,6 +518,10 @@
 		001228511F08DBB9005E8286 /* RealmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		001228521F08DBB9005E8286 /* TimeTableDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeTableDataManager.swift; sourceTree = "<group>"; };
 		001228531F08DBB9005E8286 /* UserDataManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataManger.swift; sourceTree = "<group>"; };
+		0087A3561F10CBD6008E6153 /* InternetConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternetConnection.swift; sourceTree = "<group>"; };
+		0087A3571F10CBD6008E6153 /* InternetDisconnected.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InternetDisconnected.xib; sourceTree = "<group>"; };
+		0087A35A1F10CC78008E6153 /* RNLoadingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNLoadingButton.swift; sourceTree = "<group>"; };
+		0087A35C1F10CD21008E6153 /* InternetDisconnected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InternetDisconnected.png; sourceTree = "<group>"; };
 		00E18E981F082BA900D9705C /* AppAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAPI.swift; sourceTree = "<group>"; };
 		00E18E9D1F082D7200D9705C /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		00E18E9E1F082D7200D9705C /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
@@ -1429,6 +1437,7 @@
 		531044831CA64296007AE9D5 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				0087A35C1F10CD21008E6153 /* InternetDisconnected.png */,
 				53D252AA1E52DE2400056128 /* correctMatch.png */,
 				53D252AB1E52DE2400056128 /* IgnoreCollaboration.png */,
 				53D252AC1E52DE2400056128 /* wrongMatch.png */,
@@ -1650,6 +1659,8 @@
 		53676AE31CA63B2000CADE4D /* LearniatTeacher */ = {
 			isa = PBXGroup;
 			children = (
+				0087A3561F10CBD6008E6153 /* InternetConnection.swift */,
+				0087A3571F10CBD6008E6153 /* InternetDisconnected.xib */,
 				0012284C1F08DBB9005E8286 /* RealmModels */,
 				0012284F1F08DBB9005E8286 /* RealmWorkers */,
 				53676C861CA63B7F00CADE4D /* LoginViewController.swift */,
@@ -1675,6 +1686,7 @@
 		53676AF71CA63B7F00CADE4D /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				0087A35A1F10CC78008E6153 /* RNLoadingButton.swift */,
 				5378D1B31E903A9100912822 /* UIView+InnerShadow.h */,
 				5378D1B41E903A9100912822 /* UIView+InnerShadow.m */,
 				5377628B1E9036430004B99D /* YIInnerShadowLayer.h */,
@@ -3065,6 +3077,7 @@
 				5304417D1D0962E70032D378 /* Roboto-ThinItalic.ttf in Resources */,
 				531044991CA64296007AE9D5 /* CalendarBubbleRed.png in Resources */,
 				530720E51D027F08001C85F6 /* Icon-76@2x.png in Resources */,
+				0087A3591F10CBD6008E6153 /* InternetDisconnected.xib in Resources */,
 				537302191CB6771200E76753 /* Dark_Blue_Circle.png in Resources */,
 				53E5BBAC1CAE3B7D00358ED8 /* StudentWriting.png in Resources */,
 				537302431CB6771200E76753 /* Eraser_Selected@2x.png in Resources */,
@@ -3101,6 +3114,7 @@
 				5373024E1CB6771200E76753 /* Marker_Unselected@2x.png in Resources */,
 				537302421CB6771200E76753 /* Eraser_Selected.png in Resources */,
 				537302201CB6771200E76753 /* Eraser_Unselected_scribble.png in Resources */,
+				0087A35D1F10CD21008E6153 /* InternetDisconnected.png in Resources */,
 				537302541CB6771200E76753 /* Redo_Disabled@2x.png in Resources */,
 				530441791D0962E70032D378 /* Roboto-Medium.ttf in Resources */,
 				530720EA1D027F08001C85F6 /* Icon-Small@2x.png in Resources */,
@@ -3418,6 +3432,7 @@
 				53676D001CA63B7F00CADE4D /* XMPPPresence+XEP_0172.m in Sources */,
 				4D2A93211CC0C4A9007A1D41 /* SetUpClassRoom.swift in Sources */,
 				001228581F08DBB9005E8286 /* TimeTableDataManager.swift in Sources */,
+				0087A35B1F10CC78008E6153 /* RNLoadingButton.swift in Sources */,
 				4DC246591CC21DC800E01CA4 /* LessonPlanMainViewCell.swift in Sources */,
 				53FC04371CAF8C4200D7B941 /* SSTeacherSubmissionView.swift in Sources */,
 				53676CC41CA63B7F00CADE4D /* XMPPSystemInputActivityMonitor.m in Sources */,
@@ -3552,6 +3567,7 @@
 				53676C9E1CA63B7F00CADE4D /* XMLDictionary.m in Sources */,
 				4D0A7FCA1CCF79C6001AA119 /* StudentAnswerSelectionView.swift in Sources */,
 				53676D2A1CA63B7F00CADE4D /* DDXMLElement.m in Sources */,
+				0087A3581F10CBD6008E6153 /* InternetConnection.swift in Sources */,
 				53676CD31CA63B7F00CADE4D /* XMPPRoomMemoryStorage.m in Sources */,
 				53676CC01CA63B7F00CADE4D /* XMPPResourceMemoryStorageObject.m in Sources */,
 				53676D011CA63B7F00CADE4D /* XMPPMessage+XEP_0184.m in Sources */,

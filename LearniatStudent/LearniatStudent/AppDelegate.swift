@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     internal  static let sharedDataSource = AppDelegate()
     
-    var interntDownImageView : UIImageView!
+    var interntDownImageView : InternetConnection!
     
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -51,7 +51,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-        
+        SSStudentMessageHandler.sharedMessageHandler.Error_NotConnectedToInternetSignal.subscribe(on: self) { (isSuccess) in
+            if(isSuccess == true)
+            {
+               self.hideReconnecting()
+            }
+            else
+            {
+                self.showReconnecting()
+            }
+            
+        }
+      
        
         URLPrefix = Config.sharedInstance.getPhpUrl()
       
@@ -84,28 +95,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func showReconnecting()
     {
-        
-        
         if  let appDelegate = UIApplication.shared.delegate as? AppDelegate,
             let window = appDelegate.window
         {
             
             if interntDownImageView == nil{
                 
-                interntDownImageView = UIImageView()
-                
-                interntDownImageView.frame = CGRect(x: 0, y: 0, width: window.frame.size.width, height: 20)
+                interntDownImageView = InternetConnection.instanceFromNib() as! InternetConnection
+                interntDownImageView.frame = CGRect(x: 0, y: 0, width: window.frame.size.width, height: window.frame.size.height)
                 window.addSubview(interntDownImageView)
-                interntDownImageView.backgroundColor = standard_Red
-                
-                window.bringSubview(toFront: interntDownImageView)
+               
             }
-            
+            window.bringSubview(toFront: interntDownImageView)
         }
         
         if interntDownImageView != nil
         {
             interntDownImageView.isHidden = false
+            interntDownImageView.stopLoading()
+            
         }
         
         
@@ -116,8 +124,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     {
         if interntDownImageView != nil
         {
+            interntDownImageView.stopLoading()
             interntDownImageView.isHidden = true
+            
         }
+        
+        
+        
     }
     
     

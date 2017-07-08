@@ -61,6 +61,7 @@ let kCollaborationCancelled         = "1104"
 let kCollaborationStatusChanged     = "1105"
 
 import Foundation
+import Signals
 
 @objc protocol SSTeacherMessagehandlerDelegate
 {
@@ -113,6 +114,8 @@ open class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Mess
     var _delgate: AnyObject!
     var currentUserName:String!
    
+    let Error_NotConnectedToInternetSignal = Signal<(Bool)>()
+
     
    open  static let sharedMessageHandler = SSTeacherMessageHandler()
     
@@ -212,7 +215,8 @@ open class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Mess
         
         if let password  =  UserDefaults.standard.object(forKey: kPassword) as? String
         {
-             MessageManager.sharedMessageHandler().connect(withUserId: "\(SSTeacherDataSource.sharedDataSource.currentUserId)@\(kBaseXMPPURL)", withPassword: password)
+            let connectionUrl = SSTeacherDataSource.sharedDataSource.currentUserId.appending("@").appending(kBaseXMPPURL)
+            MessageManager.sharedMessageHandler().connect(withUserId: connectionUrl, withPassword: password)
         }
        
     }
@@ -235,9 +239,10 @@ open class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Mess
     //MARK: ..........Delegate
     open func didGetStreamState(_ state:Bool)
     {
-        if delegate().responds(to: #selector(SSTeacherMessagehandlerDelegate.smhDidRecieveStreamConnectionsState(_:)))
-        {
-            delegate().smhDidRecieveStreamConnectionsState!(state)
+        if state {
+            self.Error_NotConnectedToInternetSignal.fire( true)
+        }else{
+            self.Error_NotConnectedToInternetSignal.fire(false)
         }
         
 

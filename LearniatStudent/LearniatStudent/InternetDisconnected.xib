@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16A2323a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="ipad9_7" orientation="landscape">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="InternetConnection" customModule="LearniatStudent">
+            <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="InternetDisconnected.png" translatesAutoresizingMaskIntoConstraints="NO" id="tcl-9q-bIa">
+                    <rect key="frame" x="281.5" y="126" width="461" height="192"/>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SpV-l9-6Qu">
+                    <rect key="frame" x="282" y="328" width="461" height="131"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Internet connection broken" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FJA-C0-IpR">
+                            <rect key="frame" x="8" y="8" width="444" height="36"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="30"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please check internet access for the  device and retry." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Axn-fS-7Ef">
+                            <rect key="frame" x="8" y="60" width="444" height="60"/>
+                            <constraints>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="FUW-rq-PMZ"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="22"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.14117647058823529" green="0.26666666666666666" blue="0.38823529411764707" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="Axn-fS-7Ef" firstAttribute="top" secondItem="FJA-C0-IpR" secondAttribute="bottom" constant="16" id="MMd-yP-n5g"/>
+                        <constraint firstItem="Axn-fS-7Ef" firstAttribute="leading" secondItem="FJA-C0-IpR" secondAttribute="leading" id="XXr-0C-gEL"/>
+                        <constraint firstItem="FJA-C0-IpR" firstAttribute="leading" secondItem="SpV-l9-6Qu" secondAttribute="leading" constant="8" id="e2i-ru-orI"/>
+                        <constraint firstItem="Axn-fS-7Ef" firstAttribute="width" secondItem="FJA-C0-IpR" secondAttribute="width" id="fO5-nc-d0V"/>
+                        <constraint firstAttribute="trailing" secondItem="FJA-C0-IpR" secondAttribute="trailing" constant="9" id="sre-vG-wkh"/>
+                        <constraint firstItem="FJA-C0-IpR" firstAttribute="top" secondItem="SpV-l9-6Qu" secondAttribute="top" constant="8" id="utT-dB-awq"/>
+                        <constraint firstAttribute="bottom" secondItem="Axn-fS-7Ef" secondAttribute="bottom" constant="11" id="x5F-ig-gbq"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mVq-xk-hPF" customClass="RNLoadingButton" customModule="LearniatStudent" customModuleProvider="target">
+                    <rect key="frame" x="282" y="460" width="461" height="49"/>
+                    <color key="backgroundColor" red="0.14117647058823529" green="0.26666666666666666" blue="0.38823529411764707" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="49" id="112-j9-ZyM"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="25"/>
+                    <state key="normal" title="Retry">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="hideTextWhenLoading" value="NO"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isLoading" value="NO"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="hideImageWhenLoading" value="NO"/>
+                        <userDefinedRuntimeAttribute type="color" keyPath="activityIndicatorColor">
+                            <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="onRetryButtin:" destination="iN0-l3-epB" eventType="touchUpInside" id="3qf-wA-Z0G"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.1803921568627451" green="0.34509803921568627" blue="0.50196078431372548" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="SpV-l9-6Qu" firstAttribute="width" secondItem="tcl-9q-bIa" secondAttribute="width" id="1SE-gv-s6t"/>
+                <constraint firstItem="SpV-l9-6Qu" firstAttribute="leading" secondItem="tcl-9q-bIa" secondAttribute="leading" id="2Z0-QG-7Ll"/>
+                <constraint firstItem="tcl-9q-bIa" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="5J4-Nc-tfR"/>
+                <constraint firstItem="mVq-xk-hPF" firstAttribute="leading" secondItem="SpV-l9-6Qu" secondAttribute="leading" id="DJ1-Jw-UMi"/>
+                <constraint firstItem="mVq-xk-hPF" firstAttribute="width" secondItem="SpV-l9-6Qu" secondAttribute="width" id="GxW-qv-Gek"/>
+                <constraint firstItem="SpV-l9-6Qu" firstAttribute="top" secondItem="tcl-9q-bIa" secondAttribute="bottom" constant="10" id="HcG-wI-GE8"/>
+                <constraint firstItem="tcl-9q-bIa" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.25" id="RRU-zz-InT"/>
+                <constraint firstItem="tcl-9q-bIa" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="126" id="fuy-ir-7hf"/>
+                <constraint firstItem="mVq-xk-hPF" firstAttribute="top" secondItem="SpV-l9-6Qu" secondAttribute="bottom" constant="1" id="ocY-Wq-iLp"/>
+                <constraint firstItem="tcl-9q-bIa" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.45" id="qJR-gZ-4DT"/>
+            </constraints>
+            <connections>
+                <outlet property="mRetryButton" destination="mVq-xk-hPF" id="cqv-ky-RFQ"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="InternetDisconnected.png" width="527" height="358"/>
+    </resources>
+</document>

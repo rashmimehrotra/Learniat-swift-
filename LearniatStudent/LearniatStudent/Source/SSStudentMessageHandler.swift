@@ -63,6 +63,8 @@ let kCollaborationStatusChanged     = "1105"
 
 
 import Foundation
+import Signals
+
 
 @objc protocol SSStudentMessageHandlerDelegate
 {
@@ -140,7 +142,10 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
    
     
    open  static let sharedMessageHandler = SSStudentMessageHandler()
+    //This signal is used when network error
+    let Error_NotConnectedToInternetSignal = Signal<(Bool)>()
     
+
     
     
   let kBaseXMPPURL	=	UserDefaults.standard.object(forKey: k_INI_BaseXMPPURL) as! String
@@ -268,12 +273,11 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
     //MARK: ..........Delegate
     open func didGetStreamState(_ state:Bool)
     {
-        if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidRecieveStreamConnectionsState(_:)))
-        {
-            delegate().smhDidRecieveStreamConnectionsState!(state)
+        if state {
+            self.Error_NotConnectedToInternetSignal.fire( true)
+        }else{
+            self.Error_NotConnectedToInternetSignal.fire(false)
         }
-        
-
     }
     open func didGetAuthenticationState(_ state:Bool)
     {
