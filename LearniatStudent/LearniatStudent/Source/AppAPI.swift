@@ -14,6 +14,7 @@ enum AppAPI {
     case Login(UserName:String,Password:String)
     case TodaysTimeTable(UserId:String)
     case InsertScribbleFileName(userId:String,FileName:String)
+    case GetSessionInfo(SessionId:String)
 }
 
 extension AppAPI {
@@ -47,6 +48,9 @@ extension AppAPI {
         
         case .InsertScribbleFileName(let userId, let FileName):
             return "\(self.base)/InsertScribbleFileName?user_id=\(userId)&filename=\(FileName)"
+            
+        case .GetSessionInfo(let SessionId):
+            return  "\(self.base)/GetSessionInfo?SessionId=\(SessionId)"
             
         
         }

@@ -17,3 +17,14 @@ enum UserState:String
     case Occupied       =  "10"
  
 }
+
+enum SessionState:Int
+{
+    case Live           = 1
+    case Scheduled      = 4
+    case Ended          = 5
+    case Cancelled      = 6
+    case Opened         = 2
+}
+
+

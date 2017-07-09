@@ -287,8 +287,121 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     }
     
     
+    // MARK: - JSON API Functions
     
-    // MARK: - API Functions
+    
+    
+    
+    /// This function is used to login teacher app with below given parameters
+    ///
+    /// - Parameters:
+    ///   - userId: User name of teacher
+    ///   - Password: password
+    ///   - success: API Success call
+    ///   - failure: API Failure call
+    func LoginWithUserId(_ userId :String , andPassword Password:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler)
+    {
+        WebServicesAPI().getRequest(fromUrl: AppAPI.Login(UserName: userId, Password: Password).path, details: nil, success: { (result) in
+            
+            
+            let JsonValue = result.parseJSONString
+            
+            if(JsonValue.jsonData != nil)
+            {
+                success(JsonValue.jsonData!)
+            }
+            else
+            {
+                failure(JsonValue.error!)
+            }
+            
+        }) { (error) in
+            failure(error as NSError)
+        }
+    }
+    
+    
+    /// This API method is use to get schedules of teacher and return all the schedules of teacher
+    ///
+    /// - Parameters:
+    ///   - success: Return schedules of teacher
+    ///   - failure: Return failure message
+    func getScheduleOfTeacher(success:@escaping (_ result: NSArray) -> (), withfailurehandler failure:@escaping ApiErrorHandler)
+    {
+        WebServicesAPI().getRequest(fromUrl:  AppAPI.TodaysTimeTable(UserId: self.currentUserId).path, details: nil, success: { (result) in
+            
+            let JsonValue = result.ParseForArrayOfJson
+            
+            if(JsonValue.arrayObjects != nil)
+            {
+                success(JsonValue.arrayObjects!)
+            }
+            else
+            {
+                failure(JsonValue.error!)
+            }
+            
+        }) { (error) in
+            failure(error as NSError)
+        }
+        
+    }
+    
+    
+    
+    /// This method is used to insert a new row in uploaded_images table when new scribble added
+    ///
+    /// - Parameters:
+    ///   - Scribblename: send scribble name which teacher wants to save
+    ///   - success: This returns image_id which is used for question creation
+    ///   - failure: Returs error message
+    func InsertScribbleFileName(Scribblename:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler)
+    {
+        WebServicesAPI().getRequest(fromUrl: AppAPI.InsertScribbleFileName(userId: currentUserId, FileName: Scribblename).path, details: nil, success: { (result) in
+            
+            
+            let JsonValue = result.parseJSONString
+            
+            if(JsonValue.jsonData != nil)
+            {
+                success(JsonValue.jsonData!)
+            }
+            else
+            {
+                failure(JsonValue.error!)
+            }
+            
+        }) { (error) in
+            failure(error as NSError)
+        }
+    }
+    
+    
+    
+    func changeStateOfSessionWithSessionID(sessionID:String, withSessionState state:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler) {
+        
+        WebServicesAPI().getRequest(fromUrl: AppAPI.ChangeSessionState(state: state, SessionID: sessionID).path, details: nil, success: { (result) in
+            
+            
+            let JsonValue = result.parseJSONString
+            
+            if(JsonValue.jsonData != nil)
+            {
+                success(JsonValue.jsonData!)
+            }
+            else
+            {
+                failure(JsonValue.error!)
+            }
+            
+        }) { (error) in
+            failure(error as NSError)
+        }
+        
+    }
+    
+    
+    // MARK: - XML API Functions
     
     
     func getUserState(_ userId :String, withDelegate delegate:SSTeacherDataSourceDelegate)
@@ -319,50 +432,12 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     
     
-    func LoginWithUserId(_ userId :String , andPassword Password:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler)
-    {
-        WebServicesAPI().getRequest(fromUrl: AppAPI.Login(UserName: userId, Password: Password).path, details: nil, success: { (result) in
-            
-            
-            let JsonValue = result.parseJSONString
-            
-            if(JsonValue.jsonData != nil)
-            {
-                success(JsonValue.jsonData!)
-            }
-            else
-            {
-                failure(JsonValue.error!)
-            }
-            
-        }) { (error) in
-            failure(error as NSError)
-        }
-    }
+    
  
 
     
     
-    func InsertScribbleFileName(Scribblename:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler)
-    {
-        WebServicesAPI().getRequest(fromUrl: AppAPI.InsertScribbleFileName(userId: currentUserId, FileName: Scribblename).path, details: nil, success: { (result) in
-            
-            
-            let JsonValue = result.parseJSONString
-            
-            if(JsonValue.jsonData != nil)
-            {
-                success(JsonValue.jsonData!)
-            }
-            else
-            {
-                failure(JsonValue.error!)
-            }
-            
-        }) { (error) in
-            failure(error as NSError)
-        }
-    }
+    
     
     /*
     func LoginWithUserId(userId :String , andPassword Password:String, withDelegate Delegate:SSTeacherDataSourceDelegate)
@@ -396,32 +471,6 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         manager.downloadDataURL(urlString, withServiceName: kServiceGetSchedules, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
  
     }
-    
-    
-    
-    
-    func getScheduleOfTeacher(success:@escaping (_ result: NSArray) -> (), withfailurehandler failure:@escaping ApiErrorHandler)
-    {
-        WebServicesAPI().getRequest(fromUrl:  AppAPI.TodaysTimeTable(UserId: self.currentUserId).path, details: nil, success: { (result) in
-            
-            let JsonValue = result.ParseForArrayOfJson
-            
-            if(JsonValue.arrayObjects != nil)
-            {
-                success(JsonValue.arrayObjects!)
-            }
-            else
-            {
-                failure(JsonValue.error!)
-            }
-            
-        }) { (error) in
-            failure(error as NSError)
-        }
-        
-    }
-    
-    
     
     
     func getMyCurrentSessionOfTeacher(_ delegate:SSTeacherDataSourceDelegate)

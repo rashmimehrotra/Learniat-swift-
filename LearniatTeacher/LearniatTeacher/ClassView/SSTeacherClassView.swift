@@ -926,6 +926,50 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     }
     
     
+    func updateSessionStateToEnded()
+    {
+        
+        
+        
+        
+        
+        SSTeacherDataSource.sharedDataSource.changeStateOfSessionWithSessionID(sessionID: SSTeacherDataSource.sharedDataSource.currentLiveSessionId, withSessionState: "5", withSuccessHandle: { (response) in
+            
+            if let sessionId = response.object(forKey: kSessionId) as? String
+            {
+                SSTeacherMessageHandler.sharedMessageHandler.sendEndSessionMessageToRoom(sessionId)
+                
+                SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(sessionId, WithStatusvalue: "5", WithDelegate: self)
+
+                
+                if self.schedulePopOverController != nil
+                {
+                    
+                    self.schedulePopOverController.onDoneButton()
+                }
+                
+                self.performSegue(withIdentifier: "ClassViewToSchedule", sender: nil)
+                
+                //        let scheduleScreenView  = TeacherScheduleViewController()
+                SSTeacherDataSource.sharedDataSource.isQuestionSent = false
+                
+                SSTeacherDataSource.sharedDataSource.isSubtopicStarted = false
+                SSTeacherDataSource.sharedDataSource.startedSubTopicId = ""
+                SSTeacherDataSource.sharedDataSource.startedMainTopicId = ""
+                SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.removeAllObjects()
+                SSTeacherDataSource.sharedDataSource.questionsDictonary.removeAllObjects()
+                self.mStartLabelUpdater.invalidate()
+                
+            }
+            
+            
+        }) { (error) in
+            
+            
+            
+        }
+    }
+    
     
     
 // MARK: - datasource delegate functions
@@ -1323,8 +1367,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                                             
                                             sessionAlertView.dismiss(animated: true, completion: nil)
                                             
-                                            SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, WithStatusvalue: kEnded, WithDelegate: self)
-                                            
+                                                self.updateSessionStateToEnded()
                                             
                                             
                                         }))
@@ -1367,9 +1410,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                             
                             sessionAlertView.addAction(UIAlertAction(title: "End session", style: .default, handler: { action in
                                 
-                                
-                                SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, WithStatusvalue: kEnded, WithDelegate: self)
-                                
+                                self.updateSessionStateToEnded()
                                 
                             }))
                             
@@ -3062,33 +3103,7 @@ func delegateAnnotateButtonPressedWithAnswerDetails(_ answerDetails:AnyObject, w
     func delegateSessionEnded()
     {
         
-        if let sessionId = (currentSessionDetails.object(forKey: kSessionId)) as? String
-        {
-            SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(sessionId, WithStatusvalue: "5", WithDelegate: self)
-            
-            
-            
-            SSTeacherMessageHandler.sharedMessageHandler.sendEndSessionMessageToRoom(currentSessionId)
-            
-            if schedulePopOverController != nil
-            {
-                
-                schedulePopOverController.onDoneButton()
-            }
-            
-            performSegue(withIdentifier: "ClassViewToSchedule", sender: nil)
-            
-            //        let scheduleScreenView  = TeacherScheduleViewController()
-            SSTeacherDataSource.sharedDataSource.isQuestionSent = false
-            
-            SSTeacherDataSource.sharedDataSource.isSubtopicStarted = false
-            SSTeacherDataSource.sharedDataSource.startedSubTopicId = ""
-            SSTeacherDataSource.sharedDataSource.startedMainTopicId = ""
-            SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.removeAllObjects()
-            SSTeacherDataSource.sharedDataSource.questionsDictonary.removeAllObjects()
-            mStartLabelUpdater.invalidate()
-        
-        }
+        updateSessionStateToEnded()
        
     }
     

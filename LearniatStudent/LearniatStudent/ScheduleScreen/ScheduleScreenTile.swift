@@ -439,7 +439,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         
         var _string :String = ""
         let currentDate = Date()
-        _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: (sessionDetails.object(forKey: "StartTime") as! String))!)).fullString
+        _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: (sessionDetails.object(forKey: kStartTime) as! String))!)).fullString
         
         mDifferenceTimeLabel.text = "Overdue: \(_string)"
         
@@ -462,14 +462,14 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         
         var _string :String = ""
         let currentDate = Date()
-        _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: (sessionDetails.object(forKey: "StartTime") as! String))!)).fullString
+        _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: (sessionDetails.object(forKey: kStartTime) as! String))!)).fullString
         
         mDifferenceTimeLabel.text = "Overdue: \(_string)"
         
         
         
         
-        if let endTime = sessionDetails.object(forKey: "EndTime") as? String
+        if let endTime = sessionDetails.object(forKey: kEndTime) as? String
         {
             let isGreater = currentDate.isGreaterThanDate((dateFormatter.date(from: endTime)!))
             
@@ -498,7 +498,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         
         var _string :String = ""
         let currentDate = Date()
-        _string = _string.stringFromTimeInterval(dateFormatter.date(from: (sessionDetails.object(forKey: "StartTime") as! String))!.timeIntervalSince(currentDate)).fullString
+        _string = _string.stringFromTimeInterval(dateFormatter.date(from: (sessionDetails.object(forKey: kStartTime) as! String))!.timeIntervalSince(currentDate)).fullString
         
         mDifferenceTimeLabel.text = "Starts in about: \(_string)"
 
@@ -507,7 +507,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         nextSessionTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ScheduleScreenTile.updateNextSession), userInfo: nil, repeats: true)
         
         
-         let differenceMinutes  = currentDate.minutesAndSecondsDiffernceBetweenDates(currentDate, endDate: dateFormatter.date(from: sessionDetails.object(forKey: "StartTime") as! String)!)
+         let differenceMinutes  = currentDate.minutesAndSecondsDiffernceBetweenDates(currentDate, endDate: dateFormatter.date(from: sessionDetails.object(forKey: kStartTime) as! String)!)
         
         if differenceMinutes.second < alertTimeConditionValue
         {
@@ -527,18 +527,18 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         
         var _string :String = ""
         let currentDate = Date()
-        _string = _string.stringFromTimeInterval(dateFormatter.date(from: (sessionDetails.object(forKey: "StartTime") as! String))!.timeIntervalSince(currentDate)).fullString
+        _string = _string.stringFromTimeInterval(dateFormatter.date(from: (sessionDetails.object(forKey: kStartTime) as! String))!.timeIntervalSince(currentDate)).fullString
         
         mDifferenceTimeLabel.text = "Starts in about: \(_string)"
         
         
         
-        let differenceMinutes  = currentDate.minutesAndSecondsDiffernceBetweenDates(currentDate, endDate: dateFormatter.date(from: sessionDetails.object(forKey: "StartTime") as! String)!)
+        let differenceMinutes  = currentDate.minutesAndSecondsDiffernceBetweenDates(currentDate, endDate: dateFormatter.date(from: sessionDetails.object(forKey: kStartTime) as! String)!)
         
         
         if differenceMinutes.second <= 0
         {
-            let isLesserValue = currentDate.isGreaterThanDate(dateFormatter.date(from: sessionDetails.object(forKey: "StartTime") as! String)!)
+            let isLesserValue = currentDate.isGreaterThanDate(dateFormatter.date(from: sessionDetails.object(forKey: kStartTime) as! String)!)
             
             if isLesserValue == true
             {

@@ -33,7 +33,7 @@ class Config: NSObject {
 
 extension Config {
     func baseUrl() -> String {
-        return configs.object(forKey: "BaseUrl") as! String
+        return configs.object(forKey: "RURL") as! String
     }
     
     func getPhpUrl()->String{

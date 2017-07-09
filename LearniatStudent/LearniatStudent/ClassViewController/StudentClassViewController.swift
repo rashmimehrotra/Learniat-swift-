@@ -200,12 +200,13 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         if let sessionId = sessionDetails.object(forKey: kSessionId) as? String
         {
             SSStudentDataSource.sharedDataSource.currentLiveSessionId = sessionId
-            SSStudentDataSource.sharedDataSource.getUserSessionWithDetails(sessionId, withDelegate: self)
+            
+            getUserSessionWithSessionID(sessionID: sessionId)
             
         }
         
         
-        switch (sessionDetails.object(forKey: "SessionState") as! String)
+        switch (sessionDetails.object(forKey: kSessionState) as! String)
         {
             case kopenedString:
                 mClassStatedLabel.text = "Class not started yet"
@@ -306,8 +307,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         if let sessionId = sessionDetails.object(forKey: kSessionId) as? String
         {
             SSStudentDataSource.sharedDataSource.currentLiveSessionId = sessionId
-            SSStudentDataSource.sharedDataSource.getUserSessionWithDetails(sessionId, withDelegate: self)
-            
+            getUserSessionWithSessionID(sessionID: sessionId)
         }
        
         
@@ -351,12 +351,12 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         
         var _string :String = ""
         let currentDate = Date()
-        _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: (sessionDetails.object(forKey: "StartTime") as! String))!)).fullString
+        _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: (sessionDetails.object(forKey: kStartTime) as! String))!)).fullString
         mClassStatedLabel.text = "Started: \(_string)"
         
         
         
-        /* 
+        
         let isgreatervalue :Bool ;
         
         isgreatervalue = currentDate.isGreaterThanDate(dateFormatter.date(from: sessionDetails.object(forKey: "EndTime") as! String)!)
@@ -367,15 +367,135 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             {
                 startedTimeUpdatingTimer.invalidate()
                 SSStudentDataSource.sharedDataSource.currentLiveSessionId = sessionId
-//                SSStudentDataSource.sharedDataSource.getUserSessionWithDetails(sessionId, withDelegate: self)
+                getUserSessionWithSessionID(sessionID: sessionId)
                 
             }
             
         }
-         */
+        
  
         
     }
+    
+    
+    private func getUserSessionWithSessionID(sessionID:String)
+    {
+        SSStudentDataSource.sharedDataSource.getSessionInfoWithSessionID(SessionId: sessionID,
+        withSuccessHandle: { (reseponse) in
+            self.gotSessionDetails(details: reseponse)
+        },
+        withfailurehandler: { (error) in
+            
+        })
+    }
+    
+    
+    
+    
+    private func gotSessionDetails(details:AnyObject){
+        
+        print(details)
+        sessionDetails.setObject((details.object(forKey: kStartTime)) ?? String(), forKey: kStartTime as NSCopying)
+        sessionDetails.setObject((details.object(forKey: kEndTime)) ?? String(), forKey: kEndTime as NSCopying)
+        
+        if let sessionState = details.object(forKey: kSessionState) as? Int
+        {
+            if sessionState == SessionState.Live.rawValue
+            {
+                displaySessionLiveStatus()
+            }
+            else if sessionState == SessionState.Opened.rawValue
+            {
+                
+                displaySessionOpendState()
+            }
+            else if (sessionState == SessionState.Scheduled.rawValue || sessionState == SessionState.Ended.rawValue || sessionState == SessionState.Cancelled.rawValue)
+            {
+                displayOtherStates()
+            }
+        }
+        else
+        {
+            mNoStudentLabel.isHidden = false
+            classStartedView.isHidden = true
+        }
+        
+        
+        if let  TeacherId = details.object(forKey: "TeacherId") as? String
+        {
+            SSStudentDataSource.sharedDataSource.currentTeacherId = TeacherId
+            
+            let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
+            
+            let userID = urlString.appending("/").appending(TeacherId)
+            
+            
+            if let checkedUrl = URL(string: "\(userID)_79px.jpg")
+            {
+                mTeacherImageView.contentMode = .scaleAspectFit
+                mTeacherImageView.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
+            }
+            
+            
+            
+        }
+        
+        if let  TeacherName = details.object(forKey: "TeacherName") as? String
+        {
+            mTeacherName.text = TeacherName
+            
+            SSStudentDataSource.sharedDataSource.currentTeacherName = TeacherName
+            
+        }
+    }
+    
+    
+    
+    private func displaySessionLiveStatus() {
+
+        mNoStudentLabel.isHidden = true
+        classStartedView.isHidden = false
+        if let sessionId = sessionDetails.object(forKey: kSessionId) as? String
+        {
+            if SSStudentDataSource.sharedDataSource.currentUSerState != UserState.Live
+            {
+                SSStudentDataSource.sharedDataSource.updateStudentStatus(UserState.Live.rawValue, ofSession: sessionId, withDelegate: self)
+            }
+            
+        }
+        
+        
+        mNoStudentLabel.isHidden = true
+        classStartedView.isHidden = false
+        
+        startedTimeUpdatingTimer.invalidate()
+        startedTimeUpdatingTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(StudentClassViewController.startTimeUpdating), userInfo: nil, repeats: true)
+        
+    }
+    
+    
+    
+    func displaySessionOpendState() {
+        
+        mNoStudentLabel.isHidden = false
+        classStartedView.isHidden = true
+        if let sessionId = sessionDetails.object(forKey: kSessionId) as? String
+        {
+            if SSStudentDataSource.sharedDataSource.currentUSerState != UserState.Occupied
+            {
+                
+                SSStudentDataSource.sharedDataSource.updateStudentStatus(UserState.Occupied.rawValue, ofSession: sessionId, withDelegate: self)
+            }
+        }
+        
+    }
+    
+    
+    func displayOtherStates() {
+        
+        delegateSessionEnded()
+    }
+    
     
     
     
@@ -393,10 +513,10 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     {
         
         print(details)
-        sessionDetails.setObject((details.object(forKey: "StartTime")) ?? String(), forKey: "StartTime" as NSCopying)
-        sessionDetails.setObject((details.object(forKey: "EndTime")) ?? String(), forKey: "EndTime" as NSCopying)
+        sessionDetails.setObject((details.object(forKey: kStartTime)) ?? String(), forKey: kStartTime as NSCopying)
+        sessionDetails.setObject((details.object(forKey: kEndTime)) ?? String(), forKey: kEndTime as NSCopying)
         
-        if let sessionState = details.object(forKey: "SessionState") as? String
+        if let sessionState = details.object(forKey: kSessionState) as? String
         {
             if sessionState == "1"
             {

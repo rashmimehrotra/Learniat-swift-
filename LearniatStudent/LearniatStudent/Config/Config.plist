@@ -4,14 +4,14 @@
 <dict>
 	<key>Development</key>
 	<dict>
-		<key>BaseUrl</key>
+		<key>RURL</key>
 		<string>http://54.251.104.13:8100</string>
 		<key>PHPURL</key>
 		<string>http://54.251.104.13/jupiter_dev/sun.php?api=</string>
 	</dict>
 	<key>Production</key>
 	<dict>
-		<key>BaseUrl</key>
+		<key>RURL</key>
 		<string>http://54.251.104.13:8100</string>
 		<key>PHPURL</key>
 		<string>http://54.251.104.13/Jupiter/sun.php?api=</string>

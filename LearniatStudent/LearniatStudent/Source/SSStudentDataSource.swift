@@ -181,20 +181,6 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         questionsDictonary.setObject(details, forKey: key as NSCopying)
     }
     
-    // MARK: - API Functions
-    
-    
-    func getUserState(_ userId :String, withDelegate delegate:SSStudentDataSourceDelegate)
-    {
-        let manager = APIManager()
-        
-        
-        let urlString = String(format: "%@<Sunstone><Action><Service>GetMyState</Service><UserId>%@</UserId></Action></Sunstone>",URLPrefix,userId)
-        print("ApiValue - \(urlString)")
-        manager.downloadDataURL(urlString, withServiceName:kServiceGetMyState, withDelegate: self, with: eHTTPGetRequest , withReturningDelegate:delegate )
-    }
-    
-    
     
     func LoginWithUserId(_ userId :String , andPassword Password:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler)
     {
@@ -216,45 +202,6 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
             failure(error as NSError)
         }
     }
-    
-    func  updateStudentStatus(_ status:String, ofSession sessionId:String, withDelegate  delegate:SSStudentDataSourceDelegate)
-    {
-
-        currentUSerState = UserState(rawValue: status)
-        
-        let manager = APIManager()
-        
-        let urlString = String(format: "%@<Sunstone><Action><Service>UpdateUserState</Service><UserId>%@</UserId><StatusId>%@</StatusId><SessionId>%@</SessionId></Action></Sunstone>",URLPrefix,currentUserId,status,sessionId)
-        print("ApiValue - \(urlString)")
-        manager.downloadDataURL(urlString, withServiceName: kServiceUpdateUserStatus, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
-        
-    }
-    
-    
-    
-    func getScheduleOfTheDay(_ delegate:SSStudentDataSourceDelegate)
-    {
-       
-      
-//        urlString = urlString.encodeUrl()
-//        
-//        
-//        
-//        WebServicesAPI().getRequest(fromUrl: urlString, details: nil, success: { (result) in
-//          print(result)
-//        }) { (error) in
-//            print(error)
-//        }
-        
-        let manager = APIManager()
-        
-         let urlString = String(format: "%@<Sunstone><Action><Service>GetThisStudentSessions</Service><UserId>%@</UserId></Action></Sunstone>",URLPrefix,currentUserId)
-        print("ApiValue - \(urlString)")
-        manager.downloadDataURL(urlString, withServiceName: kServiceGetThisStudentSessions, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
-    }
-    
-    
-    
     
     
     
@@ -278,6 +225,70 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
             failure(error as NSError)
         }
     }
+    
+    
+    func getSessionInfoWithSessionID(SessionId:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler) {
+        
+        WebServicesAPI().getRequest(fromUrl: AppAPI.GetSessionInfo(SessionId: SessionId).path, details: nil, success: { (result) in
+            
+            
+            let JsonValue = result.parseJSONString
+            
+            if(JsonValue.jsonData != nil)
+            {
+                success(JsonValue.jsonData!)
+            }
+            else
+            {
+                failure(JsonValue.error!)
+            }
+            
+        }) { (error) in
+            failure(error as NSError)
+        }
+    }
+    
+    // MARK: - API Functions
+    
+    
+    func getUserState(_ userId :String, withDelegate delegate:SSStudentDataSourceDelegate)
+    {
+        let manager = APIManager()
+        
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>GetMyState</Service><UserId>%@</UserId></Action></Sunstone>",URLPrefix,userId)
+        print("ApiValue - \(urlString)")
+        manager.downloadDataURL(urlString, withServiceName:kServiceGetMyState, withDelegate: self, with: eHTTPGetRequest , withReturningDelegate:delegate )
+    }
+    
+    
+    
+    
+    func  updateStudentStatus(_ status:String, ofSession sessionId:String, withDelegate  delegate:SSStudentDataSourceDelegate)
+    {
+
+        currentUSerState = UserState(rawValue: status)
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>UpdateUserState</Service><UserId>%@</UserId><StatusId>%@</StatusId><SessionId>%@</SessionId></Action></Sunstone>",URLPrefix,currentUserId,status,sessionId)
+        print("ApiValue - \(urlString)")
+        manager.downloadDataURL(urlString, withServiceName: kServiceUpdateUserStatus, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
+        
+    }
+    
+    
+    
+    func getScheduleOfTheDay(_ delegate:SSStudentDataSourceDelegate)
+    {
+       
+        let manager = APIManager()
+        
+         let urlString = String(format: "%@<Sunstone><Action><Service>GetThisStudentSessions</Service><UserId>%@</UserId></Action></Sunstone>",URLPrefix,currentUserId)
+        print("ApiValue - \(urlString)")
+        manager.downloadDataURL(urlString, withServiceName: kServiceGetThisStudentSessions, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
+    }
+    
     
    
     func getGridDesignDetails(_ roomId :String, WithDelegate delegate:SSStudentDataSourceDelegate)

@@ -555,7 +555,7 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     func delegateScheduleTileTouchedWithState(_ state: String, withCurrentTileDetails Details: AnyObject) {
         
         
-        if let SessionState = Details.object(forKey: "SessionState") as? String
+        if let SessionState = Details.object(forKey: kSessionState) as? String
         {
             if SessionState == kScheduledString
             {
