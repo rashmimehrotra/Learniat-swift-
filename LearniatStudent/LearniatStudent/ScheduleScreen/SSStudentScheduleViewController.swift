@@ -199,7 +199,7 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         
         mNoSessionLabel = UILabel(frame: CGRect(x: 10, y: (self.view.frame.size.height - 40)/2, width: self.view.frame.size.width - 20,height: 40))
         mNoSessionLabel.font = UIFont(name:helveticaMedium, size: 30)
-        mNoSessionLabel.text = "You do not have any sessions today!"
+        mNoSessionLabel.text = "Please wait we are loading your sessions"
         self.view.addSubview(mNoSessionLabel)
         mNoSessionLabel.textColor = UIColor.white
         mNoSessionLabel.textAlignment = .center
@@ -316,6 +316,7 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     func onRefreshButton(_ sender: AnyObject)
     {
         SSStudentDataSource.sharedDataSource.getScheduleOfTheDay(self)
+         mNoSessionLabel.text = "Please wait we are loading your sessions "
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
     }
@@ -388,6 +389,8 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
 
       
         
+        mNoSessionLabel.text = "Please wait we are loading your sessions "
+        
         sessionUpdatedLive = false
         print(details)
         
@@ -411,6 +414,7 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
                 scheduleTileView.removeFromSuperview()
             }
         }
+        
         
         
         sessionDetailsArray.removeAllObjects()
@@ -441,7 +445,12 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
                 mScrollView.isHidden = true
             }
         }
-        
+        else
+        {
+            mNoSessionLabel.text = "You do not have any sessions today!"
+            mNoSessionLabel.isHidden = false
+            mNoSessionSubLabel.isHidden = false
+        }
         
        
         
@@ -497,8 +506,51 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
 
+        refreshApp()
+       
         
-        
+    }
+    
+    
+    
+    func refreshApp()
+    {
+         SSStudentDataSource.sharedDataSource.refreshApp(success: { (response) in
+            
+            if let summary = response.object(forKey: "Summary") as? NSArray
+            {
+                if summary.count > 0
+                {
+                    let summaryValue = summary.firstObject
+                    self.evaluateStateWithSummary(details: summaryValue as AnyObject)
+                }
+            }
+            
+            
+         }) { (error) in
+            
+        }
+    }
+    
+    
+    
+    private func evaluateStateWithSummary(details:AnyObject)
+    {
+        if let myState =  details.object(forKey: "MyState") as? Int
+        {
+            if myState  != UserStateInt.Free.rawValue || myState != UserStateInt.Preallocated.rawValue
+            {
+                if let currentSessionID = details.object(forKey: "CurrentSessionId") as? Int 
+                {
+                    SSStudentDataSource.sharedDataSource.currentLiveSessionId = "\(currentSessionID)"
+                     SSStudentDataSource.sharedDataSource.updateStudentStatus(UserState.Free.rawValue, ofSession: SSStudentDataSource.sharedDataSource.currentLiveSessionId, withDelegate: self)
+                }
+                else
+                {
+                     SSStudentDataSource.sharedDataSource.updateStudentStatus(UserState.Free.rawValue, ofSession: SSStudentDataSource.sharedDataSource.currentLiveSessionId, withDelegate: self)
+                }
+            }
+        }
     }
     
     
@@ -559,19 +611,19 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         {
             if SessionState == kScheduledString
             {
-                 self.view.makeToast("You can not enter to scheduled session" , duration: 0.5, position: .bottom)
+                 self.view.makeToast("You cannot enter a scheduled class session" , duration: 1, position: .bottom)
                 onRefreshButton(UIButton())
                 
             }
             else  if SessionState == kCanClledString
             {
-                self.view.makeToast("This class was cancelled.", duration: 0.5, position: .bottom)
+                self.view.makeToast("This class was cancelled.", duration: 1, position: .bottom)
                 onRefreshButton(UIButton())
                 
             }
             else  if SessionState == kEndedString
             {
-                self.view.makeToast("This class has already ended.", duration: 0.5, position: .bottom)
+                self.view.makeToast("This class has already ended.", duration: 1, position: .bottom)
                 onRefreshButton(UIButton())
             }
             else if SessionState == kLiveString
@@ -692,18 +744,25 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
             {
                 if status == kSuccessString
                 {
-                    if UserDefaults.standard.object(forKey: kPassword) != nil
+                    
+                    if SSStudentDataSource.sharedDataSource.currentUSerState == UserState.SignedOut
                     {
-                        UserDefaults.standard.removeObject(forKey: kPassword)
+                        if UserDefaults.standard.object(forKey: kPassword) != nil
+                        {
+                            UserDefaults.standard.removeObject(forKey: kPassword)
+                        }
+                        
+                        
+                        SSStudentMessageHandler.sharedMessageHandler.goOffline()
+                        performSegue(withIdentifier: "ScheduleToLogin", sender: nil)
+                        
+                        activityIndicator.isHidden = true
+                        activityIndicator.stopAnimating()
                     }
-                    
-                    
-                    SSStudentMessageHandler.sharedMessageHandler.goOffline()
-                    performSegue(withIdentifier: "ScheduleToLogin", sender: nil)
-                    
-                    activityIndicator.isHidden = true
-                    activityIndicator.stopAnimating()
-                    
+                    else
+                    {
+                       SSStudentMessageHandler.sharedMessageHandler.sendStudentBenchStatus(.Free)
+                    }
                 }
             }
         }

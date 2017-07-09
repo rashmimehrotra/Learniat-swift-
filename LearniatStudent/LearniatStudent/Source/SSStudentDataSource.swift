@@ -181,7 +181,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         questionsDictonary.setObject(details, forKey: key as NSCopying)
     }
     
-    
+    // MARK: - Json API Functions
     func LoginWithUserId(_ userId :String , andPassword Password:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler)
     {
         WebServicesAPI().getRequest(fromUrl: AppAPI.Login(UserName: userId, Password: Password).path, details: nil, success: { (result) in
@@ -248,7 +248,31 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         }
     }
     
-    // MARK: - API Functions
+    
+    func refreshApp(success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler)
+    {
+        
+        WebServicesAPI().getRequest(fromUrl: AppAPI.RefresAppWithUserId(userId: currentUserId).path, details: nil, success: { (result) in
+            
+            
+            let JsonValue = result.parseJSONString
+            
+            if(JsonValue.jsonData != nil)
+            {
+                success(JsonValue.jsonData!)
+            }
+            else
+            {
+                failure(JsonValue.error!)
+            }
+            
+        }) { (error) in
+            failure(error as NSError)
+        }
+        
+    }
+    
+    // MARK: - XML API Functions
     
     
     func getUserState(_ userId :String, withDelegate delegate:SSStudentDataSourceDelegate)

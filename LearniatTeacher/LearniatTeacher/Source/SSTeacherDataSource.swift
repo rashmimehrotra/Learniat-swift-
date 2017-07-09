@@ -401,6 +401,31 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     }
     
     
+    func refreshApp(success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler)
+    {
+        
+        WebServicesAPI().getRequest(fromUrl: AppAPI.RefresAppWithUserId(userId: currentUserId).path, details: nil, success: { (result) in
+            
+            
+            let JsonValue = result.parseJSONString
+            
+            if(JsonValue.jsonData != nil)
+            {
+                success(JsonValue.jsonData!)
+            }
+            else
+            {
+                failure(JsonValue.error!)
+            }
+            
+        }) { (error) in
+            failure(error as NSError)
+        }
+        
+    }
+
+    
+    
     // MARK: - XML API Functions
     
     

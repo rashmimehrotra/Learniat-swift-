@@ -10,17 +10,17 @@ import Foundation
 import UIKit
 
 
-let MultipleChoice      :String         = "Multiple Choice"
-let MultipleResponse    :String         = "Multiple Response"
-let MatchColumns        :String         = "Match Columns"
-let OverlayScribble     :String         = "Overlay Scribble"
-let FreshScribble       :String         = "Fresh Scribble"
-let text                :String         = "Text"
-let Polling             :String         = "Poll"   // Development Over Api Pending
-let SoreFinger          :String         = "Sore finger"     // Pending
-let Sequencing          :String         = "Sequencing"      //Pending
-let OneString           :String         = "Word map"        //Design Pending APi Pending
-let TextAuto            :String         = "One string"      // Pending
+let MultipleChoice      :String = "Multiple Choice"
+let MultipleResponse    :String = "Multiple Response"
+let MatchColumns        :String = "Match Columns"
+let OverlayScribble     :String = "Overlay Scribble"
+let FreshScribble       :String = "Fresh Scribble"
+let text                :String = "Text"
+let Polling             :String = "Poll"// Development Over Api Pending
+let SoreFinger          :String = "Sore finger"// Pending
+let Sequencing          :String = "Sequencing"//Pending
+let OneString           :String = "Word map"//Design Pending APi Pending
+let TextAuto            :String = "One string"// Pending
 
 
 
@@ -35,171 +35,151 @@ let kOptionTag                  = "Option"
 
 
 
-let onlyMainTopics        = "Only MainTopics"
-let onlySubTopics         = "Only SubTopics"
-let onlyQuestions         = "Only Questions"
+let onlyMainTopics              = "Only MainTopics"
+let onlySubTopics               = "Only SubTopics"
+let onlyQuestions               = "Only Questions"
 
-let kOverlayScribble      = "Overlay Scribble"
-let kFreshScribble        = "Fresh Scribble"
-let kText                 = "Text"
-let kMCQ                  = "Multiple Choice"
-let kMRQ                  = "Multiple Response"
-let kMatchColumn          = "Match Columns"
+let kOverlayScribble            = "Overlay Scribble"
+let kFreshScribble              = "Fresh Scribble"
+let kText                       = "Text"
+let kMCQ                        = "Multiple Choice"
+let kMRQ                        = "Multiple Response"
+let kMatchColumn                = "Match Columns"
 
 
 
-let KCorretValue            = "4"
-let kWrongvalue             = "5"
-let kMissedValue            = "6"
+let KCorretValue                = "4"
+let kWrongvalue                 = "5"
+let kMissedValue                = "6"
 
-let helveticaRegular      = "HelveticaNeue"
+let helveticaRegular            = "HelveticaNeue"
 
-let helveticaMedium       = "HelveticaNeue-Medium"
+let helveticaMedium             = "HelveticaNeue-Medium"
 
-let helveticaBold         = "HelveticaNeue-Bold"
+let helveticaBold               = "HelveticaNeue-Bold"
 
-let HelveticaNeueThin     = "HelveticaNeue-Thin"
+let HelveticaNeueThin           = "HelveticaNeue-Thin"
 
-let HelveticaNeueItalic     = "HelveticaNeue-Italic"
+let HelveticaNeueItalic         = "HelveticaNeue-Italic"
 
+let kClassName                  = "ClassName"
 
-let kClassName      = "ClassName"
+let kEndTime                    = "EndTime"
 
-let kEndTime        = "EndTime"
+let kSessionState               = "SessionState"
 
-let kSessionState   = "SessionState"
+let kStartTime                  = "StartTime"
 
-let kStartTime      = "StartTime"
+let kRoomId                     = "RoomId"
 
-let kRoomId         = "RoomId"
+let kRoomName                   = "RoomName"
 
-let kRoomName       = "RoomName"
+let kSessionId                  = "SessionId"
 
+let kScheduledString            = "Scheduled"
 
-let kSessionId      = "SessionId"
+let kopenedString               = "Opened"
 
-let kScheduledString      =  "Scheduled"
+let kLiveString                 = "Live"
 
-let kopenedString         =  "Opened"
+let kCanClledString             = "Cancelled"
 
-let kLiveString           =  "Live"
+let kEndedString                = "Ended"
 
-let kCanClledString       =  "Cancelled"
+let kScheduled                  = "4"
 
-let kEndedString          =  "Ended"
+let kopened                     = "2"
 
+let kLive                       = "1"
 
-let kScheduled      =  "4"
+let kCanClled                   = "6"
 
-let kopened         =  "2"
+let kEnded                      = "5"
 
-let kLive           =  "1"
+let kServerID                   = "http://54.251.104.13"
 
-let kCanClled       =  "6"
+let kUplodingServer             = "http://54.251.104.13/Jupiter/upload_photos.php"
 
-let kEnded          =  "5"
+let kINIPath                    = "http://54.251.104.13/learniat/learniat.ini"
 
+let k_INI_BaseXMPPURL           = "XMPP_server_IP"
 
+let k_INI_UserProfileImageURL   = "user_profile_images"
 
+let k_INI_SCRIBBLE_IMAGE_URL    = "mobile_app_scribbles"
 
-let kServerID                     = "http://54.251.104.13"
+let k_INI_QuestionsImageUrl     = "question_images"
 
-let kUplodingServer               = "http://54.251.104.13/Jupiter/upload_photos.php"
+let k_INI_Badges                = "badges"
 
-let kINIPath                      = "http://54.251.104.13/learniat/learniat.ini"
+let k_INI_OverLayImageWidth     = "min_overlay_question_image_width"
 
-let k_INI_BaseXMPPURL             =  "XMPP_server_IP"
+let k_INI_DemoPathUrl           = "demo_path"
 
-let k_INI_UserProfileImageURL     =  "user_profile_images"
+let kProFIlePics                = "/ProFilePics"
 
-let k_INI_SCRIBBLE_IMAGE_URL      =  "mobile_app_scribbles"
+let kStudentAnswerImages        = "/StudentAnswer"
 
-let k_INI_QuestionsImageUrl       =  "question_images"
+let kQuestionImage              = "/questionImage"
 
-let k_INI_Badges                  =  "badges"
+let kBadgesImage                = "/badges"
 
-let k_INI_OverLayImageWidth       =  "min_overlay_question_image_width"
 
-let k_INI_DemoPathUrl             =  "demo_path"
+let textColor                          = UIColor(red: 36/255.0, green: 68/255.0, blue: 99/255.0, alpha: 1)
 
-let kProFIlePics                  =  "/ProFilePics"
+let whiteBackgroundColor               = UIColor(red: 246/255.0, green:246/255.0, blue:246/255.0, alpha: 1)
 
-let kStudentAnswerImages          =  "/StudentAnswer"
+let darkBackgroundColor                = UIColor(red: 36/255.0, green:68/255.0, blue:99/255.0, alpha: 1)// 244463
 
-let kQuestionImage                =  "/questionImage"
+let lightBackgroundColor               = UIColor(red: 31/255.0, green:61/255.0, blue:89/255.0, alpha: 1)// 1F3D59
 
-let kBadgesImage                  =  "/badges"
+let topbarColor                        = UIColor(red: 46/255.0, green:88/255.0, blue:128/255.0, alpha: 1)
 
+let standard_Green                     = UIColor(red: 76/255.0, green:217/255.0, blue:100/255.0, alpha: 1)
 
-let textColor : UIColor     = UIColor(red: 36/255.0, green: 68/255.0, blue: 99/255.0, alpha: 1)
+let standard_Red                       = UIColor(red: 255/255.0, green:59/255.0, blue:48/255.0, alpha: 1)
 
-let whiteBackgroundColor: UIColor = UIColor(red: 246/255.0, green:246/255.0, blue:246/255.0, alpha: 1)
+let standard_Yellow                    = UIColor(red: 255.0/255.0, green: 204.0/255.0, blue: 0/255.0, alpha: 1)
 
-let darkBackgroundColor: UIColor = UIColor(red: 36/255.0, green:68/255.0, blue:99/255.0, alpha: 1) // 244463
+let dark_Yellow                        = UIColor(red: 248/255.0, green: 156/255.0, blue: 31/255.0, alpha: 1)//F89C1F
 
-let lightBackgroundColor: UIColor = UIColor(red: 31/255.0, green:61/255.0, blue:89/255.0, alpha: 1) // 1F3D59
+let standard_TextGrey                  = UIColor(red: 170/255.0, green:170/255.0, blue:170/255.0, alpha: 1)//AAAAAA
 
-let topbarColor         : UIColor = UIColor(red: 46/255.0, green:88/255.0, blue:128/255.0, alpha: 1)
+let standard_Button                    = UIColor(red: 0/255.0, green:174/255.0, blue:239/255.0, alpha: 1)
 
-let standard_Green      : UIColor = UIColor(red: 76/255.0, green:217/255.0, blue:100/255.0, alpha: 1)
+let standard_Button_Disabled           = UIColor.lightGray
 
-let standard_Red        : UIColor = UIColor(red: 255/255.0, green:59/255.0, blue:48/255.0, alpha: 1)
+let lightGrayColor                     = UIColor.lightGray
 
-let standard_Yellow     : UIColor = UIColor(red: 255.0/255.0, green: 204.0/255.0, blue: 0/255.0, alpha: 1)
+let lightGrayTopBar                    = UIColor(red: 238/255.0, green:238/255.0, blue:238/255.0, alpha: 1)//EEEEEE
 
-let dark_Yellow     : UIColor = UIColor(red: 248/255.0, green: 156/255.0, blue: 31/255.0, alpha: 1) //F89C1F
+let LineGrayColor                      = UIColor(red: 153/255.0, green: 153/255.0, blue: 153/255.0, alpha: 0.8)//999999
 
-let standard_TextGrey   : UIColor = UIColor(red: 170/255.0, green:170/255.0, blue:170/255.0, alpha: 1) //AAAAAA
+let blackTextColor                     = UIColor(red: 51/255.0, green: 51/255.0, blue: 51/255.0, alpha: 1)//333333
 
-let standard_Button     : UIColor = UIColor(red: 0/255.0, green:174/255.0, blue:239/255.0, alpha: 1)
+let topicsLineColor                    = UIColor(red: 236.0/255.0, green: 233.0/255.0, blue: 233.0/255.0, alpha: 1)
 
-let standard_Button_Disabled     : UIColor = UIColor.lightGray
+let progressviewBackground             = UIColor(red:213/255.0, green: 213/255.0, blue: 213/255.0, alpha: 1)
 
-let lightGrayColor      : UIColor = UIColor.lightGray
+let RedCellBackground                  = UIColor(red:255.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 0.6)
 
-let lightGrayTopBar     : UIColor = UIColor(red: 238/255.0, green:238/255.0, blue:238/255.0, alpha: 1) //EEEEEE
+let whiteColor                         = UIColor.white
 
-let LineGrayColor       : UIColor = UIColor(red: 153/255.0, green: 153/255.0, blue: 153/255.0, alpha: 0.8) //999999
+let scheduledColor                     = UIColor(red: 58.0/255.0, green:114.0/255.0, blue:168.0/255.0, alpha: 1)
 
-let blackTextColor      : UIColor = UIColor(red: 51/255.0, green: 51/255.0, blue: 51/255.0, alpha: 1)   //333333
+let scheduledBorderColor               = UIColor(red: 58.0/255.0, green:114.0/255.0, blue:168.0/255.0, alpha: 1)
 
-let topicsLineColor     : UIColor = UIColor(red: 236.0/255.0, green: 233.0/255.0, blue: 233.0/255.0, alpha: 1)
+let OpenedColor                        = UIColor(red: 0.0/255.0, green:174.0/255.0, blue:239/255.0, alpha: 1)
 
-let progressviewBackground    : UIColor = UIColor(red:213/255.0, green: 213/255.0, blue: 213/255.0, alpha: 1)
+let OpenedBorderColor                  = UIColor(red: 0.0/255.0, green:174.0/255.0, blue:239/255.0, alpha: 1)
 
-let RedCellBackground    : UIColor = UIColor(red:255.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 0.6)
+let CancelledBorderColor               = UIColor(red: 255/255.0, green:59/255.0, blue:48/255.0, alpha: 1)
 
-let whiteColor          = UIColor.white
+let LiveColor                          = UIColor(red: 8.0/255.0, green:198.0/255.0, blue:246.0/255.0, alpha: 1)
 
+let EndedColor                         = UIColor(red:152.0/255.0, green:180.0/255.0, blue:207.0/255.0, alpha: 1)
 
 
-let scheduledColor : UIColor = UIColor(red: 58.0/255.0, green:114.0/255.0, blue:168.0/255.0, alpha: 1)
-
-let scheduledBorderColor : UIColor = UIColor(red: 58.0/255.0, green:114.0/255.0, blue:168.0/255.0, alpha: 1)
-
-let OpenedColor : UIColor = UIColor(red: 0.0/255.0, green:174.0/255.0, blue:239/255.0, alpha: 1)
-
-let OpenedBorderColor : UIColor = UIColor(red: 0.0/255.0, green:174.0/255.0, blue:239/255.0, alpha: 1)
-
-
-
-let CancelledBorderColor : UIColor = UIColor(red: 255/255.0, green:59/255.0, blue:48/255.0, alpha: 1)
-
-
-
-let LiveColor : UIColor = UIColor(red: 8.0/255.0, green:198.0/255.0, blue:246.0/255.0, alpha: 1)
-
-let EndedColor : UIColor = UIColor(red:152.0/255.0, green:180.0/255.0, blue:207.0/255.0, alpha: 1)
-
-
-
-enum folderType
-{
-    case proFilePics
-    case studentAnswer
-    case questionImage
-    case badgesImages
-}
 
 
 class INILoader: NSObject

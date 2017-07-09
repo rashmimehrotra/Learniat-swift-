@@ -28,3 +28,24 @@ enum SessionState:Int
 }
 
 
+enum UserStateInt:Int
+{
+    case Live           =  1
+    case BackGround     =  11
+    case Free           =  7
+    case SignedOut      =  8
+    case Occupied       =  10
+    case Preallocated   =  9
+    
+}
+
+
+enum folderType
+{
+    case proFilePics
+    case studentAnswer
+    case questionImage
+    case badgesImages
+}
+
+

@@ -349,11 +349,12 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
     {
         
         
-        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true &&  SSStudentDataSource.sharedDataSource.currentTeacherId != nil)
+        if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
         {
+            let _roomId = "room_\(SSStudentDataSource.sharedDataSource.currentLiveSessionId)@conference.\(kBaseXMPPURL)";
+            
             let studentID           = SSStudentDataSource.sharedDataSource.currentUserId
             let msgType             = kStudentSentBenchState
-            let teacherID           = SSStudentDataSource.sharedDataSource.currentTeacherId
             
             
             let messageBody = [kBenchState:status.rawValue]
@@ -362,7 +363,7 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
             
             
             let details:NSMutableDictionary = ["From":studentID!,
-                                               "To":teacherID!,
+                                               "To":_roomId,
                                                "Type":msgType,
                                                "Body":messageBody];
             
@@ -371,7 +372,8 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
             
             let xmlBody:String = msg.xmlMessage()
             
-            MessageManager.sharedMessageHandler().sendMessage(to: "\(teacherID!)@\(kBaseXMPPURL)", withContents: xmlBody)
+            MessageManager.sharedMessageHandler().sendGroupMessage(withBody: xmlBody, withRoomId: _roomId)
+        
         }
     }
     

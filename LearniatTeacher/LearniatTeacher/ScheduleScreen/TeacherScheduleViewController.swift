@@ -250,7 +250,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
         mNoSessionLabel = UILabel(frame: CGRect(x: 10, y: (self.view.frame.size.height - 40)/2, width: self.view.frame.size.width - 20,height: 40))
         mNoSessionLabel.font = UIFont(name:helveticaMedium, size: 30)
-        mNoSessionLabel.text = "You do not have any sessions today!"
+        mNoSessionLabel.text = "Please wait we are loading your sessions "
         self.view.addSubview(mNoSessionLabel)
         mNoSessionLabel.textColor = UIColor.black
         mNoSessionLabel.textAlignment = .center
@@ -373,6 +373,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     func onRefreshButton(_ sender: AnyObject)
     {
         SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
+        mNoSessionLabel.text = "Please wait we are loading your sessions "
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
     }
@@ -491,15 +492,8 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
         
         
-        print(details)
-        //        if self.sessionAlertView != nil
-        //        {
-        //            if self.sessionAlertView.isBeingPresented()
-        //            {
-        //                self.sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
-        //            }
-        //        }
-        
+        mNoSessionLabel.text = "Please wait we are loading your sessions "
+       
         
         for index in 0 ..< sessionDetailsArray.count
         {
@@ -537,6 +531,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             }
             else
             {
+                mNoSessionLabel.text = "You do not have any sessions today!"
                 mNoSessionLabel.isHidden = false
                 mNoSessionSubLabel.isHidden = false
                 mScrollView.isHidden = true
@@ -882,6 +877,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     func delegateRefreshSchedule()
     {
         SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
+         mNoSessionLabel.text = "Please wait we are loading your sessions "
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
         

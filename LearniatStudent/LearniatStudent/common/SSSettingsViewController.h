@@ -66,6 +66,8 @@
 @optional- (void) Settings_createScribbleQuestion;
 @optional- (void) Settings_createMRQQuestion;
 @optional- (void) Settings_performLogout;
+@optional- (void) Settings_RefreshApp;
+
 
 
 @end

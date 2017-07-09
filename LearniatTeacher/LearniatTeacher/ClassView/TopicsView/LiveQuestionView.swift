@@ -414,16 +414,22 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
     func onFreezButton()
     {
         
-        var QuestonAvgScore = currentQuestionDetails.object(forKey: "QuestonAvgScore")as? NSString
+        var QuestonAvgScore:NSString = ""
         
-        QuestonAvgScore = String(format: "%02d", QuestonAvgScore!.floatValue) as NSString?
+        if let  Score = currentQuestionDetails.object(forKey: "QuestonAvgScore")as? NSString
+        {
+             QuestonAvgScore = (String(format: "%02d", Score.floatValue) as NSString?)!
+        }
+        
+        
+       
         
         let NumberOfResponses = currentQuestionDetails.object(forKey: "NumberOfResponses")as? String
         
         
         
         
-        SSTeacherMessageHandler.sharedMessageHandler.freezeQnAMessageToRoom("question_\(SSTeacherDataSource.sharedDataSource.currentLiveSessionId)", withAverageScore: QuestonAvgScore! as String, withTotalResponses: NumberOfResponses!)
+        SSTeacherMessageHandler.sharedMessageHandler.freezeQnAMessageToRoom("question_\(SSTeacherDataSource.sharedDataSource.currentLiveSessionId)", withAverageScore: QuestonAvgScore as String, withTotalResponses: NumberOfResponses!)
         
         mFreezbutton.isEnabled = false
         mFreezbutton.setTitleColor(UIColor.lightGray, for: UIControlState())

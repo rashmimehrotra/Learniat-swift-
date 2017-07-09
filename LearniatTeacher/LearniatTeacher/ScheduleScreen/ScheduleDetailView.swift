@@ -425,11 +425,18 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         configureGrid.frame = CGRect(x: 10, y: editSeatButton.frame.origin.y , width: editSeatButton.frame.size.width ,height: editSeatButton.frame.size.height)
         configureGrid.setTitle("Configure grid", for: UIControlState())
         configureGrid.setTitleColor(standard_Button, for: UIControlState())
-//        loadingView.addSubview(configureGrid)
+        loadingView.addSubview(configureGrid)
         configureGrid.isHidden = true
         configureGrid.titleLabel?.font = UIFont(name: helveticaRegular, size: 18)
         configureGrid.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
         configureGrid.addTarget(self, action: #selector(ScheduleDetailView.onConfigureGrid), for: UIControlEvents.touchUpInside)
+        
+        
+        configureGrid.layer.cornerRadius = 5
+        configureGrid.layer.borderWidth = 1
+        configureGrid.layer.borderColor = standard_Red.cgColor
+        configureGrid.setTitleColor(standard_Red, for: UIControlState())
+
         
         
         
@@ -600,14 +607,11 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
                     
                     if let SeatsConfigured = details.object(forKey: "SeatsConfigured") as? String
                     {
-//                        seatsConfiguredLabel.text = SeatsConfigured
-                        
-                        
                         if Int(StudentsRegistered) > Int(SeatsConfigured)!
                         {
                             allocateSeatButton.isHidden = true
                             
-                             cancelClassButton.frame = CGRect(x: 10, y: editSeatButton.frame.origin.y , width: editSeatButton.frame.size.width ,height: editSeatButton.frame.size.height)
+                             cancelClassButton.frame = CGRect(x: editSeatButton.frame.origin.x + editSeatButton.frame.size.width + 10, y: editSeatButton.frame.origin.y , width: editSeatButton.frame.size.width ,height: editSeatButton.frame.size.height)
                             
                             editSeatButton.isHidden = true
                             configureGrid.isHidden = false

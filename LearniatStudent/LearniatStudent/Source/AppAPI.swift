@@ -15,6 +15,8 @@ enum AppAPI {
     case TodaysTimeTable(UserId:String)
     case InsertScribbleFileName(userId:String,FileName:String)
     case GetSessionInfo(SessionId:String)
+    case RefresAppWithUserId(userId:String)
+    
 }
 
 extension AppAPI {
@@ -51,6 +53,9 @@ extension AppAPI {
             
         case .GetSessionInfo(let SessionId):
             return  "\(self.base)/GetSessionInfo?SessionId=\(SessionId)"
+            
+        case .RefresAppWithUserId(let userId):
+            return "\(self.base)/RefreshMyApp?userid=\(userId)"
             
         
         }

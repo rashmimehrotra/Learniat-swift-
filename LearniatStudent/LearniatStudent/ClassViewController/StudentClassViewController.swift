@@ -66,6 +66,8 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     var mFullScreenView         :SSStudentFullscreenScribbleQuestion!
     
+    var   classViewPopOverController : UIPopoverController!
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -237,6 +239,8 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         
         notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
         
+        refreshApp()
+        
     }
     
     
@@ -249,9 +253,9 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         
         questionInfoController.classViewTopicsButtonSettingsButtonPressed();
         
-        let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+        classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
         
-        classViewPopOverController.contentSize = CGSize(width: 310, height: 80);
+        classViewPopOverController.contentSize = CGSize(width: 310, height: 145);
         
         questionInfoController.setPopOver(classViewPopOverController)
         
@@ -421,13 +425,13 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         }
         
         
-        if let  TeacherId = details.object(forKey: "TeacherId") as? String
+        if let  TeacherId = details.object(forKey: "TeacherId") as? Int
         {
-            SSStudentDataSource.sharedDataSource.currentTeacherId = TeacherId
+            SSStudentDataSource.sharedDataSource.currentTeacherId = "\(TeacherId)"
             
             let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
             
-            let userID = urlString.appending("/").appending(TeacherId)
+            let userID = urlString.appending("/").appending("\(TeacherId)")
             
             
             if let checkedUrl = URL(string: "\(userID)_79px.jpg")
@@ -435,9 +439,6 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                 mTeacherImageView.contentMode = .scaleAspectFit
                 mTeacherImageView.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
             }
-            
-            
-            
         }
         
         if let  TeacherName = details.object(forKey: "TeacherName") as? String
@@ -674,12 +675,8 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     func delegateSessionEnded()
     {
-        if SSStudentDataSource.sharedDataSource.currentUSerState != UserState.Free
-        {
-            SSStudentDataSource.sharedDataSource.updateStudentStatus(UserState.Free.rawValue, ofSession: (sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
-            startedTimeUpdatingTimer.invalidate()
-
-        }
+        SSStudentDataSource.sharedDataSource.updateStudentStatus(UserState.Free.rawValue, ofSession: (sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+        startedTimeUpdatingTimer.invalidate()
         
         
     }
@@ -1374,12 +1371,84 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         
     }
 
+    func Settings_RefreshApp()
+    {
+        refreshApp()
+        if classViewPopOverController != nil{
+            classViewPopOverController.dismiss(animated: true)
+        }
+        
+    }
+    
+    
     func Settings_XmppReconnectButtonClicked()
     {
         SSStudentMessageHandler.sharedMessageHandler.performReconnet()
+        
+        
       
     }
     
+    
+    
+    func refreshApp()
+    {
+        SSStudentDataSource.sharedDataSource.refreshApp(success: { (response) in
+            
+            if let summary = response.object(forKey: "Summary") as? NSArray
+            {
+                if summary.count > 0
+                {
+                    let summaryValue = summary.firstObject
+                    self.evaluateStateWithSummary(details: summaryValue as AnyObject)
+                }
+            }
+            
+            
+        }) { (error) in
+            
+        }
+    }
+    
+    
+    
+    private func evaluateStateWithSummary(details:AnyObject)
+    {
+        if let myState =  details.object(forKey: "MyState") as? Int
+        {
+            if let CurrentSessionState = details.object(forKey: "CurrentSessionState") as? Int
+            {
+                if CurrentSessionState == SessionState.Live.rawValue
+                {
+                    if myState != UserStateInt.Live.rawValue
+                    {
+                        classsBegin()
+                        
+                        SSStudentDataSource.sharedDataSource.updateStudentStatus(UserState.Live.rawValue, ofSession:(sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+
+                    }
+                }
+                else if CurrentSessionState == SessionState.Opened.rawValue
+                {
+                    if myState != UserStateInt.Occupied.rawValue
+                    {
+                        
+                        SSStudentDataSource.sharedDataSource.updateStudentStatus(UserState.Occupied.rawValue, ofSession:(sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+                        displaySessionOpendState()
+                    }
+                }
+                else
+                {
+                   delegateSessionEnded()
+                    
+                }
+            }
+            else
+            {
+                delegateSessionEnded()
+            }
+        }
+    }
     
     
     

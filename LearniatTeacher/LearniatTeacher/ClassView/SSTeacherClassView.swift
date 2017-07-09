@@ -3082,7 +3082,19 @@ func delegateAnnotateButtonPressedWithAnswerDetails(_ answerDetails:AnyObject, w
     
     func settings_refreshPicsClicked() {
         
-        SSTeacherDataSource.sharedDataSource.getStudentsState(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, withDelegate: self)
+        
+        SSTeacherDataSource.sharedDataSource.refreshApp(success: { (response) in
+           
+            SSTeacherDataSource.sharedDataSource.getStudentsState(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, withDelegate: self)
+            
+            
+        }) { (error) in
+            
+        }
+        
+        
+        
+        
         
     }
     

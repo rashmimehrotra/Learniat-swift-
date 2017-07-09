@@ -316,7 +316,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         {
             
             
-            
+            print(details)
             
             switch sessionState
             {
@@ -328,18 +328,30 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
                         if let OccupiedSeats = details.object(forKey: "OccupiedSeats") as? String
                         {
                             
-                            if Int(StudentsRegistered) > Int(PreAllocatedSeats)! + Int(OccupiedSeats)!
+                            
+                            if let SeatsConfigured = details.object(forKey: "SeatsConfigured") as? String
                             {
                                 
-                                mSeatingLabel.isHidden = false
-                                mSeatingAlertImageView.isHidden = false
-                                if (Int(StudentsRegistered)>1)
+                                if Int(StudentsRegistered) > Int(SeatsConfigured)!
                                 {
-                                    mSeatingLabel.text = "\(Int(StudentsRegistered)! - (Int(PreAllocatedSeats)! + Int(OccupiedSeats)!)) Students are not allocated"
+                                    mSeatingLabel.isHidden = false
+                                    mSeatingAlertImageView.isHidden = false
+                                    mSeatingLabel.text = "Seats needs to be reconfigured. students more than seats(\(StudentsRegistered)-\(SeatsConfigured))"
+                                    
                                 }
-                                else
+                                else if Int(StudentsRegistered) > Int(PreAllocatedSeats)! + Int(OccupiedSeats)!
                                 {
-                                    mSeatingLabel.text = "\(Int(StudentsRegistered)! - (Int(PreAllocatedSeats)! + Int(OccupiedSeats)!)) Student is not allocated"
+                                    
+                                    mSeatingLabel.isHidden = false
+                                    mSeatingAlertImageView.isHidden = false
+                                    if (Int(StudentsRegistered)>1)
+                                    {
+                                        mSeatingLabel.text = "\(Int(StudentsRegistered)! - (Int(PreAllocatedSeats)! + Int(OccupiedSeats)!)) Students are not allocated"
+                                    }
+                                    else
+                                    {
+                                        mSeatingLabel.text = "\(Int(StudentsRegistered)! - (Int(PreAllocatedSeats)! + Int(OccupiedSeats)!)) Student is not allocated"
+                                    }
                                 }
                             }
                         }

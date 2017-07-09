@@ -13,6 +13,7 @@
 		001228571F08DBB9005E8286 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001228511F08DBB9005E8286 /* RealmManager.swift */; };
 		001228581F08DBB9005E8286 /* TimeTableDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001228521F08DBB9005E8286 /* TimeTableDataManager.swift */; };
 		001228591F08DBB9005E8286 /* UserDataManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001228531F08DBB9005E8286 /* UserDataManger.swift */; };
+		001B4A091F1266AA0021CFC2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001B4A081F1266AA0021CFC2 /* Constants.swift */; };
 		0087A3581F10CBD6008E6153 /* InternetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0087A3561F10CBD6008E6153 /* InternetConnection.swift */; };
 		0087A3591F10CBD6008E6153 /* InternetDisconnected.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0087A3571F10CBD6008E6153 /* InternetDisconnected.xib */; };
 		0087A35B1F10CC78008E6153 /* RNLoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0087A35A1F10CC78008E6153 /* RNLoadingButton.swift */; };
@@ -518,6 +519,7 @@
 		001228511F08DBB9005E8286 /* RealmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		001228521F08DBB9005E8286 /* TimeTableDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeTableDataManager.swift; sourceTree = "<group>"; };
 		001228531F08DBB9005E8286 /* UserDataManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataManger.swift; sourceTree = "<group>"; };
+		001B4A081F1266AA0021CFC2 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0087A3561F10CBD6008E6153 /* InternetConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternetConnection.swift; sourceTree = "<group>"; };
 		0087A3571F10CBD6008E6153 /* InternetDisconnected.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InternetDisconnected.xib; sourceTree = "<group>"; };
 		0087A35A1F10CC78008E6153 /* RNLoadingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNLoadingButton.swift; sourceTree = "<group>"; };
@@ -1714,6 +1716,7 @@
 				53676B141CA63B7F00CADE4D /* Toast.swift */,
 				53676B151CA63B7F00CADE4D /* XMPP */,
 				53460C371CD1F12000076F85 /* CustomTextView.swift */,
+				001B4A081F1266AA0021CFC2 /* Constants.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -3491,6 +3494,7 @@
 				53676CC61CA63B7F00CADE4D /* XMPPIQ+JabberRPCResonse.m in Sources */,
 				53015BB41CE5A89B00BB366C /* VolunteerAnsweringPopOver.swift in Sources */,
 				53676CE91CA63B7F00CADE4D /* XMPPPubSub.m in Sources */,
+				001B4A091F1266AA0021CFC2 /* Constants.swift in Sources */,
 				53676CDA1CA63B7F00CADE4D /* XMPPvCardAvatarCoreDataStorageObject.m in Sources */,
 				53676CA81CA63B7F00CADE4D /* XMPPSCRAMSHA1Authentication.m in Sources */,
 				5360E6C61CBE456D00AFE9FF /* DonutChartView.m in Sources */,

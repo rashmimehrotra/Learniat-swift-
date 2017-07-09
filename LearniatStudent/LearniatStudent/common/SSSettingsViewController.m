@@ -153,28 +153,19 @@ pullNewProfilePics;
     
     
     
-    //    setupSitingButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    //    [setupSitingButton addTarget:self action:@selector(onSetUpSeatingButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    //    setupSitingButton.frame = CGRectMake(10.0,20, 290, 40); //(10.0, 116.0, 258.0, 43.0);
-    //    [self.view addSubview:setupSitingButton];
-    //    [setupSitingButton setTitle:@"SetUpSeating" forState:UIControlStateNormal];
-    //    [setupSitingButton setTitleColor:[UIColor colorWithRed:0.0 green:174.0/255.0 blue:239.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-    //    [setupSitingButton setBackgroundColor:[UIColor whiteColor]];
-    //
-    
     
     XmppReconnect = [UIButton buttonWithType:UIButtonTypeCustom];
     [XmppReconnect addTarget:self action:@selector(onXmppButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    XmppReconnect.frame = CGRectMake(100.0,20, 200, 40); //(10.0, 116.0, 258.0, 43.0);
+    XmppReconnect.frame = CGRectMake(10,20, 290, 40); //(10.0, 116.0, 258.0, 43.0);
     [self.view addSubview:XmppReconnect];
-    [XmppReconnect setTitle:@"Xmpp Reconnect" forState:UIControlStateNormal];
+    [XmppReconnect setTitle:@"Reconnect Jabber" forState:UIControlStateNormal];
     [XmppReconnect setTitleColor:[UIColor colorWithRed:0.0 green:174.0/255.0 blue:239.0/255.0 alpha:1.0] forState:UIControlStateNormal];
     [XmppReconnect setBackgroundColor:[UIColor whiteColor]];
     
     
     
     UILabel *mDiagnosisLabel= [[UILabel alloc] initWithFrame:CGRectMake(10.0, 20, 90, 40)];
-    [self.view addSubview:mDiagnosisLabel];
+//    [self.view addSubview:mDiagnosisLabel];
     [mDiagnosisLabel setBackgroundColor:[UIColor whiteColor]];
     mDiagnosisLabel.textAlignment = NSTextAlignmentCenter;
     mDiagnosisLabel.numberOfLines=10;
@@ -182,6 +173,20 @@ pullNewProfilePics;
     [mDiagnosisLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:16]];
     [mDiagnosisLabel setText:@" Diagnostics"];
     [mDiagnosisLabel setTextColor:[UIColor colorWithRed:96.0/255.0 green:96.0/255.0 blue:96.0/255.0 alpha:1.0]];
+    
+    
+    
+    
+    
+    setupSitingButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [setupSitingButton addTarget:self action:@selector(onSetUpSeatingButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    setupSitingButton.frame = CGRectMake(10.0,85, 290, 40); //(10.0, 116.0, 258.0, 43.0);
+    [self.view addSubview:setupSitingButton];
+    [setupSitingButton setTitle:@"Refresh My State " forState:UIControlStateNormal];
+    [setupSitingButton setTitleColor:[UIColor colorWithRed:0.0 green:174.0/255.0 blue:239.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [setupSitingButton setBackgroundColor:[UIColor whiteColor]];
+    
+
     
 }
 
@@ -424,7 +429,7 @@ pullNewProfilePics;
     anim.toValue = [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.2, 1.2, 1.0)];
     [button.layer addAnimation:anim forKey:nil];
     
-    [[self delegate] Settings_setupClassRoomClicked];
+    [[self delegate] Settings_RefreshApp];
     
     
     

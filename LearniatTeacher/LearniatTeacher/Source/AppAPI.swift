@@ -15,6 +15,7 @@ enum AppAPI {
     case TodaysTimeTable(UserId:String)
     case InsertScribbleFileName(userId:String,FileName:String)
     case ChangeSessionState(state:String,SessionID:String)
+    case RefresAppWithUserId(userId:String)
 }
 
 extension AppAPI {
@@ -51,6 +52,10 @@ extension AppAPI {
             
         case .ChangeSessionState(let state, let SessionID):
             return  "\(self.base)/ChangeSessionState?SessionId=\(SessionID)&NewState=\(state)"
+            
+        case .RefresAppWithUserId(let userId):
+            return "\(self.base)/RefreshMyApp?userid=\(userId)"
+            
             
         }
     }
