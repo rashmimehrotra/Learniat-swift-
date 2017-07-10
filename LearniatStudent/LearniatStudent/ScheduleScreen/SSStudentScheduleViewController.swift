@@ -443,6 +443,7 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
             }
             else
             {
+                mNoSessionLabel.text = "You do not have any sessions today!"
                 mNoSessionLabel.isHidden = false
                 mNoSessionSubLabel.isHidden = false
                 mScrollView.isHidden = true
