@@ -82,13 +82,7 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
         self.tag = Int(queryId)!
         var positionXofButtons :CGFloat = 50
         
-        
-        myQuerylabel.frame = CGRect(x: positionXofButtons,y: 5,width: 200, height: 30)
-        myQuerylabel.text = "My query"
-        myQuerylabel.font =  UIFont (name: HelveticaNeueThin, size: 16)
-        self.addSubview(myQuerylabel)
-        myQuerylabel.textColor = lightGrayColor
-        myQuerylabel.isHidden = true
+       
         
         
        let countLabel = UILabel(frame: CGRect(x: 10, y: 5, width: 30 , height: 30))
@@ -115,6 +109,13 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
         self.addSubview(lineView)
 
         
+        
+        
+        
+       
+        
+        
+        
         if AllowVolunteer == "1" && isMyQuery == false
         {
             VolunteerButton.frame = CGRect(x: positionXofButtons,y: lineView.frame.origin.y + lineView.frame.size.height + 5 ,width: 120, height: 30)
@@ -139,6 +140,16 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
         meeTooButton.addTarget(self, action: #selector(QRVSubView.onMeeTooButton), for: UIControlEvents.touchUpInside)
         meeTooButton.isHidden = true
         
+        
+        
+        myQuerylabel.frame = CGRect(x: positionXofButtons,y: meeTooButton.frame.origin.y ,width: 200, height: meeTooButton.frame.size.height)
+        myQuerylabel.text = "My query"
+        myQuerylabel.font =  UIFont (name: HelveticaNeueThin, size: 16)
+        self.addSubview(myQuerylabel)
+        myQuerylabel.textColor = lightGrayColor
+        myQuerylabel.isHidden = true
+        
+        
         if isMyQuery == false
         {
             
@@ -156,6 +167,8 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
             underStoodButton.titleLabel?.font = UIFont (name: helveticaRegular, size: 16)
             underStoodButton.addTarget(self, action: #selector(QRVSubView.onUnderStoodButton(_:)), for: UIControlEvents.touchUpInside)
             meeTooButton.isHidden = true
+            
+            myQuerylabel.isHidden = false
         }
        
         
@@ -239,7 +252,7 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
                 self.meeTooButton.isHidden = true
                 sender.isEnabled = false
                 sender.setTitleColor(lightGrayColor, for: UIControlState())
-                sender.frame = CGRect(x: 50,y: sender.frame.origin.y,width: sender.frame.size.width,height: sender.frame.size.height)
+//                sender.frame = CGRect(x: 50,y: sender.frame.origin.y,width: sender.frame.size.width,height: sender.frame.size.height)
         })
         
         

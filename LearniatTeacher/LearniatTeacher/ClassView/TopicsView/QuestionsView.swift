@@ -59,6 +59,7 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
     
     var questionsDetailsDictonary:Dictionary<String, NSMutableArray> = Dictionary()
     
+    var  mScribbleButton = UIButton()
     var touchLocation :CGPoint!
     
     func setdelegate(_ delegate:AnyObject)
@@ -144,7 +145,7 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
         questionButtonsView.addSubview(seperatorView1)
         
         
-        let  mScribbleButton = UIButton(frame: CGRect(x: 0,  y: 0, width: questionButtonsView.frame.size.width ,height: mTopbarImageView.frame.size.height))
+        mScribbleButton = UIButton(frame: CGRect(x: 0,  y: 0, width: questionButtonsView.frame.size.width ,height: mTopbarImageView.frame.size.height))
         questionButtonsView.addSubview(mScribbleButton)
         mScribbleButton.addTarget(self, action: #selector(QuestionsView.onScribbleButton), for: UIControlEvents.touchUpInside)
         mScribbleButton.setTitleColor(standard_Button, for: UIControlState())
@@ -298,8 +299,10 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
         
         if let statusString = details.object(forKey: "Status") as? String
         {
+            
             if statusString == kSuccessString
             {
+                 mScribbleButton.isEnabled = true
                 var mMaintopicsDetails = NSMutableArray()
                if let classCheckingVariable = (details.object(forKey: "Questions")! as AnyObject).object(forKey: "Question") as? NSMutableArray
                {
@@ -319,6 +322,25 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
                 addTopicsWithDetailsArray(mMaintopicsDetails)
             }
         }
+        else
+        {
+            mActivityIndicator.stopAnimating()
+
+            if isCurrentSubtopicStarted == true
+            {
+                mScribbleButton.isUserInteractionEnabled = true
+                mScribbleButton.setTitleColor(standard_Button, for: UIControlState())
+
+            }
+            else{
+                mScribbleButton.isUserInteractionEnabled = false
+                mScribbleButton.setTitleColor(lightGrayColor, for: UIControlState())
+
+            }
+            
+            addTopicsWithDetailsArray(NSMutableArray())
+            
+        }
     }
     
     
@@ -337,7 +359,7 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
         }
         
         
-        var height :CGFloat = 44
+        var height :CGFloat = 88
         
         var positionY :CGFloat = 0
         

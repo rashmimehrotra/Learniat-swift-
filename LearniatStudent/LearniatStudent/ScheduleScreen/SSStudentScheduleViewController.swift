@@ -379,7 +379,10 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         
         activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
-        
+
+        mNoSessionLabel.text = "You do not have any sessions today!"
+        mNoSessionLabel.isHidden = false
+        mNoSessionSubLabel.isHidden = false
     }
     
     // MARK: - Teacher datasource Delegate

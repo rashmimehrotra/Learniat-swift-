@@ -252,6 +252,11 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
                 addTopicsWithDetailsArray(mMaintopicsDetails)
             }
         }
+        else {
+            mActivityIndicator.isHidden = true
+            mActivityIndicator.stopAnimating()
+            mTopicName.text = "There are no sub-topics for this topic"
+        }
     }
     
     

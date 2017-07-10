@@ -1898,7 +1898,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
         
         
-        questionTopicsView.frame = CGRect(x: 0,y: 0, width: 600   ,height: 44)
+        questionTopicsView.frame = CGRect(x: 0,y: 0, width: 600   ,height: 88)
         
         if SSTeacherDataSource.sharedDataSource.startedSubTopicId == subtopicId
         {

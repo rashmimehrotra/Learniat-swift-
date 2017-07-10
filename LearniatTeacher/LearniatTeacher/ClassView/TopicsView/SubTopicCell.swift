@@ -219,6 +219,8 @@ class SubTopicCell: UIView{
             if Int(QuestionCount) <= 0
             {
                 mQuestionsButton.setTitle("No questions", for: UIControlState())
+                mQuestionsButton.setTitleColor(standard_Button, for: UIControlState())
+                mQuestionsButton.isEnabled = true
             }
             else if Int(QuestionCount) == 1
             {
