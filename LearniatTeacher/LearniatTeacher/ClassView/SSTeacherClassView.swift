@@ -22,6 +22,27 @@
  
 */
 
+enum SessionState:Int
+{
+    case Live           = 1
+    case Scheduled      = 4
+    case Ended          = 5
+    case Cancelled      = 6
+    case Opened         = 2
+}
+
+
+enum UserStateInt:Int
+{
+    case Live           =  1
+    case BackGround     =  11
+    case Free           =  7
+    case SignedOut      =  8
+    case Occupied       =  10
+    case Preallocated   =  9
+    
+}
+
 
 let kStudentLive             = 1
 let kStudentSignedOut        = 8
@@ -3085,6 +3106,15 @@ func delegateAnnotateButtonPressedWithAnswerDetails(_ answerDetails:AnyObject, w
         
         SSTeacherDataSource.sharedDataSource.refreshApp(success: { (response) in
            
+            if let summary = response.object(forKey: "Summary") as? NSArray
+            {
+                if summary.count > 0
+                {
+                    let summaryValue = summary.firstObject
+                    self.evaluateStateWithSummary(details: summaryValue as AnyObject)
+                }
+            }
+            
             SSTeacherDataSource.sharedDataSource.getStudentsState(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, withDelegate: self)
             
             
@@ -3092,10 +3122,38 @@ func delegateAnnotateButtonPressedWithAnswerDetails(_ answerDetails:AnyObject, w
             
         }
         
-        
-        
-        
-        
+    }
+    
+    private func evaluateStateWithSummary(details:AnyObject)
+    {
+        if let myState =  details.object(forKey: "MyState") as? Int
+        {
+            if let CurrentSessionState = details.object(forKey: "CurrentSessionState") as? Int
+            {
+                if CurrentSessionState == SessionState.Live.rawValue
+                {
+                    if myState != UserStateInt.Live.rawValue
+                    {
+                        
+                    }
+                }
+                else if CurrentSessionState == SessionState.Opened.rawValue
+                {
+                    if myState != UserStateInt.Occupied.rawValue
+                    {
+                      
+                    }
+                }
+                else
+                {
+                
+                }
+            }
+            else
+            {
+                
+            }
+        }
     }
     
     func settings_testPingButtonClicked() {
