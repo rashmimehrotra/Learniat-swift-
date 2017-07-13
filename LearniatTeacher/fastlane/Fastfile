@@ -68,8 +68,8 @@ platform :ios do
         lane :development do
 
         gym(
-            configuration: "Release",
-            scheme: "Debug",
+            configuration: "Development",
+            scheme: "Development",
             silent: true,
             clean: true,
             export_method: "ad-hoc"
