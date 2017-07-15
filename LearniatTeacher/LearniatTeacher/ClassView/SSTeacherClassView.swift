@@ -183,6 +183,8 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
    var checkingClassEndTime                 = false
     
+    var sessionEndingAlertView:UIAlertController!
+    
     
       var mExtTimelabel: UILabel = UILabel();
     
@@ -709,24 +711,20 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 mRemainingTimeProgressBar.progress = Float(progressValue)
                 
                 
-                let classEndingRemainingTime = currentDate.minutesDiffernceBetweenDates(currentDate, endDate:dateFormatter.date(from: EndTime )! )
+                let classEndingRemainingTime = currentDate.secondsDiffernceBetweenDates(currentDate, endDate:dateFormatter.date(from: EndTime )! )
                 
                 if classEndingRemainingTime <= 0
                 {
                     mStartLabelUpdater.invalidate()
                     delegateSessionEnded()
                 }
-                else if classEndingRemainingTime < 6
+                else if classEndingRemainingTime < (6*60)
                 {
                     if checkingClassEndTime == false
                     {
                         checkingClassEndTime = true
                         SSTeacherDataSource.sharedDataSource.getMyCurrentSessionOfTeacher(self)
                     }
-                    
-                    
-                    
-                    
                     
                     hmsFrom(seconds: currentDate.secondsDiffernceBetweenDates(currentDate, endDate:dateFormatter.date(from: EndTime )! )) { hours, minutes, seconds in
                         
@@ -947,31 +945,22 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     }
     
     
-    func updateSessionStateToEnded()
-    {
-        
-        
-        
-        
-        
+    func updateSessionStateToEnded() {
         SSTeacherDataSource.sharedDataSource.changeStateOfSessionWithSessionID(sessionID: SSTeacherDataSource.sharedDataSource.currentLiveSessionId, withSessionState: "5", withSuccessHandle: { (response) in
             
-            if let sessionId = response.object(forKey: kSessionId) as? String
-            {
+            if let sessionId = response.object(forKey: kSessionId) as? String {
                 SSTeacherMessageHandler.sharedMessageHandler.sendEndSessionMessageToRoom(sessionId)
-                
                 SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(sessionId, WithStatusvalue: "5", WithDelegate: self)
 
-                
-                if self.schedulePopOverController != nil
-                {
-                    
+                if self.schedulePopOverController != nil {
                     self.schedulePopOverController.onDoneButton()
                 }
                 
-                self.performSegue(withIdentifier: "ClassViewToSchedule", sender: nil)
+                if self.sessionEndingAlertView != nil {
+                    self.sessionEndingAlertView.dismiss(animated: true, completion: nil)
+                }
                 
-                //        let scheduleScreenView  = TeacherScheduleViewController()
+                self.performSegue(withIdentifier: "ClassViewToSchedule", sender: nil)
                 SSTeacherDataSource.sharedDataSource.isQuestionSent = false
                 
                 SSTeacherDataSource.sharedDataSource.isSubtopicStarted = false
@@ -1382,22 +1371,22 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                                     }
                                     else if classEndingRemainingTime < 6
                                     {
-                                        let  sessionAlertView = UIAlertController(title: "Session ending", message: "Your class is about to end in 6 mins. Do you want to continue?", preferredStyle: UIAlertControllerStyle.alert)
+                                         sessionEndingAlertView = UIAlertController(title: "Session ending", message: "Your class is about to end in 6 mins. Do you want to continue?", preferredStyle: UIAlertControllerStyle.alert)
                                         
-                                        sessionAlertView.addAction(UIAlertAction(title: "End now", style: .default, handler: { action in
+                                        sessionEndingAlertView.addAction(UIAlertAction(title: "End now", style: .default, handler: { action in
                                             
-                                            sessionAlertView.dismiss(animated: true, completion: nil)
+                                            self.sessionEndingAlertView.dismiss(animated: true, completion: nil)
                                             
                                                 self.updateSessionStateToEnded()
                                             
                                             
                                         }))
                                         
-                                        sessionAlertView.addAction(UIAlertAction(title: "Continue", style: .default, handler: { action in
+                                        sessionEndingAlertView.addAction(UIAlertAction(title: "Continue", style: .default, handler: { action in
                                             
                                         }))
                                         
-                                        self.present(sessionAlertView, animated: true, completion: nil)
+                                        self.present(sessionEndingAlertView, animated: true, completion: nil)
                                         
                                     }
                                     else
@@ -1427,15 +1416,15 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                         else
                         {
                             
-                             let  sessionAlertView = UIAlertController(title: "Session ending", message: "", preferredStyle: UIAlertControllerStyle.alert)
+                               sessionEndingAlertView = UIAlertController(title: "Session ending", message: "", preferredStyle: UIAlertControllerStyle.alert)
                             
-                            sessionAlertView.addAction(UIAlertAction(title: "End session", style: .default, handler: { action in
+                            sessionEndingAlertView.addAction(UIAlertAction(title: "End session", style: .default, handler: { action in
                                 
                                 self.updateSessionStateToEnded()
                                 
                             }))
                             
-                            sessionAlertView.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: { action in
+                            sessionEndingAlertView.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: { action in
                                 
                             }))
 

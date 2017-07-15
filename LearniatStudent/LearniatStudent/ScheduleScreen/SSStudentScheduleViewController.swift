@@ -78,7 +78,13 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         
         self.view.setNeedsLayout()
         self.view.layoutIfNeeded()
-
+        
+        let currentUserModel = RealmDatasourceManager.getUserModel()
+        
+        
+        
+        
+        RealmDatasourceManager.saveScreenStateOfUser(screenState: .ScheduleScreen, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
         
         
         foregroundNotification = NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillEnterForeground, object: nil, queue: OperationQueue.main) {
@@ -92,7 +98,8 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
                 }
             }
             
-             SSStudentDataSource.sharedDataSource.getScheduleOfTheDay(self)
+           
+//             SSStudentDataSource.sharedDataSource.getScheduleOfTheDay(self)
         }
         
         

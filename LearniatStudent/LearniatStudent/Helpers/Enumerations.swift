@@ -49,3 +49,13 @@ enum folderType
 }
 
 
+enum PresentScreen:Int {
+    case LoginScreen             = 1
+    case ScheduleScreen          = 2
+    case JoinScreen              = 3
+    case waitingForTeacherScreen = 4
+    case LiveScreen              = 5
+    case LiveBackground          = 6
+}
+
+

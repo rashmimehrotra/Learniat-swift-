@@ -10,9 +10,7 @@ import Foundation
 class ScheduleScreenLineView: UIView
 {
     override init(frame: CGRect) {
-        
         super.init(frame:frame)
-        
         self.backgroundColor = UIColor(red: 153/255.0, green: 153/255.0, blue: 153/255.0, alpha: 0.6)
     }
     

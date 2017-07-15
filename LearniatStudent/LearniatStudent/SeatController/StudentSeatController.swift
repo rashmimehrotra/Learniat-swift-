@@ -139,6 +139,8 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
         mClassNameButton.addTarget(self, action: #selector(StudentSeatViewController.onClassButton), for: UIControlEvents.touchUpInside)
         mClassNameButton.backgroundColor = UIColor.clear
 
+        RealmDatasourceManager.saveScreenStateOfUser(screenState: .JoinScreen, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
+
         
     }
     

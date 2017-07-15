@@ -128,6 +128,9 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSStudentDataSou
         
         INILoader.sharediniLoader.loadNewFileFromServer()
         
+        RealmDatasourceManager.saveScreenStateOfUser(screenState: .LoginScreen, withUserId: "0")
+
+        
     }
     
     override func didReceiveMemoryWarning() {

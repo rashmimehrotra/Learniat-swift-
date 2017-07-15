@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 import Alamofire
-
+import Signals
 let	kSunstone                   = "SunStone"
 let	kSSAction                   = "Action"
 let kStatus                     = "Status"
@@ -21,8 +21,6 @@ let kSchoolId                   = "SchoolId"
 let kUserName                   = "UserName"
 let kPassword                   = "Password"
 let kErrorMessage               = "error_message"
-
-
 
 
 var URLPrefix                       =   "http://54.251.104.13/Jupiter/sun.php?api="
@@ -154,6 +152,8 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
     var currentSubtopicID               = ""
     
     
+    let isBackgroundSignal = Signal<(Bool)>()
+
     
     
     // MARK: - Delegate Functions
@@ -185,16 +185,11 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
     func LoginWithUserId(_ userId :String , andPassword Password:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler)
     {
         WebServicesAPI().getRequest(fromUrl: AppAPI.Login(UserName: userId, Password: Password).path, details: nil, success: { (result) in
-            
-            
             let JsonValue = result.parseJSONString
-            
-            if(JsonValue.jsonData != nil)
-            {
+            if(JsonValue.jsonData != nil) {
                 success(JsonValue.jsonData!)
-            }
-            else
-            {
+                RealmDatasourceManager.saveUserDetailsWithJsonData(jsonVlaue: JsonValue.jsonData!,withScreenState: .LoginScreen)
+            } else {
                 failure(JsonValue.error!)
             }
             
@@ -272,13 +267,28 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         
     }
     
+    
+    
+    
+    func updatUserState(state:Int,success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler) {
+        WebServicesAPI().getRequest(fromUrl: AppAPI.updateUserState(userId: currentUserId, State: state).path, details: nil, success: { (result) in
+            let JsonValue = result.parseJSONString
+            if(JsonValue.jsonData != nil) {
+                success(JsonValue.jsonData!)
+            } else {
+                failure(JsonValue.error!)
+            }}, failure: { (error) in
+            failure(error as NSError)
+        })
+    }
+    
+    
     // MARK: - XML API Functions
     
     
     func getUserState(_ userId :String, withDelegate delegate:SSStudentDataSourceDelegate)
     {
         let manager = APIManager()
-        
         
         let urlString = String(format: "%@<Sunstone><Action><Service>GetMyState</Service><UserId>%@</UserId></Action></Sunstone>",URLPrefix,userId)
         print("ApiValue - \(urlString)")
@@ -711,40 +721,35 @@ extension String
 
 extension String
 {
-    var parseJSONString: (jsonData:AnyObject?,error:NSError?)
-    {
+    var parseJSONString: (jsonData:AnyObject?,error:NSError?) {
         let data = self.data(using: String.Encoding.utf8, allowLossyConversion: false)
-        if let jsonData = data
-        {
+        if let jsonData = data {
             // Will return an object or nil if JSON decoding fails
-            do
-            {
+            do{
                 let message = try JSONSerialization.jsonObject(with: jsonData, options:.mutableContainers)
-                
-                
-                if message is NSArray
-                {
-                    if let jsonValue =  (message as AnyObject).firstObject as? NSDictionary
-                    {
+                if message is NSArray {
+                    if let jsonValue =  (message as AnyObject).firstObject as? NSDictionary {
                         return (jsonValue,nil)
                     }
-
-                        return (nil,customErrors.jsonParsingError as NSError)
-                }
-                else
-                {
+                    return (nil,customErrors.jsonParsingError as NSError)
+                } else {
                     return (message as AnyObject, nil)
                 }
-            }
-            catch let error as NSError
-            {
+            } catch let error as NSError {
                  return (nil,error)
             }
-        }
-        else
-        {
+        } else {
             // Lossless conversion of the string was not possible
              return (nil,customErrors.jsonParsingError as NSError)
         }
+    }
+}
+extension URLComponents {
+    init(scheme: String, host: String, path: String, queryItems: [URLQueryItem]) {
+        self.init()
+        self.scheme = scheme
+        self.host = host
+        self.path = path
+        self.queryItems = queryItems
     }
 }

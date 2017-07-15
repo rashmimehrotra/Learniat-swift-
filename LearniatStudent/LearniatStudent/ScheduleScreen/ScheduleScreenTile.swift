@@ -88,35 +88,25 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
     }
     
     
-    func setdelegate(_ delegate:AnyObject)
-    {
+    func setdelegate(_ delegate:AnyObject) {
         _delgate = delegate;
     }
     
-    func   delegate()->AnyObject
-    {
+    func   delegate()->AnyObject {
         return _delgate;
     }
     
     
-    func loadAllViewObjects()
-    {
-        
+    func loadAllViewObjects() {
         self.isUserInteractionEnabled = true
-        
         cancelledImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
         self.addSubview(cancelledImageView)
         cancelledImageView.image = UIImage(named: "CalendarBubbleRed.png")
         cancelledImageView.isHidden = true
         
-        
         let tap = UITapGestureRecognizer(target: self, action: #selector(ScheduleScreenTile.handleTap(_:)))
         tap.delegate = self
         self.addGestureRecognizer(tap)
-        
-        
-        
-        
         
         self.addSubview(mClassName)
         mClassName.adjustsFontSizeToFitWidth = true
@@ -129,9 +119,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         circleImage.isHidden = true
         mClassName.textColor = UIColor.white
         
-       
-        
-        self.addSubview(mSeatingLabel)
+       self.addSubview(mSeatingLabel)
         mSeatingLabel.adjustsFontSizeToFitWidth = true
         mSeatingLabel.minimumScaleFactor = 0.2
         mSeatingLabel.lineBreakMode = NSLineBreakMode.byTruncatingTail;
@@ -139,8 +127,6 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         mSeatingLabel.verticalAlignment = .verticalAlignmentTop
         mSeatingLabel.textColor = standard_Red
         mSeatingLabel.textAlignment = .left
-        
-        
         
         self.addSubview(mDifferenceTimeLabel)
         mDifferenceTimeLabel.adjustsFontSizeToFitWidth = true
@@ -151,49 +137,29 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         mDifferenceTimeLabel.textColor = UIColor.black
         mDifferenceTimeLabel.textAlignment = .center
         
-        
-        
-        
-        
         mSeatingAlertImageView.image = UIImage(named: "Alert_Icon.png")
         self.addSubview(mSeatingAlertImageView)
         mSeatingAlertImageView.isHidden = true
-
-        
     }
     
-    func handleTap(_ sender: UITapGestureRecognizer? = nil)
-    {
+    func handleTap(_ sender: UITapGestureRecognizer? = nil) {
         // handling code
-        
         let sessionState = sessionDetails.object(forKey: kSessionState) as! String
-        
-        
-        if delegate().responds(to: #selector(ScheduleScreenTileDelegate.delegateScheduleTileTouchedWithState(_:withCurrentTileDetails:)))
-        {
+        if delegate().responds(to: #selector(ScheduleScreenTileDelegate.delegateScheduleTileTouchedWithState(_:withCurrentTileDetails:))) {
             delegate().delegateScheduleTileTouchedWithState!(sessionState, withCurrentTileDetails: sessionDetails)
         }
-        
-        
-        
     }
     
-    func setCurrentSessionDetails(_ details :AnyObject)
-    {
-        
-        
+    func setCurrentSessionDetails(_ details :AnyObject) {
         loadAllViewObjects()
         sessionDetails = details
-
         updateSessionColorWithSessionState(sessionDetails.object(forKey: kSessionState) as! String)
-        
         updatSeatinglabelWithDetials(details)
+        
         let classNameWithRoom = String(format:"%@(%@)",(details.object(forKey: kClassName) as! String),(details.object(forKey: kRoomName) as! String))
         mClassName.text = classNameWithRoom
     
-        
         self.layer.masksToBounds = true
-        
         self.layer.cornerRadius = 5
     }
     
@@ -201,9 +167,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
     
     
     
-    func updateSessionColorWithSessionState(_ sessionState:String)
-    {
-        
+    func updateSessionColorWithSessionState(_ sessionState:String) {
         cancelledImageView.isHidden = true
         circleImage.isHidden = false
         

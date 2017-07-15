@@ -42,10 +42,10 @@ extension AppAPI {
         switch self {
             
         case .Login(let username, let password):
-            return "\(self.base)/login?app_id=3&user_name=\(username)&pass=\(password)"
+            return "\(self.base)/Login?app_id=3&user_name=\(username)&pass=\(password)"
             
         case .TodaysTimeTable(let userID):
-            return "\(self.base)/getMyTodaysSessions?user_id=\(userID)"
+            return "\(self.base)/GetMyTodaysSessions?user_id=\(userID)"
             
         case .InsertScribbleFileName(let userId, let FileName):
             return "\(self.base)/InsertScribbleFileName?user_id=\(userId)&filename=\(FileName)"

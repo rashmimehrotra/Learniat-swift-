@@ -214,7 +214,8 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                 mClassStatedLabel.text = "Class not started yet"
                 mNoStudentLabel.isHidden = false
                 classStartedView.isHidden = true
-                
+                RealmDatasourceManager.saveScreenStateOfUser(screenState: .waitingForTeacherScreen, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
+
                 break
             
             case kLiveString:
@@ -225,7 +226,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                 
                 startedTimeUpdatingTimer.invalidate()
                 startedTimeUpdatingTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(StudentClassViewController.startTimeUpdating), userInfo: nil, repeats: true)
-                
+                RealmDatasourceManager.saveScreenStateOfUser(screenState: .LiveScreen, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
                 break
             
             default:
@@ -233,106 +234,90 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         }
          loadSubview()
         
+        subscribeForSignal()
         
-        let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
-        
-        notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
-        
-        refreshApp()
         
     }
     
     
-    func onTeacherImage()
-    {
-        
-        
+    func onTeacherImage() {
         let questionInfoController = SSSettingsViewController()
         questionInfoController.setDelegate(self)
-        
         questionInfoController.classViewTopicsButtonSettingsButtonPressed();
-        
         classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
-        
         classViewPopOverController.contentSize = CGSize(width: 310, height: 145);
-        
         questionInfoController.setPopOver(classViewPopOverController)
-        
-        
         classViewPopOverController.present(from: CGRect(
             x:mTeacherImageButton.frame.origin.x ,
             y:mTeacherImageButton.frame.origin.y + mTeacherImageButton.frame.size.height,
             width: 1,
             height: 1), in: self.view, permittedArrowDirections: .up, animated: true)
-        
-        
     }
     
+    
+    func subscribeForSignal() {
+        SSStudentDataSource.sharedDataSource.isBackgroundSignal.subscribe(on: self) { [unowned self] (isBackgroud) in
+            if isBackgroud == true {
+               self.appMovedToBackground()
+            } else {
+               self.appMovedToForeground()
+            }
+        }
+    }
   
-    func appMovedToBackground()
-    {
-        print("App moved to background!")
-        
-         SSStudentMessageHandler.sharedMessageHandler.sendStudentBenchStatus(.BackGround)
-        if SSStudentDataSource.sharedDataSource.currentUSerState != UserState.BackGround
-        {
-             SSStudentDataSource.sharedDataSource.updateStudentStatus(UserState.BackGround.rawValue, ofSession:(sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+    func appMovedToBackground() {
+       if getCurrentSessionState() == "\(SessionState.Live.rawValue)" || getCurrentSessionState() == kLiveString  {
+            updateStudentState(state: .BackGround)
+            RealmDatasourceManager.checkForLiveAndupdateStateToLive(screenState: .LiveBackground, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
+           RealmDatasourceManager.saveScreenStateOfUser(screenState: .LiveBackground, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
         }
-       
-        
     }
     
-    func appMovedToForeground()
-    {
-        print("App moved to Forground!")
-        
-       
-        if SSStudentMessageHandler.sharedMessageHandler.getConnectedState() == false
-        {
+    func appMovedToForeground() {
+        if SSStudentMessageHandler.sharedMessageHandler.getConnectedState() == false {
              SSStudentMessageHandler.sharedMessageHandler.performReconnet()
-        }
-        
-        SSStudentMessageHandler.sharedMessageHandler.sendStudentBenchStatus(.Live)
-        
-        if SSStudentDataSource.sharedDataSource.currentUSerState != UserState.Live
-        {
-            SSStudentDataSource.sharedDataSource.updateStudentStatus(UserState.Live.rawValue, ofSession:(sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
-            
+        } else {
+            if getCurrentSessionState() == "\(SessionState.Live.rawValue)" || getCurrentSessionState() == kLiveString  {
+                updateStudentState(state: .Live)
+                RealmDatasourceManager.saveScreenStateOfUser(screenState: .LiveScreen, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
+
+            }
         }
     }
 
     
-    func classsBegin()
-    {
-        
-        
-        
-        if let sessionId = sessionDetails.object(forKey: kSessionId) as? String
-        {
-            SSStudentDataSource.sharedDataSource.currentLiveSessionId = sessionId
-            getUserSessionWithSessionID(sessionID: sessionId)
+    func updateStudentState(state:UserState) {
+        SSStudentDataSource.sharedDataSource.updatUserState(state: Int(state.rawValue)!, success: { (result) in
+            let userStateParser = self.parseUpdateUserStateAPI(details: result)
+            
+            if userStateParser.warning != "No Update happened" {
+               SSStudentMessageHandler.sharedMessageHandler.sendStudentBenchStatus(UserState(rawValue:"\(userStateParser.userState)")!)
+            }
+            self.verifyUserState(userState: userStateParser.userState)
+        }) { (error) in
+            self.view.makeToast("\(error.code)-\(error.description)", duration: 0.5, position: .bottom)
         }
-       
-        
     }
     
-    func onClassButton()
-    {
-      
-        
-        
+    
+    
+    
+    func classsBegin() {
+        if let sessionId = sessionDetails.object(forKey: kSessionId) as? String {
+            SSStudentDataSource.sharedDataSource.currentLiveSessionId = sessionId
+            getUserSessionWithSessionID(sessionID: sessionId)
+            RealmDatasourceManager.saveScreenStateOfUser(screenState: .LiveScreen, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
+
+        }
+    }
+    
+    func onClassButton() {
         let buttonPosition :CGPoint = mClassNameButton.convert(CGPoint.zero, to: self.view)
-        
         let remainingHeight = self.view.frame.size.height - (buttonPosition.y  + mClassNameButton.frame.size.height + mClassNameButton.frame.size.height)
-        
-        
         let questionInfoController = SSStudentSchedulePopoverController()
-        
         questionInfoController.setCurrentScreenSize(CGSize(width: 400, height: remainingHeight))
         questionInfoController.setdelegate(self)
         let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
-        
         classViewPopOverController.contentSize = CGSize(width: 400,height: remainingHeight);
         classViewPopOverController.delegate = self;
         questionInfoController.setPopover(classViewPopOverController)
@@ -341,110 +326,73 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             y:buttonPosition.y  + mClassNameButton.frame.size.height,
             width: 1,
             height: 1), in: self.view, permittedArrowDirections: .up, animated: true)
-    
     }
     
     
     
     
     
-    func startTimeUpdating()
-    {
+    func startTimeUpdating() {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
         var _string :String = ""
         let currentDate = Date()
         _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: (sessionDetails.object(forKey: kStartTime) as! String))!)).fullString
         mClassStatedLabel.text = "Started: \(_string)"
-        
-        
-        
-        
         let isgreatervalue :Bool ;
-        
         isgreatervalue = currentDate.isGreaterThanDate(dateFormatter.date(from: sessionDetails.object(forKey: "EndTime") as! String)!)
-        
-         if isgreatervalue
-        {
-            if let sessionId = sessionDetails.object(forKey: kSessionId) as? String
-            {
+        if isgreatervalue {
+            if let sessionId = sessionDetails.object(forKey: kSessionId) as? String {
                 startedTimeUpdatingTimer.invalidate()
                 SSStudentDataSource.sharedDataSource.currentLiveSessionId = sessionId
                 getUserSessionWithSessionID(sessionID: sessionId)
-                
             }
-            
         }
-        
- 
-        
     }
     
     
-    private func getUserSessionWithSessionID(sessionID:String)
-    {
+    private func getUserSessionWithSessionID(sessionID:String) {
         SSStudentDataSource.sharedDataSource.getSessionInfoWithSessionID(SessionId: sessionID,
         withSuccessHandle: { (reseponse) in
             self.gotSessionDetails(details: reseponse)
         },
         withfailurehandler: { (error) in
-            
         })
     }
     
     
     
     
-    private func gotSessionDetails(details:AnyObject){
-        
-        print(details)
+    private func gotSessionDetails(details:AnyObject) {
         sessionDetails.setObject((details.object(forKey: kStartTime)) ?? String(), forKey: kStartTime as NSCopying)
         sessionDetails.setObject((details.object(forKey: kEndTime)) ?? String(), forKey: kEndTime as NSCopying)
-        
-        if let sessionState = details.object(forKey: kSessionState) as? Int
-        {
-            if sessionState == SessionState.Live.rawValue
-            {
+        if let sessionState = details.object(forKey: kSessionState) as? Int {
+            if sessionState == SessionState.Live.rawValue {
                 displaySessionLiveStatus()
-            }
-            else if sessionState == SessionState.Opened.rawValue
-            {
-                
+            } else if sessionState == SessionState.Opened.rawValue {
                 displaySessionOpendState()
-            }
-            else if (sessionState == SessionState.Scheduled.rawValue || sessionState == SessionState.Ended.rawValue || sessionState == SessionState.Cancelled.rawValue)
-            {
+            } else if (sessionState == SessionState.Scheduled.rawValue || sessionState == SessionState.Ended.rawValue || sessionState == SessionState.Cancelled.rawValue) {
                 displayOtherStates()
             }
-        }
-        else
-        {
+            sessionDetails.setObject("\(sessionState)", forKey: kSessionState as NSCopying )
+        } else {
             mNoStudentLabel.isHidden = false
             classStartedView.isHidden = true
         }
         
         
-        if let  TeacherId = details.object(forKey: "TeacherId") as? Int
-        {
+        if let  TeacherId = details.object(forKey: "TeacherId") as? Int {
             SSStudentDataSource.sharedDataSource.currentTeacherId = "\(TeacherId)"
-            
             let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
-            
             let userID = urlString.appending("/").appending("\(TeacherId)")
-            
-            
-            if let checkedUrl = URL(string: "\(userID)_79px.jpg")
-            {
+            if let checkedUrl = URL(string: "\(userID)_79px.jpg")  {
                 mTeacherImageView.contentMode = .scaleAspectFit
                 mTeacherImageView.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
             }
         }
         
-        if let  TeacherName = details.object(forKey: "TeacherName") as? String
-        {
+        if let  TeacherName = details.object(forKey: "TeacherName") as? String {
             mTeacherName.text = TeacherName
-            
             SSStudentDataSource.sharedDataSource.currentTeacherName = TeacherName
             
         }
@@ -453,22 +401,12 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     
     private func displaySessionLiveStatus() {
-
         mNoStudentLabel.isHidden = true
         classStartedView.isHidden = false
-        if let sessionId = sessionDetails.object(forKey: kSessionId) as? String
-        {
-            if SSStudentDataSource.sharedDataSource.currentUSerState != UserState.Live
-            {
-                SSStudentDataSource.sharedDataSource.updateStudentStatus(UserState.Live.rawValue, ofSession: sessionId, withDelegate: self)
-            }
-            
-        }
-        
+        updateStudentState(state: UserState.Live)
         
         mNoStudentLabel.isHidden = true
         classStartedView.isHidden = false
-        
         startedTimeUpdatingTimer.invalidate()
         startedTimeUpdatingTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(StudentClassViewController.startTimeUpdating), userInfo: nil, repeats: true)
         
@@ -480,14 +418,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         
         mNoStudentLabel.isHidden = false
         classStartedView.isHidden = true
-        if let sessionId = sessionDetails.object(forKey: kSessionId) as? String
-        {
-            if SSStudentDataSource.sharedDataSource.currentUSerState != UserState.Occupied
-            {
-                
-                SSStudentDataSource.sharedDataSource.updateStudentStatus(UserState.Occupied.rawValue, ofSession: sessionId, withDelegate: self)
-            }
-        }
+        updateStudentState(state: UserState.Occupied)
         
     }
     
@@ -526,14 +457,8 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                 
                mNoStudentLabel.isHidden = true
                 classStartedView.isHidden = false
-                if let sessionId = sessionDetails.object(forKey: kSessionId) as? String
-                {
-                    if SSStudentDataSource.sharedDataSource.currentUSerState != UserState.Live
-                    {
-                        SSStudentDataSource.sharedDataSource.updateStudentStatus(UserState.Live.rawValue, ofSession: sessionId, withDelegate: self)
-                    }
-                    
-                }
+                updateStudentState(state: UserState.Live)
+                
                 
                 
                 mNoStudentLabel.isHidden = true
@@ -549,14 +474,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             {
                 mNoStudentLabel.isHidden = false
                  classStartedView.isHidden = true
-                if let sessionId = sessionDetails.object(forKey: kSessionId) as? String
-                {
-                    if SSStudentDataSource.sharedDataSource.currentUSerState != UserState.Occupied
-                    {
-
-                        SSStudentDataSource.sharedDataSource.updateStudentStatus(UserState.Occupied.rawValue, ofSession: sessionId, withDelegate: self)
-                    }
-                }
+                updateStudentState(state: UserState.Occupied)
 
             }
             else if (sessionState == "4" || sessionState == "5" || sessionState == "6")
@@ -598,24 +516,6 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
 
         }
     }
-    
-    
-    func didGetUpdatedUserStateWithDetails(_ details: AnyObject)
-    {
-        
-        SSStudentMessageHandler.sharedMessageHandler.sendStudentBenchStatus(SSStudentDataSource.sharedDataSource.currentUSerState)
-        
-        if SSStudentDataSource.sharedDataSource.currentUSerState == UserState.Free
-        {
-            
-            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let preallotController : SSStudentScheduleViewController = storyboard.instantiateViewController(withIdentifier: "TeacherScheduleViewController") as! SSStudentScheduleViewController
-            self.present(preallotController, animated: true, completion: nil)
-        }
-        
-        
-    }
-    
     
     func didGetQuestionWithDetails(_ details: AnyObject)
     {
@@ -673,12 +573,9 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     // MARK: - schedule popover delegate
     
     
-    func delegateSessionEnded()
-    {
-        SSStudentDataSource.sharedDataSource.updateStudentStatus(UserState.Free.rawValue, ofSession: (sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+    func delegateSessionEnded() {
+        updateStudentState(state: UserState.Free)
         startedTimeUpdatingTimer.invalidate()
-        
-        
     }
     
     // MARK: - Loading subViews
@@ -796,34 +693,21 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
 
     
     
-    func smhStreamReconnectingWithDelay(_ delay: Int32)
-    {
+    func smhStreamReconnectingWithDelay(_ delay: Int32) {
         self.view.makeToast("Reconnecting in \(delay) seconds", duration: 0.5, position: .bottom)
-        
         AppDelegate.sharedDataSource.showReconnecting()
 
     }
     
-    func smhDidReciveAuthenticationState(_ state: Bool, WithName userName: String)
-    {
-        
-        
-        
-        if state == false
-        {
+    func smhDidReciveAuthenticationState(_ state: Bool, WithName userName: String) {
+        if state == false {
             mstatusImage.backgroundColor = standard_Red
-            
             self.view.makeToast("Not Able to Authenticate current user. Plese try again", duration: 0.5, position: .bottom)
-        }
-        else
-        {
+        } else {
             mstatusImage.backgroundColor = standard_Green
-            
-           SSStudentDataSource.sharedDataSource.updateStudentStatus(UserState.Live.rawValue, ofSession:(sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+            updateStudentState(state: UserState.Live)
         }
         AppDelegate.sharedDataSource.hideReconnecting()
-        
-        
     }
     
     func smhDidgetTimeExtendedWithDetails(_ Details: AnyObject)
@@ -849,12 +733,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     func smhDidGetSessionEndMessageWithDetails(_ details: AnyObject)
     {
-        if SSStudentDataSource.sharedDataSource.currentUSerState != UserState.Free
-        {
-            SSStudentDataSource.sharedDataSource.updateStudentStatus(UserState.Free.rawValue, ofSession: (sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
-        }
-        
-        
+       updateStudentState(state: UserState.Free)
     }
     
     func smhDidGetVotingMessageWithDetails(_ details: AnyObject)
@@ -1409,49 +1288,95 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             
         }
     }
-    
-    
-    
-    private func evaluateStateWithSummary(details:AnyObject)
-    {
-        if let myState =  details.object(forKey: "MyState") as? Int
-        {
-            if let CurrentSessionState = details.object(forKey: "CurrentSessionState") as? Int
-            {
-                if CurrentSessionState == SessionState.Live.rawValue
-                {
-                    if myState != UserStateInt.Live.rawValue
-                    {
-                        classsBegin()
-                        
-                        SSStudentDataSource.sharedDataSource.updateStudentStatus(UserState.Live.rawValue, ofSession:(sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
 
+}
+
+
+
+
+extension StudentClassViewController {
+    
+    fileprivate func getCurrentSessionState()->String {
+        
+        if let sessionState = sessionDetails.object(forKey: kSessionState) as?  String {
+            return sessionState
+        }
+        return kopenedString
+    }
+    
+    fileprivate func getCurrentStudentState() -> Int {
+        var userState = UserStateInt.Occupied.rawValue
+        
+        switch getCurrentSessionState() {
+        case kopenedString:
+            userState = UserStateInt.Occupied.rawValue
+            break
+        case kLiveString:
+            userState = UserStateInt.Live.rawValue
+            break
+        default:
+            userState = UserStateInt.Occupied.rawValue
+            break
+        }
+        
+        return userState
+    }
+    
+    
+    fileprivate func parseUpdateUserStateAPI(details:AnyObject)->(userState:Int, warning:String) {
+        
+        if let user_state = details.object(forKey: "user_state") as? Int {
+            if let warningMessage = details.object(forKey: "warning") as? String {
+                return (user_state, warningMessage)
+            }
+            return (user_state, "")
+        }
+        
+         return (0, "")
+    }
+    
+    
+    
+    fileprivate func evaluateStateWithSummary(details:AnyObject)
+    {
+        if let myState =  details.object(forKey: "MyState") as? Int {
+            if let CurrentSessionState = details.object(forKey: "CurrentSessionState") as? Int {
+                if CurrentSessionState == SessionState.Live.rawValue {
+                    if myState != UserStateInt.Live.rawValue {
+                        classsBegin()
+                        updateStudentState(state: UserState.Live)
                     }
-                }
-                else if CurrentSessionState == SessionState.Opened.rawValue
-                {
-                    if myState != UserStateInt.Occupied.rawValue
-                    {
-                        
-                        SSStudentDataSource.sharedDataSource.updateStudentStatus(UserState.Occupied.rawValue, ofSession:(sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+                } else if CurrentSessionState == SessionState.Opened.rawValue {
+                    if myState != UserStateInt.Occupied.rawValue {
                         displaySessionOpendState()
+                        updateStudentState(state: UserState.Occupied)
                     }
-                }
-                else
-                {
-                   delegateSessionEnded()
+                } else {
+                    delegateSessionEnded()
                     
                 }
-            }
-            else
-            {
+            } else {
                 delegateSessionEnded()
             }
         }
     }
     
+    fileprivate func verifyUserState(userState:Int) {
+        switch userState {
+        case UserStateInt.Free.rawValue:
+            self.moveToScheduleScreen()
+        default: break
+            
+        }
+    }
     
-    
-    
+    fileprivate func moveToScheduleScreen() {
+        RealmDatasourceManager.saveScreenStateOfUser(screenState: .ScheduleScreen, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
+        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let preallotController : SSStudentScheduleViewController = storyboard.instantiateViewController(withIdentifier: "TeacherScheduleViewController") as! SSStudentScheduleViewController
+        self.present(preallotController, animated: true, completion: nil)
+    }
+
     
 }
+

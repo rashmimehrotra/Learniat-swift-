@@ -24,105 +24,123 @@ let TextAuto            :String = "One string"// Pending
 
 
 
-let kQuestionTag                = "Question"
-let kQuestionName               = "Name"
-let kQuestionType               = "QuestionType"
-let kScribble                   = "Scribble"
-let kOptionTagMain              = "OptionContainer"
+let kQuestionTag              = "Question"
+let kQuestionName             = "Name"
+let kQuestionType             = "QuestionType"
+let kScribble                 = "Scribble"
+let kOptionTagMain            = "OptionContainer"
 
-let kOptionTag                  = "Option"
-
-
-
-
-let onlyMainTopics              = "Only MainTopics"
-let onlySubTopics               = "Only SubTopics"
-let onlyQuestions               = "Only Questions"
-
-let kOverlayScribble            = "Overlay Scribble"
-let kFreshScribble              = "Fresh Scribble"
-let kText                       = "Text"
-let kMCQ                        = "Multiple Choice"
-let kMRQ                        = "Multiple Response"
-let kMatchColumn                = "Match Columns"
+let kOptionTag                = "Option"
 
 
 
-let KCorretValue                = "4"
-let kWrongvalue                 = "5"
-let kMissedValue                = "6"
 
-let helveticaRegular            = "HelveticaNeue"
+let onlyMainTopics            = "Only MainTopics"
+let onlySubTopics             = "Only SubTopics"
+let onlyQuestions             = "Only Questions"
 
-let helveticaMedium             = "HelveticaNeue-Medium"
+let kOverlayScribble          = "Overlay Scribble"
+let kFreshScribble            = "Fresh Scribble"
+let kText                     = "Text"
+let kMCQ                      = "Multiple Choice"
+let kMRQ                      = "Multiple Response"
+let kMatchColumn              = "Match Columns"
 
-let helveticaBold               = "HelveticaNeue-Bold"
 
-let HelveticaNeueThin           = "HelveticaNeue-Thin"
 
-let HelveticaNeueItalic         = "HelveticaNeue-Italic"
+let KCorretValue              = "4"
+let kWrongvalue               = "5"
+let kMissedValue              = "6"
 
-let kClassName                  = "ClassName"
+let helveticaRegular          = "HelveticaNeue"
 
-let kEndTime                    = "EndTime"
+let helveticaMedium           = "HelveticaNeue-Medium"
 
-let kSessionState               = "SessionState"
+let helveticaBold             = "HelveticaNeue-Bold"
 
-let kStartTime                  = "StartTime"
+let HelveticaNeueThin         = "HelveticaNeue-Thin"
 
-let kRoomId                     = "RoomId"
+let HelveticaNeueItalic       = "HelveticaNeue-Italic"
 
-let kRoomName                   = "RoomName"
+let kClassName                = "ClassName"
 
-let kSessionId                  = "SessionId"
+let kEndTime                  = "EndTime"
 
-let kScheduledString            = "Scheduled"
+let kSessionState             = "SessionState"
 
-let kopenedString               = "Opened"
+let kStartTime                = "StartTime"
 
-let kLiveString                 = "Live"
+let kRoomId                   = "RoomId"
 
-let kCanClledString             = "Cancelled"
+let kRoomName                 = "RoomName"
 
-let kEndedString                = "Ended"
+let kSessionId                = "SessionId"
 
-let kScheduled                  = "4"
+let kScheduledString          = "Scheduled"
 
-let kopened                     = "2"
+let kopenedString             = "Opened"
 
-let kLive                       = "1"
+let kLiveString               = "Live"
 
-let kCanClled                   = "6"
+let kCanClledString           = "Cancelled"
 
-let kEnded                      = "5"
+let kEndedString              = "Ended"
 
-let kServerID                   = "http://54.251.104.13"
+let kScheduled                = "4"
 
-let kUplodingServer             = "http://54.251.104.13/Jupiter/upload_photos.php"
+let kopened                   = "2"
 
-let kINIPath                    = "http://54.251.104.13/learniat/learniat.ini"
+let kLive                     = "1"
 
-let k_INI_BaseXMPPURL           = "XMPP_server_IP"
+let kCanClled                 = "6"
 
-let k_INI_UserProfileImageURL   = "user_profile_images"
+let kEnded                    = "5"
 
-let k_INI_SCRIBBLE_IMAGE_URL    = "mobile_app_scribbles"
+let kServerID                 = "http://54.251.104.13"
 
-let k_INI_QuestionsImageUrl     = "question_images"
+let kUplodingServer           = "http://54.251.104.13/Jupiter/upload_photos.php"
 
-let k_INI_Badges                = "badges"
+let kINIPath                  = "http://54.251.104.13/learniat/learniat.ini"
 
-let k_INI_OverLayImageWidth     = "min_overlay_question_image_width"
+let k_INI_BaseXMPPURL         = "XMPP_server_IP"
 
-let k_INI_DemoPathUrl           = "demo_path"
+let k_INI_UserProfileImageURL = "user_profile_images"
 
-let kProFIlePics                = "/ProFilePics"
+let k_INI_SCRIBBLE_IMAGE_URL  = "mobile_app_scribbles"
 
-let kStudentAnswerImages        = "/StudentAnswer"
+let k_INI_QuestionsImageUrl   = "question_images"
 
-let kQuestionImage              = "/questionImage"
+let k_INI_Badges              = "badges"
 
-let kBadgesImage                = "/badges"
+let k_INI_OverLayImageWidth   = "min_overlay_question_image_width"
+
+let k_INI_DemoPathUrl         = "demo_path"
+
+let kProFIlePics              = "/ProFilePics"
+
+let kStudentAnswerImages      = "/StudentAnswer"
+
+let kQuestionImage            = "/questionImage"
+
+let kBadgesImage              = "/badges"
+
+let kExisting_state           = "existing_state"
+
+let kTeacherName              = "TeacherName"
+
+let kTeacherId                = "TeacherId"
+
+let kClassId                  = "ClassId"
+
+let kSubjectName              = "SubjectName"
+
+let kSubjectId                = "SubjectId"
+
+let kSeatsConfigured          = "SeatsConfigured"
+
+let kStudentsRegistered       = "StudentsRegistered"
+
+let kPreallocatedSeats        = "PreallocatedSeats"
 
 
 let textColor                          = UIColor(red: 36/255.0, green: 68/255.0, blue: 99/255.0, alpha: 1)

@@ -16,6 +16,7 @@ enum AppAPI {
     case InsertScribbleFileName(userId:String,FileName:String)
     case GetSessionInfo(SessionId:String)
     case RefresAppWithUserId(userId:String)
+    case updateUserState(userId:String,State:Int)
     
 }
 
@@ -43,10 +44,10 @@ extension AppAPI {
         switch self {
             
         case .Login(let username, let password):
-            return "\(self.base)/login?app_id=4&user_name=\(username)&pass=\(password)"
+            return "\(self.base)/Login?app_id=4&user_name=\(username)&pass=\(password)"
             
         case .TodaysTimeTable(let userID):
-            return "\(self.base)/getMyTodaysSessions?user_id=\(userID)"
+            return "\(self.base)/GetMyTodaysSessions?user_id=\(userID)"
         
         case .InsertScribbleFileName(let userId, let FileName):
             return "\(self.base)/InsertScribbleFileName?user_id=\(userId)&filename=\(FileName)"
@@ -56,7 +57,8 @@ extension AppAPI {
             
         case .RefresAppWithUserId(let userId):
             return "\(self.base)/RefreshMyApp?userid=\(userId)"
-            
+        case .updateUserState(let userId , let State):
+            return "\(self.base)/UpdateMyState?user=\(userId)&state=\(State)"
         
         }
     }

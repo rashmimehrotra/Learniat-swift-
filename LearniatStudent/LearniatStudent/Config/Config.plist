@@ -8,6 +8,17 @@
 		<string>http://54.251.104.13:8100</string>
 		<key>PHPURL</key>
 		<string>http://54.251.104.13/jupiter_dev/sun.php?api=</string>
+		<key>PHPURLComponent</key>
+		<dict>
+			<key>UrlScheme</key>
+			<string>http</string>
+			<key>host</key>
+			<string>54.251.104.13</string>
+			<key>Path</key>
+			<string>jupiter_dev/sun.php</string>
+			<key>QueryName</key>
+			<string>api</string>
+		</dict>
 	</dict>
 	<key>Production</key>
 	<dict>
@@ -15,6 +26,17 @@
 		<string>http://54.251.104.13:8100</string>
 		<key>PHPURL</key>
 		<string>http://54.251.104.13/Jupiter/sun.php?api=</string>
+		<key>PHPURLComponent</key>
+		<dict>
+			<key>UrlScheme</key>
+			<string>http</string>
+			<key>host</key>
+			<string>54.251.104.13</string>
+			<key>Path</key>
+			<string>Jupiter/sun.php</string>
+			<key>QueryName</key>
+			<string>api</string>
+		</dict>
 	</dict>
 </dict>
 </plist>

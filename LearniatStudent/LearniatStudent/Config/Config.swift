@@ -40,6 +40,15 @@ extension Config {
         return configs.object(forKey: "PHPURL") as! String
     }
 
+    func PhpUrlComponenet()->(urlScheme:String,host:String,path:String,queryItem:String) {
+        let urlComponent =  configs.object(forKey: "PHPURLComponent") as AnyObject
+        let UrlScheme = urlComponent.object(forKey: "UrlScheme") as! String
+        let host = urlComponent.object(forKey: "UrlScheme") as! String
+        let path = urlComponent.object(forKey: "UrlScheme") as! String
+        let queryItems = urlComponent.object(forKey: "UrlScheme") as! String
+        
+        return (UrlScheme,host,path,queryItems)
+    }
     func getCurrentScheme() -> Schemes {
         let currentConfiguration = Bundle.main.object(forInfoDictionaryKey: "Config")!
         return Schemes(rawValue: currentConfiguration as! String)!
