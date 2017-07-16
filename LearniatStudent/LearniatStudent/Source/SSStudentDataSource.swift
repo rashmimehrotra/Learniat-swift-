@@ -271,6 +271,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
     
     
     func updatUserState(state:Int,success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler) {
+        currentUSerState = UserState(rawValue: "\(state)")
         WebServicesAPI().getRequest(fromUrl: AppAPI.updateUserState(userId: currentUserId, State: state).path, details: nil, success: { (result) in
             let JsonValue = result.parseJSONString
             if(JsonValue.jsonData != nil) {
@@ -294,24 +295,6 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         print("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName:kServiceGetMyState, withDelegate: self, with: eHTTPGetRequest , withReturningDelegate:delegate )
     }
-    
-    
-    
-    
-    func  updateStudentStatus(_ status:String, ofSession sessionId:String, withDelegate  delegate:SSStudentDataSourceDelegate)
-    {
-
-        currentUSerState = UserState(rawValue: status)
-        
-        let manager = APIManager()
-        
-        let urlString = String(format: "%@<Sunstone><Action><Service>UpdateUserState</Service><UserId>%@</UserId><StatusId>%@</StatusId><SessionId>%@</SessionId></Action></Sunstone>",URLPrefix,currentUserId,status,sessionId)
-        print("ApiValue - \(urlString)")
-        manager.downloadDataURL(urlString, withServiceName: kServiceUpdateUserStatus, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
-        
-    }
-    
-    
     
     func getScheduleOfTheDay(_ delegate:SSStudentDataSourceDelegate)
     {

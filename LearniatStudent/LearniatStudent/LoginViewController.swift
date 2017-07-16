@@ -312,14 +312,21 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSStudentDataSou
     {
         if state == true
         {
-            SSStudentDataSource.sharedDataSource.currentUserName = mUserName.text!
-            SSStudentDataSource.sharedDataSource.currentPassword = mPassword.text!
-            UserDefaults.standard.set(mUserName.text!, forKey: kUserName)
-            UserDefaults.standard.set(mPassword.text!, forKey: kPassword)
             
-            SSStudentDataSource.sharedDataSource.updateStudentStatus(UserState.Free.rawValue, ofSession: "", withDelegate: self)
             
-            performSegue(withIdentifier: "LoginSuccessSegue", sender: nil)
+            SSStudentDataSource.sharedDataSource.updatUserState(state: UserStateInt.Free.rawValue, success: { (reslut) in
+                
+                SSStudentDataSource.sharedDataSource.currentUserName = self.mUserName.text!
+                SSStudentDataSource.sharedDataSource.currentPassword = self.mPassword.text!
+                UserDefaults.standard.set(self.mUserName.text!, forKey: kUserName)
+                UserDefaults.standard.set(self.mPassword.text!, forKey: kPassword)
+                self.performSegue(withIdentifier: "LoginSuccessSegue", sender: nil)
+                
+            }, withfailurehandler: { (error) in
+                
+                self.view.makeToast(error.description, duration: 2.0, position: .bottom)
+                self.loginButtonPressed(false)
+            })
         }
         else
         {
