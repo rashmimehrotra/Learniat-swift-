@@ -96,7 +96,6 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
         
         currentQuestionDetails = questionDetails
         currentQuestionType = QuestionType
-        print(questionDetails)
         
         noQuestionslabel.isHidden = true
         
@@ -283,7 +282,6 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
     func didGetGraphSharedWithDetails(_ details:AnyObject)
     {
         
-        print(details)
         
         if currentQuestionDetails == nil
         {
@@ -494,8 +492,6 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
     }
     func didGetAnswerFeedBackWithDetails(_ details: AnyObject) {
         
-       
-        print(details)
         
         if currentQuestionType == kOverlayScribble || currentQuestionType == kFreshScribble
         {

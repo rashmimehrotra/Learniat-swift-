@@ -104,7 +104,6 @@ class StudentPollingView: UIView,PollingSubViewDelegate {
     
     func setQuestionOptionsWithDetails(_ details:AnyObject)
     {
-        print(details)
         
         
         var optionsArray  = [String]()

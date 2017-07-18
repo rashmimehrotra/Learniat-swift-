@@ -131,7 +131,6 @@ class StudentCollaborationView: UIView,SSStudentDataSourceDelegate
     }
     
     func didGetRecordedSuggestionWithDetails(_ details: AnyObject) {
-        print(details)
         
         
         if let Status = details.object(forKey: "Status") as? String

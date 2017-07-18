@@ -444,7 +444,6 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     func didGetSessionInfoWithDetials(_ details: AnyObject)
     {
         
-        print(details)
         sessionDetails.setObject((details.object(forKey: kStartTime)) ?? String(), forKey: kStartTime as NSCopying)
         sessionDetails.setObject((details.object(forKey: kEndTime)) ?? String(), forKey: kEndTime as NSCopying)
         
@@ -521,7 +520,6 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     {
         currentQuestionDetails = details
         SSStudentMessageHandler.sharedMessageHandler.sendAcceptQuestionMessageToTeacherforType()
-        print(details)
         
         
         if ((details.object(forKey: kQuestionTag) as AnyObject).object(forKey: kQuestionName) as? String) != ""
@@ -739,7 +737,6 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     func smhDidGetVotingMessageWithDetails(_ details: AnyObject)
     {
         
-        print(details)
         
         
         if let VotingValue = details.object(forKey: "VotingValue") as? String
@@ -1158,7 +1155,6 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
      // MARK:  Collaboration Messages
     
     func smhDidRecieveCollaborationPingFromTeacher(_ details: AnyObject) {
-        print(details)
         
         if let category = details.object(forKey: "category") as? String
         {
@@ -1177,7 +1173,6 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     
     func smhDidRecieveSuggestionStatusFromTeacher(_ details: AnyObject) {
-        print(details)
         
         
         if let status = details.object(forKey: "status") as? String

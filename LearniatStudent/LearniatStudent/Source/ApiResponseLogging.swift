@@ -62,7 +62,7 @@ class ApiResponseLogging: NSObject
         
         
         
-            print("\n\n\(separatorString) \n Request \(String(describing: method)) \n'\(url)':\n\n[Headers]\n\(String(describing: headers))\n\n[Body]\n\(body)\n\(separatorString)")
+//            print("\n\n\(separatorString) \n Request \(String(describing: method)) \n'\(url)':\n\n[Headers]\n\(String(describing: headers))\n\n[Body]\n\(body)\n\(separatorString)")
         
        
     }
@@ -106,7 +106,7 @@ class ApiResponseLogging: NSObject
         
         
         
-        print("\n\n\n\n\(separatorString)\n\(responseTitle) Method: \(requestMethod) \nStatus:\(responseStatusCode) '\(requestUrl)' \(elapsedTimeString):\n\n[Headers]:\n\(responseHeaders)\n\n[Body]\n\(responseData )\(separatorString)")
+//        print("\n\n\n\n\(separatorString)\n\(responseTitle) Method: \(requestMethod) \nStatus:\(responseStatusCode) '\(requestUrl)' \(elapsedTimeString):\n\n[Headers]:\n\(responseHeaders)\n\n[Body]\n\(responseData )\(separatorString)")
         
       
 
@@ -114,7 +114,7 @@ class ApiResponseLogging: NSObject
    
     
     
-    private static func prettyPrintedString(from json: Any?) -> String? {
+     static func prettyPrintedString(from json: Any?) -> String? {
         guard let json = json else {
             return nil
         }

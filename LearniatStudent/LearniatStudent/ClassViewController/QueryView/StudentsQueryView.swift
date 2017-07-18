@@ -144,34 +144,22 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
     }
     
     
-    func feedBackSentFromTeacherWithDetiails(_ details:AnyObject)
-    {
-        print(details)
-        
-        
-        if (details.object(forKey: "QueryId") != nil)
-        {
-             if let QueryId = details.object(forKey: "QueryId") as? String
-             {
+    func feedBackSentFromTeacherWithDetiails(_ details:AnyObject) {
+        if (details.object(forKey: "QueryId") != nil) {
+             if let QueryId = details.object(forKey: "QueryId") as? String {
                 currentQueryId = QueryId
-                
                 SSStudentDataSource.sharedDataSource.getDoubtReplyForDoutId(QueryId, withDelegate: self)
             }
         }
-       
     }
     
     
     
     
-    func teacherReviewQuery()
-    {
+    func teacherReviewQuery(){
         let subViews = mQueryScrollView.subviews.flatMap{ $0 as? StudentQuerySubView }
-        
-        for mOptions in subViews
-        {
-            if mOptions.isKind(of: StudentQuerySubView.self)
-            {
+        for mOptions in subViews {
+            if mOptions.isKind(of: StudentQuerySubView.self){
                 mOptions.mWithdrawButton.isHidden = true
             }
         }
