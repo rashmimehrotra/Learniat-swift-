@@ -383,7 +383,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
         
         
-        WebServicesAPI().getRequest(fromUrl: AppAPI.ChangeSessionState(state: state, SessionID: sessionID).path, details: nil, success: { (result) in
+        WebServicesAPI().getRequest(fromUrl: AppAPI.ChangeSessionState(userId: currentUserId, state: state, SessionID: sessionID).path, details: nil, success: { (result) in
             
             
             let JsonValue = result.parseJSONString
