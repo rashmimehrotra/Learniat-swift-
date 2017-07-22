@@ -23,7 +23,7 @@ class TimeTableDataManager: NSObject
         
         do {
             try RealmManager.shared.realm.write({
-                if let session = RealmManager.shared.realm.object(ofType: TimeTableModel.self, forPrimaryKey: userValue[kSessionId])
+                if let session = RealmManager.shared.realm.object(ofType: TimeTableModel.self, forPrimaryKey: userValue.value(forKey: kSessionId))
                 {
                     sessionModel = session
                 }
