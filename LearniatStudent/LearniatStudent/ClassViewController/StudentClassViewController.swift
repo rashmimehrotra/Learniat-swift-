@@ -763,8 +763,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                 }
                 
                 
-                
-                self.view.makeToast("Started Topic: ".appending(mSubTopicNamelabel.text!), duration: 2.0, position: .bottom)
+                LearniatToast.showToast(view: self.view, duration:5.0, text: "Topic Started")
                 
                 
                 
@@ -773,8 +772,8 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             {
                  mQueryView.queryPresentState(false)
                 mSubTopicNamelabel.text = "No subtopic"
-                
-                self.view.makeToast("Stopped Topic: ".appending(mSubTopicNamelabel.text!), duration: 2.0, position: .bottom)
+
+                LearniatToast.showToast(view: self.view, duration:5.0, image:"wrongMatch.png", text: "Topic Stopped")
                 
             }
             
