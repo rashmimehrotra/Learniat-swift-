@@ -408,6 +408,7 @@
 		53FFD2C11CE1FC3700A5AA28 /* StudentQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFD2BE1CE1FC3700A5AA28 /* StudentQuestionView.swift */; };
 		53FFD2C41CE1FC4A00A5AA28 /* StudentsQueryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFD2C31CE1FC4A00A5AA28 /* StudentsQueryView.swift */; };
 		8ED28149084591F1216F11FD /* Pods_LearniatStudent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7778052390C6C02A1FEBCB /* Pods_LearniatStudent.framework */; };
+		C8B4CF351F2325FD00F7EC4C /* LearniatToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B4CF341F2325FD00F7EC4C /* LearniatToast.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -997,6 +998,7 @@
 		6C7778052390C6C02A1FEBCB /* Pods_LearniatStudent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LearniatStudent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7188E25CD8AAF1A0CF653BC2 /* Pods-LearniatStudent.development.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearniatStudent.development.xcconfig"; path = "Pods/Target Support Files/Pods-LearniatStudent/Pods-LearniatStudent.development.xcconfig"; sourceTree = "<group>"; };
 		94D27346B45531BCCFF47B00 /* Pods-LearniatStudent.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearniatStudent.production.xcconfig"; path = "Pods/Target Support Files/Pods-LearniatStudent/Pods-LearniatStudent.production.xcconfig"; sourceTree = "<group>"; };
+		C8B4CF341F2325FD00F7EC4C /* LearniatToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LearniatToast.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1204,6 +1206,7 @@
 		533064A71CC9E52E0035CCDE /* common */ = {
 			isa = PBXGroup;
 			children = (
+				C8B4CF341F2325FD00F7EC4C /* LearniatToast.swift */,
 				003343A31F09369F00B69625 /* RNLoadingButton.swift */,
 				533A8FCA1E97A16A00A38019 /* SpinnerButtonView.swift */,
 				53A552201CF9A8B70093634A /* PlistDownloder.h */,
@@ -2924,6 +2927,7 @@
 				533066EC1CC9EE750035CCDE /* DottedLine.m in Sources */,
 				533066A01CC9E5F40035CCDE /* XMPPTime.m in Sources */,
 				53D414A41CF780210085C38E /* ModelAnswerFullViewSubView.swift in Sources */,
+				C8B4CF351F2325FD00F7EC4C /* LearniatToast.swift in Sources */,
 				533066971CC9E5F40035CCDE /* XMPPMessage+XEP_0184.m in Sources */,
 				53A482B31CE31B1A00C90451 /* matchColoumnTableViewCell.m in Sources */,
 				53A482E21CE45FD000C90451 /* ICDMaterialActivityIndicatorView.m in Sources */,
