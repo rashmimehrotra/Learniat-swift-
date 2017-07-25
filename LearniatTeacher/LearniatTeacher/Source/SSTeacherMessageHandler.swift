@@ -288,6 +288,10 @@ open class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Mess
     }
     
     
+    func destroyRoom(_ roomName: String!){
+        MessageManager.sharedMessageHandler().destroyRoom(roomName)
+    }
+    
     
     open func didCreatedOrJoinedRoom(withCreatedRoomName _roomName: String!)
     {
@@ -584,6 +588,7 @@ open class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Mess
         }
     }
     
+  
     
     func sendEndSessionMessageToRoom(_ roomId:String)
     {

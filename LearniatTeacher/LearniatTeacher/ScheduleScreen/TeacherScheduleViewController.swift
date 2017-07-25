@@ -116,6 +116,12 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     
     var mStudentsLessonPlanView      : SSTeacherLessonPlanView!
     
+    var currentSessionId : Int = 0
+    
+    var nextSessionId : Int = 0
+    
+    
+    
     fileprivate var foregroundNotification: NSObjectProtocol!
     
     
@@ -564,19 +570,6 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             scheduleTileView.tag = Int(sessionid)!
             scheduleTileView.setCurrentSessionDetails(dict as AnyObject)
             
-            let sessionState = (dict as AnyObject).object(forKey: kSessionState) as! String
-            if sessionState == kLive || sessionState == kopened || sessionState == kScheduled
-            {
-                SSTeacherMessageHandler.sharedMessageHandler.createRoomWithRoomName(String(format:"room_%@",((dict as AnyObject).object(forKey: kSessionId) as! String)), withHistory: "0")
-            }
-            else
-            {
-                SSTeacherMessageHandler.sharedMessageHandler.checkAndRemoveJoinedRoomsArrayWithRoomid(String(format:"room_%@",((dict as AnyObject).object(forKey: kSessionId) as! String)))
-            }
-            
-            
-            
-            
         }
         
         
@@ -604,8 +597,59 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             activityIndicator.stopAnimating()
         }
         
+        joinXMPPRooms()
+        
         
     }
+    
+    
+    
+    func joinXMPPRooms(){
+        SSTeacherDataSource.sharedDataSource.refreshApp(success: { (response) in
+            
+            if let summary = response.object(forKey: "Summary") as? NSArray
+            {
+                if summary.count > 0
+                {
+                    let details = summary.firstObject as AnyObject
+                    if let currentState = details.object(forKey: "CurrentSessionState") as? Int{
+                        
+                        let currentSessionId:Int = (summary.value(forKey: "CurrentSessionId") as! NSArray)[0] as! Int
+                        self.currentSessionId = currentSessionId
+                        let currentSessionState:Int = (summary.value(forKey: "CurrentSessionState") as! NSArray)[0] as! Int
+                        self.joinOrLeaveXMPPSessionRoom(sessionState:String(describing:currentSessionState), roomName:String(describing:currentSessionId))
+                        
+                        
+                    }
+                    if let nextState = details.object(forKey: "NextClassSessionState") as? Int{
+                        let nextSessionState:Int = (summary.value(forKey: "NextClassSessionState") as! NSArray)[0] as! Int
+                        let nextSessionId:Int = (summary.value(forKey: "NextClassSessionId") as! NSArray)[0] as! Int
+                        self.nextSessionId = nextSessionId
+                        self.joinOrLeaveXMPPSessionRoom(sessionState:String(describing:nextSessionState), roomName:String(describing:nextSessionId))
+                    }
+                    
+                }
+            }
+            
+            
+        }) { (error) in
+            NSLog("Refresh API failed, unable to join xmpp rooms")
+        }
+    }
+    
+    
+    func joinOrLeaveXMPPSessionRoom(sessionState: String, roomName: String){
+        if sessionState == kLive || sessionState == kopened || sessionState == kScheduled
+        {
+            SSTeacherMessageHandler.sharedMessageHandler.createRoomWithRoomName(String(format:"room_%@",roomName), withHistory: "0")
+        }
+        else
+        {
+            SSTeacherMessageHandler.sharedMessageHandler.checkAndRemoveJoinedRoomsArrayWithRoomid(String(format:"room_%@",roomName))
+        }
+        
+    }
+    
     
     
     func didGetMycurrentSessionWithDetials(_ details: AnyObject)
@@ -647,6 +691,8 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         {
             updateNextSessionWithSessionId(nextSessionId)
         }
+        
+        
         
         activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
@@ -833,8 +879,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
                         
                     }
                     
-                    
-                    
+                    mScheduleDetailView.teacherScheduleViewController = self
                     
                     mScheduleDetailView.isHidden = false
                     

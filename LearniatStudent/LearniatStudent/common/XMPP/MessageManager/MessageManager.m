@@ -189,12 +189,12 @@ static MessageManager *sharedMessageHandler = nil;
     
     
     
-    for (int i = 0 ; i< joinedRoomsArray.count; i++)
-    {
-        NSString* roomName = [joinedRoomsArray objectAtIndex:i];
-        [self setUpRoom:roomName WithAdminPrivilage:false withHistoryValue:@"0"];
-        
-    }
+//    for (int i = 0 ; i< joinedRoomsArray.count; i++)
+//    {
+//        NSString* roomName = [joinedRoomsArray objectAtIndex:i];
+//        [self setUpRoom:roomName WithAdminPrivilage:false withHistoryValue:@"0"];
+//        
+//    }
     
     
 //    if ([xmppStream isAuthenticated]) {
@@ -567,7 +567,7 @@ static MessageManager *sharedMessageHandler = nil;
 /**
  This fuction is used to setup room with roomId
  */
-- (void) setUpRoom:(NSString *)ChatRoomJID WithAdminPrivilage:(BOOL)admin withHistoryValue:(NSString*)value
+- (void) setUpRoom:(NSString *)ChatRoomJID WithAdminPrivilage:(BOOL)admin withHistoryValue:(NSString*)value withTeacherJID:(NSString *) teacherJID
 {
     
     NSXMLElement*privilage= [NSXMLElement elementWithName:@"x" xmlns:XMPPMUCNamespace];
@@ -604,6 +604,7 @@ static MessageManager *sharedMessageHandler = nil;
     [xmppRoom joinRoomUsingNickname:xmppStream.myJID.user    history:history  password:nil withPrivilage:privilage];
     
     
+    
     [self performSelector:@selector(ConfigureNewRoom:) withObject:nil afterDelay:4];
     
 }
@@ -633,6 +634,10 @@ static MessageManager *sharedMessageHandler = nil;
 {
     DDLogInfo(@"%@: %@", THIS_FILE, THIS_METHOD);
     
+    if([[self delegate] respondsToSelector:@selector(didCreateRoom:)])
+    {
+        [[self delegate] didCreateRoom:sender];
+    }
     // I am inviting friends after room is created
     
     
@@ -666,6 +671,11 @@ static MessageManager *sharedMessageHandler = nil;
 {
     [xmppRoom editRoomPrivileges:@[[XMPPRoom itemWithAffiliation:@"owner" jid:[XMPPJID jidWithString:user]]]];
 }
+
+- (void) editRoomPrevilageWithUser:(NSString*)user withXMPPRoom:(XMPPRoom *)room{
+    [room editRoomPrivileges:@[[XMPPRoom itemWithAffiliation:@"owner" jid:[XMPPJID jidWithString:user]]]];
+}
+
 - (void)xmppRoom:(XMPPRoom *)sender didFetchMembersList:(NSArray *)items
 {
     

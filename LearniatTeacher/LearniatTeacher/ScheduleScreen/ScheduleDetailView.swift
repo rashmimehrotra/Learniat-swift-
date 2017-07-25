@@ -118,6 +118,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
     
     var mJoinedStudentsLabel            = UILabel()
     
+    var teacherScheduleViewController:TeacherScheduleViewController? = nil
     
     var mProgressContainerView = UIImageView()
     
@@ -653,10 +654,14 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
                             editSeatButton.isHidden = false
                             configureGrid.isHidden = true
                             
+                            
+                            if let sessionId = currentSessionDetails.object(forKey: "SessionId") as? String{
+                            
                             if let SessionState = details.object(forKey: "SessionState") as? String
                             {
-                                if SessionState == kScheduled
+                                if SessionState == kScheduled && (Int(sessionId) == self.teacherScheduleViewController?.currentSessionId || Int(sessionId) == self.teacherScheduleViewController?.nextSessionId)
                                 {
+                                    
                                     openClassButton.isHidden = false
                                     openClassButton.isEnabled = true
                                     openClassButton.setTitleColor(standard_Button, for: UIControlState())
@@ -666,7 +671,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
                                     beginClassButton.isHidden = true
                                     
                                 }
-                                else
+                                else if SessionState == kopened
                                 {
                                     openClassButton.isHidden = true
                                     beginClassButton.isHidden = false
@@ -674,7 +679,12 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
                                     beginClassButton.setTitleColor(standard_Button, for: UIControlState())
                                     beginClassButton.layer.borderColor = standard_Button.cgColor
                                 }
+                                else{
+                                    openClassButton.isHidden = true
+                                    beginClassButton.isHidden = true
+                                }
                             }
+                        }
 
                         }
                     }
@@ -768,6 +778,8 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         }
         
     }
+    
+    
     
     
     

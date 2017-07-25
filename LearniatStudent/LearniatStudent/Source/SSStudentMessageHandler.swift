@@ -303,13 +303,17 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
     
     //MARK: Create and join Room
     
+    func createRoomWithRoomName(_ roomName: String!, withHistory history:String!, withTeacherId teacherId:String!)
+    {
+        MessageManager.sharedMessageHandler().setdelegate(self)
+        MessageManager.sharedMessageHandler().setUpRoom(roomName, withAdminPrivilage: false, withHistoryValue: history, withTeacherJID:teacherId)
+    }
+    
     func createRoomWithRoomName(_ roomName: String!, withHistory history:String!)
     {
         MessageManager.sharedMessageHandler().setdelegate(self)
-        MessageManager.sharedMessageHandler().setUpRoom(roomName, withAdminPrivilage: false, withHistoryValue: history)
+        MessageManager.sharedMessageHandler().setUpRoom(roomName, withAdminPrivilage: false, withHistoryValue: history, withTeacherJID:nil)
     }
-    
-    
     
     open func didCreatedOrJoinedRoom(withCreatedRoomName _roomName: String!)
     {
@@ -326,6 +330,23 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
     {
         
        
+    }
+    
+     public func didCreateRoom(_ xmppRoom: XMPPRoom){
+        let bareRoom:XMPPJID = xmppRoom.roomJID.bare()
+        let roomId:String = bareRoom.user.replacingOccurrences(of: "room_", with: "", options: .literal, range: nil)
+        SSStudentDataSource.sharedDataSource.getSessionInfoWithSessionID(SessionId: roomId, withSuccessHandle: { (response) in
+            self.processRoomCreatedByStudent(roomDetails: response, xmppRoom: xmppRoom)
+        }) { (error) in
+            
+        }
+    }
+    
+    func processRoomCreatedByStudent(roomDetails:AnyObject, xmppRoom:XMPPRoom){
+        if let  teacherId = roomDetails.object(forKey: "TeacherId") as? Int {
+            let teacherIdString = "\(teacherId)" + "@" + kBaseXMPPURL
+            MessageManager.sharedMessageHandler().editRoomPrevilage(withUser: teacherIdString, with: xmppRoom)
+        }
     }
     
     
