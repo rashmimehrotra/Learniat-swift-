@@ -334,7 +334,7 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
     
      public func didCreateRoom(_ xmppRoom: XMPPRoom){
         let bareRoom:XMPPJID = xmppRoom.roomJID.bare()
-        let roomId:String = bareRoom.user.replacingOccurrences(of: "room_", with: "", options: .literal, range: nil)
+        let roomId:String = bareRoom.user.replacingOccurrences(of: "room_", with: "", options: .literal, range: nil).replacingOccurrences(of: "question_", with: "", options: .literal, range: nil)
         SSStudentDataSource.sharedDataSource.getSessionInfoWithSessionID(SessionId: roomId, withSuccessHandle: { (response) in
             self.processRoomCreatedByStudent(roomDetails: response, xmppRoom: xmppRoom)
         }) { (error) in

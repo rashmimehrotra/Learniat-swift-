@@ -659,7 +659,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
                             
                             if let SessionState = details.object(forKey: "SessionState") as? String
                             {
-                                if SessionState == kScheduled && (Int(sessionId) == self.teacherScheduleViewController?.currentSessionId || Int(sessionId) == self.teacherScheduleViewController?.nextSessionId)
+                                if SessionState == kScheduled && (Int(sessionId) == TeacherScheduleViewController.currentSessionId || Int(sessionId) == TeacherScheduleViewController.nextSessionId)
                                 {
                                     
                                     openClassButton.isHidden = false

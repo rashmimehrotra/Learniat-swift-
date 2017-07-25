@@ -614,7 +614,7 @@ static MessageManager *sharedMessageHandler = nil;
     
     if (![ChatRoomJID containsString:[NSString stringWithFormat:@"@conference.%@",kBaseXMPPURL]])
     {
-        ChatRoomJID = [NSString stringWithFormat:@"room_%@@conference.%@",ChatRoomJID,kBaseXMPPURL];
+        ChatRoomJID = [NSString stringWithFormat:@"%@@conference.%@",ChatRoomJID,kBaseXMPPURL];
     }
 
     XMPPRoomMemoryStorage *roomMemoryStorage = [[XMPPRoomMemoryStorage alloc] init];

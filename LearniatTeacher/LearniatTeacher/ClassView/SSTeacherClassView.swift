@@ -950,7 +950,8 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             
             if let sessionId = response.object(forKey: kSessionId) as? String {
                 SSTeacherMessageHandler.sharedMessageHandler.sendEndSessionMessageToRoom(sessionId)
-                SSTeacherMessageHandler.sharedMessageHandler.destroyRoom(sessionId)
+                SSTeacherMessageHandler.sharedMessageHandler.destroyRoom("room_"+sessionId)
+                SSTeacherMessageHandler.sharedMessageHandler.destroyRoom("question_"+sessionId)
                 SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(sessionId, WithStatusvalue: "5", WithDelegate: self)
 
                 if self.schedulePopOverController != nil {

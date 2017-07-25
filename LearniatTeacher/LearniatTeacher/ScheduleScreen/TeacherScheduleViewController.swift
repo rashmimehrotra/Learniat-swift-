@@ -116,9 +116,9 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     
     var mStudentsLessonPlanView      : SSTeacherLessonPlanView!
     
-    var currentSessionId : Int = 0
+    static var currentSessionId : Int = 0
     
-    var nextSessionId : Int = 0
+    static var nextSessionId : Int = 0
     
     
     
@@ -566,6 +566,14 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             
             let sessionid = (dict as AnyObject).object(forKey: kSessionId) as! String
             
+            let sessionState = (dict as AnyObject).object(forKey: kSessionState) as! String
+            
+            if sessionState == kCanClled || sessionState == kEnded{
+                SSTeacherMessageHandler.sharedMessageHandler.destroyRoom("room_"+sessionid)
+                SSTeacherMessageHandler.sharedMessageHandler.destroyRoom("question_"+sessionid)
+
+            }
+            
             sessionIdDictonary[sessionid] = dict as AnyObject?
             scheduleTileView.tag = Int(sessionid)!
             scheduleTileView.setCurrentSessionDetails(dict as AnyObject)
@@ -597,14 +605,14 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             activityIndicator.stopAnimating()
         }
         
-        joinXMPPRooms()
+        TeacherScheduleViewController.joinXMPPRooms()
         
         
     }
     
     
     
-    func joinXMPPRooms(){
+    static func joinXMPPRooms(){
         SSTeacherDataSource.sharedDataSource.refreshApp(success: { (response) in
             
             if let summary = response.object(forKey: "Summary") as? NSArray
@@ -638,7 +646,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     }
     
     
-    func joinOrLeaveXMPPSessionRoom(sessionState: String, roomName: String){
+    static func joinOrLeaveXMPPSessionRoom(sessionState: String, roomName: String){
         if sessionState == kLive || sessionState == kopened || sessionState == kScheduled
         {
             SSTeacherMessageHandler.sharedMessageHandler.createRoomWithRoomName(String(format:"room_%@",roomName), withHistory: "0")
@@ -1351,6 +1359,11 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             if let sessionid = details.object(forKey: kSessionId) as? String
             {
                 SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(sessionid, WithStatusvalue: kCanClled, WithDelegate: self)
+                
+
+                SSTeacherMessageHandler.sharedMessageHandler.destroyRoom("room_"+sessionid)
+                SSTeacherMessageHandler.sharedMessageHandler.destroyRoom("question_"+sessionid)
+                
                 self.activityIndicator.isHidden = false
                 self.activityIndicator.startAnimating()
                 

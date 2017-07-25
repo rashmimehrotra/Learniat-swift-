@@ -290,6 +290,8 @@ open class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Mess
     
     func destroyRoom(_ roomName: String!){
         MessageManager.sharedMessageHandler().destroyRoom(roomName)
+        MessageManager.sharedMessageHandler().destroyRoom(roomName)
+
     }
     
     
