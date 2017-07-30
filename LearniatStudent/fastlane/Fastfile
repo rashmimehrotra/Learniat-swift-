@@ -98,15 +98,15 @@ lane :build do |options|
 	gym(args)
 end
 
+        # This lane used for distribution on hockey app
         desc "Builds development target and uploads to HockeyApp"
-        lane :development do
-        gym(
-            configuration: "Development",
+        lane :Hockey_Distributiion do
+            increment_build_number
+        gym(configuration: "Development",
             scheme: "Development",
             silent: true,
             clean: true,
-            export_method: "ad-hoc"
-        )
+            export_method: "ad-hoc")
 
         # Push to Hockey
         markdown_type = 1

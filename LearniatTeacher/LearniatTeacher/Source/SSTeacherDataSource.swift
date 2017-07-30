@@ -215,6 +215,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
      internal  static let sharedDataSource = SSTeacherDataSource()
     
     
+    var mAPICountValue = 0
     
     var _delgate            :AnyObject!
     
@@ -490,6 +491,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     func getScheduleOfTeacher(_ delegate:SSTeacherDataSourceDelegate)
     {
 
+        mAPICountValue = mAPICountValue + 1
         
         let manager = APIManager()
         

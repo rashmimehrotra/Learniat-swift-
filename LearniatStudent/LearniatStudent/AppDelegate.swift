@@ -63,8 +63,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 {
                     self.showReconnecting()
                 }
-                
-                
             }
             
         }

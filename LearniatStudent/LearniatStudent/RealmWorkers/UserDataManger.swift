@@ -16,6 +16,11 @@ class UserDataManager: NSObject
     override init() {  }
     
     
+    /// This will be used to save the user data
+    ///
+    /// - Parameters:
+    ///   - userValue: <#userValue description#>
+    ///   - state: <#state description#>
     func saveUserDataWithJsonData(userValue:AnyObject, withscreenState state:PresentScreen) {
         var user : UserDataModel!
         do {

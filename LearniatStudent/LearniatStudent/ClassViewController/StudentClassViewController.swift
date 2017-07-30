@@ -317,7 +317,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         let questionInfoController = SSStudentSchedulePopoverController()
         questionInfoController.setCurrentScreenSize(CGSize(width: 400, height: remainingHeight))
         questionInfoController.setdelegate(self)
-        let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+          classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
         classViewPopOverController.contentSize = CGSize(width: 400,height: remainingHeight);
         classViewPopOverController.delegate = self;
         questionInfoController.setPopover(classViewPopOverController)

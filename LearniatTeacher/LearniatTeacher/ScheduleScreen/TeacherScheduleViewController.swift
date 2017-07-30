@@ -129,7 +129,6 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     {
         super.viewDidAppear(animated)
         
-        SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
         
@@ -148,22 +147,15 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         self.view.layoutIfNeeded()
         
         
-        
-        foregroundNotification = NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillEnterForeground, object: nil, queue: OperationQueue.main) {
-            [unowned self] notification in
-            
-            //            if self.sessionAlertView != nil
-            //            {
-            //                if self.sessionAlertView.isBeingPresented()
-            //                {
-            //                    self.sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
-            //                }
-            //            }
-            
-            SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
-        }
-        
-        
+//        
+//        foregroundNotification = NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillEnterForeground, object: nil, queue: OperationQueue.main) {
+//            [unowned self] notification in
+//           
+//            
+//            SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
+//        }
+//        
+//        
         SSTeacherMessageHandler.sharedMessageHandler.setdelegate(self)
         
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -384,15 +376,9 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         activityIndicator.startAnimating()
     }
     
-    func timerAction()
-    {
+    func timerAction() {
         let currentDate = Date()
-        
         let currentHour = (currentDate.hour())
-        
-        
-        
-        
         mCurrentTimeLine.addToCurrentTimewithHours(getPositionWithHour(currentHour, withMinute: currentDate.minute()))
         mCurrentTimeLine.setCurrentTimeLabel(currentDate.toShortTimeString())
         checkToHideLabelwithDate(currentDate)

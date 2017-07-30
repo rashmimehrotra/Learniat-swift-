@@ -33,10 +33,6 @@ class WebServicesAPI: NSObject, WebServicesManager {
     }
     
     
-    
-    
-    
- 
     //MARK: - WebServicesManager
     func getTimeoutInterval() -> TimeInterval {
         return timeoutInterval

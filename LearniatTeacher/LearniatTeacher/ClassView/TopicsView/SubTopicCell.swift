@@ -325,6 +325,9 @@ class SubTopicCell: UIView{
                     
                     SSTeacherDataSource.sharedDataSource.isSubtopicStarted = false
                 }
+                else {
+                    delegate().delegateShowAlert!()
+                }
                 
             }
             

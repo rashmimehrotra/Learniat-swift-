@@ -3134,7 +3134,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: deepak mk (862RK2T33X)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: deepak mk (862RK2T33X)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = C744MS63KY;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3156,7 +3156,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.LearniatStudent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "dcb4cab2-4672-4aa3-8263-437e5c6b9256";
+				PROVISIONING_PROFILE = "fabec955-1624-4720-aebd-887222e24368";
 				PROVISIONING_PROFILE_SPECIFIER = "Learniat Student Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatStudent/LearniatStudent-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3195,7 +3195,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.LearniatStudent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7b6ed26f-a95f-4b10-b9b9-96d5af9b203a";
+				PROVISIONING_PROFILE = "cc03fe3b-fcdc-4cef-829c-cf9bf1cbfe5b";
 				PROVISIONING_PROFILE_SPECIFIER = "Learniat Student Adhoc";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatStudent/LearniatStudent-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
