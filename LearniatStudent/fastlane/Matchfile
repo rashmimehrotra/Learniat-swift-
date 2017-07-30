@@ -1,4 +1,4 @@
-git_url "https://deepakMindshiftapps@bitbucket.org/deepakMindshiftapps/learniat_student_certificates.git"
+git_url "https://github.com/rashmimehrotra/profiles.git"
 
 type "adhoc" # The default type, can be: appstore, adhoc, enterprise or development
 

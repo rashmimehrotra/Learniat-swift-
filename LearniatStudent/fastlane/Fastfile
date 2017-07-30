@@ -106,7 +106,6 @@ end
             update_info_plist( # Change the Display Name of your app
                               plist_path: "LearniatStudent.xcodeproj/../LearniatStudent/Info.plist",
                               display_name:"D."+version+"."+build_number)
-
         gym(configuration: "Development",
             scheme: "Development",
             silent: true,
