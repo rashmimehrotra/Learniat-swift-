@@ -24,7 +24,11 @@ platform :ios do
 
     desc "Builds development target and uploads to HockeyApp"
         lane :Hockey_Distributiion do
-        increment_build_number
+            build_number = increment_build_number
+            version = get_version_number(xcodeproj: "LearniatTeacher.xcodeproj")
+            update_info_plist( # Change the Display Name of your app
+                              plist_path: "LearniatTeacher.xcodeproj/../LearniatTeacher/Info.plist",
+                              display_name:"D."+version+"."+build_number)
         #Creating container of xcode project
         gym(
             configuration: "Development",

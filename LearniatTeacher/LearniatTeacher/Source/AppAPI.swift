@@ -16,6 +16,7 @@ enum AppAPI {
     case InsertScribbleFileName(userId:String,FileName:String)
     case ChangeSessionState(userId: String, state:String,SessionID:String)
     case RefresAppWithUserId(userId:String)
+    case GetJoinedStudentsWithUserId(UserId:String, sessionID:String)
 }
 
 extension AppAPI {
