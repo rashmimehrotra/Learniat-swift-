@@ -554,11 +554,6 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             
             let sessionState = (dict as AnyObject).object(forKey: kSessionState) as! String
             
-            if sessionState == kCanClled || sessionState == kEnded{
-                SSTeacherMessageHandler.sharedMessageHandler.destroyRoom("room_"+sessionid)
-                SSTeacherMessageHandler.sharedMessageHandler.destroyRoom("question_"+sessionid)
-
-            }
             
             sessionIdDictonary[sessionid] = dict as AnyObject?
             scheduleTileView.tag = Int(sessionid)!
@@ -592,8 +587,26 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         }
         
         TeacherScheduleViewController.joinXMPPRooms()
+        TeacherScheduleViewController.destroyUnusedRooms();
         
         
+    }
+    
+    static func destroyUnusedRooms(){
+        SSTeacherDataSource.sharedDataSource.refreshApp(success: { (response) in
+            if let unusedRooms = response.object(forKey: "DestroyRooms") as? NSArray{
+                for unusedRoom in unusedRooms{
+                    if let sessionId:Int = (unusedRoom as AnyObject).object(forKey: "class_session_id") as? Int{
+                    SSTeacherMessageHandler.sharedMessageHandler.destroyRoom("room_"+"\(sessionId)")
+                    SSTeacherMessageHandler.sharedMessageHandler.destroyRoom("question_"+"\(sessionId)")
+                    }
+                }
+            }
+            
+        })
+        { (error) in
+            NSLog("Refresh API failed, unable to join xmpp rooms")
+        }
     }
     
     

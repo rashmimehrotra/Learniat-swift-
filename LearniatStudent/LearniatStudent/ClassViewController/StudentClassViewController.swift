@@ -240,6 +240,8 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     }
     
     
+    
+    
     func onTeacherImage() {
         let questionInfoController = SSSettingsViewController()
         questionInfoController.setDelegate(self)
@@ -256,7 +258,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     
     func subscribeForSignal() {
-        SSStudentDataSource.sharedDataSource.isBackgroundSignal.subscribe(on: self) { [unowned self] (isBackgroud) in
+        SSStudentDataSource.sharedDataSource.isBackgroundSignal.subscribeOnce(on: self) { [unowned self] (isBackgroud) in
             if isBackgroud == true {
                self.appMovedToBackground()
             } else {
@@ -345,7 +347,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             if let sessionId = sessionDetails.object(forKey: kSessionId) as? String {
                 startedTimeUpdatingTimer.invalidate()
                 SSStudentDataSource.sharedDataSource.currentLiveSessionId = sessionId
-                getUserSessionWithSessionID(sessionID: sessionId)
+//                getUserSessionWithSessionID(sessionID: sessionId)
             }
         }
     }
@@ -451,9 +453,6 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         {
             if sessionState == "1"
             {
-                
-            
-                
                mNoStudentLabel.isHidden = true
                 classStartedView.isHidden = false
                 updateStudentState(state: UserState.Live)
@@ -1283,6 +1282,9 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         }
     }
 
+    deinit {
+        SSStudentDataSource.sharedDataSource.isBackgroundSignal.cancelAllSubscriptions()
+    }
 }
 
 
@@ -1371,6 +1373,7 @@ extension StudentClassViewController {
         self.present(preallotController, animated: true, completion: nil)
     }
 
+   
     
 }
 

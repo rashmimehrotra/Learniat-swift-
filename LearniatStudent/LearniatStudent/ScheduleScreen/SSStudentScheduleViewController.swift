@@ -172,6 +172,8 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
          timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(SSStudentScheduleViewController.timerAction), userInfo: nil, repeats: true)
         
     }
+    
+    
    
     deinit {
         // make sure to remove the observer when this view controller is dismissed/deallocated
@@ -541,7 +543,7 @@ extension SSStudentScheduleViewController {
     
     fileprivate func evaluateStateWithSummary(details:AnyObject) {
         if let myState =  details.object(forKey: "MyState") as? Int {
-            if myState  != UserStateInt.Free.rawValue || myState != UserStateInt.Preallocated.rawValue {
+            if myState  != UserStateInt.Free.rawValue {
                 if let currentSessionID = details.object(forKey: "CurrentSessionId") as? Int {
                     SSStudentDataSource.sharedDataSource.currentLiveSessionId = "\(currentSessionID)"
                 }
