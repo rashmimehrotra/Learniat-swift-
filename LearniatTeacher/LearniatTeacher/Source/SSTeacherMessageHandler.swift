@@ -1208,6 +1208,7 @@ open class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Mess
         }
         
         
+        print("XMPP Message : \(String(describing: message?.messageType())):\n\(message?.messageBody() ?? "")")
         
         switch (message?.messageType())
         {

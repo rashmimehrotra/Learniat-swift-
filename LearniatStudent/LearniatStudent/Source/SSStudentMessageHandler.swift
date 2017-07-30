@@ -842,6 +842,8 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
             return
         }
         
+        
+        
         print("XMPP Message : \(String(describing: message?.messageType())):\n\(message?.messageBody() ?? "")")
         
         

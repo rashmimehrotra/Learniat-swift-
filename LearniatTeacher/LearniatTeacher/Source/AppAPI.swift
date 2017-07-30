@@ -56,7 +56,8 @@ extension AppAPI {
             
         case .RefresAppWithUserId(let userId):
             return "\(self.base)/RefreshMyApp?userid=\(userId)"
-            
+        case .GetJoinedStudentsWithUserId(let userID, let sessionID):
+            return "\(self.base)/RefreshJoinedStudents?user=\(userID)&session=\(sessionID)"
             
         }
     }

@@ -134,6 +134,10 @@ let kBadgesImage              = "/badges"
 
 let kDemoPlistUrl             = "http://54.251.104.13/Demo"
 
+let kJoined                   = "number"
+
+let kRegistered               = "registered"
+
 
 
 

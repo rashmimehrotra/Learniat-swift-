@@ -1179,7 +1179,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         {
             if mScheduleDetailView.isHidden == false
             {
-                mScheduleDetailView.refreshView()
+                mScheduleDetailView.refreshJoinedStateBar()
             }
         }
         
