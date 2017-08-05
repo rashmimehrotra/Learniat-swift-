@@ -164,12 +164,30 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         addNumberOfLinesToScrollView()
         
         let currentDate = Date()
-        mCurrentTimeLine = CurrentTimeLineView(frame: CGRect(x: 30, y: 0 , width: self.view.frame.size.width-30, height: 10))
+        mCurrentTimeLine = CurrentTimeLineView(frame: CGRect(x: 0, y: 0 , width: self.view.frame.size.width-30, height: 10))
         mScrollView.addSubview(mCurrentTimeLine)
         mCurrentTimeLine.addToCurrentTimewithHours(getPositionWithHour(currentDate.hour(), withMinute: currentDate.minute()))
         mScrollView.contentOffset = CGPoint(x: 0,y: mCurrentTimeLine.frame.origin.y-self.view.frame.size.height/3);
         
-         timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(SSStudentScheduleViewController.timerAction), userInfo: nil, repeats: true)
+        
+        // By Ujjval
+        // Set current time label
+        // ==========================================
+        
+        mCurrentTimeLine.setCurrentTimeLabel(currentDate.toShortTimeString())
+        checkToHideLabelwithDate(currentDate)
+        
+        let calendar1 = Calendar.current
+        let components: DateComponents? = calendar1.dateComponents([.second], from: Date())
+        let currentSecond: Int = (components?.second)!
+        //+1 to ensure we fire right after the minute change
+        let fireDate = Date().addingTimeInterval(TimeInterval(Int(60 - currentSecond)))
+        
+        timer = Timer(fireAt: fireDate, interval: 60, target: self, selector: #selector(SSStudentScheduleViewController.timerAction), userInfo: nil, repeats: true)
+        RunLoop.main.add(timer, forMode: RunLoopMode.commonModes)
+        
+        // ==========================================
+//         timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(SSStudentScheduleViewController.timerAction), userInfo: nil, repeats: true)
         
     }
    
@@ -197,6 +215,14 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
             }
             hourlabel.font = UIFont (name: helveticaRegular, size: 16)
             hourlabel.textAlignment = NSTextAlignment.right
+            
+            // By Ujjval
+            // Add tag value to hide label if it's overlapped
+            // ==========================================
+            
+            hourlabel.tag = index
+            
+            // ==========================================
             
             let hourLineView = ScheduleScreenLineView()
             hourLineView.frame = CGRect(x: 70, y: positionY, width: self.view.frame.size.width-70, height: 1)
@@ -232,6 +258,16 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         let currentDate = Date()
         let currentHour = (currentDate.hour())
         mCurrentTimeLine.addToCurrentTimewithHours(getPositionWithHour(currentHour, withMinute: currentDate.minute()))
+        
+        // By Ujjval
+        // Set current time
+        // ==========================================
+        
+        mCurrentTimeLine.setCurrentTimeLabel(currentDate.toShortTimeString())
+        checkToHideLabelwithDate(currentDate)
+        mScrollView.bringSubview(toFront: mCurrentTimeLine)
+        
+        // ==========================================
     }
     
     
@@ -342,6 +378,17 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         let currentDate = Date()
         let currentHour = (currentDate.hour())
         mCurrentTimeLine.addToCurrentTimewithHours(getPositionWithHour(currentHour, withMinute: currentDate.minute()))
+        
+        // By Ujjval
+        // Set current time
+        // ==========================================
+        
+        mCurrentTimeLine.setCurrentTimeLabel(currentDate.toShortTimeString())
+        checkToHideLabelwithDate(currentDate)
+        mScrollView.bringSubview(toFront: mCurrentTimeLine)
+        
+        // ==========================================
+        
         UIView.animate(withDuration: 0.5, animations: {
             self.mScrollView.contentOffset = CGPoint(x: 0,y: self.mCurrentTimeLine.frame.origin.y - self.view.frame.size.height/3);
             self.mScrollView.bringSubview(toFront: self.mCurrentTimeLine)
@@ -476,6 +523,38 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     
    
     // MARK: - Change screen Functions
+    
+    // By Ujjval
+    // Hide time label if it is overlapped
+    // ==========================================
+    
+    func checkToHideLabelwithDate(_ currentDate:Date)
+    {
+        for index in 0 ..< 25
+        {
+            if let hourLabel  = mScrollView.viewWithTag(index) as? UILabel
+            {
+                hourLabel.isHidden = false
+            }
+        }
+        
+        if currentDate.minute() > 55
+        {
+            if let hourLabel  = mScrollView.viewWithTag(currentDate.hour() + 1) as? UILabel
+            {
+                hourLabel.isHidden = true
+            }
+        }
+        else if currentDate.minute() < 5
+        {
+            if let hourLabel  = mScrollView.viewWithTag(currentDate.hour()) as? UILabel
+            {
+                hourLabel.isHidden = true
+            }
+        }
+    }
+    
+    // ==========================================
     
     func Settings_performLogout() {
         self.updateUserState(state: UserStateInt.SignedOut.rawValue)

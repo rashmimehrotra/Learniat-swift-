@@ -23,6 +23,11 @@ class UserDataManager: NSObject
         
         do {
             try RealmManager.shared.realm.write({
+                
+                // By Ujjval
+                // Fixed error : "Ambiguous reference to member subscript"
+                // ==========================================
+//                if let userModel = RealmManager.shared.realm.object(ofType: UserDataModel.self, forPrimaryKey: userValue[kUserId])
                 if let userModel = RealmManager.shared.realm.object(ofType: UserDataModel.self, forPrimaryKey: userValue.value(forKey: kUserId))
                 {
                     user = userModel
