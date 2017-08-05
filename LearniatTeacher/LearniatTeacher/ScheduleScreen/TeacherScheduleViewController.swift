@@ -289,7 +289,22 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
         mScrollView.bringSubview(toFront: mCurrentTimeLine)
         
-        timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(TeacherScheduleViewController.timerAction), userInfo: nil, repeats: true)
+        // By Ujjval
+        // ==========================================
+        
+        let calendar1 = Calendar.current
+        let components: DateComponents? = calendar1.dateComponents([.second], from: Date())
+        let currentSecond: Int = (components?.second)!
+        //+1 to ensure we fire right after the minute change
+        let fireDate = Date().addingTimeInterval(TimeInterval(Int(60 - currentSecond)))
+        
+        timer = Timer(fireAt: fireDate, interval: 60, target: self, selector: #selector(TeacherScheduleViewController.timerAction), userInfo: nil, repeats: true)
+        RunLoop.main.add(timer, forMode: RunLoopMode.commonModes)
+        
+        // ==========================================
+        
+        
+//        timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(TeacherScheduleViewController.timerAction), userInfo: nil, repeats: true)
         
         
         
