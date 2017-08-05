@@ -38,7 +38,7 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
     
     let bottomtoolSelectedImageView = UIImageView()
     
-    var mQuestionNametextView   = CustomTextView()
+    var mQuestionNametextView   = UITextField()
     
     let containerview = UIView()
     
@@ -91,10 +91,11 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         
         
         
-        mQuestionNametextView =  CustomTextView(frame:CGRect(x: (mTopbarImageView.frame.size.width - 600) / 2, y: 20, width: 600, height: mTopbarImageView.frame.size.height - 30))
-        mQuestionNametextView.setdelegate(self)
-         mQuestionNametextView.setPlaceHolder("Please type Question text", withStartSting: "Question:-")
+        mQuestionNametextView =  UITextField(frame:CGRect(x: (mTopbarImageView.frame.size.width - 600) / 2, y: 20, width: 600, height: mTopbarImageView.frame.size.height - 30))
+        mQuestionNametextView.placeholder = " Please type Question text"
         mTopbarImageView.addSubview(mQuestionNametextView)
+        mQuestionNametextView.backgroundColor = UIColor.white
+        mQuestionNametextView.layer.cornerRadius = 5
 
 
         
@@ -282,7 +283,7 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         
          let subViews = containerview.subviews.flatMap{ $0 as? ImageEditorSubView }
         
-        if (mQuestionNametextView.mQuestionTextView.text?.isEmpty)!
+        if (mQuestionNametextView.text?.isEmpty)!
         {
             self.makeToast("Please type question name ", duration: 5.0, position: .bottom)
         }
@@ -680,12 +681,12 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         
         
         SSTeacherDataSource.sharedDataSource.InsertScribbleFileName(Scribblename: "upload/".appending(name).appending(".png"), withSuccessHandle: { (details) in
-            if self.mQuestionNametextView.mQuestionTextView.text == nil
+            if self.mQuestionNametextView.text == nil
             {
-                self.mQuestionNametextView.mQuestionTextView.text = ""
+                self.mQuestionNametextView.text = ""
             }
             
-            if (self.mQuestionNametextView.mQuestionTextView.text?.isEmpty)!
+            if (self.mQuestionNametextView.text?.isEmpty)!
             {
                 self.makeToast("Please type question name ", duration: 5.0, position: .bottom)
             }
@@ -693,7 +694,7 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
             {
                 if let ScribbleId = details.object(forKey: "image_id") as? Int
                 {
-                    SSTeacherDataSource.sharedDataSource.recordQuestionWithScribbleId("\(ScribbleId)", withQuestionName: self.mQuestionNametextView.mQuestionTextView.text!, WithType: "4", withTopicId: self._currentTopicId, WithDelegate: self)
+                    SSTeacherDataSource.sharedDataSource.recordQuestionWithScribbleId("\(ScribbleId)", withQuestionName: self.mQuestionNametextView.text!, WithType: "4", withTopicId: self._currentTopicId, WithDelegate: self)
                 }
                 else
                 {
@@ -730,12 +731,12 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
     func didGetScribbleUploadedWithDetaisl(_ details: AnyObject) {
      
         
-        if mQuestionNametextView.mQuestionTextView.text == nil
+        if mQuestionNametextView.text == nil
         {
-            mQuestionNametextView.mQuestionTextView.text = ""
+            mQuestionNametextView.text = ""
         }
         
-        if (mQuestionNametextView.mQuestionTextView.text?.isEmpty)!
+        if (mQuestionNametextView.text?.isEmpty)!
         {
             self.makeToast("Please type question name ", duration: 5.0, position: .bottom)
         }
@@ -743,7 +744,7 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         {
             if let ScribbleId = details.object(forKey: "ScribbleId") as? String
             {
-                SSTeacherDataSource.sharedDataSource.recordQuestionWithScribbleId(ScribbleId, withQuestionName: mQuestionNametextView.mQuestionTextView.text!, WithType: "4", withTopicId: _currentTopicId, WithDelegate: self)
+                SSTeacherDataSource.sharedDataSource.recordQuestionWithScribbleId(ScribbleId, withQuestionName: mQuestionNametextView.text!, WithType: "4", withTopicId: _currentTopicId, WithDelegate: self)
             }
         }
         
@@ -767,7 +768,7 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
             
         }
         
-        questionDiconary.setObject(mQuestionNametextView.mQuestionTextView.text, forKey: "Name" as NSCopying)
+        questionDiconary.setObject(mQuestionNametextView.text, forKey: "Name" as NSCopying)
         questionDiconary.setObject(kOverlayScribble, forKey: kQuestionType as NSCopying)
         questionDiconary.setObject("upload/".appending(nameOfImage).appending(".png"), forKey: "Scribble" as NSCopying)
        

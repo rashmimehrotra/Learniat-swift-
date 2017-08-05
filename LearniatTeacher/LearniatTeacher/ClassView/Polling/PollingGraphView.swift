@@ -189,7 +189,7 @@ class PollingGraphView: UIView
             
             let barView = BarView(frame: CGRect(x: positionX ,y: lineContainerView.frame.size.height, width: width ,height: 0))
             lineContainerView.addSubview(barView)
-            barView.addTarget(self, action: #selector(StudentAnswerGraphView.onBarButtonPressed(_:)), for: UIControlEvents.touchUpInside)
+            //barView.addTarget(self, action: #selector(StudentAnswerGraphView.onBarButtonPressed(_:)), for: UIControlEvents.touchUpInside)
             
             barView.tag = optionIndexValue + index
             barView.setBarColor(standard_Button)

@@ -258,7 +258,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     
     func subscribeForSignal() {
-        SSStudentDataSource.sharedDataSource.isBackgroundSignal.subscribeOnce(on: self) { [unowned self] (isBackgroud) in
+        SSStudentDataSource.sharedDataSource.isBackgroundSignal.subscribe(on: self) { [unowned self] (isBackgroud) in
             if isBackgroud == true {
                self.appMovedToBackground()
             } else {
@@ -1338,13 +1338,13 @@ extension StudentClassViewController {
         if let myState =  details.object(forKey: "MyState") as? Int {
             if let CurrentSessionState = details.object(forKey: "CurrentSessionState") as? Int {
                 if CurrentSessionState == SessionState.Live.rawValue {
+                    classsBegin()
                     if myState != UserStateInt.Live.rawValue {
-                        classsBegin()
                         updateStudentState(state: UserState.Live)
                     }
                 } else if CurrentSessionState == SessionState.Opened.rawValue {
+                    displaySessionOpendState()
                     if myState != UserStateInt.Occupied.rawValue {
-                        displaySessionOpendState()
                         updateStudentState(state: UserState.Occupied)
                     }
                 } else {

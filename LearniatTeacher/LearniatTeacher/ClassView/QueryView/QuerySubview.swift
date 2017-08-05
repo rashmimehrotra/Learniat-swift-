@@ -178,24 +178,33 @@ class QuerySubview: UIView, SSTeacherDataSourceDelegate
         
         
        
+       
         
-        if let StudentName = currentQueryDetails.object(forKey: "StudentName") as? String
-        {
-            mStudentName.text       = StudentName
-        }
+        let annonymus =  currentQueryDetails.object(forKey: "Anonymous") as! String
         
-        
-        if let StudentId = currentQueryDetails.object(forKey: "StudentId") as? String
-        {
-            let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
-            
-            if let checkedUrl = URL(string: "\(urlString)/\(StudentId)_79px.jpg")
+        if annonymus == "1" {
+            mStudentName.text = "Anonymous"
+            mStudentImage.image = UIImage(named: "Seat.png")
+        } else {
+            if let StudentName = currentQueryDetails.object(forKey: "StudentName") as? String
             {
-                mStudentImage.contentMode = .scaleAspectFit
-                mStudentImage.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
+                mStudentName.text       = StudentName
             }
+            
+            
+            if let StudentId = currentQueryDetails.object(forKey: "StudentId") as? String
+            {
+                let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
+                
+                if let checkedUrl = URL(string: "\(urlString)/\(StudentId)_79px.jpg")
+                {
+                    mStudentImage.contentMode = .scaleAspectFit
+                    mStudentImage.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
+                }
+            }
+            
         }
-
+        
         
         if let QueryId = details.object(forKey: "QueryId") as? String
         {

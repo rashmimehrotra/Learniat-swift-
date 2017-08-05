@@ -726,7 +726,13 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     
     func setQueryDetails(_ queryDetails:AnyObject)
     {
-         isQueryPresent = true
+        
+        let annonymus =  queryDetails.object(forKey: "Anonymous") as! String
+        
+        if annonymus == "1"{
+            return
+        }
+        isQueryPresent = true
         setStudentCurrentState(StudentLive)
         currentQueryDetails = queryDetails
         if currentAnswerState == .answerRecieved || currentAnswerState == .answerEvaluated || currentAnswerState == .answerDontKnow

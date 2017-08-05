@@ -21,6 +21,7 @@
 		00E18E991F082BA900D9705C /* AppAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E18E981F082BA900D9705C /* AppAPI.swift */; };
 		00E18E9F1F082D7200D9705C /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 00E18E9D1F082D7200D9705C /* Config.plist */; };
 		00E18EA01F082D7200D9705C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E18E9E1F082D7200D9705C /* Config.swift */; };
+		00EB61801F34E4FD0067AB76 /* Seat.png in Resources */ = {isa = PBXBuildFile; fileRef = 00EB617F1F34E4FD0067AB76 /* Seat.png */; };
 		172D7126C53BA6D5181A000F /* Pods_Learniat_Teacher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B4B751E33157602F99CFF41 /* Pods_Learniat_Teacher.framework */; };
 		4D0A7FC81CCF783B001AA119 /* StudentAnswerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0A7FC71CCF783B001AA119 /* StudentAnswerDemo.swift */; };
 		4D0A7FCA1CCF79C6001AA119 /* StudentAnswerSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0A7FC91CCF79C6001AA119 /* StudentAnswerSelectionView.swift */; };
@@ -527,6 +528,7 @@
 		00E18E981F082BA900D9705C /* AppAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAPI.swift; sourceTree = "<group>"; };
 		00E18E9D1F082D7200D9705C /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		00E18E9E1F082D7200D9705C /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		00EB617F1F34E4FD0067AB76 /* Seat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Seat.png; sourceTree = "<group>"; };
 		043FC926B6D655FCF5339E70 /* Pods-Learniat Teacher.development.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Learniat Teacher.development.xcconfig"; path = "Pods/Target Support Files/Pods-Learniat Teacher/Pods-Learniat Teacher.development.xcconfig"; sourceTree = "<group>"; };
 		0B4B751E33157602F99CFF41 /* Pods_Learniat_Teacher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Learniat_Teacher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D0A7FC71CCF783B001AA119 /* StudentAnswerDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerDemo.swift; sourceTree = "<group>"; };
@@ -1439,6 +1441,7 @@
 		531044831CA64296007AE9D5 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				00EB617F1F34E4FD0067AB76 /* Seat.png */,
 				0087A35C1F10CD21008E6153 /* InternetDisconnected.png */,
 				53D252AA1E52DE2400056128 /* correctMatch.png */,
 				53D252AB1E52DE2400056128 /* IgnoreCollaboration.png */,
@@ -3018,6 +3021,7 @@
 				531044981CA64296007AE9D5 /* Blue_Alert.png in Resources */,
 				53B5901F1CB8E02900A69FC1 /* Cb_Like_Selected.png in Resources */,
 				537302601CB6771200E76753 /* Undo_Disabled.png in Resources */,
+				00EB61801F34E4FD0067AB76 /* Seat.png in Resources */,
 				5310449B1CA64296007AE9D5 /* Minshift_logo.png in Resources */,
 				537302271CB6771200E76753 /* Marker_Unselected_scribble.png in Resources */,
 				53909C531CBF627B00DDCCD0 /* Sharebutton.png in Resources */,

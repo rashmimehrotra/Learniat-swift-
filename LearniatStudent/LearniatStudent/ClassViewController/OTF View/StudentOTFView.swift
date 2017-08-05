@@ -12,11 +12,22 @@ class StudentOTFView: UIView
 {
      var mStudentSidePolling     :StudentPollingView!
     var mStudentCollaborationView : StudentCollaborationView!
+    
+    var noQuestionslabel = UILabel()
+    
     override init(frame: CGRect)
     {
         super.init(frame: frame)
         
          self.backgroundColor = whiteBackgroundColor
+        
+        noQuestionslabel.frame = CGRect(x: 10, y: (self.frame.size.height - 60)/2, width: self.frame.size.width - 20,height: 60)
+        noQuestionslabel.font = UIFont(name:helveticaRegular, size: 40)
+        noQuestionslabel.text = "Polling not yet started"
+        self.addSubview(noQuestionslabel)
+        noQuestionslabel.textColor = topbarColor
+        noQuestionslabel.textAlignment = .center
+        noQuestionslabel.isHidden = false
         
     }
     
@@ -27,6 +38,8 @@ class StudentOTFView: UIView
     
     func didGetCollaborationStartedMessageWithCategoryName(_ category:String , withCategoryID categoryId:String)
     {
+        noQuestionslabel.isHidden = true
+        
         if mStudentSidePolling != nil{
             mStudentSidePolling.removeFromSuperview()
             mStudentSidePolling = nil
@@ -48,6 +61,8 @@ class StudentOTFView: UIView
     
     func didGetPollingStartedWithDetills(_ details:AnyObject)
     {
+        noQuestionslabel.isHidden = true
+        
         if mStudentSidePolling != nil{
             mStudentSidePolling.removeFromSuperview()
             mStudentSidePolling = nil
@@ -77,8 +92,8 @@ class StudentOTFView: UIView
         {
             mStudentSidePolling.removeFromSuperview()
             mStudentSidePolling = nil
-            
         }
+        noQuestionslabel.isHidden = false
     }
     
     func didGetCollaborationStopped()
@@ -89,6 +104,7 @@ class StudentOTFView: UIView
             mStudentCollaborationView = nil
             
         }
+        noQuestionslabel.isHidden = false
     }
     
 }
