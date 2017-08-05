@@ -109,7 +109,10 @@ static MessageManager *sharedMessageHandler = nil;
         return NO;
     }
     
-    [xmppStream setMyJID:[XMPPJID jidWithString:jabberID]];
+    UIDevice *device = [UIDevice currentDevice];
+
+    
+    [xmppStream setMyJID:[XMPPJID jidWithString:jabberID resource:[[device identifierForVendor]UUIDString]]];
     password = myPassword;
     
     NSError *error = nil;
@@ -180,7 +183,7 @@ static MessageManager *sharedMessageHandler = nil;
  */
 - (void)xmppStreamDidAuthenticate:(XMPPStream *)sender {
     
-    [self goOnline];
+    
     NSLog(@"Stream Authenticated");
     if([[self delegate] respondsToSelector:@selector(didGetAuthenticationState:)])
     {
@@ -228,12 +231,23 @@ static MessageManager *sharedMessageHandler = nil;
  */
 - (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(NSXMLElement *)error
 {
-    NSLog(@"Not Authenticated");
+
+    NSLog(@"Stream Not Authenticated %@", error.stringValue);
+    
+    if([error.stringValue  isEqual: @"Replaced by new connection"]){
+        [self goOnline];
+    }
     
     if([[self delegate] respondsToSelector:@selector(didGetAuthenticationState:)])
     {
+        if([error.stringValue  isEqual: @"Replaced by new connection"]){
+            [[self delegate]didGetAuthenticationState:YES];
+        }
+
         [[self delegate]didGetAuthenticationState:NO];
     }
+    
+
 }
 
 
@@ -294,6 +308,7 @@ static MessageManager *sharedMessageHandler = nil;
 {
 	XMPPPresence *presence = [XMPPPresence presence];
 	[xmppStream sendElement:presence];
+    [[self delegate]gotOnline];
 }
 
 /**
@@ -305,6 +320,23 @@ static MessageManager *sharedMessageHandler = nil;
 	[xmppStream sendElement:presence];
 }
 
+/**
+ This fuction is used change the presence to Ofline
+ */
+- (void)goActive
+{
+    XMPPPresence *presence = [XMPPPresence presenceWithType:@"active"];
+    [xmppStream sendElement:presence];
+}
+
+/**
+ This fuction is used change the presence to Ofline
+ */
+- (void)goRetryActive
+{
+    XMPPPresence *presence = [XMPPPresence presenceWithType:@"retry-active"];
+    [xmppStream sendElement:presence];
+}
 
 /**
  This fuction is used change the presence substate
@@ -330,10 +362,14 @@ static MessageManager *sharedMessageHandler = nil;
     
     NSString *presenceType = [presence type];            // online/offline
     NSString *myUsername = [[sender myJID] user];
+    XMPPJID *jid = [presence from];
     NSString *presenceFromUser = [[presence from] user];
     NSString* presenceState= [presence status];
     
 //    NSLog(@"%@  is %@ state %@",presenceFromUser,presenceType,presenceState);
+    
+    
+   
     
     if (![presenceFromUser isEqualToString:myUsername])
     {
@@ -366,6 +402,14 @@ static MessageManager *sharedMessageHandler = nil;
             [xmppRoster subscribePresenceToUser:[presence from]];
         }
         
+    }
+    else{
+        if([[self delegate] respondsToSelector:@selector(didRecievePresenceSelf:withUserName:WithSubState:WithSenderJid:)])
+        {
+            [[self delegate] didRecievePresenceSelf:presenceType withUserName:presenceFromUser WithSubState:presenceState WithSenderJid:jid];
+
+        }
+
     }
     if (xmppRoom)
     {
@@ -552,9 +596,11 @@ static MessageManager *sharedMessageHandler = nil;
     if ([message body])
     {
         NSString *body = [[message elementForName:@"body"] stringValue];
-        if([[self delegate] respondsToSelector:@selector(didReceiveMessageWithBody:)])
+        
+        if([[self delegate] respondsToSelector:@selector(didReceiveMessageWithBody:WithSenderJid:)])
         {
-            [[self delegate] didReceiveMessageWithBody:body];
+            [[self delegate] didReceiveMessageWithBody:body WithSenderJid:message.from];
+            
         }
         
     }

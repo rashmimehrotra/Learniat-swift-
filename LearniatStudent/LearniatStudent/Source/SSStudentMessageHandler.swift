@@ -58,6 +58,8 @@ let kSendSingleString               = "1101"
 let kModelAnswerDetails             = "179"
 let kCollaborationCancelled         = "1104"
 let kCollaborationStatusChanged     = "1105"
+let kTakeOver = "2001"
+let kTakeOverTime = "2002"
 
 
 
@@ -139,6 +141,9 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
     
     var _delgate: AnyObject!
     var currentUserName:String!
+    var connectType:String = "Login"
+    var retryConnectTime:Int64 = 0
+    var currentAppState:String = "Active"
    
     
    open  static let sharedMessageHandler = SSStudentMessageHandler()
@@ -205,6 +210,7 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
     /*- this function is called to connect to XMPP Server -*/
     func connectWithUserId(_ userID:String, andWithPassword password:String, withDelegate delegate:SSStudentMessageHandlerDelegate)
     {
+        SSStudentMessageHandler.sharedMessageHandler.connectType = "Login"
         guard userID.characters.count>0 || password.characters.count>0  else
         {
             return
@@ -256,8 +262,9 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
     }
     
     
-    func performReconnet()
+    func performReconnet(connectType: String)
     {
+        SSStudentMessageHandler.sharedMessageHandler.connectType = connectType
         
         if let password  =  UserDefaults.standard.object(forKey: kPassword) as? String
         {
@@ -266,6 +273,9 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
         }
         
     }
+    
+    
+
     
     func goOffline()
     {
@@ -286,6 +296,26 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
     }
     open func didGetAuthenticationState(_ state:Bool)
     {
+        if state {
+            if connectType == "Login"{
+                MessageManager.sharedMessageHandler().goActive()
+                currentAppState = "Active"
+                MessageManager.sharedMessageHandler().goOnline()
+            }
+            else if connectType == "Retry"{
+                MessageManager.sharedMessageHandler().goRetryActive()
+                currentAppState = "Retry Active"
+                retryConnectTime = Int64(Date().timeIntervalSince1970 * 1000)
+                MessageManager.sharedMessageHandler().goOnline()
+            }
+            else if connectType == "Reconnect"{
+                MessageManager.sharedMessageHandler().goActive()
+                currentAppState = "Active"
+                MessageManager.sharedMessageHandler().goOnline()
+            }
+        }
+        
+        
          if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidReciveAuthenticationState(_:WithName:)))
          {
             delegate().smhDidReciveAuthenticationState!(state, WithName: getCurrentUSerName())
@@ -297,6 +327,43 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
         if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhStreamReconnectingWithDelay(_:)))
         {
             delegate().smhStreamReconnectingWithDelay!(delayTime)
+        }
+    }
+    
+    open func gotOnline() {
+        refreshApp()
+    }
+    
+    open func didRecievePresenceSelf(_ state: String!, withUserName userName: String!, withSubState subState: String!, withSenderJid senderJid: XMPPJID!) {
+        
+        let myJid:XMPPJID = MessageManager.sharedMessageHandler().xmppStream.myJID;
+        if myJid.resource != senderJid.resource{
+            if state == "active"{
+                AppDelegate.appState = "TakenOver"
+                MessageManager.sharedMessageHandler().disconnect()
+            }
+            if state == "retry-active"{
+                if currentAppState == "Active"{
+                    let details:NSMutableDictionary = ["From":myJid.user,
+                                                       "To":senderJid.user,
+                                                       "Type":kTakeOver];
+                    let msg = SSMessage()
+                    msg.setMsgDetails( details)
+                    let xmlBody:String = msg.xmlMessage()
+                    MessageManager.sharedMessageHandler().sendMessage(to: senderJid.bare(), withContents: xmlBody)
+                }
+                else if currentAppState == "Retry Active"{
+                    let details:NSMutableDictionary = ["From":myJid.user,
+                                                       "To":senderJid.user,
+                                                       "Type":kTakeOverTime,
+                                                       "Body":retryConnectTime];
+                    let msg = SSMessage()
+                    msg.setMsgDetails( details)
+                    let xmlBody:String = msg.xmlMessage()
+                    MessageManager.sharedMessageHandler().sendMessage(to: senderJid.bare(), withContents: xmlBody)
+
+                }
+            }
         }
     }
     
@@ -328,7 +395,8 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
     
     func didGetUserJoinedToRoomORLeaveRoomWithName(_ _userName: String!, withPresence presence: String!)
     {
-        
+        print(_userName)
+        print(presence)
        
     }
     
@@ -829,10 +897,9 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
     
     
     
-    
     //MARK: Recieve Message
-    open func didReceiveMessage(withBody body: String!)
-    {
+    open func didReceiveMessage(withBody body: String!, withSenderJid senderJid: XMPPJID!) {
+    
         
         let message = SSMessage.init(xmlString: body)
         
@@ -1079,9 +1146,65 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
             }
         }
         
-        
+        else if message?.messageType() == kTakeOver{
+            AppDelegate.appState = "TakenOver"
+            MessageManager.sharedMessageHandler().disconnect()
+        }
+        else if message?.messageType() == kTakeOverTime{
+            let senderTime:Int64 = Int64(message?.messageBody() as! String)!
+            if retryConnectTime > senderTime{
+                AppDelegate.appState = "TakenOver"
+                MessageManager.sharedMessageHandler().disconnect()
+            }
+            else{
+                let details:NSMutableDictionary = ["From":MessageManager.sharedMessageHandler().xmppStream.myJID.user,
+                                                   "To":senderJid.user,
+                                                   "Type":kTakeOverTime,
+                                                   "Body":retryConnectTime];
+                let msg = SSMessage()
+                msg.setMsgDetails( details)
+                let xmlBody:String = msg.xmlMessage()
+                MessageManager.sharedMessageHandler().sendMessage(to: senderJid.bare(), withContents: xmlBody)
+            }
+        }
         
     }
+    
+    
+    func refreshApp() {
+        SSStudentDataSource.sharedDataSource.refreshApp(success: { (response) in
+            if let summary = response.object(forKey: "Summary") as? NSArray {
+                if summary.count > 0 {
+                    let details = summary.firstObject as AnyObject
+                    
+                    if let currentState = details.object(forKey: "CurrentSessionState") as? Int{
+                        let currentSessionId:Int = (summary.value(forKey: "CurrentSessionId") as! NSArray)[0] as! Int
+                        let currentSessionState:Int = (summary.value(forKey: "CurrentSessionState") as! NSArray)[0] as! Int
+                        self.joinOrLeaveXMPPSessionRoom(sessionState:String(describing:currentSessionState), roomName:String(describing:currentSessionId))
+                    }
+                    if let nextState = details.object(forKey: "NextClassSessionState") as? Int{
+                        let nextSessionState:Int = (summary.value(forKey: "NextClassSessionState") as! NSArray)[0] as! Int
+                        let nextSessionId:Int = (summary.value(forKey: "NextClassSessionId") as! NSArray)[0] as! Int
+                        self.joinOrLeaveXMPPSessionRoom(sessionState:String(describing:nextSessionState), roomName:String(describing:nextSessionId))
+                    }
+                    
+                }
+            }
+        }) { (error) in
+            
+        }
+    }
+    
+    
+    func joinOrLeaveXMPPSessionRoom(sessionState: String, roomName: String){
+        if sessionState == kLive || sessionState == kopened || sessionState == kScheduled{
+            SSStudentMessageHandler.sharedMessageHandler.createRoomWithRoomName(String(format:"room_%@",roomName), withHistory: "0")
+        } else {
+            SSStudentMessageHandler.sharedMessageHandler.checkAndRemoveJoinedRoomsArrayWithRoomid(String(format:"room_%@",roomName))
+        }
+        
+    }
+
 }
 
 

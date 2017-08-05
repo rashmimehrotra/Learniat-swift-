@@ -277,7 +277,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     func appMovedToForeground() {
         if SSStudentMessageHandler.sharedMessageHandler.getConnectedState() == false {
-             SSStudentMessageHandler.sharedMessageHandler.performReconnet()
+             SSStudentMessageHandler.sharedMessageHandler.performReconnet(connectType: "Other")
         } else {
             if getCurrentSessionState() == "\(SessionState.Live.rawValue)" || getCurrentSessionState() == kLiveString  {
                 updateStudentState(state: .Live)
@@ -1255,7 +1255,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     func Settings_XmppReconnectButtonClicked()
     {
-        SSStudentMessageHandler.sharedMessageHandler.performReconnet()
+        SSStudentMessageHandler.sharedMessageHandler.performReconnet(connectType: "Other")
         
         
       
