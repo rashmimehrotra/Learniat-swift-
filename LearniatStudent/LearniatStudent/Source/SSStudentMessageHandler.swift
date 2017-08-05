@@ -1146,11 +1146,11 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
             }
         }
         
-        else if message?.messageType() == kTakeOver{
+        else if message?.messageType() == kTakeOver && MessageManager.sharedMessageHandler().xmppStream.myJID.resource != senderJid.resource{
             AppDelegate.appState = "TakenOver"
             MessageManager.sharedMessageHandler().disconnect()
         }
-        else if message?.messageType() == kTakeOverTime{
+        else if message?.messageType() == kTakeOverTime && MessageManager.sharedMessageHandler().xmppStream.myJID.resource != senderJid.resource{
             let senderTime:Int64 = Int64(message?.messageBody() as! String)!
             if retryConnectTime > senderTime{
                 AppDelegate.appState = "TakenOver"
