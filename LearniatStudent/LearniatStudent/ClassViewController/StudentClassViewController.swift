@@ -733,6 +733,13 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
        updateStudentState(state: UserState.Free)
     }
     
+    func smhEndSession()
+    {
+        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let preallotController : SSStudentScheduleViewController = storyboard.instantiateViewController(withIdentifier: "TeacherScheduleViewController") as! SSStudentScheduleViewController
+        self.present(preallotController, animated: true, completion: nil)
+    }
+    
     func smhDidGetVotingMessageWithDetails(_ details: AnyObject)
     {
         

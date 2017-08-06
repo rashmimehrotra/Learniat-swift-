@@ -133,6 +133,8 @@ import Signals
     @objc optional func smhDidRecieveSuggestionStatusFromTeacher(_ details:AnyObject)
     
     @objc optional func smhDidRecieveCollaborationEndedFromTeacher()
+
+    @objc optional func smhEndSession()
     
     
 }
@@ -1181,6 +1183,19 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
                         let currentSessionId:Int = (summary.value(forKey: "CurrentSessionId") as! NSArray)[0] as! Int
                         let currentSessionState:Int = (summary.value(forKey: "CurrentSessionState") as! NSArray)[0] as! Int
                         self.joinOrLeaveXMPPSessionRoom(sessionState:String(describing:currentSessionState), roomName:String(describing:currentSessionId))
+                        if SSStudentDataSource.sharedDataSource.currentLiveSessionId != String(describing:currentSessionId){
+                            if self.delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhEndSession))
+                            {
+                                self.delegate().smhEndSession!()
+                            }
+                        }
+                    }
+                    else{
+                        if self.delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhEndSession))
+                        {
+                            self.delegate().smhEndSession!()
+                        }
+
                     }
                     if let nextState = details.object(forKey: "NextClassSessionState") as? Int{
                         let nextSessionState:Int = (summary.value(forKey: "NextClassSessionState") as! NSArray)[0] as! Int
@@ -1188,6 +1203,12 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
                         self.joinOrLeaveXMPPSessionRoom(sessionState:String(describing:nextSessionState), roomName:String(describing:nextSessionId))
                     }
                     
+                }
+                else{
+                    if self.delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhEndSession))
+                    {
+                        self.delegate().smhEndSession!()
+                    }
                 }
             }
         }) { (error) in
@@ -1199,12 +1220,13 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
     func joinOrLeaveXMPPSessionRoom(sessionState: String, roomName: String){
         if sessionState == kLive || sessionState == kopened || sessionState == kScheduled{
             SSStudentMessageHandler.sharedMessageHandler.createRoomWithRoomName(String(format:"room_%@",roomName), withHistory: "0")
+            if sessionState == kLive{
+                SSStudentMessageHandler.sharedMessageHandler.createRoomWithRoomName(String(format:"question_%@",roomName), withHistory: "0")
+            }
         } else {
             SSStudentMessageHandler.sharedMessageHandler.checkAndRemoveJoinedRoomsArrayWithRoomid(String(format:"room_%@",roomName))
         }
-        
-    }
-
+}
 }
 
 
