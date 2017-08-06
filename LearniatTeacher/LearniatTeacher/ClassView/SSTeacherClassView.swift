@@ -1389,6 +1389,8 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
     }
     
+    
+    
     func didGetStudentsStateWithDetails(_ details: AnyObject) {
         
         print(details)
@@ -3079,7 +3081,7 @@ func delegateAnnotateButtonPressedWithAnswerDetails(_ answerDetails:AnyObject, w
     }
     
     func settings_XmppReconnectButtonClicked() {
-        SSTeacherMessageHandler.sharedMessageHandler.performReconnet()
+        SSTeacherMessageHandler.sharedMessageHandler.performReconnet(connectType: "Others")
     }
     
     

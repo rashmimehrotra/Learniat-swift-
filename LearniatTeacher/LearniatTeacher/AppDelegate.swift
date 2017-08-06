@@ -14,8 +14,8 @@ import HockeySDK
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    static var appState:String = "Active"  //Active/TakenOver
 
-    
     
     internal  static let sharedDataSource = AppDelegate()
     
@@ -73,7 +73,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             {
                 if (UserDefaults.standard.object(forKey: kPassword) as? String) != nil
                 {
-                    self.showReconnecting()
+                    if AppDelegate.appState == "Active"{
+                        self.showReconnecting()
+                    }
+                    else if AppDelegate.appState == "TakenOver"{
+                        let alertController = UIAlertController(title: "Disconnected", message: "Logged in from other device detected ", preferredStyle: UIAlertControllerStyle.alert)
+                        alertController.addAction(UIAlertAction(title: "Reconnect", style: UIAlertActionStyle.default, handler: { action in
+                            self.handleReconnect()}))
+                        let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+                        alertWindow.rootViewController = UIViewController()
+                        alertWindow.windowLevel = UIWindowLevelAlert + 1;
+                        alertWindow.makeKeyAndVisible()
+                        alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+                        
+                    }
                 }
                
             }
@@ -86,6 +99,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print(documentsPath)
         
         return true
+    }
+    
+    func handleReconnect(){
+        SSTeacherMessageHandler.sharedMessageHandler.performReconnet(connectType: "Reconnect")
+        AppDelegate.appState = "Active"
+        
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

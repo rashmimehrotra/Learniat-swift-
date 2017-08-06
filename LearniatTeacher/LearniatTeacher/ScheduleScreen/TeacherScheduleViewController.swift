@@ -601,7 +601,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             activityIndicator.stopAnimating()
         }
         
-        TeacherScheduleViewController.joinXMPPRooms()
+        SSTeacherMessageHandler.sharedMessageHandler.refreshApp()
         TeacherScheduleViewController.destroyUnusedRooms();
         
         
@@ -626,51 +626,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     
     
     
-    static func joinXMPPRooms(){
-        SSTeacherDataSource.sharedDataSource.refreshApp(success: { (response) in
-            
-            if let summary = response.object(forKey: "Summary") as? NSArray
-            {
-                if summary.count > 0
-                {
-                    let details = summary.firstObject as AnyObject
-                    if let currentState = details.object(forKey: "CurrentSessionState") as? Int{
-                        
-                        let currentSessionId:Int = (summary.value(forKey: "CurrentSessionId") as! NSArray)[0] as! Int
-                        self.currentSessionId = currentSessionId
-                        let currentSessionState:Int = (summary.value(forKey: "CurrentSessionState") as! NSArray)[0] as! Int
-                        self.joinOrLeaveXMPPSessionRoom(sessionState:String(describing:currentSessionState), roomName:String(describing:currentSessionId))
-                        
-                        
-                    }
-                    if let nextState = details.object(forKey: "NextClassSessionState") as? Int{
-                        let nextSessionState:Int = (summary.value(forKey: "NextClassSessionState") as! NSArray)[0] as! Int
-                        let nextSessionId:Int = (summary.value(forKey: "NextClassSessionId") as! NSArray)[0] as! Int
-                        self.nextSessionId = nextSessionId
-                        self.joinOrLeaveXMPPSessionRoom(sessionState:String(describing:nextSessionState), roomName:String(describing:nextSessionId))
-                    }
-                    
-                }
-            }
-            
-            
-        }) { (error) in
-            NSLog("Refresh API failed, unable to join xmpp rooms")
-        }
-    }
     
-    
-    static func joinOrLeaveXMPPSessionRoom(sessionState: String, roomName: String){
-        if sessionState == kLive || sessionState == kopened || sessionState == kScheduled
-        {
-            SSTeacherMessageHandler.sharedMessageHandler.createRoomWithRoomName(String(format:"room_%@",roomName), withHistory: "0")
-        }
-        else
-        {
-            SSTeacherMessageHandler.sharedMessageHandler.checkAndRemoveJoinedRoomsArrayWithRoomid(String(format:"room_%@",roomName))
-        }
-        
-    }
     
     
     
@@ -1619,7 +1575,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     }
     
     func settings_XmppReconnectButtonClicked() {
-        SSTeacherMessageHandler.sharedMessageHandler.performReconnet()
+        SSTeacherMessageHandler.sharedMessageHandler.performReconnet(connectType: "Others")
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
     }

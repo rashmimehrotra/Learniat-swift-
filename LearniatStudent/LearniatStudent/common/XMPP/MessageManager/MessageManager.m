@@ -321,7 +321,7 @@ static MessageManager *sharedMessageHandler = nil;
 }
 
 /**
- This fuction is used change the presence to Ofline
+ This fuction is used change the presence to Active
  */
 - (void)goActive
 {
@@ -330,7 +330,7 @@ static MessageManager *sharedMessageHandler = nil;
 }
 
 /**
- This fuction is used change the presence to Ofline
+ This fuction is used change the presence to Retry Active
  */
 - (void)goRetryActive
 {
