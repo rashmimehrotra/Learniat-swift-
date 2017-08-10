@@ -77,9 +77,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         self.showReconnecting()
                     }
                     else if AppDelegate.appState == "TakenOver"{
-                        let alertController = UIAlertController(title: "Disconnected", message: "Logged in from other device detected ", preferredStyle: UIAlertControllerStyle.alert)
+                        let alertController = UIAlertController(title: "Disconnected", message: "Login from other device detected ", preferredStyle: UIAlertControllerStyle.alert)
                         alertController.addAction(UIAlertAction(title: "Reconnect", style: UIAlertActionStyle.default, handler: { action in
                             self.handleReconnect()}))
+                        alertController.addAction(UIAlertAction(title: "Logout", style: UIAlertActionStyle.default, handler: {action in self.handleLogout()}))
                         let alertWindow = UIWindow(frame: UIScreen.main.bounds)
                         alertWindow.rootViewController = UIViewController()
                         alertWindow.windowLevel = UIWindowLevelAlert + 1;
@@ -106,7 +107,67 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppDelegate.appState = "Active"
         
     }
+    
+    
+    func handleLogout(){
+        if UserDefaults.standard.object(forKey: kPassword) != nil
+        {
+            UserDefaults.standard.removeObject(forKey: kPassword)
+        }
+        
+        
+        SSTeacherMessageHandler.sharedMessageHandler.goOffline()
+        
+        if let uiViewController = AppDelegate.getTopViewController() as? TeacherScheduleViewController {
+            uiViewController.performSegue(withIdentifier: "ScheduleToLogin", sender: nil)
+        }
+        else if let uiViewController = AppDelegate.getTopViewController() as? SSTeacherClassView {
+            uiViewController.performSegue(withIdentifier: "ClassToLogin", sender: nil)
+        }
+        else if let uiViewController = AppDelegate.getTopViewController() as? AutoSeatAllocate {
+            uiViewController.performSegue(withIdentifier: "AutoAllocateToLogin", sender: nil)
+        }
+        else if let uiViewController = AppDelegate.getTopViewController() as? PreallocateSeatViewController {
+            uiViewController.performSegue(withIdentifier: "PreAllocateToLogin", sender: nil)
+        }
+        else if let uiViewController = AppDelegate.getTopViewController() as? SetUpClassRoom
+            {
+                let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let loginViewController : LoginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+                uiViewController.present(loginViewController, animated: true, completion: nil)
+        }
+        else if let uiViewController = AppDelegate.getTopViewController() as? SetupGridview
+        {
+            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let loginViewController : LoginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+            uiViewController.present(loginViewController, animated: true, completion: nil)
+        }
 
+        
+
+    }
+    
+    
+    
+    static func getTopViewController() -> UIViewController {
+        
+        var viewController = UIViewController()
+        
+        if let vc =  UIApplication.shared.delegate?.window??.rootViewController {
+            
+            viewController = vc
+            var presented = vc
+            
+            while let top = presented.presentedViewController {
+                presented = top
+                viewController = top
+            }
+        }
+        
+        return viewController
+    }
+    
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
