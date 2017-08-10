@@ -320,7 +320,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSStudentDataSou
                 SSStudentDataSource.sharedDataSource.currentPassword = self.mPassword.text!
                 UserDefaults.standard.set(self.mUserName.text!, forKey: kUserName)
                 UserDefaults.standard.set(self.mPassword.text!, forKey: kPassword)
-                self.performSegue(withIdentifier: "LoginSuccessSegue", sender: nil)
+                self.performSegue(withIdentifier: "TimeTableViewController", sender: nil)
                 
             }, withfailurehandler: { (error) in
                 

@@ -20,9 +20,13 @@
 		0087A3511F10C230008E6153 /* No_Internet_Connection_Screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 0087A3501F10C230008E6153 /* No_Internet_Connection_Screen.png */; };
 		0087A3531F10C29B008E6153 /* InternetDisconnected.png in Resources */ = {isa = PBXBuildFile; fileRef = 0087A3521F10C29B008E6153 /* InternetDisconnected.png */; };
 		0087A3551F10C5BB008E6153 /* InternetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0087A3541F10C5BB008E6153 /* InternetConnection.swift */; };
+		00CB71F41F3B199A0087EAAE /* TimeTableTileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CB71F31F3B199A0087EAAE /* TimeTableTileViewModel.swift */; };
 		00E18EA41F08385C00D9705C /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 00E18EA21F08385C00D9705C /* Config.plist */; };
 		00E18EA51F08385C00D9705C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E18EA31F08385C00D9705C /* Config.swift */; };
 		00E18EA71F0839E700D9705C /* AppAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E18EA61F0839E700D9705C /* AppAPI.swift */; };
+		00E87B3F1F3B07B3004DD1A1 /* TimeTableTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E87B3E1F3B07B3004DD1A1 /* TimeTableTileView.swift */; };
+		00EE36D51F38CEE000647ECC /* TimeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EE36D41F38CEE000647ECC /* TimeTableViewController.swift */; };
+		00EE36D71F38D3A900647ECC /* TimeTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EE36D61F38D3A900647ECC /* TimeTableViewModel.swift */; };
 		53015BBB1CE5D93C00BB366C /* Like_Disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 53015BB71CE5D93C00BB366C /* Like_Disabled.png */; };
 		53015BBC1CE5D93C00BB366C /* Like_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 53015BB81CE5D93C00BB366C /* Like_Selected.png */; };
 		53015BBD1CE5D93C00BB366C /* Unlike_Disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 53015BB91CE5D93C00BB366C /* Unlike_Disabled.png */; };
@@ -425,9 +429,13 @@
 		0087A3501F10C230008E6153 /* No_Internet_Connection_Screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = No_Internet_Connection_Screen.png; sourceTree = "<group>"; };
 		0087A3521F10C29B008E6153 /* InternetDisconnected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InternetDisconnected.png; sourceTree = "<group>"; };
 		0087A3541F10C5BB008E6153 /* InternetConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternetConnection.swift; sourceTree = "<group>"; };
+		00CB71F31F3B199A0087EAAE /* TimeTableTileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeTableTileViewModel.swift; sourceTree = "<group>"; };
 		00E18EA21F08385C00D9705C /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		00E18EA31F08385C00D9705C /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		00E18EA61F0839E700D9705C /* AppAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAPI.swift; sourceTree = "<group>"; };
+		00E87B3E1F3B07B3004DD1A1 /* TimeTableTileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeTableTileView.swift; sourceTree = "<group>"; };
+		00EE36D41F38CEE000647ECC /* TimeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeTableViewController.swift; sourceTree = "<group>"; };
+		00EE36D61F38D3A900647ECC /* TimeTableViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimeTableViewModel.swift; path = ../Scene/TimeTableViewModel.swift; sourceTree = "<group>"; };
 		4603009CFA2404778386D823 /* Pods-LearniatStudent.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearniatStudent.release.xcconfig"; path = "Pods/Target Support Files/Pods-LearniatStudent/Pods-LearniatStudent.release.xcconfig"; sourceTree = "<group>"; };
 		4807AA5F0E5F952C2FC55D75 /* Pods-LearniatStudent.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearniatStudent.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LearniatStudent/Pods-LearniatStudent.debug.xcconfig"; sourceTree = "<group>"; };
 		53015BB71CE5D93C00BB366C /* Like_Disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Like_Disabled.png; sourceTree = "<group>"; };
@@ -1056,6 +1064,33 @@
 			path = Config;
 			sourceTree = "<group>";
 		};
+		00EE36CD1F38CDE000647ECC /* TimeTable */ = {
+			isa = PBXGroup;
+			children = (
+				00EE36D31F38CEE000647ECC /* Scene */,
+				00EE36D01F38CECE00647ECC /* Models */,
+			);
+			path = TimeTable;
+			sourceTree = "<group>";
+		};
+		00EE36D01F38CECE00647ECC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				00EE36D61F38D3A900647ECC /* TimeTableViewModel.swift */,
+				00CB71F31F3B199A0087EAAE /* TimeTableTileViewModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		00EE36D31F38CEE000647ECC /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				00EE36D41F38CEE000647ECC /* TimeTableViewController.swift */,
+				00E87B3E1F3B07B3004DD1A1 /* TimeTableTileView.swift */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
 		4EC68A6DBD23B1087C8E65AD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1176,6 +1211,7 @@
 				0087A3541F10C5BB008E6153 /* InternetConnection.swift */,
 				5330647E1CC9E2FC0035CCDE /* INILoader.swift */,
 				5330646E1CC9DAAE0035CCDE /* LoginViewController.swift */,
+				00EE36CD1F38CDE000647ECC /* TimeTable */,
 				533066DD1CC9EDD90035CCDE /* ScheduleScreen */,
 				533066EF1CCA0C8C0035CCDE /* SeatController */,
 				533066F71CCA37AE0035CCDE /* ClassViewController */,
@@ -2872,6 +2908,7 @@
 				5330667F1CC9E5F40035CCDE /* XMPPPubSub.m in Sources */,
 				533066591CC9E5F40035CCDE /* XMPPRoster.m in Sources */,
 				533066821CC9E5F40035CCDE /* XMPPMessage+XEP_0066.m in Sources */,
+				00EE36D51F38CEE000647ECC /* TimeTableViewController.swift in Sources */,
 				533066C01CC9E5F40035CCDE /* DDXMLElement.m in Sources */,
 				533066981CC9E5F40035CCDE /* XMPPMessageDeliveryReceipts.m in Sources */,
 				533066481CC9E5F40035CCDE /* XMPPModule.m in Sources */,
@@ -2901,6 +2938,7 @@
 				533064BF1CC9E52E0035CCDE /* APIManager.m in Sources */,
 				53A482B51CE31B1A00C90451 /* SSStudentMatchTheColoumnView.m in Sources */,
 				00E18EA71F0839E700D9705C /* AppAPI.swift in Sources */,
+				00E87B3F1F3B07B3004DD1A1 /* TimeTableTileView.swift in Sources */,
 				5330669A1CC9E5F40035CCDE /* XMPPStreamManagementMemoryStorage.m in Sources */,
 				53E658E01F064CA700EAB2E4 /* Enumerations.swift in Sources */,
 				533066AF1CC9E5F40035CCDE /* RFImageToDataTransformer.m in Sources */,
@@ -2917,6 +2955,7 @@
 				5330667A1CC9E5F40035CCDE /* XMPPvCardTempModule.m in Sources */,
 				533066501CC9E5F40035CCDE /* XMPPReconnect.m in Sources */,
 				533066911CC9E5F40035CCDE /* XMPPMessageArchiving_Message_CoreDataObject.m in Sources */,
+				00EE36D71F38D3A900647ECC /* TimeTableViewModel.swift in Sources */,
 				533255141CEDBE4C00653C00 /* SSStudentFullscreenScribbleQuestion.swift in Sources */,
 				5330669F1CC9E5F40035CCDE /* XMPPAutoTime.m in Sources */,
 				5330668B1CC9E5F40035CCDE /* XMPPCapabilitiesCoreDataStorage.m in Sources */,
@@ -3003,6 +3042,7 @@
 				532D27FD1CE9B581009FDF6A /* PollingSubView.swift in Sources */,
 				53FFD2BF1CE1FC3700A5AA28 /* MultipleChoiceView.swift in Sources */,
 				533066921CC9E5F40035CCDE /* XMPPMessageArchivingCoreDataStorage.m in Sources */,
+				00CB71F41F3B199A0087EAAE /* TimeTableTileViewModel.swift in Sources */,
 				5330666C1CC9E5F40035CCDE /* XMPPMessage+XEP0045.m in Sources */,
 				533066AE1CC9E5F40035CCDE /* GCDMulticastDelegate.m in Sources */,
 				533066551CC9E5F40035CCDE /* XMPPUserCoreDataStorageObject.m in Sources */,

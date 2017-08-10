@@ -100,6 +100,12 @@ let kSeatsConfigured          = "SeatsConfigured"
 let kStudentsRegistered       = "StudentsRegistered"
 let kPreallocatedSeats        = "PreallocatedSeats"
 let kExisting_state           = "existing_state"
+let kPreAllocatedSeats      = "PreAllocatedSeats"
+
+let kOccupiedSeats          = "OccupiedSeats"
+
+let kGrade                  = "Grade"
+
 
 
 

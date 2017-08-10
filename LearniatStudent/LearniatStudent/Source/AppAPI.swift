@@ -47,7 +47,7 @@ extension AppAPI {
             return "\(self.base)/Login?app_id=4&user_name=\(username)&pass=\(password)"
             
         case .TodaysTimeTable(let userID):
-            return "\(self.base)/GetMyTodaysSessions?user_id=\(userID)"
+            return "\(self.base)/GetMyTodaysSessions?user=\(userID)"
         
         case .InsertScribbleFileName(let userId, let FileName):
             return "\(self.base)/InsertScribbleFileName?user_id=\(userId)&filename=\(FileName)"

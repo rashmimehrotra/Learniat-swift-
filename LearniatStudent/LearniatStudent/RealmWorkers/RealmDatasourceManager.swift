@@ -23,12 +23,22 @@ class RealmDatasourceManager: NSObject {
     }
     
     static func getUserModel()->UserDataModel {
-        
         let userModel = RealmManager.shared.realm.objects(UserDataModel.self).first!
-        
         return userModel
-        
     }
-
     
+    static func saveTimeTableWithJsonData(data:NSArray) {
+        TimeTableDataManager().saveTimeTableDataWithJsonData(timeTableArray: data)
+    }
+    
+    static func getTimeTables()->[TimeTableModel] {
+        return TimeTableDataManager().getTodaySchedules()
+    }
+    
+    static func updateSessionStateWithSessionId(sessionID:Int, withSessionState state:Int) {
+       try! RealmManager.shared.realm.write {
+            let session = RealmManager.shared.realm.object(ofType: TimeTableModel.self, forPrimaryKey: sessionID)
+            session?.SessionState = state
+        }
+    }
 }

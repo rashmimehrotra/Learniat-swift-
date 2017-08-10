@@ -45,21 +45,14 @@ extension WebServicesManager {
              ApiResponseLogging.logResponse(request: request, response: response)
             switch response.result {
             case .success(let responseString):
-                
                successHandler(responseString)
-               
                break
-                
             case .failure(let error):
-                if (error as NSError).code == NSURLErrorNotConnectedToInternet
-                {
+                if (error as NSError).code == NSURLErrorNotConnectedToInternet {
                     failureHandler(error as NSError)
-                    
-                } else
-                {
+                } else {
                     failureHandler(error as NSError)
                 }
-                
                 break
             }
         }

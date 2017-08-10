@@ -11,37 +11,32 @@ import ObjectMapper
 import RealmSwift
 
 
-class TimeTableDataManager: NSObject
-{
+class TimeTableDataManager: NSObject {
     override init() {  }
     
-    
-    func saveTimeTableDataWithJsonData(userValue:AnyObject)
-    {
-        
+    func saveTimeTableDataWithJsonData(timeTableArray:NSArray) {
         var sessionModel : TimeTableModel!
-        
         do {
             try RealmManager.shared.realm.write({
-                if let session = RealmManager.shared.realm.object(ofType: TimeTableModel.self, forPrimaryKey: userValue[kSessionId])
-                {
-                    sessionModel = session
-                }
-                else
-                {
-                    sessionModel = TimeTableModel()
+                for index in 0..<timeTableArray.count {
+                    let userValue = timeTableArray.object(at: index) as AnyObject
+                    if let session = RealmManager.shared.realm.object(ofType: TimeTableModel.self, forPrimaryKey: userValue[kSessionId]) {
+                        sessionModel = session
+                    } else {
+                        sessionModel = TimeTableModel()
+                        sessionModel.setTimeTableModelWithJsonData(json: userValue as! [String : Any])
+                    }
+                    sessionModel.updateTimeTableModelWithJsonData(json: userValue as! [String : Any])
+                    RealmManager.shared.realm.create(TimeTableModel.self, value: sessionModel as Any, update: true)
                 }
                 
+                SSStudentDataSource.sharedDataSource.TimeTableSaveSignal.fire(true)
                 
-                sessionModel.setTimeTableModelWithJsonData(json: userValue as! [String : Any])
-                RealmManager.shared.realm.create(TimeTableModel.self, value: sessionModel as Any, update: true)
             })
-        } catch
-        {
+        } catch {
             
         }
     }
-    
 }
 
 extension TimeTableDataManager {
@@ -49,17 +44,10 @@ extension TimeTableDataManager {
     /// Returns all the `TimeTableModel` objects from Realm. Return list will not include past events.
     ///
     /// - Parameter completion: Closure
-    func getTodaySchedules(completion: @escaping (_ eventsList: [TimeTableModel]?) -> ())
-    {
-        DispatchQueue.main.async {
-            let list = RealmManager.shared.realm.objects(TimeTableModel.self)
-            
-            //TODO: need to remove all expired events from realm.
-            
-            let events = list.count > 0 ? Array(list) : nil
-            completion(events)
-        }
-    }
+    func getTodaySchedules()->[TimeTableModel]{
+        let objects = RealmManager.shared.realm.objects(TimeTableModel.self)
+        return  Array(objects)
+       }
 }
 
 

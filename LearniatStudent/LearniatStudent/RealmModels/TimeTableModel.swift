@@ -50,25 +50,32 @@ class TimeTableModel: Object,Mappable
     }
     
     
-    func mapping(map: Map)
-    {
-        
-        
+    func mapping(map: Map){
+        SessionId >>> map[kSessionId]
+        TeacherName >>> map[kTeacherName]
+        TeacherId >>> map[kTeacherId]
+        ClassId >>> map[kClassId]
+        ClassName >>> map[kClassName]
+        RoomName >>> map[kRoomName]
+        RoomId >>> map[kRoomId]
+        SubjectName >>> map[kSubjectName]
+        SubjectId >>> map[kSubjectId]
+        StartTime >>> map[kStartTime]
+        EndTime >>> map[kEndTime]
+        SessionState >>> map[kSessionState]
+        SeatsConfigured >>> map[kSeatsConfigured]
+        StudentsRegistered >>> map[kStudentsRegistered]
+        PreallocatedSeats >>> map[kPreallocatedSeats]
         
     }
     
-    
-    
-    func setTimeTableModelWithJsonData(json:[String:Any])
-    {
+    func setTimeTableModelWithJsonData(json:[String:Any]) {
         let map = Map(mappingType: .fromJSON, JSON: json )
-        
-        if SessionId == 0
-        {
-            SessionId <- map[kSessionId]
-        }
-        
-        
+        SessionId <- map[kSessionId]
+    }
+    
+    func updateTimeTableModelWithJsonData(json:[String:Any]) {
+        let map = Map(mappingType: .fromJSON, JSON: json )
         TeacherName     <- map[kTeacherName]
         TeacherId       <- map[kTeacherId]
         ClassId         <- map[kClassId]
@@ -83,10 +90,9 @@ class TimeTableModel: Object,Mappable
         SeatsConfigured <- map[kSeatsConfigured]
         StudentsRegistered  <- map[kStudentsRegistered]
         PreallocatedSeats   <- map[kPreallocatedSeats]
-       
-        
-        
-        
     }
     
+    func getJsonFromModel() ->AnyObject {
+        return self.toJSON() as AnyObject
+    }
 }

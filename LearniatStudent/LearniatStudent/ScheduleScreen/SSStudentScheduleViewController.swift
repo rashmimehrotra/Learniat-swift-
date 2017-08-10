@@ -224,10 +224,18 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     }
     
     func onRefreshButton(_ sender: AnyObject) {
-        SSStudentDataSource.sharedDataSource.getScheduleOfTheDay(self)
-         mNoSessionLabel.text = "Please wait we are loading your sessions "
-        activityIndicator.isHidden = false
-        activityIndicator.startAnimating()
+        SSStudentDataSource.sharedDataSource.getTimeTableWithUserId(userID: SSStudentDataSource.sharedDataSource.currentUserId, withSuccessHandle: { (result) in
+            if let arrayObjects = result as? NSArray {
+                print(arrayObjects)
+            }
+        }) { (error) in
+            print(error)
+        }
+        
+//        SSStudentDataSource.sharedDataSource.getScheduleOfTheDay(self)
+//         mNoSessionLabel.text = "Please wait we are loading your sessions "
+//        activityIndicator.isHidden = false
+//        activityIndicator.startAnimating()
     }
     
     func timerAction() {
@@ -239,7 +247,6 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     
     
     // MARK: - Returning Functions
-    
     func getPositionWithHour(_ _hour : Int, withMinute minute:Int) -> CGFloat {
         var  hour = _hour
         var returningValue = CGFloat()

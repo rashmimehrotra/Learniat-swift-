@@ -21,6 +21,10 @@ let kSchoolId                   = "SchoolId"
 let kUserName                   = "UserName"
 let kPassword                   = "Password"
 let kErrorMessage               = "error_message"
+let kAllSessions                = "AllSessions"
+let kClassSessionId             = "class_session_id"
+let kSession_state              = "session_state"
+let kSummary                    = "Summary"
 
 
 var URLPrefix                       =   "http://54.251.104.13/Jupiter/sun.php?api="
@@ -121,6 +125,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
     
     
     
+    
     var _delgate            :AnyObject!
     
     var currentUserId       :String!
@@ -154,6 +159,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
     
     let isBackgroundSignal = Signal<(Bool)>()
 
+    let TimeTableSaveSignal = Signal<(Bool)>()
     
     
     // MARK: - Delegate Functions
@@ -182,8 +188,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
     }
     
     // MARK: - Json API Functions
-    func LoginWithUserId(_ userId :String , andPassword Password:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler)
-    {
+    func LoginWithUserId(_ userId :String , andPassword Password:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler) {
         WebServicesAPI().getRequest(fromUrl: AppAPI.Login(UserName: userId, Password: Password).path, details: nil, success: { (result) in
             let JsonValue = result.parseJSONString
             if(JsonValue.jsonData != nil) {
@@ -198,24 +203,27 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
         }
     }
     
-    
-    
-    func InsertScribbleFileName(Scribblename:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler)
-    {
-        WebServicesAPI().getRequest(fromUrl: AppAPI.InsertScribbleFileName(userId: currentUserId, FileName: Scribblename).path, details: nil, success: { (result) in
-            
-            
-            let JsonValue = result.parseJSONString
-            
-            if(JsonValue.jsonData != nil)
-            {
+    func getTimeTableWithUserId(userID:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler) {
+        WebServicesAPI().getRequest(fromUrl: AppAPI.TodaysTimeTable(UserId: userID).path, details: nil, success: { (result) in
+            let JsonValue = result.parseJsonWithArray
+            if(JsonValue.jsonData != nil) {
                 success(JsonValue.jsonData!)
-            }
-            else
-            {
+            } else  {
                 failure(JsonValue.error!)
             }
-            
+        }) { (error) in
+            failure(error as NSError)
+        }
+    }
+    
+    func InsertScribbleFileName(Scribblename:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler) {
+        WebServicesAPI().getRequest(fromUrl: AppAPI.InsertScribbleFileName(userId: currentUserId, FileName: Scribblename).path, details: nil, success: { (result) in
+            let JsonValue = result.parseJSONString
+            if(JsonValue.jsonData != nil) {
+                success(JsonValue.jsonData!)
+            } else {
+                failure(JsonValue.error!)
+            }
         }) { (error) in
             failure(error as NSError)
         }
@@ -223,52 +231,31 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
     
     
     func getSessionInfoWithSessionID(SessionId:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler) {
-        
         WebServicesAPI().getRequest(fromUrl: AppAPI.GetSessionInfo(SessionId: SessionId).path, details: nil, success: { (result) in
-            
-            
             let JsonValue = result.parseJSONString
-            
-            if(JsonValue.jsonData != nil)
-            {
+            if(JsonValue.jsonData != nil) {
                 success(JsonValue.jsonData!)
-            }
-            else
-            {
+            } else {
                 failure(JsonValue.error!)
             }
-            
         }) { (error) in
             failure(error as NSError)
         }
     }
     
     
-    func refreshApp(success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler)
-    {
-        
+    func refreshApp(success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler) {
         WebServicesAPI().getRequest(fromUrl: AppAPI.RefresAppWithUserId(userId: currentUserId).path, details: nil, success: { (result) in
-            
-            
             let JsonValue = result.parseJSONString
-            
-            if(JsonValue.jsonData != nil)
-            {
+            if(JsonValue.jsonData != nil) {
                 success(JsonValue.jsonData!)
-            }
-            else
-            {
+            } else {
                 failure(JsonValue.error!)
             }
-            
         }) { (error) in
             failure(error as NSError)
         }
-        
     }
-    
-    
-    
     
     func updatUserState(state:Int,success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler) {
         currentUSerState = UserState(rawValue: "\(state)")
@@ -724,6 +711,24 @@ extension String
              return (nil,customErrors.jsonParsingError as NSError)
         }
     }
+    
+    
+    var parseJsonWithArray :(jsonData:AnyObject?,error:NSError?) {
+        let data = self.data(using: String.Encoding.utf8, allowLossyConversion: false)
+        if let jsonData = data {
+            // Will return an object or nil if JSON decoding fails
+            do{
+                let message = try JSONSerialization.jsonObject(with: jsonData, options:.mutableContainers)
+                    return (message as AnyObject, nil)
+            } catch let error as NSError {
+                return (nil,error)
+            }
+        } else {
+            // Lossless conversion of the string was not possible
+            return (nil,customErrors.jsonParsingError as NSError)
+        }
+    }
+    
 }
 extension URLComponents {
     init(scheme: String, host: String, path: String, queryItems: [URLQueryItem]) {

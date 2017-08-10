@@ -158,7 +158,6 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         
         let classNameWithRoom = String(format:"%@(%@)",(details.object(forKey: kClassName) as! String),(details.object(forKey: kRoomName) as! String))
         mClassName.text = classNameWithRoom
-    
         self.layer.masksToBounds = true
         self.layer.cornerRadius = 5
     }

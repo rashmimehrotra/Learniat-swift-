@@ -13,6 +13,7 @@
 		001228571F08DBB9005E8286 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001228511F08DBB9005E8286 /* RealmManager.swift */; };
 		001228581F08DBB9005E8286 /* TimeTableDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001228521F08DBB9005E8286 /* TimeTableDataManager.swift */; };
 		001228591F08DBB9005E8286 /* UserDataManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001228531F08DBB9005E8286 /* UserDataManger.swift */; };
+		00179CBC1F37091E00606FF6 /* ScheduleTileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00179CBB1F37091E00606FF6 /* ScheduleTileModel.swift */; };
 		001B4A091F1266AA0021CFC2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001B4A081F1266AA0021CFC2 /* Constants.swift */; };
 		0087A3581F10CBD6008E6153 /* InternetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0087A3561F10CBD6008E6153 /* InternetConnection.swift */; };
 		0087A3591F10CBD6008E6153 /* InternetDisconnected.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0087A3571F10CBD6008E6153 /* InternetDisconnected.xib */; };
@@ -520,6 +521,7 @@
 		001228511F08DBB9005E8286 /* RealmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		001228521F08DBB9005E8286 /* TimeTableDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeTableDataManager.swift; sourceTree = "<group>"; };
 		001228531F08DBB9005E8286 /* UserDataManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataManger.swift; sourceTree = "<group>"; };
+		00179CBB1F37091E00606FF6 /* ScheduleTileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleTileModel.swift; sourceTree = "<group>"; };
 		001B4A081F1266AA0021CFC2 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0087A3561F10CBD6008E6153 /* InternetConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternetConnection.swift; sourceTree = "<group>"; };
 		0087A3571F10CBD6008E6153 /* InternetDisconnected.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InternetDisconnected.xib; sourceTree = "<group>"; };
@@ -1272,6 +1274,14 @@
 				001228531F08DBB9005E8286 /* UserDataManger.swift */,
 			);
 			path = RealmWorkers;
+			sourceTree = "<group>";
+		};
+		00179CBA1F37081C00606FF6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				00179CBB1F37091E00606FF6 /* ScheduleTileModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		00E18E9C1F082D7200D9705C /* Config */ = {
@@ -2664,6 +2674,7 @@
 		53676C871CA63B7F00CADE4D /* ScheduleScreen */ = {
 			isa = PBXGroup;
 			children = (
+				00179CBA1F37081C00606FF6 /* Models */,
 				53676C881CA63B7F00CADE4D /* CurrentTimeLineView.swift */,
 				53676C891CA63B7F00CADE4D /* ScheduleDetailView.swift */,
 				53005C3B1E884B7500CADA53 /* StudentsStateView.swift */,
@@ -2990,7 +3001,7 @@
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = C744MS63KY;
 						LastSwiftMigration = 0820;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -3463,6 +3474,7 @@
 				53676D031CA63B7F00CADE4D /* XMPPBlocking.m in Sources */,
 				53676CAF1CA63B7F00CADE4D /* XMPPIQ.m in Sources */,
 				53676CA51CA63B7F00CADE4D /* XMPPDeprecatedPlainAuthentication.m in Sources */,
+				00179CBC1F37091E00606FF6 /* ScheduleTileModel.swift in Sources */,
 				532607981CA90AEC002FF684 /* ICDMaterialActivityIndicatorView.m in Sources */,
 				53676CAD1CA63B7F00CADE4D /* NSXMLElement+XMPP.m in Sources */,
 				53676CE51CA63B7F00CADE4D /* XMPPvCardTempTel.m in Sources */,
@@ -3717,8 +3729,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.learniatTeacher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "696eb33d-c584-4a21-aa66-e45a4624c8bc";
-				PROVISIONING_PROFILE_SPECIFIER = "Learniat Teacher Development";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatTeacher/Swift-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
@@ -3733,7 +3745,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Mindshift Applications & Solutions Pvt. Ltd. (C744MS63KY)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = C744MS63KY;
 				ENABLE_BITCODE = NO;
@@ -3756,8 +3768,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.learniatTeacher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "edb211f2-f986-473e-93a4-b6dc14b4f619";
-				PROVISIONING_PROFILE_SPECIFIER = "Learniat Teacher AdHoc";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatTeacher/Swift-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";

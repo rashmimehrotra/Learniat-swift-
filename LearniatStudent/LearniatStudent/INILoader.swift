@@ -142,6 +142,13 @@ let kStudentsRegistered       = "StudentsRegistered"
 
 let kPreallocatedSeats        = "PreallocatedSeats"
 
+let kPreAllocatedSeats      = "PreAllocatedSeats"
+
+let kOccupiedSeats          = "OccupiedSeats"
+
+let kGrade                  = "Grade"
+
+
 
 let textColor                          = UIColor(red: 36/255.0, green: 68/255.0, blue: 99/255.0, alpha: 1)
 
