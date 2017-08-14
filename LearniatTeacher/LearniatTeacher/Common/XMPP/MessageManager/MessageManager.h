@@ -190,6 +190,7 @@
 - (BOOL)sendGroupMessageWithBody:(NSString*)_body withRoomId:(NSString*)roomId;
 
 
+- (BOOL)sendGroupMessageWithSubject:(NSString*)_subject withRoomId:(NSString*)roomId;
 
 - (void) requestAllMesssage;
 

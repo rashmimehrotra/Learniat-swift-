@@ -1086,7 +1086,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             
             if let Type = currentQuestionDetails.object(forKey: kQuestionType) as? String
             {
-                SSTeacherMessageHandler.sharedMessageHandler.sendQuestionWithRoomName("question_\(currentSessionId)", withQuestionLogId: SSTeacherDataSource.sharedDataSource.currentQuestionLogId, withQuestionType: Type)
+                SSTeacherMessageHandler.sharedMessageHandler.sendQuestionWithRoomName(currentSessionId, withQuestionLogId: SSTeacherDataSource.sharedDataSource.currentQuestionLogId, withQuestionType: Type)
                 
                 
                 
@@ -1166,7 +1166,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 
                 if let questionType = questionDetails.object(forKey: kQuestionType) as? String
                 {
-                    SSTeacherMessageHandler.sharedMessageHandler.sendQuestionWithRoomName("question_\(currentSessionId)", withQuestionLogId: SSTeacherDataSource.sharedDataSource.currentQuestionLogId, withQuestionType: questionType)
+                    SSTeacherMessageHandler.sharedMessageHandler.sendQuestionWithRoomName(currentSessionId, withQuestionLogId: SSTeacherDataSource.sharedDataSource.currentQuestionLogId, withQuestionType: questionType)
                     
                   
                         //                    print(currentQuestionDetails)
@@ -2100,7 +2100,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         }
         
         mQuestionNamelabel.text = "No active question"
-        SSTeacherMessageHandler.sharedMessageHandler.sendClearQuestionMessageWithRoomId("question_\(currentSessionId)")
+        SSTeacherMessageHandler.sharedMessageHandler.sendClearQuestionMessageWithRoomId(currentSessionId)
         mSubmissionView.questionClearedByTeacher()
         mModelAnswerView.questionClearedByTeacher()
         mModelAnswerButton.isHidden = true

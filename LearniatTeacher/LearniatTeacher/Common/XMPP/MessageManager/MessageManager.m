@@ -889,4 +889,17 @@ static MessageManager *sharedMessageHandler = nil;
 }
 
 
+
+- (BOOL)sendGroupMessageWithSubject:(NSString*)_subject withRoomId:(NSString*)roomId{
+    NSXMLElement *subject = [NSXMLElement elementWithName:@"subject"];
+    [subject setStringValue:_subject];
+    NSXMLElement *message = [NSXMLElement elementWithName:@"message"];
+    [message addAttributeWithName:@"to" stringValue:roomId];
+    [message addAttributeWithName:@"type" stringValue:@"groupchat"];
+    [message addChild:subject];
+    [self.xmppStream sendElement:message];
+    return YES;
+  }
+
+
 @end

@@ -239,6 +239,19 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if let sessionId = sessionDetails.object(forKey: kSessionId) as? String{
+            if SSStudentMessageHandler.sharedMessageHandler.questionSubjects[sessionId] != nil{
+                let questionRoomSubject:QuestionRoomSubject = SSStudentMessageHandler.sharedMessageHandler.questionSubjects[sessionId]!
+                if questionRoomSubject.question.questionId != ""{
+                    smhDidReceiveQuesitonIdChange(question: questionRoomSubject.question)
+                }
+                
+            }
+        }
+
+    }
+    
     
     
     
@@ -633,6 +646,8 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         
         SSStudentMessageHandler.sharedMessageHandler.createRoomWithRoomName("question_\((sessionDetails.object(forKey: "SessionId") as! String))", withHistory: "1")
         
+        
+        
     }
     
   
@@ -707,6 +722,22 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         AppDelegate.sharedDataSource.hideReconnecting()
     }
     
+    
+    func smhDidGetSessionStateChange(){
+        if classStartedView.isHidden == true{
+            classStartedView.isHidden = false
+            classsBegin()
+        }
+        
+        mQueryView.VolunteerPresentState(false)
+        if mStudentQrvAnsweringView != nil{
+            mStudentQrvAnsweringView.removeFromSuperview()
+        }
+        
+        mNoStudentLabel.isHidden = true
+    }
+    
+    
     func smhDidgetTimeExtendedWithDetails(_ Details: AnyObject)
     {
         
@@ -739,6 +770,25 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         let preallotController : SSStudentScheduleViewController = storyboard.instantiateViewController(withIdentifier: "TeacherScheduleViewController") as! SSStudentScheduleViewController
         self.present(preallotController, animated: true, completion: nil)
     }
+    
+    func smhDidGetTopicStateChanged(topic:Topic){
+        mSubTopicNamelabel.text = topic.topicName
+    }
+    
+    func smhDidGetTopicChanged(topic: Topic){
+        if topic.topicState == TopicState.Started{
+            mSubTopicNamelabel.text = topic.topicName
+        }
+        else{
+            mSubTopicNamelabel.text = "No subtopic"
+        }
+        SSStudentDataSource.sharedDataSource.currentSubtopicID = topic.topicId
+        currentSubTopicId = topic.topicId
+
+    }
+    
+    
+    
     
     func smhDidGetVotingMessageWithDetails(_ details: AnyObject)
     {
@@ -793,6 +843,99 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             
         }
     }
+    
+    func smhDidReceiveQuesitonIdChange(question:Question){
+        mQuestionButton.isHidden = false
+        if mFullScreenView != nil{
+            mFullScreenView.mScribbleView.clearButtonClicked()
+        }
+        if let QuestionLogId:String = question.questionId{
+            currentQuestionLogId = QuestionLogId
+            var messageString:String!
+            if question.questionType  == text{
+                messageString = "Please type out your response";
+                showAlertWithMessage(messageString)
+            }
+            else if question.questionType  == MatchColumns{
+                messageString = "Please rearrange the list to match other list";
+                showAlertWithMessage(messageString)
+            }
+            else if  question.questionType  == MultipleChoice{
+                messageString = "Please Select correct Response (Just one)";
+                showAlertWithMessage(messageString)
+            }
+            else if question.questionType  == MultipleResponse{
+                messageString = "Please Select correct Responses (More than one or just one)";
+                showAlertWithMessage(messageString)
+            }
+            else if question.questionType  == OverlayScribble{
+                messageString = "Please hand draw over the picture sent";
+                showAlertWithMessage(messageString)
+            }
+            else if question.questionType  == FreshScribble{
+                messageString = "Please sketch your response";
+                showAlertWithMessage(messageString)
+            }
+            else if question.questionType  == OneString{
+                messageString = "Please type one word answer";
+                showAlertWithMessage(messageString)
+            }
+            else if question.questionType  == TextAuto{
+                messageString = "Please type one word answer";
+                showAlertWithMessage(messageString)
+            }
+        }
+        
+        if classStartedView.isHidden == true{
+            classStartedView.isHidden = false
+        }
+    }
+    
+    func smhDidReceiveQuestionStateChange(question:Question){
+        if question.questionState == QuestionState.Ended{
+            processQuestionEnded(question:question)
+        }
+        else if question.questionState == QuestionState.Frozen{
+            processFreezeQuestion(question:question)
+        }
+        else if question.questionState == QuestionState.Started{
+            smhDidReceiveQuesitonIdChange(question:question)
+        }
+    }
+    
+    func processQuestionEnded(question:Question){
+        mQuestionView.questionCleared()
+        mQuestionNameLabel.text = "No active question"
+        if mFullScreenView != nil{
+            mFullScreenView.removeFromSuperview()
+            mFullScreenView = nil
+        }
+        if questionAcceptAlert.isVisible == true{
+            questionAcceptAlert.dismiss(withClickedButtonIndex: -1, animated: true)
+        }
+        if classStartedView.isHidden == true{
+            classsBegin()
+        }
+        mQuestionView.questionCleared()
+        waitQuestionTimer.invalidate()
+        if SSStudentDataSource.sharedDataSource.answerSent == true{
+            SSStudentDataSource.sharedDataSource.answerSent = false
+        }
+        mQuestionButton.newEventRaised()
+    }
+    
+    func processFreezeQuestion(question:Question){
+        if SSStudentDataSource.sharedDataSource.answerSent == false{
+            if currentQuestionType == kOverlayScribble || currentQuestionType == kFreshScribble{
+                if mFullScreenView != nil{
+                    mFullScreenView.onSendButton()
+                }
+            }
+        }
+        mQuestionView.didgetFreezMessageFromTeacher()
+        mQuestionButton.newEventRaised()
+    }
+    
     
     
     func smhdidReceiveQuestionSentMessage(_ dict: AnyObject)
@@ -872,6 +1015,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         }
         
     }
+    
     
     
     func smhdidReceiveQuestionClearMessage()

@@ -604,6 +604,16 @@ static MessageManager *sharedMessageHandler = nil;
         }
         
     }
+    
+    if ([message subject]){
+        NSString *subject = [[message elementForName:@"subject"] stringValue];
+        
+        if([[self delegate] respondsToSelector:@selector(didReceiveMessageWithSubject:WithSenderJid:)])
+        {
+            [[self delegate] didReceiveMessageWithSubject:subject WithSenderJid:message.from];
+            
+        }
+    }
 }
 
 

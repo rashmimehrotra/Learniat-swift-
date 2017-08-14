@@ -503,6 +503,10 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         delegateRefreshSchedule()
     }
     
+    func smhDidGetSessionStateChange(){
+        delegateRefreshSchedule()
+    }
+    
     func smhDidGetSessionEndMessageWithDetails(_ details: AnyObject) {
         delegateRefreshSchedule()
         

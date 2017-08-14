@@ -235,6 +235,14 @@
 @optional - (void) didReceiveMessageWithBody:(NSString *)body WithSenderJid:(XMPPJID*)senderJid;
 
 
+
+/**
+ Methods to get recieved subject
+ */
+
+@optional - (void) didReceiveMessageWithSubject:(NSString *)subject WithSenderJid:(XMPPJID*)senderJid;
+
+
 /**
  Methods to get presence of other user
  */

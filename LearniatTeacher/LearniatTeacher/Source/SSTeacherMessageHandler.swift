@@ -119,6 +119,9 @@ open class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Mess
     var connectType:String = "Login"
     var retryConnectTime:Int64 = 0
     var currentAppState:String = "Active"
+    
+    var sessionRooms:[String:SessionRoomSubject] = [:]
+    var questionRooms:[String:QuestionRoomSubject] = [:]
    
     let Error_NotConnectedToInternetSignal = Signal<(Bool)>()
     var kBaseXMPPURL	=	""
@@ -621,38 +624,59 @@ open class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Mess
     }
     
     
+    func sendRoomSubject(roomSubject:RoomSubjectProtocol){
+        MessageManager.sharedMessageHandler().sendGroupMessage(withSubject: roomSubject.getRoomSubject(), withRoomId: roomSubject.getRoomUrl())
+    }
+    
+    
     //MARK: Group   Messages
     func sendExtendedTimetoRoom(_ roomId:String, withClassName className:String, withStartTime StartTime:String, withDelayTime timeDelay:String)
     {
         if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
         {
+            var sessionRoomSubject:SessionRoomSubject
+            if  sessionRooms[roomId] != nil {
+                sessionRoomSubject = sessionRooms[roomId]!
+                sessionRoomSubject.isStateChanged = true
+            }
+            else{
+                 sessionRoomSubject = SessionRoomSubject(topicId: "", topicName: "", topicState:TopicState.Started, roomId: roomId, isStateChanged:true )
+                sessionRooms[sessionRoomSubject.roomId] = sessionRoomSubject
+            }
             
-            
-            let _roomId = "room_\(roomId)@conference.\(kBaseXMPPURL)";
-            
-            let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
-            let msgType             = kTimeExtended
-            
-            
-              let messageBody = ["timedelay":timeDelay ,
-                                "ClassName":className,
-                                "stratTime":StartTime]
-            
-            
-            
-            let details:NSMutableDictionary = ["From":userId!,
-                "To":_roomId,
-                "Type":msgType,
-                "Body":messageBody];
+            sendRoomSubject(roomSubject:sessionRoomSubject)
             
             
             
-            let msg = SSMessage()
-            msg.setMsgDetails( details)
-            
-            let xmlBody:String = msg.xmlMessage()
-            
-            MessageManager.sharedMessageHandler().sendGroupMessage(withBody: xmlBody, withRoomId: _roomId)
+//            var sessionRoomSubject:SessionRoomSubject = SessionRoomSubject()
+//            SessionRoomSubject.setTopicId =
+//            
+//            
+//            let _roomId = "room_\(roomId)@conference.\(kBaseXMPPURL)";
+//            
+//            let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
+//            let msgType             = kTimeExtended
+//            
+//            
+//              let messageBody = ["timedelay":timeDelay ,
+//                                "ClassName":className,
+//                                "stratTime":StartTime]
+//            
+//            
+//            
+//            let details:NSMutableDictionary = ["From":userId!,
+//                "To":_roomId,
+//                "Type":msgType,
+//                "Body":messageBody];
+//            
+//            
+//            
+//            let msg = SSMessage()
+//            msg.setMsgDetails( details)
+//            
+//            let xmlBody:String = msg.xmlMessage()
+//            
+//            MessageManager.sharedMessageHandler().sendGroupMessage(withBody: xmlBody, withRoomId: _roomId)
         }
     }
     
@@ -730,31 +754,45 @@ open class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Mess
     {
         if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
         {
+            if votingState == "FALSE"{
+                var sessionRoomSubject:SessionRoomSubject = sessionRooms[_roomId]!
+                sessionRoomSubject.topic.topicState = TopicState.Ended
+                sessionRoomSubject.isStateChanged = false
+                sendRoomSubject(roomSubject: sessionRoomSubject)
+                sessionRooms.removeValue(forKey: _roomId)
+            }
+            
+            else{
+                var sessionRoomSubject:SessionRoomSubject = SessionRoomSubject(topicId: subTopicId, topicName: subTopicId, topicState:TopicState.Started, roomId: _roomId, isStateChanged:false )
+                    sessionRooms[sessionRoomSubject.roomId] = sessionRoomSubject
+                sendRoomSubject(roomSubject:sessionRoomSubject)
+            }
             
             
-            let roomId = "room_\(_roomId)@conference.\(kBaseXMPPURL)";
-            
-            let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
-            let msgType             = kAllowVoiting
-            
-            
-            let messageBody = ["VotingValue":votingState,"SubTopicName":subTopicName, "SubTopicId":subTopicId]
-            
-            
-            
-            let details:NSMutableDictionary = ["From":userId!,
-                "To":roomId,
-                "Type":msgType,
-                "Body":messageBody];
-            
-            
-            
-            let msg = SSMessage()
-            msg.setMsgDetails( details)
-            
-            let xmlBody:String = msg.xmlMessage()
-            
-            MessageManager.sharedMessageHandler().sendGroupMessage(withBody: xmlBody, withRoomId: roomId)
+//
+//            let roomId = "room_\(_roomId)@conference.\(kBaseXMPPURL)";
+//            
+//            let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
+//            let msgType             = kAllowVoiting
+//            
+//            
+//            let messageBody = ["VotingValue":votingState,"SubTopicName":subTopicName, "SubTopicId":subTopicId]
+//            
+//            
+//            
+//            let details:NSMutableDictionary = ["From":userId!,
+//                "To":roomId,
+//                "Type":msgType,
+//                "Body":messageBody];
+//            
+//            
+//            
+//            let msg = SSMessage()
+//            msg.setMsgDetails( details)
+//            
+//            let xmlBody:String = msg.xmlMessage()
+//            
+//            MessageManager.sharedMessageHandler().sendGroupMessage(withBody: xmlBody, withRoomId: roomId)
         }
     }
     
@@ -763,30 +801,43 @@ open class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Mess
     {
         if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
         {
-           let roomId = "\(_roomId)@conference.\(kBaseXMPPURL)";
-            
-            let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
-            let msgType             = kTeacherQnASubmitted
-            
-            
-            let messageBody = ["QuestionLogId":QuestionLogId,
-                                "QuestionType":QuestionType]
-            
-            
-            
-            let details:NSMutableDictionary = ["From":userId!,
-                "To":roomId,
-                "Type":msgType,
-                "Body":messageBody];
+                var questionRoomSubject:QuestionRoomSubject
+                if  questionRooms[_roomId] != nil{
+                    questionRoomSubject = questionRooms[_roomId]!
+                    questionRoomSubject.question = Question(questionId: QuestionLogId, questionState: QuestionState.Started, questionType: QuestionType)
+                }
+                else{
+                    questionRoomSubject = QuestionRoomSubject(questionId: QuestionLogId, questionType: QuestionType, questionState:QuestionState.Started, roomId: _roomId)
+                    questionRooms[questionRoomSubject.roomId] = questionRoomSubject
+                }
+                sendRoomSubject(roomSubject:questionRoomSubject)
+           
             
             
-            
-            let msg = SSMessage()
-            msg.setMsgDetails( details)
-            
-            let xmlBody:String = msg.xmlMessage()
-            
-            MessageManager.sharedMessageHandler().sendGroupMessage(withBody: xmlBody, withRoomId: roomId)
+//           let roomId = "\(_roomId)@conference.\(kBaseXMPPURL)";
+//            
+//            let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
+//            let msgType             = kTeacherQnASubmitted
+//            
+//            
+//            let messageBody = ["QuestionLogId":QuestionLogId,
+//                                "QuestionType":QuestionType]
+//            
+//            
+//            
+//            let details:NSMutableDictionary = ["From":userId!,
+//                "To":roomId,
+//                "Type":msgType,
+//                "Body":messageBody];
+//            
+//            
+//            
+//            let msg = SSMessage()
+//            msg.setMsgDetails( details)
+//            
+//            let xmlBody:String = msg.xmlMessage()
+//            
+//            MessageManager.sharedMessageHandler().sendGroupMessage(withBody: xmlBody, withRoomId: roomId)
         }
     }
     
@@ -856,31 +907,37 @@ open class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Mess
         {
             
             
-           let roomId = "\(_roomId)@conference.\(kBaseXMPPURL)"
-            
-            let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
-            let msgType             = kTeacherQnAFreeze
-            
-            
-            let messageBody = ["averageScore":averageScore,
-                "totalResponces":totalResponse]
-            
+            var questionRoomSubject:QuestionRoomSubject = questionRooms[_roomId]!
+            questionRoomSubject.question.questionState = QuestionState.Frozen
+            sendRoomSubject(roomSubject:questionRoomSubject)
 
             
             
-            let details:NSMutableDictionary = ["From":userId!,
-                "To":roomId,
-                "Type":msgType,
-                "Body":messageBody];
-            
-            
-            
-            let msg = SSMessage()
-            msg.setMsgDetails( details)
-            
-            let xmlBody:String = msg.xmlMessage()
-            
-            MessageManager.sharedMessageHandler().sendGroupMessage(withBody: xmlBody, withRoomId: roomId)
+//           let roomId = "\(_roomId)@conference.\(kBaseXMPPURL)"
+//            
+//            let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
+//            let msgType             = kTeacherQnAFreeze
+//            
+//            
+//            let messageBody = ["averageScore":averageScore,
+//                "totalResponces":totalResponse]
+//            
+//
+//            
+//            
+//            let details:NSMutableDictionary = ["From":userId!,
+//                "To":roomId,
+//                "Type":msgType,
+//                "Body":messageBody];
+//            
+//            
+//            
+//            let msg = SSMessage()
+//            msg.setMsgDetails( details)
+//            
+//            let xmlBody:String = msg.xmlMessage()
+//            
+//            MessageManager.sharedMessageHandler().sendGroupMessage(withBody: xmlBody, withRoomId: roomId)
         }
     }
     
@@ -923,25 +980,31 @@ open class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Mess
         if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
         {
             
-            
-           let roomId = "\(_roomId)@conference.\(kBaseXMPPURL)";
-            
-            let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
-            let msgType             = kTeacherQnADone
-            
-            
-            let details:NSMutableDictionary = ["From":userId!,
-                "To":roomId,
-                "Type":msgType];
+            var questionRoomSubject:QuestionRoomSubject = questionRooms[_roomId]!
+            questionRoomSubject.question.questionState = QuestionState.Ended
+            sendRoomSubject(roomSubject:questionRoomSubject)
+            questionRooms.removeValue(forKey: _roomId)
+
             
             
-            
-            let msg = SSMessage()
-            msg.setMsgDetails( details)
-            
-            let xmlBody:String = msg.xmlMessage()
-            
-            MessageManager.sharedMessageHandler().sendGroupMessage(withBody: xmlBody, withRoomId: roomId)
+//           let roomId = "\(_roomId)@conference.\(kBaseXMPPURL)";
+//            
+//            let userId           = SSTeacherDataSource.sharedDataSource.currentUserId
+//            let msgType             = kTeacherQnADone
+//            
+//            
+//            let details:NSMutableDictionary = ["From":userId!,
+//                "To":roomId,
+//                "Type":msgType];
+//            
+//            
+//            
+//            let msg = SSMessage()
+//            msg.setMsgDetails( details)
+//            
+//            let xmlBody:String = msg.xmlMessage()
+//            
+//            MessageManager.sharedMessageHandler().sendGroupMessage(withBody: xmlBody, withRoomId: roomId)
         }
     }
     
