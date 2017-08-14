@@ -24,7 +24,7 @@ let kAspectRation:CGFloat = 1.5
 
 
 
-class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSideViewDelegate,SSStarRatingViewDelegate,UIPopoverControllerDelegate,SSTeacherDataSourceDelegate,ImageUploadingDelegate,colorpopOverViewControllerDelegate
+class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSideViewDelegate,SSStarRatingViewDelegate,UIPopoverControllerDelegate,SSTeacherDataSourceDelegate,ImageUploadingDelegate,colorpopOverViewControllerDelegate, KMZDrawViewDelegate
 {
     
 
@@ -64,7 +64,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     
     let overlayimageView = CustomProgressImageView()
     
-    var mScribbleView : SmoothLineView!
+//    var mScribbleView : SmoothLineView!
     
     let studentsAswerDictonary      = NSMutableDictionary()
     
@@ -107,7 +107,13 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     
     var currentTeacherImageURl = ""
 
+    // By Ujjval
+    // Create view for draw
+    // ==========================================
     
+    var mScribbleView : KMZDrawView!
+    
+    // ==========================================
     
     override init(frame: CGRect)
     {
@@ -260,22 +266,40 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         mMarkModelButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20);
         mMarkModelButton.addTarget(self, action: #selector(SubmissionSubjectiveView.onModelAnswerButton), for: UIControlEvents.touchUpInside)
         
-      
+        // By Ujjval
+        // Assign frame and set other properties to draw view
+        // ==========================================
 
-        mScribbleView = SmoothLineView(frame: containerview.frame)
-        mScribbleView.delegate = self
-        mainContainerView.addSubview(mScribbleView);
+//        mScribbleView = SmoothLineView(frame: containerview.frame)
+//        mScribbleView.delegate = self
+//        mainContainerView.addSubview(mScribbleView);
+//        mScribbleView.isUserInteractionEnabled = true
+//        mScribbleView.setDrawing(standard_Red);
+//        mScribbleView.setBrushWidth(5)
+//        mScribbleView.setDrawing(kBrushTool)
+//        var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
+//        if brushSize < 5
+//        {
+//            brushSize = 5
+//        }
+//        mScribbleView.setBrushWidth(Int32(brushSize))
+//        mScribbleView.isHidden = false
+
+        mScribbleView = KMZDrawView(frame: containerview.frame)
+        mainContainerView.addSubview(mScribbleView)
         mScribbleView.isUserInteractionEnabled = true
-        mScribbleView.setDrawing(standard_Red);
-        mScribbleView.setBrushWidth(5)
-        mScribbleView.setDrawing(kBrushTool)
+        mScribbleView.delegate = self
+        mScribbleView.penColor = blackTextColor
+        mScribbleView.penMode = .pencil
         var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
         if brushSize < 5
         {
             brushSize = 5
         }
-        mScribbleView.setBrushWidth(Int32(brushSize))
+        mScribbleView.penWidth = UInt(brushSize)
         mScribbleView.isHidden = false
+        
+        // ==========================================
         
         bottomview.frame = CGRect(x: topImageView.frame.origin.x, y: containerview.frame.origin.y + containerview.frame.size.height , width: topImageView.frame.size.width,height: topImageView.frame.size.height)
         bottomview.backgroundColor = lightGrayTopBar
@@ -317,8 +341,13 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         m_RedoButton.addTarget(self, action: #selector(SubmissionSubjectiveView.onRedoButton), for: UIControlEvents.touchUpInside)
         m_RedoButton.isEnabled = false
         
+        // By Ujjval
+        // ==========================================
+        
+//        self.bringSubview(toFront: mScribbleView)
         self.bringSubview(toFront: mScribbleView)
         
+        // ==========================================
         
     }
     
@@ -505,11 +534,27 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
             subview.removeFromSuperview()
         }
         
-        mScribbleView.clearButtonClicked()
+        // By Ujjval
+        // Clear image
+        // ==========================================
+        
+//        mScribbleView.clearButtonClicked()
+        mScribbleView.clear()
+        
+        // ==========================================
+        
         givenBadgeId = 0
         givenStarRatings = 0
         givenTextReply = ""
-        mScribbleView.clearButtonClicked()
+        
+        // By Ujjval
+        // Clear image
+        // ==========================================
+        
+//        mScribbleView.clearButtonClicked()
+        mScribbleView.clear()
+        
+        // ==========================================
         mStarRatingView.setStarRating(0)
         m_badgeButton.setImage(UIImage(named:"Cb_Like_Disabled.png"), for:UIControlState());
         m_textButton.setImage(UIImage(named:"Text_Unselected.png"), for:UIControlState());
@@ -572,9 +617,18 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
             sendButtonSpinner.startAnimating()
             mSendButton.isHidden = true
             
-            if (mScribbleView.curImage != nil)
+            // By Ujjval
+            // Check image available or not to post on server
+            // ==========================================
+            
+//            if (mScribbleView.curImage != nil)
+            if (mScribbleView.image != nil)
             {
-                imageUploading.uploadImage(with: mScribbleView.curImage, withImageName: nameOfImage, withUserId: SSTeacherDataSource.sharedDataSource.currentUserId)
+//                imageUploading.uploadImage(with: mScribbleView.curImage, withImageName: nameOfImage, withUserId: SSTeacherDataSource.sharedDataSource.currentUserId)
+
+                imageUploading.uploadImage(with: mScribbleView.image, withImageName: nameOfImage, withUserId: SSTeacherDataSource.sharedDataSource.currentUserId)
+                
+                // ==========================================
             }
             else
             {
@@ -649,7 +703,14 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     
     func onUndoButton()
     {
-        mScribbleView.undoButtonClicked()
+        // By Ujjval
+        // Undo drawn image
+        // ==========================================
+        
+//        mScribbleView.undoButtonClicked()
+        mScribbleView.undo()
+        
+        // ==========================================
     }
     
     func onBrushButton()
@@ -685,17 +746,24 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         bottomtoolSelectedImageView.frame = m_BrushButton.frame
          m_BrushButton.setImage(UIImage(named:"Marker_Selected.png"), for:UIControlState())
          m_EraserButton.setImage(UIImage(named:"Eraser_Unselected.png"), for:UIControlState())
-        mScribbleView.setDrawing(kBrushTool)
+        
+        // By Ujjval
+        // Assign updated brush size
+        // ==========================================
+        
+//        mScribbleView.setDrawing(kBrushTool)
         var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
         if brushSize < 5
         {
             brushSize = 5
         }
-        mScribbleView.setBrushWidth(Int32(brushSize))
+//        mScribbleView.setBrushWidth(Int32(brushSize))
         
         
+        mScribbleView.penMode = .pencil
+        mScribbleView.penWidth = UInt(brushSize)
         
-        
+        // ==========================================
         
 
     }
@@ -735,20 +803,34 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         m_BrushButton.setImage(UIImage(named:"Marker_Unselected.png"), for:UIControlState())
         m_EraserButton.setImage(UIImage(named:"Eraser_Selected.png"), for:UIControlState())
         
-        mScribbleView.setDrawing(kEraserTool)
+        // By Ujjval
+        // Assign updated eraser size
+        // ==========================================
+        
+//        mScribbleView.setDrawing(kEraserTool)
         
         let eraserSize = UserDefaults.standard.float(forKey: "selectedEraserSize")
-        mScribbleView.setBrushWidth(Int32(eraserSize))
+//        mScribbleView.setBrushWidth(Int32(eraserSize))
         
         
         
+        mScribbleView.penMode = .eraser
+        mScribbleView.penWidth = UInt(eraserSize)
         
+        // ==========================================
 
     }
     
     func onRedoButton()
     {
-        mScribbleView.redoButtonClicked()
+        // By Ujjval
+        // Redo drawn image
+        // ==========================================
+        
+//        mScribbleView.redoButtonClicked()
+        mScribbleView.redo()
+        
+        // ==========================================
     }
     
 
@@ -819,7 +901,36 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         
     }
     
+    // By Ujjval
+    // Enable or disable Undo & Redo buttons
+    // ==========================================
     
+    // MARK: - KMZDrawViewDelegate
+    
+    func drawView(_ drawView: KMZDrawView!, finishDraw line: KMZLine!) {
+        
+        if mScribbleView.isUndoable() {
+            m_UndoButton.setImage(UIImage(named:"Undo_Active.png"),for:UIControlState());
+            m_UndoButton.isEnabled = true
+            lineDrawnChanged()
+        }
+        else {
+            m_UndoButton.setImage(UIImage(named:"Undo_Disabled.png"),for:UIControlState());
+            m_UndoButton.isEnabled = false
+        }
+        
+        if mScribbleView.isRedoable() {
+            m_RedoButton.setImage(UIImage(named:"Redo_Active.png"),for:UIControlState());
+            m_RedoButton.isEnabled = true
+            lineDrawnChanged()
+        }
+        else {
+            m_RedoButton.setImage(UIImage(named:"Redo_Disabled.png"),for:UIControlState());
+            m_RedoButton.isEnabled = false
+        }
+    }
+    
+    // ==========================================
     
     
     // MARK: - Smooth line delegate
@@ -1023,7 +1134,15 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         sendButtonSpinner.isHidden = true
         sendButtonSpinner.stopAnimating()
         mSendButton.isHidden = false
-        mScribbleView.clearButtonClicked()
+        
+        // By Ujjval
+        // Clear image
+        // ==========================================
+        
+//        mScribbleView.clearButtonClicked()
+        mScribbleView.clear()
+        
+        // ==========================================
     }
     
     
@@ -1106,7 +1225,16 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
             self.sendButtonSpinner.isHidden = true
             self.sendButtonSpinner.stopAnimating()
             self.mSendButton.isHidden = false
-            self.mScribbleView.clearButtonClicked()
+            
+            // By Ujjval
+            // Clear image
+            // ==========================================
+            
+//            self.mScribbleView.clearButtonClicked()
+            self.mScribbleView.clear()
+            
+            // ==========================================
+            
             self.currentTeacherImageURl = ""
         }
         
@@ -1120,7 +1248,16 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         sendButtonSpinner.isHidden = true
         sendButtonSpinner.stopAnimating()
         mSendButton.isHidden = false
-        mScribbleView.clearButtonClicked()
+        
+        // By Ujjval
+        // Clear image
+        // ==========================================
+        
+//        mScribbleView.clearButtonClicked()
+        mScribbleView.clear()
+        
+        // ==========================================
+        
         currentTeacherImageURl = ""
     }
     
@@ -1132,7 +1269,14 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         
         if let progressView = sender as? UISlider
         {
-            mScribbleView.setBrushWidth(Int32(progressView.value));
+            // By Ujjval
+            // Assign updated Brush size
+            // ==========================================
+            
+//            mScribbleView.setBrushWidth(Int32(progressView.value));
+            mScribbleView.penWidth = UInt(progressView.value)
+            
+            // ==========================================
         }
         
         
@@ -1142,19 +1286,42 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     {
         if let progressColor = sender as? UIColor
         {
-             mScribbleView.setDrawing(progressColor);
+            // By Ujjval
+            // Assign updated Brush color
+            // ==========================================
+            
+//             mScribbleView.setDrawing(progressColor);
+            mScribbleView.penColor = progressColor
+            
+            // ==========================================
         }
     }
     
     
     func resetAllButtonState()
     {
+        // By Ujjval
+        // Clear image
+        // ==========================================
         
-        mScribbleView.clearButtonClicked()
+//        mScribbleView.clearButtonClicked()
+        mScribbleView.clear()
+        
+        // ==========================================
+        
         givenBadgeId = 0
         givenStarRatings = 0
         givenTextReply = ""
-        mScribbleView.clearButtonClicked()
+        
+        // By Ujjval
+        // Clear image
+        // ==========================================
+        
+//        mScribbleView.clearButtonClicked()
+        mScribbleView.clear()
+        
+        // ==========================================
+        
         mStarRatingView.setStarRating(0)
         m_badgeButton.setImage(UIImage(named:"Cb_Like_Disabled.png"), for:UIControlState());
         m_textButton.setImage(UIImage(named:"Text_Unselected.png"), for:UIControlState());

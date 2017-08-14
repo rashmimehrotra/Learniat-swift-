@@ -19,7 +19,7 @@ let kAspectRation:CGFloat = 1.5
 }
 
 
-class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, ImageEditorSubViewDelegate
+class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, ImageEditorSubViewDelegate, KMZDrawViewDelegate
 {
     
     
@@ -45,7 +45,7 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
     
     let containerview = UIView()
     
-    var mScribbleView : SmoothLineView!
+//    var mScribbleView : SmoothLineView!
     
     let kUplodingServer     = "http://54.251.104.13/Jupiter/upload_photos.php"
     
@@ -67,6 +67,13 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
     
     var questionText = UILabel()
     
+    // By Ujjval
+    // Create view for draw
+    // ==========================================
+    
+    var mScribbleView : KMZDrawView!
+    
+    // ==========================================
     
     func setdelegate(_ delegate:AnyObject)
     {
@@ -179,25 +186,40 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
        contanerBackgroundView.addSubview(containerview);
         
       
+        // By Ujjval
+        // Assign frame and set other properties to draw view
+        // ==========================================
         
+//        mScribbleView = SmoothLineView(frame: CGRect(x: 0,y: 0,width: containerview.frame.size.width, height: containerview.frame.size.height))
+//        mScribbleView.delegate = self
+//        containerview.addSubview(mScribbleView);
+//        mScribbleView.isUserInteractionEnabled = true
+//        mScribbleView.setDrawing(blackTextColor);
+//        mScribbleView.setBrushWidth(5)
+//        mScribbleView.setDrawing(kBrushTool)
+//        var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
+//        if brushSize < 5
+//        {
+//            brushSize = 5
+//        }
+//        mScribbleView.setBrushWidth(Int32(brushSize))
+//        mScribbleView.isHidden = false
         
-        mScribbleView = SmoothLineView(frame: CGRect(x: 0,y: 0,width: containerview.frame.size.width, height: containerview.frame.size.height))
-        mScribbleView.delegate = self
-        containerview.addSubview(mScribbleView);
+        mScribbleView = KMZDrawView(frame: CGRect(x: 0,y: 0,width: containerview.frame.size.width, height: containerview.frame.size.height))
+        containerview.addSubview(mScribbleView)
         mScribbleView.isUserInteractionEnabled = true
-        mScribbleView.setDrawing(blackTextColor);
-        mScribbleView.setBrushWidth(5)
-        mScribbleView.setDrawing(kBrushTool)
+        mScribbleView.delegate = self
+        mScribbleView.penColor = blackTextColor
+        mScribbleView.penMode = .pencil
         var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
         if brushSize < 5
         {
             brushSize = 5
         }
-        mScribbleView.setBrushWidth(Int32(brushSize))
+        mScribbleView.penWidth = UInt(brushSize)
         mScribbleView.isHidden = false
         
-        
-        
+        // ==========================================
        
        
         m_UndoButton.frame = CGRect(x: 0, y: 0, width: mBottomToolBarImageView.frame.size.height, height: mBottomToolBarImageView.frame.size.height)
@@ -292,7 +314,14 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
     
     func onUndoButton()
     {
-        mScribbleView.undoButtonClicked()
+        // By Ujjval
+        // Undo drawn image
+        // ==========================================
+        
+//        mScribbleView.undoButtonClicked()
+        mScribbleView.undo()
+        
+        // ==========================================
     }
     
     func onBrushButton()
@@ -328,17 +357,23 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
         bottomtoolSelectedImageView.frame = m_BrushButton.frame
         m_BrushButton.setImage(UIImage(named:"Marker_Selected.png"), for:UIControlState())
         m_EraserButton.setImage(UIImage(named:"Eraser_Unselected.png"), for:UIControlState())
-        mScribbleView.setDrawing(kBrushTool)
+        
+        // By Ujjval
+        // Assign updated brush size
+        // ==========================================
+        
+//        mScribbleView.setDrawing(kBrushTool)
         var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
         if brushSize < 5
         {
             brushSize = 5
         }
-        mScribbleView.setBrushWidth(Int32(brushSize))
+//        mScribbleView.setBrushWidth(Int32(brushSize))
         
+        mScribbleView.penMode = .pencil
+        mScribbleView.penWidth = UInt(brushSize)
         
-        
-        
+        // ==========================================
         
         
     }
@@ -378,14 +413,20 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
         bottomtoolSelectedImageView.frame = m_EraserButton.frame
         m_BrushButton.setImage(UIImage(named:"Marker_Unselected.png"), for:UIControlState())
         m_EraserButton.setImage(UIImage(named:"Eraser_Selected.png"), for:UIControlState())
-        mScribbleView.setDrawing(kEraserTool)
+        
+        // By Ujjval
+        // Assign updated eraser size
+        // ==========================================
+        
+//        mScribbleView.setDrawing(kEraserTool)
         let eraserSize = UserDefaults.standard.float(forKey: "selectedEraserSize")
-        mScribbleView.setBrushWidth(Int32(eraserSize))
+//        mScribbleView.setBrushWidth(Int32(eraserSize))
         
         
+        mScribbleView.penMode = .eraser
+        mScribbleView.penWidth = UInt(eraserSize)
         
-        
-        
+        // ==========================================
         
         
         
@@ -394,7 +435,14 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
     
     func onRedoButton()
     {
-        mScribbleView.redoButtonClicked()
+        // By Ujjval
+        // Redo drawn image
+        // ==========================================
+        
+//        mScribbleView.redoButtonClicked()
+        mScribbleView.redo()
+        
+        // ==========================================
     }
     
     func onEquationButton()
@@ -574,6 +622,37 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
 
     }
     
+    
+    // By Ujjval
+    // Enable or disable Undo & Redo buttons
+    // ==========================================
+    
+    
+    // MARK: - KMZDrawViewDelegate
+    
+    func drawView(_ drawView: KMZDrawView!, finishDraw line: KMZLine!) {
+        
+        if mScribbleView.isUndoable() {
+            m_UndoButton.setImage(UIImage(named:"Undo_Active.png"),for:UIControlState());
+            m_UndoButton.isEnabled = true
+        }
+        else {
+            m_UndoButton.setImage(UIImage(named:"Undo_Disabled.png"),for:UIControlState());
+            m_UndoButton.isEnabled = false
+        }
+        
+        if mScribbleView.isRedoable() {
+            m_RedoButton.setImage(UIImage(named:"Redo_Active.png"),for:UIControlState());
+            m_RedoButton.isEnabled = true
+        }
+        else {
+            m_RedoButton.setImage(UIImage(named:"Redo_Disabled.png"),for:UIControlState());
+            m_RedoButton.isEnabled = false
+        }
+    }
+    
+    // ==========================================
+    
     // MARK: - Smooth line delegate
     
     func setUndoButtonEnable(_ enable: NSNumber!)
@@ -620,7 +699,14 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
         
         if let progressView = sender as? UISlider
         {
-            mScribbleView.setBrushWidth(Int32(progressView.value));
+            // By Ujjval
+            // Assign updated Brush size
+            // ==========================================
+            
+//            mScribbleView.setBrushWidth(Int32(progressView.value));
+            mScribbleView.penWidth = UInt(progressView.value)
+            
+            // ==========================================
         }
         
         
@@ -630,7 +716,14 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
     {
         if let progressColor = sender as? UIColor
         {
-            mScribbleView.setDrawing(progressColor);
+            // By Ujjval
+            // Assign updated Brush color
+            // ==========================================
+            
+//            mScribbleView.setDrawing(progressColor);
+            mScribbleView.penColor = progressColor
+            
+            // ==========================================
         }
     }
 

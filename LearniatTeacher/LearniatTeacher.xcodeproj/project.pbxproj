@@ -22,6 +22,9 @@
 		00E18E9F1F082D7200D9705C /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 00E18E9D1F082D7200D9705C /* Config.plist */; };
 		00E18EA01F082D7200D9705C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E18E9E1F082D7200D9705C /* Config.swift */; };
 		172D7126C53BA6D5181A000F /* Pods_Learniat_Teacher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B4B751E33157602F99CFF41 /* Pods_Learniat_Teacher.framework */; };
+		1831D5331F3F0DB600C42811 /* KMZDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1831D52E1F3F0DB600C42811 /* KMZDrawView.m */; };
+		1831D5341F3F0DB600C42811 /* KMZFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 1831D5301F3F0DB600C42811 /* KMZFrame.m */; };
+		1831D5351F3F0DB600C42811 /* KMZLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1831D5321F3F0DB600C42811 /* KMZLine.m */; };
 		4D0A7FC81CCF783B001AA119 /* StudentAnswerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0A7FC71CCF783B001AA119 /* StudentAnswerDemo.swift */; };
 		4D0A7FCA1CCF79C6001AA119 /* StudentAnswerSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0A7FC91CCF79C6001AA119 /* StudentAnswerSelectionView.swift */; };
 		4D2A93201CC0C4A9007A1D41 /* SetupClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2A931D1CC0C4A9007A1D41 /* SetupClassCell.swift */; };
@@ -529,6 +532,12 @@
 		00E18E9E1F082D7200D9705C /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		043FC926B6D655FCF5339E70 /* Pods-Learniat Teacher.development.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Learniat Teacher.development.xcconfig"; path = "Pods/Target Support Files/Pods-Learniat Teacher/Pods-Learniat Teacher.development.xcconfig"; sourceTree = "<group>"; };
 		0B4B751E33157602F99CFF41 /* Pods_Learniat_Teacher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Learniat_Teacher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1831D52D1F3F0DB600C42811 /* KMZDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMZDrawView.h; sourceTree = "<group>"; };
+		1831D52E1F3F0DB600C42811 /* KMZDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMZDrawView.m; sourceTree = "<group>"; };
+		1831D52F1F3F0DB600C42811 /* KMZFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMZFrame.h; sourceTree = "<group>"; };
+		1831D5301F3F0DB600C42811 /* KMZFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMZFrame.m; sourceTree = "<group>"; };
+		1831D5311F3F0DB600C42811 /* KMZLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMZLine.h; sourceTree = "<group>"; };
+		1831D5321F3F0DB600C42811 /* KMZLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMZLine.m; sourceTree = "<group>"; };
 		4D0A7FC71CCF783B001AA119 /* StudentAnswerDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerDemo.swift; sourceTree = "<group>"; };
 		4D0A7FC91CCF79C6001AA119 /* StudentAnswerSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerSelectionView.swift; sourceTree = "<group>"; };
 		4D2A931D1CC0C4A9007A1D41 /* SetupClassCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetupClassCell.swift; sourceTree = "<group>"; };
@@ -1281,6 +1290,19 @@
 			path = Config;
 			sourceTree = "<group>";
 		};
+		1831D52C1F3F0DB600C42811 /* KMZDrawView */ = {
+			isa = PBXGroup;
+			children = (
+				1831D52D1F3F0DB600C42811 /* KMZDrawView.h */,
+				1831D52E1F3F0DB600C42811 /* KMZDrawView.m */,
+				1831D52F1F3F0DB600C42811 /* KMZFrame.h */,
+				1831D5301F3F0DB600C42811 /* KMZFrame.m */,
+				1831D5311F3F0DB600C42811 /* KMZLine.h */,
+				1831D5321F3F0DB600C42811 /* KMZLine.m */,
+			);
+			path = KMZDrawView;
+			sourceTree = "<group>";
+		};
 		3858849BC0FEF611419F5D58 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1700,6 +1722,7 @@
 				53015B791CE5A49D00BB366C /* QRV */,
 				5330645C1CC8E3A50035CCDE /* CustomTextView */,
 				5360E6C31CBE456D00AFE9FF /* Donart Chart */,
+				1831D52C1F3F0DB600C42811 /* KMZDrawView */,
 				5373011E1CB665E300E76753 /* Drawing */,
 				539567271CB5281E009B0100 /* StarRatingsView */,
 				53CA5A251CB23568008C42B0 /* YLProgressBar */,
@@ -3355,6 +3378,7 @@
 				53676CD61CA63B7F00CADE4D /* XMPPMessage+XEP0045.m in Sources */,
 				5360E6C81CBE53A900AFE9FF /* SSTeacherSchedulePopoverController.swift in Sources */,
 				53676CBF1CA63B7F00CADE4D /* XMPPUserCoreDataStorageObject.m in Sources */,
+				1831D5341F3F0DB600C42811 /* KMZFrame.m in Sources */,
 				4DC246501CC1F6B500E01CA4 /* ImageUploading.m in Sources */,
 				5309C7DD1CDA1B9500481E0C /* StudentModelAnswerCell.swift in Sources */,
 				5395672A1CB5281E009B0100 /* SSStarRatingView.m in Sources */,
@@ -3535,6 +3559,7 @@
 				53676CC81CA63B7F00CADE4D /* XMPPIQ+LastActivity.m in Sources */,
 				53676D261CA63B7F00CADE4D /* DDMultiFormatter.m in Sources */,
 				53676CDE1CA63B7F00CADE4D /* XMPPvCardTemp.m in Sources */,
+				1831D5351F3F0DB600C42811 /* KMZLine.m in Sources */,
 				53676CC21CA63B7F00CADE4D /* XMPPUserMemoryStorageObject.m in Sources */,
 				4DC2465F1CC24BFF00E01CA4 /* LessonPlanQuestionView.swift in Sources */,
 				53676CB51CA63B7F00CADE4D /* XMPPStream.m in Sources */,
@@ -3566,6 +3591,7 @@
 				53676D1E1CA63B7F00CADE4D /* GCDAsyncSocket.m in Sources */,
 				5377E43A1CAB951800A11E59 /* MatchColumnOption.swift in Sources */,
 				53676CA71CA63B7F00CADE4D /* XMPPPlainAuthentication.m in Sources */,
+				1831D5331F3F0DB600C42811 /* KMZDrawView.m in Sources */,
 				53676CE21CA63B7F00CADE4D /* XMPPvCardTempEmail.m in Sources */,
 				53676C9F1CA63B7F00CADE4D /* CustomAlertView.m in Sources */,
 				53676C9E1CA63B7F00CADE4D /* XMLDictionary.m in Sources */,

@@ -795,7 +795,14 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         mQuestionButton.isHidden = false
         if mFullScreenView != nil
         {
-            mFullScreenView.mScribbleView.clearButtonClicked()
+            // By Ujjval
+            // Clear image
+            // ==========================================
+            
+//            mFullScreenView.mScribbleView.clearButtonClicked()
+            mFullScreenView.mScribbleView.clear()
+            
+            // ==========================================
         }
         
         if let QuestionLogId = dict.object(forKey: "QuestionLogId") as? String
