@@ -65,6 +65,7 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
     // ==========================================
     
     var mScribbleView : KMZDrawView!
+    let colorSelectContoller = colorpopOverViewController()
     
     // ==========================================
     
@@ -178,7 +179,12 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         containerview.addSubview(mScribbleView)
         mScribbleView.isUserInteractionEnabled = true
         mScribbleView.delegate = self
-        mScribbleView.penColor = blackTextColor
+        if let colorIndex = UserDefaults.standard.value(forKey: "selectedBrushColor") as? Int {
+            mScribbleView.penColor = colorSelectContoller.colorArray.object(at: colorIndex - 1) as! UIColor
+        }
+        else {
+            mScribbleView.penColor = blackTextColor
+        }
         mScribbleView.penMode = .pencil
         var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
         if brushSize < 5
@@ -371,7 +377,6 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
             let buttonPosition :CGPoint = m_BrushButton.convert(CGPoint.zero, to: self)
             
             
-            let colorSelectContoller = colorpopOverViewController()
             colorSelectContoller.setSelectTab(1);
             colorSelectContoller.setDelegate(self);
             colorSelectContoller.setRect(CGRect(x: 0,y: 0,width: 400,height: 400));
@@ -431,7 +436,6 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
             let buttonPosition :CGPoint = m_EraserButton.convert(CGPoint.zero, to: self)
             
             
-            let colorSelectContoller = colorpopOverViewController()
             colorSelectContoller.setSelectTab(2);
             colorSelectContoller.setDelegate(self);
             colorSelectContoller.setRect(CGRect(x: 0,y: 0,width: 200,height: 200));
