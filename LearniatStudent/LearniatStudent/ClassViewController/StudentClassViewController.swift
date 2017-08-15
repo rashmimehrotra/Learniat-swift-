@@ -243,7 +243,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         if let sessionId = sessionDetails.object(forKey: kSessionId) as? String{
             if SSStudentMessageHandler.sharedMessageHandler.questionSubjects[sessionId] != nil{
                 let questionRoomSubject:QuestionRoomSubject = SSStudentMessageHandler.sharedMessageHandler.questionSubjects[sessionId]!
-                if questionRoomSubject.question.questionId != ""{
+                if questionRoomSubject.question.questionId != "" && questionRoomSubject.question.questionState == QuestionState.Started{
                     smhDidReceiveQuesitonIdChange(question: questionRoomSubject.question)
                 }
                 
