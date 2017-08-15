@@ -929,9 +929,9 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
                 if self.delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidGetTopicStateChanged(topic:))){
                     self.delegate().smhDidGetTopicStateChanged!(topic: topic)
                 }
-                if topic.topicState == TopicState.Ended{
-                    self.sessionSubjects.removeValue(forKey: roomId)
-                }
+//                if topic.topicState == TopicState.Ended{
+//                    self.sessionSubjects.removeValue(forKey: roomId)
+//                }
             }
             sessionRoomSubject.topicChanged.subscribe(on: self){ (topic) in
                 if self.delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidGetTopicChanged(topic:))){
