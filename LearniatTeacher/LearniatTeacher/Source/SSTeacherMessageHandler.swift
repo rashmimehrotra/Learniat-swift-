@@ -763,7 +763,7 @@ open class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Mess
             }
             
             else{
-                var sessionRoomSubject:SessionRoomSubject = SessionRoomSubject(topicId: subTopicId, topicName: subTopicId, topicState:TopicState.Started, roomId: _roomId, isStateChanged:false )
+                var sessionRoomSubject:SessionRoomSubject = SessionRoomSubject(topicId: subTopicId, topicName: subTopicName, topicState:TopicState.Started, roomId: _roomId, isStateChanged:false )
                     sessionRooms[sessionRoomSubject.roomId] = sessionRoomSubject
                 sendRoomSubject(roomSubject:sessionRoomSubject)
             }
