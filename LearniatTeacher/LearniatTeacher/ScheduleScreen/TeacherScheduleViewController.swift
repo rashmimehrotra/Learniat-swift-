@@ -723,7 +723,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             
             let timeDelayString = "\(currentSessionDetails.object(forKey: "ClassName") as! String) class time Extended for \(Int(delayTime)) Minutes"
             
-            self.sendTimeExtendMessageWithDetails(currentSessionDetails, withMessage: timeDelayString)
+            self.sendTimeExtendMessageWithDetails(currentSessionDetails, withMessage: timeDelayString, withSessionState: SubjectSessionState.Begin)
         }
         
         
@@ -1189,10 +1189,10 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     }
     
     
-    func sendTimeExtendMessageWithDetails(_ currentSessionDetails:AnyObject, withMessage message:String)
+    func sendTimeExtendMessageWithDetails(_ currentSessionDetails:AnyObject, withMessage message:String, withSessionState: String)
     {
         
-        SSTeacherMessageHandler.sharedMessageHandler.sendExtendedTimetoRoom((currentSessionDetails.object(forKey: "SessionId") as? String)!, withClassName: (currentSessionDetails.object(forKey: "ClassName") as? String)! , withStartTime: (currentSessionDetails.object(forKey: "StartTime") as? String)!, withDelayTime:message)
+        SSTeacherMessageHandler.sharedMessageHandler.sendExtendedTimetoRoom((currentSessionDetails.object(forKey: "SessionId") as? String)!, withClassName: (currentSessionDetails.object(forKey: "ClassName") as? String)! , withStartTime: (currentSessionDetails.object(forKey: "StartTime") as? String)!, withDelayTime:message, withSessionState: withSessionState)
     }
     
     
@@ -1337,7 +1337,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
                 self.activityIndicator.isHidden = false
                 self.activityIndicator.startAnimating()
                 
-                self.sendTimeExtendMessageWithDetails(details, withMessage: "Class has been cancelled")
+                self.sendTimeExtendMessageWithDetails(details, withMessage: "Class has been cancelled", withSessionState: SubjectSessionState.Cancelled)
                 
                 self.mScheduleDetailView.onDoneButton()
             }
@@ -1373,7 +1373,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             self.activityIndicator.isHidden = false
             self.activityIndicator.startAnimating()
             
-            self.sendTimeExtendMessageWithDetails(details, withMessage: "Class has been opened")
+            self.sendTimeExtendMessageWithDetails(details, withMessage: "Class has been opened", withSessionState: SubjectSessionState.Open)
             
             self.mScheduleDetailView.onDoneButton()
         }
@@ -1522,7 +1522,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             preallotController.setSessionDetails(details)
             
             
-            self.sendTimeExtendMessageWithDetails(details, withMessage: "Class has begun")
+            self.sendTimeExtendMessageWithDetails(details, withMessage: "Class has begun", withSessionState: SubjectSessionState.Begin)
             
             self.present(preallotController, animated: true, completion: nil)
         }

@@ -918,29 +918,37 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
             let roomId = senderJid.user.replace("room_", replacement: "")
             var sessionRoomSubject:SessionRoomSubject
             if sessionSubjects[roomId] != nil{
-                sessionRoomSubject = sessionSubjects[roomId]!
+                sessionRoomSubject = SessionRoomSubject(topicId: sessionSubjects[roomId]!.topic.topicId, topicName: sessionSubjects[roomId]!.topic.topicName, topicState: sessionSubjects[roomId]!.topic.topicState, roomId: sessionSubjects[roomId]!.roomId, isStateChanged: sessionSubjects[roomId]!.isStateChanged, sessionState: sessionSubjects[roomId]!.sessionState)
             }
             else{
-                sessionRoomSubject = SessionRoomSubject(topicId: "", topicName: "", topicState: TopicState.Started, roomId:roomId , isStateChanged: false)
+                sessionRoomSubject = SessionRoomSubject(topicId: "", topicName: "", topicState: TopicState.Started, roomId:roomId , isStateChanged: false, sessionState: SubjectSessionState.Begin)
             }
             
             // all subscription to be done by ui, db, api etc. this is just to keep code in common place
-            sessionRoomSubject.topicStateChanged.subscribe(on: self) { (topic) in
+            sessionRoomSubject.topicStateChanged.subscribeOnce(on: self) { (topic) in
                 if self.delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidGetTopicStateChanged(topic:))){
                     self.delegate().smhDidGetTopicStateChanged!(topic: topic)
                 }
-//                if topic.topicState == TopicState.Ended{
-//                    self.sessionSubjects.removeValue(forKey: roomId)
-//                }
+                if topic.topicState == TopicState.Ended{
+                    self.sessionSubjects.removeValue(forKey: roomId)
+                }
             }
-            sessionRoomSubject.topicChanged.subscribe(on: self){ (topic) in
+            sessionRoomSubject.topicChanged.subscribeOnce(on: self){ (topic) in
                 if self.delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidGetTopicChanged(topic:))){
                     self.delegate().smhDidGetTopicChanged!(topic: topic)
                 }
             }
-            sessionRoomSubject.sessionStateChanged.subscribe(on: self){ (roomId) in
-                if self.delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidGetSessionStateChange)){
-                    self.delegate().smhDidGetSessionStateChange!()
+            sessionRoomSubject.sessionStateChanged.subscribeOnce(on: self){ (roomId, sessionState) in
+                if sessionState == SubjectSessionState.Ended{
+                    if self.delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidGetSessionEndMessageWithDetails(_:)))
+                    {
+                        self.delegate().smhDidGetSessionEndMessageWithDetails!(sessionState as AnyObject)
+                    }
+                }
+                else{
+                    if self.delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidGetSessionStateChange)){
+                        self.delegate().smhDidGetSessionStateChange!()
+                    }
                 }
             }
                 //only this should be placed here
@@ -956,7 +964,7 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
             let roomId = senderJid.user.replace("question_", replacement: "")
             var questionRoomSubject:QuestionRoomSubject
             if questionSubjects[roomId] != nil{
-                questionRoomSubject = questionSubjects[roomId]!
+                questionRoomSubject = QuestionRoomSubject(questionId: questionSubjects[roomId]!.question.questionId, questionType: questionSubjects[roomId]!.question.questionType, questionState: questionSubjects[roomId]!.question.questionState, roomId: questionSubjects[roomId]!.roomId  )
             }
             else{
                 questionRoomSubject = QuestionRoomSubject(questionId: "", questionType: "", questionState:QuestionState.Started, roomId: roomId)
@@ -976,8 +984,8 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
                     self.delegate().smhDidReceiveQuesitonIdChange!(question: question)
                 }
             }
-            
             questionRoomSubject.setRoomSubject(json: subject)
+            
             questionSubjects[roomId] = questionRoomSubject
         }
     }

@@ -10,13 +10,20 @@ import Foundation
 import Signals
 import EVReflection
 
-
+public class SubjectSessionState{
+    public static var Open = "OPEN"
+    public static var Begin = "BEGIN"
+    public static var Ended = "ENDED"
+    public static var Cancelled = "CANCELLED"
+    public static var Scheduled = "SCHEDULED"
+}
 
 public class SessionRoomSubject: EVObject, RoomSubjectProtocol{
     
     var topic:Topic
     var isStateChanged:Bool = false
     var roomId:String = ""
+    var sessionState:String = SubjectSessionState.Scheduled
     let topicChanged = Signal<Topic>()
     let topicStateChanged = Signal<Topic>()
     let sessionStateChanged = Signal<(String)>()
@@ -25,11 +32,12 @@ public class SessionRoomSubject: EVObject, RoomSubjectProtocol{
         self.init()
     }
     
-    public init(topicId: String, topicName: String, topicState: String, roomId:String, isStateChanged:Bool){
+    public init(topicId: String, topicName: String, topicState: String, roomId:String, isStateChanged:Bool, sessionState: String){
         var topic:Topic = Topic(topicId:topicId, topicState:topicState, topicName:topicName)
         self.topic = topic
         self.roomId = roomId
         self.isStateChanged = isStateChanged
+        self.sessionState = sessionState
     }
     
     

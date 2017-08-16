@@ -246,7 +246,20 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                 if questionRoomSubject.question.questionId != "" && questionRoomSubject.question.questionState == QuestionState.Started{
                     smhDidReceiveQuesitonIdChange(question: questionRoomSubject.question)
                 }
+                else if questionRoomSubject.question.questionState == QuestionState.Frozen{
+                    let alert = UIAlertController(title: "Alert", message: "Last answer was frozen by teacher", preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
                 
+            }
+            
+            if SSStudentMessageHandler.sharedMessageHandler.sessionSubjects[sessionId] != nil{
+                let sessionRoomSubject:SessionRoomSubject = SSStudentMessageHandler.sharedMessageHandler.sessionSubjects[sessionId]!
+                if sessionRoomSubject.topic.topicId != "" && sessionRoomSubject.topic.topicState == QuestionState.Started{
+                        mSubTopicNamelabel.text = sessionRoomSubject.topic.topicName
+                        LearniatToast.showToast(view: self.view, duration:5.0, text: "Topic Started")
+                }
             }
         }
 
@@ -772,12 +785,22 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     }
     
     func smhDidGetTopicStateChanged(topic:Topic){
-        mSubTopicNamelabel.text = topic.topicName
+        if topic.topicState == TopicState.Ended{
+            mQueryView.queryPresentState(false)
+            mSubTopicNamelabel.text = "No subtopic"
+            LearniatToast.showToast(view: self.view, duration:5.0, image:"wrongMatch.png", text: "Topic Stopped")
+        }
+        else{
+            mSubTopicNamelabel.text = topic.topicName
+            LearniatToast.showToast(view: self.view, duration:5.0, text: "Topic Started")
+        }
+        
     }
     
     func smhDidGetTopicChanged(topic: Topic){
         if topic.topicState == TopicState.Started{
             mSubTopicNamelabel.text = topic.topicName
+            LearniatToast.showToast(view: self.view, duration:5.0, text: "Topic Started")
         }
         else{
             mSubTopicNamelabel.text = "No subtopic"
@@ -790,59 +813,59 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     
     
-    func smhDidGetVotingMessageWithDetails(_ details: AnyObject)
-    {
-        
-        
-        
-        if let VotingValue = details.object(forKey: "VotingValue") as? String
-        {
-            if VotingValue == "TRUE"
-            {
-                
-                mQueryView.queryPresentState(true)
-                
-                if (details.object(forKey: "SubTopicName") != nil)
-                {
-                    if let SubTopicName = details.object(forKey: "SubTopicName") as? String
-                    {
-                        mSubTopicNamelabel.text = SubTopicName
-                    }
-                    else
-                    {
-                        mSubTopicNamelabel.text = "No subtopic"
-                    }
-                }
-                else
-                {
-                    mSubTopicNamelabel.text = "No subtopic"
-                }
-                
-                
-                LearniatToast.showToast(view: self.view, duration:5.0, text: "Topic Started")
-                
-                
-                
-            }
-            else
-            {
-                 mQueryView.queryPresentState(false)
-                mSubTopicNamelabel.text = "No subtopic"
-
-                LearniatToast.showToast(view: self.view, duration:5.0, image:"wrongMatch.png", text: "Topic Stopped")
-                
-            }
-            
-            
-            if let subtopicId = details.object(forKey: "SubTopicId") as? String
-            {
-                SSStudentDataSource.sharedDataSource.currentSubtopicID = subtopicId
-                
-                currentSubTopicId = subtopicId
-            }
-            
-        }
-    }
+//    func smhDidGetVotingMessageWithDetails(_ details: AnyObject)
+//    {
+//        
+//        
+//        
+//        if let VotingValue = details.object(forKey: "VotingValue") as? String
+//        {
+//            if VotingValue == "TRUE"
+//            {
+//                
+//                mQueryView.queryPresentState(true)
+//                
+//                if (details.object(forKey: "SubTopicName") != nil)
+//                {
+//                    if let SubTopicName = details.object(forKey: "SubTopicName") as? String
+//                    {
+//                        mSubTopicNamelabel.text = SubTopicName
+//                    }
+//                    else
+//                    {
+//                        mSubTopicNamelabel.text = "No subtopic"
+//                    }
+//                }
+//                else
+//                {
+//                    mSubTopicNamelabel.text = "No subtopic"
+//                }
+//                
+//                
+//                LearniatToast.showToast(view: self.view, duration:5.0, text: "Topic Started")
+//                
+//                
+//                
+//            }
+//            else
+//            {
+//                 mQueryView.queryPresentState(false)
+//                mSubTopicNamelabel.text = "No subtopic"
+//
+//                LearniatToast.showToast(view: self.view, duration:5.0, image:"wrongMatch.png", text: "Topic Stopped")
+//                
+//            }
+//            
+//            
+//            if let subtopicId = details.object(forKey: "SubTopicId") as? String
+//            {
+//                SSStudentDataSource.sharedDataSource.currentSubtopicID = subtopicId
+//                
+//                currentSubTopicId = subtopicId
+//            }
+//            
+//        }
+//    }
     
     func smhDidReceiveQuesitonIdChange(question:Question){
         mQuestionButton.isHidden = false

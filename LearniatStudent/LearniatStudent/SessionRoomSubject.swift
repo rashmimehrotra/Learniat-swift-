@@ -10,6 +10,13 @@ import Foundation
 import Signals
 import EVReflection
 
+public class SubjectSessionState{
+    public static var Open = "OPEN"
+    public static var Begin = "BEGIN"
+    public static var Ended = "ENDED"
+    public static var Cancelled = "CANCELLED"
+    public static var Scheduled = "SCHEDULED"
+}
 
 
 public class SessionRoomSubject: EVObject, RoomSubjectProtocol{
@@ -17,19 +24,21 @@ public class SessionRoomSubject: EVObject, RoomSubjectProtocol{
     var topic:Topic!
     var isStateChanged:Bool = false
     var roomId:String = ""
+    var sessionState:String = SubjectSessionState.Scheduled
     let topicChanged = Signal<Topic>()
     let topicStateChanged = Signal<Topic>()
-    let sessionStateChanged = Signal<(String)>()
+    let sessionStateChanged = Signal<(roomId:String, sessionState:String)>()
     
      required public init() {
         super.init()
     }
     
-    public init(topicId: String, topicName: String, topicState: String, roomId:String, isStateChanged:Bool){
+    public init(topicId: String, topicName: String, topicState: String, roomId:String, isStateChanged:Bool, sessionState:String){
         var topic:Topic = Topic(topicId:topicId, topicState:topicState, topicName:topicName)
         self.topic = topic
         self.roomId = roomId
         self.isStateChanged = isStateChanged
+        self.sessionState = sessionState
     }
     
     
@@ -43,6 +52,7 @@ public class SessionRoomSubject: EVObject, RoomSubjectProtocol{
         self.topic = newRoomSubject.topic
         self.isStateChanged = newRoomSubject.isStateChanged
         self.roomId = newRoomSubject.roomId
+        self.sessionState = newRoomSubject.sessionState
         objc_sync_exit(self)
     }
     
@@ -57,7 +67,7 @@ public class SessionRoomSubject: EVObject, RoomSubjectProtocol{
             topicStateChanged.fire(newRoomSubject.topic)
         }
         if newRoomSubject.isStateChanged == true{
-            sessionStateChanged.fire((self.roomId))
+            sessionStateChanged.fire((roomId:self.roomId,sessionState:newRoomSubject.sessionState))
         }
     }
     
