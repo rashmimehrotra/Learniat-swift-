@@ -873,6 +873,13 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
 //            mSubTopicsNamelabel.text = "No topic selected"
 //        }
         
+        // By Ujjval
+        // ==========================================
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ChangeBrushValues"), object: nil)
+        
+        // ==========================================
+        
         submissionNotificationLabel.isHidden = true
         
         if newSubmissionRecieved.count > 0

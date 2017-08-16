@@ -376,7 +376,7 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
             
             let buttonPosition :CGPoint = m_BrushButton.convert(CGPoint.zero, to: self)
             
-            
+            let colorSelectContoller = colorpopOverViewController()
             colorSelectContoller.setSelectTab(1);
             colorSelectContoller.setDelegate(self);
             colorSelectContoller.setRect(CGRect(x: 0,y: 0,width: 400,height: 400));
@@ -435,7 +435,7 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
             
             let buttonPosition :CGPoint = m_EraserButton.convert(CGPoint.zero, to: self)
             
-            
+            let colorSelectContoller = colorpopOverViewController()
             colorSelectContoller.setSelectTab(2);
             colorSelectContoller.setDelegate(self);
             colorSelectContoller.setRect(CGRect(x: 0,y: 0,width: 200,height: 200));

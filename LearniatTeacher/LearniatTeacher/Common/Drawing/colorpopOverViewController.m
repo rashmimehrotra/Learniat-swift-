@@ -36,7 +36,7 @@
     // Do any additional setup after loading the view.
    
     
-    UIView *view =[[UIView alloc]initWithFrame:CGRectMake(10, 135, 380, 1)];
+    UIView *view =[[UIView alloc]initWithFrame:CGRectMake(10, 135, [self rect].size.width-20, 1)];
     view.layer.borderWidth = 1.0;
     view.layer.borderColor = [[UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0] CGColor];
     [self.view addSubview:view];
