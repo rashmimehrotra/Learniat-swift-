@@ -254,6 +254,10 @@ static NSString * const kTextAlignmentKey = @"textAlignment";
     }
 }
 
+- (void)delete:(id)sender {
+    [self replaceRange:self.selectedTextRange withText:@""];
+}
+
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

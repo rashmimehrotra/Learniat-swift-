@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "SSStarRatingView.h"
+#import "SZTextView.h"
+
 @interface RatingsPopOverViewController : UIViewController<UITextViewDelegate>
 {
     
@@ -16,7 +18,7 @@
     UILabel                             *topviewLabel;
     UIScrollView                        *badgesScrollView;
     int                                 badgeId;
-    UITextView                          *mTextView;
+    SZTextView                          *mTextView;
     int                                 m_studentId;
     int                                 m_indexPath;
     UIButton                            *sendButton;
@@ -50,6 +52,6 @@
 @optional - (void) sendDoubtReplaywithStudentId:(NSString*)studentId withIndexPathValue:(NSString*)indexPathValue witText:(NSString*)text;
 @optional - (void) dismissPopoverAnimated;
 @optional - (void) delegatePopoverDoneButtonPressedWithText:(NSString*)text withQueryID:(NSString*)queryId;
-
+@optional - (void) dismissPopoverForQuery;
 
 @end

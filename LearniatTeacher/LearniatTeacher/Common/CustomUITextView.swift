@@ -1,29 +1,28 @@
 //
-//  CustomTextView.swift
+//  CustomUITextView.swift
 //  LearniatTeacher
 //
-//  Created by Deepak MK on 28/04/16.
-//  Copyright © 2016 Mindshift. All rights reserved.
+//  Created by AppDeveloper on 17/08/17.
+//  Copyright © 2017 Mindshift. All rights reserved.
 //
 
 import Foundation
 
-@objc protocol CustomTextViewDelegate
+@objc protocol CustomUITextViewDelegate
 {
-    
     @objc optional func delegateTextViewTextChanged(_ chnagedText:String)
-    
-    
 }
 
-
-
-class CustomTextView: UIView,UITextViewDelegate
+class CustomUITextView: UIView,UITextFieldDelegate,UITextViewDelegate
 {
     
     
-    let mQuestionTextView       = SZTextView()
     
+    let mTopicText              = UILabel()
+    
+    //    let mQuestionTextView       = UITextField()
+    
+    let mQuestionTextView       = SZTextView()
     var currentPlaceHolder      = ""
     
     var StartText               = ""
@@ -46,19 +45,32 @@ class CustomTextView: UIView,UITextViewDelegate
         super.init(frame:frame)
         
         
-       
-       self.backgroundColor = UIColor.white
         
-        self.layer.borderColor = topicsLineColor.cgColor
+        self.backgroundColor = UIColor.white
+        self.layer.borderColor = lightGrayColor.cgColor
         self.layer.borderWidth = 1
         self.layer.cornerRadius = 5
         
+        mTopicText.frame = CGRect(x: 10,y: 10 , width: 80, height: self.frame.size.height - 20)
+        self.addSubview(mTopicText)
+        mTopicText.text = StartText
+        mTopicText.textColor = blackTextColor
+        mTopicText.font =  UIFont(name: helveticaRegular, size: 16);
         
         
-        mQuestionTextView.frame = CGRect(x: 10, y: 10, width: self.frame.size.width - 20, height: self.frame.size.height - 20)
+        //        mQuestionTextView.frame = CGRect(x: mTopicText.frame.origin.x + mTopicText.frame.size.width + 10, y: 8, width: self.frame.size.width - (mTopicText.frame.origin.x + mTopicText.frame.size.width + 20), height: self.frame.size.height - 16)
+        //        self.addSubview(mQuestionTextView)
+        //        mQuestionTextView.delegate = self
+        //        mQuestionTextView.font =  UIFont(name: helveticaRegular, size: 16);
+        //        mQuestionTextView.textAlignment = .left
+        //        mQuestionTextView.minimumFontSize = 0.4
+        //        UIMenuController.shared.isMenuVisible = false
+        
+        
+        mQuestionTextView.frame = CGRect(x: mTopicText.frame.origin.x + mTopicText.frame.size.width + 10, y: 8, width: self.frame.size.width - (mTopicText.frame.origin.x + mTopicText.frame.size.width + 20), height: self.frame.size.height - 16)
         self.addSubview(mQuestionTextView)
         mQuestionTextView.delegate = self
-        mQuestionTextView.font =  UIFont(name: helveticaMedium, size: 18);
+        mQuestionTextView.font =  UIFont(name: helveticaRegular, size: 16);
         mQuestionTextView.textAlignment = .left
         mQuestionTextView.placeholder = ""
         mQuestionTextView.placeholderTextColor = lightGrayColor
@@ -67,14 +79,15 @@ class CustomTextView: UIView,UITextViewDelegate
         
         mQuestionTextView.selectedTextRange = mQuestionTextView.textRange(from: mQuestionTextView.beginningOfDocument, to: mQuestionTextView.beginningOfDocument)
         
+        
         // By Ujjval
         // Allow textfield editing tools e.g. tap to take the cursor on any word, double tap on a word to highlight it, delete word, etc.
         // ==========================================
         
-//        let mStartButton = UIButton(frame:CGRect(x: 0, y: 0, width: self.frame.size.width,height: self.frame.size.height))
-//        self.addSubview(mStartButton)
-//        mStartButton.addTarget(self, action: #selector(CustomTextView.onSelfButton), for: .touchUpInside)
-
+        //        let mStartButton = UIButton(frame:CGRect(x: 0, y: 0, width: self.frame.size.width,height: self.frame.size.height))
+        //        self.addSubview(mStartButton)
+        //        mStartButton.addTarget(self, action: #selector(CustomTextView.onSelfButton), for: .touchUpInside)
+        
         // ==========================================
     }
     
@@ -82,17 +95,21 @@ class CustomTextView: UIView,UITextViewDelegate
     func setPlaceHolder(_ _placeHolder:String, withStartSting _startString:String)
     {
         
-//        mQuestionTextView.text = _placeHolder
-        currentPlaceHolder = _placeHolder
-       mQuestionTextView.placeholder = currentPlaceHolder
-        StartText = _startString
+        //        mQuestionTextView.placeholder = _placeHolder
+        //
+        //        StartText = _startString
+//        mTopicText.text = StartText
         
+        currentPlaceHolder = _placeHolder
+        mQuestionTextView.placeholder = currentPlaceHolder
+        StartText = _startString
+        mTopicText.text = StartText
     }
     
     
     func onSelfButton()
     {
-       mQuestionTextView.becomeFirstResponder()
+        mQuestionTextView.becomeFirstResponder()
     }
     
     required init?(coder aDecoder: NSCoder)
@@ -100,37 +117,49 @@ class CustomTextView: UIView,UITextViewDelegate
         fatalError("init(coder:) has not been implemented")
     }
     
-
+    
     
     func getTextOfCurrentTextView()->String
     {
         
+        //        if mQuestionTextView.text!.isEmpty
+        //        {
+        //            mQuestionTextView.text = ""
+        //        }
+        //
+        //
+        //        return mQuestionTextView.text!
+        
+        
         if mQuestionTextView.text!.isEmpty || mQuestionTextView.text == currentPlaceHolder
         {
             mQuestionTextView.text = ""
-           
+            
         }
         
         mQuestionTextView.resignFirstResponder()
         
         return mQuestionTextView.text!
+        
     }
     
-//    
-//    func textViewDidBeginEditing(textView: UITextView) {
-//        if textView.textColor == UIColor.lightGrayColor() {
-//            textView.text = nil
-//            textView.textColor = blackTextColor
-//        }
-//    }
-//    
-//    func textViewDidEndEditing(textView: UITextView) {
-//        if textView.text.isEmpty {
-//            textView.text = currentPlaceHolder
-//            textView.textColor = UIColor.lightGrayColor()
-//        }
-//    }
-//   
+    func isBorderRequired(isReuired:Bool)
+    {
+        if isReuired == true
+        {
+            self.layer.borderColor = lightGrayColor.cgColor
+            self.layer.borderWidth = 1
+            self.layer.cornerRadius = 5
+        }
+        else
+        {
+            self.layer.borderColor = UIColor.clear.cgColor
+            self.layer.borderWidth = 0
+            self.layer.cornerRadius = 5
+        }
+        
+    }
+    
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
         // Combine the textView text and the replacement text to
@@ -139,12 +168,7 @@ class CustomTextView: UIView,UITextViewDelegate
         
         if currentText as String == currentPlaceHolder
         {
-            if text != UIPasteboard.general.string {
-                delegate().delegateTextViewTextChanged!("")
-            }
-            else {
-                delegate().delegateTextViewTextChanged!(text)
-            }
+            delegate().delegateTextViewTextChanged!("")
         }
         else
         {
@@ -182,7 +206,7 @@ class CustomTextView: UIView,UITextViewDelegate
     
     
     
-       
+    
 }
 
 

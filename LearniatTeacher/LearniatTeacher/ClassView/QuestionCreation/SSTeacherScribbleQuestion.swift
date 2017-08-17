@@ -16,7 +16,7 @@ import Foundation
 }
 
 
-class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDataSourceDelegate, ImageEditorSubViewDelegate, KMZDrawViewDelegate
+class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDataSourceDelegate, ImageEditorSubViewDelegate, KMZDrawViewDelegate, CustomUITextViewDelegate
 {
     
     
@@ -38,7 +38,7 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
     
     let bottomtoolSelectedImageView = UIImageView()
     
-    var mQuestionNametextView   = CustomTextView()
+    var mQuestionNametextView   = CustomUITextView()
     
     let containerview = UIView()
     
@@ -89,7 +89,7 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         
          imageUploading.setDelegate(self)
         
-        mTopbarImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 70))
+        mTopbarImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 90))
         mTopbarImageView.backgroundColor = topbarColor
         self.addSubview(mTopbarImageView)
         mTopbarImageView.isUserInteractionEnabled = true
@@ -99,7 +99,7 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         
         
         
-        mQuestionNametextView =  CustomTextView(frame:CGRect(x: (mTopbarImageView.frame.size.width - 600) / 2, y: 20, width: 600, height: mTopbarImageView.frame.size.height - 30))
+        mQuestionNametextView =  CustomUITextView(frame:CGRect(x: (mTopbarImageView.frame.size.width - (mTopbarImageView.frame.size.width - 250)) / 2, y: 20, width: (mTopbarImageView.frame.size.width - 250), height: mTopbarImageView.frame.size.height - 30))
         mQuestionNametextView.setdelegate(self)
          mQuestionNametextView.setPlaceHolder("Please type Question text", withStartSting: "Question:-")
         mTopbarImageView.addSubview(mQuestionNametextView)
@@ -311,7 +311,7 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         
          let subViews = containerview.subviews.flatMap{ $0 as? ImageEditorSubView }
         
-        if (mQuestionNametextView.mQuestionTextView.text?.isEmpty)!
+        if (mQuestionNametextView.mQuestionTextView.text?.isEmpty)! || mQuestionNametextView.mQuestionTextView.text == "Please type Question text"
         {
             self.makeToast("Please type question name ", duration: 5.0, position: .bottom)
         }
@@ -364,6 +364,10 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         mScribbleView.undo()
         
         // ==========================================
+    }
+    
+    func delegateTextViewTextChanged(_ chnagedText: String) {
+        print("chnagedText : \(chnagedText)")
     }
     
     func onBrushButton()

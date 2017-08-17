@@ -41,7 +41,11 @@ class QuerySubview: UIView, SSTeacherDataSourceDelegate
     
     let mGoodQueryButton    = UIButton()
     
+    let mMuteButton         = UIButton()
+    
     let mMuteButtonImage         = UIImageView()
+    
+    var mMutedLabel         = UILabel()
     
     var muteStateString         = "0"
     
@@ -57,34 +61,34 @@ class QuerySubview: UIView, SSTeacherDataSourceDelegate
         
         
         
-        mStudentImage.frame = CGRect(x: 10,y: 10 , width: 40 ,height: 40)
+        mStudentImage.frame = CGRect(x: 10,y: 10 , width: 60 ,height: 60)
         self.addSubview(mStudentImage)
         mStudentImage.backgroundColor = UIColor.clear
         mStudentImage.layer.cornerRadius = mStudentImage.frame.size.width/16;
         mStudentImage.layer.masksToBounds = true
         
-        mStudentName.frame = CGRect(x: mStudentImage.frame.origin.x + mStudentImage.frame.size.width + 10,y: mStudentImage.frame.origin.y,width: 400,height: mStudentImage.frame.size.height / 1.8)
+        mStudentName.frame = CGRect(x: mStudentImage.frame.origin.x + mStudentImage.frame.size.width + 10,y: mStudentImage.frame.origin.y + 5,width: 50,height: 25)
         mStudentName.textAlignment = .center;
         mStudentName.textColor = blackTextColor
         self.addSubview(mStudentName)
         mStudentName.backgroundColor = UIColor.clear
         mStudentName.textAlignment = .left;
-        mStudentName.font = UIFont(name: helveticaMedium, size: 18)
+        mStudentName.font = UIFont(name: "Roboto-Medium", size: 20)
         
         
         
-        mQueryLabel.frame = CGRect(x: mStudentName.frame.origin.x,y: mStudentImage.frame.origin.y + mStudentImage.frame.size.height  ,width: self.frame.size.width - mStudentName.frame.origin.x ,height: mStudentImage.frame.size.height / 2)
+        mQueryLabel.frame = CGRect(x: mStudentName.frame.origin.x, y: mStudentName.frame.origin.y + mStudentName.frame.size.height + 10 ,width: self.frame.size.width - mStudentName.frame.origin.x ,height: mStudentImage.frame.size.height / 2)
         mQueryLabel.textAlignment = .left;
         mQueryLabel.textColor = blackTextColor
         self.addSubview(mQueryLabel)
         mQueryLabel.backgroundColor = UIColor.clear
-        mQueryLabel.font = UIFont(name: helveticaRegular, size: 18)
+        mQueryLabel.font = UIFont(name: "Roboto-Regular", size: 19)
         mQueryLabel.lineBreakMode = .byTruncatingMiddle
         mQueryLabel.numberOfLines = 20
         mQueryLabel.contentMode = .top;
         
         
-        mDismissButton.frame = CGRect(x: self.frame.size.width - 70, y: 0, width: 70 , height: 40)
+        mDismissButton.frame = CGRect(x: self.frame.size.width - 70, y: mStudentImage.frame.origin.y - 2, width: 70 , height: 40)
         self.addSubview(mDismissButton)
       
         let dismissImage = UIImageView(frame: CGRect(x: (mDismissButton.frame.size.width - 25 ) / 2  , y: (mDismissButton.frame.size.height - 25 ) / 2, width: 25, height: 25))
@@ -94,49 +98,60 @@ class QuerySubview: UIView, SSTeacherDataSourceDelegate
         mDismissButton.addTarget(self, action: #selector(QuerySubview.onDismissButton), for: UIControlEvents.touchUpInside)
         
         
-        let lineImage = UIImageView(frame:CGRect(x: mDismissButton.frame.origin.x, y: 5, width: 1, height: mDismissButton.frame.size.height - 10));
+        let lineImage = UIImageView(frame:CGRect(x: mDismissButton.frame.origin.x, y: mStudentImage.frame.origin.y, width: 2, height: mDismissButton.frame.size.height - 10));
         lineImage.backgroundColor = whiteBackgroundColor
         self.addSubview(lineImage);
         
         
-        mTextReplyButton.frame = CGRect(x: lineImage.frame.origin.x - 150, y: 0, width: 150 , height: 40)
+        mTextReplyButton.frame = CGRect(x: lineImage.frame.origin.x - 150, y: mStudentImage.frame.origin.y - 2, width: 150 , height: 40)
         self.addSubview(mTextReplyButton)
         mTextReplyButton.setTitle("Text Reply", for: UIControlState())
         mTextReplyButton.setTitleColor(standard_Button, for: UIControlState())
         mTextReplyButton.addTarget(self, action: #selector(QuerySubview.onTextReplyButton), for: UIControlEvents.touchUpInside)
+        mTextReplyButton.titleLabel?.font = UIFont(name: "Roboto-Regular", size: 18)
         
         
-        let lineImage2 = UIImageView(frame:CGRect(x: mTextReplyButton.frame.origin.x, y: 5, width: 1, height: mDismissButton.frame.size.height - 10));
+        let lineImage2 = UIImageView(frame:CGRect(x: mTextReplyButton.frame.origin.x, y: mStudentImage.frame.origin.y, width: 2, height: mDismissButton.frame.size.height - 10));
         lineImage2.backgroundColor = whiteBackgroundColor
         self.addSubview(lineImage2);
         
         
         
-        mGoodQueryButton.frame = CGRect(x: mTextReplyButton.frame.origin.x - 150, y: 0, width: 150 , height: 40)
+        mGoodQueryButton.frame = CGRect(x: mTextReplyButton.frame.origin.x - 150, y: mStudentImage.frame.origin.y - 2, width: 150 , height: 40)
         self.addSubview(mGoodQueryButton)
         mGoodQueryButton.setTitle("Good Question", for: UIControlState())
         mGoodQueryButton.setTitleColor(standard_Button, for: UIControlState())
         mGoodQueryButton.addTarget(self, action: #selector(QuerySubview.onGoodQueryButton), for: UIControlEvents.touchUpInside)
+        mGoodQueryButton.titleLabel?.font = UIFont(name: "Roboto-Regular", size: 18)
         
         
         
         
-        let lineImage3 = UIImageView(frame:CGRect(x: mGoodQueryButton.frame.origin.x, y: 5, width: 1, height: mDismissButton.frame.size.height - 10));
-        lineImage3.backgroundColor = whiteBackgroundColor
-        self.addSubview(lineImage3);
+//        let lineImage3 = UIImageView(frame:CGRect(x: mGoodQueryButton.frame.origin.x, y: mStudentImage.frame.origin.y - 2, width: 2, height: mDismissButton.frame.size.height - 10));
+//        lineImage3.backgroundColor = whiteBackgroundColor
+//        self.addSubview(lineImage3);
         
         
-       let mMuteButton = UIButton()
-        mMuteButton.frame = CGRect(x: mGoodQueryButton.frame.origin.x - 80, y: 0, width: 80 , height: 40)
+        mMuteButton.frame = CGRect(x: mStudentName.frame.origin.x + mStudentName.frame.size.width, y: mStudentImage.frame.origin.y - 2, width: 80 , height: 40)
         self.addSubview(mMuteButton)
         mMuteButton.addTarget(self, action: #selector(QuerySubview.onMuteButton), for: UIControlEvents.touchUpInside)
         
-        mMuteButtonImage.frame = CGRect(x: (mMuteButton.frame.size.width - 25 ) / 2  , y: (mMuteButton.frame.size.height - 25 ) / 2, width: 25, height: 25)
+        mMuteButtonImage.frame = CGRect(x: (mMuteButton.frame.size.width - 25 ) / 3  , y: (mMuteButton.frame.size.height - 25 ) / 2, width: 25, height: 25)
         mMuteButtonImage.image = UIImage(named: "Mute_gray.png")
         mMuteButtonImage.contentMode = .scaleAspectFit
         mMuteButton.addSubview(mMuteButtonImage)
         
-        
+        mMutedLabel.frame = CGRect(x: mMuteButton.frame.origin.x + ((mMuteButton.frame.size.width - 25 ) / 2) + 20, y: mStudentImage.frame.origin.y - 2, width: 120 , height: 40)
+        mMutedLabel.textAlignment = .left
+        mMutedLabel.textColor = .red
+        self.addSubview(mMutedLabel)
+        mMutedLabel.text = "MUTED"
+        mMutedLabel.backgroundColor = UIColor.clear
+        mMutedLabel.font = UIFont(name: "Roboto-Regular", size: 19)
+        mMutedLabel.lineBreakMode = .byTruncatingMiddle
+        mMutedLabel.numberOfLines = 1
+        mMutedLabel.contentMode = .top
+        mMutedLabel.isHidden = true
         
     }
     
@@ -182,6 +197,11 @@ class QuerySubview: UIView, SSTeacherDataSourceDelegate
         if let StudentName = currentQueryDetails.object(forKey: "StudentName") as? String
         {
             mStudentName.text       = StudentName
+            
+            mStudentName.sizeToFit()
+            mMuteButton.frame = CGRect(x: mStudentName.frame.origin.x + mStudentName.frame.size.width, y: mStudentImage.frame.origin.y - 2, width: 80 , height: 40)
+            mMutedLabel.frame = CGRect(x: mMuteButton.frame.origin.x + ((mMuteButton.frame.size.width - 25 ) / 2) + 20, y: mStudentImage.frame.origin.y - 2, width: 120 , height: 40)
+            
         }
         
         
@@ -300,7 +320,7 @@ class QuerySubview: UIView, SSTeacherDataSourceDelegate
                 SSTeacherMessageHandler.sharedMessageHandler.sendMuteMessageToStudentWithStudentId(StudentId, withStatus: muteStateString)
             }
            
-            
+            mMutedLabel.isHidden = false
         }
         else
         {
@@ -315,6 +335,7 @@ class QuerySubview: UIView, SSTeacherDataSourceDelegate
                 SSTeacherMessageHandler.sharedMessageHandler.sendMuteMessageToStudentWithStudentId(StudentId, withStatus: muteStateString)
             }
 
+            mMutedLabel.isHidden = true
         }
     }
     

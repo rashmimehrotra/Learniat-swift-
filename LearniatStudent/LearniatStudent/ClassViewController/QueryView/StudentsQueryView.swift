@@ -10,6 +10,8 @@ import Foundation
 class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelegate,StudentQuerySubViewDelegate
 {
     var mTopbarImageView = UIImageView()
+    var mAnonymousSwitch : UISwitch!
+    var mAnonymousLabel : UILabel!
     var mSendButton : SpinnerButtonView!
     var mQueryTextView : CustomTextView!
     var mQueryScrollView    = UIScrollView()
@@ -18,6 +20,7 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
     var mQRVScrollView      = UIScrollView()
     
     var isQuerySent           = false
+    var isAnonymous = false
     
     override init(frame: CGRect)
     {
@@ -27,12 +30,23 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
         self.backgroundColor = whiteBackgroundColor
         
         
-        mTopbarImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 40))
+        mTopbarImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 54))
         mTopbarImageView.backgroundColor = UIColor.white
         self.addSubview(mTopbarImageView)
         mTopbarImageView.isUserInteractionEnabled = true
         mTopbarImageView.isUserInteractionEnabled = true
         
+        
+        mAnonymousSwitch = UISwitch(frame: CGRect(x: 15, y: 12, width: 44, height: 44))
+        mTopbarImageView.addSubview(mAnonymousSwitch)
+        mAnonymousSwitch.isOn = isAnonymous
+        mAnonymousSwitch.addTarget(self, action: #selector(StudentsQueryView.switchValueChanged(_:)), for: .valueChanged)
+        
+        mAnonymousLabel = UILabel(frame: CGRect(x: mAnonymousSwitch.frame.size.width + 25, y: 5, width: 200, height: 44))
+        mTopbarImageView.addSubview(mAnonymousLabel)
+        mAnonymousLabel.text = "Anonymous"
+        mAnonymousLabel.textColor = blackTextColor
+        mAnonymousLabel.font = UIFont(name: "Roboto-Regular", size: 20)
         
         mSendButton =  SpinnerButtonView(frame: CGRect(x: mTopbarImageView.frame.size.width - 110, y: 0,width: 100,height: mTopbarImageView.frame.size.height ))
         mTopbarImageView.addSubview(mSendButton)
@@ -62,7 +76,7 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
         
         mQRVScrollView.frame = CGRect(x: 0, y: 0 , width: self.frame.size.width, height: self.frame.size.height)
         self.addSubview(mQRVScrollView)
-        mQRVScrollView.backgroundColor = whiteBackgroundColor
+        mQRVScrollView.backgroundColor = UIColor.clear
         mQRVScrollView.isHidden = true
         
         
@@ -87,6 +101,9 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
         }
     }
     
+    func switchValueChanged(_ sender : UISwitch) {
+        isAnonymous = sender.isOn
+    }
     
     func onSendButton()
     {
@@ -94,6 +111,8 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
         
         mTopbarImageView.isHidden = true
         mQueryTextView.mQuestionTextView.resignFirstResponder()
+        
+        // Use "isAnonymous" to pass anonymous value in API
         
        SSStudentDataSource.sharedDataSource.sendQueryWithQueryText(mQueryTextView.mQuestionTextView.text!, withAnonymous: "0", withDelegate: self)
       
@@ -176,16 +195,16 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
         {
             if Status == kSuccessString
             {
-                let querySubView = StudentQuerySubView(frame:  CGRect(x: 10,  y: 10 ,width: self.frame.size.width-20,height: 80))
-                querySubView.backgroundColor = UIColor.white
-                querySubView.layer.shadowColor = UIColor.black.cgColor
-                querySubView.layer.shadowOffset = CGSize(width: 0, height: 3)
-                querySubView.layer.shadowOpacity = 0.3
-                querySubView.layer.shadowRadius = 2
+                let querySubView = StudentQuerySubView(frame:  CGRect(x: 0,  y: 0 ,width: self.frame.size.width,height: 80))
+//                querySubView.backgroundColor = UIColor.white
+//                querySubView.layer.shadowColor = UIColor.black.cgColor
+//                querySubView.layer.shadowOffset = CGSize(width: 0, height: 3)
+//                querySubView.layer.shadowOpacity = 0.3
+//                querySubView.layer.shadowRadius = 2
                 querySubView.setdelegate(self)
                 let size = querySubView.getQueryTextSizeWithText(mQueryTextView.mQuestionTextView.text!)
                 querySubView.layer.cornerRadius = 2
-                querySubView.frame = CGRect(x: 10,  y: 10 ,width: self.frame.size.width-20,height: size)
+                querySubView.frame = CGRect(x: 0,  y: 0 ,width: self.frame.size.width,height: size)
                 mQueryScrollView.addSubview(querySubView)
                 
                 if let QueryId = detail.object(forKey: "QueryId") as? String
@@ -265,7 +284,7 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
             {
                 if querySubView.isQueryEvaluated() == false
                 {
-                    querySubView.queryState.text = "Cancelled"
+                    querySubView.queryState.text = "Dismissed"
                     querySubView.queryState.isHidden = false
                     querySubView.backgroundColor = UIColor(red: 255/255.0, green: 239/255.0, blue: 238/255.0, alpha: 1)
                     

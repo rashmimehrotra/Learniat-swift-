@@ -230,7 +230,7 @@
     topviewLabel.textAlignment= NSTextAlignmentCenter;
     
     
-    mTextView = [[UITextView alloc] initWithFrame:CGRectMake(0,40,200,60)];
+    mTextView = [[SZTextView alloc] initWithFrame:CGRectMake(0,40,200,60)];
     [mTextView setEditable:YES];
     [mTextView setUserInteractionEnabled:YES];
     [mTextView setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.5]];
@@ -257,47 +257,67 @@
     topView = [[UIView alloc]initWithFrame:CGRectMake(0,0,300, 40)];
     [topView setBackgroundColor:[UIColor whiteColor]];
     [self.view addSubview:topView];
-    topView.layer.shadowColor = [UIColor colorWithRed:213.0/255.0 green:213.0/255.0 blue:213.0/255.0 alpha:0.5].CGColor;
-    topView.layer.shadowOffset = CGSizeMake(1, 1);
-    topView.layer.shadowOpacity = 0.5;
-    topView.layer.shadowRadius = 0.5;
-    topView.clipsToBounds = NO;
+//    topView.layer.shadowColor = [UIColor colorWithRed:213.0/255.0 green:213.0/255.0 blue:213.0/255.0 alpha:0.5].CGColor;
+//    topView.layer.shadowOffset = CGSizeMake(1, 1);
+//    topView.layer.shadowOpacity = 0.5;
+//    topView.layer.shadowRadius = 0.5;
+//    topView.clipsToBounds = NO;
     
+    
+    
+    UIButton* DoneButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [DoneButton setTitle:@"Send" forState:UIControlStateNormal];
+    [DoneButton setTitleColor:[UIColor colorWithRed:0 green:174.0/255.0 blue:239.0/255.0 alpha:1.0] forState:UIControlStateNormal];;
+    [DoneButton setShowsTouchWhenHighlighted:YES];
+    [DoneButton setAdjustsImageWhenHighlighted:NO];
+    [DoneButton addTarget:self action:@selector(onDoneButton) forControlEvents:UIControlEventTouchUpInside];
+    DoneButton.frame = CGRectMake(200, 0, 100, 40);
+    [topView addSubview:DoneButton];
+    [[DoneButton titleLabel] setFont:[UIFont fontWithName:@"Roboto-Medium" size:18]];
     
     
     UIButton* CnacelButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [CnacelButton setTitle:@"Done" forState:UIControlStateNormal];
+    [CnacelButton setTitle:@"Cancel" forState:UIControlStateNormal];
     [CnacelButton setTitleColor:[UIColor colorWithRed:0 green:174.0/255.0 blue:239.0/255.0 alpha:1.0] forState:UIControlStateNormal];;
     [CnacelButton setShowsTouchWhenHighlighted:YES];
     [CnacelButton setAdjustsImageWhenHighlighted:NO];
-    [CnacelButton addTarget:self action:@selector(onDoneButton) forControlEvents:UIControlEventTouchUpInside];
-    CnacelButton.frame = CGRectMake(200, 0, 100, 40);
+    [CnacelButton addTarget:self action:@selector(onCancelButton) forControlEvents:UIControlEventTouchUpInside];
+    CnacelButton.frame = CGRectMake(00, 0, 100, 40);
     [topView addSubview:CnacelButton];
+    [[CnacelButton titleLabel] setFont:[UIFont fontWithName:@"Roboto-Regular" size:18]];
     
-    
-    topviewLabel= [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 40)];
-    [topviewLabel setText:@"Rate with text"];
+    topviewLabel= [[UILabel alloc] initWithFrame:CGRectMake(110, 0, 100, 40)];
+    [topviewLabel setText:@"Text Reply"];
     [self.view addSubview:topviewLabel];
-    [topviewLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18]];
-    topviewLabel.textAlignment= NSTextAlignmentLeft;
+    [topviewLabel setFont:[UIFont fontWithName:@"Roboto-Regular" size:18]];
+    topviewLabel.textAlignment= NSTextAlignmentCenter;
     
     
-    mTextView = [[UITextView alloc] initWithFrame:CGRectMake(0,40,300,60)];
+    mTextView = [[SZTextView alloc] initWithFrame:CGRectMake(0,40,300,120)];
+    [mTextView setPlaceholder:@""];
     [mTextView setEditable:YES];
     [mTextView setUserInteractionEnabled:YES];
-    [mTextView setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.5]];
+    mTextView.delegate = self;
+    [mTextView setFont:[UIFont fontWithName:@"Roboto-Regular" size:18.5]];
     [self.view addSubview:mTextView];
     mTextView.autocorrectionType = UITextAutocorrectionTypeYes;
     mTextView.text = @"";
     mTextView.textColor = [UIColor blackColor];
-    [mTextView setBackgroundColor:[UIColor colorWithRed:238.0/255.0 green:238.0/255.0 blue:238.0/255.0 alpha:1.0]];
+    [mTextView setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0]];
     
     
 }
 
+- (void)onCancelButton
+{
+    [[self delegate] dismissPopoverForQuery];
+    [[self popOverController]dismissPopoverAnimated:true];
+}
 
 - (void) onDoneButton
 {
+    [[self delegate] dismissPopoverForQuery];
+    
     if ([mTextView.text  isEqual: @""])
     {
          [[self popOverController]dismissPopoverAnimated:true];
@@ -340,7 +360,7 @@
     topviewLabel.textAlignment= NSTextAlignmentCenter;
     [topviewLabel setText:@"Rate with text"];
     
-    mTextView = [[UITextView alloc] initWithFrame:CGRectMake(0,40,400,200)];
+    mTextView = [[SZTextView alloc] initWithFrame:CGRectMake(0,40,400,200)];
     [mTextView setEditable:YES];
     [mTextView setUserInteractionEnabled:YES];
     [mTextView setFont:[UIFont fontWithName:@"HelveticaNeue" size:18.5]];

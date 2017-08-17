@@ -2538,48 +2538,52 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     }
     
     func smhDidgetPeakViewWithDetails(_ details: AnyObject, withStudentId studentId: String) {
-       
+        print("smhDidgetPeakViewWithDetails")
+        
+        let questionInfoController = SSTeacherPeakViewController()
+        
+        if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView
+        {
+            let buttonPosition :CGPoint = studentDeskView.convert(CGPoint.zero, to: self.view)
+            
+            let classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+            
+            questionInfoController.preferredContentSize = CGSize(width: 270,height: 220)
+            
+            classViewPopOverController.contentSize = CGSize(width: 270,height: 220);
+            classViewPopOverController.delegate = self;
+            questionInfoController.setPopover(classViewPopOverController)
+            classViewPopOverController.present(from: CGRect(
+                x:buttonPosition.x + studentDeskView.frame.size.height / 2,
+                y:buttonPosition.y + studentDeskView.frame.size.height / 2,
+                width: 1,
+                height: 1), in: self.view, permittedArrowDirections: [.right, .left], animated: true)
+        }
+        
         if details.object(forKey: "imageData") != nil
         {
-           if  let imageData = details.object(forKey: "imageData")  as? String
-           {
-            
-            let dataDecoded:Data = Data(base64Encoded: imageData, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters)!
-            
-            var decodedimage:UIImage = UIImage()
-            if dataDecoded.count > 0
+            if  let imageData = details.object(forKey: "imageData")  as? String
             {
-                decodedimage = UIImage(data: dataDecoded)!
-            }
-            
-            
-            if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView
-            {
-                let buttonPosition :CGPoint = studentDeskView.convert(CGPoint.zero, to: self.view)
-
-                let questionInfoController = SSTeacherPeakViewController()
-                questionInfoController.setStudentDetails(studentDeskView.currentStudentsDict, withPeakImage: decodedimage)
-               
-                let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
                 
-                questionInfoController.preferredContentSize = CGSize(width: 270,height: 220)
+                let dataDecoded:Data = Data(base64Encoded: imageData, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters)!
                 
-                classViewPopOverController.contentSize = CGSize(width: 270,height: 220);
-                classViewPopOverController.delegate = self;
-                questionInfoController.setPopover(classViewPopOverController)
-                classViewPopOverController.present(from: CGRect(
-                    x:buttonPosition.x + studentDeskView.frame.size.height / 2,
-                    y:buttonPosition.y + studentDeskView.frame.size.height / 2,
-                    width: 1,
-                    height: 1), in: self.view, permittedArrowDirections: [.right, .left], animated: true)
-
-            }
+                var decodedimage:UIImage = UIImage()
+                if dataDecoded.count > 0
+                {
+                    decodedimage = UIImage(data: dataDecoded)!
+                }
+                
+                
+                if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView
+                {
+                    questionInfoController.setStudentDetails(studentDeskView.currentStudentsDict, withPeakImage: decodedimage)
+                }
             }
             
         }
         
-      
-           }
+        
+    }
     
     
     func smhDidgetOneStringAnswerWithDetails(_ details: AnyObject, withStudentId studentId: String) {

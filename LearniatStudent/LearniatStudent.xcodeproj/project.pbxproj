@@ -26,6 +26,7 @@
 		18536C1A1F41892200D29809 /* KMZDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18536C151F41892200D29809 /* KMZDrawView.m */; };
 		18536C1B1F41892200D29809 /* KMZFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 18536C171F41892200D29809 /* KMZFrame.m */; };
 		18536C1C1F41892200D29809 /* KMZLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 18536C191F41892200D29809 /* KMZLine.m */; };
+		18F309B41F45A9490066C917 /* Anonymus.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F309B31F45A9490066C917 /* Anonymus.png */; };
 		53015BBB1CE5D93C00BB366C /* Like_Disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 53015BB71CE5D93C00BB366C /* Like_Disabled.png */; };
 		53015BBC1CE5D93C00BB366C /* Like_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 53015BB81CE5D93C00BB366C /* Like_Selected.png */; };
 		53015BBD1CE5D93C00BB366C /* Unlike_Disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 53015BB91CE5D93C00BB366C /* Unlike_Disabled.png */; };
@@ -437,6 +438,7 @@
 		18536C171F41892200D29809 /* KMZFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMZFrame.m; sourceTree = "<group>"; };
 		18536C181F41892200D29809 /* KMZLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMZLine.h; sourceTree = "<group>"; };
 		18536C191F41892200D29809 /* KMZLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMZLine.m; sourceTree = "<group>"; };
+		18F309B31F45A9490066C917 /* Anonymus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Anonymus.png; sourceTree = "<group>"; };
 		4603009CFA2404778386D823 /* Pods-LearniatStudent.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearniatStudent.release.xcconfig"; path = "Pods/Target Support Files/Pods-LearniatStudent/Pods-LearniatStudent.release.xcconfig"; sourceTree = "<group>"; };
 		4807AA5F0E5F952C2FC55D75 /* Pods-LearniatStudent.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearniatStudent.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LearniatStudent/Pods-LearniatStudent.debug.xcconfig"; sourceTree = "<group>"; };
 		53015BB71CE5D93C00BB366C /* Like_Disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Like_Disabled.png; sourceTree = "<group>"; };
@@ -2219,6 +2221,7 @@
 				531FB4571CE5EBB900DC0C6F /* ic_thumb_down_red_48dp.png */,
 				531FB4581CE5EBB900DC0C6F /* ic_thumb_up_green_48dp.png */,
 				531FB4551CE5EB9B00DC0C6F /* Seat.png */,
+				18F309B31F45A9490066C917 /* Anonymus.png */,
 				531FB4301CE5EB5B00DC0C6F /* RobotoTTF */,
 				531FB42C1CE5E22600DC0C6F /* MikeImage.png */,
 				53015BB71CE5D93C00BB366C /* Like_Disabled.png */,
@@ -2700,6 +2703,7 @@
 				531FB44E1CE5EB5B00DC0C6F /* Roboto-ThinItalic.ttf in Resources */,
 				53A482E51CE4741700C90451 /* Thumbs_Up.png in Resources */,
 				533064721CC9DAAE0035CCDE /* Main.storyboard in Resources */,
+				18F309B41F45A9490066C917 /* Anonymus.png in Resources */,
 				533255D01CEDC40600653C00 /* dragAndDrop.png in Resources */,
 				53A482D91CE45FD000C90451 /* indicator2.png in Resources */,
 				533255B51CEDC2A500653C00 /* Redo_Active@2x.png in Resources */,

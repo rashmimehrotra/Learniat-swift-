@@ -25,6 +25,7 @@
 		1831D5331F3F0DB600C42811 /* KMZDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1831D52E1F3F0DB600C42811 /* KMZDrawView.m */; };
 		1831D5341F3F0DB600C42811 /* KMZFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 1831D5301F3F0DB600C42811 /* KMZFrame.m */; };
 		1831D5351F3F0DB600C42811 /* KMZLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 1831D5321F3F0DB600C42811 /* KMZLine.m */; };
+		18F309B21F4583660066C917 /* CustomUITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F309B11F4583660066C917 /* CustomUITextView.swift */; };
 		4D0A7FC81CCF783B001AA119 /* StudentAnswerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0A7FC71CCF783B001AA119 /* StudentAnswerDemo.swift */; };
 		4D0A7FCA1CCF79C6001AA119 /* StudentAnswerSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0A7FC91CCF79C6001AA119 /* StudentAnswerSelectionView.swift */; };
 		4D2A93201CC0C4A9007A1D41 /* SetupClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2A931D1CC0C4A9007A1D41 /* SetupClassCell.swift */; };
@@ -538,6 +539,7 @@
 		1831D5301F3F0DB600C42811 /* KMZFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMZFrame.m; sourceTree = "<group>"; };
 		1831D5311F3F0DB600C42811 /* KMZLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMZLine.h; sourceTree = "<group>"; };
 		1831D5321F3F0DB600C42811 /* KMZLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMZLine.m; sourceTree = "<group>"; };
+		18F309B11F4583660066C917 /* CustomUITextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUITextView.swift; sourceTree = "<group>"; };
 		4D0A7FC71CCF783B001AA119 /* StudentAnswerDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerDemo.swift; sourceTree = "<group>"; };
 		4D0A7FC91CCF79C6001AA119 /* StudentAnswerSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerSelectionView.swift; sourceTree = "<group>"; };
 		4D2A931D1CC0C4A9007A1D41 /* SetupClassCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetupClassCell.swift; sourceTree = "<group>"; };
@@ -1740,6 +1742,7 @@
 				53676B151CA63B7F00CADE4D /* XMPP */,
 				53460C371CD1F12000076F85 /* CustomTextView.swift */,
 				001B4A081F1266AA0021CFC2 /* Constants.swift */,
+				18F309B11F4583660066C917 /* CustomUITextView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -3494,6 +3497,7 @@
 				53015BAF1CE5A53300BB366C /* PNRadarChartDataItem.m in Sources */,
 				53676D291CA63B7F00CADE4D /* DDXMLDocument.m in Sources */,
 				53676C9D1CA63B7F00CADE4D /* NSData+Base64.m in Sources */,
+				18F309B21F4583660066C917 /* CustomUITextView.swift in Sources */,
 				53676CE61CA63B7F00CADE4D /* NSXMLElement+XEP_0059.m in Sources */,
 				53676D361CA63B7F00CADE4D /* AutoSeatSubView.swift in Sources */,
 				53676D1D1CA63B7F00CADE4D /* XMPPTimer.m in Sources */,

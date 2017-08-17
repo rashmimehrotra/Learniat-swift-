@@ -289,7 +289,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         
         let longGesture = UITapGestureRecognizer(target: self, action: #selector(StundentDeskView.Long)) //Long function will call when user long press on button.
         mDoneButton.addGestureRecognizer(longGesture)
-        longGesture.numberOfTapsRequired = 2
+        longGesture.numberOfTapsRequired = 1
         
       
         

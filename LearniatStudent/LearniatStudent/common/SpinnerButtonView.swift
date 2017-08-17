@@ -42,7 +42,7 @@ class SpinnerButtonView: UIView,UIGestureRecognizerDelegate {
         mButtonLabel.numberOfLines = 4
         mButtonLabel.lineBreakMode = .byTruncatingMiddle
         mButtonLabel.textAlignment = .center
-        mButtonLabel.font =  UIFont (name: "Roboto-Regular", size: 16)
+        mButtonLabel.font =  UIFont(name: "Roboto-Regular", size: 16)
         self.addSubview(mButtonLabel)
         
         
