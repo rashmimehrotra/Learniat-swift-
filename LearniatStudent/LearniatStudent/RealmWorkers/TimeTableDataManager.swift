@@ -45,9 +45,21 @@ extension TimeTableDataManager {
     ///
     /// - Parameter completion: Closure
     func getTodaySchedules()->[TimeTableModel]{
+        
+        var mTimeTableModel = [TimeTableModel]()
         let objects = RealmManager.shared.realm.objects(TimeTableModel.self)
-        return  Array(objects)
-       }
+        for timeTableObject in Array(objects) {
+            let dateFormatter: DateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            dateFormatter.locale = Locale(identifier:"en_US_POSIX")
+            let datecomponents = dateFormatter.date(from: timeTableObject.StartTime!)
+            let now = Date()
+            if (datecomponents! >= now) {
+                mTimeTableModel.append(timeTableObject)
+            }
+        }
+        return mTimeTableModel
+    }
 }
 
 

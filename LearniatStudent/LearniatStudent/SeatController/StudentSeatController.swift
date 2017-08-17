@@ -121,9 +121,6 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
         mGridContainerView.backgroundColor = darkBackgroundColor
         //        mGridContainerView.hidden = true
         
-        
-        
-        
         mActivityIndicatore = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         mActivityIndicatore.frame = CGRect(x: (self.view.frame.size.width - 40)/2, y: (self.view.frame.size.height - 40)/2, width: 40, height: 40)
         self.view.addSubview(mActivityIndicatore)

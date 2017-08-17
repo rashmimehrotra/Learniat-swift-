@@ -14,21 +14,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
-    
     internal  static let sharedDataSource = AppDelegate()
     
     var interntDownImageView : InternetConnection!
     
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-      
         DispatchQueue.main.async {
             UIApplication.shared.isIdleTimerDisabled = true
-            
-            
             
             BITHockeyManager.shared().configure(withIdentifier: "ce977544acdf4b57a1ae4cf70b06dd2c")
             // Do some additional configuration if needed here
@@ -38,41 +32,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             
             let eraseWidth = UserDefaults.standard.float(forKey: "selectedEraserSize")
-            if eraseWidth < 25
-            {
+            if eraseWidth < 25 {
                 UserDefaults.standard.set(25, forKey: "selectedEraserSize")
             }
             
-            
             let brushWith = UserDefaults.standard.float(forKey: "selectedBrushsize")
-            if brushWith < 8
-            {
+            if brushWith < 8 {
                 UserDefaults.standard.set(8, forKey: "selectedBrushsize")
             }
         }
         
         
         SSStudentMessageHandler.sharedMessageHandler.Error_NotConnectedToInternetSignal.subscribe(on: self) { (isSuccess) in
-            if(isSuccess == true)
-            {
-               self.hideReconnecting()
-            }
-            else
-            {
-                if (UserDefaults.standard.object(forKey: kPassword) as? String) != nil
-                {
+            if(isSuccess == true) {
+                self.hideReconnecting()
+            } else {
+                if (UserDefaults.standard.object(forKey: kPassword) as? String) != nil {
                     self.showReconnecting()
                 }
             }
-            
         }
-      
-       
-        URLPrefix = Config.sharedInstance.getPhpUrl()
         
+        URLPrefix = Config.sharedInstance.getPhpUrl()
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         print(documentsPath)
-      
         return true
     }
 
