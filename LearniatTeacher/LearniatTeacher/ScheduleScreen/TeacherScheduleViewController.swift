@@ -659,8 +659,6 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         }        
     }
     
-    /* This is commented to resolve confilcts 
-    // FIXME:  Sourab please check the functions that commented is correct
     static func destroyUnusedRooms(){
         SSTeacherDataSource.sharedDataSource.refreshApp(success: { (response) in
             if let unusedRooms = response.object(forKey: "DestroyRooms") as? NSArray{
@@ -726,7 +724,6 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
     }
     
- */
     
     
     
