@@ -305,7 +305,7 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
         
             activityIndicator.isHidden = true
             activityIndicator.stopAnimating()
-        TeacherScheduleViewController.joinXMPPRooms()
+        SSTeacherMessageHandler.sharedMessageHandler.refreshApp()
 
         
     }

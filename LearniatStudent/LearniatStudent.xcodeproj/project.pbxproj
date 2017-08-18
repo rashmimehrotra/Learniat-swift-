@@ -412,6 +412,11 @@
 		53FFD2C11CE1FC3700A5AA28 /* StudentQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFD2BE1CE1FC3700A5AA28 /* StudentQuestionView.swift */; };
 		53FFD2C41CE1FC4A00A5AA28 /* StudentsQueryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FFD2C31CE1FC4A00A5AA28 /* StudentsQueryView.swift */; };
 		8ED28149084591F1216F11FD /* Pods_LearniatStudent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7778052390C6C02A1FEBCB /* Pods_LearniatStudent.framework */; };
+		C81519BE1F4099DE00DE4EB5 /* SessionRoomSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81519BD1F4099DE00DE4EB5 /* SessionRoomSubject.swift */; };
+		C81519CB1F420B2D00DE4EB5 /* RoomSubjectProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81519CA1F420B2D00DE4EB5 /* RoomSubjectProtocol.swift */; };
+		C83952A31F40784300F1AF05 /* QuestionRoomSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83952A21F40784300F1AF05 /* QuestionRoomSubject.swift */; };
+		C83952A51F407A6300F1AF05 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83952A41F407A6300F1AF05 /* Question.swift */; };
+		C83952A71F407A7000F1AF05 /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83952A61F407A7000F1AF05 /* Topic.swift */; };
 		C8B4CF351F2325FD00F7EC4C /* LearniatToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B4CF341F2325FD00F7EC4C /* LearniatToast.swift */; };
 /* End PBXBuildFile section */
 
@@ -1009,6 +1014,11 @@
 		6C7778052390C6C02A1FEBCB /* Pods_LearniatStudent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LearniatStudent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7188E25CD8AAF1A0CF653BC2 /* Pods-LearniatStudent.development.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearniatStudent.development.xcconfig"; path = "Pods/Target Support Files/Pods-LearniatStudent/Pods-LearniatStudent.development.xcconfig"; sourceTree = "<group>"; };
 		94D27346B45531BCCFF47B00 /* Pods-LearniatStudent.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearniatStudent.production.xcconfig"; path = "Pods/Target Support Files/Pods-LearniatStudent/Pods-LearniatStudent.production.xcconfig"; sourceTree = "<group>"; };
+		C81519BD1F4099DE00DE4EB5 /* SessionRoomSubject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionRoomSubject.swift; sourceTree = "<group>"; };
+		C81519CA1F420B2D00DE4EB5 /* RoomSubjectProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomSubjectProtocol.swift; sourceTree = "<group>"; };
+		C83952A21F40784300F1AF05 /* QuestionRoomSubject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionRoomSubject.swift; sourceTree = "<group>"; };
+		C83952A41F407A6300F1AF05 /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		C83952A61F407A7000F1AF05 /* Topic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
 		C8B4CF341F2325FD00F7EC4C /* LearniatToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LearniatToast.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1190,6 +1200,7 @@
 		5330646B1CC9DAAE0035CCDE /* LearniatStudent */ = {
 			isa = PBXGroup;
 			children = (
+				C83952A11F4077A500F1AF05 /* RoomSubject */,
 				0023F2DA1F19DA8700F42754 /* RealmModels */,
 				0023F2DD1F19DA8700F42754 /* RealmWorkers */,
 				00E18EA11F08385C00D9705C /* Config */,
@@ -2506,6 +2517,18 @@
 			path = QueryView;
 			sourceTree = "<group>";
 		};
+		C83952A11F4077A500F1AF05 /* RoomSubject */ = {
+			isa = PBXGroup;
+			children = (
+				C83952A21F40784300F1AF05 /* QuestionRoomSubject.swift */,
+				C83952A41F407A6300F1AF05 /* Question.swift */,
+				C83952A61F407A7000F1AF05 /* Topic.swift */,
+				C81519BD1F4099DE00DE4EB5 /* SessionRoomSubject.swift */,
+				C81519CA1F420B2D00DE4EB5 /* RoomSubjectProtocol.swift */,
+			);
+			name = RoomSubject;
+			sourceTree = "<group>";
+		};
 		CE8CEB73A78A1F126D772581 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -2864,6 +2887,7 @@
 				53A482BE1CE4506A00C90451 /* CustomTextView.swift in Sources */,
 				53A482A51CE2F6A900C90451 /* LPRTableView.swift in Sources */,
 				533066541CC9E5F40035CCDE /* XMPPRosterCoreDataStorage.m in Sources */,
+				C81519BE1F4099DE00DE4EB5 /* SessionRoomSubject.swift in Sources */,
 				533066751CC9E5F40035CCDE /* XMPPvCardTempAdr.m in Sources */,
 				533066F31CCA12590035CCDE /* StudentSeatSubView.swift in Sources */,
 				532D27FB1CE9B2C7009FDF6A /* StudentPollingView.swift in Sources */,
@@ -2874,6 +2898,7 @@
 				53A5521F1CF9A70F0093634A /* SSSettingsViewController.m in Sources */,
 				533066691CC9E5F40035CCDE /* XMPPRoomMemoryStorage.m in Sources */,
 				0023F2E51F19DA8700F42754 /* RealmManager.swift in Sources */,
+				C83952A31F40784300F1AF05 /* QuestionRoomSubject.swift in Sources */,
 				533066831CC9E5F40035CCDE /* XMPPRegistration.m in Sources */,
 				5330663A1CC9E5F40035CCDE /* XMPPDeprecatedDigestAuthentication.m in Sources */,
 				533066901CC9E5F40035CCDE /* XMPPMessageArchiving_Contact_CoreDataObject.m in Sources */,
@@ -2993,6 +3018,7 @@
 				5330666B1CC9E5F40035CCDE /* XMPPRoomOccupantMemoryStorageObject.m in Sources */,
 				531A683A1CF43BCE00D78B08 /* OneStingQuestionView.swift in Sources */,
 				533066461CC9E5F40035CCDE /* XMPPJID.m in Sources */,
+				C81519CB1F420B2D00DE4EB5 /* RoomSubjectProtocol.swift in Sources */,
 				5330666F1CC9E5F40035CCDE /* XMPPvCard.xcdatamodeld in Sources */,
 				533066781CC9E5F40035CCDE /* XMPPvCardTempEmail.m in Sources */,
 				5330667E1CC9E5F40035CCDE /* XMPPIQ+XEP_0060.m in Sources */,
@@ -3011,6 +3037,7 @@
 				0023F2E61F19DA8700F42754 /* TimeTableDataManager.swift in Sources */,
 				53A482B81CE43A3F00C90451 /* MatchColumnView.swift in Sources */,
 				533066671CC9E5F40035CCDE /* XMPPRoomMessageHybridCoreDataStorageObject.m in Sources */,
+				C83952A51F407A6300F1AF05 /* Question.swift in Sources */,
 				533066791CC9E5F40035CCDE /* XMPPvCardTempLabel.m in Sources */,
 				533066581CC9E5F40035CCDE /* XMPPUserMemoryStorageObject.m in Sources */,
 				53A482EB1CE48F1500C90451 /* QRVVolunteerView.swift in Sources */,
@@ -3028,6 +3055,7 @@
 				5330669D1CC9E5F40035CCDE /* XMPPAutoPing.m in Sources */,
 				5330663D1CC9E5F40035CCDE /* XMPPPlainAuthentication.m in Sources */,
 				5330663C1CC9E5F40035CCDE /* XMPPDigestMD5Authentication.m in Sources */,
+				C83952A71F407A7000F1AF05 /* Topic.swift in Sources */,
 				53A482C01CE45FA000C90451 /* QuerySubview.swift in Sources */,
 				532D27FD1CE9B581009FDF6A /* PollingSubView.swift in Sources */,
 				53FFD2BF1CE1FC3700A5AA28 /* MultipleChoiceView.swift in Sources */,
@@ -3164,8 +3192,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: deepak mk (862RK2T33X)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 5;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = C744MS63KY;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3187,8 +3215,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.LearniatStudent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fabec955-1624-4720-aebd-887222e24368";
-				PROVISIONING_PROFILE_SPECIFIER = "Learniat Student Development";
+				PROVISIONING_PROFILE = "364f4381-8d72-4727-a750-483dc17d35b4";
+				PROVISIONING_PROFILE_SPECIFIER = "Learniat Student Adhoc";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatStudent/LearniatStudent-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -3206,7 +3234,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Mindshift Applications & Solutions Pvt. Ltd. (C744MS63KY)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = C744MS63KY;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (

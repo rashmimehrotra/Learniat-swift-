@@ -591,7 +591,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             activityIndicator.stopAnimating()
         }
         
-        TeacherScheduleViewController.joinXMPPRooms()
+        SSTeacherMessageHandler.sharedMessageHandler.refreshApp()
         TeacherScheduleViewController.destroyUnusedRooms();
     }
     
@@ -678,51 +678,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     
     
     
-    static func joinXMPPRooms(){
-        SSTeacherDataSource.sharedDataSource.refreshApp(success: { (response) in
-            
-            if let summary = response.object(forKey: "Summary") as? NSArray
-            {
-                if summary.count > 0
-                {
-                    let details = summary.firstObject as AnyObject
-                    if let currentState = details.object(forKey: "CurrentSessionState") as? Int{
-                        
-                        let currentSessionId:Int = (summary.value(forKey: "CurrentSessionId") as! NSArray)[0] as! Int
-                        self.currentSessionId = currentSessionId
-                        let currentSessionState:Int = (summary.value(forKey: "CurrentSessionState") as! NSArray)[0] as! Int
-                        self.joinOrLeaveXMPPSessionRoom(sessionState:String(describing:currentSessionState), roomName:String(describing:currentSessionId))
-                        
-                        
-                    }
-                    if let nextState = details.object(forKey: "NextClassSessionState") as? Int{
-                        let nextSessionState:Int = (summary.value(forKey: "NextClassSessionState") as! NSArray)[0] as! Int
-                        let nextSessionId:Int = (summary.value(forKey: "NextClassSessionId") as! NSArray)[0] as! Int
-                        self.nextSessionId = nextSessionId
-                        self.joinOrLeaveXMPPSessionRoom(sessionState:String(describing:nextSessionState), roomName:String(describing:nextSessionId))
-                    }
-                    
-                }
-            }
-            
-            
-        }) { (error) in
-            NSLog("Refresh API failed, unable to join xmpp rooms")
-        }
-    }
     
-    
-    static func joinOrLeaveXMPPSessionRoom(sessionState: String, roomName: String){
-        if sessionState == kLive || sessionState == kopened || sessionState == kScheduled
-        {
-            SSTeacherMessageHandler.sharedMessageHandler.createRoomWithRoomName(String(format:"room_%@",roomName), withHistory: "0")
-        }
-        else
-        {
-            SSTeacherMessageHandler.sharedMessageHandler.checkAndRemoveJoinedRoomsArrayWithRoomid(String(format:"room_%@",roomName))
-        }
-        
-    }
     
     
     
@@ -820,7 +776,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             
             let timeDelayString = "\(currentSessionDetails.object(forKey: "ClassName") as! String) class time Extended for \(Int(delayTime)) Minutes"
             
-            self.sendTimeExtendMessageWithDetails(currentSessionDetails, withMessage: timeDelayString)
+            self.sendTimeExtendMessageWithDetails(currentSessionDetails, withMessage: timeDelayString, withSessionState: SubjectSessionState.Begin)
         }
         
         
@@ -1286,10 +1242,10 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     }
     
     
-    func sendTimeExtendMessageWithDetails(_ currentSessionDetails:AnyObject, withMessage message:String)
+    func sendTimeExtendMessageWithDetails(_ currentSessionDetails:AnyObject, withMessage message:String, withSessionState: String)
     {
         
-        SSTeacherMessageHandler.sharedMessageHandler.sendExtendedTimetoRoom((currentSessionDetails.object(forKey: "SessionId") as? String)!, withClassName: (currentSessionDetails.object(forKey: "ClassName") as? String)! , withStartTime: (currentSessionDetails.object(forKey: "StartTime") as? String)!, withDelayTime:message)
+        SSTeacherMessageHandler.sharedMessageHandler.sendExtendedTimetoRoom((currentSessionDetails.object(forKey: "SessionId") as? String)!, withClassName: (currentSessionDetails.object(forKey: "ClassName") as? String)! , withStartTime: (currentSessionDetails.object(forKey: "StartTime") as? String)!, withDelayTime:message, withSessionState: withSessionState)
     }
     
     
@@ -1434,7 +1390,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
                 self.activityIndicator.isHidden = false
                 self.activityIndicator.startAnimating()
                 
-                self.sendTimeExtendMessageWithDetails(details, withMessage: "Class has been cancelled")
+                self.sendTimeExtendMessageWithDetails(details, withMessage: "Class has been cancelled", withSessionState: SubjectSessionState.Cancelled)
                 
                 self.mScheduleDetailView.onDoneButton()
             }
@@ -1470,7 +1426,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             self.activityIndicator.isHidden = false
             self.activityIndicator.startAnimating()
             
-            self.sendTimeExtendMessageWithDetails(details, withMessage: "Class has been opened")
+            self.sendTimeExtendMessageWithDetails(details, withMessage: "Class has been opened", withSessionState: SubjectSessionState.Open)
             
             self.mScheduleDetailView.onDoneButton()
         }
@@ -1619,7 +1575,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             preallotController.setSessionDetails(details)
             
             
-            self.sendTimeExtendMessageWithDetails(details, withMessage: "Class has begun")
+            self.sendTimeExtendMessageWithDetails(details, withMessage: "Class has begun", withSessionState: SubjectSessionState.Begin)
             
             self.present(preallotController, animated: true, completion: nil)
         }
@@ -1672,7 +1628,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     }
     
     func settings_XmppReconnectButtonClicked() {
-        SSTeacherMessageHandler.sharedMessageHandler.performReconnet()
+        SSTeacherMessageHandler.sharedMessageHandler.performReconnet(connectType: "Others")
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
     }

@@ -400,28 +400,17 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
        activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
         refreshApp()
+        SSStudentMessageHandler.sharedMessageHandler.refreshApp()
     }
     
     
     
-    func refreshApp() {
+     func refreshApp() {
          SSStudentDataSource.sharedDataSource.refreshApp(success: { (response) in
             if let summary = response.object(forKey: "Summary") as? NSArray {
                 if summary.count > 0 {
                     let details = summary.firstObject as AnyObject
                     self.evaluateStateWithSummary(details: details as AnyObject)
-                    
-                    if let currentState = details.object(forKey: "CurrentSessionState") as? Int{
-                        let currentSessionId:Int = (summary.value(forKey: "CurrentSessionId") as! NSArray)[0] as! Int
-                        let currentSessionState:Int = (summary.value(forKey: "CurrentSessionState") as! NSArray)[0] as! Int
-                        self.joinOrLeaveXMPPSessionRoom(sessionState:String(describing:currentSessionState), roomName:String(describing:currentSessionId))
-                    }
-                    if let nextState = details.object(forKey: "NextClassSessionState") as? Int{
-                        let nextSessionState:Int = (summary.value(forKey: "NextClassSessionState") as! NSArray)[0] as! Int
-                        let nextSessionId:Int = (summary.value(forKey: "NextClassSessionId") as! NSArray)[0] as! Int
-                        self.joinOrLeaveXMPPSessionRoom(sessionState:String(describing:nextSessionState), roomName:String(describing:nextSessionId))
-                    }
-
                 }
             }
          }) { (error) in
@@ -430,14 +419,6 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     }
     
     
-    func joinOrLeaveXMPPSessionRoom(sessionState: String, roomName: String){
-        if sessionState == kLive || sessionState == kopened || sessionState == kScheduled{
-            SSStudentMessageHandler.sharedMessageHandler.createRoomWithRoomName(String(format:"room_%@",roomName), withHistory: "0")
-        } else {
-            SSStudentMessageHandler.sharedMessageHandler.checkAndRemoveJoinedRoomsArrayWithRoomid(String(format:"room_%@",roomName))
-        }
-        
-    }
     
     
     
@@ -530,10 +511,17 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         delegateRefreshSchedule()
     }
     
+    func smhDidGetSessionStateChange(){
+        delegateRefreshSchedule()
+    }
+    
     func smhDidGetSessionEndMessageWithDetails(_ details: AnyObject) {
         delegateRefreshSchedule()
         
     }
+    
+   
+
     
     
      // MARK: - Extra functions
@@ -591,7 +579,7 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     
     
     func Settings_XmppReconnectButtonClicked() {
-        SSStudentMessageHandler.sharedMessageHandler.performReconnet()
+        SSStudentMessageHandler.sharedMessageHandler.performReconnet(connectType: "Other")
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
     }

@@ -23,6 +23,7 @@ pod 'SwiftyJSON' , '3.1.4'
 
 pod 'RealmSwift', '2.8.0'
 
+pod "EVReflection"
 
 end
 

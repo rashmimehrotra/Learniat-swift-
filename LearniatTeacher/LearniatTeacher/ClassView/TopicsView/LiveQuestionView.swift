@@ -429,7 +429,7 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
         
         
         
-        SSTeacherMessageHandler.sharedMessageHandler.freezeQnAMessageToRoom("question_\(SSTeacherDataSource.sharedDataSource.currentLiveSessionId)", withAverageScore: QuestonAvgScore as String, withTotalResponses: NumberOfResponses!)
+        SSTeacherMessageHandler.sharedMessageHandler.freezeQnAMessageToRoom(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, withAverageScore: QuestonAvgScore as String, withTotalResponses: NumberOfResponses!)
         
         mFreezbutton.isEnabled = false
         mFreezbutton.setTitleColor(UIColor.lightGray, for: UIControlState())

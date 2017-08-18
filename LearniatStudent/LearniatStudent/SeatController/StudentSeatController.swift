@@ -387,6 +387,13 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
         let preallotController : SSStudentScheduleViewController = storyboard.instantiateViewController(withIdentifier: "TeacherScheduleViewController") as! SSStudentScheduleViewController
         self.present(preallotController, animated: true, completion: nil)
     }
+    
+    func smhEndSession()
+    {
+        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let preallotController : SSStudentScheduleViewController = storyboard.instantiateViewController(withIdentifier: "TeacherScheduleViewController") as! SSStudentScheduleViewController
+        self.present(preallotController, animated: true, completion: nil)
+    }
    
     // MARK: - Leave class delegate handler
     

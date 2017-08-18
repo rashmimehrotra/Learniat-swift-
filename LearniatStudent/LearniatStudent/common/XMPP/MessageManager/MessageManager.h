@@ -125,6 +125,17 @@
 - (void) goOffline;
 
 /**
+ changes the presence to active
+ */
+- (void) goActive;
+
+/**
+ changes the presence to retryActive
+ */
+- (void) goRetryActive;
+
+
+/**
  Register new user to xmpp server
  @param userName    new user name
  @param _password   new password
@@ -221,13 +232,28 @@
  Methods to get recieved message
  */
 
-@optional - (void) didReceiveMessageWithBody:(NSString *) body;
+@optional - (void) didReceiveMessageWithBody:(NSString *)body WithSenderJid:(XMPPJID*)senderJid;
+
+
+
+/**
+ Methods to get recieved subject
+ */
+
+@optional - (void) didReceiveMessageWithSubject:(NSString *)subject WithSenderJid:(XMPPJID*)senderJid;
 
 
 /**
  Methods to get presence of other user
  */
 @optional - (void) didRecievePresence:(NSString*)state withUserName:(NSString*)userName WithSubState:(NSString*)subState;
+
+
+/**
+ Methods to get presence of other self clone
+ */
+
+@optional - (void) didRecievePresenceSelf:(NSString*)state withUserName:(NSString*)userName WithSubState:(NSString*)subState WithSenderJid:(XMPPJID *)senderJid;
 
 
 /**
@@ -243,6 +269,10 @@
 
 
 @optional - (void) didCreateRoom:(XMPPRoom*)_xmppRoom;
+
+@optional
+- (void) gotOnline;
+
 
 @end
 

@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     internal  static let sharedDataSource = AppDelegate()
     
     var interntDownImageView : InternetConnection!
+    static var appState:String = "Active"  //Active/TakenOver
     
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -61,7 +62,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             {
                 if (UserDefaults.standard.object(forKey: kPassword) as? String) != nil
                 {
-                    self.showReconnecting()
+                    if AppDelegate.appState == "Active"{
+                        self.showReconnecting()
+                    }
+                    else if AppDelegate.appState == "TakenOver"{
+                        let alertController = UIAlertController(title: "Disconnected", message: "Logged in from other device detected ", preferredStyle: UIAlertControllerStyle.alert)
+                        alertController.addAction(UIAlertAction(title: "Reconnect", style: UIAlertActionStyle.default, handler: { action in
+                            self.handleReconnect()}))
+                        alertController.addAction(UIAlertAction(title: "Logout", style: UIAlertActionStyle.default, handler: {action in self.handleLogout()}))
+                        let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+                        alertWindow.rootViewController = UIViewController()
+                        alertWindow.windowLevel = UIWindowLevelAlert + 1;
+                        alertWindow.makeKeyAndVisible()
+                        alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+
+                    }
                 }
             }
             
@@ -75,6 +90,60 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       
         return true
     }
+    
+    func handleReconnect(){
+        SSStudentMessageHandler.sharedMessageHandler.performReconnet(connectType: "Reconnect")
+        AppDelegate.appState = "Active"
+
+    }
+    
+    
+    func handleLogout(){
+        if UserDefaults.standard.object(forKey: kPassword) != nil
+        {
+            UserDefaults.standard.removeObject(forKey: kPassword)
+        }
+        
+        
+        SSStudentMessageHandler.sharedMessageHandler.goOffline()
+        
+        if let uiViewController = AppDelegate.getTopViewController() as? SSStudentScheduleViewController {
+            uiViewController.performSegue(withIdentifier: "ScheduleToLogin", sender: nil)
+        }
+        else if let uiViewController = AppDelegate.getTopViewController() as? StudentClassViewController {
+            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let loginViewController : LoginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+            uiViewController.present(loginViewController, animated: true, completion: nil)
+        }
+        else if let uiViewController = AppDelegate.getTopViewController() as? StudentSeatViewController {
+            let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let loginViewController : LoginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+            uiViewController.present(loginViewController, animated: true, completion: nil)
+        }
+        
+        
+    }
+    
+    
+    
+    static func getTopViewController() -> UIViewController {
+        
+        var viewController = UIViewController()
+        
+        if let vc =  UIApplication.shared.delegate?.window??.rootViewController {
+            
+            viewController = vc
+            var presented = vc
+            
+            while let top = presented.presentedViewController {
+                presented = top
+                viewController = top
+            }
+        }
+        
+        return viewController
+    }
+
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -127,6 +196,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 window.addSubview(interntDownImageView)
                
             }
+            window.bringSubview(toFront: interntDownImageView)
+        }
+        
+        if interntDownImageView != nil
+        {
+            interntDownImageView.isHidden = false
+            interntDownImageView.stopLoading()
+            
+        }
+        
+        
+    }
+    
+    
+    func showTakenOver()
+    {
+        if  let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+            let window = appDelegate.window
+        {
+            
+            if interntDownImageView == nil{
+                interntDownImageView = InternetConnection.instanceFromNib() as! InternetConnection
+                interntDownImageView.frame = CGRect(x: 0, y: 0, width: window.frame.size.width, height: window.frame.size.height)
+                
+            }
+            interntDownImageView.mRetryButton.setTitle("Reconnect", for : .normal)
+            window.addSubview(interntDownImageView)
+
             window.bringSubview(toFront: interntDownImageView)
         }
         
