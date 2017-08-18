@@ -19,7 +19,7 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
     var isQuerySent           = false
     var mAnnonymusSwitch    = UISwitch()
     var noQuestionslabel = UILabel()
-    
+
     // By Ujjval
     // ==========================================
     

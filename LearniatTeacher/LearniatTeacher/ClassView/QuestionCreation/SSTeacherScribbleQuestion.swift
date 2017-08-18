@@ -16,7 +16,7 @@ import Foundation
 }
 
 
-class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDataSourceDelegate, ImageEditorSubViewDelegate, KMZDrawViewDelegate, CustomUITextViewDelegate
+class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDataSourceDelegate, ImageEditorSubViewDelegate
 {
     
     
@@ -38,22 +38,11 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
     
     let bottomtoolSelectedImageView = UIImageView()
     
-    // By Ujjval
-    // ==========================================
-    
-//    var mQuestionNametextView   = UITextField()
-    var mQuestionNametextView   = CustomUITextView()
-    
-    // ==========================================
+    var mQuestionNametextView   = UITextField()
     
     let containerview = UIView()
     
-    // By Ujjval
-    // ==========================================
-    
-//    var mScribbleView : SmoothLineView!
-    
-    // ==========================================
+    var mScribbleView : SmoothLineView!
     
     let kUplodingServer     = "http://54.251.104.13/Jupiter/upload_photos.php"
     
@@ -71,14 +60,6 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
     
     var _delgate: AnyObject!
     
-    // By Ujjval
-    // Create view for draw
-    // ==========================================
-    
-    var mScribbleView : KMZDrawView!
-    let colorSelectContoller = colorpopOverViewController()
-    
-    // ==========================================
     
     func setdelegate(_ delegate:AnyObject)
     {
@@ -100,14 +81,7 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         
          imageUploading.setDelegate(self)
         
-        // By Ujjval
-        // ==========================================
-        
-//        mTopbarImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 70))
-        mTopbarImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 90))
-        
-        // ==========================================
-        
+        mTopbarImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 70))
         mTopbarImageView.backgroundColor = topbarColor
         self.addSubview(mTopbarImageView)
         mTopbarImageView.isUserInteractionEnabled = true
@@ -116,21 +90,12 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         
         
         
-        // By Ujjval
-        // ==========================================
         
-//        mQuestionNametextView =  UITextField(frame:CGRect(x: (mTopbarImageView.frame.size.width - 600) / 2, y: 20, width: 600, height: mTopbarImageView.frame.size.height - 30))
-//        mQuestionNametextView.placeholder = " Please type Question text"
-//        mQuestionNametextView.backgroundColor = UIColor.white
-//        mQuestionNametextView.layer.cornerRadius = 5
-        
-        mQuestionNametextView =  CustomUITextView(frame:CGRect(x: (mTopbarImageView.frame.size.width - (mTopbarImageView.frame.size.width - 250)) / 2, y: 20, width: (mTopbarImageView.frame.size.width - 250), height: mTopbarImageView.frame.size.height - 30))
-        mQuestionNametextView.setdelegate(self)
-        mQuestionNametextView.setPlaceHolder("Please type Question text", withStartSting: "Question:-")
-        
-        // ==========================================
-        
+        mQuestionNametextView =  UITextField(frame:CGRect(x: (mTopbarImageView.frame.size.width - 600) / 2, y: 20, width: 600, height: mTopbarImageView.frame.size.height - 30))
+        mQuestionNametextView.placeholder = " Please type Question text"
         mTopbarImageView.addSubview(mQuestionNametextView)
+        mQuestionNametextView.backgroundColor = UIColor.white
+        mQuestionNametextView.layer.cornerRadius = 5
 
 
         
@@ -184,46 +149,20 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         containerview.clipsToBounds = false;
         
         
-        // By Ujjval
-        // Assign frame and set other properties to draw view
-        // ==========================================
-        
-//        mScribbleView = SmoothLineView(frame: CGRect(x: 0,y: 0,width: containerview.frame.size.width, height: containerview.frame.size.height))
-//        mScribbleView.delegate = self
-//        containerview.addSubview(mScribbleView);
-//        mScribbleView.isUserInteractionEnabled = true
-//        mScribbleView.setDrawing(blackTextColor);
-//        mScribbleView.setBrushWidth(5)
-//        mScribbleView.setDrawing(kBrushTool)
-//        var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
-//        if brushSize < 5
-//        {
-//            brushSize = 5
-//        }
-//        mScribbleView.setBrushWidth(Int32(brushSize))
-//        mScribbleView.isHidden = false
-        
-        
-        mScribbleView = KMZDrawView(frame: CGRect(x: 0,y: 0,width: containerview.frame.size.width, height: containerview.frame.size.height))
-        containerview.addSubview(mScribbleView)
-        mScribbleView.isUserInteractionEnabled = true
+        mScribbleView = SmoothLineView(frame: CGRect(x: 0,y: 0,width: containerview.frame.size.width, height: containerview.frame.size.height))
         mScribbleView.delegate = self
-        if let colorIndex = UserDefaults.standard.value(forKey: "selectedBrushColor") as? Int {
-            mScribbleView.penColor = colorSelectContoller.colorArray.object(at: colorIndex - 1) as! UIColor
-        }
-        else {
-            mScribbleView.penColor = blackTextColor
-        }
-        mScribbleView.penMode = .pencil
+        containerview.addSubview(mScribbleView);
+        mScribbleView.isUserInteractionEnabled = true
+        mScribbleView.setDrawing(blackTextColor);
+        mScribbleView.setBrushWidth(5)
+        mScribbleView.setDrawing(kBrushTool)
         var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
         if brushSize < 5
         {
             brushSize = 5
         }
-        mScribbleView.penWidth = UInt(brushSize)
+        mScribbleView.setBrushWidth(Int32(brushSize))
         mScribbleView.isHidden = false
-        
-        // ==========================================
         
         
         
@@ -344,18 +283,12 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         
          let subViews = containerview.subviews.flatMap{ $0 as? ImageEditorSubView }
         
-        // By Ujjval
-        // ==========================================
-        
-//        if (mQuestionNametextView.mQuestionTextView.text?.isEmpty)!
-        if (mQuestionNametextView.mQuestionTextView.text?.isEmpty)! || mQuestionNametextView.mQuestionTextView.text == "Please type Question text"
+        if (mQuestionNametextView.text?.isEmpty)!
         {
             self.makeToast("Please type question name ", duration: 5.0, position: .bottom)
         }
-//        else if mScribbleView.curImage != nil || subViews.count >= 0
-        else if mScribbleView.image != nil || subViews.count >= 0
+        else if mScribbleView.curImage != nil || subViews.count >= 0
         {
-            // ==========================================
             
             sendButtonSpinner.isHidden = false
             sendButtonSpinner.startAnimating()
@@ -390,26 +323,8 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
     
     func onUndoButton()
     {
-        // By Ujjval
-        // Undo drawn image
-        // ==========================================
-        
-//        mScribbleView.undoButtonClicked()
-        mScribbleView.undo()
-        
-        // ==========================================
+        mScribbleView.undoButtonClicked()
     }
-    
-    // By Ujjval
-    // Custom textview delegate method
-    // ==========================================
-    
-    func delegateTextViewTextChanged(_ chnagedText: String) {
-        
-    }
-    
-    // ==========================================
-    
     
     func onBrushButton()
     {
@@ -444,26 +359,14 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         bottomtoolSelectedImageView.frame = m_BrushButton.frame
         m_BrushButton.setImage(UIImage(named:"Marker_Selected.png"), for:UIControlState())
         m_EraserButton.setImage(UIImage(named:"Eraser_Unselected.png"), for:UIControlState())
-        
-        
-        // By Ujjval
-        // Assign updated brush size
-        // ==========================================
-        
-//        mScribbleView.setDrawing(kBrushTool)
+        mScribbleView.setDrawing(kBrushTool)
         
         var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
         if brushSize < 5
         {
             brushSize = 5
         }
-//        mScribbleView.setBrushWidth(Int32(brushSize))
-        
-        
-        mScribbleView.penMode = .pencil
-        mScribbleView.penWidth = UInt(brushSize)
-        
-        // ==========================================
+        mScribbleView.setBrushWidth(Int32(brushSize))
        
         
         
@@ -511,22 +414,10 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         bottomtoolSelectedImageView.frame = m_EraserButton.frame
         m_BrushButton.setImage(UIImage(named:"Marker_Unselected.png"), for:UIControlState())
         m_EraserButton.setImage(UIImage(named:"Eraser_Selected.png"), for:UIControlState())
-       
-        
-        // By Ujjval
-        // Assign updated eraser size
-        // ==========================================
-        
-//        mScribbleView.setDrawing(kEraserTool)
+        mScribbleView.setDrawing(kEraserTool)
         
         let eraserSize = UserDefaults.standard.float(forKey: "selectedEraserSize")
-//        mScribbleView.setBrushWidth(Int32(eraserSize))
-        
-        
-        mScribbleView.penMode = .eraser
-        mScribbleView.penWidth = UInt(eraserSize)
-        
-        // ==========================================
+        mScribbleView.setBrushWidth(Int32(eraserSize))
         
         
         
@@ -539,14 +430,7 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
     
     func onRedoButton()
     {
-        // By Ujjval
-        // Redo drawn image
-        // ==========================================
-        
-//        mScribbleView.redoButtonClicked()
-        mScribbleView.redo()
-        
-        // ==========================================
+        mScribbleView.redoButtonClicked()
     }
     
     func onEquationButton()
@@ -726,39 +610,6 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
 
     }
     
-    
-    // By Ujjval
-    // Enable or disable Undo & Redo buttons
-    // ==========================================
-    
-    // MARK: - KMZDrawViewDelegate
-    
-    func drawView(_ drawView: KMZDrawView!, finishDraw line: KMZLine!) {
-        
-        if mScribbleView.isUndoable() {
-            m_UndoButton.setImage(UIImage(named:"Undo_Active.png"),for:UIControlState());
-            m_UndoButton.isEnabled = true
-            lineDrawnChanged()
-        }
-        else {
-            m_UndoButton.setImage(UIImage(named:"Undo_Disabled.png"),for:UIControlState());
-            m_UndoButton.isEnabled = false
-        }
-        
-        if mScribbleView.isRedoable() {
-            m_RedoButton.setImage(UIImage(named:"Redo_Active.png"),for:UIControlState());
-            m_RedoButton.isEnabled = true
-            lineDrawnChanged()
-        }
-        else {
-            m_RedoButton.setImage(UIImage(named:"Redo_Disabled.png"),for:UIControlState());
-            m_RedoButton.isEnabled = false
-        }
-    }
-    
-    // ==========================================
-    
-    
     // MARK: - Smooth line delegate
     
     func setUndoButtonEnable(_ enable: NSNumber!)
@@ -806,14 +657,7 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         
         if let progressView = sender as? UISlider
         {
-            // By Ujjval
-            // Assign updated Brush size
-            // ==========================================
-            
-//            mScribbleView.setBrushWidth(Int32(progressView.value));
-            mScribbleView.penWidth = UInt(progressView.value)
-            
-            // ==========================================
+            mScribbleView.setBrushWidth(Int32(progressView.value));
         }
         
         
@@ -823,14 +667,7 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
     {
         if let progressColor = sender as? UIColor
         {
-            // By Ujjval
-            // Assign updated Brush color
-            // ==========================================
-            
-//            mScribbleView.setDrawing(progressColor);
-            mScribbleView.penColor = progressColor
-            
-            // ==========================================
+            mScribbleView.setDrawing(progressColor);
         }
     }
 
@@ -844,17 +681,12 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         
         
         SSTeacherDataSource.sharedDataSource.InsertScribbleFileName(Scribblename: "upload/".appending(name).appending(".png"), withSuccessHandle: { (details) in
-            
-            
-            // By Ujjval
-            // ==========================================
-            
-            if self.mQuestionNametextView.mQuestionTextView.text == nil
+            if self.mQuestionNametextView.text == nil
             {
-                self.mQuestionNametextView.mQuestionTextView.text = ""
+                self.mQuestionNametextView.text = ""
             }
             
-            if (self.mQuestionNametextView.mQuestionTextView.text?.isEmpty)!
+            if (self.mQuestionNametextView.text?.isEmpty)!
             {
                 self.makeToast("Please type question name ", duration: 5.0, position: .bottom)
             }
@@ -862,25 +694,14 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
             {
                 if let ScribbleId = details.object(forKey: "image_id") as? Int
                 {
-//                    SSTeacherDataSource.sharedDataSource.recordQuestionWithScribbleId("\(ScribbleId)", withQuestionName: self.mQuestionNametextView.text!, WithType: "4", withTopicId: self._currentTopicId, WithDelegate: self)
-                    SSTeacherDataSource.sharedDataSource.recordQuestionWithScribbleId("\(ScribbleId)", withQuestionName: self.mQuestionNametextView.mQuestionTextView.text!, WithType: "4", withTopicId: self._currentTopicId, WithDelegate: self)
-                    
-                    // ==========================================
+                    SSTeacherDataSource.sharedDataSource.recordQuestionWithScribbleId("\(ScribbleId)", withQuestionName: self.mQuestionNametextView.text!, WithType: "4", withTopicId: self._currentTopicId, WithDelegate: self)
                 }
                 else
                 {
                     self.sendButtonSpinner.isHidden = true
                     self.sendButtonSpinner.stopAnimating()
                     self.mSendButton.isHidden = false
-                    
-                    // By Ujjval
-                    // Clear image
-                    // ==========================================
-                    
-//                    self.mScribbleView.clearButtonClicked()
-                    self.mScribbleView.clear()
-                    
-                    // ==========================================
+                    self.mScribbleView.clearButtonClicked()
 
                 }
             }
@@ -888,15 +709,7 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
             self.sendButtonSpinner.isHidden = true
             self.sendButtonSpinner.stopAnimating()
             self.mSendButton.isHidden = false
-            
-            // By Ujjval
-            // Clear image
-            // ==========================================
-            
-//            self.mScribbleView.clearButtonClicked()
-            self.mScribbleView.clear()
-            
-            // ==========================================
+            self.mScribbleView.clearButtonClicked()
         }
         
         
@@ -909,16 +722,7 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         sendButtonSpinner.isHidden = true
         sendButtonSpinner.stopAnimating()
         mSendButton.isHidden = false
-        
-        // By Ujjval
-        // Clear image
-        // ==========================================
-        
-//        mScribbleView.clearButtonClicked()
-        self.mScribbleView.clear()
-        
-        // ==========================================
-        
+        mScribbleView.clearButtonClicked()
 //        currentTeacherImageURl = ""
     }
     
@@ -926,15 +730,13 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
     
     func didGetScribbleUploadedWithDetaisl(_ details: AnyObject) {
      
-        // By Ujjval
-        // ==========================================
         
-        if mQuestionNametextView.mQuestionTextView.text == nil
+        if mQuestionNametextView.text == nil
         {
-            mQuestionNametextView.mQuestionTextView.text = ""
+            mQuestionNametextView.text = ""
         }
         
-        if (mQuestionNametextView.mQuestionTextView.text?.isEmpty)!
+        if (mQuestionNametextView.text?.isEmpty)!
         {
             self.makeToast("Please type question name ", duration: 5.0, position: .bottom)
         }
@@ -942,12 +744,11 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         {
             if let ScribbleId = details.object(forKey: "ScribbleId") as? String
             {
-//                SSTeacherDataSource.sharedDataSource.recordQuestionWithScribbleId(ScribbleId, withQuestionName: mQuestionNametextView.text!, WithType: "4", withTopicId: _currentTopicId, WithDelegate: self)
-                SSTeacherDataSource.sharedDataSource.recordQuestionWithScribbleId(ScribbleId, withQuestionName: mQuestionNametextView.mQuestionTextView.text!, WithType: "4", withTopicId: _currentTopicId, WithDelegate: self)
+                SSTeacherDataSource.sharedDataSource.recordQuestionWithScribbleId(ScribbleId, withQuestionName: mQuestionNametextView.text!, WithType: "4", withTopicId: _currentTopicId, WithDelegate: self)
             }
         }
         
-        // ==========================================
+        
         
         
     }
@@ -967,14 +768,7 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
             
         }
         
-        // By Ujjval
-        // ==========================================
-        
-//        questionDiconary.setObject(mQuestionNametextView.text, forKey: "Name" as NSCopying)
-        questionDiconary.setObject(mQuestionNametextView.mQuestionTextView.text, forKey: "Name" as NSCopying)
-        
-        // ==========================================
-        
+        questionDiconary.setObject(mQuestionNametextView.text, forKey: "Name" as NSCopying)
         questionDiconary.setObject(kOverlayScribble, forKey: kQuestionType as NSCopying)
         questionDiconary.setObject("upload/".appending(nameOfImage).appending(".png"), forKey: "Scribble" as NSCopying)
        
