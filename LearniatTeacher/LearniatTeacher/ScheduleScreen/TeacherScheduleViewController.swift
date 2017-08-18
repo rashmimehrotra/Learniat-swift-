@@ -147,15 +147,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         self.view.layoutIfNeeded()
         
         
-//        
-//        foregroundNotification = NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillEnterForeground, object: nil, queue: OperationQueue.main) {
-//            [unowned self] notification in
-//           
-//            
-//            SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
-//        }
-//        
-//        
+
         SSTeacherMessageHandler.sharedMessageHandler.setdelegate(self)
         
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"

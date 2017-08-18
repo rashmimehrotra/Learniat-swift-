@@ -434,8 +434,6 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
     {
         let manager = APIManager()
         
-        
-        
         let urlString = String(format: "%@<Sunstone><Action><Service>SaveStudentQuery</Service><StudentId>%@</StudentId><SessionId>%@</SessionId><QueryText>%@</QueryText><Anonymous>%@</Anonymous></Action></Sunstone>",URLPrefix,currentUserId,currentLiveSessionId,queryText,isAnonymous)
         print("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kServiceSetDoubt, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)

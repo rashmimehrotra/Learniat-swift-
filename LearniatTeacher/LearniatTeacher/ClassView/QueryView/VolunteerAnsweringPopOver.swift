@@ -227,7 +227,7 @@ class VolunteerAnsweringPopOver: UIView{
     {
         
         
-        liveTotalStudents = totalStudents - 1
+        liveTotalStudents = totalStudents
         
         if (votingStudentsDictonary.object(forKey: studentId) != nil)
         {

@@ -16,9 +16,9 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
     var currentYPosition: CGFloat = 5
     var currentQueryId      = ""
     var mQRVScrollView      = UIScrollView()
-    
     var isQuerySent           = false
-    
+    var mAnnonymusSwitch    = UISwitch()
+    var noQuestionslabel = UILabel()
     override init(frame: CGRect)
     {
         super.init(frame: frame)
@@ -42,6 +42,12 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
         mSendButton.isUserInteractionEnabled = false
         
         
+        mAnnonymusSwitch = UISwitch(frame:CGRect(x: 10, y: 5, width: mSendButton.frame.size.width, height: mSendButton.frame.size.height))
+        mAnnonymusSwitch.setOn(false, animated: false)
+        mAnnonymusSwitch.addTarget(self, action: #selector(StudentsQueryView.switchValueDidChange(sender:)), for: .touchUpInside)
+        mTopbarImageView.addSubview(mAnnonymusSwitch)
+        
+        
         mQueryTextView = CustomTextView(frame:CGRect(x: 10, y: mTopbarImageView.frame.size.height + 10 ,width: self.frame.size.width - 20 ,height: 100))
         self.addSubview(mQueryTextView)
         mQueryTextView.setdelegate(self)
@@ -57,16 +63,25 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
         self.addSubview(mQueryScrollView)
         
         
-       
-        
-        
         mQRVScrollView.frame = CGRect(x: 0, y: 0 , width: self.frame.size.width, height: self.frame.size.height)
         self.addSubview(mQRVScrollView)
         mQRVScrollView.backgroundColor = whiteBackgroundColor
         mQRVScrollView.isHidden = true
         
+        noQuestionslabel.frame = CGRect(x: 10, y: (self.frame.size.height - 60)/2, width: self.frame.size.width - 20,height: 60)
+        noQuestionslabel.font = UIFont(name:helveticaRegular, size: 40)
+        noQuestionslabel.text = "Topic not yet started"
+        self.addSubview(noQuestionslabel)
+        noQuestionslabel.textColor = topbarColor
+        noQuestionslabel.textAlignment = .center
         
         
+        
+    }
+    
+    
+    func switchValueDidChange(sender:UISwitch!) {
+
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -90,12 +105,15 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
     
     func onSendButton()
     {
-        
-        
         mTopbarImageView.isHidden = true
         mQueryTextView.mQuestionTextView.resignFirstResponder()
         
-       SSStudentDataSource.sharedDataSource.sendQueryWithQueryText(mQueryTextView.mQuestionTextView.text!, withAnonymous: "0", withDelegate: self)
+        if mAnnonymusSwitch.isOn == true {
+            SSStudentDataSource.sharedDataSource.sendQueryWithQueryText(mQueryTextView.mQuestionTextView.text!, withAnonymous: "1", withDelegate: self)
+        } else {
+            SSStudentDataSource.sharedDataSource.sendQueryWithQueryText(mQueryTextView.mQuestionTextView.text!, withAnonymous: "0", withDelegate: self)
+        }
+       
       
     }
     
@@ -194,8 +212,6 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
                     
                     SSStudentMessageHandler.sharedMessageHandler.sendDoubtMessageToTeacherWithQueryId(QueryId)
                 }
-                
-                
                 currentYPosition = currentYPosition + querySubView.frame.size.height + 5
                 mQueryScrollView.contentSize = CGSize(width: 0 , height: currentYPosition)
             }
@@ -331,6 +347,7 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
             self.mQueryTextView.isHidden = true
             self.mTopbarImageView.isHidden = true
             self.mQueryScrollView.frame = CGRect(x: 0, y: (self.mTopbarImageView.frame.size.height + self.mTopbarImageView.frame.origin.y), width: self.frame.size.width, height: self.frame.size.height - (self.mTopbarImageView.frame.size.height + self.mTopbarImageView.frame.origin.y))
+            noQuestionslabel.isHidden = false
         }
         else
         {
@@ -342,8 +359,10 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
                     self.mTopbarImageView.isHidden = false
                     self.mSendButton.restartButton()
                     self.mSendButton.mButtonLabel.textColor = UIColor.lightGray
+                    self.mAnnonymusSwitch.setOn(false , animated: true)
                     self.mSendButton.isUserInteractionEnabled = false
                     self.mQueryScrollView.frame = CGRect(x: 0, y: self.mQueryTextView.frame.size.height + self.mQueryTextView.frame.origin.y + 10, width: self.frame.size.width, height: self.frame.size.height - (self.mQueryTextView.frame.size.height + self.mQueryTextView.frame.origin.y + 10))
+                    self.noQuestionslabel.isHidden = true
             })
         }
     }
@@ -540,8 +559,15 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
     
     func delegateButtonPressedWithButtonText(buttonText:String)
     {
+     
         mQueryTextView.mQuestionTextView.resignFirstResponder()
-        SSStudentDataSource.sharedDataSource.sendQueryWithQueryText(mQueryTextView.mQuestionTextView.text!, withAnonymous: "0", withDelegate: self)
+        
+        if mAnnonymusSwitch.isOn == true {
+             SSStudentDataSource.sharedDataSource.sendQueryWithQueryText(mQueryTextView.mQuestionTextView.text!, withAnonymous: "1", withDelegate: self)
+        } else {
+             SSStudentDataSource.sharedDataSource.sendQueryWithQueryText(mQueryTextView.mQuestionTextView.text!, withAnonymous: "0", withDelegate: self)
+        }
+       
     }
     
     

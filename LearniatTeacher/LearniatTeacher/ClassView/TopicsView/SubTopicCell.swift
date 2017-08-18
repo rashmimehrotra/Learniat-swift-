@@ -263,15 +263,17 @@ class SubTopicCell: UIView{
         }
         
         
-        if let PercentageStarted = currentTopicDetails.object(forKey: "PercentageStarted") as? NSString
-        {
+        if let PercentageStarted = currentTopicDetails.object(forKey: "PercentageStarted") as? NSString {
             var percentageValue :Float =  PercentageStarted.floatValue
-            
             percentageValue = percentageValue / 100
-            
             m_progressView.progress = percentageValue
         }
         
+        if SSTeacherDataSource.sharedDataSource.isQuestionSent == true {
+            startButton.isHidden = true
+        } else {
+            startButton.isHidden = false
+        }
     }
     
     func onQuestionsButton()

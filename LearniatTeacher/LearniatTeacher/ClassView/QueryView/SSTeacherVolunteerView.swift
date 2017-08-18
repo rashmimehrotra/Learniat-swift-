@@ -509,31 +509,18 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
                     
                     var totalPercentage :CGFloat = 0
                     
-                    if Int(totalVotes)! >= Int(ThummbsUp)!
-                    {
+                    if Int(totalVotes)! >= Int(ThummbsUp)!{
                          totalPercentage = CGFloat(Int(ThummbsUp)!)/CGFloat(Int(totalVotes)!)
                     }
-                        
-                    else
-                    {
+                    else {
                         totalPercentage = 1
                     }
                     
-                    
-                    
-                    
-                    
-                    
-                    if let StudentId = volunteerDetails.object(forKey: "StudentId") as? String
-                    {
+                    if let StudentId = volunteerDetails.object(forKey: "StudentId") as? String {
                         SSTeacherMessageHandler.sharedMessageHandler.sendQRVClosedMessageToRoom(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, withstudentId: StudentId as NSString, withQueryId: QueryId, withVolunterPercentage: "\(totalPercentage)")
                     }
-                    
-                    
                     studentqueryView.incrementVolunteeredCountwithPercentage(totalPercentage * 100)
                     
-                    
-
                 }
             }
         }
