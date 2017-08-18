@@ -14,8 +14,9 @@ enum AppAPI {
     case Login(UserName:String,Password:String)
     case TodaysTimeTable(UserId:String)
     case InsertScribbleFileName(userId:String,FileName:String)
-    case ChangeSessionState(state:String,SessionID:String)
+    case ChangeSessionState(userId: String, state:String,SessionID:String)
     case RefresAppWithUserId(userId:String)
+    case GetJoinedStudentsWithUserId(UserId:String, sessionID:String)
 }
 
 extension AppAPI {
@@ -50,12 +51,13 @@ extension AppAPI {
         case .InsertScribbleFileName(let userId, let FileName):
             return "\(self.base)/InsertScribbleFileName?user_id=\(userId)&filename=\(FileName)"
             
-        case .ChangeSessionState(let state, let SessionID):
-            return  "\(self.base)/ChangeSessionState?SessionId=\(SessionID)&NewState=\(state)"
+        case .ChangeSessionState(let userId, let state, let SessionID):
+            return  "\(self.base)/ChangeSessionState?userid=\(userId)&SessionId=\(SessionID)&NewState=\(state)"
             
         case .RefresAppWithUserId(let userId):
             return "\(self.base)/RefreshMyApp?userid=\(userId)"
-            
+        case .GetJoinedStudentsWithUserId(let userID, let sessionID):
+            return "\(self.base)/RefreshJoinedStudents?user=\(userID)&session=\(sessionID)"
             
         }
     }

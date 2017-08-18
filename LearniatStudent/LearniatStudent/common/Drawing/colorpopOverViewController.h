@@ -12,6 +12,7 @@
     UILabel                                         *fontLabel;
     id                                              _popOverController;
     CGRect                                          _rect;
+//    NSMutableArray                                  *colorArray;
      NSMutableArray                                  *colorButtonArray;
     id                                              _delegate;
     int                                         selectedtab;

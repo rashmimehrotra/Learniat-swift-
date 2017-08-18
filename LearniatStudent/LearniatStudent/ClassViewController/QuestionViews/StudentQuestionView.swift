@@ -67,7 +67,7 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
         self.backgroundColor = UIColor.white
         
         
-        noQuestionslabel.frame = CGRect(x: 10, y: (self.frame.size.height - 40)/2, width: self.frame.size.width - 20,height: 40)
+        noQuestionslabel.frame = CGRect(x: 10, y: (self.frame.size.height - 60)/2, width: self.frame.size.width - 20,height: 60)
         noQuestionslabel.font = UIFont(name:helveticaRegular, size: 40)
         noQuestionslabel.text = "There are no questions yet"
         self.addSubview(noQuestionslabel)

@@ -118,6 +118,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
     
     var mJoinedStudentsLabel            = UILabel()
     
+    var teacherScheduleViewController:TeacherScheduleViewController? = nil
     
     var mProgressContainerView = UIImageView()
     
@@ -511,11 +512,43 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         }
     }
     
+    func refreshJoinedStateBar() {
+        if let sessionId = currentSessionDetails.object(forKey: "SessionId") as? String
+        {
+            SSTeacherDataSource.sharedDataSource.getJoinedStudentsCount(sessionID: sessionId, success: { (result) in
+                if let registered = result.object(forKey: kRegistered) as? Int {
+                    if let joined = result.object(forKey: kJoined) as? Int {
+                        let percenatgeValue = (CGFloat(joined) /  CGFloat(registered)) * 100   
+                        self.mJoinedPercentageLabel.text =  NSString(format:"%.1f%%",percenatgeValue) as String;
+                        self.mJoinStudentProgressBar.progress = CGFloat(percenatgeValue) / 100;
+                        self.joinedLabelWithJoinedCount(OccupiedSeats: joined, StudentsRegistered: registered)
+                    }
+                }
+            }, withfailurehandler: { (error) in
+                
+            })
+        }
+    }
+    
+    
+    private func joinedLabelWithJoinedCount(OccupiedSeats:Int, StudentsRegistered:Int) {
+        let string = "\(OccupiedSeats) of \(StudentsRegistered) joined" as NSString
+        let attributedString = NSMutableAttributedString(string: string as String )
+        attributedString.addAttributes([NSForegroundColorAttributeName: blackTextColor], range: string.range(of: "\(OccupiedSeats)"))
+        attributedString.addAttributes([NSForegroundColorAttributeName: UIColor.lightGray], range: string.range(of: " of "))
+        attributedString.addAttributes([NSForegroundColorAttributeName: blackTextColor], range: string.range(of: "\(StudentsRegistered)"))
+        attributedString.addAttributes([NSForegroundColorAttributeName: UIColor.lightGray], range: string.range(of: " joined"))
+        mJoinedStudentsLabel.attributedText = attributedString
+    }
+    
+    
+    
     // MARK: - Teacher datasource delegate functions
     func didGetSessionSummaryDetials(_ details: AnyObject)
     {
        print(details)
         setcurrentViewDetails(details)
+        refreshJoinedStateBar()
     }
 
     func didGetSeatsRestWithDetials(_ details: AnyObject) {
@@ -537,7 +570,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         
         
         loadingView.isHidden = false
-        
+        self.mJoinStudentProgressBar.progress = 0;
         
         
         if let StudentsRegistered = details.object(forKey: "StudentsRegistered") as? String
@@ -577,33 +610,6 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
                     let totalSesats = Int(PreAllocatedSeats)! + Int(OccupiedSeats)!
                     
                     preallocatedSeatslabel.text = "\(totalSesats) of \(StudentsRegistered)"
-                    
-                    
-                    
-                    var percenatgeValue = (NSString(format: "%@", OccupiedSeats).floatValue) / (NSString(format: "%@", StudentsRegistered).floatValue) * 100;
-                    
-                    
-                    if(percenatgeValue.isNaN == true)
-                    {
-                        percenatgeValue = 0;
-                    }
-                    
-                    
-                    
-                    
-                    
-                    mJoinedPercentageLabel.text =  NSString(format:"%.1f%%",percenatgeValue) as String;
-                  
-                    mJoinStudentProgressBar.progress = CGFloat(percenatgeValue) / 100;
-                    
-                    let string = "\(OccupiedSeats) of \(StudentsRegistered) joined" as NSString
-                    let attributedString = NSMutableAttributedString(string: string as String )
-                    attributedString.addAttributes([NSForegroundColorAttributeName: blackTextColor], range: string.range(of: "\(OccupiedSeats)"))
-                    attributedString.addAttributes([NSForegroundColorAttributeName: UIColor.lightGray], range: string.range(of: " of "))
-                    attributedString.addAttributes([NSForegroundColorAttributeName: blackTextColor], range: string.range(of: "\(StudentsRegistered)"))
-                    attributedString.addAttributes([NSForegroundColorAttributeName: UIColor.lightGray], range: string.range(of: " joined"))
-                    mJoinedStudentsLabel.attributedText = attributedString
-                    
                     
                     if let SeatsConfigured = details.object(forKey: "SeatsConfigured") as? String
                     {
@@ -653,10 +659,14 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
                             editSeatButton.isHidden = false
                             configureGrid.isHidden = true
                             
+                            
+                            if let sessionId = currentSessionDetails.object(forKey: "SessionId") as? String{
+                            
                             if let SessionState = details.object(forKey: "SessionState") as? String
                             {
-                                if SessionState == kScheduled
+                                if SessionState == kScheduled && (Int(sessionId) == TeacherScheduleViewController.currentSessionId || Int(sessionId) == TeacherScheduleViewController.nextSessionId)
                                 {
+                                    
                                     openClassButton.isHidden = false
                                     openClassButton.isEnabled = true
                                     openClassButton.setTitleColor(standard_Button, for: UIControlState())
@@ -666,7 +676,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
                                     beginClassButton.isHidden = true
                                     
                                 }
-                                else
+                                else if SessionState == kopened
                                 {
                                     openClassButton.isHidden = true
                                     beginClassButton.isHidden = false
@@ -674,7 +684,12 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
                                     beginClassButton.setTitleColor(standard_Button, for: UIControlState())
                                     beginClassButton.layer.borderColor = standard_Button.cgColor
                                 }
+                                else{
+                                    openClassButton.isHidden = true
+                                    beginClassButton.isHidden = true
+                                }
                             }
+                        }
 
                         }
                     }
@@ -768,6 +783,8 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         }
         
     }
+    
+    
     
     
     

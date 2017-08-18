@@ -160,7 +160,7 @@
  This method is used to create new room
  @param ChatRoomJID New room name
  */
-- (void) setUpRoom:(NSString *)ChatRoomJID WithAdminPrivilage:(BOOL)admin withHistoryValue:(NSString*)value;
+- (void) setUpRoom:(NSString *)ChatRoomJID WithAdminPrivilage:(BOOL)admin withHistoryValue:(NSString*)value withTeacherJID:(NSString *) teacherJID;
 
 
 /**
@@ -179,6 +179,8 @@
 
 
 - (void) editRoomPrevilageWithUser:(NSString*)user;
+
+- (void) editRoomPrevilageWithUser:(NSString*)user withXMPPRoom:(XMPPRoom *)room;
 
 
 - (void) removeIfRoomPresentWithRoomId:(NSString*)roomId;
@@ -239,6 +241,8 @@
 
 @optional - (void) didReconnectingWithDelaytime:(int)delayTime;
 
+
+@optional - (void) didCreateRoom:(XMPPRoom*)_xmppRoom;
 
 @end
 

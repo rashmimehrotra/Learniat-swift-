@@ -289,7 +289,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         
         let longGesture = UITapGestureRecognizer(target: self, action: #selector(StundentDeskView.Long)) //Long function will call when user long press on button.
         mDoneButton.addGestureRecognizer(longGesture)
-        longGesture.numberOfTapsRequired = 1
+        longGesture.numberOfTapsRequired = 2
         
       
         
@@ -726,7 +726,13 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     
     func setQueryDetails(_ queryDetails:AnyObject)
     {
-         isQueryPresent = true
+        
+        let annonymus =  queryDetails.object(forKey: "Anonymous") as! String
+        
+        if annonymus == "1"{
+            return
+        }
+        isQueryPresent = true
         setStudentCurrentState(StudentLive)
         currentQueryDetails = queryDetails
         if currentAnswerState == .answerRecieved || currentAnswerState == .answerEvaluated || currentAnswerState == .answerDontKnow

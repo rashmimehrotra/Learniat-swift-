@@ -240,6 +240,8 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     }
     
     
+    
+    
     func onTeacherImage() {
         let questionInfoController = SSSettingsViewController()
         questionInfoController.setDelegate(self)
@@ -317,7 +319,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         let questionInfoController = SSStudentSchedulePopoverController()
         questionInfoController.setCurrentScreenSize(CGSize(width: 400, height: remainingHeight))
         questionInfoController.setdelegate(self)
-        let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+          classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
         classViewPopOverController.contentSize = CGSize(width: 400,height: remainingHeight);
         classViewPopOverController.delegate = self;
         questionInfoController.setPopover(classViewPopOverController)
@@ -345,7 +347,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             if let sessionId = sessionDetails.object(forKey: kSessionId) as? String {
                 startedTimeUpdatingTimer.invalidate()
                 SSStudentDataSource.sharedDataSource.currentLiveSessionId = sessionId
-                getUserSessionWithSessionID(sessionID: sessionId)
+//                getUserSessionWithSessionID(sessionID: sessionId)
             }
         }
     }
@@ -451,9 +453,6 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         {
             if sessionState == "1"
             {
-                
-            
-                
                mNoStudentLabel.isHidden = true
                 classStartedView.isHidden = false
                 updateStudentState(state: UserState.Live)
@@ -1290,6 +1289,9 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         }
     }
 
+    deinit {
+        SSStudentDataSource.sharedDataSource.isBackgroundSignal.cancelAllSubscriptions()
+    }
 }
 
 
@@ -1343,13 +1345,13 @@ extension StudentClassViewController {
         if let myState =  details.object(forKey: "MyState") as? Int {
             if let CurrentSessionState = details.object(forKey: "CurrentSessionState") as? Int {
                 if CurrentSessionState == SessionState.Live.rawValue {
+                    classsBegin()
                     if myState != UserStateInt.Live.rawValue {
-                        classsBegin()
                         updateStudentState(state: UserState.Live)
                     }
                 } else if CurrentSessionState == SessionState.Opened.rawValue {
+                    displaySessionOpendState()
                     if myState != UserStateInt.Occupied.rawValue {
-                        displaySessionOpendState()
                         updateStudentState(state: UserState.Occupied)
                     }
                 } else {
@@ -1378,6 +1380,7 @@ extension StudentClassViewController {
         self.present(preallotController, animated: true, completion: nil)
     }
 
+   
     
 }
 

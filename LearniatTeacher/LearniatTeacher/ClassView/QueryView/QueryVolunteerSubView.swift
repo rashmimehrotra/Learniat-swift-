@@ -199,53 +199,18 @@ class QueryVolunteerSubView: UIView
         
         mVolunteeredCountScrollview.contentSize = CGSize(width: currentVolunteerCount, height: 0)
         
-        
         var dotColor =  UIColor(red: 76.0/255.0, green: 217.0/255.0, blue: 100.0/255.0, alpha: 1)
-        
-        if (percentage<=33)
-        {
+        if (percentage<=33) {
             dotColor = UIColor(red: 255/255.0, green: 59/255.0, blue: 48/255.0, alpha: 1)
-            
-            
-            
-        }
-        else if (percentage>33 && percentage<=66)
-        {
-            
+        }  else if (percentage>33 && percentage<=66) {
             dotColor =  UIColor(red: 255/255.0, green: 204.0/255.0, blue: 0.0/255.0, alpha: 1)
-            
-            
-        }
-        else
-        {
+        } else {
             dotColor =  UIColor(red: 76.0/255.0, green: 217.0/255.0, blue: 100.0/255.0, alpha: 1)
             
         }
         
         
-        subViews.backgroundColor = dotColor
-        
-        
-//        let subViews = mVolunteeredCountScrollview.subviews.flatMap{ $0 as? VolunteeredDotView }
-//        
-//        for studentqueryView in subViews
-//        {
-//            if studentqueryView.isKindOfClass(VolunteeredDotView)
-//            {
-//                studentqueryView.removeFromSuperview()
-//            }
-//        }
-//        
-//    
-        
-        
-//        var circleWi = mVolunteeredCountScrollview.frame.size.width / ( 10*currentVolunteerCount)
-        
-        
-        
-        
-        
-        
+        subViews.backgroundColor = dotColor        
     }
     
     

@@ -164,11 +164,20 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         addNumberOfLinesToScrollView()
         
         let currentDate = Date()
+//        mCurrentTimeLine = CurrentTimeLineView(frame: CGRect(x: 30, y: 0 , width: self.view.frame.size.width-30, height: 10))
+        
+        // By Ujjval
+        // ==========================================
+        
         mCurrentTimeLine = CurrentTimeLineView(frame: CGRect(x: 0, y: 0 , width: self.view.frame.size.width-30, height: 10))
+        
+        // ==========================================
+        
         mScrollView.addSubview(mCurrentTimeLine)
         mCurrentTimeLine.addToCurrentTimewithHours(getPositionWithHour(currentDate.hour(), withMinute: currentDate.minute()))
         mScrollView.contentOffset = CGPoint(x: 0,y: mCurrentTimeLine.frame.origin.y-self.view.frame.size.height/3);
         
+//         timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(SSStudentScheduleViewController.timerAction), userInfo: nil, repeats: true)
         
         // By Ujjval
         // Set current time label
@@ -187,9 +196,10 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         RunLoop.main.add(timer, forMode: RunLoopMode.commonModes)
         
         // ==========================================
-//         timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(SSStudentScheduleViewController.timerAction), userInfo: nil, repeats: true)
         
     }
+    
+    
    
     deinit {
         // make sure to remove the observer when this view controller is dismissed/deallocated
@@ -367,13 +377,7 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
             scheduleTileView.tag = Int(sessionid)!
             scheduleTileView.setCurrentSessionDetails(dict as AnyObject)
             
-            let sessionState = (dict as AnyObject).object(forKey: kSessionState) as! String
-            if sessionState == kLiveString || sessionState == kopenedString || sessionState == kScheduledString {
-                SSStudentMessageHandler.sharedMessageHandler.createRoomWithRoomName(String(format:"room_%@",((dict as AnyObject).object(forKey: kSessionId) as! String)), withHistory: "0")
-            } else {
-                SSStudentMessageHandler.sharedMessageHandler.checkAndRemoveJoinedRoomsArrayWithRoomid(String(format:"room_%@",((dict as AnyObject).object(forKey: kSessionId) as! String)))
-            }
-        }
+                    }
         
         let currentDate = Date()
         let currentHour = (currentDate.hour())
@@ -404,13 +408,35 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
          SSStudentDataSource.sharedDataSource.refreshApp(success: { (response) in
             if let summary = response.object(forKey: "Summary") as? NSArray {
                 if summary.count > 0 {
-                    let summaryValue = summary.firstObject
-                    self.evaluateStateWithSummary(details: summaryValue as AnyObject)
+                    let details = summary.firstObject as AnyObject
+                    self.evaluateStateWithSummary(details: details as AnyObject)
+                    
+                    if let currentState = details.object(forKey: "CurrentSessionState") as? Int{
+                        let currentSessionId:Int = (summary.value(forKey: "CurrentSessionId") as! NSArray)[0] as! Int
+                        let currentSessionState:Int = (summary.value(forKey: "CurrentSessionState") as! NSArray)[0] as! Int
+                        self.joinOrLeaveXMPPSessionRoom(sessionState:String(describing:currentSessionState), roomName:String(describing:currentSessionId))
+                    }
+                    if let nextState = details.object(forKey: "NextClassSessionState") as? Int{
+                        let nextSessionState:Int = (summary.value(forKey: "NextClassSessionState") as! NSArray)[0] as! Int
+                        let nextSessionId:Int = (summary.value(forKey: "NextClassSessionId") as! NSArray)[0] as! Int
+                        self.joinOrLeaveXMPPSessionRoom(sessionState:String(describing:nextSessionState), roomName:String(describing:nextSessionId))
+                    }
+
                 }
             }
          }) { (error) in
             
         }
+    }
+    
+    
+    func joinOrLeaveXMPPSessionRoom(sessionState: String, roomName: String){
+        if sessionState == kLive || sessionState == kopened || sessionState == kScheduled{
+            SSStudentMessageHandler.sharedMessageHandler.createRoomWithRoomName(String(format:"room_%@",roomName), withHistory: "0")
+        } else {
+            SSStudentMessageHandler.sharedMessageHandler.checkAndRemoveJoinedRoomsArrayWithRoomid(String(format:"room_%@",roomName))
+        }
+        
     }
     
     
@@ -524,6 +550,7 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
    
     // MARK: - Change screen Functions
     
+    
     // By Ujjval
     // Hide time label if it is overlapped
     // ==========================================
@@ -555,6 +582,7 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     }
     
     // ==========================================
+
     
     func Settings_performLogout() {
         self.updateUserState(state: UserStateInt.SignedOut.rawValue)
@@ -604,7 +632,7 @@ extension SSStudentScheduleViewController {
     
     fileprivate func evaluateStateWithSummary(details:AnyObject) {
         if let myState =  details.object(forKey: "MyState") as? Int {
-            if myState  != UserStateInt.Free.rawValue || myState != UserStateInt.Preallocated.rawValue {
+            if myState  != UserStateInt.Free.rawValue {
                 if let currentSessionID = details.object(forKey: "CurrentSessionId") as? Int {
                     SSStudentDataSource.sharedDataSource.currentLiveSessionId = "\(currentSessionID)"
                 }

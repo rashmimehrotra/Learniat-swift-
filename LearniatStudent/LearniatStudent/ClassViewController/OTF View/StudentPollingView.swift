@@ -25,6 +25,7 @@ class StudentPollingView: UIView,PollingSubViewDelegate {
     var selectedOPtionText = ""
     
     var mReplyStatusLabelView           = UILabel()
+   
     
     override init(frame: CGRect)
     {
@@ -66,6 +67,8 @@ class StudentPollingView: UIView,PollingSubViewDelegate {
         mReplyStatusLabelView.backgroundColor = dark_Yellow
         mReplyStatusLabelView.font = UIFont (name: helveticaBold, size: 16)
         mReplyStatusLabelView.textAlignment = .center
+        
+       
         
     }
     

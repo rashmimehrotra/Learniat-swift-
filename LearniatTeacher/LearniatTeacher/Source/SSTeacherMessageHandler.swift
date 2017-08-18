@@ -288,6 +288,12 @@ open class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Mess
     }
     
     
+    func destroyRoom(_ roomName: String!){
+        MessageManager.sharedMessageHandler().destroyRoom(roomName)
+        MessageManager.sharedMessageHandler().destroyRoom(roomName)
+
+    }
+    
     
     open func didCreatedOrJoinedRoom(withCreatedRoomName _roomName: String!)
     {
@@ -584,6 +590,7 @@ open class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Mess
         }
     }
     
+  
     
     func sendEndSessionMessageToRoom(_ roomId:String)
     {
@@ -1201,6 +1208,7 @@ open class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Mess
         }
         
         
+        print("XMPP Message : \(String(describing: message?.messageType())):\n\(message?.messageBody() ?? "")")
         
         switch (message?.messageType())
         {

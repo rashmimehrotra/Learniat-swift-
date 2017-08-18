@@ -67,6 +67,7 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
     
     var questionText = UILabel()
     
+    
     // By Ujjval
     // Create view for draw
     // ==========================================
@@ -187,6 +188,8 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
        contanerBackgroundView.addSubview(containerview);
         
       
+        
+        
         // By Ujjval
         // Assign frame and set other properties to draw view
         // ==========================================
@@ -226,6 +229,9 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
         mScribbleView.isHidden = false
         
         // ==========================================
+        
+        
+        
        
        
         m_UndoButton.frame = CGRect(x: 0, y: 0, width: mBottomToolBarImageView.frame.size.height, height: mBottomToolBarImageView.frame.size.height)
@@ -340,6 +346,7 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
             
             let buttonPosition :CGPoint = m_BrushButton.convert(CGPoint.zero, to: self)
             
+            
             let colorSelectContoller = colorpopOverViewController()
             colorSelectContoller.setSelectTab(1);
             colorSelectContoller.setDelegate(self);
@@ -381,6 +388,10 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
         // ==========================================
         
         
+        
+        
+        
+        
     }
     
     func onEraserButton()
@@ -391,6 +402,7 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
         {
             
             let buttonPosition :CGPoint = m_EraserButton.convert(CGPoint.zero, to: self)
+            
             
             let colorSelectContoller = colorpopOverViewController()
             colorSelectContoller.setSelectTab(2);
@@ -431,6 +443,11 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
         mScribbleView.penWidth = UInt(eraserSize)
         
         // ==========================================
+        
+        
+        
+        
+        
         
         
         
@@ -656,6 +673,7 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
     }
     
     // ==========================================
+    
     
     // MARK: - Smooth line delegate
     

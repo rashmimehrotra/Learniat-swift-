@@ -46,9 +46,9 @@ fastlane ios build
 Builds the project and produces an .ipa. Pass in the build_number as a param. Default is 1.
 
 Docs on how to pass in parameters are here: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Advanced.md#passing-parameters
-### ios development
+### ios Hockey_Distributiion
 ```
-fastlane ios development
+fastlane ios Hockey_Distributiion
 ```
 Builds development target and uploads to HockeyApp
 

@@ -13,6 +13,8 @@ import Foundation
     
     @objc optional func delegateSessionEnded()
     
+    @objc optional func delegateMoveToScheduleScreen()
+    
     
 }
 
@@ -261,57 +263,33 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
     {
         var sessionDetailsArray = NSMutableArray()
         
-        if let statusString = details.object(forKey: "Status") as? String
-        {
-            if statusString == kSuccessString
-            {
-               
+        if let statusString = details.object(forKey: "Status") as? String {
+            if statusString == kSuccessString {
                 mScrollView.isHidden = false
-                
-                if let classCheckingVariable = (details.object(forKey: kSessions)! as AnyObject).object(forKey: kSubSession) as? NSMutableArray
-                {
+                if let classCheckingVariable = (details.object(forKey: kSessions)! as AnyObject).object(forKey: kSubSession) as? NSMutableArray {
                        sessionDetailsArray = classCheckingVariable
-                }
-                else
-                {
+                } else {
                     sessionDetailsArray.add((details.object(forKey: kSessions)! as AnyObject).object(forKey: kSubSession)!)
-                    
                 }
-            }
-            else
-            {
-                               mScrollView.isHidden = true
+            } else {
+                mScrollView.isHidden = true
             }
         }
         
-        
-        
-        
-        
-        
-        for index in 0 ..< sessionDetailsArray.count
-        {
+        for index in 0 ..< sessionDetailsArray.count {
             let dict = sessionDetailsArray.object(at: index)
-            
             let startDate :String = ((dict as AnyObject).object(forKey: kStartTime) as! String)
             let endDate = ((dict as AnyObject).object(forKey: kEndTime) as! String!)
             let totalSize = getSizeOfCalendarEvernWithStarthour(startDate.hourValue(), withstartMinute: startDate.minuteValue(), withEndHour: (endDate?.hourValue())!, withEndMinute: (endDate?.minuteValue())!)
             let StartPositionOfTile = getPositionWithHour(startDate.hourValue(), withMinute: startDate.minuteValue())
-            
-            
+            checkSessionStateWithDetails(details: dict as AnyObject)
             let scheduleTileView = ScheduleScreenTile(frame: CGRect(x: 85, y: StartPositionOfTile, width: self.view.frame.size.width-95, height: totalSize))
             mScrollView.addSubview(scheduleTileView)
             scheduleTileView.setdelegate(self)
             
-            
             let sessionid = (dict as AnyObject).object(forKey: kSessionId) as! String
-            
             scheduleTileView.tag = Int(sessionid)!
             scheduleTileView.setCurrentSessionDetails(dict as AnyObject)
-           
-            
-            
-            
         }
         
         
@@ -327,11 +305,26 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
         
             activityIndicator.isHidden = true
             activityIndicator.stopAnimating()
-        
+        TeacherScheduleViewController.joinXMPPRooms()
+
         
     }
     
- 
+    private func checkSessionStateWithDetails(details:AnyObject) {
+        if let sessionid = details.object(forKey: kSessionId) as? String {
+            if let _SessionState = details.object(forKey: kSessionState) as? String {
+                if sessionid == SSTeacherDataSource.sharedDataSource.currentLiveSessionId {
+                    if _SessionState != kLive {
+                        if delegate().responds(to: #selector(SSTeacherSchedulePopoverControllerDelegate.delegateMoveToScheduleScreen)) {
+                            delegate().delegateMoveToScheduleScreen!()
+                        }
+                        
+                    }
+                }
+            }
+        }
+        
+    }
     
     // MARK: - Returning Functions
     

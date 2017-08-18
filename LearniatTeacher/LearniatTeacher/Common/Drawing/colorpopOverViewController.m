@@ -35,12 +35,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
    
+    // By Ujjval
+    // ==========================================
     
+//    UIView *view =[[UIView alloc]initWithFrame:CGRectMake(10, 135, 380, 1)];
     UIView *view =[[UIView alloc]initWithFrame:CGRectMake(10, 135, [self rect].size.width-20, 1)];
+    
+    // ==========================================
+    
     view.layer.borderWidth = 1.0;
     view.layer.borderColor = [[UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0] CGColor];
     [self.view addSubview:view];
     colorButtonArray=[[NSMutableArray alloc] init];
+    
+//    colorArray = [[NSMutableArray alloc] initWithObjects:[UIColor colorWithRed:0.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:1.0],[UIColor colorWithRed:121.0/255.0 green:11.0/255.0 blue:29.0/255.0 alpha:1.0],[UIColor colorWithRed:52.0/255.0 green:3.0/255.0 blue:11.0/255.0 alpha:1.0],[UIColor colorWithRed:255.0/255.0 green:0.0/255.0 blue:0.0/255.0 alpha:1.0],[UIColor colorWithRed:243.0/255.0 green:157.0/255.0 blue:171.0/255.0 alpha:1.0],[UIColor colorWithRed:247.0/255.0 green:49.0/255.0 blue:237.0/255.0 alpha:1.0],[UIColor colorWithRed:86.0/255.0 green:3.0/255.0 blue:82.0/255.0 alpha:1.0],[UIColor colorWithRed:116.0/255.0 green:30.0/255.0 blue:236.0/255.0 alpha:1.0],[UIColor colorWithRed:122.0/255.0 green:118.0/255.0 blue:250.0/255.0 alpha:1.0],[UIColor colorWithRed:7.0/255.0 green:1.0/255.0 blue:181.0/255.0 alpha:1.0],[UIColor colorWithRed:4.0/255.0 green:1.0/255.0 blue:76.0/255.0 alpha:1.0],[UIColor colorWithRed:16.0/255.0 green:196.0/255.0 blue:236.0/255.0 alpha:1.0],[UIColor colorWithRed:2.0/255.0 green:77.0/255.0 blue:94.0/255.0 alpha:1.0],[UIColor colorWithRed:98.0/255.0 green:251.0/255.0 blue:154.0/255.0 alpha:1.0],[UIColor colorWithRed:7.0/255.0 green:148.0/255.0 blue:30.0/255.0 alpha:1.0],[UIColor colorWithRed:2.0/255.0 green:68.0/255.0 blue:13.0/255.0 alpha:1.0],[UIColor colorWithRed:94.0/255.0 green:101.0/255.0 blue:9.0/255.0 alpha:1.0],[UIColor colorWithRed:230.0/255.0 green:250.0/255.0 blue:5.0/255.0 alpha:1.0],[UIColor colorWithRed:250.0/255.0 green:107.0/255.0 blue:5.0/255.0 alpha:1.0],[UIColor colorWithRed:71.0/255.0 green:107.0/255.0 blue:5.0/255.0 alpha:1.0],[UIColor colorWithRed:95.0/255.0 green:101.0/255.0 blue:92.0/255.0 alpha:1.0], nil];
     
     int Counter=0;
     float slidervalue=0;
@@ -128,6 +136,8 @@
             UIButton *circleView = [[UIButton alloc] initWithFrame:CGRectMake(55*j+15,55*i+180,35,35)];
             circleView.alpha = 0.6;
             circleView.layer.cornerRadius = 17.50;
+//            if(Counter<23)
+//                circleView.backgroundColor = [colorArray objectAtIndex:Counter-1];
             // By Ujjval
             // ==========================================
             
@@ -135,6 +145,7 @@
                 circleView.backgroundColor = [_colorArray objectAtIndex:Counter-1];
             
             // ==========================================
+            
             [self.view addSubview:circleView];
             [circleView addTarget:self action:@selector(onColorSelectbutton:) forControlEvents:UIControlEventTouchUpInside];
             [circleView setTag:Counter];
@@ -190,9 +201,11 @@
     // By Ujjval
     // ==========================================
     
+//    [[self delegate] selectedColor:[colorArray objectAtIndex:button.tag-1] withSelectedTab:selectedtab];
     [[self delegate] selectedColor:[_colorArray objectAtIndex:button.tag-1] withSelectedTab:selectedtab];
     
     // ==========================================
+    
     
     [[self popOverController]dismissPopoverAnimated:true];
     

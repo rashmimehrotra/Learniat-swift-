@@ -35,7 +35,12 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
     
     let containerview = UIView()
     
+    // By Ujjval
+    // ==========================================
+    
 //    var mScribbleView : SmoothLineView!
+    
+    // ==========================================
     
     var studentsAswerDictonary      :AnyObject!
 
@@ -95,6 +100,7 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
     let colorSelectContoller = colorpopOverViewController()
     
     // ==========================================
+    
     
     func setdelegate(_ delegate:AnyObject)
     {
@@ -252,24 +258,25 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         containerview.layer.shadowRadius = 1.0;
         containerview.clipsToBounds = false;
         
+
         // By Ujjval
         // Assign frame and set other properties to draw view
         // ==========================================
-
-//        mScribbleView = SmoothLineView(frame: containerview.frame)
-//        mScribbleView.delegate = self
-//        self.addSubview(mScribbleView);
-//        mScribbleView.isUserInteractionEnabled = true
-//        mScribbleView.setDrawing(standard_Red);
-//        mScribbleView.setBrushWidth(5)
-//        mScribbleView.setDrawing(kBrushTool)
-//        var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
-//        if brushSize < 5
-//        {
-//            brushSize = 5
-//        }
-//        mScribbleView.setBrushWidth(Int32(brushSize))
-//        mScribbleView.isHidden = false
+        
+        //        mScribbleView = SmoothLineView(frame: containerview.frame)
+        //        mScribbleView.delegate = self
+        //        self.addSubview(mScribbleView);
+        //        mScribbleView.isUserInteractionEnabled = true
+        //        mScribbleView.setDrawing(standard_Red);
+        //        mScribbleView.setBrushWidth(5)
+        //        mScribbleView.setDrawing(kBrushTool)
+        //        var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
+        //        if brushSize < 5
+        //        {
+        //            brushSize = 5
+        //        }
+        //        mScribbleView.setBrushWidth(Int32(brushSize))
+        //        mScribbleView.isHidden = false
         
         
         mScribbleView = KMZDrawView(frame: containerview.frame)
@@ -290,8 +297,10 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         }
         mScribbleView.penWidth = UInt(brushSize)
         mScribbleView.isHidden = false
-
+        
         // ==========================================
+        
+
         
         m_UndoButton.frame = CGRect(x: 0, y: 0, width: bottomview.frame.size.height, height: bottomview.frame.size.height)
         m_UndoButton.setImage(UIImage(named:"Undo_Disabled.png"),for:UIControlState());
@@ -588,6 +597,7 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
             
             let buttonPosition :CGPoint = m_BrushButton.convert(CGPoint.zero, to: self)
             
+            
             let colorSelectContoller = colorpopOverViewController()
             colorSelectContoller.setSelectTab(1);
             colorSelectContoller.setDelegate(self);
@@ -611,6 +621,7 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         m_BrushButton.setImage(UIImage(named:"Marker_Selected.png"), for:UIControlState())
         m_EraserButton.setImage(UIImage(named:"Eraser_Unselected.png"), for:UIControlState())
         
+        
         // By Ujjval
         // Assign updated brush size
         // ==========================================
@@ -629,6 +640,11 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         
         // ==========================================
         
+        
+        
+        
+        
+        
     }
     
     func onEraserButton()
@@ -639,6 +655,7 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         {
             
             let buttonPosition :CGPoint = m_EraserButton.convert(CGPoint.zero, to: self)
+            
             
             let colorSelectContoller = colorpopOverViewController()
             colorSelectContoller.setSelectTab(2);
@@ -666,6 +683,7 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         m_BrushButton.setImage(UIImage(named:"Marker_Unselected.png"), for:UIControlState())
         m_EraserButton.setImage(UIImage(named:"Eraser_Selected.png"), for:UIControlState())
         
+        
         // By Ujjval
         // Assign updated eraser size
         // ==========================================
@@ -678,6 +696,9 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         mScribbleView.penWidth = UInt(eraserSize)
         
         // ==========================================
+        
+        
+        
         
     }
     
@@ -760,6 +781,7 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         
         
     }
+    
     
     // By Ujjval
     // Enable or disable Undo & Redo buttons
@@ -982,7 +1004,7 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         // Clear image
         // ==========================================
         
-//        mScribbleView.clearButtonClicked()
+//        self.mScribbleView.clearButtonClicked()
         self.mScribbleView.clear()
         
         // ==========================================

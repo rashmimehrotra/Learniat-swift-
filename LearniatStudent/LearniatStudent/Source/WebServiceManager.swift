@@ -2,8 +2,8 @@
 //  WebServiceManager.swift
 //  anITa
 //
-//  Created by Vinayak on 6/6/17.
-//  Copyright © 2017 MBRDI. All rights reserved.
+//  Created by Deepak on 6/6/17.
+//  Copyright © 2017 Mindshiftapps. All rights reserved.
 //
 
 import Foundation

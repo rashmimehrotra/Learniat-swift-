@@ -169,6 +169,9 @@
  */
 - (void) destroyCreatedRoom;
 
+
+- (void)destroyRoom:(NSString *)ChatRoomJID;
+
 /**
  This method is used to send message to group
  */

@@ -609,6 +609,26 @@ static MessageManager *sharedMessageHandler = nil;
     
 }
 
+
+- (void)destroyRoom:(NSString *)ChatRoomJID{
+    
+    if (![ChatRoomJID containsString:[NSString stringWithFormat:@"@conference.%@",kBaseXMPPURL]])
+    {
+        ChatRoomJID = [NSString stringWithFormat:@"%@@conference.%@",ChatRoomJID,kBaseXMPPURL];
+    }
+
+    XMPPRoomMemoryStorage *roomMemoryStorage = [[XMPPRoomMemoryStorage alloc] init];
+    
+    XMPPJID *roomJID = [XMPPJID jidWithString:ChatRoomJID];
+    
+    xmppRoom = [[XMPPRoom alloc] initWithRoomStorage:roomMemoryStorage jid:roomJID dispatchQueue:dispatch_get_main_queue()];
+    
+    [xmppRoom activate:xmppStream];
+    [xmppRoom addDelegate:self delegateQueue:dispatch_get_main_queue()];
+    [xmppRoom destroyRoom];
+
+}
+
 /**
  This fuction is used configure new
  */

@@ -22,51 +22,14 @@ platform :ios do
     
   end
 
-  desc "Runs all the tests"
-  lane :test do
-    scan
-  end
-
-  desc "Submit a new Beta Build to Apple TestFlight"
-  desc "This will also make sure the profile is up to date"
-  lane :beta do
-    # match(type: "appstore") # more information: https://codesigning.guide
-    gym # Build your app - more options available
-    pilot
-  hockey(api_token: "2416e4efc85e4c2dab6b12f45e7f0335")
-    # sh "your_script.sh"
-    # You can also use other beta testing services here (run `fastlane actions`)
-  end
-
-  desc "Deploy a new version to the App Store"
-  lane :release do
-    # match(type: "appstore")
-    # snapshot
-    gym # Build your app - more options available
-    deliver(force: true)
-    # frameit
-  end
-
-  # You can define as many lanes as you want
-
-  after_all do |lane|
-    # This block is called, only if the executed lane was successful
-
-    # slack(
-    #   message: "Successfully deployed new App Update."
-    # )
-  end
-
-  error do |lane, exception|
-    # slack(
-    #   message: exception.message,
-    #   success: false
-    # )
-  end
-  
-   desc "Builds development target and uploads to HockeyApp"
-        lane :development do
-
+    desc "Builds development target and uploads to HockeyApp"
+        lane :Hockey_Distributiion do
+            build_number = increment_build_number
+            version = get_version_number(xcodeproj: "LearniatTeacher.xcodeproj")
+            update_info_plist( # Change the Display Name of your app
+                              plist_path: "LearniatTeacher.xcodeproj/../LearniatTeacher/Info.plist",
+                              display_name:"D."+version+"."+build_number)
+        #Creating container of xcode project
         gym(
             configuration: "Development",
             scheme: "Development",
@@ -74,15 +37,10 @@ platform :ios do
             clean: true,
             export_method: "ad-hoc"
         )
-
         # Push to Hockey
         markdown_type = 1
         release_notes = "test hockey app"
-        hockey(
-        api_token:"af160cec3d0c4ec094c9f8a018cc33cf"
-        )
-
-
+        hockey(api_token:"af160cec3d0c4ec094c9f8a018cc33cf")
         end
   
 end

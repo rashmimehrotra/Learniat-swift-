@@ -67,15 +67,17 @@ class CustomTextView: UIView,UITextViewDelegate
         
         mQuestionTextView.selectedTextRange = mQuestionTextView.textRange(from: mQuestionTextView.beginningOfDocument, to: mQuestionTextView.beginningOfDocument)
         
+        
         // By Ujjval
         // Allow textfield editing tools e.g. tap to take the cursor on any word, double tap on a word to highlight it, delete word, etc.
         // ==========================================
         
-//        let mStartButton = UIButton(frame:CGRect(x: 0, y: 0, width: self.frame.size.width,height: self.frame.size.height))
-//        self.addSubview(mStartButton)
-//        mStartButton.addTarget(self, action: #selector(CustomTextView.onSelfButton), for: .touchUpInside)
-
+        //        let mStartButton = UIButton(frame:CGRect(x: 0, y: 0, width: self.frame.size.width,height: self.frame.size.height))
+        //        self.addSubview(mStartButton)
+        //        mStartButton.addTarget(self, action: #selector(CustomTextView.onSelfButton), for: .touchUpInside)
+        
         // ==========================================
+
     }
     
     
@@ -139,12 +141,17 @@ class CustomTextView: UIView,UITextViewDelegate
         
         if currentText as String == currentPlaceHolder
         {
+            // By Ujjval
+            // ==========================================
+            
             if text != UIPasteboard.general.string {
                 delegate().delegateTextViewTextChanged!("")
             }
             else {
                 delegate().delegateTextViewTextChanged!(text)
             }
+            
+            // ==========================================
         }
         else
         {
@@ -189,7 +196,13 @@ class CustomTextView: UIView,UITextViewDelegate
 extension UITextView {
     open override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool
     {
+//        return false
+        
+        // By Ujjval
+        // ==========================================
         
         return true
+        
+        // ==========================================
     }
 }

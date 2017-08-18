@@ -375,19 +375,14 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
             topicCell.frame =   CGRect(x: 0  , y: positionY, width: mTopicsContainerView.frame.size.width, height: topicCell.getCurrentCellHeightWithDetails(currentTopicDetails as AnyObject, WIthCountValue: index + 1))
             
             
-            if isCurrentSubtopicStarted == true
-            {
+            if isCurrentSubtopicStarted == true {
                 topicCell.mSendButton.isHidden = false
-            }
-            else
-            {
+            } else {
                 topicCell.mSendButton.isHidden = true
             }
             
-            
             mTopicsContainerView.addSubview(topicCell)
             height = height + (topicCell.frame.size.height*2)
-            
             positionY = positionY + topicCell.frame.size.height
         }
         

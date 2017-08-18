@@ -18,7 +18,15 @@
     UILabel                             *topviewLabel;
     UIScrollView                        *badgesScrollView;
     int                                 badgeId;
+    
+    // By Ujjval
+    // ==========================================
+    
+//    UITextView                          *mTextView;
     SZTextView                          *mTextView;
+    
+    // ==========================================
+    
     int                                 m_studentId;
     int                                 m_indexPath;
     UIButton                            *sendButton;

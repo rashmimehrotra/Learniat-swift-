@@ -41,7 +41,12 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
     
     var  queryVolunteerView :SSTeacherVolunteerView!
     
+    // By Ujjval
+    // ==========================================
+    
     var mShadowView  = UIView()
+    
+    // ==========================================
     
     override init(frame: CGRect)
     {
@@ -77,12 +82,17 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
         noSubmissionLabel.textAlignment = .center
         noSubmissionLabel.font =  UIFont(name: helveticaMedium, size: 35);
 
+       
+        // By Ujjval
+        // ==========================================
+        
         mShadowView.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height)
         mShadowView.backgroundColor = UIColor.black
         mShadowView.alpha = 0.35
         self.addSubview(mShadowView)
         mShadowView.isHidden = true
         
+        // ==========================================
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -220,7 +230,16 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
         _ratingsPopoverController.setDelegate(self)
         
         let PopoverControllerRatings = UIPopoverController(contentViewController: navController)
+        
+        // By Ujjval
+        // ==========================================
+        
+//        PopoverControllerRatings.contentSize = CGSize(width: 300,height: 100);
         PopoverControllerRatings.contentSize = CGSize(width: 300,height: 160);
+        mShadowView.isHidden = false
+        
+        // ==========================================
+        
         PopoverControllerRatings.delegate = self;
         navController.isNavigationBarHidden = true;
         _ratingsPopoverController.setPopOver(PopoverControllerRatings)
@@ -229,19 +248,25 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
         
         PopoverControllerRatings.present(from: CGRect(x: buttonPosition.x + (textButton.frame.size.width / 2) ,y: buttonPosition.y + textButton.frame.size.height  , width: 1, height: 1), in: self, permittedArrowDirections: .up, animated: true)
         
-        mShadowView.isHidden = false
         
     }
     
+    
+    // By Ujjval
+    // ==========================================
     
     func dismissPopoverForQuery() {
         mShadowView.isHidden = true
     }
     
+    
     func popoverControllerShouldDismissPopover(_ popoverController: UIPopoverController) -> Bool {
         dismissPopoverForQuery()
         return true
     }
+    
+    // ==========================================
+    
     
     func delegateDismissButtonPressedWithDetails(_ queryDetails: AnyObject) {
         

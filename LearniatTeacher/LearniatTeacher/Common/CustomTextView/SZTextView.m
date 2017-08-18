@@ -254,9 +254,15 @@ static NSString * const kTextAlignmentKey = @"textAlignment";
     }
 }
 
+// By Ujjval
+// Delete selected word from textview
+// ==========================================
+
 - (void)delete:(id)sender {
     [self replaceRange:self.selectedTextRange withText:@""];
 }
+
+// ==========================================
 
 - (void)dealloc
 {

@@ -215,6 +215,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
      internal  static let sharedDataSource = SSTeacherDataSource()
     
     
+    var mAPICountValue = 0
     
     var _delgate            :AnyObject!
     
@@ -299,19 +300,12 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     ///   - Password: password
     ///   - success: API Success call
     ///   - failure: API Failure call
-    func LoginWithUserId(_ userId :String , andPassword Password:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler)
-    {
+    func LoginWithUserId(_ userId :String , andPassword Password:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler) {
         WebServicesAPI().getRequest(fromUrl: AppAPI.Login(UserName: userId, Password: Password).path, details: nil, success: { (result) in
-            
-            
             let JsonValue = result.parseJSONString
-            
-            if(JsonValue.jsonData != nil)
-            {
+            if(JsonValue.jsonData != nil) {
                 success(JsonValue.jsonData!)
-            }
-            else
-            {
+            } else {
                 failure(JsonValue.error!)
             }
             
@@ -326,25 +320,18 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     /// - Parameters:
     ///   - success: Return schedules of teacher
     ///   - failure: Return failure message
-    func getScheduleOfTeacher(success:@escaping (_ result: NSArray) -> (), withfailurehandler failure:@escaping ApiErrorHandler)
-    {
+    func getScheduleOfTeacher(success:@escaping (_ result: NSArray) -> (), withfailurehandler failure:@escaping ApiErrorHandler) {
         WebServicesAPI().getRequest(fromUrl:  AppAPI.TodaysTimeTable(UserId: self.currentUserId).path, details: nil, success: { (result) in
-            
             let JsonValue = result.ParseForArrayOfJson
-            
-            if(JsonValue.arrayObjects != nil)
-            {
+            if(JsonValue.arrayObjects != nil) {
                 success(JsonValue.arrayObjects!)
-            }
-            else
-            {
+            } else {
                 failure(JsonValue.error!)
             }
             
         }) { (error) in
             failure(error as NSError)
         }
-        
     }
     
     
@@ -355,19 +342,13 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     ///   - Scribblename: send scribble name which teacher wants to save
     ///   - success: This returns image_id which is used for question creation
     ///   - failure: Returs error message
-    func InsertScribbleFileName(Scribblename:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler)
-    {
+    func InsertScribbleFileName(Scribblename:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler) {
         WebServicesAPI().getRequest(fromUrl: AppAPI.InsertScribbleFileName(userId: currentUserId, FileName: Scribblename).path, details: nil, success: { (result) in
-            
-            
             let JsonValue = result.parseJSONString
             
-            if(JsonValue.jsonData != nil)
-            {
+            if(JsonValue.jsonData != nil) {
                 success(JsonValue.jsonData!)
-            }
-            else
-            {
+            } else {
                 failure(JsonValue.error!)
             }
             
@@ -378,22 +359,19 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     
     
+    /// This function is used to change the state of the Session
+    ///
+    /// - Parameters:
+    ///   - sessionID: Session Id
+    ///   - state: New state
+    ///   - success: success
+    ///   - failure: failure
     func changeStateOfSessionWithSessionID(sessionID:String, withSessionState state:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler) {
-       
-        
-        
-        
-        WebServicesAPI().getRequest(fromUrl: AppAPI.ChangeSessionState(state: state, SessionID: sessionID).path, details: nil, success: { (result) in
-            
-            
+        WebServicesAPI().getRequest(fromUrl: AppAPI.ChangeSessionState(userId: currentUserId, state: state, SessionID: sessionID).path, details: nil, success: { (result) in
             let JsonValue = result.parseJSONString
-            
-            if(JsonValue.jsonData != nil)
-            {
+            if(JsonValue.jsonData != nil) {
                 success(JsonValue.jsonData!)
-            }
-            else
-            {
+            } else {
                 failure(JsonValue.error!)
             }
             
@@ -404,28 +382,38 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     }
     
     
-    func refreshApp(success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler)
-    {
-        
+    /// This API is used to get the refreshed detilas from the server
+    ///
+    /// - Parameters:
+    ///   - success: success description
+    ///   - failure: failure description
+    func refreshApp(success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler) {
         WebServicesAPI().getRequest(fromUrl: AppAPI.RefresAppWithUserId(userId: currentUserId).path, details: nil, success: { (result) in
-            
             let JsonValue = result.parseJSONString
-            
-            if(JsonValue.jsonData != nil)
-            {
+            if(JsonValue.jsonData != nil) {
                 success(JsonValue.jsonData!)
-            }
-            else
-            {
+            } else {
                 failure(JsonValue.error!)
             }
             
         }) { (error) in
             failure(error as NSError)
         }
-        
     }
 
+    
+    func getJoinedStudentsCount(sessionID:String,success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler) {
+        WebServicesAPI().getRequest(fromUrl: AppAPI.GetJoinedStudentsWithUserId(UserId: currentUserId, sessionID: sessionID).path, details: nil, success: { (result) in
+            let JsonValue = result.parseJSONString
+            if(JsonValue.jsonData != nil) {
+                success(JsonValue.jsonData!)
+            } else {
+                failure(JsonValue.error!)
+            }
+        }) { (error) in
+            failure(error as NSError)
+        }
+    }
     
     
     // MARK: - XML API Functions
@@ -490,6 +478,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     func getScheduleOfTeacher(_ delegate:SSTeacherDataSourceDelegate)
     {
 
+        mAPICountValue = mAPICountValue + 1
         
         let manager = APIManager()
         

@@ -398,4 +398,8 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
         
     }
     
+    deinit {
+        SSStudentDataSource.sharedDataSource.isBackgroundSignal.cancelAllSubscriptions()
+    }
+    
 }

@@ -116,6 +116,12 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     
     var mStudentsLessonPlanView      : SSTeacherLessonPlanView!
     
+    static var currentSessionId : Int = 0
+    
+    static var nextSessionId : Int = 0
+    
+    
+    
     fileprivate var foregroundNotification: NSObjectProtocol!
     
     
@@ -123,7 +129,6 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     {
         super.viewDidAppear(animated)
         
-        SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
         
@@ -142,22 +147,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         self.view.layoutIfNeeded()
         
         
-        
-        foregroundNotification = NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillEnterForeground, object: nil, queue: OperationQueue.main) {
-            [unowned self] notification in
-            
-            //            if self.sessionAlertView != nil
-            //            {
-            //                if self.sessionAlertView.isBeingPresented()
-            //                {
-            //                    self.sessionAlertView.dismissViewControllerAnimated(true, completion: nil)
-            //                }
-            //            }
-            
-            SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
-        }
-        
-        
+
         SSTeacherMessageHandler.sharedMessageHandler.setdelegate(self)
         
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -291,6 +281,9 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
         mScrollView.bringSubview(toFront: mCurrentTimeLine)
         
+//        timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(TeacherScheduleViewController.timerAction), userInfo: nil, repeats: true)
+        
+        
         // By Ujjval
         // ==========================================
         
@@ -304,11 +297,6 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         RunLoop.main.add(timer, forMode: RunLoopMode.commonModes)
         
         // ==========================================
-        
-        
-//        timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(TeacherScheduleViewController.timerAction), userInfo: nil, repeats: true)
-        
-        
         
         
     }
@@ -393,15 +381,9 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         activityIndicator.startAnimating()
     }
     
-    func timerAction()
-    {
+    func timerAction() {
         let currentDate = Date()
-        
         let currentHour = (currentDate.hour())
-        
-        
-        
-        
         mCurrentTimeLine.addToCurrentTimewithHours(getPositionWithHour(currentHour, withMinute: currentDate.minute()))
         mCurrentTimeLine.setCurrentTimeLabel(currentDate.toShortTimeString())
         checkToHideLabelwithDate(currentDate)
@@ -575,22 +557,12 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             
             let sessionid = (dict as AnyObject).object(forKey: kSessionId) as! String
             
+            let sessionState = (dict as AnyObject).object(forKey: kSessionState) as! String
+            
+            
             sessionIdDictonary[sessionid] = dict as AnyObject?
             scheduleTileView.tag = Int(sessionid)!
             scheduleTileView.setCurrentSessionDetails(dict as AnyObject)
-            
-            let sessionState = (dict as AnyObject).object(forKey: kSessionState) as! String
-            if sessionState == kLive || sessionState == kopened || sessionState == kScheduled
-            {
-                SSTeacherMessageHandler.sharedMessageHandler.createRoomWithRoomName(String(format:"room_%@",((dict as AnyObject).object(forKey: kSessionId) as! String)), withHistory: "0")
-            }
-            else
-            {
-                SSTeacherMessageHandler.sharedMessageHandler.checkAndRemoveJoinedRoomsArrayWithRoomid(String(format:"room_%@",((dict as AnyObject).object(forKey: kSessionId) as! String)))
-            }
-            
-            
-            
             
         }
         
@@ -619,8 +591,77 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             activityIndicator.stopAnimating()
         }
         
+        TeacherScheduleViewController.joinXMPPRooms()
+        TeacherScheduleViewController.destroyUnusedRooms();
+        
         
     }
+    
+    static func destroyUnusedRooms(){
+        SSTeacherDataSource.sharedDataSource.refreshApp(success: { (response) in
+            if let unusedRooms = response.object(forKey: "DestroyRooms") as? NSArray{
+                for unusedRoom in unusedRooms{
+                    if let sessionId:Int = (unusedRoom as AnyObject).object(forKey: "class_session_id") as? Int{
+                    SSTeacherMessageHandler.sharedMessageHandler.destroyRoom("room_"+"\(sessionId)")
+                    SSTeacherMessageHandler.sharedMessageHandler.destroyRoom("question_"+"\(sessionId)")
+                    }
+                }
+            }
+            
+        })
+        { (error) in
+            NSLog("Refresh API failed, unable to join xmpp rooms")
+        }
+    }
+    
+    
+    
+    static func joinXMPPRooms(){
+        SSTeacherDataSource.sharedDataSource.refreshApp(success: { (response) in
+            
+            if let summary = response.object(forKey: "Summary") as? NSArray
+            {
+                if summary.count > 0
+                {
+                    let details = summary.firstObject as AnyObject
+                    if let currentState = details.object(forKey: "CurrentSessionState") as? Int{
+                        
+                        let currentSessionId:Int = (summary.value(forKey: "CurrentSessionId") as! NSArray)[0] as! Int
+                        self.currentSessionId = currentSessionId
+                        let currentSessionState:Int = (summary.value(forKey: "CurrentSessionState") as! NSArray)[0] as! Int
+                        self.joinOrLeaveXMPPSessionRoom(sessionState:String(describing:currentSessionState), roomName:String(describing:currentSessionId))
+                        
+                        
+                    }
+                    if let nextState = details.object(forKey: "NextClassSessionState") as? Int{
+                        let nextSessionState:Int = (summary.value(forKey: "NextClassSessionState") as! NSArray)[0] as! Int
+                        let nextSessionId:Int = (summary.value(forKey: "NextClassSessionId") as! NSArray)[0] as! Int
+                        self.nextSessionId = nextSessionId
+                        self.joinOrLeaveXMPPSessionRoom(sessionState:String(describing:nextSessionState), roomName:String(describing:nextSessionId))
+                    }
+                    
+                }
+            }
+            
+            
+        }) { (error) in
+            NSLog("Refresh API failed, unable to join xmpp rooms")
+        }
+    }
+    
+    
+    static func joinOrLeaveXMPPSessionRoom(sessionState: String, roomName: String){
+        if sessionState == kLive || sessionState == kopened || sessionState == kScheduled
+        {
+            SSTeacherMessageHandler.sharedMessageHandler.createRoomWithRoomName(String(format:"room_%@",roomName), withHistory: "0")
+        }
+        else
+        {
+            SSTeacherMessageHandler.sharedMessageHandler.checkAndRemoveJoinedRoomsArrayWithRoomid(String(format:"room_%@",roomName))
+        }
+        
+    }
+    
     
     
     func didGetMycurrentSessionWithDetials(_ details: AnyObject)
@@ -662,6 +703,8 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         {
             updateNextSessionWithSessionId(nextSessionId)
         }
+        
+        
         
         activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
@@ -848,8 +891,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
                         
                     }
                     
-                    
-                    
+                    mScheduleDetailView.teacherScheduleViewController = self
                     
                     mScheduleDetailView.isHidden = false
                     
@@ -1155,7 +1197,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         {
             if mScheduleDetailView.isHidden == false
             {
-                mScheduleDetailView.refreshView()
+                mScheduleDetailView.refreshJoinedStateBar()
             }
         }
         
@@ -1321,6 +1363,11 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             if let sessionid = details.object(forKey: kSessionId) as? String
             {
                 SSTeacherDataSource.sharedDataSource.updateSessionStateWithSessionId(sessionid, WithStatusvalue: kCanClled, WithDelegate: self)
+                
+
+                SSTeacherMessageHandler.sharedMessageHandler.destroyRoom("room_"+sessionid)
+                SSTeacherMessageHandler.sharedMessageHandler.destroyRoom("question_"+sessionid)
+                
                 self.activityIndicator.isHidden = false
                 self.activityIndicator.startAnimating()
                 

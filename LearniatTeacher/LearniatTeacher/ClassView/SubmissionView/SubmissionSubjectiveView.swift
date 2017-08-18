@@ -64,7 +64,12 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     
     let overlayimageView = CustomProgressImageView()
     
+    // By Ujjval
+    // ==========================================
+    
 //    var mScribbleView : SmoothLineView!
+    
+    // ==========================================
     
     let studentsAswerDictonary      = NSMutableDictionary()
     
@@ -267,10 +272,12 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         mMarkModelButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20);
         mMarkModelButton.addTarget(self, action: #selector(SubmissionSubjectiveView.onModelAnswerButton), for: UIControlEvents.touchUpInside)
         
+      
+
         // By Ujjval
         // Assign frame and set other properties to draw view
         // ==========================================
-
+        
 //        mScribbleView = SmoothLineView(frame: containerview.frame)
 //        mScribbleView.delegate = self
 //        mainContainerView.addSubview(mScribbleView);
@@ -285,7 +292,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
 //        }
 //        mScribbleView.setBrushWidth(Int32(brushSize))
 //        mScribbleView.isHidden = false
-
+        
         mScribbleView = KMZDrawView(frame: containerview.frame)
         mainContainerView.addSubview(mScribbleView)
         mScribbleView.isUserInteractionEnabled = true
@@ -339,12 +346,12 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         // By Ujjval
         // ==========================================
         
-//        self.bringSubview(toFront: mScribbleView)
         self.bringSubview(toFront: mScribbleView)
         
         NotificationCenter.default.addObserver(self, selector: #selector(SubmissionSubjectiveView.changeBrushValues), name: NSNotification.Name(rawValue: "ChangeBrushValues"), object: nil)
         
         // ==========================================
+        
         
     }
     
@@ -356,6 +363,8 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         
     }
     
+    // By Ujjval
+    // ==========================================
     
     func changeBrushValues() {
         
@@ -373,8 +382,8 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         }
         mScribbleView.penWidth = UInt(brushSize)
     }
-    
    
+    // ==========================================
     
     
     func setStudentAnswerWithAnswer(_ studentAnswer:AnyObject, withStudentDict studentdict:AnyObject, withQuestionDict QuestionDetails:AnyObject )
@@ -567,6 +576,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         mScribbleView.clear()
         
         // ==========================================
+        
         mStarRatingView.setStarRating(0)
         m_badgeButton.setImage(UIImage(named:"Cb_Like_Disabled.png"), for:UIControlState());
         m_textButton.setImage(UIImage(named:"Text_Unselected.png"), for:UIControlState());
@@ -637,7 +647,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
             if (mScribbleView.image != nil)
             {
 //                imageUploading.uploadImage(with: mScribbleView.curImage, withImageName: nameOfImage, withUserId: SSTeacherDataSource.sharedDataSource.currentUserId)
-
+                
                 imageUploading.uploadImage(with: mScribbleView.image, withImageName: nameOfImage, withUserId: SSTeacherDataSource.sharedDataSource.currentUserId)
                 
                 // ==========================================
@@ -735,6 +745,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
             
             let buttonPosition :CGPoint = m_BrushButton.convert(CGPoint.zero, to: self)
             
+            
             let colorSelectContoller = colorpopOverViewController()
             colorSelectContoller.setSelectTab(1);
             colorSelectContoller.setDelegate(self);
@@ -758,6 +769,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
          m_BrushButton.setImage(UIImage(named:"Marker_Selected.png"), for:UIControlState())
          m_EraserButton.setImage(UIImage(named:"Eraser_Unselected.png"), for:UIControlState())
         
+        
         // By Ujjval
         // Assign updated brush size
         // ==========================================
@@ -776,6 +788,10 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         
         // ==========================================
         
+        
+        
+        
+        
 
     }
     
@@ -787,6 +803,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         {
             
             let buttonPosition :CGPoint = m_EraserButton.convert(CGPoint.zero, to: self)
+            
             
             let colorSelectContoller = colorpopOverViewController()
             colorSelectContoller.setSelectTab(2);
@@ -813,6 +830,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         m_BrushButton.setImage(UIImage(named:"Marker_Unselected.png"), for:UIControlState())
         m_EraserButton.setImage(UIImage(named:"Eraser_Selected.png"), for:UIControlState())
         
+        
         // By Ujjval
         // Assign updated eraser size
         // ==========================================
@@ -823,11 +841,14 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
 //        mScribbleView.setBrushWidth(Int32(eraserSize))
         
         
-        
         mScribbleView.penMode = .eraser
         mScribbleView.penWidth = UInt(eraserSize)
         
         // ==========================================
+        
+        
+        
+        
 
     }
     
@@ -910,6 +931,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         
         
     }
+    
     
     // By Ujjval
     // Enable or disable Undo & Redo buttons
@@ -1300,7 +1322,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
             // Assign updated Brush color
             // ==========================================
             
-//             mScribbleView.setDrawing(progressColor);
+//            mScribbleView.setDrawing(progressColor);
             mScribbleView.penColor = progressColor
             
             // ==========================================
@@ -1310,6 +1332,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     
     func resetAllButtonState()
     {
+        
         // By Ujjval
         // Clear image
         // ==========================================
@@ -1331,7 +1354,6 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         mScribbleView.clear()
         
         // ==========================================
-        
         mStarRatingView.setStarRating(0)
         m_badgeButton.setImage(UIImage(named:"Cb_Like_Disabled.png"), for:UIControlState());
         m_textButton.setImage(UIImage(named:"Text_Unselected.png"), for:UIControlState());
