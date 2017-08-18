@@ -239,8 +239,9 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
                     _mMaintopicsDetails.add((details.object(forKey: "SubTopics")! as AnyObject).object(forKey: "SubTopic")!)
                 }
                 SSTeacherDataSource.sharedDataSource.setSubTopicDictonaryWithDict(_mMaintopicsDetails, withKey: currentMainTopicId)
-                addTopicsWithDetailsArray(_mMaintopicsDetails)
             }
+            
+            addTopicsWithDetailsArray(_mMaintopicsDetails)
         }
         else {
             mActivityIndicator.isHidden = true

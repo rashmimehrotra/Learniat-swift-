@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D30" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="C8f-AP-HYf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="C8f-AP-HYf">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
@@ -12,7 +12,7 @@
         <!--Login View Controller-->
         <scene sceneID="J1R-Q4-iZh">
             <objects>
-                <viewController id="C8f-AP-HYf" customClass="LoginViewController" customModule="Learniat_Teacher" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="C8f-AP-HYf" customClass="LoginViewController" customModule="Learniat_Teacher" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="AQO-CM-dMw"/>
                         <viewControllerLayoutGuide type="bottom" id="PAm-DW-hJF"/>
@@ -28,7 +28,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eeX-U4-FUm" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="245" y="301"/>
+            <point key="canvasLocation" x="-227" y="39"/>
         </scene>
         <!--Teacher Schedule View Controller-->
         <scene sceneID="Zga-5M-CXj">
@@ -67,11 +67,12 @@
                     </view>
                     <connections>
                         <segue destination="jVR-tN-eqI" kind="presentation" identifier="AutoAllocateToSchedule" id="Qwt-gC-D44"/>
+                        <segue destination="C8f-AP-HYf" kind="presentation" identifier="AutoAllocateToLogin" id="YzI-AV-H6b"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XPM-l9-WH0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2495" y="301"/>
+            <point key="canvasLocation" x="2591" y="1100"/>
         </scene>
         <!--Teacher Class View-->
         <scene sceneID="4Lm-hQ-xwF">
@@ -88,11 +89,12 @@
                     </view>
                     <connections>
                         <segue destination="jVR-tN-eqI" kind="presentation" identifier="ClassViewToSchedule" id="oyv-Uq-CL0"/>
+                        <segue destination="C8f-AP-HYf" kind="presentation" identifier="ClassToLogin" id="COr-Px-Zmn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lsw-Wm-ghK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3218" y="301"/>
+            <point key="canvasLocation" x="3253" y="212"/>
         </scene>
         <!--Preallocate Seat View Controller-->
         <scene sceneID="ui9-S0-ZWw">
@@ -107,6 +109,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
+                    <connections>
+                        <segue destination="C8f-AP-HYf" kind="presentation" identifier="PreAllocateToLogin" id="cKl-Ex-UyE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fhS-pC-zWg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -114,6 +119,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="YzI-AV-H6b"/>
         <segue reference="N82-LX-9VO"/>
     </inferredMetricsTieBreakers>
 </document>

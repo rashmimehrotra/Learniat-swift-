@@ -58,7 +58,8 @@ let kSendSingleString               = "1101"
 let kModelAnswerDetails             = "179"
 let kCollaborationCancelled         = "1104"
 let kCollaborationStatusChanged     = "1105"
-
+let kTakeOver = "2001"
+let kTakeOverTime = "2002"
 
 
 
@@ -131,6 +132,22 @@ import Signals
     @objc optional func smhDidRecieveSuggestionStatusFromTeacher(_ details:AnyObject)
     
     @objc optional func smhDidRecieveCollaborationEndedFromTeacher()
+
+    @objc optional func smhEndSession()
+    
+    @objc optional func smhDidGetSessionStateChange()
+    
+    @objc optional func smhDidGetTopicStateChanged(topic:Topic)
+    
+    @objc optional func smhDidGetTopicChanged(topic: Topic)
+    
+    @objc optional func smhDidReceiveQuesitonIdChange(question: Question)
+    
+    @objc optional func smhDidReceiveQuestionStateChange(question:Question)
+    
+    
+
+
     
     
 }
@@ -139,7 +156,12 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
     
     var _delgate: AnyObject!
     var currentUserName:String!
-   
+    var connectType:String = "Login"
+    var retryConnectTime:Int64 = 0
+    var currentAppState:String = "Active"
+    var sessionSubjects:[String:SessionRoomSubject] = [:]
+    var questionSubjects:[String:QuestionRoomSubject] = [:]
+
     
    open  static let sharedMessageHandler = SSStudentMessageHandler()
     //This signal is used when network error
@@ -205,6 +227,7 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
     /*- this function is called to connect to XMPP Server -*/
     func connectWithUserId(_ userID:String, andWithPassword password:String, withDelegate delegate:SSStudentMessageHandlerDelegate)
     {
+        SSStudentMessageHandler.sharedMessageHandler.connectType = "Login"
         guard userID.characters.count>0 || password.characters.count>0  else
         {
             return
@@ -256,8 +279,9 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
     }
     
     
-    func performReconnet()
+    func performReconnet(connectType: String)
     {
+        SSStudentMessageHandler.sharedMessageHandler.connectType = connectType
         
         if let password  =  UserDefaults.standard.object(forKey: kPassword) as? String
         {
@@ -266,6 +290,9 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
         }
         
     }
+    
+    
+
     
     func goOffline()
     {
@@ -286,6 +313,26 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
     }
     open func didGetAuthenticationState(_ state:Bool)
     {
+        if state {
+            if connectType == "Login"{
+                MessageManager.sharedMessageHandler().goActive()
+                currentAppState = "Active"
+                MessageManager.sharedMessageHandler().goOnline()
+            }
+            else if connectType == "Retry"{
+                MessageManager.sharedMessageHandler().goRetryActive()
+                currentAppState = "Retry Active"
+                retryConnectTime = Int64(Date().timeIntervalSince1970 * 1000)
+                MessageManager.sharedMessageHandler().goOnline()
+            }
+            else if connectType == "Reconnect"{
+                MessageManager.sharedMessageHandler().goActive()
+                currentAppState = "Active"
+                MessageManager.sharedMessageHandler().goOnline()
+            }
+        }
+        
+        
          if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidReciveAuthenticationState(_:WithName:)))
          {
             delegate().smhDidReciveAuthenticationState!(state, WithName: getCurrentUSerName())
@@ -297,6 +344,43 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
         if delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhStreamReconnectingWithDelay(_:)))
         {
             delegate().smhStreamReconnectingWithDelay!(delayTime)
+        }
+    }
+    
+    open func gotOnline() {
+        refreshApp()
+    }
+    
+    open func didRecievePresenceSelf(_ state: String!, withUserName userName: String!, withSubState subState: String!, withSenderJid senderJid: XMPPJID!) {
+        
+        let myJid:XMPPJID = MessageManager.sharedMessageHandler().xmppStream.myJID;
+        if myJid.resource != senderJid.resource{
+            if state == "active"{
+                AppDelegate.appState = "TakenOver"
+                MessageManager.sharedMessageHandler().disconnect()
+            }
+            if state == "retry-active"{
+                if currentAppState == "Active"{
+                    let details:NSMutableDictionary = ["From":myJid.user,
+                                                       "To":senderJid.user,
+                                                       "Type":kTakeOver];
+                    let msg = SSMessage()
+                    msg.setMsgDetails( details)
+                    let xmlBody:String = msg.xmlMessage()
+                    MessageManager.sharedMessageHandler().sendMessage(to: senderJid.bare(), withContents: xmlBody)
+                }
+                else if currentAppState == "Retry Active"{
+                    let details:NSMutableDictionary = ["From":myJid.user,
+                                                       "To":senderJid.user,
+                                                       "Type":kTakeOverTime,
+                                                       "Body":retryConnectTime];
+                    let msg = SSMessage()
+                    msg.setMsgDetails( details)
+                    let xmlBody:String = msg.xmlMessage()
+                    MessageManager.sharedMessageHandler().sendMessage(to: senderJid.bare(), withContents: xmlBody)
+
+                }
+            }
         }
     }
     
@@ -328,7 +412,8 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
     
     func didGetUserJoinedToRoomORLeaveRoomWithName(_ _userName: String!, withPresence presence: String!)
     {
-        
+        print(_userName)
+        print(presence)
        
     }
     
@@ -827,12 +912,88 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
         }
     }
     
-    
+    open func didReceiveMessage(withSubject subject: String!, withSenderJid senderJid: XMPPJID!) {
+        if senderJid.user.contains("room_"){
+            //Create Session Room
+            let roomId = senderJid.user.replace("room_", replacement: "")
+            var sessionRoomSubject:SessionRoomSubject
+            if sessionSubjects[roomId] != nil{
+                sessionRoomSubject = SessionRoomSubject(topicId: sessionSubjects[roomId]!.topic.topicId, topicName: sessionSubjects[roomId]!.topic.topicName, topicState: sessionSubjects[roomId]!.topic.topicState, roomId: sessionSubjects[roomId]!.roomId, isStateChanged: sessionSubjects[roomId]!.isStateChanged, sessionState: sessionSubjects[roomId]!.sessionState)
+            }
+            else{
+                sessionRoomSubject = SessionRoomSubject(topicId: "", topicName: "", topicState: TopicState.Started, roomId:roomId , isStateChanged: false, sessionState: SubjectSessionState.Begin)
+            }
+            
+            // all subscription to be done by ui, db, api etc. this is just to keep code in common place
+            sessionRoomSubject.topicStateChanged.subscribeOnce(on: self) { (topic) in
+                if self.delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidGetTopicStateChanged(topic:))){
+                    self.delegate().smhDidGetTopicStateChanged!(topic: topic)
+                }
+                if topic.topicState == TopicState.Ended{
+                    self.sessionSubjects.removeValue(forKey: roomId)
+                }
+            }
+            sessionRoomSubject.topicChanged.subscribeOnce(on: self){ (topic) in
+                if self.delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidGetTopicChanged(topic:))){
+                    self.delegate().smhDidGetTopicChanged!(topic: topic)
+                }
+            }
+            sessionRoomSubject.sessionStateChanged.subscribeOnce(on: self){ (roomId, sessionState) in
+                if sessionState == SubjectSessionState.Ended{
+                    if self.delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidGetSessionEndMessageWithDetails(_:)))
+                    {
+                        self.delegate().smhDidGetSessionEndMessageWithDetails!(sessionState as AnyObject)
+                    }
+                }
+                else{
+                    if self.delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidGetSessionStateChange)){
+                        self.delegate().smhDidGetSessionStateChange!()
+                    }
+                }
+            }
+                //only this should be placed here
+            sessionRoomSubject.setRoomSubject(json: subject)
+            sessionSubjects[roomId] = sessionRoomSubject
+        }
+        
+        
+        
+        
+        if senderJid.user.contains("question_"){
+            //create Question Room
+            let roomId = senderJid.user.replace("question_", replacement: "")
+            var questionRoomSubject:QuestionRoomSubject
+            if questionSubjects[roomId] != nil{
+                questionRoomSubject = QuestionRoomSubject(questionId: questionSubjects[roomId]!.question.questionId, questionType: questionSubjects[roomId]!.question.questionType, questionState: questionSubjects[roomId]!.question.questionState, roomId: questionSubjects[roomId]!.roomId  )
+            }
+            else{
+                questionRoomSubject = QuestionRoomSubject(questionId: "", questionType: "", questionState:QuestionState.Started, roomId: roomId)
+            }
+   
+            
+            questionRoomSubject.questionStateChanged.subscribe(on: self) { (question) in
+                if self.delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidReceiveQuestionStateChange(question:))){
+                    self.delegate().smhDidReceiveQuestionStateChange!(question: question)
+                }
+                if question.questionState == QuestionState.Ended{
+                    self.questionSubjects.removeValue(forKey: roomId)
+                }
+            }
+            questionRoomSubject.questionChanged.subscribe(on: self){ (question) in
+                if self.delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidReceiveQuesitonIdChange(question:))){
+                    self.delegate().smhDidReceiveQuesitonIdChange!(question: question)
+                }
+            }
+            questionRoomSubject.setRoomSubject(json: subject)
+            
+            questionSubjects[roomId] = questionRoomSubject
+        }
+    }
     
     
     //MARK: Recieve Message
-    open func didReceiveMessage(withBody body: String!)
-    {
+    open func didReceiveMessage(withBody body: String!, withSenderJid senderJid: XMPPJID!) {
+    
         
         let message = SSMessage.init(xmlString: body)
         
@@ -1079,9 +1240,85 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
             }
         }
         
-        
+        else if message?.messageType() == kTakeOver && MessageManager.sharedMessageHandler().xmppStream.myJID.resource != senderJid.resource{
+            AppDelegate.appState = "TakenOver"
+            MessageManager.sharedMessageHandler().disconnect()
+        }
+        else if message?.messageType() == kTakeOverTime && MessageManager.sharedMessageHandler().xmppStream.myJID.resource != senderJid.resource{
+            let senderTime:Int64 = Int64(message?.messageBody() as! String)!
+            if retryConnectTime > senderTime{
+                AppDelegate.appState = "TakenOver"
+                MessageManager.sharedMessageHandler().disconnect()
+            }
+            else{
+                let details:NSMutableDictionary = ["From":MessageManager.sharedMessageHandler().xmppStream.myJID.user,
+                                                   "To":senderJid.user,
+                                                   "Type":kTakeOverTime,
+                                                   "Body":retryConnectTime];
+                let msg = SSMessage()
+                msg.setMsgDetails( details)
+                let xmlBody:String = msg.xmlMessage()
+                MessageManager.sharedMessageHandler().sendMessage(to: senderJid.bare(), withContents: xmlBody)
+            }
+        }
         
     }
+    
+    
+    func refreshApp() {
+        SSStudentDataSource.sharedDataSource.refreshApp(success: { (response) in
+            if let summary = response.object(forKey: "Summary") as? NSArray {
+                if summary.count > 0 {
+                    let details = summary.firstObject as AnyObject
+                    
+                    if let currentState = details.object(forKey: "CurrentSessionState") as? Int{
+                        let currentSessionId:Int = (summary.value(forKey: "CurrentSessionId") as! NSArray)[0] as! Int
+                        let currentSessionState:Int = (summary.value(forKey: "CurrentSessionState") as! NSArray)[0] as! Int
+                        self.joinOrLeaveXMPPSessionRoom(sessionState:String(describing:currentSessionState), roomName:String(describing:currentSessionId))
+                        if SSStudentDataSource.sharedDataSource.currentLiveSessionId != String(describing:currentSessionId){
+                            if self.delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhEndSession))
+                            {
+                                self.delegate().smhEndSession!()
+                            }
+                        }
+                    }
+                    else{
+                        if self.delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhEndSession))
+                        {
+                            self.delegate().smhEndSession!()
+                        }
+
+                    }
+                    if let nextState = details.object(forKey: "NextClassSessionState") as? Int{
+                        let nextSessionState:Int = (summary.value(forKey: "NextClassSessionState") as! NSArray)[0] as! Int
+                        let nextSessionId:Int = (summary.value(forKey: "NextClassSessionId") as! NSArray)[0] as! Int
+                        self.joinOrLeaveXMPPSessionRoom(sessionState:String(describing:nextSessionState), roomName:String(describing:nextSessionId))
+                    }
+                    
+                }
+                else{
+                    if self.delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhEndSession))
+                    {
+                        self.delegate().smhEndSession!()
+                    }
+                }
+            }
+        }) { (error) in
+            
+        }
+    }
+    
+    
+    func joinOrLeaveXMPPSessionRoom(sessionState: String, roomName: String){
+        if sessionState == kLive || sessionState == kopened || sessionState == kScheduled{
+            SSStudentMessageHandler.sharedMessageHandler.createRoomWithRoomName(String(format:"room_%@",roomName), withHistory: "0")
+            if sessionState == kLive{
+                SSStudentMessageHandler.sharedMessageHandler.createRoomWithRoomName(String(format:"question_%@",roomName), withHistory: "0")
+            }
+        } else {
+            SSStudentMessageHandler.sharedMessageHandler.checkAndRemoveJoinedRoomsArrayWithRoomid(String(format:"room_%@",roomName))
+        }
+}
 }
 
 
