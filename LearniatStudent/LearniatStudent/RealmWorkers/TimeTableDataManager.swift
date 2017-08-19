@@ -20,7 +20,7 @@ class TimeTableDataManager: NSObject {
             try RealmManager.shared.realm.write({
                 for index in 0..<timeTableArray.count {
                     let userValue = timeTableArray.object(at: index) as AnyObject
-                    if let session = RealmManager.shared.realm.object(ofType: TimeTableModel.self, forPrimaryKey: userValue[kSessionId]) {
+                    if let session = RealmManager.shared.realm.object(ofType: TimeTableModel.self, forPrimaryKey: userValue[RAPIConstants.SessionID.rawValue]) {
                         sessionModel = session
                     } else {
                         sessionModel = TimeTableModel()
@@ -45,16 +45,14 @@ extension TimeTableDataManager {
     ///
     /// - Parameter completion: Closure
     func getTodaySchedules()->[TimeTableModel]{
-        
         var mTimeTableModel = [TimeTableModel]()
         let objects = RealmManager.shared.realm.objects(TimeTableModel.self)
         for timeTableObject in Array(objects) {
             let dateFormatter: DateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            dateFormatter.locale = Locale(identifier:"en_US_POSIX")
             let datecomponents = dateFormatter.date(from: timeTableObject.StartTime!)
             let now = Date()
-            if (datecomponents! >= now) {
+            if (datecomponents?.toShortDateString() == now.toShortDateString()) {
                 mTimeTableModel.append(timeTableObject)
             }
         }

@@ -24,6 +24,7 @@
 		00E18EA41F08385C00D9705C /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 00E18EA21F08385C00D9705C /* Config.plist */; };
 		00E18EA51F08385C00D9705C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E18EA31F08385C00D9705C /* Config.swift */; };
 		00E18EA71F0839E700D9705C /* AppAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E18EA61F0839E700D9705C /* AppAPI.swift */; };
+		00E24BDC1F475B0B0007E673 /* RAPIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E24BDB1F475B0B0007E673 /* RAPIConstants.swift */; };
 		00E87B3F1F3B07B3004DD1A1 /* TimeTableTileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E87B3E1F3B07B3004DD1A1 /* TimeTableTileView.swift */; };
 		00EE36D51F38CEE000647ECC /* TimeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EE36D41F38CEE000647ECC /* TimeTableViewController.swift */; };
 		00EE36D71F38D3A900647ECC /* TimeTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EE36D61F38D3A900647ECC /* TimeTableViewModel.swift */; };
@@ -433,6 +434,7 @@
 		00E18EA21F08385C00D9705C /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		00E18EA31F08385C00D9705C /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		00E18EA61F0839E700D9705C /* AppAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAPI.swift; sourceTree = "<group>"; };
+		00E24BDB1F475B0B0007E673 /* RAPIConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RAPIConstants.swift; sourceTree = "<group>"; };
 		00E87B3E1F3B07B3004DD1A1 /* TimeTableTileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeTableTileView.swift; sourceTree = "<group>"; };
 		00EE36D41F38CEE000647ECC /* TimeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeTableViewController.swift; sourceTree = "<group>"; };
 		00EE36D61F38D3A900647ECC /* TimeTableViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimeTableViewModel.swift; path = ../Scene/TimeTableViewModel.swift; sourceTree = "<group>"; };
@@ -2472,6 +2474,7 @@
 			isa = PBXGroup;
 			children = (
 				53E658DF1F064CA700EAB2E4 /* Enumerations.swift */,
+				00E24BDB1F475B0B0007E673 /* RAPIConstants.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -2847,6 +2850,7 @@
 				533066E61CC9EDD90035CCDE /* ScheduleScreenLineView.swift in Sources */,
 				530929E31CF2FEE1002CB6B5 /* TextTypeQuestionView.swift in Sources */,
 				533066A71CC9E5F40035CCDE /* NSXMLElement+XEP_0297.m in Sources */,
+				00E24BDC1F475B0B0007E673 /* RAPIConstants.swift in Sources */,
 				533066441CC9E5F40035CCDE /* XMPPElement.m in Sources */,
 				5330668D1CC9E5F40035CCDE /* XMPPCapsResourceCoreDataStorageObject.m in Sources */,
 				5330664B1CC9E5F40035CCDE /* XMPPStream.m in Sources */,

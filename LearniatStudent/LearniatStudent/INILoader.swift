@@ -745,6 +745,17 @@ extension Date
         return r
     }
     
+    func toShortDateString() -> String
+    {
+        //Get Short Time String
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        let timeString = formatter.string(from: self)
+        
+        //Return Short Time String
+        return timeString
+    }
+    
 }
 extension String
 {

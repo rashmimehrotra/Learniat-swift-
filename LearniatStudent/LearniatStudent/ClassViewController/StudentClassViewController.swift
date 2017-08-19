@@ -10,7 +10,7 @@ import Foundation
 class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,SSStudentMessageHandlerDelegate,StudentQuestionViewDelegate,SSStudentFullscreenScribbleQuestionDelegate,UIPopoverControllerDelegate,SSStudentSchedulePopoverControllerDelegate
 {
     
-    var sessionDetails               = NSMutableDictionary()
+    var sessionDetails : AnyObject?
     
     var mTopbarImageView             :UIImageView           = UIImageView()
     
@@ -97,22 +97,14 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             studentImage.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
         }
         
-        
-        
         let studentName = UILabel(frame: CGRect(x: studentImage.frame.origin.x + studentImage.frame.size.width + 10, y: studentImage.frame.origin.y, width: 200, height: 20))
         mTopbarImageView.addSubview(studentName)
         studentName.textColor = UIColor.white
         studentName.text = SSStudentDataSource.sharedDataSource.currentUserName.capitalized
 
-        
-        
-        
         mTeacherImageButton.frame = CGRect(x: 0, y: 0, width: mTopbarImageView.frame.size.height , height: mTopbarImageView.frame.size.height)
         mTopbarImageView.addSubview(mTeacherImageButton)
         mTeacherImageButton.addTarget(self, action: #selector(StudentClassViewController.onTeacherImage), for: UIControlEvents.touchUpInside)
-        
-
-        
         
         mClassName = UILabel(frame: CGRect(x: mTopbarImageView.frame.size.width/2 - 100 , y: 15, width: 500, height: 20))
         mClassName.font = UIFont(name:helveticaRegular, size: 17)
@@ -121,28 +113,19 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         mClassName.textColor = UIColor.white
         mClassName.textAlignment = .left
         
-        if let ClassName = sessionDetails.object(forKey: "ClassName") as? String
-        {
+        if let ClassName = sessionDetails?.object(forKey: RAPIConstants.ClassName.rawValue) as? String {
             mClassName.text = ClassName
         }
-        
-        
-       
-        
         
         mClassNameButton.frame = CGRect(x: (mTopbarImageView.frame.size.width - mClassName.frame.size.width)/2 , y: 0, width: mClassName.frame.size.width, height: mTopbarImageView.frame.size.height )
         mTopbarImageView.addSubview(mClassNameButton)
         mClassNameButton.addTarget(self, action: #selector(StudentClassViewController.onClassButton), for: UIControlEvents.touchUpInside)
         mClassNameButton.backgroundColor = UIColor.clear
         
-        
-        
         mstatusImage .frame = CGRect(x: mClassName.frame.origin.x  - (mClassName.frame.size.height + 5),y: mClassName.frame.origin.y  ,width: mClassName.frame.size.height,height: mClassName.frame.size.height)
         mstatusImage.backgroundColor = standard_Green
         mTopbarImageView.addSubview(mstatusImage)
         mstatusImage.layer.cornerRadius = mstatusImage.frame.size.width/2
-        
-        
         
         mClassStatedLabel.frame =  CGRect(x: mClassName.frame.origin.x, y: mClassName.frame.origin.y + mClassName.frame.size.height + 3 , width: mClassName.frame.size.width, height: mClassName.frame.size.height)
         mClassStatedLabel.textColor = UIColor.white
@@ -153,18 +136,10 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         mTopbarImageView.addSubview(mClassStatedLabel)
         
 
-
-        
-        
         classStartedView.frame = CGRect(x: 0, y: mTopbarImageView.frame.size.height, width: self.view.frame.size.width, height: self.view.frame.size.height - mTopbarImageView.frame.size.height)
         classStartedView.backgroundColor = darkBackgroundColor
         self.view.addSubview(classStartedView)
         classStartedView.isHidden = true
-        
-        
-        
-       
-        
         
         mBottomBarImageView.frame = CGRect(x: 0, y: classStartedView.frame.size.height - 60, width: classStartedView.frame.size.width, height: 60)
         classStartedView.addSubview(mBottomBarImageView)
@@ -181,14 +156,11 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         mBottomBarImageView.addSubview(mTeacherName)
         mTeacherName.textColor = UIColor.white
         
-        
         let teacher = UILabel(frame: CGRect(x: mTeacherImageView.frame.origin.x + mTeacherImageView.frame.size.width + 10, y: mTeacherName.frame.origin.y + mTeacherName.frame.size.height + 5, width: 200, height: 20))
         mBottomBarImageView.addSubview(teacher)
         teacher.text = "Teacher"
         teacher.font = UIFont(name:helveticaRegular, size: 16)
         teacher.textColor = UIColor.white
-        
-      
         
         mNoStudentLabel.frame = CGRect(x: 10, y: (self.view.frame.size.height - 40)/2, width: self.view.frame.size.width - 20,height: 40)
         mNoStudentLabel.font = UIFont(name:helveticaMedium, size: 30)
@@ -198,45 +170,51 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         mNoStudentLabel.textAlignment = .center
         mNoStudentLabel.isHidden = true
         
-        
-        if let sessionId = sessionDetails.object(forKey: kSessionId) as? String
-        {
-            SSStudentDataSource.sharedDataSource.currentLiveSessionId = sessionId
-            
-            getUserSessionWithSessionID(sessionID: sessionId)
-            
+        if let sessionId = sessionDetails?.object(forKey: RAPIConstants.SessionID.rawValue) as? String{
+            SSStudentDataSource.sharedDataSource.currentLiveSessionId = String(sessionId)
+            getUserSessionWithSessionID(sessionID: String(sessionId))
         }
         
-        
-        switch (sessionDetails.object(forKey: kSessionState) as! String)
+        switch (sessionDetails?.object(forKey: RAPIConstants.SessionState.rawValue) as! Int)
         {
-            case kopenedString:
+            case SessionState.Opened.rawValue:
                 mClassStatedLabel.text = "Class not started yet"
                 mNoStudentLabel.isHidden = false
                 classStartedView.isHidden = true
                 RealmDatasourceManager.saveScreenStateOfUser(screenState: .waitingForTeacherScreen, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
-
-                break
+            break
             
-            case kLiveString:
-                
-                
+            case SessionState.Live.rawValue:
                 mNoStudentLabel.isHidden = true
                 classStartedView.isHidden = false
-                
                 startedTimeUpdatingTimer.invalidate()
                 startedTimeUpdatingTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(StudentClassViewController.startTimeUpdating), userInfo: nil, repeats: true)
                 RealmDatasourceManager.saveScreenStateOfUser(screenState: .LiveScreen, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
                 break
-            
             default:
                 break
         }
-         loadSubview()
-        
+        loadSubview()
         subscribeForSignal()
         
         
+        if let  TeacherId = sessionDetails?.object(forKey: RAPIConstants.TeacherId.rawValue) as? Int {
+            SSStudentDataSource.sharedDataSource.currentTeacherId = String(TeacherId)
+            let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
+            let userID = urlString.appending("/").appending(String(TeacherId))
+            if let checkedUrl = URL(string: "\(userID)_79px.jpg") {
+                mTeacherImageView.contentMode = .scaleAspectFit
+                mTeacherImageView.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
+            }
+            
+            
+            
+        }
+        
+        if let  TeacherName = sessionDetails?.object(forKey: RAPIConstants.TeacherName.rawValue) as? String  {
+            mTeacherName.text = TeacherName
+            SSStudentDataSource.sharedDataSource.currentTeacherName = TeacherName
+        }
     }
     
     
@@ -305,9 +283,9 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     
     func classsBegin() {
-        if let sessionId = sessionDetails.object(forKey: kSessionId) as? String {
-            SSStudentDataSource.sharedDataSource.currentLiveSessionId = sessionId
-            getUserSessionWithSessionID(sessionID: sessionId)
+        if let sessionId = sessionDetails?.object(forKey: RAPIConstants.SessionID.rawValue) as? Int {
+            SSStudentDataSource.sharedDataSource.currentLiveSessionId = String(sessionId)
+            getUserSessionWithSessionID(sessionID: String(sessionId))
             RealmDatasourceManager.saveScreenStateOfUser(screenState: .LiveScreen, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
 
         }
@@ -339,15 +317,14 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         var _string :String = ""
         let currentDate = Date()
-        _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: (sessionDetails.object(forKey: kStartTime) as! String))!)).fullString
+        _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: (sessionDetails?.object(forKey: RAPIConstants.StartTime.rawValue) as! String))!)).fullString
         mClassStatedLabel.text = "Started: \(_string)"
         let isgreatervalue :Bool ;
-        isgreatervalue = currentDate.isGreaterThanDate(dateFormatter.date(from: sessionDetails.object(forKey: "EndTime") as! String)!)
+        isgreatervalue = currentDate.isGreaterThanDate(dateFormatter.date(from: sessionDetails?.object(forKey: RAPIConstants.endTime.rawValue) as! String)!)
         if isgreatervalue {
-            if let sessionId = sessionDetails.object(forKey: kSessionId) as? String {
+            if let sessionId = sessionDetails?.object(forKey: RAPIConstants.SessionID.rawValue) as? Int {
                 startedTimeUpdatingTimer.invalidate()
-                SSStudentDataSource.sharedDataSource.currentLiveSessionId = sessionId
-//                getUserSessionWithSessionID(sessionID: sessionId)
+                SSStudentDataSource.sharedDataSource.currentLiveSessionId = String(sessionId)
             }
         }
     }
@@ -366,8 +343,8 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     
     private func gotSessionDetails(details:AnyObject) {
-        sessionDetails.setObject((details.object(forKey: kStartTime)) ?? String(), forKey: kStartTime as NSCopying)
-        sessionDetails.setObject((details.object(forKey: kEndTime)) ?? String(), forKey: kEndTime as NSCopying)
+        sessionDetails?.setObject((details.object(forKey: RAPIConstants.StartTime.rawValue)) ?? String(), forKey: RAPIConstants.StartTime.rawValue as NSCopying)
+        sessionDetails?.setObject((details.object(forKey: RAPIConstants.endTime.rawValue)) ?? String(), forKey: RAPIConstants.endTime.rawValue as NSCopying)
         if let sessionState = details.object(forKey: kSessionState) as? Int {
             if sessionState == SessionState.Live.rawValue {
                 displaySessionLiveStatus()
@@ -376,15 +353,15 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             } else if (sessionState == SessionState.Scheduled.rawValue || sessionState == SessionState.Ended.rawValue || sessionState == SessionState.Cancelled.rawValue) {
                 displayOtherStates()
             }
-            sessionDetails.setObject("\(sessionState)", forKey: kSessionState as NSCopying )
+            sessionDetails?.setObject(String(sessionState), forKey: RAPIConstants.SessionState.rawValue as NSCopying )
         } else {
             mNoStudentLabel.isHidden = false
             classStartedView.isHidden = true
         }
         
         
-        if let  TeacherId = details.object(forKey: "TeacherId") as? Int {
-            SSStudentDataSource.sharedDataSource.currentTeacherId = "\(TeacherId)"
+        if let  TeacherId = details.object(forKey: RAPIConstants.TeacherId.rawValue) as? Int {
+            SSStudentDataSource.sharedDataSource.currentTeacherId = String(TeacherId)
             let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
             let userID = urlString.appending("/").appending("\(TeacherId)")
             if let checkedUrl = URL(string: "\(userID)_79px.jpg")  {
@@ -393,7 +370,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             }
         }
         
-        if let  TeacherName = details.object(forKey: "TeacherName") as? String {
+        if let  TeacherName = details.object(forKey: RAPIConstants.TeacherName.rawValue) as? String {
             mTeacherName.text = TeacherName
             SSStudentDataSource.sharedDataSource.currentTeacherName = TeacherName
             
@@ -433,10 +410,8 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     
     
-    func setCurrentSessionDetails(_ details: AnyObject)
-    {
-        sessionDetails = details as! NSMutableDictionary
-    
+    func setCurrentSessionDetails(_ details: AnyObject) {
+        sessionDetails = details
     }
     
     
@@ -446,42 +421,26 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     func didGetSessionInfoWithDetials(_ details: AnyObject)
     {
         
-        sessionDetails.setObject((details.object(forKey: kStartTime)) ?? String(), forKey: kStartTime as NSCopying)
-        sessionDetails.setObject((details.object(forKey: kEndTime)) ?? String(), forKey: kEndTime as NSCopying)
+        sessionDetails?.setObject((details.object(forKey: kStartTime)) ?? String(), forKey: RAPIConstants.StartTime.rawValue as NSCopying)
+        sessionDetails?.setObject((details.object(forKey: kEndTime)) ?? String(), forKey: RAPIConstants.endTime.rawValue as NSCopying)
         
-        if let sessionState = details.object(forKey: kSessionState) as? String
-        {
-            if sessionState == "1"
-            {
+        if let sessionState = details.object(forKey: kSessionState) as? String {
+            if sessionState == "1" {
                mNoStudentLabel.isHidden = true
                 classStartedView.isHidden = false
                 updateStudentState(state: UserState.Live)
-                
-                
-                
                 mNoStudentLabel.isHidden = true
                 classStartedView.isHidden = false
-
                 startedTimeUpdatingTimer.invalidate()
                 startedTimeUpdatingTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(StudentClassViewController.startTimeUpdating), userInfo: nil, repeats: true)
-                
-                
-                
-            }
-            else if sessionState == "2"
-            {
+            } else if sessionState == "2" {
                 mNoStudentLabel.isHidden = false
                  classStartedView.isHidden = true
                 updateStudentState(state: UserState.Occupied)
-
-            }
-            else if (sessionState == "4" || sessionState == "5" || sessionState == "6")
-            {
+            } else if (sessionState == "4" || sessionState == "5" || sessionState == "6") {
                 delegateSessionEnded()
             }
-        }
-        else
-        {
+        } else {
             mNoStudentLabel.isHidden = false
             classStartedView.isHidden = true
         }
@@ -537,7 +496,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         
         
         
-        mQuestionView.setQuestionDetails(questionDetails! as AnyObject, withType: currentQuestionType, withSessionDetails: sessionDetails, withQuestion: currentQuestionLogId)
+        mQuestionView.setQuestionDetails(questionDetails! as AnyObject, withType: currentQuestionType, withSessionDetails: sessionDetails!, withQuestion: currentQuestionLogId)
         
         mQuestionButton.newEventRaised()
         
@@ -631,7 +590,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         mQuestionNameLabel.textAlignment = .right
         
         
-        SSStudentMessageHandler.sharedMessageHandler.createRoomWithRoomName("question_\((sessionDetails.object(forKey: "SessionId") as! String))", withHistory: "1")
+        SSStudentMessageHandler.sharedMessageHandler.createRoomWithRoomName("question_\((sessionDetails?.object(forKey: RAPIConstants.SessionID.rawValue) as! Int))", withHistory: "1")
         
     }
     
@@ -1294,7 +1253,7 @@ extension StudentClassViewController {
     
     fileprivate func getCurrentSessionState()->String {
         
-        if let sessionState = sessionDetails.object(forKey: kSessionState) as?  String {
+        if let sessionState = sessionDetails?.object(forKey: kSessionState) as?  String {
             return sessionState
         }
         return kopenedString

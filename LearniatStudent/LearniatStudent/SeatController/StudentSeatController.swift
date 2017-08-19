@@ -93,7 +93,7 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
         mPreallocateSeats.textColor = UIColor.white
         mPreallocateSeats.textAlignment = .center
         
-        if let ClassName = sessionDetails.object(forKey: "ClassName") as? String
+        if let ClassName = sessionDetails.object(forKey: RAPIConstants.RoomName.rawValue) as? String
         {
              mPreallocateSeats.text = ClassName
         }
@@ -126,9 +126,9 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
         self.view.addSubview(mActivityIndicatore)
         //        mActivityIndicatore.startAnimating()
         
-        if let roomId = sessionDetails.object(forKey: "RoomId") as? String
+        if let roomId = sessionDetails.object(forKey: RAPIConstants.RoomId.rawValue) as? Int
         {
-            SSStudentDataSource.sharedDataSource.getGridDesignDetails(roomId, WithDelegate: self)
+            SSStudentDataSource.sharedDataSource.getGridDesignDetails(String(roomId), WithDelegate: self)
         }
         
         mClassNameButton.frame = CGRect(x: (mTopbarImageView.frame.size.width - mPreallocateSeats.frame.size.width)/2 , y: 0, width: mPreallocateSeats.frame.size.width, height: mTopbarImageView.frame.size.height )
@@ -137,27 +137,16 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
         mClassNameButton.backgroundColor = UIColor.clear
 
         RealmDatasourceManager.saveScreenStateOfUser(screenState: .JoinScreen, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
-
-        
     }
     
     
-    func onClassButton()
-    {
-        
-        
-        
+    func onClassButton() {
         let buttonPosition :CGPoint = mClassNameButton.convert(CGPoint.zero, to: self.view)
-        
         let remainingHeight = self.view.frame.size.height - (buttonPosition.y  + mClassNameButton.frame.size.height + mClassNameButton.frame.size.height)
-        
-        
         let questionInfoController = SSStudentSchedulePopoverController()
-        
         questionInfoController.setCurrentScreenSize(CGSize(width: 400, height: remainingHeight))
         questionInfoController.setdelegate(self)
         let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
-        
         classViewPopOverController.contentSize = CGSize(width: 400,height: remainingHeight);
         classViewPopOverController.delegate = self;
         questionInfoController.setPopover(classViewPopOverController)
@@ -166,15 +155,11 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
             y:buttonPosition.y  + mClassNameButton.frame.size.height,
             width: 1,
             height: 1), in: self.view, permittedArrowDirections: .up, animated: true)
-        
     }
     
     
-    func setCurrentSessionDetails(_ details: AnyObject)
-    {
+    func setCurrentSessionDetails(_ details: AnyObject) {
         sessionDetails = details
-        
-        
     }
     
     
@@ -182,22 +167,15 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
     // MARK: - datasource delegate Functions
     
     func didGetGridDesignWithDetails(_ details: AnyObject) {
-        
-        
         currentGridDetails = details
-        
         mActivityIndicatore.stopAnimating()
         mActivityIndicatore.isHidden = true
         
-        
-        
-        if let Columns = details.object(forKey: "Columns") as? String
-        {
+        if let Columns = details.object(forKey: "Columns") as? String {
             columnValue = Int(Columns)!
         }
         
-        if let Rows = details.object(forKey: "Rows") as? String
-        {
+        if let Rows = details.object(forKey: "Rows") as? String {
             rowValue = Int(Rows)!
         }
         
@@ -278,9 +256,9 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
         
         
         
-        if let sessionid = sessionDetails.object(forKey: "SessionId") as? String
+        if let sessionid = sessionDetails.object(forKey: RAPIConstants.SessionID.rawValue) as? Int
         {
-            SSStudentDataSource.sharedDataSource.getSeatAssignmentofSession(sessionid, withDelegate: self)
+            SSStudentDataSource.sharedDataSource.getSeatAssignmentofSession(String(sessionid), withDelegate: self)
         }
     }
     
@@ -313,18 +291,10 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
                     {
                         SeatLabel =  SeatLabel.replacingOccurrences(of: "A", with: "")
                         
-                        if let studentDeskView  = mGridContainerView.viewWithTag(Int(SeatLabel)!) as? StudentSeatSubView
-                        {
-                            
-                            
+                        if let studentDeskView  = mGridContainerView.viewWithTag(Int(SeatLabel)!) as? StudentSeatSubView {
                             studentDeskView.setStudentDetails(studentsDetails as AnyObject)
-                            
                         }
-                        
                     }
-                    
-                    
-                    
                 }
                 mGridContainerView.isHidden = false
                 mNoStudentLabel.isHidden = true
@@ -346,40 +316,31 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
     
     func smhDidGetSeatingChangedWithDetails(_ details: AnyObject)
     {
-        
-        
-        for view:AnyObject in mGridContainerView.subviews.flatMap({ $0 as? StudentSeatSubView })
-        {
+        for view:AnyObject in mGridContainerView.subviews.flatMap({ $0 as? StudentSeatSubView }){
             view.removeFromSuperview()
         }
         
-        if let roomId = sessionDetails.object(forKey: "RoomId") as? String
-        {
-            SSStudentDataSource.sharedDataSource.getGridDesignDetails(roomId, WithDelegate: self)
+        if let roomId = sessionDetails.object(forKey: RAPIConstants.RoomId.rawValue) as? Int {
+            SSStudentDataSource.sharedDataSource.getGridDesignDetails(String(roomId), WithDelegate: self)
         }
-
-        
     }
     
     
     // MARK: - seat view delegate handler
     
-    func delegateStudentTileTouched()
-    {
+    func delegateStudentTileTouched() {
         let ClassViewController = StudentClassViewController()
         ClassViewController.setCurrentSessionDetails(sessionDetails)
         self.present(ClassViewController, animated: true, completion: nil)
     }
     
     
-    func onBack()
-    {
+    func onBack() {
         self.dismiss(animated: true, completion: nil)
     }
     
     
-    func smhDidGetSessionEndMessageWithDetails(_ details: AnyObject)
-    {
+    func smhDidGetSessionEndMessageWithDetails(_ details: AnyObject) {
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let preallotController : SSStudentScheduleViewController = storyboard.instantiateViewController(withIdentifier: "TeacherScheduleViewController") as! SSStudentScheduleViewController
         self.present(preallotController, animated: true, completion: nil)
@@ -387,12 +348,10 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
    
     // MARK: - Leave class delegate handler
     
-    func delegateSessionEnded()
-    {
+    func delegateSessionEnded() {
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let preallotController : SSStudentScheduleViewController = storyboard.instantiateViewController(withIdentifier: "TeacherScheduleViewController") as! SSStudentScheduleViewController
         self.present(preallotController, animated: true, completion: nil)
-        
     }
     
     deinit {

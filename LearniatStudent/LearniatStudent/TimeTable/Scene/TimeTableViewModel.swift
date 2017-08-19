@@ -15,7 +15,7 @@ class TimeTableViewModel: NSObject {
     /// Load all schedule from server
     func loadSchedulesFromServer() {
         SSStudentDataSource.sharedDataSource.getTimeTableWithUserId(userID: SSStudentDataSource.sharedDataSource.currentUserId, withSuccessHandle: { (result) in
-            if let arrayObjects = result as? NSArray {
+            if let arrayObjects = (result as AnyObject).object(forKey: RAPIConstants.SessionsHeader.rawValue) as? NSArray {
                RealmDatasourceManager.saveTimeTableWithJsonData(data: arrayObjects)
             }
         }) { (error) in

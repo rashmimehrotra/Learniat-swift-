@@ -63,7 +63,7 @@ class TimeTableTileView: UIView {
     /// - Parameter model: TimeTable model
     func setTileWithModelDetails(model:TimeTableModel) {
         mSessionDetailsModel = model
-        let classNameWithRoom = String(format:"%@(%@)",(mSessionDetailsModel?.ClassName)!,(mSessionDetailsModel?.RoomName)!)
+        let classNameWithRoom = String(format:"%@(%@)",(mSessionDetailsModel?.ClassName ?? ""),(mSessionDetailsModel?.RoomName ?? ""))
         mClassName.text = classNameWithRoom
         self.updateSessionColorWithSessionState(SessionState(rawValue: (mSessionDetailsModel?.SessionState)!)!)
     }
