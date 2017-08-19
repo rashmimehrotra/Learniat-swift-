@@ -12,11 +12,19 @@
     UILabel                                         *fontLabel;
     id                                              _popOverController;
     CGRect                                          _rect;
-    NSMutableArray                                  *colorArray;
+//    NSMutableArray                                  *colorArray;
      NSMutableArray                                  *colorButtonArray;
     id                                              _delegate;
     int                                         selectedtab;
 }
+
+// By Ujjval
+// ==========================================
+
+@property (nonatomic) NSMutableArray *colorArray;
+
+// ==========================================
+
 
 - (void) setPopOverController:(id) pop;
 - (id) popOverController;

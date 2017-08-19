@@ -10,7 +10,13 @@ import Foundation
 class CurrentTimeLineView: UIView
 {
     
+    // By Ujjval
+    // ==========================================
+    
     var timeLabel = UILabel()
+    
+    // ==========================================
+    
     
     override init(frame: CGRect) {
         
@@ -41,11 +47,14 @@ class CurrentTimeLineView: UIView
         lineview.backgroundColor = standard_Green
         
         // ==========================================
+        
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
+     }
+
     
     // By Ujjval
     // Set current time on label

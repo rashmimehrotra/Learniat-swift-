@@ -23,6 +23,10 @@
 		00E18EA41F08385C00D9705C /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 00E18EA21F08385C00D9705C /* Config.plist */; };
 		00E18EA51F08385C00D9705C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E18EA31F08385C00D9705C /* Config.swift */; };
 		00E18EA71F0839E700D9705C /* AppAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E18EA61F0839E700D9705C /* AppAPI.swift */; };
+		182E931C1F481A3300F5C911 /* Anonymus.png in Resources */ = {isa = PBXBuildFile; fileRef = 182E931B1F481A3300F5C911 /* Anonymus.png */; };
+		182E93241F481A4700F5C911 /* KMZDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182E931F1F481A4700F5C911 /* KMZDrawView.m */; };
+		182E93251F481A4700F5C911 /* KMZFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 182E93211F481A4700F5C911 /* KMZFrame.m */; };
+		182E93261F481A4700F5C911 /* KMZLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 182E93231F481A4700F5C911 /* KMZLine.m */; };
 		53015BBB1CE5D93C00BB366C /* Like_Disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 53015BB71CE5D93C00BB366C /* Like_Disabled.png */; };
 		53015BBC1CE5D93C00BB366C /* Like_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 53015BB81CE5D93C00BB366C /* Like_Selected.png */; };
 		53015BBD1CE5D93C00BB366C /* Unlike_Disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 53015BB91CE5D93C00BB366C /* Unlike_Disabled.png */; };
@@ -433,6 +437,13 @@
 		00E18EA21F08385C00D9705C /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		00E18EA31F08385C00D9705C /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		00E18EA61F0839E700D9705C /* AppAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAPI.swift; sourceTree = "<group>"; };
+		182E931B1F481A3300F5C911 /* Anonymus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Anonymus.png; sourceTree = "<group>"; };
+		182E931E1F481A4700F5C911 /* KMZDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMZDrawView.h; sourceTree = "<group>"; };
+		182E931F1F481A4700F5C911 /* KMZDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMZDrawView.m; sourceTree = "<group>"; };
+		182E93201F481A4700F5C911 /* KMZFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMZFrame.h; sourceTree = "<group>"; };
+		182E93211F481A4700F5C911 /* KMZFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMZFrame.m; sourceTree = "<group>"; };
+		182E93221F481A4700F5C911 /* KMZLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMZLine.h; sourceTree = "<group>"; };
+		182E93231F481A4700F5C911 /* KMZLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMZLine.m; sourceTree = "<group>"; };
 		4603009CFA2404778386D823 /* Pods-LearniatStudent.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearniatStudent.release.xcconfig"; path = "Pods/Target Support Files/Pods-LearniatStudent/Pods-LearniatStudent.release.xcconfig"; sourceTree = "<group>"; };
 		4807AA5F0E5F952C2FC55D75 /* Pods-LearniatStudent.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearniatStudent.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LearniatStudent/Pods-LearniatStudent.debug.xcconfig"; sourceTree = "<group>"; };
 		53015BB71CE5D93C00BB366C /* Like_Disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Like_Disabled.png; sourceTree = "<group>"; };
@@ -1066,6 +1077,19 @@
 			path = Config;
 			sourceTree = "<group>";
 		};
+		182E931D1F481A4700F5C911 /* KMZDrawView */ = {
+			isa = PBXGroup;
+			children = (
+				182E931E1F481A4700F5C911 /* KMZDrawView.h */,
+				182E931F1F481A4700F5C911 /* KMZDrawView.m */,
+				182E93201F481A4700F5C911 /* KMZFrame.h */,
+				182E93211F481A4700F5C911 /* KMZFrame.m */,
+				182E93221F481A4700F5C911 /* KMZLine.h */,
+				182E93231F481A4700F5C911 /* KMZLine.m */,
+			);
+			path = KMZDrawView;
+			sourceTree = "<group>";
+		};
 		4EC68A6DBD23B1087C8E65AD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1217,6 +1241,7 @@
 		533064A71CC9E52E0035CCDE /* common */ = {
 			isa = PBXGroup;
 			children = (
+				182E931D1F481A4700F5C911 /* KMZDrawView */,
 				C8B4CF341F2325FD00F7EC4C /* LearniatToast.swift */,
 				003343A31F09369F00B69625 /* RNLoadingButton.swift */,
 				533A8FCA1E97A16A00A38019 /* SpinnerButtonView.swift */,
@@ -2187,6 +2212,7 @@
 		533066D81CC9E8FE0035CCDE /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				182E931B1F481A3300F5C911 /* Anonymus.png */,
 				0087A3521F10C29B008E6153 /* InternetDisconnected.png */,
 				0087A3501F10C230008E6153 /* No_Internet_Connection_Screen.png */,
 				530720B11D027E5E001C85F6 /* Icons */,
@@ -2700,6 +2726,7 @@
 				531FB44E1CE5EB5B00DC0C6F /* Roboto-ThinItalic.ttf in Resources */,
 				53A482E51CE4741700C90451 /* Thumbs_Up.png in Resources */,
 				533064721CC9DAAE0035CCDE /* Main.storyboard in Resources */,
+				182E931C1F481A3300F5C911 /* Anonymus.png in Resources */,
 				533255D01CEDC40600653C00 /* dragAndDrop.png in Resources */,
 				53A482D91CE45FD000C90451 /* indicator2.png in Resources */,
 				533255B51CEDC2A500653C00 /* Redo_Active@2x.png in Resources */,
@@ -2952,6 +2979,7 @@
 				533066EC1CC9EE750035CCDE /* DottedLine.m in Sources */,
 				533066A01CC9E5F40035CCDE /* XMPPTime.m in Sources */,
 				53D414A41CF780210085C38E /* ModelAnswerFullViewSubView.swift in Sources */,
+				182E93241F481A4700F5C911 /* KMZDrawView.m in Sources */,
 				C8B4CF351F2325FD00F7EC4C /* LearniatToast.swift in Sources */,
 				533066971CC9E5F40035CCDE /* XMPPMessage+XEP_0184.m in Sources */,
 				53A482B31CE31B1A00C90451 /* matchColoumnTableViewCell.m in Sources */,
@@ -2973,6 +3001,7 @@
 				533066601CC9E5F40035CCDE /* XMPPPrivacy.m in Sources */,
 				533066811CC9E5F40035CCDE /* XMPPIQ+XEP_0066.m in Sources */,
 				533064C21CC9E52E0035CCDE /* NoInternetView.m in Sources */,
+				182E93251F481A4700F5C911 /* KMZFrame.m in Sources */,
 				533066731CC9E5F40035CCDE /* XMPPvCardTempCoreDataStorageObject.m in Sources */,
 				533066511CC9E5F40035CCDE /* XMPPGroupCoreDataStorageObject.m in Sources */,
 				53E658DB1F06397300EAB2E4 /* WebServiceManager.swift in Sources */,
@@ -3029,6 +3058,7 @@
 				C83952A71F407A7000F1AF05 /* Topic.swift in Sources */,
 				53A482C01CE45FA000C90451 /* QuerySubview.swift in Sources */,
 				532D27FD1CE9B581009FDF6A /* PollingSubView.swift in Sources */,
+				182E93261F481A4700F5C911 /* KMZLine.m in Sources */,
 				53FFD2BF1CE1FC3700A5AA28 /* MultipleChoiceView.swift in Sources */,
 				533066921CC9E5F40035CCDE /* XMPPMessageArchivingCoreDataStorage.m in Sources */,
 				5330666C1CC9E5F40035CCDE /* XMPPMessage+XEP0045.m in Sources */,

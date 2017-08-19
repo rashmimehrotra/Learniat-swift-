@@ -19,6 +19,14 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
     var isQuerySent           = false
     var mAnnonymusSwitch    = UISwitch()
     var noQuestionslabel = UILabel()
+
+    // By Ujjval
+    // ==========================================
+    
+    var mAnonymousLabel : UILabel!
+    
+    // ==========================================
+    
     override init(frame: CGRect)
     {
         super.init(frame: frame)
@@ -47,6 +55,16 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
         mAnnonymusSwitch.addTarget(self, action: #selector(StudentsQueryView.switchValueDidChange(sender:)), for: .touchUpInside)
         mTopbarImageView.addSubview(mAnnonymusSwitch)
         
+        // By Ujjval
+        // ==========================================
+        
+        mAnonymousLabel = UILabel(frame: CGRect(x: mAnnonymusSwitch.frame.size.width + 20, y: 0, width: 200, height: mSendButton.frame.size.height))
+        mTopbarImageView.addSubview(mAnonymousLabel)
+        mAnonymousLabel.text = "Anonymous"
+        mAnonymousLabel.textColor = blackTextColor
+        mAnonymousLabel.font = UIFont(name: "Roboto-Regular", size: 20)
+        
+        // ==========================================
         
         mQueryTextView = CustomTextView(frame:CGRect(x: 10, y: mTopbarImageView.frame.size.height + 10 ,width: self.frame.size.width - 20 ,height: 100))
         self.addSubview(mQueryTextView)
@@ -65,8 +83,15 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
         
         mQRVScrollView.frame = CGRect(x: 0, y: 0 , width: self.frame.size.width, height: self.frame.size.height)
         self.addSubview(mQRVScrollView)
-        mQRVScrollView.backgroundColor = whiteBackgroundColor
+//        mQRVScrollView.backgroundColor = whiteBackgroundColor
         mQRVScrollView.isHidden = true
+        
+        // By Ujjval
+        // ==========================================
+        
+        mQueryScrollView.backgroundColor = UIColor.clear
+        
+        // ==========================================
         
         noQuestionslabel.frame = CGRect(x: 10, y: (self.frame.size.height - 60)/2, width: self.frame.size.width - 20,height: 60)
         noQuestionslabel.font = UIFont(name:helveticaRegular, size: 40)
@@ -195,15 +220,30 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
             if Status == kSuccessString
             {
                 let querySubView = StudentQuerySubView(frame:  CGRect(x: 10,  y: 10 ,width: self.frame.size.width-20,height: 80))
-                querySubView.backgroundColor = UIColor.white
-                querySubView.layer.shadowColor = UIColor.black.cgColor
-                querySubView.layer.shadowOffset = CGSize(width: 0, height: 3)
-                querySubView.layer.shadowOpacity = 0.3
-                querySubView.layer.shadowRadius = 2
+                
+                // By Ujjval
+                // ==========================================
+                
+//                querySubView.backgroundColor = UIColor.white
+//                querySubView.layer.shadowColor = UIColor.black.cgColor
+//                querySubView.layer.shadowOffset = CGSize(width: 0, height: 3)
+//                querySubView.layer.shadowOpacity = 0.3
+//                querySubView.layer.shadowRadius = 2
+                
+                // ==========================================
+                
                 querySubView.setdelegate(self)
                 let size = querySubView.getQueryTextSizeWithText(mQueryTextView.mQuestionTextView.text!)
                 querySubView.layer.cornerRadius = 2
-                querySubView.frame = CGRect(x: 10,  y: 10 ,width: self.frame.size.width-20,height: size)
+//                querySubView.frame = CGRect(x: 10,  y: 10 ,width: self.frame.size.width-20,height: size)
+                
+                // By Ujjval
+                // ==========================================
+                
+                querySubView.frame = CGRect(x: 0,  y: 0 ,width: self.frame.size.width,height: size)
+                
+                // ==========================================
+                
                 mQueryScrollView.addSubview(querySubView)
                 
                 if let QueryId = detail.object(forKey: "QueryId") as? String
@@ -281,7 +321,7 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
             {
                 if querySubView.isQueryEvaluated() == false
                 {
-                    querySubView.queryState.text = "Cancelled"
+                    querySubView.queryState.text = "Dismissed"
                     querySubView.queryState.isHidden = false
                     querySubView.backgroundColor = UIColor(red: 255/255.0, green: 239/255.0, blue: 238/255.0, alpha: 1)
                     
