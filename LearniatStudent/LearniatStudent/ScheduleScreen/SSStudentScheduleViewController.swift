@@ -164,11 +164,20 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         addNumberOfLinesToScrollView()
         
         let currentDate = Date()
+//        mCurrentTimeLine = CurrentTimeLineView(frame: CGRect(x: 30, y: 0 , width: self.view.frame.size.width-30, height: 10))
+        
+        // By Ujjval
+        // ==========================================
+        
         mCurrentTimeLine = CurrentTimeLineView(frame: CGRect(x: 0, y: 0 , width: self.view.frame.size.width-30, height: 10))
+        
+        // ==========================================
+        
         mScrollView.addSubview(mCurrentTimeLine)
         mCurrentTimeLine.addToCurrentTimewithHours(getPositionWithHour(currentDate.hour(), withMinute: currentDate.minute()))
         mScrollView.contentOffset = CGPoint(x: 0,y: mCurrentTimeLine.frame.origin.y-self.view.frame.size.height/3);
         
+//         timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(SSStudentScheduleViewController.timerAction), userInfo: nil, repeats: true)
         
         // By Ujjval
         // Set current time label
@@ -187,7 +196,6 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         RunLoop.main.add(timer, forMode: RunLoopMode.commonModes)
         
         // ==========================================
-//         timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(SSStudentScheduleViewController.timerAction), userInfo: nil, repeats: true)
         
     }
     
@@ -530,6 +538,7 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
    
     // MARK: - Change screen Functions
     
+    
     // By Ujjval
     // Hide time label if it is overlapped
     // ==========================================
@@ -561,6 +570,7 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     }
     
     // ==========================================
+
     
     func Settings_performLogout() {
         self.updateUserState(state: UserStateInt.SignedOut.rawValue)
