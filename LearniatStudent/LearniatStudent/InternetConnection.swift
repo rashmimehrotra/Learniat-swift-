@@ -16,7 +16,7 @@ class InternetConnection: UIView
     @IBAction func onRetryButtin(_ sender: Any)
     {
         mRetryButton.isUserInteractionEnabled = false
-        SSStudentMessageHandler.sharedMessageHandler.performReconnet()
+        SSStudentMessageHandler.sharedMessageHandler.performReconnet(connectType: "Retry")
         mRetryButton.activityIndicatorAlignment = RNActivityIndicatorAlignment.right
         mRetryButton.isLoading = true
         mRetryButton.setTitle("Retrying", for: .normal)

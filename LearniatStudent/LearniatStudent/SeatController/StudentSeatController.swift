@@ -10,7 +10,7 @@ import Foundation
 class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SSStudentMessageHandlerDelegate,StudentSeatSubViewDelegate,UIPopoverControllerDelegate,SSStudentSchedulePopoverControllerDelegate
 {
     
-    var sessionDetails               :AnyObject!
+    var sessionDetails               = NSMutableDictionary()
     
     var currentGridDetails            :AnyObject!
     
@@ -93,7 +93,7 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
         mPreallocateSeats.textColor = UIColor.white
         mPreallocateSeats.textAlignment = .center
         
-        if let ClassName = sessionDetails.object(forKey: RAPIConstants.RoomName.rawValue) as? String
+        if let ClassName = sessionDetails.object(forKey: RAPIConstants.ClassName.rawValue) as? String
         {
              mPreallocateSeats.text = ClassName
         }
@@ -158,8 +158,8 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
     }
     
     
-    func setCurrentSessionDetails(_ details: AnyObject) {
-        sessionDetails = details
+    func setCurrentSessionDetails(_ details: NSMutableDictionary) {
+        sessionDetails = details 
     }
     
     
@@ -342,7 +342,14 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
     
     func smhDidGetSessionEndMessageWithDetails(_ details: AnyObject) {
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let preallotController : SSStudentScheduleViewController = storyboard.instantiateViewController(withIdentifier: "TeacherScheduleViewController") as! SSStudentScheduleViewController
+        let preallotController : TimeTableViewController = storyboard.instantiateViewController(withIdentifier: "TimeTableViewController") as! TimeTableViewController
+        self.present(preallotController, animated: true, completion: nil)
+    }
+    
+    func smhEndSession()
+    {
+        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let preallotController : TimeTableViewController = storyboard.instantiateViewController(withIdentifier: "TimeTableViewController") as! TimeTableViewController
         self.present(preallotController, animated: true, completion: nil)
     }
    
@@ -350,7 +357,7 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
     
     func delegateSessionEnded() {
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let preallotController : SSStudentScheduleViewController = storyboard.instantiateViewController(withIdentifier: "TeacherScheduleViewController") as! SSStudentScheduleViewController
+        let preallotController : TimeTableViewController = storyboard.instantiateViewController(withIdentifier: "TimeTableViewController") as! TimeTableViewController
         self.present(preallotController, animated: true, completion: nil)
     }
     

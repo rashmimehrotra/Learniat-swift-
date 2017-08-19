@@ -124,7 +124,7 @@ class MatchColumnView: UIView,SSStudentDataSourceDelegate
     func onSendButton()
     {
         
-        SSStudentDataSource.sharedDataSource.sendMTCAnswer( mMatchColumnTableView.onSendButton(), withQuestionType: currentQuestionType, withQuestionLogId: questionLogId, withsessionId: (sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+        SSStudentDataSource.sharedDataSource.sendMTCAnswer( mMatchColumnTableView.onSendButton(), withQuestionType: currentQuestionType, withQuestionLogId: questionLogId, withsessionId: (sessionDetails.object(forKey: RAPIConstants.SessionID.rawValue) as! String), withDelegate: self)
         
        
     }

@@ -94,10 +94,10 @@ extension TimeTableViewController {
         }
     }
     
-    func delegateScheduleTileTouchedWithSessionDetails(_ details: AnyObject?, message:String) {
+    func delegateScheduleTileTouchedWithSessionDetails(_ details: NSMutableDictionary, message:String) {
         if details != nil {
             let seatController = StudentSeatViewController()
-            seatController.setCurrentSessionDetails(details!)
+            seatController.setCurrentSessionDetails(details)
             self.present(seatController, animated: true, completion: nil)
         }
     }

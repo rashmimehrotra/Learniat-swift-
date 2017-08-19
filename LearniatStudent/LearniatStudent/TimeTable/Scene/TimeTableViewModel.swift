@@ -112,6 +112,7 @@ extension TimeTableViewModel {
         let details = summary.firstObject as AnyObject
         if let CurrentSessionState = details.object(forKey: "CurrentSessionState") as? Int{
             let currentSessionId:Int = (summary.value(forKey: "CurrentSessionId") as! NSArray)[0] as! Int
+            SSStudentDataSource.sharedDataSource.currentLiveSessionId = String(currentSessionId)
             self.joinOrLeaveXMPPSessionRoom(sessionState:SessionState(rawValue: CurrentSessionState)!, roomName:String(describing:currentSessionId))
         }
         if let NextClassSessionState = details.object(forKey: "NextClassSessionState") as? Int{

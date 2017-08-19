@@ -512,6 +512,11 @@
 		53FC04391CAF8CBC00D7B941 /* SSTeacherQueryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FC04381CAF8CBC00D7B941 /* SSTeacherQueryView.swift */; };
 		53FC04421CAFAE1700D7B941 /* StudentAnswerGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FC04411CAFAE1700D7B941 /* StudentAnswerGraphView.swift */; };
 		53FC04441CAFAE2100D7B941 /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FC04431CAFAE2100D7B941 /* BarView.swift */; };
+		C81519C41F41903C00DE4EB5 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81519C01F41903C00DE4EB5 /* Question.swift */; };
+		C81519C51F41903C00DE4EB5 /* QuestionRoomSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81519C11F41903C00DE4EB5 /* QuestionRoomSubject.swift */; };
+		C81519C61F41903C00DE4EB5 /* SessionRoomSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81519C21F41903C00DE4EB5 /* SessionRoomSubject.swift */; };
+		C81519C71F41903C00DE4EB5 /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81519C31F41903C00DE4EB5 /* Topic.swift */; };
+		C81519C91F41C28400DE4EB5 /* RoomSubjectProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81519C81F41C28400DE4EB5 /* RoomSubjectProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1229,6 +1234,11 @@
 		53FC04431CAFAE2100D7B941 /* BarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
 		687F2D0C68E715964B861326 /* Pods-Learniat Teacher.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Learniat Teacher.release.xcconfig"; path = "Pods/Target Support Files/Pods-Learniat Teacher/Pods-Learniat Teacher.release.xcconfig"; sourceTree = "<group>"; };
 		799FF32578B62CCC9786815B /* Pods-Learniat Teacher.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Learniat Teacher.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Learniat Teacher/Pods-Learniat Teacher.debug.xcconfig"; sourceTree = "<group>"; };
+		C81519C01F41903C00DE4EB5 /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		C81519C11F41903C00DE4EB5 /* QuestionRoomSubject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionRoomSubject.swift; sourceTree = "<group>"; };
+		C81519C21F41903C00DE4EB5 /* SessionRoomSubject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionRoomSubject.swift; sourceTree = "<group>"; };
+		C81519C31F41903C00DE4EB5 /* Topic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
+		C81519C81F41C28400DE4EB5 /* RoomSubjectProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomSubjectProtocol.swift; sourceTree = "<group>"; };
 		F2A8F26BC695B8FC631E65D1 /* Pods-Learniat Teacher.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Learniat Teacher.production.xcconfig"; path = "Pods/Target Support Files/Pods-Learniat Teacher/Pods-Learniat Teacher.production.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1674,6 +1684,7 @@
 		53676AE31CA63B2000CADE4D /* LearniatTeacher */ = {
 			isa = PBXGroup;
 			children = (
+				C81519BF1F41901A00DE4EB5 /* RoomSubject */,
 				0087A3561F10CBD6008E6153 /* InternetConnection.swift */,
 				0087A3571F10CBD6008E6153 /* InternetDisconnected.xib */,
 				0012284C1F08DBB9005E8286 /* RealmModels */,
@@ -2963,6 +2974,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C81519BF1F41901A00DE4EB5 /* RoomSubject */ = {
+			isa = PBXGroup;
+			children = (
+				C81519C01F41903C00DE4EB5 /* Question.swift */,
+				C81519C11F41903C00DE4EB5 /* QuestionRoomSubject.swift */,
+				C81519C21F41903C00DE4EB5 /* SessionRoomSubject.swift */,
+				C81519C31F41903C00DE4EB5 /* Topic.swift */,
+				C81519C81F41C28400DE4EB5 /* RoomSubjectProtocol.swift */,
+			);
+			name = RoomSubject;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -3304,6 +3327,7 @@
 				53676CB91CA63B7F00CADE4D /* XMPPProcessOne.m in Sources */,
 				53909C511CBF570500DDCCD0 /* colorpopOverViewController.m in Sources */,
 				532607991CA90AEC002FF684 /* UIDownloadBar.m in Sources */,
+				C81519C61F41903C00DE4EB5 /* SessionRoomSubject.swift in Sources */,
 				53676CA21CA63B7F00CADE4D /* Toast.swift in Sources */,
 				53CCAAF71E78211E0004977B /* CollaborationCategoryView.swift in Sources */,
 				53676CD11CA63B7F00CADE4D /* XMPPRoomMessageHybridCoreDataStorageObject.m in Sources */,
@@ -3312,6 +3336,7 @@
 				53676CF11CA63B7F00CADE4D /* XMPPSoftwareVersion.m in Sources */,
 				53676D111CA63B7F00CADE4D /* NSXMLElement+XEP_0297.m in Sources */,
 				539945D71CD09AD700007EC7 /* PlistDownloder.m in Sources */,
+				C81519C91F41C28400DE4EB5 /* RoomSubjectProtocol.swift in Sources */,
 				53015BAE1CE5A53300BB366C /* PNRadarChart.m in Sources */,
 				53676CD81CA63B7F00CADE4D /* XMPPRoom.m in Sources */,
 				53CA5A241CB2337D008C42B0 /* AggregateCell.swift in Sources */,
@@ -3374,6 +3399,7 @@
 				5309C7DD1CDA1B9500481E0C /* StudentModelAnswerCell.swift in Sources */,
 				5395672A1CB5281E009B0100 /* SSStarRatingView.m in Sources */,
 				53676CFA1CA63B7F00CADE4D /* XMPPMessageArchiving_Contact_CoreDataObject.m in Sources */,
+				C81519C71F41903C00DE4EB5 /* Topic.swift in Sources */,
 				53676D021CA63B7F00CADE4D /* XMPPMessageDeliveryReceipts.m in Sources */,
 				53676D391CA63B7F00CADE4D /* SSTeacherDataSource.swift in Sources */,
 				53676D231CA63B7F00CADE4D /* DDTTYLogger.m in Sources */,
@@ -3461,6 +3487,7 @@
 				53676CB61CA63B7F00CADE4D /* XMPPBandwidthMonitor.m in Sources */,
 				539567241CB4EA59009B0100 /* MTCAggregateView.swift in Sources */,
 				53676CF01CA63B7F00CADE4D /* XMPPMessage+XEP_0085.m in Sources */,
+				C81519C51F41903C00DE4EB5 /* QuestionRoomSubject.swift in Sources */,
 				53CA5A281CB23568008C42B0 /* YLProgressBar.m in Sources */,
 				53676D1A1CA63B7F00CADE4D /* XMPPIDTracker.m in Sources */,
 				5330645F1CC8E3A50035CCDE /* SZTextView.m in Sources */,
@@ -3587,6 +3614,7 @@
 				53676C9E1CA63B7F00CADE4D /* XMLDictionary.m in Sources */,
 				4D0A7FCA1CCF79C6001AA119 /* StudentAnswerSelectionView.swift in Sources */,
 				53676D2A1CA63B7F00CADE4D /* DDXMLElement.m in Sources */,
+				C81519C41F41903C00DE4EB5 /* Question.swift in Sources */,
 				0087A3581F10CBD6008E6153 /* InternetConnection.swift in Sources */,
 				53676CD31CA63B7F00CADE4D /* XMPPRoomMemoryStorage.m in Sources */,
 				53676CC01CA63B7F00CADE4D /* XMPPResourceMemoryStorageObject.m in Sources */,

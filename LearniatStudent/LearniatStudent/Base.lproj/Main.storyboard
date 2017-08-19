@@ -34,7 +34,7 @@
         <!--Time Table View Controller-->
         <scene sceneID="8KC-Xl-ZXL">
             <objects>
-                <viewController id="0bA-y3-6Wc" customClass="TimeTableViewController" customModule="LearniatStudent" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TimeTableViewController" id="0bA-y3-6Wc" customClass="TimeTableViewController" customModule="LearniatStudent" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="987-LQ-ghR"/>
                         <viewControllerLayoutGuide type="bottom" id="dLY-Z6-OZE"/>
@@ -44,6 +44,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="TimeTableToLogin" id="Vm9-rF-ZDT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bCw-fK-udr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -68,7 +71,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8d8-Rj-EGH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1461" y="68"/>
+            <point key="canvasLocation" x="1659" y="19"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Vm9-rF-ZDT"/>
+    </inferredMetricsTieBreakers>
 </document>

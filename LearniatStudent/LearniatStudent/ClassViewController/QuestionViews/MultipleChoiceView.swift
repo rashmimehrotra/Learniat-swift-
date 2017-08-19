@@ -268,7 +268,7 @@ class MultipleChoiceView: UIView,SSStudentDataSourceDelegate
                     optionsArray.add((mOptions as AnyObject).object(forKey: "OptionText") as! String)
                 }
                 
-                 SSStudentDataSource.sharedDataSource.sendObjectvieAnswer(optionsArray.componentsJoined(by: ";;;"), withQuestionType: currentQuestionType, withQuestionLogId: questionLogId, withsessionId: (sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+                 SSStudentDataSource.sharedDataSource.sendObjectvieAnswer(optionsArray.componentsJoined(by: ";;;"), withQuestionType: currentQuestionType, withQuestionLogId: questionLogId, withsessionId: (sessionDetails.object(forKey: RAPIConstants.SessionID.rawValue) as! String), withDelegate: self)
                 
                 
             }

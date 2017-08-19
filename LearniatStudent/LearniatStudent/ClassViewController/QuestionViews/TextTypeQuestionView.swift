@@ -219,7 +219,7 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
             sendButtonSpinner.startAnimating()
             mSendButton.isHidden = true
             mWithDrawButton.isHidden = false
-            SSStudentDataSource.sharedDataSource.sendTextAnswer(mAnswerTextView.getTextOfCurrentTextView(), withQuestionType: currentQuestionType, withQuestionLogId: questionLogId, withsessionId: (sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+            SSStudentDataSource.sharedDataSource.sendTextAnswer(mAnswerTextView.getTextOfCurrentTextView(), withQuestionType: currentQuestionType, withQuestionLogId: questionLogId, withsessionId: (sessionDetails.object(forKey: RAPIConstants.SessionID.rawValue) as! String), withDelegate: self)
             mAnswerTextView.isHidden = true
             mContainerView.isHidden = false
         

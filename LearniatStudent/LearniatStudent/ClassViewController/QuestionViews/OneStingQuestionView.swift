@@ -185,7 +185,7 @@ class OneStingQuestionView: UIView,SSStudentDataSourceDelegate
                       mAnswerTextView.isHidden = true
             mContainerView.isHidden = false
             
-             SSStudentDataSource.sharedDataSource.sendTextAnswer(mAnswerTextView.getTextOfCurrentTextView().removeWhitespace().removeSpecialCharsFromString().capitalized, withQuestionType: currentQuestionType, withQuestionLogId: questionLogId, withsessionId: (sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
+             SSStudentDataSource.sharedDataSource.sendTextAnswer(mAnswerTextView.getTextOfCurrentTextView().removeWhitespace().removeSpecialCharsFromString().capitalized, withQuestionType: currentQuestionType, withQuestionLogId: questionLogId, withsessionId: (sessionDetails.object(forKey: RAPIConstants.SessionID.rawValue) as! String), withDelegate: self)
             
            
             

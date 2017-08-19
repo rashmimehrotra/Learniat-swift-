@@ -10,7 +10,7 @@ import Foundation
 class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,SSStudentMessageHandlerDelegate,StudentQuestionViewDelegate,SSStudentFullscreenScribbleQuestionDelegate,UIPopoverControllerDelegate,SSStudentSchedulePopoverControllerDelegate
 {
     
-    var sessionDetails : AnyObject?
+    var sessionDetails  = NSMutableDictionary()
     
     var mTopbarImageView             :UIImageView           = UIImageView()
     
@@ -113,7 +113,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         mClassName.textColor = UIColor.white
         mClassName.textAlignment = .left
         
-        if let ClassName = sessionDetails?.object(forKey: RAPIConstants.ClassName.rawValue) as? String {
+        if let ClassName = sessionDetails.object(forKey: RAPIConstants.ClassName.rawValue) as? String {
             mClassName.text = ClassName
         }
         
@@ -170,12 +170,12 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         mNoStudentLabel.textAlignment = .center
         mNoStudentLabel.isHidden = true
         
-        if let sessionId = sessionDetails?.object(forKey: RAPIConstants.SessionID.rawValue) as? String{
+        if let sessionId = sessionDetails.object(forKey: RAPIConstants.SessionID.rawValue) as? Int{
             SSStudentDataSource.sharedDataSource.currentLiveSessionId = String(sessionId)
             getUserSessionWithSessionID(sessionID: String(sessionId))
         }
         
-        switch (sessionDetails?.object(forKey: RAPIConstants.SessionState.rawValue) as! Int)
+        switch (sessionDetails.object(forKey: RAPIConstants.SessionState.rawValue) as! Int)
         {
             case SessionState.Opened.rawValue:
                 mClassStatedLabel.text = "Class not started yet"
@@ -198,7 +198,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         subscribeForSignal()
         
         
-        if let  TeacherId = sessionDetails?.object(forKey: RAPIConstants.TeacherId.rawValue) as? Int {
+        if let  TeacherId = sessionDetails.object(forKey: RAPIConstants.TeacherId.rawValue) as? Int {
             SSStudentDataSource.sharedDataSource.currentTeacherId = String(TeacherId)
             let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
             let userID = urlString.appending("/").appending(String(TeacherId))
@@ -211,10 +211,12 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             
         }
         
-        if let  TeacherName = sessionDetails?.object(forKey: RAPIConstants.TeacherName.rawValue) as? String  {
+        if let  TeacherName = sessionDetails.object(forKey: RAPIConstants.TeacherName.rawValue) as? String  {
             mTeacherName.text = TeacherName
             SSStudentDataSource.sharedDataSource.currentTeacherName = TeacherName
         }
+        
+//        refres
     }
     
     
@@ -255,7 +257,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     func appMovedToForeground() {
         if SSStudentMessageHandler.sharedMessageHandler.getConnectedState() == false {
-             SSStudentMessageHandler.sharedMessageHandler.performReconnet()
+             SSStudentMessageHandler.sharedMessageHandler.performReconnet(connectType: "Other")
         } else {
             if getCurrentSessionState() == "\(SessionState.Live.rawValue)" || getCurrentSessionState() == kLiveString  {
                 updateStudentState(state: .Live)
@@ -283,7 +285,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     
     func classsBegin() {
-        if let sessionId = sessionDetails?.object(forKey: RAPIConstants.SessionID.rawValue) as? Int {
+        if let sessionId = sessionDetails.object(forKey: RAPIConstants.SessionID.rawValue) as? Int {
             SSStudentDataSource.sharedDataSource.currentLiveSessionId = String(sessionId)
             getUserSessionWithSessionID(sessionID: String(sessionId))
             RealmDatasourceManager.saveScreenStateOfUser(screenState: .LiveScreen, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
@@ -317,12 +319,12 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         var _string :String = ""
         let currentDate = Date()
-        _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: (sessionDetails?.object(forKey: RAPIConstants.StartTime.rawValue) as! String))!)).fullString
+        _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: (sessionDetails.object(forKey: RAPIConstants.StartTime.rawValue) as! String))!)).fullString
         mClassStatedLabel.text = "Started: \(_string)"
         let isgreatervalue :Bool ;
-        isgreatervalue = currentDate.isGreaterThanDate(dateFormatter.date(from: sessionDetails?.object(forKey: RAPIConstants.endTime.rawValue) as! String)!)
+        isgreatervalue = currentDate.isGreaterThanDate(dateFormatter.date(from: sessionDetails.object(forKey: RAPIConstants.endTime.rawValue) as! String)!)
         if isgreatervalue {
-            if let sessionId = sessionDetails?.object(forKey: RAPIConstants.SessionID.rawValue) as? Int {
+            if let sessionId = sessionDetails.object(forKey: RAPIConstants.SessionID.rawValue) as? Int {
                 startedTimeUpdatingTimer.invalidate()
                 SSStudentDataSource.sharedDataSource.currentLiveSessionId = String(sessionId)
             }
@@ -343,8 +345,13 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     
     private func gotSessionDetails(details:AnyObject) {
-        sessionDetails?.setObject((details.object(forKey: RAPIConstants.StartTime.rawValue)) ?? String(), forKey: RAPIConstants.StartTime.rawValue as NSCopying)
-        sessionDetails?.setObject((details.object(forKey: RAPIConstants.endTime.rawValue)) ?? String(), forKey: RAPIConstants.endTime.rawValue as NSCopying)
+        
+        
+//        sessionDetails.setObject(details.object(forKey: kStartTime)!, forKey: kStartTime as NSCopying)
+        
+        
+        
+//        sessionDetails.setObject((details.object(forKey: kEndTime)) ?? String(), forKey: RAPIConstants.endTime.rawValue as NSCopying)
         if let sessionState = details.object(forKey: kSessionState) as? Int {
             if sessionState == SessionState.Live.rawValue {
                 displaySessionLiveStatus()
@@ -353,14 +360,14 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             } else if (sessionState == SessionState.Scheduled.rawValue || sessionState == SessionState.Ended.rawValue || sessionState == SessionState.Cancelled.rawValue) {
                 displayOtherStates()
             }
-            sessionDetails?.setObject(String(sessionState), forKey: RAPIConstants.SessionState.rawValue as NSCopying )
+//            sessionDetails.setObject(String(sessionState), forKey: RAPIConstants.SessionState.rawValue as NSCopying )
         } else {
             mNoStudentLabel.isHidden = false
             classStartedView.isHidden = true
         }
         
         
-        if let  TeacherId = details.object(forKey: RAPIConstants.TeacherId.rawValue) as? Int {
+        if let  TeacherId = details.object(forKey: kTeacherId) as? Int {
             SSStudentDataSource.sharedDataSource.currentTeacherId = String(TeacherId)
             let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
             let userID = urlString.appending("/").appending("\(TeacherId)")
@@ -370,7 +377,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             }
         }
         
-        if let  TeacherName = details.object(forKey: RAPIConstants.TeacherName.rawValue) as? String {
+        if let  TeacherName = details.object(forKey: kTeacherName) as? String {
             mTeacherName.text = TeacherName
             SSStudentDataSource.sharedDataSource.currentTeacherName = TeacherName
             
@@ -410,8 +417,8 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     
     
-    func setCurrentSessionDetails(_ details: AnyObject) {
-        sessionDetails = details
+    func setCurrentSessionDetails(_ details: NSMutableDictionary) {
+        sessionDetails = details 
     }
     
     
@@ -421,8 +428,8 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     func didGetSessionInfoWithDetials(_ details: AnyObject)
     {
         
-        sessionDetails?.setObject((details.object(forKey: kStartTime)) ?? String(), forKey: RAPIConstants.StartTime.rawValue as NSCopying)
-        sessionDetails?.setObject((details.object(forKey: kEndTime)) ?? String(), forKey: RAPIConstants.endTime.rawValue as NSCopying)
+        sessionDetails.setObject((details.object(forKey: kStartTime)) ?? String(), forKey: RAPIConstants.StartTime.rawValue as NSCopying)
+        sessionDetails.setObject((details.object(forKey: kEndTime)) ?? String(), forKey: RAPIConstants.endTime.rawValue as NSCopying)
         
         if let sessionState = details.object(forKey: kSessionState) as? String {
             if sessionState == "1" {
@@ -496,7 +503,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         
         
         
-        mQuestionView.setQuestionDetails(questionDetails! as AnyObject, withType: currentQuestionType, withSessionDetails: sessionDetails!, withQuestion: currentQuestionLogId)
+        mQuestionView.setQuestionDetails(questionDetails! as AnyObject, withType: currentQuestionType, withSessionDetails: sessionDetails, withQuestion: currentQuestionLogId)
         
         mQuestionButton.newEventRaised()
         
@@ -590,7 +597,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         mQuestionNameLabel.textAlignment = .right
         
         
-        SSStudentMessageHandler.sharedMessageHandler.createRoomWithRoomName("question_\((sessionDetails?.object(forKey: RAPIConstants.SessionID.rawValue) as! Int))", withHistory: "1")
+        SSStudentMessageHandler.sharedMessageHandler.createRoomWithRoomName("question_\((sessionDetails.object(forKey: RAPIConstants.SessionID.rawValue) as! Int))", withHistory: "1")
         
     }
     
@@ -666,6 +673,22 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         AppDelegate.sharedDataSource.hideReconnecting()
     }
     
+    
+    func smhDidGetSessionStateChange(){
+        if classStartedView.isHidden == true{
+            classStartedView.isHidden = false
+            classsBegin()
+        }
+        
+        mQueryView.VolunteerPresentState(false)
+        if mStudentQrvAnsweringView != nil{
+            mStudentQrvAnsweringView.removeFromSuperview()
+        }
+        
+        mNoStudentLabel.isHidden = true
+    }
+    
+    
     func smhDidgetTimeExtendedWithDetails(_ Details: AnyObject)
     {
         
@@ -692,59 +715,188 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
        updateStudentState(state: UserState.Free)
     }
     
-    func smhDidGetVotingMessageWithDetails(_ details: AnyObject)
+    func smhEndSession()
     {
+        let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let preallotController : TimeTableViewController = storyboard.instantiateViewController(withIdentifier: "TimeTableViewController") as! TimeTableViewController
+        self.present(preallotController, animated: true, completion: nil)
+    }
+    
+    func smhDidGetTopicStateChanged(topic:Topic){
+        if topic.topicState == TopicState.Ended{
+            mQueryView.queryPresentState(false)
+            mSubTopicNamelabel.text = "No subtopic"
+            LearniatToast.showToast(view: self.view, duration:5.0, image:"wrongMatch.png", text: "Topic Stopped")
+        }
+        else{
+            mSubTopicNamelabel.text = topic.topicName
+            LearniatToast.showToast(view: self.view, duration:5.0, text: "Topic Started")
+        }
         
-        
-        
-        if let VotingValue = details.object(forKey: "VotingValue") as? String
-        {
-            if VotingValue == "TRUE"
-            {
-                
-                mQueryView.queryPresentState(true)
-                
-                if (details.object(forKey: "SubTopicName") != nil)
-                {
-                    if let SubTopicName = details.object(forKey: "SubTopicName") as? String
-                    {
-                        mSubTopicNamelabel.text = SubTopicName
-                    }
-                    else
-                    {
-                        mSubTopicNamelabel.text = "No subtopic"
-                    }
-                }
-                else
-                {
-                    mSubTopicNamelabel.text = "No subtopic"
-                }
-                
-                
-                LearniatToast.showToast(view: self.view, duration:5.0, text: "Topic Started")
-                
-                
-                
-            }
-            else
-            {
-                 mQueryView.queryPresentState(false)
-                mSubTopicNamelabel.text = "No subtopic"
+    }
+    
+    func smhDidGetTopicChanged(topic: Topic){
+        if topic.topicState == TopicState.Started{
+            mSubTopicNamelabel.text = topic.topicName
+            LearniatToast.showToast(view: self.view, duration:5.0, text: "Topic Started")
+        }
+        else{
+            mSubTopicNamelabel.text = "No subtopic"
+        }
+        SSStudentDataSource.sharedDataSource.currentSubtopicID = topic.topicId
+        currentSubTopicId = topic.topicId
 
-                LearniatToast.showToast(view: self.view, duration:5.0, image:"wrongMatch.png", text: "Topic Stopped")
-                
+    }
+    
+    
+    
+    
+//    func smhDidGetVotingMessageWithDetails(_ details: AnyObject)
+//    {
+//        
+//        
+//        
+//        if let VotingValue = details.object(forKey: "VotingValue") as? String
+//        {
+//            if VotingValue == "TRUE"
+//            {
+//                
+//                mQueryView.queryPresentState(true)
+//                
+//                if (details.object(forKey: "SubTopicName") != nil)
+//                {
+//                    if let SubTopicName = details.object(forKey: "SubTopicName") as? String
+//                    {
+//                        mSubTopicNamelabel.text = SubTopicName
+//                    }
+//                    else
+//                    {
+//                        mSubTopicNamelabel.text = "No subtopic"
+//                    }
+//                }
+//                else
+//                {
+//                    mSubTopicNamelabel.text = "No subtopic"
+//                }
+//                
+//                
+//                LearniatToast.showToast(view: self.view, duration:5.0, text: "Topic Started")
+//                
+//                
+//                
+//            }
+//            else
+//            {
+//                 mQueryView.queryPresentState(false)
+//                mSubTopicNamelabel.text = "No subtopic"
+//
+//                LearniatToast.showToast(view: self.view, duration:5.0, image:"wrongMatch.png", text: "Topic Stopped")
+//                
+//            }
+//            
+//            
+//            if let subtopicId = details.object(forKey: "SubTopicId") as? String
+//            {
+//                SSStudentDataSource.sharedDataSource.currentSubtopicID = subtopicId
+//                
+//                currentSubTopicId = subtopicId
+//            }
+//            
+//        }
+//    }
+    
+    func smhDidReceiveQuesitonIdChange(question:Question){
+        mQuestionButton.isHidden = false
+        if mFullScreenView != nil{
+            mFullScreenView.mScribbleView.clearButtonClicked()
+        }
+        if let QuestionLogId:String = question.questionId{
+            currentQuestionLogId = QuestionLogId
+            var messageString:String!
+            if question.questionType  == text{
+                messageString = "Please type out your response";
+                showAlertWithMessage(messageString)
             }
-            
-            
-            if let subtopicId = details.object(forKey: "SubTopicId") as? String
-            {
-                SSStudentDataSource.sharedDataSource.currentSubtopicID = subtopicId
-                
-                currentSubTopicId = subtopicId
+            else if question.questionType  == MatchColumns{
+                messageString = "Please rearrange the list to match other list";
+                showAlertWithMessage(messageString)
             }
-            
+            else if  question.questionType  == MultipleChoice{
+                messageString = "Please Select correct Response (Just one)";
+                showAlertWithMessage(messageString)
+            }
+            else if question.questionType  == MultipleResponse{
+                messageString = "Please Select correct Responses (More than one or just one)";
+                showAlertWithMessage(messageString)
+            }
+            else if question.questionType  == OverlayScribble{
+                messageString = "Please hand draw over the picture sent";
+                showAlertWithMessage(messageString)
+            }
+            else if question.questionType  == FreshScribble{
+                messageString = "Please sketch your response";
+                showAlertWithMessage(messageString)
+            }
+            else if question.questionType  == OneString{
+                messageString = "Please type one word answer";
+                showAlertWithMessage(messageString)
+            }
+            else if question.questionType  == TextAuto{
+                messageString = "Please type one word answer";
+                showAlertWithMessage(messageString)
+            }
+        }
+        
+        if classStartedView.isHidden == true{
+            classStartedView.isHidden = false
         }
     }
+    
+    func smhDidReceiveQuestionStateChange(question:Question){
+        if question.questionState == QuestionState.Ended{
+            processQuestionEnded(question:question)
+        }
+        else if question.questionState == QuestionState.Frozen{
+            processFreezeQuestion(question:question)
+        }
+        else if question.questionState == QuestionState.Started{
+            smhDidReceiveQuesitonIdChange(question:question)
+        }
+    }
+    
+    func processQuestionEnded(question:Question){
+        mQuestionView.questionCleared()
+        mQuestionNameLabel.text = "No active question"
+        if mFullScreenView != nil{
+            mFullScreenView.removeFromSuperview()
+            mFullScreenView = nil
+        }
+        if questionAcceptAlert.isVisible == true{
+            questionAcceptAlert.dismiss(withClickedButtonIndex: -1, animated: true)
+        }
+        if classStartedView.isHidden == true{
+            classsBegin()
+        }
+        mQuestionView.questionCleared()
+        waitQuestionTimer.invalidate()
+        if SSStudentDataSource.sharedDataSource.answerSent == true{
+            SSStudentDataSource.sharedDataSource.answerSent = false
+        }
+        mQuestionButton.newEventRaised()
+    }
+    
+    func processFreezeQuestion(question:Question){
+        if SSStudentDataSource.sharedDataSource.answerSent == false{
+            if currentQuestionType == kOverlayScribble || currentQuestionType == kFreshScribble{
+                if mFullScreenView != nil{
+                    mFullScreenView.onSendButton()
+                }
+            }
+        }
+        mQuestionView.didgetFreezMessageFromTeacher()
+        mQuestionButton.newEventRaised()
+    }
+    
     
     
     func smhdidReceiveQuestionSentMessage(_ dict: AnyObject)
@@ -824,6 +976,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         }
         
     }
+    
     
     
     func smhdidReceiveQuestionClearMessage()
@@ -1214,7 +1367,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     func Settings_XmppReconnectButtonClicked()
     {
-        SSStudentMessageHandler.sharedMessageHandler.performReconnet()
+        SSStudentMessageHandler.sharedMessageHandler.performReconnet(connectType: "Other")
         
         
       
@@ -1253,7 +1406,7 @@ extension StudentClassViewController {
     
     fileprivate func getCurrentSessionState()->String {
         
-        if let sessionState = sessionDetails?.object(forKey: kSessionState) as?  String {
+        if let sessionState = sessionDetails.object(forKey: kSessionState) as?  String {
             return sessionState
         }
         return kopenedString
@@ -1328,7 +1481,7 @@ extension StudentClassViewController {
     fileprivate func moveToScheduleScreen() {
         RealmDatasourceManager.saveScreenStateOfUser(screenState: .ScheduleScreen, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let preallotController : SSStudentScheduleViewController = storyboard.instantiateViewController(withIdentifier: "TeacherScheduleViewController") as! SSStudentScheduleViewController
+        let preallotController : TimeTableViewController = storyboard.instantiateViewController(withIdentifier: "TimeTableViewController") as! TimeTableViewController
         self.present(preallotController, animated: true, completion: nil)
     }
 
