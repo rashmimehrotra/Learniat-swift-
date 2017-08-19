@@ -870,7 +870,15 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     func smhDidReceiveQuesitonIdChange(question:Question){
         mQuestionButton.isHidden = false
         if mFullScreenView != nil{
-            mFullScreenView.mScribbleView.clearButtonClicked()
+            
+            // By Ujjval
+            // ==========================================
+            
+//            mFullScreenView.mScribbleView.clearButtonClicked()
+            mFullScreenView.mScribbleView.clear()
+            
+            // ==========================================
+            
         }
         if let QuestionLogId:String = question.questionId{
             currentQuestionLogId = QuestionLogId

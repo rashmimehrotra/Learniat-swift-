@@ -659,24 +659,28 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         }        
     }
     
-    static func destroyUnusedRooms(){
-        SSTeacherDataSource.sharedDataSource.refreshApp(success: { (response) in
-            if let unusedRooms = response.object(forKey: "DestroyRooms") as? NSArray{
-                for unusedRoom in unusedRooms{
-                    if let sessionId:Int = (unusedRoom as AnyObject).object(forKey: "class_session_id") as? Int{
-                    SSTeacherMessageHandler.sharedMessageHandler.destroyRoom("room_"+"\(sessionId)")
-                    SSTeacherMessageHandler.sharedMessageHandler.destroyRoom("question_"+"\(sessionId)")
-                    }
-                }
-            }
-            
-        })
-        { (error) in
-            NSLog("Refresh API failed, unable to join xmpp rooms")
-        }
-    }
+    // By Ujjval
+    // Fixed duplicate function issue
+    // ==========================================
+//
+//    static func destroyUnusedRooms(){
+//        SSTeacherDataSource.sharedDataSource.refreshApp(success: { (response) in
+//            if let unusedRooms = response.object(forKey: "DestroyRooms") as? NSArray{
+//                for unusedRoom in unusedRooms{
+//                    if let sessionId:Int = (unusedRoom as AnyObject).object(forKey: "class_session_id") as? Int{
+//                    SSTeacherMessageHandler.sharedMessageHandler.destroyRoom("room_"+"\(sessionId)")
+//                    SSTeacherMessageHandler.sharedMessageHandler.destroyRoom("question_"+"\(sessionId)")
+//                    }
+//                }
+//            }
+//            
+//        })
+//        { (error) in
+//            NSLog("Refresh API failed, unable to join xmpp rooms")
+//        }
+//    }
     
-    
+    // ==========================================
     
     
     

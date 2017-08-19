@@ -24,10 +24,10 @@
 		00EB61801F34E4FD0067AB76 /* Seat.png in Resources */ = {isa = PBXBuildFile; fileRef = 00EB617F1F34E4FD0067AB76 /* Seat.png */; };
 		172D7126C53BA6D5181A000F /* Pods_Learniat_Teacher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B4B751E33157602F99CFF41 /* Pods_Learniat_Teacher.framework */; };
 		18130D931F46CD2000C09B43 /* CustomUITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18130D921F46CD2000C09B43 /* CustomUITextView.swift */; };
-		18130D9B1F46CE3C00C09B43 /* KMZDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18130D961F46CE3C00C09B43 /* KMZDrawView.m */; };
-		18130D9C1F46CE3C00C09B43 /* KMZFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 18130D981F46CE3C00C09B43 /* KMZFrame.m */; };
-		18130D9D1F46CE3C00C09B43 /* KMZLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 18130D9A1F46CE3C00C09B43 /* KMZLine.m */; };
-		18130D9F1F46D12500C09B43 /* Anonymus.png in Resources */ = {isa = PBXBuildFile; fileRef = 18130D9E1F46D12500C09B43 /* Anonymus.png */; };
+		182E93281F481A7200F5C911 /* Anonymus.png in Resources */ = {isa = PBXBuildFile; fileRef = 182E93271F481A7200F5C911 /* Anonymus.png */; };
+		182E93301F481A8400F5C911 /* KMZDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182E932B1F481A8400F5C911 /* KMZDrawView.m */; };
+		182E93311F481A8400F5C911 /* KMZFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 182E932D1F481A8400F5C911 /* KMZFrame.m */; };
+		182E93321F481A8400F5C911 /* KMZLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 182E932F1F481A8400F5C911 /* KMZLine.m */; };
 		4D0A7FC81CCF783B001AA119 /* StudentAnswerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0A7FC71CCF783B001AA119 /* StudentAnswerDemo.swift */; };
 		4D0A7FCA1CCF79C6001AA119 /* StudentAnswerSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0A7FC91CCF79C6001AA119 /* StudentAnswerSelectionView.swift */; };
 		4D2A93201CC0C4A9007A1D41 /* SetupClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2A931D1CC0C4A9007A1D41 /* SetupClassCell.swift */; };
@@ -542,13 +542,13 @@
 		043FC926B6D655FCF5339E70 /* Pods-Learniat Teacher.development.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Learniat Teacher.development.xcconfig"; path = "Pods/Target Support Files/Pods-Learniat Teacher/Pods-Learniat Teacher.development.xcconfig"; sourceTree = "<group>"; };
 		0B4B751E33157602F99CFF41 /* Pods_Learniat_Teacher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Learniat_Teacher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		18130D921F46CD2000C09B43 /* CustomUITextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUITextView.swift; sourceTree = "<group>"; };
-		18130D951F46CE3C00C09B43 /* KMZDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMZDrawView.h; sourceTree = "<group>"; };
-		18130D961F46CE3C00C09B43 /* KMZDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMZDrawView.m; sourceTree = "<group>"; };
-		18130D971F46CE3C00C09B43 /* KMZFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMZFrame.h; sourceTree = "<group>"; };
-		18130D981F46CE3C00C09B43 /* KMZFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMZFrame.m; sourceTree = "<group>"; };
-		18130D991F46CE3C00C09B43 /* KMZLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMZLine.h; sourceTree = "<group>"; };
-		18130D9A1F46CE3C00C09B43 /* KMZLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMZLine.m; sourceTree = "<group>"; };
-		18130D9E1F46D12500C09B43 /* Anonymus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Anonymus.png; sourceTree = "<group>"; };
+		182E93271F481A7200F5C911 /* Anonymus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Anonymus.png; sourceTree = "<group>"; };
+		182E932A1F481A8400F5C911 /* KMZDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMZDrawView.h; sourceTree = "<group>"; };
+		182E932B1F481A8400F5C911 /* KMZDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMZDrawView.m; sourceTree = "<group>"; };
+		182E932C1F481A8400F5C911 /* KMZFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMZFrame.h; sourceTree = "<group>"; };
+		182E932D1F481A8400F5C911 /* KMZFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMZFrame.m; sourceTree = "<group>"; };
+		182E932E1F481A8400F5C911 /* KMZLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMZLine.h; sourceTree = "<group>"; };
+		182E932F1F481A8400F5C911 /* KMZLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMZLine.m; sourceTree = "<group>"; };
 		4D0A7FC71CCF783B001AA119 /* StudentAnswerDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerDemo.swift; sourceTree = "<group>"; };
 		4D0A7FC91CCF79C6001AA119 /* StudentAnswerSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerSelectionView.swift; sourceTree = "<group>"; };
 		4D2A931D1CC0C4A9007A1D41 /* SetupClassCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetupClassCell.swift; sourceTree = "<group>"; };
@@ -1306,15 +1306,15 @@
 			path = Config;
 			sourceTree = "<group>";
 		};
-		18130D941F46CE3C00C09B43 /* KMZDrawView */ = {
+		182E93291F481A8400F5C911 /* KMZDrawView */ = {
 			isa = PBXGroup;
 			children = (
-				18130D951F46CE3C00C09B43 /* KMZDrawView.h */,
-				18130D961F46CE3C00C09B43 /* KMZDrawView.m */,
-				18130D971F46CE3C00C09B43 /* KMZFrame.h */,
-				18130D981F46CE3C00C09B43 /* KMZFrame.m */,
-				18130D991F46CE3C00C09B43 /* KMZLine.h */,
-				18130D9A1F46CE3C00C09B43 /* KMZLine.m */,
+				182E932A1F481A8400F5C911 /* KMZDrawView.h */,
+				182E932B1F481A8400F5C911 /* KMZDrawView.m */,
+				182E932C1F481A8400F5C911 /* KMZFrame.h */,
+				182E932D1F481A8400F5C911 /* KMZFrame.m */,
+				182E932E1F481A8400F5C911 /* KMZLine.h */,
+				182E932F1F481A8400F5C911 /* KMZLine.m */,
 			);
 			path = KMZDrawView;
 			sourceTree = "<group>";
@@ -1477,7 +1477,7 @@
 		531044831CA64296007AE9D5 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				18130D9E1F46D12500C09B43 /* Anonymus.png */,
+				182E93271F481A7200F5C911 /* Anonymus.png */,
 				00EB617F1F34E4FD0067AB76 /* Seat.png */,
 				0087A35C1F10CD21008E6153 /* InternetDisconnected.png */,
 				53D252AA1E52DE2400056128 /* correctMatch.png */,
@@ -1729,7 +1729,7 @@
 		53676AF71CA63B7F00CADE4D /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				18130D941F46CE3C00C09B43 /* KMZDrawView */,
+				182E93291F481A8400F5C911 /* KMZDrawView */,
 				18130D921F46CD2000C09B43 /* CustomUITextView.swift */,
 				0087A35A1F10CC78008E6153 /* RNLoadingButton.swift */,
 				5378D1B31E903A9100912822 /* UIView+InnerShadow.h */,
@@ -3232,7 +3232,7 @@
 				4D2A932A1CC0C986007A1D41 /* Remove.png in Resources */,
 				53D1C1641CDCAFC40095B1EB /* dragAndDrop.png in Resources */,
 				537302451CB6771200E76753 /* Eraser_Unselected@2x.png in Resources */,
-				18130D9F1F46D12500C09B43 /* Anonymus.png in Resources */,
+				182E93281F481A7200F5C911 /* Anonymus.png in Resources */,
 				5373024D1CB6771200E76753 /* Marker_Unselected.png in Resources */,
 				53676D271CA63B7F00CADE4D /* README.txt in Resources */,
 				5326078B1CA90AEC002FF684 /* indicator1.png in Resources */,
@@ -3345,6 +3345,7 @@
 				53676CE01CA63B7F00CADE4D /* XMPPvCardTempAdrTypes.m in Sources */,
 				53676CB91CA63B7F00CADE4D /* XMPPProcessOne.m in Sources */,
 				53909C511CBF570500DDCCD0 /* colorpopOverViewController.m in Sources */,
+				182E93301F481A8400F5C911 /* KMZDrawView.m in Sources */,
 				532607991CA90AEC002FF684 /* UIDownloadBar.m in Sources */,
 				C81519C61F41903C00DE4EB5 /* SessionRoomSubject.swift in Sources */,
 				53676CA21CA63B7F00CADE4D /* Toast.swift in Sources */,
@@ -3378,6 +3379,7 @@
 				53676CD71CA63B7F00CADE4D /* XMPPMUC.m in Sources */,
 				533063F61CC88F590035CCDE /* SSTeacherScribbleQuestion.swift in Sources */,
 				53676D0F1CA63B7F00CADE4D /* XMPPMessage+XEP_0280.m in Sources */,
+				182E93321F481A8400F5C911 /* KMZLine.m in Sources */,
 				53778B6C1CBCED72004E6480 /* QueryVolunteerSubView.swift in Sources */,
 				537762901E9036430004B99D /* YIInnerShadowView.m in Sources */,
 				5377E43C1CAB9B6600A11E59 /* MatchColumnCell.swift in Sources */,
@@ -3387,7 +3389,6 @@
 				53E5BBAE1CAE80F400358ED8 /* StudentAnswerOptionsView.swift in Sources */,
 				4D0A7FC81CCF783B001AA119 /* StudentAnswerDemo.swift in Sources */,
 				53676D5F1CA63D7A00CADE4D /* SubTopicCell.swift in Sources */,
-				18130D9B1F46CE3C00C09B43 /* KMZDrawView.m in Sources */,
 				53676CD01CA63B7F00CADE4D /* XMPPRoomHybridStorage.m in Sources */,
 				53676D151CA63B7F00CADE4D /* SSMessage.m in Sources */,
 				539567261CB52082009B0100 /* StudentSubjectivePopover.swift in Sources */,
@@ -3431,7 +3432,6 @@
 				4DC246551CC20FA200E01CA4 /* SSTeacherLessonPlanView.swift in Sources */,
 				53676CA41CA63B7F00CADE4D /* XMPPDeprecatedDigestAuthentication.m in Sources */,
 				53460C331CD1E9AE00076F85 /* PollingCreationView.swift in Sources */,
-				18130D9C1F46CE3C00C09B43 /* KMZFrame.m in Sources */,
 				53676CEE1CA63B7F00CADE4D /* NSDate+XMPPDateTimeProfiles.m in Sources */,
 				53676CF31CA63B7F00CADE4D /* NSString+XEP_0106.m in Sources */,
 				53676D091CA63B7F00CADE4D /* XMPPAutoTime.m in Sources */,
@@ -3469,7 +3469,6 @@
 				53676D081CA63B7F00CADE4D /* XMPPPing.m in Sources */,
 				53676CB81CA63B7F00CADE4D /* XMPPGoogleSharedStatus.m in Sources */,
 				53D1C15E1CDCAE9F0095B1EB /* ImageEditorSubView.m in Sources */,
-				18130D9D1F46CE3C00C09B43 /* KMZLine.m in Sources */,
 				53909C551CBF726800DDCCD0 /* StudentAnnotateView.swift in Sources */,
 				53676D241CA63B7F00CADE4D /* DDContextFilterLogFormatter.m in Sources */,
 				53676CF51CA63B7F00CADE4D /* XMPPCapabilitiesCoreDataStorage.m in Sources */,
@@ -3624,6 +3623,7 @@
 				531044AF1CA66D6F007AE9D5 /* FXLabel.m in Sources */,
 				53676D211CA63B7F00CADE4D /* DDFileLogger.m in Sources */,
 				537301281CB665E300E76753 /* UIImage-Extensions.m in Sources */,
+				182E93311F481A8400F5C911 /* KMZFrame.m in Sources */,
 				53676CA91CA63B7F00CADE4D /* XMPPXFacebookPlatformAuthentication.m in Sources */,
 				53E658E71F066E7C00EAB2E4 /* WebServiceManager.swift in Sources */,
 				53460C311CD1E52900076F85 /* SSTeacherPollView.swift in Sources */,
