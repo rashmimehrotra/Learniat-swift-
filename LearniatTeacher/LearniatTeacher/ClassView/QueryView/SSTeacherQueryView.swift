@@ -88,7 +88,7 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
         
         mShadowView.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height)
         mShadowView.backgroundColor = UIColor.black
-        mShadowView.alpha = 0.35
+        mShadowView.alpha = 0.25
         self.addSubview(mShadowView)
         mShadowView.isHidden = true
         
@@ -237,6 +237,7 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
 //        PopoverControllerRatings.contentSize = CGSize(width: 300,height: 100);
         PopoverControllerRatings.contentSize = CGSize(width: 300,height: 160);
         mShadowView.isHidden = false
+        PopoverControllerRatings.backgroundColor = UIColor.white
         
         // ==========================================
         
@@ -244,7 +245,7 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
         navController.isNavigationBarHidden = true;
         _ratingsPopoverController.setPopOver(PopoverControllerRatings)
         
-        let buttonPosition :CGPoint = textButton.convert(CGPoint.zero, to: self)
+        let buttonPosition :CGPoint = textButton.convert(CGPoint.zero, to: self)        
         
         PopoverControllerRatings.present(from: CGRect(x: buttonPosition.x + (textButton.frame.size.width / 2) ,y: buttonPosition.y + textButton.frame.size.height  , width: 1, height: 1), in: self, permittedArrowDirections: .up, animated: true)
         

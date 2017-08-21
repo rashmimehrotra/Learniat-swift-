@@ -140,11 +140,13 @@ class QuerySubview: UIView, SSTeacherDataSourceDelegate
         // ==========================================
         
 //        let lineImage = UIImageView(frame:CGRect(x: mDismissButton.frame.origin.x, y: 5, width: 1, height: mDismissButton.frame.size.height - 10));
-        let lineImage = UIImageView(frame:CGRect(x: mDismissButton.frame.origin.x, y: mStudentImage.frame.origin.y, width: 2, height: mDismissButton.frame.size.height - 10));
+        let lineImage = UIImageView(frame:CGRect(x: mDismissButton.frame.origin.x, y: mStudentImage.frame.origin.y + 3, width: 1, height: mDismissButton.frame.size.height - 10));
+        
+//        lineImage.backgroundColor = whiteBackgroundColor
+        lineImage.backgroundColor = verticalLineColor
         
         // ==========================================
-
-        lineImage.backgroundColor = whiteBackgroundColor
+        
         self.addSubview(lineImage);
         
         
@@ -168,11 +170,13 @@ class QuerySubview: UIView, SSTeacherDataSourceDelegate
         // ==========================================
         
 //        let lineImage2 = UIImageView(frame:CGRect(x: mTextReplyButton.frame.origin.x, y: 5, width: 1, height: mDismissButton.frame.size.height - 10));
-        let lineImage2 = UIImageView(frame:CGRect(x: mTextReplyButton.frame.origin.x, y: mStudentImage.frame.origin.y, width: 2, height: mDismissButton.frame.size.height - 10));
+        let lineImage2 = UIImageView(frame:CGRect(x: mTextReplyButton.frame.origin.x, y: mStudentImage.frame.origin.y + 3, width: 1, height: mDismissButton.frame.size.height - 10));
+
+//        lineImage2.backgroundColor = whiteBackgroundColor
+        lineImage2.backgroundColor = verticalLineColor
         
         // ==========================================
-
-        lineImage2.backgroundColor = whiteBackgroundColor
+        
         self.addSubview(lineImage2);
         
         

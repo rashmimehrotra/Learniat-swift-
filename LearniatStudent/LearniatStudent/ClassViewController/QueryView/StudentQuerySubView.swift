@@ -136,7 +136,7 @@ class StudentQuerySubView: UIView {
         studentName.numberOfLines = 4
         studentName.lineBreakMode = .byTruncatingMiddle
         studentName.textAlignment = .left
-        studentName.text = SSStudentDataSource.sharedDataSource.currentUserName.capitalized
+        studentName.text = "as \(SSStudentDataSource.sharedDataSource.currentUserName.capitalized)"
         studentName.textColor = UIColor(red: 36/255.0, green: 68/255.0, blue: 99/255.0, alpha: 1)
 //        studentName.font =  UIFont (name: "Roboto-Regular", size: 16)
         
@@ -372,7 +372,7 @@ class StudentQuerySubView: UIView {
             
             
             teacherReplyText = UILabel()
-            teacherReplyText.frame = CGRect(x: 5,  y: 5, width: teacherReplyBackGround .frame.size.width - 10,height: teacherReplyBackGround .frame.size.height - 10)
+            teacherReplyText.frame = CGRect(x: 15,  y: 5, width: teacherReplyBackGround .frame.size.width - 30,height: teacherReplyBackGround .frame.size.height - 10)
             teacherReplyBackGround.addSubview(teacherReplyText)
             teacherReplyText.numberOfLines = 4
             teacherReplyText.lineBreakMode = .byTruncatingMiddle
@@ -399,17 +399,37 @@ class StudentQuerySubView: UIView {
         
         var heightOfTeacherText = heightForView(teachertext, font: teacherReplyText.font, width: teacherReplyText.frame.size.width)
         
+        // By Ujjval
+        // Same height as student pic if single line text
+        // ==========================================
+        
+        if heightOfTeacherText < 25
+        {
+            heightOfTeacherText = 25
+        }
+        
+        // ==========================================
         
         if teachertext != "" &&  teachertext != "(null)"
         {
             
-            teacherReplyBackGround.frame = CGRect(x: teacherReplyBackGround.frame.origin.x, y: teacherReplyBackGround.frame.origin.y, width: teacherReplyBackGround.frame.size.width, height: heightOfTeacherText + 10)
+//            teacherReplyBackGround.frame = CGRect(x: teacherReplyBackGround.frame.origin.x, y: teacherReplyBackGround.frame.origin.y, width: teacherReplyBackGround.frame.size.width, height: heightOfTeacherText + 10)
             
-            teacherReplyText.frame = CGRect(x: teacherReplyText.frame.origin.x, y: teacherReplyText.frame.origin.y, width: teacherReplyText.frame.size.width, height: heightOfTeacherText)
-           
+//            teacherReplyText.frame = CGRect(x: teacherReplyText.frame.origin.x, y: teacherReplyText.frame.origin.y, width: teacherReplyText.frame.size.width, height: heightOfTeacherText)
+            
             teacherReplyBackGround.isHidden = false
             
             teacherReplyText.text = teachertext
+            
+            // By Ujjval
+            // Set white background view height
+            // ==========================================
+            
+            teacherReplyText.sizeToFit()
+            teacherReplyBackGround.frame = CGRect(x: teacherReplyBackGround.frame.origin.x, y: teacherReplyBackGround.frame.origin.y, width: teacherReplyBackGround.frame.size.width, height: teacherReplyText.frame.size.height + 20)
+            teacherReplyText.frame = CGRect(x: 15, y: 5, width: teacherReplyBackGround.frame.size.width - 30, height: teacherReplyBackGround.frame.size.height - 10)
+            
+            // ==========================================
             
             heightOfTeacherText = heightOfTeacherText + 50
         }

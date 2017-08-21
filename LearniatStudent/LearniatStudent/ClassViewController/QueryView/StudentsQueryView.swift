@@ -83,7 +83,7 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
         
         mQRVScrollView.frame = CGRect(x: 0, y: 0 , width: self.frame.size.width, height: self.frame.size.height)
         self.addSubview(mQRVScrollView)
-//        mQRVScrollView.backgroundColor = whiteBackgroundColor
+        mQRVScrollView.backgroundColor = whiteBackgroundColor
         mQRVScrollView.isHidden = true
         
         // By Ujjval
@@ -229,6 +229,11 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
 //                querySubView.layer.shadowOffset = CGSize(width: 0, height: 3)
 //                querySubView.layer.shadowOpacity = 0.3
 //                querySubView.layer.shadowRadius = 2
+                
+                if mAnnonymusSwitch.isOn {
+                    querySubView.studentImageView.image = UIImage(named: "Anonymus.png")
+                    querySubView.studentName.text = "as Anonymous"
+                }
                 
                 // ==========================================
                 

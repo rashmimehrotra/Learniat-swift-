@@ -186,3 +186,10 @@ let LiveColor                = UIColor(red: 0/255.0, green:204/255.0, blue:0/255
 let EndedColor               = UIColor(red:238.0/255.0, green:238.0/255.0, blue:238.0/255.0, alpha: 1)
 
 let whiteColor               = UIColor.white
+
+// By Ujjval
+// ==========================================
+
+let verticalLineColor            = UIColor(red: 173/255.0, green: 173/255.0, blue: 173/255.0, alpha: 0.6)
+
+// ==========================================

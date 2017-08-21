@@ -259,6 +259,8 @@
         [v removeFromSuperview];
     }
     
+    
+    
     currentQueryId = queryId;
     topView = [[UIView alloc]initWithFrame:CGRectMake(0,0,300, 40)];
     [topView setBackgroundColor:[UIColor whiteColor]];
@@ -282,15 +284,17 @@
 //    CnacelButton.frame = CGRectMake(200, 0, 100, 40);
 //    [topView addSubview:CnacelButton];
     
+    
     UIButton* DoneButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [DoneButton setTitle:@"Send" forState:UIControlStateNormal];
     [DoneButton setTitleColor:[UIColor colorWithRed:0 green:174.0/255.0 blue:239.0/255.0 alpha:1.0] forState:UIControlStateNormal];;
     [DoneButton setShowsTouchWhenHighlighted:YES];
     [DoneButton setAdjustsImageWhenHighlighted:NO];
     [DoneButton addTarget:self action:@selector(onDoneButton) forControlEvents:UIControlEventTouchUpInside];
-    DoneButton.frame = CGRectMake(200, 0, 100, 40);
+    DoneButton.frame = CGRectMake(185, 0, 100, 40);
     [topView addSubview:DoneButton];
     [[DoneButton titleLabel] setFont:[UIFont fontWithName:@"Roboto-Medium" size:18]];
+    [DoneButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
     
     
     UIButton* CnacelButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -299,9 +303,16 @@
     [CnacelButton setShowsTouchWhenHighlighted:YES];
     [CnacelButton setAdjustsImageWhenHighlighted:NO];
     [CnacelButton addTarget:self action:@selector(onCancelButton) forControlEvents:UIControlEventTouchUpInside];
-    CnacelButton.frame = CGRectMake(00, 0, 100, 40);
+    CnacelButton.frame = CGRectMake(15, 0, 100, 40);
     [topView addSubview:CnacelButton];
     [[CnacelButton titleLabel] setFont:[UIFont fontWithName:@"Roboto-Regular" size:18]];
+    [CnacelButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+
+    
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, topView.frame.size.height - 1, topView.frame.size.width, 1)];
+    lineView.backgroundColor = [UIColor colorWithRed:237.0/255.0 green:236.0/255.0 blue:238.0/255.0 alpha:1.0];
+    [topView addSubview:lineView];
+    
     
 //    topviewLabel= [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 40)];
     topviewLabel= [[UILabel alloc] initWithFrame:CGRectMake(110, 0, 100, 40)];
@@ -340,7 +351,8 @@
     // ==========================================
     
 //    [mTextView setBackgroundColor:[UIColor colorWithRed:238.0/255.0 green:238.0/255.0 blue:238.0/255.0 alpha:1.0]];
-    [mTextView setBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0]];
+    [mTextView setBackgroundColor:[UIColor colorWithRed:246.0/255.0 green:246.0/255.0 blue:246.0/255.0 alpha:1.0]];
+    [mTextView becomeFirstResponder];
     
     // ==========================================
     
