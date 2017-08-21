@@ -363,7 +363,10 @@
 
 - (void)onCancelButton
 {
-    [[self delegate] dismissPopoverForQuery];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [[self delegate] dismissPopoverForQuery];
+    });
+    [mTextView resignFirstResponder];
     [[self popOverController]dismissPopoverAnimated:true];
 }
 
@@ -374,7 +377,11 @@
     // By Ujjval
     // ==========================================
     
-    [[self delegate] dismissPopoverForQuery];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [[self delegate] dismissPopoverForQuery];
+    });
+    
+    [mTextView resignFirstResponder];
     
     // ==========================================
     
