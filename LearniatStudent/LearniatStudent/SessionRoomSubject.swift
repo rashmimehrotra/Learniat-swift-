@@ -8,7 +8,7 @@
 
 import Foundation
 import Signals
-import EVReflection
+import ObjectMapper
 
 public class SubjectSessionState{
     public static var Open = "OPEN"
@@ -19,7 +19,7 @@ public class SubjectSessionState{
 }
 
 
-public class SessionRoomSubject: EVObject, RoomSubjectProtocol{
+public class SessionRoomSubject: Mappable, RoomSubjectProtocol{
     
     var topic:Topic!
     var isStateChanged:Bool = false
@@ -29,9 +29,26 @@ public class SessionRoomSubject: EVObject, RoomSubjectProtocol{
     let topicStateChanged = Signal<Topic>()
     let sessionStateChanged = Signal<(roomId:String, sessionState:String)>()
     
-     required public init() {
-        super.init()
+    required convenience public init?(map: Map)
+    {
+        self.init()
+        
     }
+    
+    public init(){
+        
+    }
+    
+    public func mapping(map: Map) {
+        self.topic      <- map[XMPPModelConstants.kTopic]
+        self.isStateChanged <- map[XMPPModelConstants.kIsStateChanged]
+        self.roomId <- map[XMPPModelConstants.kRoomId]
+        self.sessionState <- map[XMPPModelConstants.kSessionState]
+    }
+    
+  
+   
+    
     
     public init(topicId: String, topicName: String, topicState: String, roomId:String, isStateChanged:Bool, sessionState:String){
         var topic:Topic = Topic(topicId:topicId, topicState:topicState, topicName:topicName)
@@ -43,7 +60,14 @@ public class SessionRoomSubject: EVObject, RoomSubjectProtocol{
     
     
     public func setRoomSubject(json:String){
-        let newRoomSubject:SessionRoomSubject = SessionRoomSubject(json:json)
+        let map = Map(mappingType: .fromJSON, JSON: (json.parseJSONString.jsonData as! [String: Any]) )
+        
+        
+        let newRoomSubject:SessionRoomSubject = SessionRoomSubject()
+        newRoomSubject.topic <- map[XMPPModelConstants.kTopic]
+        newRoomSubject.roomId <- map[XMPPModelConstants.kRoomId]
+        newRoomSubject.isStateChanged <- map[XMPPModelConstants.kIsStateChanged]
+        newRoomSubject.sessionState <- map[XMPPModelConstants.kSessionState]
         
         //TODO: This part to be moved, when sigleton architecture comes
         // Instead setter will set global singleton
@@ -60,7 +84,7 @@ public class SessionRoomSubject: EVObject, RoomSubjectProtocol{
     
     //TODO: This part to be moved, when sigleton architecture comes
     func signalChanges(oldRoomSubject:SessionRoomSubject, newRoomSubject:SessionRoomSubject){
-        if oldRoomSubject.topic.topicId != newRoomSubject.topic.topicId{
+        if oldRoomSubject.topic.topicId != newRoomSubject.topic.topicId && newRoomSubject.topic.topicId != "" {
             topicChanged.fire(newRoomSubject.topic)
         }
         else if oldRoomSubject.topic.topicState != newRoomSubject.topic.topicState{
@@ -73,7 +97,7 @@ public class SessionRoomSubject: EVObject, RoomSubjectProtocol{
     
     
     public func getRoomSubject() -> String{
-        return self.toJsonString()
+        return self.toJSONString()!
     }
     
     public func getRoomUrl() -> String{

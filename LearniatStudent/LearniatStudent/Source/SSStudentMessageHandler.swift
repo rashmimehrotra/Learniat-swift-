@@ -926,6 +926,8 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
             
             // all subscription to be done by ui, db, api etc. this is just to keep code in common place
             sessionRoomSubject.topicStateChanged.subscribeOnce(on: self) { (topic) in
+                NSLog("XMPP: Topic State Changed " + subject)
+
                 if self.delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidGetTopicStateChanged(topic:))){
                     self.delegate().smhDidGetTopicStateChanged!(topic: topic)
                 }
@@ -934,11 +936,15 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
                 }
             }
             sessionRoomSubject.topicChanged.subscribeOnce(on: self){ (topic) in
+                NSLog("XMPP: Topic Changed " + subject)
+
                 if self.delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidGetTopicChanged(topic:))){
                     self.delegate().smhDidGetTopicChanged!(topic: topic)
                 }
             }
             sessionRoomSubject.sessionStateChanged.subscribeOnce(on: self){ (roomId, sessionState) in
+                NSLog("XMPP: Session State Changed " + subject)
+
                 if sessionState == SubjectSessionState.Ended{
                     if self.delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidGetSessionEndMessageWithDetails(_:)))
                     {
@@ -972,6 +978,8 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
    
             
             questionRoomSubject.questionStateChanged.subscribe(on: self) { (question) in
+                NSLog("XMPP: Question State Changed " + subject)
+
                 if self.delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidReceiveQuestionStateChange(question:))){
                     self.delegate().smhDidReceiveQuestionStateChange!(question: question)
                 }
@@ -980,6 +988,8 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
                 }
             }
             questionRoomSubject.questionChanged.subscribe(on: self){ (question) in
+                NSLog("XMPP: Question State Changed " + subject)
+
                 if self.delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhDidReceiveQuesitonIdChange(question:))){
                     self.delegate().smhDidReceiveQuesitonIdChange!(question: question)
                 }

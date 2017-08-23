@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import EVReflection
+import ObjectMapper
 
 
 public class QuestionState{
@@ -17,12 +17,28 @@ public class QuestionState{
 }
 
 
-public class Question : EVObject{
+public class Question : NSObject, Mappable{
     
-    public required  init() {
-        super.init()
+  
+    required convenience public init?(map: Map)
+    {
+        self.init()
+        self.questionId <- map[XMPPModelConstants.kQuestionId]
+        self.questionType <- map[XMPPModelConstants.kQuestionType]
+        self.questionState <- map[XMPPModelConstants.kQuestionState]
+
     }
     
+    public override init(){
+        
+    }
+    
+    public func mapping(map: Map) {
+        self.questionId      >>> map[XMPPModelConstants.kQuestionId]
+        self.questionState >>> map[XMPPModelConstants.kQuestionState]
+        self.questionType >>> map[XMPPModelConstants.kQuestionType]
+    }
+
     
     public init(questionId:String, questionState:String, questionType:String) {
         self.questionId = questionId

@@ -7,10 +7,11 @@
 //
 
 import Foundation
-import EVReflection
 import Signals
+import ObjectMapper
 
-public class QuestionRoomSubject: EVObject, RoomSubjectProtocol{
+
+public class QuestionRoomSubject: Mappable, RoomSubjectProtocol{
     /// This function can be used to validate JSON prior to mapping. Return nil to cancel mapping at this point
     
     var question:Question!
@@ -19,27 +20,43 @@ public class QuestionRoomSubject: EVObject, RoomSubjectProtocol{
     let questionChanged = Signal<Question>()
     let questionStateChanged = Signal<Question>()
     
-    public  required init(){
-        super.init()
+    
+
+    required convenience public init?(map: Map)
+    {
+        self.init()
+
     }
     
+    public init(){
+        
+    }
     
     public init(questionId: String, questionType: String, questionState: String, roomId:String){
-        var question:Question = Question(questionId: questionId, questionState: questionState, questionType: questionType)
+        let question:Question = Question(questionId: questionId, questionState: questionState, questionType: questionType)
         self.question = question
         self.roomId = roomId
     }
     
     
+    public func mapping(map: Map) {
+        self.question      >>> map[XMPPModelConstants.KQuestion]
+        self.roomId >>> map[XMPPModelConstants.kRoomId]
+    }
+    
     public func setRoomSubject(json:String){
-        let newRoomSubject:QuestionRoomSubject = QuestionRoomSubject(json: json)
+        let map = Map(mappingType: .fromJSON, JSON: (json.parseJSONString.jsonData as! [String: Any]) )
         
+
+        let newRoomSubject:QuestionRoomSubject = QuestionRoomSubject()
+        newRoomSubject.question <- map[XMPPModelConstants.KQuestion]
+        newRoomSubject.roomId <- map[XMPPModelConstants.kRoomId]
         //TODO: This part to be moved, when sigleton architecture comes
         // Instead setter will set global singleton
         objc_sync_enter(self)
         signalChanges(oldRoomSubject: self, newRoomSubject: newRoomSubject)
-        self.question = newRoomSubject.question
-        self.roomId = newRoomSubject.roomId
+        self.question     = newRoomSubject.question
+        self.roomId       = newRoomSubject.roomId
         objc_sync_exit(self)
         
         
@@ -58,7 +75,7 @@ public class QuestionRoomSubject: EVObject, RoomSubjectProtocol{
     
     
     public func getRoomSubject() -> String{
-        return self.toJsonString()
+        return self.toJSONString()!
     }
     
     public func getRoomUrl() -> String{

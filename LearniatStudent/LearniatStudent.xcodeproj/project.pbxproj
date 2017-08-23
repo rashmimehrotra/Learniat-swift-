@@ -414,9 +414,11 @@
 		8ED28149084591F1216F11FD /* Pods_LearniatStudent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7778052390C6C02A1FEBCB /* Pods_LearniatStudent.framework */; };
 		C81519BE1F4099DE00DE4EB5 /* SessionRoomSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81519BD1F4099DE00DE4EB5 /* SessionRoomSubject.swift */; };
 		C81519CB1F420B2D00DE4EB5 /* RoomSubjectProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81519CA1F420B2D00DE4EB5 /* RoomSubjectProtocol.swift */; };
+		C83553E91F4D57A100A5BAD2 /* XMPPLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83553E81F4D57A100A5BAD2 /* XMPPLogger.swift */; };
 		C83952A31F40784300F1AF05 /* QuestionRoomSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83952A21F40784300F1AF05 /* QuestionRoomSubject.swift */; };
 		C83952A51F407A6300F1AF05 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83952A41F407A6300F1AF05 /* Question.swift */; };
 		C83952A71F407A7000F1AF05 /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83952A61F407A7000F1AF05 /* Topic.swift */; };
+		C842BCF51F4C147900151A30 /* XMPPModelConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C842BCF41F4C147900151A30 /* XMPPModelConstants.swift */; };
 		C8B4CF351F2325FD00F7EC4C /* LearniatToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B4CF341F2325FD00F7EC4C /* LearniatToast.swift */; };
 /* End PBXBuildFile section */
 
@@ -1016,9 +1018,11 @@
 		94D27346B45531BCCFF47B00 /* Pods-LearniatStudent.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearniatStudent.production.xcconfig"; path = "Pods/Target Support Files/Pods-LearniatStudent/Pods-LearniatStudent.production.xcconfig"; sourceTree = "<group>"; };
 		C81519BD1F4099DE00DE4EB5 /* SessionRoomSubject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionRoomSubject.swift; sourceTree = "<group>"; };
 		C81519CA1F420B2D00DE4EB5 /* RoomSubjectProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomSubjectProtocol.swift; sourceTree = "<group>"; };
+		C83553E81F4D57A100A5BAD2 /* XMPPLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMPPLogger.swift; sourceTree = "<group>"; };
 		C83952A21F40784300F1AF05 /* QuestionRoomSubject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionRoomSubject.swift; sourceTree = "<group>"; };
 		C83952A41F407A6300F1AF05 /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		C83952A61F407A7000F1AF05 /* Topic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
+		C842BCF41F4C147900151A30 /* XMPPModelConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMPPModelConstants.swift; sourceTree = "<group>"; };
 		C8B4CF341F2325FD00F7EC4C /* LearniatToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LearniatToast.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1200,6 +1204,7 @@
 		5330646B1CC9DAAE0035CCDE /* LearniatStudent */ = {
 			isa = PBXGroup;
 			children = (
+				C83553E71F4D576900A5BAD2 /* XMPPLogging */,
 				C83952A11F4077A500F1AF05 /* RoomSubject */,
 				0023F2DA1F19DA8700F42754 /* RealmModels */,
 				0023F2DD1F19DA8700F42754 /* RealmWorkers */,
@@ -2517,6 +2522,14 @@
 			path = QueryView;
 			sourceTree = "<group>";
 		};
+		C83553E71F4D576900A5BAD2 /* XMPPLogging */ = {
+			isa = PBXGroup;
+			children = (
+				C83553E81F4D57A100A5BAD2 /* XMPPLogger.swift */,
+			);
+			name = XMPPLogging;
+			sourceTree = "<group>";
+		};
 		C83952A11F4077A500F1AF05 /* RoomSubject */ = {
 			isa = PBXGroup;
 			children = (
@@ -2525,6 +2538,7 @@
 				C83952A61F407A7000F1AF05 /* Topic.swift */,
 				C81519BD1F4099DE00DE4EB5 /* SessionRoomSubject.swift */,
 				C81519CA1F420B2D00DE4EB5 /* RoomSubjectProtocol.swift */,
+				C842BCF41F4C147900151A30 /* XMPPModelConstants.swift */,
 			);
 			name = RoomSubject;
 			sourceTree = "<group>";
@@ -2889,6 +2903,7 @@
 				C81519BE1F4099DE00DE4EB5 /* SessionRoomSubject.swift in Sources */,
 				533066751CC9E5F40035CCDE /* XMPPvCardTempAdr.m in Sources */,
 				533066F31CCA12590035CCDE /* StudentSeatSubView.swift in Sources */,
+				C83553E91F4D57A100A5BAD2 /* XMPPLogger.swift in Sources */,
 				532D27FB1CE9B2C7009FDF6A /* StudentPollingView.swift in Sources */,
 				533255271CEDBEFB00653C00 /* colorpopOverViewController.m in Sources */,
 				533066B71CC9E5F40035CCDE /* DDFileLogger.m in Sources */,
@@ -3048,6 +3063,7 @@
 				5330668E1CC9E5F40035CCDE /* XMPPCapabilities.m in Sources */,
 				5330663B1CC9E5F40035CCDE /* XMPPDeprecatedPlainAuthentication.m in Sources */,
 				533066711CC9E5F40035CCDE /* XMPPvCardCoreDataStorage.m in Sources */,
+				C842BCF51F4C147900151A30 /* XMPPModelConstants.swift in Sources */,
 				5330663E1CC9E5F40035CCDE /* XMPPSCRAMSHA1Authentication.m in Sources */,
 				53A482B41CE31B1A00C90451 /* NoShadowTableView.m in Sources */,
 				533255281CEDBEFB00653C00 /* SmoothLineView.m in Sources */,
