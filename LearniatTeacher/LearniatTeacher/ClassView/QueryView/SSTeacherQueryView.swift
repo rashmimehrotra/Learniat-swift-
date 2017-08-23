@@ -41,6 +41,15 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
     
     var  queryVolunteerView :SSTeacherVolunteerView!
     
+    // By Ujjval
+    // ==========================================
+    
+    var mShadowView  = UIView()
+    
+    var scrollYPosition: CGFloat = 0.0
+    
+    // ==========================================
+    
     override init(frame: CGRect)
     {
         
@@ -76,7 +85,16 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
         noSubmissionLabel.font =  UIFont(name: helveticaMedium, size: 35);
 
        
+        // By Ujjval
+        // ==========================================
         
+        mShadowView.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height)
+        mShadowView.backgroundColor = UIColor.black
+        mShadowView.alpha = 0.25
+        self.addSubview(mShadowView)
+        mShadowView.isHidden = true
+        
+        // ==========================================
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -200,34 +218,82 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
     
     func delegateTextReplyButtonPressedWithDetails(_ queryDetails: AnyObject, withButton textButton: UIButton) {
         
+        // By Ujjval
+        // Scroll QuerySubView to top before open popup
+        // ==========================================
         
-        
-         
-        let _ratingsPopoverController = RatingsPopOverViewController()
-        if let QueryId = queryDetails.object(forKey: "QueryId") as? String
-        {
-             _ratingsPopoverController.addTextViewWithDoneButton(withQueryId: QueryId)
+        DispatchQueue.main.async {
+            
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: { 
+              
+                let subView = textButton.superview as! QuerySubview
+                self.scrollYPosition = self.mScrollView.contentOffset.y
+                self.mScrollView.contentOffset = CGPoint(x: 0.0, y: subView.frame.origin.y - 10.0)
+                
+            }, completion: { (success) in
+                
+                let _ratingsPopoverController = RatingsPopOverViewController()
+                if let QueryId = queryDetails.object(forKey: "QueryId") as? String
+                {
+                    _ratingsPopoverController.addTextViewWithDoneButton(withQueryId: QueryId)
+                }
+                
+                let navController = UINavigationController(rootViewController: _ratingsPopoverController)
+                
+                _ratingsPopoverController.setDelegate(self)
+                
+                let PopoverControllerRatings = UIPopoverController(contentViewController: navController)
+                
+                // By Ujjval
+                // ==========================================
+                
+                //        PopoverControllerRatings.contentSize = CGSize(width: 300,height: 100);
+                PopoverControllerRatings.contentSize = CGSize(width: 300,height: 160);
+                self.mShadowView.isHidden = false
+                PopoverControllerRatings.backgroundColor = UIColor.white
+                
+                // ==========================================
+                
+                PopoverControllerRatings.delegate = self;
+                navController.isNavigationBarHidden = true;
+                _ratingsPopoverController.setPopOver(PopoverControllerRatings)
+                
+                let buttonPosition :CGPoint = textButton.convert(CGPoint.zero, to: self)
+                
+                PopoverControllerRatings.present(from: CGRect(x: buttonPosition.x + (textButton.frame.size.width / 2) ,y: buttonPosition.y + textButton.frame.size.height  , width: 1, height: 1), in: self, permittedArrowDirections: .up, animated: true)
+                
+            })
         }
-       
-        let navController = UINavigationController(rootViewController: _ratingsPopoverController)
         
-        _ratingsPopoverController.setDelegate(self)
-        
-        let PopoverControllerRatings = UIPopoverController(contentViewController: navController)
-        PopoverControllerRatings.contentSize = CGSize(width: 300,height: 100);
-        PopoverControllerRatings.delegate = self;
-        navController.isNavigationBarHidden = true;
-        _ratingsPopoverController.setPopOver(PopoverControllerRatings)
-        
-        let buttonPosition :CGPoint = textButton.convert(CGPoint.zero, to: self)
-        
-        PopoverControllerRatings.present(from: CGRect(x: buttonPosition.x + (textButton.frame.size.width / 2) ,y: buttonPosition.y + textButton.frame.size.height  , width: 1, height: 1), in: self, permittedArrowDirections: .up, animated: true)
-        
-        
+        // ==========================================
     }
     
     
+    // By Ujjval
+    // ==========================================
     
+    func dismissPopoverForQuery() {
+        
+        DispatchQueue.main.async {
+            
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
+
+                self.mShadowView.isHidden = true
+                self.mScrollView.contentOffset = CGPoint(x: 0.0, y: self.scrollYPosition)
+                
+            }, completion: { (success) in
+                
+            })
+        }
+    }
+    
+    
+    func popoverControllerShouldDismissPopover(_ popoverController: UIPopoverController) -> Bool {
+        dismissPopoverForQuery()
+        return true
+    }
+    
+    // ==========================================
     
     
     func delegateDismissButtonPressedWithDetails(_ queryDetails: AnyObject) {

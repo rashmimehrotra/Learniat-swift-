@@ -261,6 +261,8 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                 let sessionRoomSubject:SessionRoomSubject = SSStudentMessageHandler.sharedMessageHandler.sessionSubjects[sessionId]!
                 if sessionRoomSubject.topic.topicId != "" && sessionRoomSubject.topic.topicState == QuestionState.Started{
                         mSubTopicNamelabel.text = sessionRoomSubject.topic.topicName
+                        mQueryView.queryPresentState(true)
+                        LearniatToast.showToast(view: self.view, duration:5.0, text: "Topic Started")
                 }
             }
         }
@@ -794,6 +796,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         }
         else{
             mSubTopicNamelabel.text = topic.topicName
+            mQueryView.queryPresentState(true)
             LearniatToast.showToast(view: self.view, duration:5.0, text: "Topic Started")
         }
         
@@ -802,10 +805,12 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     func smhDidGetTopicChanged(topic: Topic){
         if topic.topicState == TopicState.Started{
             mSubTopicNamelabel.text = topic.topicName
+            mQueryView.queryPresentState(true)
             LearniatToast.showToast(view: self.view, duration:5.0, text: "Topic Started")
         }
         else{
             mSubTopicNamelabel.text = "No subtopic"
+            mQueryView.queryPresentState(false)
         }
         SSStudentDataSource.sharedDataSource.currentSubtopicID = topic.topicId
         currentSubTopicId = topic.topicId
@@ -872,7 +877,15 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     func smhDidReceiveQuesitonIdChange(question:Question){
         mQuestionButton.isHidden = false
         if mFullScreenView != nil{
-            mFullScreenView.mScribbleView.clearButtonClicked()
+            
+            // By Ujjval
+            // ==========================================
+            
+//            mFullScreenView.mScribbleView.clearButtonClicked()
+            mFullScreenView.mScribbleView.clear()
+            
+            // ==========================================
+            
         }
         if let QuestionLogId:String = question.questionId{
             currentQuestionLogId = QuestionLogId
@@ -969,7 +982,14 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         mQuestionButton.isHidden = false
         if mFullScreenView != nil
         {
-            mFullScreenView.mScribbleView.clearButtonClicked()
+            // By Ujjval
+            // Clear image
+            // ==========================================
+            
+//            mFullScreenView.mScribbleView.clearButtonClicked()
+            mFullScreenView.mScribbleView.clear()
+            
+            // ==========================================
         }
         
         if let QuestionLogId = dict.object(forKey: "QuestionLogId") as? String

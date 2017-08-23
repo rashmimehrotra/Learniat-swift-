@@ -813,6 +813,13 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
 //            mSubTopicsNamelabel.text = "No topic selected"
 //        }
         
+        // By Ujjval
+        // ==========================================
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ChangeBrushValues"), object: nil)
+        
+        // ==========================================
+        
         submissionNotificationLabel.isHidden = true
         
         if newSubmissionRecieved.count > 0
@@ -2746,7 +2753,15 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         {
             let buttonPosition :CGPoint = studentDeskView.convert(CGPoint.zero, to: self.view)
             
-            let questionInfoController = StudentEvaluationDetails()
+            // By Ujjval
+            // ==========================================
+            
+//            let questionInfoController = StudentEvaluationDetails()
+            let questionInfoController = StudentSubjectivePopover()
+            questionInfoController.isAfterEvaluated = true
+            
+            // ==========================================
+            
             questionInfoController.setdelegate(self)
             
             questionInfoController.setStudentAnswerDetails(studentDeskView._currentAnswerDetails, withStudentDetials: studentDeskView.currentStudentsDict, withCurrentQuestionDict: currentQuestionDetails, withEvaluationDetails: details)

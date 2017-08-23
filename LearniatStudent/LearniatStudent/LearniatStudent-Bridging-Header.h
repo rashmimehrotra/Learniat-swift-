@@ -18,4 +18,5 @@
 #import "SmoothLineView.h"
 #import "colorpopOverViewController.h"
 #import "SSSettingsViewController.h"
+#import "KMZDrawView.h"
 #endif

@@ -253,6 +253,14 @@ static NSString * const kTextAlignmentKey = @"textAlignment";
         }
     }
 }
+// By Ujjval
+// ==========================================
+
+- (void)delete:(id)sender {
+    [self replaceRange:self.selectedTextRange withText:@""];
+}
+
+// ==========================================
 
 - (void)dealloc
 {
