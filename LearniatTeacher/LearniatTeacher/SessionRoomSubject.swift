@@ -8,7 +8,7 @@
 
 import Foundation
 import Signals
-import EVReflection
+import ObjectMapper
 
 public class SubjectSessionState{
     public static var Open = "OPEN"
@@ -18,21 +18,38 @@ public class SubjectSessionState{
     public static var Scheduled = "SCHEDULED"
 }
 
-public class SessionRoomSubject: EVObject, RoomSubjectProtocol{
+
+public class SessionRoomSubject: Mappable, RoomSubjectProtocol{
     
-    var topic:Topic
+    var topic:Topic!
     var isStateChanged:Bool = false
     var roomId:String = ""
     var sessionState:String = SubjectSessionState.Scheduled
     let topicChanged = Signal<Topic>()
     let topicStateChanged = Signal<Topic>()
-    let sessionStateChanged = Signal<(String)>()
+    let sessionStateChanged = Signal<String>()
     
-    convenience required public init() {
+    required convenience public init?(map: Map)
+    {
         self.init()
+        
     }
     
-    public init(topicId: String, topicName: String, topicState: String, roomId:String, isStateChanged:Bool, sessionState: String){
+    public init(){
+        
+    }
+    
+    public func mapping(map: Map) {
+        self.topic      >>> map[XMPPModelConstants.kTopic]
+        self.isStateChanged >>> map[XMPPModelConstants.kIsStateChanged]
+        self.roomId >>> map[XMPPModelConstants.kRoomId]
+        self.sessionState >>> map[XMPPModelConstants.kSessionState]
+    }
+    
+    
+    
+    
+    public init(topicId: String, topicName: String, topicState: String, roomId:String, isStateChanged:Bool, sessionState:String){
         var topic:Topic = Topic(topicId:topicId, topicState:topicState, topicName:topicName)
         self.topic = topic
         self.roomId = roomId
@@ -42,7 +59,7 @@ public class SessionRoomSubject: EVObject, RoomSubjectProtocol{
     
     
     public func setRoomSubject(json:String){
-        let newRoomSubject:SessionRoomSubject = SessionRoomSubject(json:json)
+        let newRoomSubject:SessionRoomSubject = SessionRoomSubject(JSONString: json)!
         
         //TODO: This part to be moved, when sigleton architecture comes
         // Instead setter will set global singleton
@@ -51,8 +68,10 @@ public class SessionRoomSubject: EVObject, RoomSubjectProtocol{
         self.topic = newRoomSubject.topic
         self.isStateChanged = newRoomSubject.isStateChanged
         self.roomId = newRoomSubject.roomId
+        self.sessionState = newRoomSubject.sessionState
         objc_sync_exit(self)
     }
+    
 
     
 
@@ -65,17 +84,17 @@ public class SessionRoomSubject: EVObject, RoomSubjectProtocol{
             topicStateChanged.fire(newRoomSubject.topic)
         }
         if newRoomSubject.isStateChanged{
-            sessionStateChanged.fire((self.roomId))
+            sessionStateChanged.fire(self.roomId)
         }
     }
     
     
     public func getRoomSubject() -> String{
-        return self.toJsonString()
+        return self.toJSONString()!
     }
     
     public func getRoomUrl() -> String{
-       return "room_\(self.roomId)@conference.\(SSTeacherMessageHandler.sharedMessageHandler.kBaseXMPPURL)"
+        return "room_\(self.roomId)@conference.\(SSTeacherMessageHandler.sharedMessageHandler.kBaseXMPPURL)"
     }
     
 

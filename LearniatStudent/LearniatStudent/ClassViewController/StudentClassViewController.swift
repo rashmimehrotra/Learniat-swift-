@@ -68,6 +68,8 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     var   classViewPopOverController : UIPopoverController!
     
+    var questionPanelMessage = "There are no questions yet"
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -247,9 +249,10 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                     smhDidReceiveQuesitonIdChange(question: questionRoomSubject.question)
                 }
                 else if questionRoomSubject.question.questionState == QuestionState.Frozen{
-                    let alert = UIAlertController(title: "Alert", message: "Last answer was frozen by teacher", preferredStyle: UIAlertControllerStyle.alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
+                    mQuestionView.noQuestionslabel.text = "Last question is Frozen"
+                    mQuestionView.addSubview(mQuestionView.noQuestionslabel)
+
+
                 }
                 
             }
@@ -258,7 +261,6 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                 let sessionRoomSubject:SessionRoomSubject = SSStudentMessageHandler.sharedMessageHandler.sessionSubjects[sessionId]!
                 if sessionRoomSubject.topic.topicId != "" && sessionRoomSubject.topic.topicState == QuestionState.Started{
                         mSubTopicNamelabel.text = sessionRoomSubject.topic.topicName
-                        LearniatToast.showToast(view: self.view, duration:5.0, text: "Topic Started")
                 }
             }
         }

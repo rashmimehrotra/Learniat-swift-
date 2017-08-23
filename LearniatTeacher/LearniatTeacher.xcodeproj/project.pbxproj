@@ -516,6 +516,7 @@
 		C81519C61F41903C00DE4EB5 /* SessionRoomSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81519C21F41903C00DE4EB5 /* SessionRoomSubject.swift */; };
 		C81519C71F41903C00DE4EB5 /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81519C31F41903C00DE4EB5 /* Topic.swift */; };
 		C81519C91F41C28400DE4EB5 /* RoomSubjectProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C81519C81F41C28400DE4EB5 /* RoomSubjectProtocol.swift */; };
+		C842BCF71F4C42B300151A30 /* XMPPModelConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C842BCF61F4C42B300151A30 /* XMPPModelConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1237,6 +1238,7 @@
 		C81519C21F41903C00DE4EB5 /* SessionRoomSubject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionRoomSubject.swift; sourceTree = "<group>"; };
 		C81519C31F41903C00DE4EB5 /* Topic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
 		C81519C81F41C28400DE4EB5 /* RoomSubjectProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoomSubjectProtocol.swift; sourceTree = "<group>"; };
+		C842BCF61F4C42B300151A30 /* XMPPModelConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMPPModelConstants.swift; sourceTree = "<group>"; };
 		F2A8F26BC695B8FC631E65D1 /* Pods-Learniat Teacher.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Learniat Teacher.production.xcconfig"; path = "Pods/Target Support Files/Pods-Learniat Teacher/Pods-Learniat Teacher.production.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -2971,6 +2973,7 @@
 				C81519C21F41903C00DE4EB5 /* SessionRoomSubject.swift */,
 				C81519C31F41903C00DE4EB5 /* Topic.swift */,
 				C81519C81F41C28400DE4EB5 /* RoomSubjectProtocol.swift */,
+				C842BCF61F4C42B300151A30 /* XMPPModelConstants.swift */,
 			);
 			name = RoomSubject;
 			sourceTree = "<group>";
@@ -3418,6 +3421,7 @@
 				53BE0F8E1E81BCD1002D2384 /* CollaborationElementCell.swift in Sources */,
 				53676C951CA63B7F00CADE4D /* AppDelegate.swift in Sources */,
 				53BC8B421CFC36D800BA56F1 /* VolunteeredDotView.swift in Sources */,
+				C842BCF71F4C42B300151A30 /* XMPPModelConstants.swift in Sources */,
 				4D2A93201CC0C4A9007A1D41 /* SetupClassCell.swift in Sources */,
 				53676CCC1CA63B7F00CADE4D /* XMPPRoomCoreDataStorage.m in Sources */,
 				537301261CB665E300E76753 /* SmoothLineView.m in Sources */,
