@@ -258,6 +258,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                 let sessionRoomSubject:SessionRoomSubject = SSStudentMessageHandler.sharedMessageHandler.sessionSubjects[sessionId]!
                 if sessionRoomSubject.topic.topicId != "" && sessionRoomSubject.topic.topicState == QuestionState.Started{
                         mSubTopicNamelabel.text = sessionRoomSubject.topic.topicName
+                        mQueryView.queryPresentState(true)
                         LearniatToast.showToast(view: self.view, duration:5.0, text: "Topic Started")
                 }
             }
@@ -792,6 +793,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         }
         else{
             mSubTopicNamelabel.text = topic.topicName
+            mQueryView.queryPresentState(true)
             LearniatToast.showToast(view: self.view, duration:5.0, text: "Topic Started")
         }
         
@@ -800,10 +802,12 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     func smhDidGetTopicChanged(topic: Topic){
         if topic.topicState == TopicState.Started{
             mSubTopicNamelabel.text = topic.topicName
+            mQueryView.queryPresentState(true)
             LearniatToast.showToast(view: self.view, duration:5.0, text: "Topic Started")
         }
         else{
             mSubTopicNamelabel.text = "No subtopic"
+            mQueryView.queryPresentState(false)
         }
         SSStudentDataSource.sharedDataSource.currentSubtopicID = topic.topicId
         currentSubTopicId = topic.topicId

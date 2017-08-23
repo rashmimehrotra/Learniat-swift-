@@ -2753,7 +2753,15 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         {
             let buttonPosition :CGPoint = studentDeskView.convert(CGPoint.zero, to: self.view)
             
-            let questionInfoController = StudentEvaluationDetails()
+            // By Ujjval
+            // ==========================================
+            
+//            let questionInfoController = StudentEvaluationDetails()
+            let questionInfoController = StudentSubjectivePopover()
+            questionInfoController.isAfterEvaluated = true
+            
+            // ==========================================
+            
             questionInfoController.setdelegate(self)
             
             questionInfoController.setStudentAnswerDetails(studentDeskView._currentAnswerDetails, withStudentDetials: studentDeskView.currentStudentsDict, withCurrentQuestionDict: currentQuestionDetails, withEvaluationDetails: details)

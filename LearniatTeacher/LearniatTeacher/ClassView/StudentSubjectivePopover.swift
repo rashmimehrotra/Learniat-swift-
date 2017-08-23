@@ -50,6 +50,17 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
     
     let feedBackDetails = NSMutableDictionary()
     
+    // By Ujjval
+    // ==========================================
+    
+    var anotateButton = UIButton()
+    
+    var _currentEvaluationDetails:AnyObject!
+    
+    var isAfterEvaluated : Bool = false
+    
+    // ==========================================
+    
     func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
@@ -143,7 +154,7 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         questionView.addSubview(modelAnswerButton);
         modelAnswerButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
         
-        let anotateButton = UIButton(type:.custom)
+        anotateButton = UIButton(type:.custom)
         anotateButton.isEnabled = true
         anotateButton.setTitle("Annotate", for:UIControlState())
         anotateButton.setTitleColor(standard_Button ,for:UIControlState());
@@ -229,7 +240,29 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
             }
         }
         
+        // By Ujjval
+        // ==========================================
         
+        if isAfterEvaluated {
+            
+            if let teacherScribble = _currentEvaluationDetails.object(forKey: "imageUrl") as? String
+            {
+                let overLayImage = CustomProgressImageView(frame: CGRect(x: (questionView.frame.size.width - 270)/2,y: lineView.frame.origin.y + lineView.frame.size.height ,width: 270,height: 180))
+                questionView.addSubview(overLayImage)
+                
+                
+                let urlString = UserDefaults.standard.object(forKey: k_INI_QuestionsImageUrl) as! String
+                
+                if let checkedUrl = URL(string: "\(urlString)/\(teacherScribble)")
+                {
+                    overLayImage.contentMode = .scaleAspectFit
+                    overLayImage.downloadImage(checkedUrl, withFolderType: folderType.questionImage,withResizeValue: questionView.frame.size)
+                }
+                
+            }
+        }
+        
+        // ==========================================
         
         mScribbleView = SmoothLineView(frame: CGRect(x: (questionView.frame.size.width - 270)/2,y: lineView.frame.origin.y + lineView.frame.size.height ,width: 270,height: 180))
         mScribbleView.delegate = self
@@ -258,7 +291,15 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         mStarRatingView.frame = CGRect(x: 80, y: lineView1.frame.origin.y + lineView1.frame.size.height + 10, width: 210.0, height: 34.0);
         questionView.addSubview(mStarRatingView);
         mStarRatingView.setsize(ofStar: 25)
-
+        
+        // By Ujjval
+        // ==========================================
+        
+        mStarRatingView.isHidden = isAfterEvaluated
+        anotateButton.isHidden = isAfterEvaluated
+        
+        // ==========================================
+        
     }
     
     func setStudentAnswerDetails(_ details:AnyObject, withStudentDetials StudentDict:AnyObject, withCurrentQuestionDict questionDict:AnyObject)
@@ -268,7 +309,19 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         _currentQuestiondetails = questionDict
     }
     
+    // By Ujjval
+    // ==========================================
     
+    func setStudentAnswerDetails(_ details:AnyObject, withStudentDetials StudentDict:AnyObject, withCurrentQuestionDict questionDict:AnyObject, withEvaluationDetails evaluationDetails:AnyObject)
+    {
+        _studentAnswerDetails = details
+        _currentStudentDict = StudentDict
+        _currentQuestiondetails = questionDict
+        
+        _currentEvaluationDetails = evaluationDetails
+    }
+    
+    // ==========================================
     
     func starRatingDidChange()
     {

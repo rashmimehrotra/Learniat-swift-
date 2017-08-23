@@ -50,6 +50,9 @@ class QuerySubview: UIView, SSTeacherDataSourceDelegate
     
     var mMutedLabel         = UILabel()
     
+    let lineImage           = UIImageView()
+    
+    let lineImage2          = UIImageView()
     // ==========================================
 
     
@@ -140,11 +143,13 @@ class QuerySubview: UIView, SSTeacherDataSourceDelegate
         // ==========================================
         
 //        let lineImage = UIImageView(frame:CGRect(x: mDismissButton.frame.origin.x, y: 5, width: 1, height: mDismissButton.frame.size.height - 10));
-        let lineImage = UIImageView(frame:CGRect(x: mDismissButton.frame.origin.x, y: mStudentImage.frame.origin.y, width: 2, height: mDismissButton.frame.size.height - 10));
+        lineImage.frame = CGRect(x: mDismissButton.frame.origin.x - dismissImage.frame.origin.x + 10, y: mStudentImage.frame.origin.y + 3, width: 1, height: mDismissButton.frame.size.height - 10);
+        
+//        lineImage.backgroundColor = whiteBackgroundColor
+        lineImage.backgroundColor = verticalLineColor
         
         // ==========================================
-
-        lineImage.backgroundColor = whiteBackgroundColor
+        
         self.addSubview(lineImage);
         
         
@@ -168,11 +173,13 @@ class QuerySubview: UIView, SSTeacherDataSourceDelegate
         // ==========================================
         
 //        let lineImage2 = UIImageView(frame:CGRect(x: mTextReplyButton.frame.origin.x, y: 5, width: 1, height: mDismissButton.frame.size.height - 10));
-        let lineImage2 = UIImageView(frame:CGRect(x: mTextReplyButton.frame.origin.x, y: mStudentImage.frame.origin.y, width: 2, height: mDismissButton.frame.size.height - 10));
+        lineImage2.frame = CGRect(x: mTextReplyButton.frame.origin.x + 10, y: mStudentImage.frame.origin.y + 3, width: 1, height: mDismissButton.frame.size.height - 10);
+
+//        lineImage2.backgroundColor = whiteBackgroundColor
+        lineImage2.backgroundColor = verticalLineColor
         
         // ==========================================
-
-        lineImage2.backgroundColor = whiteBackgroundColor
+        
         self.addSubview(lineImage2);
         
         
@@ -236,8 +243,10 @@ class QuerySubview: UIView, SSTeacherDataSourceDelegate
         mMutedLabel.font = UIFont(name: "Roboto-Regular", size: 18)
         mMutedLabel.contentMode = .top
         mMutedLabel.isHidden = true
-        mQueryLabel.backgroundColor = UIColor.clear
-        mQueryLabel.numberOfLines = 1
+        mMutedLabel.backgroundColor = UIColor.clear
+        mMutedLabel.numberOfLines = 1
+        mMutedLabel.text = "MUTED"
+        self.addSubview(mMutedLabel)
         
         // ==========================================
 
@@ -435,6 +444,8 @@ class QuerySubview: UIView, SSTeacherDataSourceDelegate
             // ==========================================
             
             mMutedLabel.isHidden = false
+            lineImage.isHidden = true
+            lineImage2.isHidden = true
             
             // ==========================================
 
@@ -455,7 +466,9 @@ class QuerySubview: UIView, SSTeacherDataSourceDelegate
             // By Ujjval
             // ==========================================
             
-            mMutedLabel.isHidden = false
+            mMutedLabel.isHidden = true
+            lineImage.isHidden = false
+            lineImage2.isHidden = false
             
             // ==========================================
 
