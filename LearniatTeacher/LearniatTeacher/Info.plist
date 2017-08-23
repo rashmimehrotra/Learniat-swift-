@@ -5,11 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-<<<<<<< HEAD
-	<string>S.1.10.4</string>
-=======
-	<string>Ujjval235</string>
->>>>>>> 167674781ff140a3f1de341e0b45adf01c9e620c
+	<string>Deepak_226</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -25,11 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-<<<<<<< HEAD
-	<string>4</string>
-=======
-	<string>35</string>
->>>>>>> 167674781ff140a3f1de341e0b45adf01c9e620c
+	<string>26</string>
 	<key>Config</key>
 	<string>$(CONFIGURATION)</string>
 	<key>LSRequiresIPhoneOS</key>
