@@ -15,7 +15,7 @@
     if (self)
     {
         
-        
+        mAnswerFreezed = NO;
         firstColoumnArray=[[NSMutableArray alloc] init];
         secondColoumnArray=[[NSMutableArray alloc] init];
         
@@ -178,10 +178,10 @@
     
     
     
-    matchColoumnTableViewCell *cell = (matchColoumnTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@""];
+    matchColoumnTableViewCell *cell = (matchColoumnTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"matchColoumnTableViewCell"];
     if (cell == nil)
     {
-        cell = [[matchColoumnTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@""];
+        cell = [[matchColoumnTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"matchColoumnTableViewCell"];
         [cell setBackgroundColor:[UIColor clearColor]];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
@@ -211,6 +211,13 @@
     }
     
    
+    
+    if (mAnswerFreezed == true) {
+        [self setAnswerStatusWithIndex:(int)indexPath.row];
+    }
+    
+    
+    
     
     return cell;
 }
@@ -400,45 +407,59 @@
 
 - (void) FreezMessageFromTeacher
 {
+    mAnswerFreezed = YES;
+    
     for (int i=0; i< [mLeftSequenceArray count]; i++)
     {
-        NSString* rightSequence= [mRightSequenceArray objectAtIndex:i];
-        NSString* leftSequenceSequence= [mLeftSequenceArray objectAtIndex:i];
-        NSIndexPath* indexpath = [NSIndexPath indexPathForRow:i inSection:0];
-        matchColoumnTableViewCell* rightSideCell = (matchColoumnTableViewCell*)[secondColoumntableView cellForRowAtIndexPath:indexpath ];
-        matchColoumnTableViewCell* leftSideCell = (matchColoumnTableViewCell*)[firstColoumnTableView cellForRowAtIndexPath:indexpath ];
-        matchColoumnTableViewCell* statusImageView = (matchColoumnTableViewCell*)[StatusView cellForRowAtIndexPath:indexpath ];
-        [leftSideCell.optionLabel setTextColor:[UIColor colorWithRed:46/255.0 green:88.0/255.0 blue:128.0/255.0 alpha:1.0]];
-        [rightSideCell.optionLabel setTextColor:[UIColor colorWithRed:46/255.0 green:88.0/255.0 blue:128.0/255.0 alpha:1.0]];
+        [self setAnswerStatusWithIndex:i];
+    }
+}
+
+
+- (void) setAnswerStatusWithIndex:(int)index {
+    NSString* rightSequence= [mRightSequenceArray objectAtIndex:index];
+    NSString* leftSequenceSequence= [mLeftSequenceArray objectAtIndex:index];
+    NSIndexPath* indexpath = [NSIndexPath indexPathForRow:index inSection:0];
+    
+    matchColoumnTableViewCell* rightSideCell = (matchColoumnTableViewCell*)[secondColoumntableView cellForRowAtIndexPath:indexpath ];
+   
+    matchColoumnTableViewCell* leftSideCell = (matchColoumnTableViewCell*)[firstColoumnTableView cellForRowAtIndexPath:indexpath ];
+    
+    matchColoumnTableViewCell* statusImageView = (matchColoumnTableViewCell*)[StatusView cellForRowAtIndexPath:indexpath ];
+    [leftSideCell.optionLabel setTextColor:[UIColor colorWithRed:46/255.0 green:88.0/255.0 blue:128.0/255.0 alpha:1.0]];
+    [rightSideCell.optionLabel setTextColor:[UIColor colorWithRed:46/255.0 green:88.0/255.0 blue:128.0/255.0 alpha:1.0]];
+    
+    NSLog(@"%@",rightSideCell.optionLabel.text);
+    
+    
+    if ([rightSequence isEqualToString:leftSequenceSequence])
+    {
+        [rightSideCell.optionButton setBackgroundColor:[UIColor whiteColor]];
+        rightSideCell.optionButton.layer.borderColor=[ [UIColor colorWithRed:76.0/255.0 green:217.0/255.0 blue:100.0/255.0 alpha:1.0] CGColor];
         
-        if ([rightSequence isEqualToString:leftSequenceSequence])
-        {
-            [rightSideCell.optionButton setBackgroundColor:[UIColor whiteColor]];
-            rightSideCell.optionButton.layer.borderColor=[ [UIColor colorWithRed:76.0/255.0 green:217.0/255.0 blue:100.0/255.0 alpha:1.0] CGColor];
-            
-            [leftSideCell.optionButton setBackgroundColor:[UIColor whiteColor]];
-            leftSideCell.optionButton.layer.borderColor=[ [UIColor colorWithRed:76.0/255.0 green:217.0/255.0 blue:100.0/255.0 alpha:1.0] CGColor];
-            [statusImageView.statusImageView setHidden:NO];
-            [statusImageView.statusImageView setImage:[UIImage imageNamed:@"correctMatch.png"]];
-        }
-        else
-        {
-            [rightSideCell.optionButton setBackgroundColor:[UIColor whiteColor]];
-            rightSideCell.optionButton.layer.borderColor=[ [UIColor colorWithRed:255.0/255.0 green:59.0/255.0 blue:48.0/255.0 alpha:1.0] CGColor];
-            
-            [leftSideCell.optionButton setBackgroundColor:[UIColor whiteColor]];
-            leftSideCell.optionButton.layer.borderColor=[ [UIColor colorWithRed:255.0/255.0 green:59.0/255.0 blue:48.0/255.0 alpha:1.0] CGColor];
-            [statusImageView.statusImageView setHidden:NO];
-            [statusImageView.statusImageView setImage:[UIImage imageNamed:@"wrongMatch.png"]];
-        }
+        [leftSideCell.optionButton setBackgroundColor:[UIColor whiteColor]];
+        leftSideCell.optionButton.layer.borderColor=[ [UIColor colorWithRed:76.0/255.0 green:217.0/255.0 blue:100.0/255.0 alpha:1.0] CGColor];
+        [statusImageView.statusImageView setHidden:NO];
+        [statusImageView.statusImageView setImage:[UIImage imageNamed:@"correctMatch.png"]];
+    }
+    else
+    {
+        [rightSideCell.optionButton setBackgroundColor:[UIColor whiteColor]];
+        rightSideCell.optionButton.layer.borderColor=[ [UIColor colorWithRed:255.0/255.0 green:59.0/255.0 blue:48.0/255.0 alpha:1.0] CGColor];
+        
+        [leftSideCell.optionButton setBackgroundColor:[UIColor whiteColor]];
+        leftSideCell.optionButton.layer.borderColor=[ [UIColor colorWithRed:255.0/255.0 green:59.0/255.0 blue:48.0/255.0 alpha:1.0] CGColor];
+        [statusImageView.statusImageView setHidden:NO];
+        [statusImageView.statusImageView setImage:[UIImage imageNamed:@"wrongMatch.png"]];
     }
 }
 
 
 
+
 - (void)questionClearedByTeacher
 {
-   
+   mAnswerFreezed = NO;
 }
 - (NSMutableArray*)getOptionsArray
 {
