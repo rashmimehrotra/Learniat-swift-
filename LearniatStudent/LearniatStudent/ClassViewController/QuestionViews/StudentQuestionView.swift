@@ -73,7 +73,7 @@ class StudentQuestionView: UIView,StudentAnswerGraphViewDelegate,ScribbleQuestio
         noQuestionslabel.text = panelMessage
         noQuestionslabel.textColor = topbarColor
         noQuestionslabel.textAlignment = .center
-        
+        self.addSubview(noQuestionslabel)
         
         
               

@@ -633,6 +633,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         mQueryView = StudentsQueryView(frame:mQuestionView.frame)
          classStartedView.addSubview(mQueryView)
         mQueryView.isHidden = true
+        mQueryView.queryPresentState(false)
         
         mSubmissionButton.frame = CGRect(x: 10 , y: mQueryButton.frame.origin.y + mQueryButton.frame.size.height + 20 , width: 100, height: 100)
          mSubmissionButton.setImage("poll_icon_selected.png",  _unselectedImageName: "poll_icon_unselected.png", withText: "POLL")
