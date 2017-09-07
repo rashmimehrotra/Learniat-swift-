@@ -242,25 +242,25 @@ class SSTeacherQueryView: UIView, SSTeacherDataSourceDelegate,QuerySubviewDelega
                 
                 _ratingsPopoverController.setDelegate(self)
                 
-                let PopoverControllerRatings = UIPopoverController(contentViewController: navController)
+                SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: navController)
                 
                 // By Ujjval
                 // ==========================================
                 
                 //        PopoverControllerRatings.contentSize = CGSize(width: 300,height: 100);
-                PopoverControllerRatings.contentSize = CGSize(width: 300,height: 160);
+                SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 300,height: 160);
                 self.mShadowView.isHidden = false
-                PopoverControllerRatings.backgroundColor = UIColor.white
+                SSTeacherDataSource.sharedDataSource.mPopOverController.backgroundColor = UIColor.white
                 
                 // ==========================================
                 
-                PopoverControllerRatings.delegate = self;
+                SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
                 navController.isNavigationBarHidden = true;
-                _ratingsPopoverController.setPopOver(PopoverControllerRatings)
+                _ratingsPopoverController.setPopOver(SSTeacherDataSource.sharedDataSource.mPopOverController)
                 
                 let buttonPosition :CGPoint = textButton.convert(CGPoint.zero, to: self)
                 
-                PopoverControllerRatings.present(from: CGRect(x: buttonPosition.x + (textButton.frame.size.width / 2) ,y: buttonPosition.y + textButton.frame.size.height  , width: 1, height: 1), in: self, permittedArrowDirections: .up, animated: true)
+                SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(x: buttonPosition.x + (textButton.frame.size.width / 2) ,y: buttonPosition.y + textButton.frame.size.height  , width: 1, height: 1), in: self, permittedArrowDirections: .up, animated: true)
                 
             })
         }

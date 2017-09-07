@@ -418,15 +418,15 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
         
         questionInfoController.setdelegate(self)
         
-        let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+        SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: questionInfoController)
         
-        classViewPopOverController.contentSize = CGSize(width: 300,height: height);
+        SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 300,height: height);
         
-        classViewPopOverController.delegate = self;
+        SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
         
-        questionInfoController.setPopover(classViewPopOverController)
+        questionInfoController.setPopover(SSTeacherDataSource.sharedDataSource.mPopOverController)
         
-        classViewPopOverController.present(from: CGRect(
+        SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(
             x:buttonPosition.x ,
             y:buttonPosition.y + volunteerButton.frame.size.height / 2,
             width: 1,

@@ -213,7 +213,7 @@
    
     
     if (mAnswerFreezed == true) {
-        [self setAnswerStatusWithIndex:(int)indexPath.row];
+        [self FreezMessageFromTeacher];
     }
     
     
@@ -422,14 +422,13 @@
     NSIndexPath* indexpath = [NSIndexPath indexPathForRow:index inSection:0];
     
     matchColoumnTableViewCell* rightSideCell = (matchColoumnTableViewCell*)[secondColoumntableView cellForRowAtIndexPath:indexpath ];
-   
-    matchColoumnTableViewCell* leftSideCell = (matchColoumnTableViewCell*)[firstColoumnTableView cellForRowAtIndexPath:indexpath ];
+   matchColoumnTableViewCell* leftSideCell = (matchColoumnTableViewCell*)[firstColoumnTableView cellForRowAtIndexPath:indexpath ];
     
     matchColoumnTableViewCell* statusImageView = (matchColoumnTableViewCell*)[StatusView cellForRowAtIndexPath:indexpath ];
     [leftSideCell.optionLabel setTextColor:[UIColor colorWithRed:46/255.0 green:88.0/255.0 blue:128.0/255.0 alpha:1.0]];
     [rightSideCell.optionLabel setTextColor:[UIColor colorWithRed:46/255.0 green:88.0/255.0 blue:128.0/255.0 alpha:1.0]];
     
-    NSLog(@"%@",rightSideCell.optionLabel.text);
+    NSLog(@"indexPath = %d rightSide cell %@, leftSide cell %@",index,rightSideCell.optionLabel.text,leftSideCell.optionLabel.text);
     
     
     if ([rightSequence isEqualToString:leftSequenceSequence])

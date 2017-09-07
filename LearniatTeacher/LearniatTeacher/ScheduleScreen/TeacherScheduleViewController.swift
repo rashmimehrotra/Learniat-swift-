@@ -402,14 +402,14 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
         questionInfoController.scheduleScrrenTeacherImagePressed();
         
-        let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+        SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: questionInfoController)
         
-        classViewPopOverController.contentSize = CGSize(width: 310, height: 145);
+        SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 310, height: 145);
         
-        questionInfoController.setPopOver(classViewPopOverController)
+        questionInfoController.setPopOver(SSTeacherDataSource.sharedDataSource.mPopOverController)
         
         
-        classViewPopOverController.present(from: CGRect(
+        SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(
             x:mTeacherImageButton.frame.origin.x ,
             y:mTeacherImageButton.frame.origin.y + mTeacherImageButton.frame.size.height,
             width: 1,

@@ -270,29 +270,24 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
     {
         if mAnswerImage.image != nil
         {
-            let currentDate = Date()
-            
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-mm-dd HH:mm:ss"
-            
-            sendButtonSpinner.isHidden = false
-            sendButtonSpinner.startAnimating()
-//            mSendButton.isHidden = true
-            mSendButton.isLoading = true
-            mEditButton.isHidden = true
-            mWithDrawButton.isHidden = true
-            
-            let currentDateString = dateFormatter.string(from: currentDate)
-            
-            let imagePathString = SSStudentDataSource.sharedDataSource.currentUserId.appending("-").appending(SSStudentDataSource.sharedDataSource.currentLiveSessionId).appending("-").appending(currentDateString)
-            
-            
-            
-            var nameOfImage  = "SS-".appending(imagePathString)
-            nameOfImage =  nameOfImage.replacingOccurrences(of: " ", with: "")
-            
-            
-            imageUploading.uploadImage(with: mAnswerImage.image, withImageName: nameOfImage, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
+            UIView.animate(withDuration: 0.2, animations: {
+                self.sendButtonSpinner.isHidden = false
+                self.sendButtonSpinner.startAnimating()
+                //            mSendButton.isHidden = true
+                self.mSendButton.isLoading = true
+                self.mEditButton.isHidden = true
+                self.mWithDrawButton.isHidden = true
+            }, completion: {
+                (value: Bool) in
+                let currentDate = Date()
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-mm-dd HH:mm:ss"
+                let currentDateString = dateFormatter.string(from: currentDate)
+                let imagePathString = SSStudentDataSource.sharedDataSource.currentUserId.appending("-").appending(SSStudentDataSource.sharedDataSource.currentLiveSessionId).appending("-").appending(currentDateString)
+                var nameOfImage  = "SS-".appending(imagePathString)
+                nameOfImage =  nameOfImage.replacingOccurrences(of: " ", with: "")
+                self.imageUploading.uploadImage(with: self.mAnswerImage.image, withImageName: nameOfImage, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
+            })
         }
         
         

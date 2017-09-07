@@ -431,15 +431,13 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
             
             let navController = UINavigationController(rootViewController:colorSelectContoller)
             
-            let colorPopoverController = UIPopoverController(contentViewController:navController);
-            colorPopoverController.contentSize = CGSize(width: 400, height: 400);
-            colorPopoverController.delegate = self;
-            colorSelectContoller.setPopOver(colorPopoverController);
+            SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController:navController);
+            SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 400, height: 400);
+            SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
+            colorSelectContoller.setPopOver(SSTeacherDataSource.sharedDataSource.mPopOverController);
             
-            colorPopoverController.present(from: CGRect(x: buttonPosition.x  + (m_BrushButton.frame.size.width/2),y: buttonPosition.y,width: 1,height: 1), in: self, permittedArrowDirections: .down, animated: true)
-            
+            SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(x: buttonPosition.x  + (m_BrushButton.frame.size.width/2),y: buttonPosition.y,width: 1,height: 1), in: self, permittedArrowDirections: .down, animated: true)
         }
-        
         bottomtoolSelectedImageView.frame = m_BrushButton.frame
         m_BrushButton.setImage(UIImage(named:"Marker_Selected.png"), for:UIControlState())
         m_EraserButton.setImage(UIImage(named:"Eraser_Unselected.png"), for:UIControlState())
@@ -493,12 +491,12 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
             
             let navController = UINavigationController(rootViewController:colorSelectContoller)
             
-            let colorPopoverController = UIPopoverController(contentViewController:navController);
-            colorPopoverController.contentSize = CGSize(width: 200, height: 150);
-            colorPopoverController.delegate = self;
-            colorSelectContoller.setPopOver(colorPopoverController);
+            SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController:navController);
+            SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 200, height: 150);
+            SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
+            colorSelectContoller.setPopOver(SSTeacherDataSource.sharedDataSource.mPopOverController);
             
-            colorPopoverController.present(from: CGRect(x: buttonPosition.x  + (m_EraserButton.frame.size.width/2),y: buttonPosition.y,width: 1,height: 1), in: self, permittedArrowDirections: .down, animated: true)
+            SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(x: buttonPosition.x  + (m_EraserButton.frame.size.width/2),y: buttonPosition.y,width: 1,height: 1), in: self, permittedArrowDirections: .down, animated: true)
             
         }
         
