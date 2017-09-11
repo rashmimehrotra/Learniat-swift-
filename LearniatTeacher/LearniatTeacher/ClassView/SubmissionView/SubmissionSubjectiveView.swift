@@ -1079,89 +1079,44 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     
     func didGetFeedbackSentWithDetails(_ details: AnyObject)
     {
-        
-        
-        if details.object(forKey: "Status") as? String == "Success"
-        {
-            
-            if let _studentId = ((details.object(forKey: "Students")! as AnyObject).object(forKey: "Student")! as AnyObject).object(forKey: "StudentId") as? String
-            {
-                
-                
-               if let _AssessmentAnswerId = details.object(forKey: "AssessmentAnswerId") as? String
-               {
-
+        if details.object(forKey: "Status") as? String == "Success" {
+           
+            if let _studentId = ((details.object(forKey: "Students")! as AnyObject).object(forKey: "Student")! as AnyObject).object(forKey: "StudentId") as? String  {
+              
+                if let _AssessmentAnswerId = details.object(forKey: "AssessmentAnswerId") as? String {
                     var StudentIdArray = [String]()
-                    
                     var AssessmentAnswerIdArray = [String]()
-                    
-                    
                     StudentIdArray = _studentId.components(separatedBy: ",")
-                    
                     AssessmentAnswerIdArray = _AssessmentAnswerId.components(separatedBy: ",")
-                
-                
-                    for index in 0..<StudentIdArray.count
-                    {
+                    for index in 0..<StudentIdArray.count {
                         let studentIdValue = StudentIdArray[index]
                         let AssessmentAnswervalue = AssessmentAnswerIdArray[index]
-                        
-                        
                         SSTeacherMessageHandler.sharedMessageHandler.sendFeedbackToStudentWitId(studentIdValue, withassesmentAnswerId: AssessmentAnswervalue)
-                        
-                        
                         subjectiveCellContainer.removeStudentsWithStudentsId(studentIdValue)
-                        
-                        
-                        if let answerDetails = studentsAswerDictonary.object(forKey: studentIdValue)
-                        {
-                            if selectedStudentsArray.contains(answerDetails)
-                            {
-                                
-                                
-                                
+                        if let answerDetails = studentsAswerDictonary.object(forKey: studentIdValue) {
+                            if selectedStudentsArray.contains(answerDetails) {
                                 let feedBackDetails = NSMutableDictionary()
-                                
                                 feedBackDetails.setObject(studentIdValue, forKey: "StudentId" as NSCopying)
-                                
                                 feedBackDetails.setObject(AssessmentAnswervalue, forKey: "AssessmentAnswerId" as NSCopying)
-                                
                                 feedBackDetails.setObject("\(givenStarRatings)", forKey: "Rating" as NSCopying)
-                                
-                                feedBackDetails.setObject("upload/".appending(currentTeacherImageURl).appending(".png"), forKey: "imageUrl" as NSCopying)
-                                
+                                feedBackDetails.setObject("upload/".appending(currentTeacherImageURl).appending(".png"),  forKey: "imageUrl" as NSCopying)
                                 feedBackDetails.setObject("\(givenBadgeId)", forKey: "BadgeId" as NSCopying)
-                                
                                 feedBackDetails.setObject("\(givenTextReply)", forKey: "textRating" as NSCopying)
-                                
                                 feedBackDetails.setObject("\(isModelAnswerSelected)", forKey: "ModelAnswerFlag" as NSCopying)
-                                
-                                
-                                
                                 selectedStudentsArray.remove(answerDetails)
-                                
-                                if delegate().responds(to: #selector(SubmissionSubjectiveViewDelegate.delegateStudentSubmissionEvaluatedWithDetails(_:withStudentId:withSubmissionCount:)))
-                                {
+                               
+                                if delegate().responds(to: #selector(SubmissionSubjectiveViewDelegate.delegateStudentSubmissionEvaluatedWithDetails(_:withStudentId:withSubmissionCount:))) {
                                     delegate().delegateStudentSubmissionEvaluatedWithDetails!(feedBackDetails, withStudentId: studentIdValue, withSubmissionCount:subjectiveCellContainer.totlStudentsCount)
                                 }
-                                
-                                
-                                
                             }
                         }
-                        
-                        
-                        if let studentDeskView  = containerview.viewWithTag(Int(studentIdValue)!) as? UIImageView
-                        {
+                        if let studentDeskView  = containerview.viewWithTag(Int(studentIdValue)!) as? UIImageView {
                             studentDeskView.removeFromSuperview()
                         }
                     }
                 }
             }
         }
-        
-        
-        
         
         sendButtonSpinner.isHidden = true
         sendButtonSpinner.stopAnimating()

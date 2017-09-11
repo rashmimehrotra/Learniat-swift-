@@ -152,7 +152,6 @@ class MatchColumnView: UIView,SSStudentDataSourceDelegate
     
     func didGetAnswerSentWithDetails(_ details: AnyObject)
     {
-        
         if let Status = details.object(forKey: "Status") as? String
         {
             if Status == kSuccessString
@@ -171,12 +170,7 @@ class MatchColumnView: UIView,SSStudentDataSourceDelegate
                 SSStudentDataSource.sharedDataSource.answerSent = true
             }
         }
-        
-        
-
-        
+        self.FreezMessageFromTeacher()
     }
-    
-   
    
 }

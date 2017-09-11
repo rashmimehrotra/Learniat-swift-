@@ -201,7 +201,10 @@ extension UITextView {
         // By Ujjval
         // ==========================================
         
-        return true
+        if action == #selector(cut(_:)) || action == #selector(copy(_:)) || action == #selector(paste(_:)) || action == #selector(select(_:)) || action == #selector(selectAll(_:)) || action == #selector(delete(_:)) {
+            return true
+        }
+        return false
         
         // ==========================================
     }

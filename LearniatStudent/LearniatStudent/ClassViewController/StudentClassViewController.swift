@@ -263,6 +263,8 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                         mSubTopicNamelabel.text = sessionRoomSubject.topic.topicName
                         mQueryView.queryPresentState(true)
                         LearniatToast.showToast(view: self.view, duration:5.0, text: "Topic Started")
+                } else {
+                    mQueryView.queryPresentState(false)
                 }
             }
         }
@@ -631,6 +633,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         mQueryView = StudentsQueryView(frame:mQuestionView.frame)
          classStartedView.addSubview(mQueryView)
         mQueryView.isHidden = true
+        mQueryView.queryPresentState(false)
         
         mSubmissionButton.frame = CGRect(x: 10 , y: mQueryButton.frame.origin.y + mQueryButton.frame.size.height + 20 , width: 100, height: 100)
          mSubmissionButton.setImage("poll_icon_selected.png",  _unselectedImageName: "poll_icon_unselected.png", withText: "POLL")
@@ -776,13 +779,15 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             mNoStudentLabel.isHidden = true 
     }
     
-    func smhDidGetSessionEndMessageWithDetails(_ details: AnyObject)
-    {
+    func smhDidGetSessionEndMessageWithDetails(_ details: AnyObject) {
        updateStudentState(state: UserState.Free)
     }
     
     func smhEndSession()
     {
+        if classViewPopOverController != nil{
+            classViewPopOverController.dismiss(animated: true)
+        }
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let preallotController : SSStudentScheduleViewController = storyboard.instantiateViewController(withIdentifier: "TeacherScheduleViewController") as! SSStudentScheduleViewController
         self.present(preallotController, animated: true, completion: nil)
@@ -1564,6 +1569,9 @@ extension StudentClassViewController {
     
     fileprivate func moveToScheduleScreen() {
         RealmDatasourceManager.saveScreenStateOfUser(screenState: .ScheduleScreen, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
+        if classViewPopOverController != nil{
+            classViewPopOverController.dismiss(animated: true)
+        }
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let preallotController : SSStudentScheduleViewController = storyboard.instantiateViewController(withIdentifier: "TeacherScheduleViewController") as! SSStudentScheduleViewController
         self.present(preallotController, animated: true, completion: nil)
