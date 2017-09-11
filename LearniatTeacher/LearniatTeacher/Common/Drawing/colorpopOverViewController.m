@@ -88,6 +88,7 @@
         UISlider *progressbar = [[UISlider alloc]initWithFrame:CGRectMake(15, 40, [self rect].size.width-30,10)];
         [self.view addSubview:progressbar];
         progressbar.tintColor = [UIColor colorWithRed:76.0/255.0 green:217.0/255.0 blue:100.0/255.0 alpha:1.0];
+        progressbar.minimumValue = 1;
         progressbar.maximumValue = 40;
         [progressbar setValue:slidervalue];
         [progressbar addTarget:self action:@selector(onprogressBarValueChanged:) forControlEvents:UIControlEventValueChanged];
@@ -103,6 +104,7 @@
         UISlider *progressbar = [[UISlider alloc]initWithFrame:CGRectMake(15, 70, [self rect].size.width-30,30)];
         [self.view addSubview:progressbar];
         progressbar.tintColor = [UIColor colorWithRed:76.0/255.0 green:217.0/255.0 blue:100.0/255.0 alpha:1.0];
+        progressbar.minimumValue = 1;
         progressbar.maximumValue = 40;
         [progressbar setValue:slidervalue];
         [progressbar addTarget:self action:@selector(onprogressBarValueChanged:) forControlEvents:UIControlEventValueChanged];

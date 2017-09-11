@@ -145,7 +145,7 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
         questionButtonsView.addSubview(seperatorView1)
         
         
-        mScribbleButton = UIButton(frame: CGRect(x: 0,  y: 0, width: questionButtonsView.frame.size.width ,height: mTopbarImageView.frame.size.height))
+        mScribbleButton = UIButton(frame: CGRect(x: 0,  y: 0, width: questionButtonsView.frame.size.width/2 ,height: mTopbarImageView.frame.size.height))
         questionButtonsView.addSubview(mScribbleButton)
         mScribbleButton.addTarget(self, action: #selector(QuestionsView.onScribbleButton), for: UIControlEvents.touchUpInside)
         mScribbleButton.setTitleColor(standard_Button, for: UIControlState())
@@ -164,7 +164,7 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
         
         
         let  mMRQ = UIButton(frame: CGRect(x: mScribbleButton.frame.origin.x + mScribbleButton.frame.size.width ,  y: 0, width: questionButtonsView.frame.size.width / 2  ,height: mTopbarImageView.frame.size.height))
-//        questionButtonsView.addSubview(mMRQ)
+        questionButtonsView.addSubview(mMRQ)
         mMRQ.addTarget(self, action: #selector(QuestionsView.onMRQButton), for: UIControlEvents.touchUpInside)
         mMRQ.setTitleColor(standard_Button, for: UIControlState())
         mMRQ.setTitle("MRQ", for: UIControlState())
@@ -549,12 +549,12 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
                 
                 questionInfoController.preferredContentSize = CGSize(width: 400,height: 317)
                 
-                let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
-                questionInfoController.setPopover(classViewPopOverController)
-                classViewPopOverController.contentSize = CGSize(width: 400,height: 317);
-                classViewPopOverController.delegate = self;
+                SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                questionInfoController.setPopover(SSTeacherDataSource.sharedDataSource.mPopOverController)
+                SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 400,height: 317);
+                SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
                 
-                classViewPopOverController.present(from: CGRect(
+                SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(
                     x:buttonPosition.x ,
                     y:buttonPosition.y + infoButton.frame.size.height / 2,
                     width: 1,
@@ -570,12 +570,12 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
                 
                 questionInfoController.preferredContentSize = CGSize(width: 400,height: 317)
                 
-                let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
-                questionInfoController.setPopover(classViewPopOverController)
-                classViewPopOverController.contentSize = CGSize(width: 400,height: 317);
-                classViewPopOverController.delegate = self;
+                SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                questionInfoController.setPopover(SSTeacherDataSource.sharedDataSource.mPopOverController)
+                SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 400,height: 317);
+                SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
                 
-                classViewPopOverController.present(from: CGRect(
+                SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(
                     x:buttonPosition.x ,
                     y:buttonPosition.y + infoButton.frame.size.height / 2,
                     width: 1,
@@ -591,12 +591,12 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
                 
                 questionInfoController.preferredContentSize = CGSize(width: 400,height: 317)
                 
-                let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
-                questionInfoController.setPopover(classViewPopOverController)
-                classViewPopOverController.contentSize = CGSize(width: 400,height: 317);
-                classViewPopOverController.delegate = self;
+                SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                questionInfoController.setPopover(SSTeacherDataSource.sharedDataSource.mPopOverController)
+                SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 400,height: 317);
+                SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
                 
-                classViewPopOverController.present(from: CGRect(
+                SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(
                     x:buttonPosition.x ,
                     y:buttonPosition.y + infoButton.frame.size.height / 2,
                     width: 1,

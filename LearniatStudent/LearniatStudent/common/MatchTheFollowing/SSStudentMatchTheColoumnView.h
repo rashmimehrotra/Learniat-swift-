@@ -49,6 +49,8 @@
 
     
     NSMutableArray                      *fullOptionsArray;
+    
+    BOOL                                mAnswerFreezed;
 
 }
 - (void) setDelegate:(id)delegate;

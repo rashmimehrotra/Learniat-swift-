@@ -71,8 +71,6 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
     
     var           givenTextReply        = ""
     
-    var PopoverControllerRatings:UIPopoverController!
-    
     var selectedtab    = ""
     
     var currentTeacherImageURl = ""
@@ -529,15 +527,15 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         
         
         
-        PopoverControllerRatings = UIPopoverController(contentViewController: navController)
-        PopoverControllerRatings.contentSize = CGSize(width: 200,height: 100);
-        PopoverControllerRatings.delegate = self;
+        SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: navController)
+        SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 200,height: 100);
+        SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
         navController.isNavigationBarHidden = true;
         
         
         let buttonPosition :CGPoint = m_textButton.convert(CGPoint.zero, to: self)
         
-        PopoverControllerRatings.present(from: CGRect(x: buttonPosition.x + m_textButton.frame.size.width / 2 , y: topImageView.frame.origin.y + topImageView.frame.size.height , width: 1, height: 1), in: self, permittedArrowDirections: .up, animated: true)
+        SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(x: buttonPosition.x + m_textButton.frame.size.width / 2 , y: topImageView.frame.origin.y + topImageView.frame.size.height , width: 1, height: 1), in: self, permittedArrowDirections: .up, animated: true)
     }
     
     func onBadgeButton()
@@ -549,12 +547,12 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         
         
         let buttonPosition :CGPoint = m_badgeButton.convert(CGPoint.zero, to: self)
-        PopoverControllerRatings = UIPopoverController(contentViewController: navController)
-        PopoverControllerRatings.contentSize = CGSize(width: 200,height: 150);
-        PopoverControllerRatings.delegate = self;
+        SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: navController)
+        SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 200,height: 150);
+        SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
         navController.isNavigationBarHidden = true;
         
-        PopoverControllerRatings.present(from: CGRect(x: buttonPosition.x + m_badgeButton.frame.size.width / 2 , y: topImageView.frame.origin.y + topImageView.frame.size.height , width: 1, height: 1), in: self, permittedArrowDirections: .up, animated: true)
+        SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(x: buttonPosition.x + m_badgeButton.frame.size.width / 2 , y: topImageView.frame.origin.y + topImageView.frame.size.height , width: 1, height: 1), in: self, permittedArrowDirections: .up, animated: true)
         
     }
     
@@ -726,9 +724,9 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
     func popoverControllerDidDismissPopover(_ popoverController: UIPopoverController)
     {
         
-        if PopoverControllerRatings != nil
+        if SSTeacherDataSource.sharedDataSource.mPopOverController != nil
         {
-            if popoverController == PopoverControllerRatings
+            if popoverController == SSTeacherDataSource.sharedDataSource.mPopOverController
             {
                 if selectedtab == "Badge"
                 {

@@ -459,12 +459,12 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
                 
                 questionInfoController.preferredContentSize = CGSize(width: 400,height: 317)
                 
-                let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
-                questionInfoController.setPopover(classViewPopOverController)
-                classViewPopOverController.contentSize = CGSize(width: 400,height: 317);
-                classViewPopOverController.delegate = self;
+                SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                questionInfoController.setPopover(SSTeacherDataSource.sharedDataSource.mPopOverController)
+                SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 400,height: 317);
+                SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
                 
-                classViewPopOverController.present(from: CGRect(
+                SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(
                     x:mInfoButton.frame.origin.x ,
                     y:mInfoButton.frame.origin.y + mInfoButton.frame.size.height / 2,
                     width: 1,
@@ -480,12 +480,12 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
                 
                 questionInfoController.preferredContentSize = CGSize(width: 400,height: 317)
                 
-                let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
-                questionInfoController.setPopover(classViewPopOverController)
-                classViewPopOverController.contentSize = CGSize(width: 400,height: 317);
-                classViewPopOverController.delegate = self;
+                SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                questionInfoController.setPopover(SSTeacherDataSource.sharedDataSource.mPopOverController)
+                SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 400,height: 317);
+                SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
                 
-                classViewPopOverController.present(from: CGRect(
+                SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(
                     x:mInfoButton.frame.origin.x ,
                     y:mInfoButton.frame.origin.y + mInfoButton.frame.size.height / 2,
                     width: 1,
@@ -501,12 +501,12 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
                 
                 questionInfoController.preferredContentSize = CGSize(width: 400,height: 317)
                 
-                let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
-                questionInfoController.setPopover(classViewPopOverController)
-                classViewPopOverController.contentSize = CGSize(width: 400,height: 317);
-                classViewPopOverController.delegate = self;
+                SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                questionInfoController.setPopover(SSTeacherDataSource.sharedDataSource.mPopOverController)
+                SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 400,height: 317);
+                SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
                 
-                classViewPopOverController.present(from: CGRect(
+                SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(
                     x:mInfoButton.frame.origin.x ,
                     y:mInfoButton.frame.origin.y + mInfoButton.frame.size.height / 2,
                     width: 1,

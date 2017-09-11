@@ -642,7 +642,7 @@ class StudentAnswerOptionsView: UIView
 
        
         
-       
+       print("details ==== \(details)")
         
         if let Rating = details.object(forKey: "Rating") as? String
         {

@@ -375,18 +375,16 @@ class SSTeacherSubmissionView: UIView,SubmissionMRQViewDelegate,SubmissionSubjec
     func delegateStudentSubmissionEvaluatedWithDetails(_ evaluationDetails: AnyObject, withStudentId studentId: String, withSubmissionCount SubmissionCount: Int)
     {
         
-        if SubmissionCount <= 0
-        {
+        if SubmissionCount <= 0 {
             mScribbleSubmissionView.isHidden = true
             mScribbleSubmissionView.resetAllButtonState()
             noSubmissionLabel.isHidden = false
         }
         
-        mScribbleSubmissionView.resetAllButtonState()
+       
 
         
-        if delegate().responds(to: #selector(SSTeacherSubmissionViewDelegate.delegateTeacherEvaluatedReplyWithDetails(_:withStudentId:)))
-        {
+        if delegate().responds(to: #selector(SSTeacherSubmissionViewDelegate.delegateTeacherEvaluatedReplyWithDetails(_:withStudentId:))) {
             delegate().delegateTeacherEvaluatedReplyWithDetails!(evaluationDetails, withStudentId: studentId)
         }
     }

@@ -114,9 +114,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     var currentCumulativeTime       :String   = ""
     
-    var classViewPopOverController  :UIPopoverController!
-    
-    
     var  mTopicButton:UIButton!
     
     var mClassView                      = UIView()
@@ -606,12 +603,12 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         schedulePopOverController.setCurrentScreenSize(CGSize(width: 600,height: height))
         schedulePopOverController.preferredContentSize = CGSize(width: 600,height: height)
         
-        let   classViewPopOverController = UIPopoverController(contentViewController: schedulePopOverController)
-        schedulePopOverController.setPopover(classViewPopOverController)
-        classViewPopOverController.contentSize = CGSize(width: 600,height: height);
-        classViewPopOverController.delegate = self;
+         SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: schedulePopOverController)
+        schedulePopOverController.setPopover(SSTeacherDataSource.sharedDataSource.mPopOverController)
+        SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 600,height: height);
+        SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
         
-        classViewPopOverController.present(from: CGRect(
+        SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(
             x:sender.frame.origin.x + sender.frame.size.width / 2,
             y:sender.frame.origin.y + sender.frame.size.height,
             width: 1,
@@ -713,11 +710,11 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
         questionInfoController.classViewTopicsButtonSettingsButtonPressed();
 
-        let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+        SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: questionInfoController)
         
-        classViewPopOverController.contentSize = CGSize(width: 310, height: 444);
-        classViewPopOverController.delegate = self;
-        questionInfoController.setPopOver(classViewPopOverController)
+        SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 310, height: 444);
+        SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
+        questionInfoController.setPopOver(SSTeacherDataSource.sharedDataSource.mPopOverController)
         
         
         if (newSubmissionRecieved.count <= 0 && newQueryRecieved.count <= 0 && SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false)
@@ -768,7 +765,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
         
         
-        classViewPopOverController.present(from: CGRect(
+        SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(
             x:mTeacherImageButton.frame.origin.x ,
             y:mTeacherImageButton.frame.origin.y + mTeacherImageButton.frame.size.height,
             width: 1,
@@ -924,6 +921,9 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     private func MoveToscheduleScreen() {
         UIView.animate(withDuration: 0.25, delay: 0.0, options: [], animations: {
+            if SSTeacherDataSource.sharedDataSource.mPopOverController != nil {
+                SSTeacherDataSource.sharedDataSource.mPopOverController.dismiss(animated: true)
+            }
             if self.schedulePopOverController != nil {
                 self.schedulePopOverController.onDoneButton()
             }
@@ -2327,33 +2327,20 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     func smhDidgetStudentAnswerMessageWithStudentId(_ StudentId: String, withAnswerString answerStrin: String)
     {
-        if let studentDeskView  = mClassView.viewWithTag(Int(StudentId)!) as? StundentDeskView
-        {
-            if currentQuestionDetails != nil
-             {
+        if let studentDeskView  = mClassView.viewWithTag(Int(StudentId)!) as? StundentDeskView {
+            if currentQuestionDetails != nil && studentDeskView.currentAnswerRecievedState == .Cleared {
                 studentDeskView.studentSentAnswerWithAnswerString(answerStrin,withQuestionDetails: currentQuestionDetails)
-                
             }
-            
-            
         }
-        
     }
     
     
-    func smhDidgetStudentDontKnowMessageRecieved(_ StudentId: String)
-    {
-        if let studentDeskView  = mClassView.viewWithTag(Int(StudentId)!) as? StundentDeskView
-        {
-            if currentQuestionDetails != nil
-            {
+    func smhDidgetStudentDontKnowMessageRecieved(_ StudentId: String) {
+        if let studentDeskView  = mClassView.viewWithTag(Int(StudentId)!) as? StundentDeskView {
+            if currentQuestionDetails != nil {
                 studentDeskView.setDontKnowMessageFromStudent()
-                
             }
-            
-            
         }
-        
     }
     
     
@@ -2380,11 +2367,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     func smhDidgetStudentPollWithDetails(optionValue:NSMutableDictionary)
     {
-       
-        
-        print(optionValue)
-        
-        
         if let studentID =  optionValue.object(forKey: "studentID") as? String
         {
             if newQueryRecieved.contains(studentID) == false
@@ -2505,14 +2487,14 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 let questionInfoController = SSTeacherPeakViewController()
                 questionInfoController.setStudentDetails(studentDeskView.currentStudentsDict, withPeakImage: decodedimage)
                
-                let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                 SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: questionInfoController)
                 
                 questionInfoController.preferredContentSize = CGSize(width: 270,height: 220)
                 
-                classViewPopOverController.contentSize = CGSize(width: 270,height: 220);
-                classViewPopOverController.delegate = self;
-                questionInfoController.setPopover(classViewPopOverController)
-                classViewPopOverController.present(from: CGRect(
+                SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 270,height: 220);
+                SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
+                questionInfoController.setPopover(SSTeacherDataSource.sharedDataSource.mPopOverController)
+                SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(
                     x:buttonPosition.x + studentDeskView.frame.size.height / 2,
                     y:buttonPosition.y + studentDeskView.frame.size.height / 2,
                     width: 1,
@@ -2645,12 +2627,12 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                     
                     questionInfoController.preferredContentSize = CGSize(width: 400,height: 317)
                     
-                    let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
-                    questionInfoController.setPopover(classViewPopOverController)
-                    classViewPopOverController.contentSize = CGSize(width: 400,height: 317);
-                    classViewPopOverController.delegate = self;
+                     SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                    questionInfoController.setPopover(SSTeacherDataSource.sharedDataSource.mPopOverController)
+                    SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 400,height: 317);
+                    SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
                     
-                    classViewPopOverController.present(from: CGRect(
+                    SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(
                         x:buttonPosition.x + studentDeskView.frame.size.height / 2,
                         y:buttonPosition.y + studentDeskView.frame.size.height / 2,
                         width: 1,
@@ -2669,12 +2651,12 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                     
                     questionInfoController.preferredContentSize = CGSize(width: 400,height: 317)
                     
-                    let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
-                    questionInfoController.setPopover(classViewPopOverController)
-                    classViewPopOverController.contentSize = CGSize(width: 400,height: 317);
-                    classViewPopOverController.delegate = self;
+                      SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                    questionInfoController.setPopover(SSTeacherDataSource.sharedDataSource.mPopOverController)
+                    SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 400,height: 317);
+                    SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
                     
-                    classViewPopOverController.present(from: CGRect(
+                    SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(
                         x:buttonPosition.x + studentDeskView.frame.size.height / 2,
                         y:buttonPosition.y + studentDeskView.frame.size.height / 2,
                         width: 1,
@@ -2707,12 +2689,12 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                     
                    questionInfoController.setStudentAnswerDetails(details, withStudentDetials: studentDeskView.currentStudentsDict, withCurrentQuestionDict: currentQuestionDetails)
                     
-                    let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                     SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: questionInfoController)
                     
-                    classViewPopOverController.contentSize = CGSize(width: 320,height: 320);
-                    classViewPopOverController.delegate = self;
-                    questionInfoController.setPopover(classViewPopOverController)
-                    classViewPopOverController.present(from: CGRect(
+                    SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 320,height: 320);
+                    SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
+                    questionInfoController.setPopover(SSTeacherDataSource.sharedDataSource.mPopOverController)
+                    SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(
                         x:buttonPosition.x + studentDeskView.frame.size.height / 2,
                         y:buttonPosition.y + studentDeskView.frame.size.height / 2,
                         width: 1,
@@ -2766,13 +2748,13 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             
             questionInfoController.setStudentAnswerDetails(studentDeskView._currentAnswerDetails, withStudentDetials: studentDeskView.currentStudentsDict, withCurrentQuestionDict: currentQuestionDetails, withEvaluationDetails: details)
             
-            let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+             SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: questionInfoController)
             
-            classViewPopOverController.contentSize = CGSize(width: 320,height: 320);
-            classViewPopOverController.delegate = self;
-            questionInfoController.setPopover(classViewPopOverController)
+            SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 320,height: 320);
+            SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
+            questionInfoController.setPopover(SSTeacherDataSource.sharedDataSource.mPopOverController)
             
-            classViewPopOverController.present(from: CGRect(
+            SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(
                 x:buttonPosition.x + studentDeskView.frame.size.height / 2,
                 y:buttonPosition.y + studentDeskView.frame.size.height / 2,
                 width: 1,
@@ -2804,12 +2786,12 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 
                 questionInfoController.preferredContentSize = CGSize(width: 320,height: 317)
                 
-                let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
-                questionInfoController.setPopover(classViewPopOverController)
-                classViewPopOverController.contentSize = CGSize(width: 320,height: 317);
-                classViewPopOverController.delegate = self;
+                 SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                questionInfoController.setPopover(SSTeacherDataSource.sharedDataSource.mPopOverController)
+                SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 320,height: 317);
+                SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
                 
-                classViewPopOverController.present(from: CGRect(
+                SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(
                     x:buttonPosition.x + studentDeskView.frame.size.height / 2,
                     y:buttonPosition.y + studentDeskView.frame.size.height / 2,
                     width: 1,
@@ -2849,12 +2831,12 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
 
         questionInfoController.preferredContentSize = CGSize(width: 400,height: 100)
         
-        let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
+         SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: questionInfoController)
         
-        classViewPopOverController.contentSize = CGSize(width: 400,height: 100);
-        classViewPopOverController.delegate = self;
+        SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 400,height: 100);
+        SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
         
-        classViewPopOverController.present(from: CGRect(
+        SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(
             x:buttonPosition.x + barButton.frame.size.width / 2,
             y:buttonPosition.y + barButton.frame.size.height / 2,
             width: 1,
@@ -2867,7 +2849,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     func delegateTeacherEvaluatedReplyWithDetails(_ details: AnyObject, withStudentId studentId: String) {
         
-        
+        print(details)
         
         if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView
         {
