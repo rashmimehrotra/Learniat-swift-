@@ -215,11 +215,11 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         }
         mScribbleView.penMode = .pencil
         
-        var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
-        if brushSize < 5
-        {
-            brushSize = 5
-        }
+        let brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
+//        if brushSize < 5
+//        {
+//            brushSize = 5
+//        }
         mScribbleView.penWidth = UInt(brushSize)
         mScribbleView.isHidden = false
         
@@ -449,11 +449,11 @@ class SSTeacherScribbleQuestion: UIView,UIPopoverControllerDelegate,SSTeacherDat
         
 //        mScribbleView.setDrawing(kBrushTool)
         
-        var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
-        if brushSize < 5
-        {
-            brushSize = 5
-        }
+        let brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
+//        if brushSize < 5
+//        {
+//            brushSize = 5
+//        }
         
 //        mScribbleView.setBrushWidth(Int32(brushSize))
         
