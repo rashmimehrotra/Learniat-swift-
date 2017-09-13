@@ -13,6 +13,7 @@ import Foundation
     
     
     @objc optional func delegateModelAnswerRemovedWithAssesmentAnswerId(_ assesmentAnswerID:String)
+    @objc optional func delegateModelAnswerRemovedWithAssesmentAnswerId(_ assesmentAnswerID:String, studentID : String)
     
     
 }
@@ -193,8 +194,8 @@ class StudentModelAnswerCell: UIView,SSTeacherDataSourceDelegate
         
         if let  AssessmentAnswerId = currentCellDetails.object(forKey: "AssessmentAnswerId") as? String
         {
-            delegate().delegateModelAnswerRemovedWithAssesmentAnswerId!(AssessmentAnswerId)
-            
+//            delegate().delegateModelAnswerRemovedWithAssesmentAnswerId!(AssessmentAnswerId)
+            delegate().delegateModelAnswerRemovedWithAssesmentAnswerId!(AssessmentAnswerId, studentID: currentCellDetails.object(forKey: "StudentId") as! String)
             SSTeacherDataSource.sharedDataSource.recordModelAnswerwithAssesmentAnswerId(AssessmentAnswerId, WithDelegate: self)
         }
     }

@@ -13,6 +13,7 @@ import Foundation
     
     
     @objc optional func delegateModelAnswerViewLoadedWithHeight(_ height:CGFloat , withCount modelCount:Int)
+    @objc optional func delegateModelAnswerViewLoadedWithHeight(_ height:CGFloat , withCount modelCount:Int, studentID: String)
     
 
 }
@@ -185,7 +186,45 @@ class StudentModelAnswerView: UIView,SSTeacherDataSourceDelegate,StudentModelAns
         
     }
     
-    func delegateModelAnswerRemovedWithAssesmentAnswerId(_ assesmentAnswerID: String)
+//    func delegateModelAnswerRemovedWithAssesmentAnswerId(_ assesmentAnswerID: String)
+//    {
+//        var currentYPosition :CGFloat = 0
+//        currentViewHeight = 44
+//        let subViews =  mModelAnswerContainerView.subviews.flatMap{ $0 as? StudentModelAnswerCell }
+//        for topicCell in subViews
+//        {
+//            if topicCell.isKind(of: StudentModelAnswerCell.self)
+//            {
+//                UIView.animate(withDuration: 0.2, animations:
+//                    {
+//                        topicCell.frame = CGRect(x: topicCell.frame.origin.x ,y: currentYPosition,width: topicCell.frame.size.width,height: topicCell.frame.size.height)
+//                        
+//                })
+//                
+//                currentYPosition = currentYPosition + topicCell.frame.size.height + 1
+//                currentViewHeight = currentViewHeight + topicCell.frame.size.height + 1
+//            }
+//        }
+//        
+//        mModelAnswerContainerView.contentSize = CGSize(width: 0, height: currentYPosition)
+//        
+//        var height :CGFloat = currentViewHeight
+//        
+//        
+//        if height > UIScreen.main.bounds.height - 140
+//        {
+//            height = UIScreen.main.bounds.height - 140
+//        }
+//        
+//        
+//        
+//        mModelAnswerContainerView.frame = CGRect(x: mModelAnswerContainerView.frame.origin.x,y: mModelAnswerContainerView.frame.origin.y ,width: mModelAnswerContainerView.frame.size.width,height: height - 44)
+//        
+////        delegate().delegateModelAnswerViewLoadedWithHeight!(height, withCount :subViews.count)
+//        delegate().delegateModelAnswerViewLoadedWithHeight!(height, withCount :subViews.count, assesmentAnswerID : assesmentAnswerID)
+//    }
+    
+    func delegateModelAnswerRemovedWithAssesmentAnswerId(_ assesmentAnswerID: String, studentID: String)
     {
         var currentYPosition :CGFloat = 0
         currentViewHeight = 44
@@ -219,9 +258,9 @@ class StudentModelAnswerView: UIView,SSTeacherDataSourceDelegate,StudentModelAns
         
         mModelAnswerContainerView.frame = CGRect(x: mModelAnswerContainerView.frame.origin.x,y: mModelAnswerContainerView.frame.origin.y ,width: mModelAnswerContainerView.frame.size.width,height: height - 44)
         
-        delegate().delegateModelAnswerViewLoadedWithHeight!(height, withCount :subViews.count)
+        //        delegate().delegateModelAnswerViewLoadedWithHeight!(height, withCount :subViews.count)
+        delegate().delegateModelAnswerViewLoadedWithHeight!(height, withCount :subViews.count, studentID : studentID)
     }
-    
     
     func questionClearedByTeacher()
     {

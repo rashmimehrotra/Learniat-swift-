@@ -299,10 +299,16 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         anotateButton.isHidden = isAfterEvaluated
         
         if isAfterEvaluated {
+            print("_currentEvaluationDetails == \(_currentEvaluationDetails)")
             if let Rating = _currentEvaluationDetails.object(forKey: "Rating") as? String
             {
                 mStarRatingView.setStarRating(Int(Rating)!)
             }
+            if let isModelAns = _currentEvaluationDetails.value(forKey: "ModelAnswerFlag") as? String
+            {
+                modelAnswerButton.isHidden = isModelAns == "true" ? true : false
+            }
+            
         }
         
         // ==========================================

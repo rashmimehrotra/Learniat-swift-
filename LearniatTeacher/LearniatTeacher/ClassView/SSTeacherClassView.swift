@@ -3174,4 +3174,44 @@ func delegateAnnotateButtonPressedWithAnswerDetails(_ answerDetails:AnyObject, w
         
     }
     
+    func delegateModelAnswerViewLoadedWithHeight(_ height: CGFloat, withCount modelCount: Int, studentID : String) {
+        
+        mModelAnswerButton.isHidden = false
+        mModelAnswerButton.modelAnswerCountLabel.text = "\(modelCount)"
+        
+        UIView.animate(withDuration: 0.6, animations:
+            {
+                self.mModelAnswerView.frame = CGRect(x: self.mModelAnswerView.frame.origin.x, y: self.mModelAnswerView.frame.origin.y,width: self.mModelAnswerView.frame.size.width, height: height)
+                self.mModelAnswerView.layer.cornerRadius = 5
+        })
+        
+        if modelCount <= 0
+        {
+            mModelAnswerButton.isHidden = true
+            mModelAnswerView.isHidden = true
+        }
+        
+        if let studentDeskView  = mClassView.viewWithTag(Int(studentID)!) as? StundentDeskView
+        {
+            for view in studentDeskView.subviews {
+                if let imgView  = view as? UIImageView {
+                    for view1 in imgView.subviews {
+                        if let studentAnswerOptionView  = view1 as? StudentAnswerOptionsView {
+                            print("")
+                            for view2 in studentAnswerOptionView.subviews {
+                                if let label  = view2 as? UILabel {
+                                    if label.text?.lowercased() == "model answer" {
+                                        label.removeFromSuperview()
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        
+    }
+    
 }
