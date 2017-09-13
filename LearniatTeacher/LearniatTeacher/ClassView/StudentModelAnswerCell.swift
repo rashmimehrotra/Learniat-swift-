@@ -200,4 +200,8 @@ class StudentModelAnswerCell: UIView,SSTeacherDataSourceDelegate
         }
     }
     
+    func didGetModelAnswerRecordedWithDetails(_ details: AnyObject) {
+        print("details == \(details)")
+    }
+    
 }

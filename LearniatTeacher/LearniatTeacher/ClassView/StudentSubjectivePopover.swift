@@ -306,7 +306,8 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
             }
             if let isModelAns = _currentEvaluationDetails.value(forKey: "ModelAnswerFlag") as? String
             {
-                modelAnswerButton.isHidden = isModelAns == "true" ? true : false
+                isModelAnswer = isModelAns == "true" ? true : false
+                modelAnswerButton.isHidden = isModelAnswer
             }
             
         }

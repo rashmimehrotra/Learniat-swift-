@@ -171,7 +171,8 @@ let progressviewBackground   = UIColor(red:213/255.0, green: 213/255.0, blue: 21
 
 let pollCellBackgroundColor  = UIColor(red: 235/255.0, green:235/255.0, blue:235/255.0, alpha: 1)
 
-let scheduledColor           = UIColor(red: 246/255.0, green:246/255.0, blue:246/255.0, alpha: 1)
+//let scheduledColor           = UIColor(red: 246/255.0, green:246/255.0, blue:246/255.0, alpha: 1)
+let scheduledColor           = UIColor(red: 238/255.0, green:238/255.0, blue:238/255.0, alpha: 1)
 
 let scheduledBorderColor     = UIColor(red: 153/255.0, green:153/255.0, blue:153/255.0, alpha: 1)
 

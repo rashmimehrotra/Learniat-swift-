@@ -137,7 +137,8 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         mSeatingLabel.lineBreakMode = NSLineBreakMode.byTruncatingTail;
         mSeatingLabel.numberOfLines = 4
         mSeatingLabel.verticalAlignment = .verticalAlignmentTop
-        mSeatingLabel.textColor = standard_Red
+//        mSeatingLabel.textColor = standard_Red
+        mSeatingLabel.textColor = CancelledBorderColor
         mSeatingLabel.textAlignment = .left
         
         
@@ -216,7 +217,8 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         case kScheduled:
             self.backgroundColor = scheduledColor
             self.layer.borderColor = scheduledBorderColor.cgColor
-            self.layer.borderWidth = 1
+//            self.layer.borderWidth = 1
+            self.layer.borderWidth = 0.5
             mClassName.textColor = UIColor.black
             
             setClassNameWithFont(helveticaMedium)
@@ -227,7 +229,8 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         case kopened:
             self.backgroundColor = OpenedColor
             self.layer.borderColor = OpenedBorderColor.cgColor
-            self.layer.borderWidth = 1
+//            self.layer.borderWidth = 1
+            self.layer.borderWidth = 0.5
             mClassName.textColor = UIColor.black
             
             setClassNameWithFont(helveticaRegular)
@@ -280,7 +283,8 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         case kCanClled:
             
             self.layer.borderColor = CancelledBorderColor.cgColor
-            self.layer.borderWidth = 1
+//            self.layer.borderWidth = 1
+            self.layer.borderWidth = 0.5
             mClassName.textColor = standard_TextGrey
             cancelledImageView.isHidden = false
             setClassNameWithFont(helveticaRegular)
@@ -336,7 +340,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
                                 {
                                     mSeatingLabel.isHidden = false
                                     mSeatingAlertImageView.isHidden = false
-                                    mSeatingLabel.text = "Seats needs to be reconfigured. students more than seats(\(StudentsRegistered)-\(SeatsConfigured))"
+                                    mSeatingLabel.text = "Seats needs to be reconfigured. students more than seats(\(StudentsRegistered)-\(SeatsConfigured))".uppercased()
                                     
                                 }
                                 else if Int(StudentsRegistered) > Int(PreAllocatedSeats)! + Int(OccupiedSeats)!
@@ -346,11 +350,11 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
                                     mSeatingAlertImageView.isHidden = false
                                     if (Int(StudentsRegistered)>1)
                                     {
-                                        mSeatingLabel.text = "\(Int(StudentsRegistered)! - (Int(PreAllocatedSeats)! + Int(OccupiedSeats)!)) Students are not allocated"
+                                        mSeatingLabel.text = "\(Int(StudentsRegistered)! - (Int(PreAllocatedSeats)! + Int(OccupiedSeats)!)) Students are not allocated".uppercased()
                                     }
                                     else
                                     {
-                                        mSeatingLabel.text = "\(Int(StudentsRegistered)! - (Int(PreAllocatedSeats)! + Int(OccupiedSeats)!)) Student is not allocated"
+                                        mSeatingLabel.text = "\(Int(StudentsRegistered)! - (Int(PreAllocatedSeats)! + Int(OccupiedSeats)!)) Student is not allocated".uppercased()
                                     }
                                 }
                             }
@@ -374,11 +378,11 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
                                 mSeatingAlertImageView.isHidden = false
                                 if (Int(StudentsRegistered)>1)
                                 {
-                                    mSeatingLabel.text = "\(Int(StudentsRegistered)! - (Int(PreAllocatedSeats)! + Int(OccupiedSeats)!)) Students are not allocated"
+                                    mSeatingLabel.text = "\(Int(StudentsRegistered)! - (Int(PreAllocatedSeats)! + Int(OccupiedSeats)!)) Students are not allocated".uppercased()
                                 }
                                 else
                                 {
-                                    mSeatingLabel.text = "\(Int(StudentsRegistered)! - (Int(PreAllocatedSeats)! + Int(OccupiedSeats)!)) Student is not allocated"
+                                    mSeatingLabel.text = "\(Int(StudentsRegistered)! - (Int(PreAllocatedSeats)! + Int(OccupiedSeats)!)) Student is not allocated".uppercased()
                                 }
                             }
                         }
@@ -403,7 +407,8 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         {
             mClassName.frame = CGRect(x: 40, y: 4, width: self.frame.size.width/3, height: (self.frame.size.height/1.2))
             
-            mClassName.font = UIFont(name: fontname, size: (self.frame.size.height/2))
+//            mClassName.font = UIFont(name: fontname, size: (self.frame.size.height/2))
+            mClassName.font = UIFont(name: fontname, size: 20)
             
             circleImage.frame = CGRect(x: 15, y: 6, width: 15, height: 15)
             
@@ -411,7 +416,8 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
             
             mSeatingLabel.frame =  CGRect(x: self.frame.size.width - (self.frame.size.width/3.5), y: 4, width: self.frame.size.width/3.5, height: (self.frame.size.height/1.2))
             
-            mSeatingLabel.font = UIFont(name: helveticaBold, size: (self.frame.size.height/2))
+//            mSeatingLabel.font = UIFont(name: helveticaBold, size: (self.frame.size.height/2))
+            mSeatingLabel.font = UIFont(name: helveticaBold, size: 14)
             
             mSeatingAlertImageView.frame = CGRect(x: mSeatingLabel.frame.origin.x - 30, y: 4, width: 20, height: 20)
             
@@ -425,16 +431,18 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         {
             mClassName.frame = CGRect(x: 40, y: 10, width: self.frame.size.width/3, height: (self.frame.size.height/1.2))
             
-            mClassName.font = UIFont(name: fontname, size: 18)
+//            mClassName.font = UIFont(name: fontname, size: 18)
+            mClassName.font = UIFont(name: fontname, size: 20)
             
             circleImage.frame = CGRect(x: 15, y: 15, width: 15, height: 15)
             
             
             mSeatingLabel.frame =  CGRect(x: self.frame.size.width - (self.frame.size.width/3.5), y: 10, width: self.frame.size.width/3.5, height: (self.frame.size.height/1.2))
-            mSeatingLabel.font = UIFont(name: helveticaBold, size: 18)
+//            mSeatingLabel.font = UIFont(name: helveticaBold, size: 18)
+            mSeatingLabel.font = UIFont(name: helveticaBold, size: 14)
             
             
-            mSeatingAlertImageView.frame = CGRect(x: mSeatingLabel.frame.origin.x - 30, y: 13, width: 20, height: 20)
+            mSeatingAlertImageView.frame = CGRect(x: mSeatingLabel.frame.origin.x - 30, y: 8, width: 20, height: 20)
             
             
             mDifferenceTimeLabel.frame = CGRect(x: mClassName.frame.origin.x  + mClassName.frame.size.width + 20, y: 10, width: self.frame.size.width/4 , height: (self.frame.size.height/1.2))
@@ -464,6 +472,8 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         self.backgroundColor = standard_Red
         mSeatingAlertImageView.image = UIImage(named: "Blue_Alert.png")
         mSeatingLabel.textColor = UIColor.white
+        mClassName.textColor = UIColor.white
+        mDifferenceTimeLabel.textColor = UIColor.white
         
         overDueTimer.invalidate()
         nextSessionTimer.invalidate()
