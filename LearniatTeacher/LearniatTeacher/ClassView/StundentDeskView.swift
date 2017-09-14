@@ -299,7 +299,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         longGesture.numberOfTapsRequired = 2
         
       
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(StundentDeskView.setModelAnswer), name: NSNotification.Name(rawValue: "setModelAnswer"), object: nil)
         
     }
     
@@ -819,6 +819,12 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         return (seatIdvalue , StudentIdValue)
     }
     
+    func setModelAnswer(_ notification : Notification) {
+        
+        if self.tag == Int(notification.object as! String) {
+            answerContainerView.addModelAnswerLabel()
+        }
+    }
 
 }
 

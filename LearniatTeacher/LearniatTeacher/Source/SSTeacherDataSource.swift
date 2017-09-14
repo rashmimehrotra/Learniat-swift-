@@ -277,6 +277,10 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     var mOverlayImageName                       = ""
     
     var mPopOverController  :UIPopoverController!
+    
+    var mModelAnswersArray                      = NSMutableArray()
+    
+    var mRecordedModelAnswersArray              = NSMutableArray()
 
     
     func setSubTopicDictonaryWithDict(_ details:NSMutableArray,withKey key:String)

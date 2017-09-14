@@ -707,26 +707,7 @@ class StudentAnswerOptionsView: UIView
         {
             if ModelAnswerFlag == "true"
             {
-                let modelAnswerLabel = UILabel(frame: CGRect(x: 0,y: 0,width: self.frame.size.width,height: mTeacherReplyState.frame.size.height / 1.8))
-                modelAnswerLabel.backgroundColor = standard_Green
-                modelAnswerLabel.textColor = UIColor.white
-                
-                var fontHeight = modelAnswerLabel.frame.size.height/1.2;
-                
-                if (fontHeight > 14)
-                {
-                    fontHeight = 14;
-                }
-                
-                modelAnswerLabel.font = UIFont(name: RobotItalic, size: fontHeight)
-                modelAnswerLabel.textColor = UIColor.white
-                modelAnswerLabel.lineBreakMode = .byTruncatingMiddle
-                modelAnswerLabel.numberOfLines = 10
-                modelAnswerLabel.textAlignment = .center
-                modelAnswerLabel.text = "Model Answer"
-                self.addSubview(modelAnswerLabel)
-                
-                
+                addModelAnswerLabel()
             }
             
             
@@ -738,7 +719,27 @@ class StudentAnswerOptionsView: UIView
     }
     
     
+    func addModelAnswerLabel() {
     
+        let modelAnswerLabel = UILabel(frame: CGRect(x: 0,y: 0,width: self.frame.size.width,height: (self.frame.size.height / 3) / 1.8))
+        modelAnswerLabel.backgroundColor = standard_Green
+        modelAnswerLabel.textColor = UIColor.white
+        
+        var fontHeight = modelAnswerLabel.frame.size.height/1.2;
+        
+        if (fontHeight > 14)
+        {
+            fontHeight = 14;
+        }
+        
+        modelAnswerLabel.font = UIFont(name: RobotItalic, size: fontHeight)
+        modelAnswerLabel.textColor = UIColor.white
+        modelAnswerLabel.lineBreakMode = .byTruncatingMiddle
+        modelAnswerLabel.numberOfLines = 10
+        modelAnswerLabel.textAlignment = .center
+        modelAnswerLabel.text = "Model Answer"
+        self.addSubview(modelAnswerLabel)
+    }
     
     
 }

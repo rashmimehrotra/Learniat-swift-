@@ -2113,6 +2113,8 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mModelAnswerButton.isHidden = true
         mModelAnswerView.isHidden = true
         SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
+        
+        SSTeacherDataSource.sharedDataSource.mModelAnswersArray.removeAllObjects()
     }
     
     func delegateFreezQuestion() {
@@ -3197,7 +3199,6 @@ func delegateAnnotateButtonPressedWithAnswerDetails(_ answerDetails:AnyObject, w
                 if let imgView  = view as? UIImageView {
                     for view1 in imgView.subviews {
                         if let studentAnswerOptionView  = view1 as? StudentAnswerOptionsView {
-                            print("")
                             for view2 in studentAnswerOptionView.subviews {
                                 if let label  = view2 as? UILabel {
                                     if label.text?.lowercased() == "model answer" {

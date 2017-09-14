@@ -299,15 +299,33 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         anotateButton.isHidden = isAfterEvaluated
         
         if isAfterEvaluated {
-            print("_currentEvaluationDetails == \(_currentEvaluationDetails)")
+            
             if let Rating = _currentEvaluationDetails.object(forKey: "Rating") as? String
             {
                 mStarRatingView.setStarRating(Int(Rating)!)
             }
-            if let isModelAns = _currentEvaluationDetails.value(forKey: "ModelAnswerFlag") as? String
-            {
-                isModelAnswer = isModelAns == "true" ? true : false
-                modelAnswerButton.isHidden = isModelAnswer
+//            if let isModelAns = _currentEvaluationDetails.value(forKey: "ModelAnswerFlag") as? String
+//            {
+//                isModelAnswer = isModelAns == "true" ? true : false
+////                modelAnswerButton.isHidden = isModelAnswer
+//                modelAnswerButton.isEnabled = !isModelAnswer
+//            }
+            if let _ = _studentAnswerDetails.object(forKey: "AssessmentAnswerId") as? String {
+                
+                if SSTeacherDataSource.sharedDataSource.mModelAnswersArray.contains(["AssessmentAnswerId" : _studentAnswerDetails.object(forKey: "AssessmentAnswerId")!, "Image" : _studentAnswerDetails.object(forKey: "Scribble")!, "QuestionType" : _studentAnswerDetails.object(forKey: "QuestionType")!, "StudentId" : _studentAnswerDetails.object(forKey: "StudentId")!, "StudentName" : _currentStudentDict.object(forKey: "Name")!, "TeacherScribble" : _currentEvaluationDetails.object(forKey: "imageUrl")!]) {
+                
+                    isModelAnswer = true
+//                    modelAnswerButton.isHidden = isModelAnswer
+                    modelAnswerButton.setTitleColor(UIColor.lightGray ,for:UIControlState());
+                    modelAnswerButton.isEnabled = false
+                }
+                
+            }
+            
+            if let StudentId = _studentAnswerDetails.object(forKey: "StudentId") as? String {
+                if SSTeacherDataSource.sharedDataSource.mRecordedModelAnswersArray.contains(StudentId) {
+                    modelAnswerButton.isHidden = true
+                }
             }
             
         }
@@ -334,6 +352,10 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         
         _currentEvaluationDetails = evaluationDetails
         
+        print("\n_studentAnswerDetails == \(_studentAnswerDetails)")
+        print("\n_currentStudentDict == \(_currentStudentDict)")
+        print("\n_currentQuestiondetails == \(_currentQuestiondetails)")
+        print("\n_currentEvaluationDetails == \(_currentEvaluationDetails)")
     }
     
     // ==========================================
@@ -352,6 +374,7 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         isModelAnswer = true
         modelAnswerButton.setTitleColor(UIColor.lightGray ,for:UIControlState());
         modelAnswerButton.isEnabled = false
+        
         
     }
     
@@ -388,6 +411,20 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
     
     func onDoneButton()
     {
+        if isAfterEvaluated {
+            
+            SSTeacherDataSource.sharedDataSource.mModelAnswersArray.add(["AssessmentAnswerId" : _studentAnswerDetails.object(forKey: "AssessmentAnswerId")!, "Image" : _studentAnswerDetails.object(forKey: "Scribble")!, "QuestionType" : _studentAnswerDetails.object(forKey: "QuestionType")!, "StudentId" : _studentAnswerDetails.object(forKey: "StudentId")!, "StudentName" : _currentStudentDict.object(forKey: "Name")!, "TeacherScribble" : _currentEvaluationDetails.object(forKey: "imageUrl")!])
+            
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "setModelAnswerList"), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "setModelAnswer"), object: _studentAnswerDetails.object(forKey: "StudentId")!)
+            popover().dismiss(animated: true)
+            return
+        }
+        
+        if self.isModelAnswer {
+            
+            SSTeacherDataSource.sharedDataSource.mModelAnswersArray.add(["AssessmentAnswerId" : _studentAnswerDetails.object(forKey: "AssessmentAnswerId")!, "Image" : _studentAnswerDetails.object(forKey: "Scribble")!, "QuestionType" : _studentAnswerDetails.object(forKey: "QuestionType")!, "StudentId" : _studentAnswerDetails.object(forKey: "StudentId")!, "StudentName" : _currentStudentDict.object(forKey: "Name")!, "TeacherScribble" : _currentQuestiondetails.object(forKey: "Scribble")!])
+        }
         
         if isModelAnswer == true || mStarRatingView.rating() > 0 || mScribbleView.curImage != nil
         {
@@ -418,6 +455,7 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
             {
                 newImageUploadedWithName(nameOfImage)
             }
+            
             
             
             

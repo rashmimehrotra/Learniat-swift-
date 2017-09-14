@@ -216,7 +216,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         let mTodaysSchedule = UILabel(frame: CGRect(x: (mTopbarImageView.frame.size.width - 200)/2, y: mTeacherImageView.frame.origin.y - 2, width: 200, height: 22))
         mTodaysSchedule.font = UIFont(name:helveticaMedium, size: 18)
         mTodaysSchedule.textAlignment = .center
-        mTodaysSchedule.text = "Today's schedule"
+        mTodaysSchedule.text = "Today's schedule".capitalized
         mTopbarImageView.addSubview(mTodaysSchedule)
         mTodaysSchedule.textColor = UIColor.white
         
@@ -317,6 +317,8 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
         timer = Timer(fireAt: fireDate, interval: 60, target: self, selector: #selector(TeacherScheduleViewController.timerAction), userInfo: nil, repeats: true)
         RunLoop.main.add(timer, forMode: RunLoopMode.commonModes)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(TeacherScheduleViewController.refreshTiles), name: NSNotification.Name(rawValue: "refreshTiles"), object: nil)
         
         // ==========================================
         
@@ -557,9 +559,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             }
         }
         
-        
-        
-        mClasses.text = "\(sessionDetailsArray.count) Classes Today"
+        var cancelCount : Int = 0
         
         
         for index in 0 ..< sessionDetailsArray.count
@@ -581,12 +581,17 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             
             let sessionState = (dict as AnyObject).object(forKey: kSessionState) as! String
             
+            if sessionState == "6" {
+                cancelCount += 1
+            }
             
             sessionIdDictonary[sessionid] = dict as AnyObject?
             scheduleTileView.tag = Int(sessionid)!
             scheduleTileView.setCurrentSessionDetails(dict as AnyObject)
             
         }
+        
+        mClasses.text = "\(sessionDetailsArray.count - cancelCount) Classes Today"
         
         
         
@@ -948,6 +953,25 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
                     
                     mScheduleDetailView.setClassname((Details.object(forKey: "ClassName") as! String),withSessionDetails: Details)
                     
+                    for index in 0 ..< sessionDetailsArray.count
+                    {
+                        let dict = sessionDetailsArray.object(at: index)
+                        let sessionid = (dict as AnyObject).object(forKey: kSessionId) as! String
+                        let selectedSessionid = (Details as AnyObject).object(forKey: kSessionId) as! String
+                        let sessionState = (dict as AnyObject).object(forKey: kSessionState) as! String
+                        
+                        if let tileView = self.mScrollView.viewWithTag(Int(sessionid)!) as? ScheduleScreenTile {
+                            
+//                            if tileView.isOverDue == false {
+                                if selectedSessionid != sessionid {
+                                    tileView.updateSessionColorWithSessionState(sessionState)
+                                }
+                                else {
+                                    tileView.updateSessionColorWithSessionState("")
+                                }
+//                            }
+                        }
+                    }
                     
                 }
             }
@@ -1663,4 +1687,27 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         return .lightContent
     }
     
+    func refreshTiles() {
+    
+        for index in 0 ..< sessionDetailsArray.count
+        {
+            let dict = sessionDetailsArray.object(at: index)
+            let sessionid = (dict as AnyObject).object(forKey: kSessionId) as! String
+            let sessionState = (dict as AnyObject).object(forKey: kSessionState) as! String
+            
+            if let tileView = self.mScrollView.viewWithTag(Int(sessionid)!) as? ScheduleScreenTile {
+                
+                if tileView.isOverDue {
+                    tileView.backgroundColor = standard_Red
+                    tileView.mSeatingAlertImageView.image = UIImage(named: "Blue_Alert.png")
+                    tileView.mSeatingLabel.textColor = UIColor.white
+                    tileView.mClassName.textColor = UIColor.white
+                    tileView.mDifferenceTimeLabel.textColor = UIColor.white
+                }
+                else {
+                    tileView.updateSessionColorWithSessionState(sessionState)
+                }
+            }
+        }
+    }
 }

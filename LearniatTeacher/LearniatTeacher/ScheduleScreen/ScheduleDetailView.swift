@@ -151,7 +151,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         
         
         let classDetailsLabel = UILabel(frame: CGRect(x: (self.frame.size.width - 200)/2, y: 0 , width: 200 , height: 40))
-        classDetailsLabel.text = "Class details"
+        classDetailsLabel.text = "Class details".capitalized
         topBar.addSubview(classDetailsLabel)
         classDetailsLabel.textAlignment = .center
         classDetailsLabel.font = UIFont(name: helveticaRegular, size: 17)
@@ -367,10 +367,10 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         
         
         
-        mJoinedPercentageLabel.frame = CGRect(x: 0, y: (mJoinStudentProgressBar.frame.size.height-((mJoinStudentProgressBar.frame.size.height / 6) + 30) )/2, width: mJoinStudentProgressBar.frame.size.width , height: mJoinStudentProgressBar.frame.size.height / 6)
+        mJoinedPercentageLabel.frame = CGRect(x: 0, y: (mJoinStudentProgressBar.frame.size.height-((mJoinStudentProgressBar.frame.size.height / 5) + 30) )/2, width: mJoinStudentProgressBar.frame.size.width , height: mJoinStudentProgressBar.frame.size.height / 5)
         mJoinStudentProgressBar.addSubview(mJoinedPercentageLabel)
         mJoinedPercentageLabel.textAlignment = .center
-        mJoinedPercentageLabel.font = UIFont(name: HelveticaNeueThin, size: 50)
+        mJoinedPercentageLabel.font = UIFont(name: HelveticaNeueThin, size: 80)
         mJoinedPercentageLabel.lineBreakMode = .byTruncatingMiddle
         mJoinedPercentageLabel.textColor = blackTextColor
         mJoinedPercentageLabel.backgroundColor = UIColor.clear
@@ -380,7 +380,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         mJoinedStudentsLabel.frame = CGRect(x: mJoinedPercentageLabel.frame.origin.x ,y: mJoinedPercentageLabel.frame.origin.y + mJoinedPercentageLabel.frame.size.height , width: mJoinedPercentageLabel.frame.size.width , height: 30)
         mJoinStudentProgressBar.addSubview(mJoinedStudentsLabel)
         mJoinedStudentsLabel.textAlignment = .center
-        mJoinedStudentsLabel.font = UIFont(name: helveticaRegular, size: 14)
+        mJoinedStudentsLabel.font = UIFont(name: helveticaRegular, size: 13)
         mJoinedPercentageLabel.lineBreakMode = .byTruncatingMiddle
         mJoinedStudentsLabel.textColor = UIColor.lightGray
         
@@ -419,7 +419,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         allocateSeatButton.layer.cornerRadius = 5
 //        allocateSeatButton.layer.borderWidth = 1
 //        allocateSeatButton.layer.borderColor = standard_Red.cgColor
-        allocateSeatButton.setTitleColor(standard_Red, for: UIControlState())
+        allocateSeatButton.setTitleColor(standard_Button, for: UIControlState())
        loadingView.addSubview(allocateSeatButton)
         allocateSeatButton.isHidden = true
         allocateSeatButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 17)
@@ -447,7 +447,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         
         cancelClassButton.frame = CGRect(x: 10, y: editSeatButton.frame.origin.y , width: editSeatButton.frame.size.width ,height: editSeatButton.frame.size.height)
         cancelClassButton.setTitle("Cancel class".capitalized, for: UIControlState())
-        cancelClassButton.setTitleColor(standard_Red, for: UIControlState())
+        cancelClassButton.setTitleColor(standard_Button, for: UIControlState())
         loadingView.addSubview(cancelClassButton)
         cancelClassButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 17)
         cancelClassButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
@@ -539,10 +539,10 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
     private func joinedLabelWithJoinedCount(OccupiedSeats:Int, StudentsRegistered:Int) {
         let string = "\(OccupiedSeats) of \(StudentsRegistered) joined" as NSString
         let attributedString = NSMutableAttributedString(string: string as String )
-        attributedString.addAttributes([NSForegroundColorAttributeName: blackTextColor], range: string.range(of: "\(OccupiedSeats)"))
-        attributedString.addAttributes([NSForegroundColorAttributeName: UIColor.lightGray], range: string.range(of: " of "))
-        attributedString.addAttributes([NSForegroundColorAttributeName: blackTextColor], range: string.range(of: "\(StudentsRegistered)"))
-        attributedString.addAttributes([NSForegroundColorAttributeName: UIColor.lightGray], range: string.range(of: " joined"))
+        attributedString.addAttributes([NSForegroundColorAttributeName: UIColor.black], range: string.range(of: "\(OccupiedSeats)"))
+        attributedString.addAttributes([NSForegroundColorAttributeName: standard_TextGrey], range: string.range(of: " of "))
+        attributedString.addAttributes([NSForegroundColorAttributeName: UIColor.black], range: string.range(of: "\(StudentsRegistered)"))
+        attributedString.addAttributes([NSForegroundColorAttributeName: standard_TextGrey], range: string.range(of: " joined"))
         mJoinedStudentsLabel.attributedText = attributedString
     }
     
@@ -680,6 +680,8 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
                                     
                                     beginClassButton.isHidden = true
                                     
+                                    cancelClassButton.frame = CGRect(x: allocateSeatButton.frame.origin.x, y: allocateSeatButton.frame.origin.y , width: cancelClassButton.frame.size.width ,height: cancelClassButton.frame.size.height)
+                                    
                                 }
                                 else if SessionState == kopened
                                 {
@@ -688,6 +690,8 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
                                     beginClassButton.isEnabled = true
                                     beginClassButton.setTitleColor(standard_Button, for: UIControlState())
                                     beginClassButton.layer.borderColor = standard_Button.cgColor
+                                    
+                                    cancelClassButton.frame = CGRect(x: allocateSeatButton.frame.origin.x, y: allocateSeatButton.frame.origin.y , width: cancelClassButton.frame.size.width ,height: cancelClassButton.frame.size.height)
                                 }
                                 else{
                                     openClassButton.isHidden = true
@@ -823,6 +827,8 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
     // MARK: - buttons functions
     func onDoneButton()
     {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshTiles"), object: nil)
+        
         UIView.animate(withDuration: 0.5, animations: {
             self.frame = CGRect(x: self.frame.size.width + self.frame.size.width, y: self.frame.origin.y, width: self.frame.size.width, height: self.frame.size.height)
             }, completion: { finished in

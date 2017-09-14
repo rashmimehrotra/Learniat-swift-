@@ -73,6 +73,8 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
     
     var alertTimeValue                  = 0
     
+    var isOverDue                       = false
+    
     
     override init(frame: CGRect) {
         
@@ -167,8 +169,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
     {
         // handling code
         
-        let sessionState = sessionDetails.object(forKey: kSessionState) as! String
-        
+        let sessionState = sessionDetails.object(forKey: kSessionState) as! String        
         
         if delegate().responds(to: #selector(ScheduleScreenTileDelegate.delegateScheduleTileTouchedWithState(_:withCurrentTileDetails:)))
         {
@@ -210,7 +211,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         
         cancelledImageView.isHidden = true
         circleImage.isHidden = false
-        
+        mDifferenceTimeLabel.textColor = UIColor.black
         
         switch sessionState
         {
@@ -302,7 +303,13 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
             break
             
             
-        default: break
+        default:
+            self.backgroundColor = SelectedColor
+            mClassName.textColor = UIColor.white
+//            mSeatingLabel.textColor = UIColor.white
+            mDifferenceTimeLabel.textColor = UIColor.white
+            
+            break
             
         }
     }
@@ -474,6 +481,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         mSeatingLabel.textColor = UIColor.white
         mClassName.textColor = UIColor.white
         mDifferenceTimeLabel.textColor = UIColor.white
+        isOverDue = true
         
         overDueTimer.invalidate()
         nextSessionTimer.invalidate()
