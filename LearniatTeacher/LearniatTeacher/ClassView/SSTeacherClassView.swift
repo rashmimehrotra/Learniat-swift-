@@ -2115,6 +2115,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
         
         SSTeacherDataSource.sharedDataSource.mModelAnswersArray.removeAllObjects()
+        SSTeacherDataSource.sharedDataSource.mRecordedModelAnswersArray.removeAllObjects()
     }
     
     func delegateFreezQuestion() {

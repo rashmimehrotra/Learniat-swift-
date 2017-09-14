@@ -119,6 +119,8 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     var mScribbleView : KMZDrawView!
     let colorSelectContoller = colorpopOverViewController()
     
+    let studentDetailDictonary      = NSMutableDictionary()
+    
     // ==========================================
     
     override init(frame: CGRect)
@@ -396,7 +398,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         if let studentId = studentdict.object(forKey: "StudentId") as? String
         {
             studentsAswerDictonary.setObject(studentAnswer, forKey: studentId as NSCopying)
-        
+            studentDetailDictonary.setObject(studentdict, forKey: studentId as NSCopying)
         }
        
         
@@ -638,6 +640,38 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
             sendButtonSpinner.isHidden = false
             sendButtonSpinner.startAnimating()
             mSendButton.isHidden = true
+            
+            if self.isModelAnswerSelected {
+                
+                for index in 0 ..< selectedStudentsArray.count
+                {
+                    let studentdict = selectedStudentsArray.object(at: index)
+                    
+                    if let studentId = (studentdict as AnyObject).object(forKey: "StudentId") as? String {
+                        
+                        let studentDetail = studentDetailDictonary.object(forKey: studentId)
+                        
+                        if let studentAnswerDict = studentsAswerDictonary.object(forKey: studentId) {
+                            if let AssessmentAnswerId = (studentAnswerDict as AnyObject).object(forKey: "AssessmentAnswerId") as? String {
+                                
+                                if let type = (studentAnswerDict as AnyObject).object(forKey: "QuestionType") as? String {
+                                    
+                                    let dict : NSMutableDictionary = ["AssessmentAnswerId" : AssessmentAnswerId, "QuestionType" : (studentAnswerDict as AnyObject).object(forKey: "QuestionType")!, "StudentId" : (studentAnswerDict as AnyObject).object(forKey: "StudentId")!, "StudentName" : (studentDetail as AnyObject).object(forKey: "Name")!]
+                                    
+                                    if type == kText {
+                                        dict.addEntries(from: ["TextAnswer" : (studentAnswerDict as AnyObject).object(forKey: "TextAnswer")!])
+                                    }
+                                    else {
+                                        dict.addEntries(from: ["TeacherScribble" : _currentQuestionDetials.object(forKey: "Scribble")!, "Image" : (studentAnswerDict as AnyObject).object(forKey: "Scribble")!])
+                                    }
+                                    
+                                    SSTeacherDataSource.sharedDataSource.mModelAnswersArray.add(dict)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             
             // By Ujjval
             // Check image available or not to post on server
@@ -1046,7 +1080,6 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
                         
                         StudentIdArray.add(studentId)
                         AssessmentAnswerIdArray.add(AssessmentAnswerId)
-                        
                         
                         
                     }

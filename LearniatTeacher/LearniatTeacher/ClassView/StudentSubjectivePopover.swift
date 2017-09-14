@@ -312,14 +312,24 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
 //            }
             if let _ = _studentAnswerDetails.object(forKey: "AssessmentAnswerId") as? String {
                 
-                if SSTeacherDataSource.sharedDataSource.mModelAnswersArray.contains(["AssessmentAnswerId" : _studentAnswerDetails.object(forKey: "AssessmentAnswerId")!, "Image" : _studentAnswerDetails.object(forKey: "Scribble")!, "QuestionType" : _studentAnswerDetails.object(forKey: "QuestionType")!, "StudentId" : _studentAnswerDetails.object(forKey: "StudentId")!, "StudentName" : _currentStudentDict.object(forKey: "Name")!, "TeacherScribble" : _currentEvaluationDetails.object(forKey: "imageUrl")!]) {
-                
-                    isModelAnswer = true
-//                    modelAnswerButton.isHidden = isModelAnswer
-                    modelAnswerButton.setTitleColor(UIColor.lightGray ,for:UIControlState());
-                    modelAnswerButton.isEnabled = false
+                if let type = _studentAnswerDetails.object(forKey: "QuestionType") as? String {
+                    
+                    let dict : NSMutableDictionary = ["AssessmentAnswerId" : _studentAnswerDetails.object(forKey: "AssessmentAnswerId")!, "QuestionType" : _studentAnswerDetails.object(forKey: "QuestionType")!, "StudentId" : _studentAnswerDetails.object(forKey: "StudentId")!, "StudentName" : _currentStudentDict.object(forKey: "Name")!]
+                    
+                    if type == kText {
+                        dict.addEntries(from: ["TextAnswer" : _studentAnswerDetails.object(forKey: "TextAnswer")!])
+                    }
+                    else {
+                        dict.addEntries(from: ["TeacherScribble" : _currentQuestiondetails.object(forKey: "Scribble")!, "Image" : _studentAnswerDetails.object(forKey: "Scribble")!])
+                    }
+                    
+                    if SSTeacherDataSource.sharedDataSource.mModelAnswersArray.contains(dict) {
+                        
+                        isModelAnswer = true
+                        modelAnswerButton.setTitleColor(UIColor.lightGray ,for:UIControlState());
+                        modelAnswerButton.isEnabled = false
+                    }
                 }
-                
             }
             
             if let StudentId = _studentAnswerDetails.object(forKey: "StudentId") as? String {
@@ -351,11 +361,6 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         _currentQuestiondetails = questionDict
         
         _currentEvaluationDetails = evaluationDetails
-        
-        print("\n_studentAnswerDetails == \(_studentAnswerDetails)")
-        print("\n_currentStudentDict == \(_currentStudentDict)")
-        print("\n_currentQuestiondetails == \(_currentQuestiondetails)")
-        print("\n_currentEvaluationDetails == \(_currentEvaluationDetails)")
     }
     
     // ==========================================
@@ -411,19 +416,45 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
     
     func onDoneButton()
     {
-        if isAfterEvaluated {
+        if isAfterEvaluated  {
             
-            SSTeacherDataSource.sharedDataSource.mModelAnswersArray.add(["AssessmentAnswerId" : _studentAnswerDetails.object(forKey: "AssessmentAnswerId")!, "Image" : _studentAnswerDetails.object(forKey: "Scribble")!, "QuestionType" : _studentAnswerDetails.object(forKey: "QuestionType")!, "StudentId" : _studentAnswerDetails.object(forKey: "StudentId")!, "StudentName" : _currentStudentDict.object(forKey: "Name")!, "TeacherScribble" : _currentEvaluationDetails.object(forKey: "imageUrl")!])
-            
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "setModelAnswerList"), object: nil)
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "setModelAnswer"), object: _studentAnswerDetails.object(forKey: "StudentId")!)
+            if self.isModelAnswer {
+                if let type = _studentAnswerDetails.object(forKey: "QuestionType") as? String {
+                    
+                    let dict : NSMutableDictionary = ["AssessmentAnswerId" : _studentAnswerDetails.object(forKey: "AssessmentAnswerId")!, "QuestionType" : _studentAnswerDetails.object(forKey: "QuestionType")!, "StudentId" : _studentAnswerDetails.object(forKey: "StudentId")!, "StudentName" : _currentStudentDict.object(forKey: "Name")!]
+                    
+                    if type == kText {
+                        dict.addEntries(from: ["TextAnswer" : _studentAnswerDetails.object(forKey: "TextAnswer")!])
+                    }
+                    else {
+                        dict.addEntries(from: ["TeacherScribble" : _currentQuestiondetails.object(forKey: "Scribble")!, "Image" : _studentAnswerDetails.object(forKey: "Scribble")!])
+                    }
+                    
+                    SSTeacherDataSource.sharedDataSource.mModelAnswersArray.add(dict)
+                    
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "setModelAnswerList"), object: nil)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "setModelAnswer"), object: _studentAnswerDetails.object(forKey: "StudentId")!)
+                }
+            }
             popover().dismiss(animated: true)
             return
         }
         
         if self.isModelAnswer {
             
-            SSTeacherDataSource.sharedDataSource.mModelAnswersArray.add(["AssessmentAnswerId" : _studentAnswerDetails.object(forKey: "AssessmentAnswerId")!, "Image" : _studentAnswerDetails.object(forKey: "Scribble")!, "QuestionType" : _studentAnswerDetails.object(forKey: "QuestionType")!, "StudentId" : _studentAnswerDetails.object(forKey: "StudentId")!, "StudentName" : _currentStudentDict.object(forKey: "Name")!, "TeacherScribble" : _currentQuestiondetails.object(forKey: "Scribble")!])
+            if let type = _studentAnswerDetails.object(forKey: "QuestionType") as? String {
+                
+                let dict : NSMutableDictionary = ["AssessmentAnswerId" : _studentAnswerDetails.object(forKey: "AssessmentAnswerId")!, "QuestionType" : _studentAnswerDetails.object(forKey: "QuestionType")!, "StudentId" : _studentAnswerDetails.object(forKey: "StudentId")!, "StudentName" : _currentStudentDict.object(forKey: "Name")!]
+                
+                if type == kText {
+                    dict.addEntries(from: ["TextAnswer" : _studentAnswerDetails.object(forKey: "TextAnswer")!])
+                }
+                else {
+                    dict.addEntries(from: ["TeacherScribble" : _currentQuestiondetails.object(forKey: "Scribble")!, "Image" : _studentAnswerDetails.object(forKey: "Scribble")!])
+                }
+                
+                SSTeacherDataSource.sharedDataSource.mModelAnswersArray.add(dict)
+            }
         }
         
         if isModelAnswer == true || mStarRatingView.rating() > 0 || mScribbleView.curImage != nil
