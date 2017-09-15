@@ -97,6 +97,8 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
     var mScribbleView : KMZDrawView!
     let colorSelectContoller = colorpopOverViewController()
     
+    var currentQuestionDetials:AnyObject!
+    
     // ==========================================
     
     
@@ -364,6 +366,7 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         
         studentsAswerDictonary = answerDetails
         studentdict = studentDetails
+        currentQuestionDetials = _currentQuestionDetials
         
         let subViews = containerview.subviews
         
@@ -477,6 +480,28 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
     {
         
         
+        if self.isModelAnswerSelected {
+            
+            if let studentId = studentdict.object(forKey: "StudentId") as? String {
+                
+                if let AssessmentAnswerId = studentsAswerDictonary.object(forKey: "AssessmentAnswerId") as? String {
+                    
+                    if let type = (studentsAswerDictonary as AnyObject).object(forKey: "QuestionType") as? String {
+                        
+                        let dict : NSMutableDictionary = ["AssessmentAnswerId" : AssessmentAnswerId, "QuestionType" : (studentsAswerDictonary as AnyObject).object(forKey: "QuestionType")!, "StudentId" : studentId, "StudentName" : (studentdict as AnyObject).object(forKey: "Name")!]
+                        
+                        if type == kText {
+                            dict.addEntries(from: ["TextAnswer" : (studentsAswerDictonary as AnyObject).object(forKey: "TextAnswer")!])
+                        }
+                        else {
+                            dict.addEntries(from: ["TeacherScribble" : currentQuestionDetials.object(forKey: "Scribble")!, "Image" : (studentsAswerDictonary as AnyObject).object(forKey: "Scribble")!])
+                        }
+                        
+                        SSTeacherDataSource.sharedDataSource.mModelAnswersArray.add(dict)
+                    }
+                }
+            }
+        }
         
         let currentDate = Date()
         

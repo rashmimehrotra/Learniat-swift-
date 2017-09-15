@@ -197,10 +197,17 @@ class StudentModelAnswerCell: UIView,SSTeacherDataSourceDelegate
 //            delegate().delegateModelAnswerRemovedWithAssesmentAnswerId!(AssessmentAnswerId)
             delegate().delegateModelAnswerRemovedWithAssesmentAnswerId!(AssessmentAnswerId, studentID: currentCellDetails.object(forKey: "StudentId") as! String)
             
-            if SSTeacherDataSource.sharedDataSource.mModelAnswersArray.contains(currentCellDetails) {
-                
-                SSTeacherDataSource.sharedDataSource.mModelAnswersArray.remove(currentCellDetails)
-            }
+//            if SSTeacherDataSource.sharedDataSource.mModelAnswersArray.contains(currentCellDetails) {
+            
+                for obj in SSTeacherDataSource.sharedDataSource.mModelAnswersArray {
+                    if let StudentId = (obj as AnyObject).object(forKey: "StudentId") as? String {
+                        if currentCellDetails.object(forKey: "StudentId") as! String == StudentId {
+                            SSTeacherDataSource.sharedDataSource.mModelAnswersArray.remove(obj)
+                            break
+                        }
+                    }
+                }
+//            }
             
 //            SSTeacherDataSource.sharedDataSource.recordModelAnswerwithAssesmentAnswerId(AssessmentAnswerId, WithDelegate: self)
         }

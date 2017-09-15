@@ -300,6 +300,8 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         
         if isAfterEvaluated {
             
+            mDoneButton.isHidden = true
+            
             if let Rating = _currentEvaluationDetails.object(forKey: "Rating") as? String
             {
                 mStarRatingView.setStarRating(Int(Rating)!)
@@ -334,7 +336,7 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
             
             if let StudentId = _studentAnswerDetails.object(forKey: "StudentId") as? String {
                 if SSTeacherDataSource.sharedDataSource.mRecordedModelAnswersArray.contains(StudentId) {
-                    modelAnswerButton.isHidden = true
+                    modelAnswerButton.isHidden = true                    
                 }
             }
             
@@ -380,7 +382,29 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         modelAnswerButton.setTitleColor(UIColor.lightGray ,for:UIControlState());
         modelAnswerButton.isEnabled = false
         
-        
+        if isAfterEvaluated  {
+            
+            if self.isModelAnswer {
+                if let type = _studentAnswerDetails.object(forKey: "QuestionType") as? String {
+                    
+                    let dict : NSMutableDictionary = ["AssessmentAnswerId" : _studentAnswerDetails.object(forKey: "AssessmentAnswerId")!, "QuestionType" : _studentAnswerDetails.object(forKey: "QuestionType")!, "StudentId" : _studentAnswerDetails.object(forKey: "StudentId")!, "StudentName" : _currentStudentDict.object(forKey: "Name")!]
+                    
+                    if type == kText {
+                        dict.addEntries(from: ["TextAnswer" : _studentAnswerDetails.object(forKey: "TextAnswer")!])
+                    }
+                    else {
+                        dict.addEntries(from: ["TeacherScribble" : _currentQuestiondetails.object(forKey: "Scribble")!, "Image" : _studentAnswerDetails.object(forKey: "Scribble")!])
+                    }
+                    
+                    SSTeacherDataSource.sharedDataSource.mModelAnswersArray.add(dict)
+                    
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "setModelAnswerList"), object: nil)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "setModelAnswer"), object: _studentAnswerDetails.object(forKey: "StudentId")!)
+                }
+            }
+            popover().dismiss(animated: true)
+            return
+        }
     }
     
     
@@ -416,29 +440,7 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
     
     func onDoneButton()
     {
-        if isAfterEvaluated  {
-            
-            if self.isModelAnswer {
-                if let type = _studentAnswerDetails.object(forKey: "QuestionType") as? String {
-                    
-                    let dict : NSMutableDictionary = ["AssessmentAnswerId" : _studentAnswerDetails.object(forKey: "AssessmentAnswerId")!, "QuestionType" : _studentAnswerDetails.object(forKey: "QuestionType")!, "StudentId" : _studentAnswerDetails.object(forKey: "StudentId")!, "StudentName" : _currentStudentDict.object(forKey: "Name")!]
-                    
-                    if type == kText {
-                        dict.addEntries(from: ["TextAnswer" : _studentAnswerDetails.object(forKey: "TextAnswer")!])
-                    }
-                    else {
-                        dict.addEntries(from: ["TeacherScribble" : _currentQuestiondetails.object(forKey: "Scribble")!, "Image" : _studentAnswerDetails.object(forKey: "Scribble")!])
-                    }
-                    
-                    SSTeacherDataSource.sharedDataSource.mModelAnswersArray.add(dict)
-                    
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "setModelAnswerList"), object: nil)
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "setModelAnswer"), object: _studentAnswerDetails.object(forKey: "StudentId")!)
-                }
-            }
-            popover().dismiss(animated: true)
-            return
-        }
+        
         
         if self.isModelAnswer {
             
