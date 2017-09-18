@@ -456,6 +456,8 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
                 }
                 
                 SSTeacherDataSource.sharedDataSource.mModelAnswersArray.add(dict)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "setModelAnswerList"), object: nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "setModelAnswer"), object: _studentAnswerDetails.object(forKey: "StudentId")!)
             }
         }
         
@@ -521,7 +523,8 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
             
             feedBackDetails.setObject("", forKey: "textRating" as NSCopying)
             
-            feedBackDetails.setObject("\(isModelAnswer)", forKey: "ModelAnswerFlag" as NSCopying)
+//            feedBackDetails.setObject("\(isModelAnswer)", forKey: "ModelAnswerFlag" as NSCopying)
+            feedBackDetails.setObject("0", forKey: "ModelAnswerFlag" as NSCopying)
             
             SSTeacherDataSource.sharedDataSource.sendFeedbackToStudentWithDetails(feedBackDetails, WithDelegate: self)
             

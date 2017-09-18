@@ -666,6 +666,8 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
                                     }
                                     
                                     SSTeacherDataSource.sharedDataSource.mModelAnswersArray.add(dict)
+                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "setModelAnswerList"), object: nil)
+                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "setModelAnswer"), object: (studentAnswerDict as AnyObject).object(forKey: "StudentId")!)
                                 }
                             }
                         }
@@ -1103,7 +1105,8 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         
         feedBackDetails.setObject("\(givenTextReply)", forKey: "textRating" as NSCopying)
         
-        feedBackDetails.setObject("\(isModelAnswerSelected)", forKey: "ModelAnswerFlag" as NSCopying)
+//        feedBackDetails.setObject("\(isModelAnswerSelected)", forKey: "ModelAnswerFlag" as NSCopying)
+        feedBackDetails.setObject("0", forKey: "ModelAnswerFlag" as NSCopying)
         
         SSTeacherDataSource.sharedDataSource.sendFeedbackToStudentWithDetails(feedBackDetails, WithDelegate: self)
         
@@ -1135,7 +1138,8 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
                                 feedBackDetails.setObject("upload/".appending(currentTeacherImageURl).appending(".png"),  forKey: "imageUrl" as NSCopying)
                                 feedBackDetails.setObject("\(givenBadgeId)", forKey: "BadgeId" as NSCopying)
                                 feedBackDetails.setObject("\(givenTextReply)", forKey: "textRating" as NSCopying)
-                                feedBackDetails.setObject("\(isModelAnswerSelected)", forKey: "ModelAnswerFlag" as NSCopying)
+//                                feedBackDetails.setObject("\(isModelAnswerSelected)", forKey: "ModelAnswerFlag" as NSCopying)
+                                feedBackDetails.setObject("0", forKey: "ModelAnswerFlag" as NSCopying)
                                 selectedStudentsArray.remove(answerDetails)
                                
                                 if delegate().responds(to: #selector(SubmissionSubjectiveViewDelegate.delegateStudentSubmissionEvaluatedWithDetails(_:withStudentId:withSubmissionCount:))) {
