@@ -1,31 +1,34 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="C8f-AP-HYf">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="C8f-AP-HYf">
+    <device id="ipad9_7" orientation="landscape">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Login View Controller-->
         <scene sceneID="J1R-Q4-iZh">
             <objects>
-                <viewController id="C8f-AP-HYf" customClass="LoginViewController" customModule="Learniat_Teacher" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="C8f-AP-HYf" customClass="LoginViewController" customModule="Learniat_Teacher" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="AQO-CM-dMw"/>
                         <viewControllerLayoutGuide type="bottom" id="PAm-DW-hJF"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="qYW-qg-VQC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <segue destination="jVR-tN-eqI" kind="show" identifier="LoginSuccessSegue" id="N82-LX-9VO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eeX-U4-FUm" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="245" y="301"/>
+            <point key="canvasLocation" x="-227" y="39"/>
         </scene>
         <!--Teacher Schedule View Controller-->
         <scene sceneID="Zga-5M-CXj">
@@ -36,11 +39,10 @@
                         <viewControllerLayoutGuide type="bottom" id="rUh-0z-EdB"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="fsY-XN-Bk4">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <segue destination="2In-rm-84a" kind="presentation" identifier="ScheduleToClassView" id="doA-LQ-7vn"/>
                         <segue destination="C8f-AP-HYf" kind="presentation" identifier="ScheduleToLogin" id="E2y-UQ-AVB"/>
@@ -59,17 +61,18 @@
                         <viewControllerLayoutGuide type="bottom" id="1B6-21-Ece"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="3qm-Eo-Xcw">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <connections>
                         <segue destination="jVR-tN-eqI" kind="presentation" identifier="AutoAllocateToSchedule" id="Qwt-gC-D44"/>
+                        <segue destination="C8f-AP-HYf" kind="presentation" identifier="AutoAllocateToLogin" id="YzI-AV-H6b"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XPM-l9-WH0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2495" y="301"/>
+            <point key="canvasLocation" x="2591" y="1100"/>
         </scene>
         <!--Teacher Class View-->
         <scene sceneID="4Lm-hQ-xwF">
@@ -80,17 +83,18 @@
                         <viewControllerLayoutGuide type="bottom" id="td7-dK-2xX"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Nxs-ni-lnQ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <connections>
                         <segue destination="jVR-tN-eqI" kind="presentation" identifier="ClassViewToSchedule" id="oyv-Uq-CL0"/>
+                        <segue destination="C8f-AP-HYf" kind="presentation" identifier="ClassToLogin" id="COr-Px-Zmn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lsw-Wm-ghK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3218" y="301"/>
+            <point key="canvasLocation" x="3253" y="212"/>
         </scene>
         <!--Preallocate Seat View Controller-->
         <scene sceneID="ui9-S0-ZWw">
@@ -101,10 +105,13 @@
                         <viewControllerLayoutGuide type="bottom" id="Mls-AO-yQO"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="j2f-SD-uNI">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
+                    <connections>
+                        <segue destination="C8f-AP-HYf" kind="presentation" identifier="PreAllocateToLogin" id="cKl-Ex-UyE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fhS-pC-zWg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -112,6 +119,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="YzI-AV-H6b"/>
         <segue reference="N82-LX-9VO"/>
     </inferredMetricsTieBreakers>
 </document>

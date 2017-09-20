@@ -118,6 +118,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
     
     var mJoinedStudentsLabel            = UILabel()
     
+    var teacherScheduleViewController:TeacherScheduleViewController? = nil
     
     var mProgressContainerView = UIImageView()
     
@@ -150,10 +151,10 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         
         
         let classDetailsLabel = UILabel(frame: CGRect(x: (self.frame.size.width - 200)/2, y: 0 , width: 200 , height: 40))
-        classDetailsLabel.text = "Class details"
+        classDetailsLabel.text = "Class details".capitalized
         topBar.addSubview(classDetailsLabel)
         classDetailsLabel.textAlignment = .center
-        
+        classDetailsLabel.font = UIFont(name: helveticaRegular, size: 17)
         
         let doneButton = UIButton(frame: CGRect(x: self.frame.size.width - (self.frame.size.width/2 - 10), y: 0, width: self.frame.size.width/2 - 20, height: 40))
         topBar.addSubview(doneButton)
@@ -161,14 +162,14 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         doneButton.setTitleColor(standard_Button, for: UIControlState())
         doneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         doneButton.addTarget(self, action: #selector(ScheduleDetailView.onDoneButton), for: UIControlEvents.touchUpInside)
-        doneButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
+        doneButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 17)
         
         
         
         mClassnameLabel.frame = CGRect(x: 10, y: topBar.frame.origin.y + topBar.frame.size.height + 10, width: self.frame.size.width/2 - 20, height: 30)
         self.addSubview(mClassnameLabel)
         mClassnameLabel.textAlignment = .left
-        mClassnameLabel.font = UIFont(name: helveticaMedium, size: 18)
+        mClassnameLabel.font = UIFont(name: helveticaMedium, size: 17)
         mClassnameLabel.text = "B - ||| - Biology"
         mClassnameLabel.lineBreakMode = .byTruncatingMiddle
         
@@ -176,15 +177,15 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         mRoomNameLabel.frame = CGRect(x: 10, y: mClassnameLabel.frame.origin.y + mClassnameLabel.frame.size.height + 10, width: self.frame.size.width/2 - 20, height: 20)
         self.addSubview(mRoomNameLabel)
         mRoomNameLabel.textAlignment = .left
-        mRoomNameLabel.font = UIFont(name: helveticaRegular, size: 12)
+        mRoomNameLabel.font = UIFont(name: helveticaRegular, size: 13)
         mRoomNameLabel.text = "Room: 14"
         mRoomNameLabel.lineBreakMode = .byTruncatingMiddle
         mRoomNameLabel.textColor = standard_TextGrey
         
         mTimelabel.frame = CGRect(x: self.frame.size.width - (self.frame.size.width/2 - 10), y: topBar.frame.origin.y + topBar.frame.size.height + 10, width: self.frame.size.width/2 - 20, height: 30)
-        self.addSubview(mTimelabel)
+//        self.addSubview(mTimelabel)
         mTimelabel.textAlignment = .right
-        mTimelabel.font = UIFont(name: helveticaMedium, size: 18)
+        mTimelabel.font = UIFont(name: helveticaMedium, size: 17)
         mTimelabel.text = "Starts: 00:00:45"
         
         loadingView = UIView(frame: CGRect(x: 0 ,y: mRoomNameLabel.frame.origin.y + mRoomNameLabel.frame.size.height, width: self.frame.size.width,height: self.frame.size.height - (mRoomNameLabel.frame.origin.y + mRoomNameLabel.frame.size.height)))
@@ -192,7 +193,8 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         loadingView.isHidden = true
         
         
-        let LineView = UIView(frame: CGRect(x: 0 ,y: 10, width: self.frame.size.width,height: 1 ))
+//        let LineView = UIView(frame: CGRect(x: 0 ,y: 10, width: self.frame.size.width,height: 1 ))
+        let LineView = UIView(frame: CGRect(x: 0 ,y: 10, width: self.frame.size.width,height: 0.5))
         LineView.backgroundColor = LineGrayColor
         loadingView.addSubview(LineView)
         
@@ -224,18 +226,18 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         
         
         
-        let mStudentsRegistered = UILabel(frame: CGRect(x: 10, y: LineView.frame.origin.y + LineView.frame.size.height, width: self.frame.size.width/2 - 20, height: 40))
+        let mStudentsRegistered = UILabel(frame: CGRect(x: 10, y: LineView.frame.origin.y + LineView.frame.size.height, width: self.frame.size.width/2 - 20, height: 38))
         loadingView.addSubview(mStudentsRegistered)
         mStudentsRegistered.textAlignment = .left
-        mStudentsRegistered.font = UIFont(name: helveticaRegular, size: 18)
-        mStudentsRegistered.text = "Students registered"
+        mStudentsRegistered.font = UIFont(name: helveticaRegular, size: 17)
+        mStudentsRegistered.text = "Students registered".capitalized
         mStudentsRegistered.lineBreakMode = .byTruncatingMiddle
         
         
         studentsRegistedlabel.frame = CGRect(x: self.frame.size.width - (self.frame.size.width/4 - 10), y: mStudentsRegistered.frame.origin.y , width: self.frame.size.width/4 - 20, height: mStudentsRegistered.frame.size.height)
         loadingView.addSubview(studentsRegistedlabel)
         studentsRegistedlabel.textAlignment = .right
-        studentsRegistedlabel.font = UIFont(name: helveticaRegular, size: 18)
+        studentsRegistedlabel.font = UIFont(name: helveticaRegular, size: 17)
         studentsRegistedlabel.text = "24"
         
         
@@ -246,7 +248,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         mStudentsViewButton.setTitleColor(standard_Button, for: UIControlState())
         mStudentsViewButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         mStudentsViewButton.addTarget(self, action: #selector(ScheduleDetailView.onViewStudentsButton), for: UIControlEvents.touchUpInside)
-        mStudentsViewButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
+        mStudentsViewButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 17)
         
         
 //        let LineView3 = UIView(frame: CGRect(x: 0 ,y: mStudentsRegistered.frame.origin.y + mStudentsRegistered.frame.size.height, width: self.frame.size.width,height: 1 ))
@@ -285,24 +287,25 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         
         
         
-        let LineView4 = UIView(frame: CGRect(x: 0 ,y: studentsRegistedlabel.frame.origin.y + studentsRegistedlabel.frame.size.height, width: self.frame.size.width,height: 1 ))
+//        let LineView4 = UIView(frame: CGRect(x: 0 ,y: studentsRegistedlabel.frame.origin.y + studentsRegistedlabel.frame.size.height, width: self.frame.size.width,height: 1 ))
+        let LineView4 = UIView(frame: CGRect(x: 0 ,y: studentsRegistedlabel.frame.origin.y + studentsRegistedlabel.frame.size.height, width: self.frame.size.width,height: 0.5))
         LineView4.backgroundColor = LineGrayColor
         
         loadingView.addSubview(LineView4)
         
         
-        let mTopicsConfigured = UILabel(frame: CGRect(x: 10, y: LineView4.frame.origin.y + LineView4.frame.size.height, width: self.frame.size.width/2 - 20, height: 40))
+        let mTopicsConfigured = UILabel(frame: CGRect(x: 10, y: LineView4.frame.origin.y + LineView4.frame.size.height, width: self.frame.size.width/2 - 20, height: 38))
         loadingView.addSubview(mTopicsConfigured)
         mTopicsConfigured.textAlignment = .left
-        mTopicsConfigured.font = UIFont(name: helveticaRegular, size: 18)
-        mTopicsConfigured.text = "Topics completed"
+        mTopicsConfigured.font = UIFont(name: helveticaRegular, size: 17)
+        mTopicsConfigured.text = "Topics completed".capitalized
         mTopicsConfigured.lineBreakMode = .byTruncatingMiddle
         
         
         topicsConfiguredLabel.frame = CGRect(x: self.frame.size.width - (self.frame.size.width/4 - 10), y: mTopicsConfigured.frame.origin.y , width: self.frame.size.width/4 - 20, height: mTopicsConfigured.frame.size.height)
         loadingView.addSubview(topicsConfiguredLabel)
         topicsConfiguredLabel.textAlignment = .right
-        topicsConfiguredLabel.font = UIFont(name: helveticaRegular, size: 18)
+        topicsConfiguredLabel.font = UIFont(name: helveticaRegular, size: 17)
         topicsConfiguredLabel.text = "5 of 200"
         
         
@@ -313,20 +316,21 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         mTopicsViewButton.setTitleColor(standard_Button, for: UIControlState())
         mTopicsViewButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         mTopicsViewButton.addTarget(self, action: #selector(ScheduleDetailView.onViewTopicsButton), for: UIControlEvents.touchUpInside)
-        mTopicsViewButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
+        mTopicsViewButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 17)
         
         
-        let LineView5 = UIView(frame: CGRect(x: 0 ,y: mTopicsConfigured.frame.origin.y + mTopicsConfigured.frame.size.height, width: self.frame.size.width,height: 1 ))
+//        let LineView5 = UIView(frame: CGRect(x: 0 ,y: mTopicsConfigured.frame.origin.y + mTopicsConfigured.frame.size.height, width: self.frame.size.width,height: 1 ))
+        let LineView5 = UIView(frame: CGRect(x: 0 ,y: mTopicsConfigured.frame.origin.y + mTopicsConfigured.frame.size.height, width: self.frame.size.width,height: 0.5))
         LineView5.backgroundColor = LineGrayColor
         
         loadingView.addSubview(LineView5)
         
         
-        let mQuestionConfigured = UILabel(frame: CGRect(x: 10, y: LineView5.frame.origin.y + LineView5.frame.size.height, width: self.frame.size.width/2 - 20, height: 40))
+        let mQuestionConfigured = UILabel(frame: CGRect(x: 10, y: LineView5.frame.origin.y + LineView5.frame.size.height, width: self.frame.size.width/2 - 20, height: 38))
         loadingView.addSubview(mQuestionConfigured)
         mQuestionConfigured.textAlignment = .left
-        mQuestionConfigured.font = UIFont(name: helveticaRegular, size: 18)
-        mQuestionConfigured.text = "Questions completed"
+        mQuestionConfigured.font = UIFont(name: helveticaRegular, size: 17)
+        mQuestionConfigured.text = "Questions completed".capitalized
         mQuestionConfigured.lineBreakMode = .byTruncatingMiddle
         
         
@@ -334,11 +338,12 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         questionConfiguredLabel.frame = CGRect(x: self.frame.size.width - (self.frame.size.width/2 - 10), y: mQuestionConfigured.frame.origin.y , width: self.frame.size.width/2 - 20, height: mQuestionConfigured.frame.size.height)
         loadingView.addSubview(questionConfiguredLabel)
         questionConfiguredLabel.textAlignment = .right
-        questionConfiguredLabel.font = UIFont(name: helveticaRegular, size: 18)
+        questionConfiguredLabel.font = UIFont(name: helveticaRegular, size: 17)
         questionConfiguredLabel.text = "16 of 24"
         
         
-        let LineView6 = UIView(frame: CGRect(x: 0 ,y: mQuestionConfigured.frame.origin.y + mQuestionConfigured.frame.size.height, width: self.frame.size.width,height: 1 ))
+//        let LineView6 = UIView(frame: CGRect(x: 0 ,y: mQuestionConfigured.frame.origin.y + mQuestionConfigured.frame.size.height, width: self.frame.size.width,height: 1 ))
+        let LineView6 = UIView(frame: CGRect(x: 0 ,y: mQuestionConfigured.frame.origin.y + mQuestionConfigured.frame.size.height, width: self.frame.size.width,height: 0.5))
         LineView6.backgroundColor = LineGrayColor
         loadingView.addSubview(LineView6)
         
@@ -362,10 +367,10 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         
         
         
-        mJoinedPercentageLabel.frame = CGRect(x: 0, y: (mJoinStudentProgressBar.frame.size.height-((mJoinStudentProgressBar.frame.size.height / 6) + 30) )/2, width: mJoinStudentProgressBar.frame.size.width , height: mJoinStudentProgressBar.frame.size.height / 6)
+        mJoinedPercentageLabel.frame = CGRect(x: 0, y: (mJoinStudentProgressBar.frame.size.height-((mJoinStudentProgressBar.frame.size.height / 5) + 30) )/2, width: mJoinStudentProgressBar.frame.size.width , height: mJoinStudentProgressBar.frame.size.height / 5)
         mJoinStudentProgressBar.addSubview(mJoinedPercentageLabel)
         mJoinedPercentageLabel.textAlignment = .center
-        mJoinedPercentageLabel.font = UIFont(name: HelveticaNeueThin, size: 50)
+        mJoinedPercentageLabel.font = UIFont(name: HelveticaNeueThin, size: 80)
         mJoinedPercentageLabel.lineBreakMode = .byTruncatingMiddle
         mJoinedPercentageLabel.textColor = blackTextColor
         mJoinedPercentageLabel.backgroundColor = UIColor.clear
@@ -375,7 +380,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         mJoinedStudentsLabel.frame = CGRect(x: mJoinedPercentageLabel.frame.origin.x ,y: mJoinedPercentageLabel.frame.origin.y + mJoinedPercentageLabel.frame.size.height , width: mJoinedPercentageLabel.frame.size.width , height: 30)
         mJoinStudentProgressBar.addSubview(mJoinedStudentsLabel)
         mJoinedStudentsLabel.textAlignment = .center
-        mJoinedStudentsLabel.font = UIFont(name: helveticaRegular, size: 14)
+        mJoinedStudentsLabel.font = UIFont(name: helveticaRegular, size: 13)
         mJoinedPercentageLabel.lineBreakMode = .byTruncatingMiddle
         mJoinedStudentsLabel.textColor = UIColor.lightGray
         
@@ -389,60 +394,67 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         mJoinedStudentsButton.setTitleColor(standard_Button, for: UIControlState())
         mJoinedStudentsButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
         mJoinedStudentsButton.addTarget(self, action: #selector(ScheduleDetailView.onViewStudentsButton), for: UIControlEvents.touchUpInside)
-        mJoinedStudentsButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
+        mJoinedStudentsButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 17)
         
         
         
         
         editSeatButton.frame = CGRect(x: 10, y: loadingView.frame.size.height - 60 , width: loadingView.frame.size.width/4 ,height: loadingView.frame.size.width/12)
-        editSeatButton.setTitle("Edit seats", for: UIControlState())
+        editSeatButton.setTitle("Edit seats".capitalized, for: UIControlState())
         editSeatButton.setTitleColor(standard_Button, for: UIControlState())
 //        loadingView.addSubview(editSeatButton)
-        editSeatButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 18)
+        editSeatButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 17)
         editSeatButton.isHidden = true
 //        editSeatButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.Left
         editSeatButton.addTarget(self, action: #selector(ScheduleDetailView.onEditSeats), for: UIControlEvents.touchUpInside)
         editSeatButton.layer.cornerRadius = 5
-        editSeatButton.layer.borderWidth = 1
-        editSeatButton.layer.borderColor = standard_Button.cgColor
+//        editSeatButton.layer.borderWidth = 1
+//        editSeatButton.layer.borderColor = standard_Button.cgColor
 
         
         
         
         allocateSeatButton.frame = CGRect(x: 10, y: editSeatButton.frame.origin.y , width: editSeatButton.frame.size.width ,height: editSeatButton.frame.size.height)
-        allocateSeatButton.setTitle("Allocate seats", for: UIControlState())
+        allocateSeatButton.setTitle("Allocate seats".capitalized, for: UIControlState())
         allocateSeatButton.layer.cornerRadius = 5
-        allocateSeatButton.layer.borderWidth = 1
-        allocateSeatButton.layer.borderColor = standard_Red.cgColor
-        allocateSeatButton.setTitleColor(standard_Red, for: UIControlState())
+//        allocateSeatButton.layer.borderWidth = 1
+//        allocateSeatButton.layer.borderColor = standard_Red.cgColor
+        allocateSeatButton.setTitleColor(standard_Button, for: UIControlState())
        loadingView.addSubview(allocateSeatButton)
         allocateSeatButton.isHidden = true
-        allocateSeatButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 18)
+        allocateSeatButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 17)
         allocateSeatButton.addTarget(self, action: #selector(ScheduleDetailView.onAllocateSeats), for: UIControlEvents.touchUpInside)
         
         
         
         configureGrid.frame = CGRect(x: 10, y: editSeatButton.frame.origin.y , width: editSeatButton.frame.size.width ,height: editSeatButton.frame.size.height)
-        configureGrid.setTitle("Configure grid", for: UIControlState())
+        configureGrid.setTitle("Configure grid".capitalized, for: UIControlState())
         configureGrid.setTitleColor(standard_Button, for: UIControlState())
-//        loadingView.addSubview(configureGrid)
+        loadingView.addSubview(configureGrid)
         configureGrid.isHidden = true
-        configureGrid.titleLabel?.font = UIFont(name: helveticaRegular, size: 18)
+        configureGrid.titleLabel?.font = UIFont(name: helveticaRegular, size: 17)
         configureGrid.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
         configureGrid.addTarget(self, action: #selector(ScheduleDetailView.onConfigureGrid), for: UIControlEvents.touchUpInside)
         
         
+        configureGrid.layer.cornerRadius = 5
+        configureGrid.layer.borderWidth = 1
+        configureGrid.layer.borderColor = standard_Red.cgColor
+        configureGrid.setTitleColor(standard_Red, for: UIControlState())
+
+        
+        
         
         cancelClassButton.frame = CGRect(x: 10, y: editSeatButton.frame.origin.y , width: editSeatButton.frame.size.width ,height: editSeatButton.frame.size.height)
-        cancelClassButton.setTitle("Cancel class", for: UIControlState())
-        cancelClassButton.setTitleColor(standard_Red, for: UIControlState())
+        cancelClassButton.setTitle("Cancel class".capitalized, for: UIControlState())
+        cancelClassButton.setTitleColor(standard_Button, for: UIControlState())
         loadingView.addSubview(cancelClassButton)
-        cancelClassButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 18)
+        cancelClassButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 17)
         cancelClassButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
         cancelClassButton.addTarget(self, action: #selector(ScheduleDetailView.onCancelClass), for: UIControlEvents.touchUpInside)
         cancelClassButton.layer.cornerRadius = 5
-        cancelClassButton.layer.borderWidth = 1
-        cancelClassButton.layer.borderColor = standard_Red.cgColor
+//        cancelClassButton.layer.borderWidth = 1
+//        cancelClassButton.layer.borderColor = standard_Red.cgColor
         
 
         
@@ -450,14 +462,15 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         
         
         openClassButton.frame = CGRect(x: self.frame.size.width - (editSeatButton.frame.size.width + 10), y: editSeatButton.frame.origin.y , width: editSeatButton.frame.size.width ,height: editSeatButton.frame.size.height)
-        openClassButton.setTitle("Open class", for: UIControlState())
+        openClassButton.setTitle("Open class".capitalized, for: UIControlState())
         openClassButton.layer.cornerRadius = 5
         openClassButton.layer.borderWidth = 1
-        openClassButton.layer.borderColor = standard_Button.cgColor
-        openClassButton.setTitleColor(standard_Button, for: UIControlState())
+//        openClassButton.layer.borderColor = standard_Button.cgColor
+        openClassButton.layer.borderColor = standard_TextGrey.cgColor
+        openClassButton.setTitleColor(standard_TextGrey, for: UIControlState())
         loadingView.addSubview(openClassButton)
         openClassButton.isHidden = true
-        openClassButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 18)
+        openClassButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 17)
         openClassButton.addTarget(self, action: #selector(ScheduleDetailView.onOpenClass), for: UIControlEvents.touchUpInside)
         
        
@@ -466,14 +479,14 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         
         
         beginClassButton.frame = CGRect(x: self.frame.size.width - (editSeatButton.frame.size.width + 10), y: editSeatButton.frame.origin.y , width: editSeatButton.frame.size.width ,height: editSeatButton.frame.size.height)
-        beginClassButton.setTitle("Begin class", for: UIControlState())
+        beginClassButton.setTitle("Begin class".capitalized, for: UIControlState())
         beginClassButton.layer.cornerRadius = 5
         beginClassButton.layer.borderWidth = 1
         beginClassButton.layer.borderColor = standard_Button.cgColor
         beginClassButton.setTitleColor(standard_Button, for: UIControlState())
         loadingView.addSubview(beginClassButton)
         beginClassButton.isHidden = true
-        beginClassButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 18)
+        beginClassButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 17)
         beginClassButton.addTarget(self, action: #selector(ScheduleDetailView.onBeginClass), for: UIControlEvents.touchUpInside)
         
     }
@@ -504,11 +517,43 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         }
     }
     
+    func refreshJoinedStateBar() {
+        if let sessionId = currentSessionDetails.object(forKey: "SessionId") as? String
+        {
+            SSTeacherDataSource.sharedDataSource.getJoinedStudentsCount(sessionID: sessionId, success: { (result) in
+                if let registered = result.object(forKey: kRegistered) as? Int {
+                    if let joined = result.object(forKey: kJoined) as? Int {
+                        let percenatgeValue = (CGFloat(joined) /  CGFloat(registered)) * 100   
+                        self.mJoinedPercentageLabel.text =  NSString(format:"%.1f%%",percenatgeValue) as String;
+                        self.mJoinStudentProgressBar.progress = CGFloat(percenatgeValue) / 100;
+                        self.joinedLabelWithJoinedCount(OccupiedSeats: joined, StudentsRegistered: registered)
+                    }
+                }
+            }, withfailurehandler: { (error) in
+                
+            })
+        }
+    }
+    
+    
+    private func joinedLabelWithJoinedCount(OccupiedSeats:Int, StudentsRegistered:Int) {
+        let string = "\(OccupiedSeats) of \(StudentsRegistered) joined" as NSString
+        let attributedString = NSMutableAttributedString(string: string as String )
+        attributedString.addAttributes([NSForegroundColorAttributeName: UIColor.black], range: string.range(of: "\(OccupiedSeats)"))
+        attributedString.addAttributes([NSForegroundColorAttributeName: standard_TextGrey], range: string.range(of: " of "))
+        attributedString.addAttributes([NSForegroundColorAttributeName: UIColor.black], range: string.range(of: "\(StudentsRegistered)"))
+        attributedString.addAttributes([NSForegroundColorAttributeName: standard_TextGrey], range: string.range(of: " joined"))
+        mJoinedStudentsLabel.attributedText = attributedString
+    }
+    
+    
+    
     // MARK: - Teacher datasource delegate functions
     func didGetSessionSummaryDetials(_ details: AnyObject)
     {
        print(details)
         setcurrentViewDetails(details)
+        refreshJoinedStateBar()
     }
 
     func didGetSeatsRestWithDetials(_ details: AnyObject) {
@@ -530,7 +575,7 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         
         
         loadingView.isHidden = false
-        
+        self.mJoinStudentProgressBar.progress = 0;
         
         
         if let StudentsRegistered = details.object(forKey: "StudentsRegistered") as? String
@@ -571,43 +616,13 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
                     
                     preallocatedSeatslabel.text = "\(totalSesats) of \(StudentsRegistered)"
                     
-                    
-                    
-                    var percenatgeValue = (NSString(format: "%@", OccupiedSeats).floatValue) / (NSString(format: "%@", StudentsRegistered).floatValue) * 100;
-                    
-                    
-                    if(percenatgeValue.isNaN == true)
-                    {
-                        percenatgeValue = 0;
-                    }
-                    
-                    
-                    
-                    
-                    
-                    mJoinedPercentageLabel.text =  NSString(format:"%.1f%%",percenatgeValue) as String;
-                  
-                    mJoinStudentProgressBar.progress = CGFloat(percenatgeValue) / 100;
-                    
-                    let string = "\(OccupiedSeats) of \(StudentsRegistered) joined" as NSString
-                    let attributedString = NSMutableAttributedString(string: string as String )
-                    attributedString.addAttributes([NSForegroundColorAttributeName: blackTextColor], range: string.range(of: "\(OccupiedSeats)"))
-                    attributedString.addAttributes([NSForegroundColorAttributeName: UIColor.lightGray], range: string.range(of: " of "))
-                    attributedString.addAttributes([NSForegroundColorAttributeName: blackTextColor], range: string.range(of: "\(StudentsRegistered)"))
-                    attributedString.addAttributes([NSForegroundColorAttributeName: UIColor.lightGray], range: string.range(of: " joined"))
-                    mJoinedStudentsLabel.attributedText = attributedString
-                    
-                    
                     if let SeatsConfigured = details.object(forKey: "SeatsConfigured") as? String
                     {
-//                        seatsConfiguredLabel.text = SeatsConfigured
-                        
-                        
                         if Int(StudentsRegistered) > Int(SeatsConfigured)!
                         {
                             allocateSeatButton.isHidden = true
                             
-                             cancelClassButton.frame = CGRect(x: 10, y: editSeatButton.frame.origin.y , width: editSeatButton.frame.size.width ,height: editSeatButton.frame.size.height)
+                             cancelClassButton.frame = CGRect(x: editSeatButton.frame.origin.x + editSeatButton.frame.size.width + 10, y: editSeatButton.frame.origin.y , width: editSeatButton.frame.size.width ,height: editSeatButton.frame.size.height)
                             
                             editSeatButton.isHidden = true
                             configureGrid.isHidden = false
@@ -649,10 +664,14 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
                             editSeatButton.isHidden = false
                             configureGrid.isHidden = true
                             
+                            
+                            if let sessionId = currentSessionDetails.object(forKey: "SessionId") as? String{
+                            
                             if let SessionState = details.object(forKey: "SessionState") as? String
                             {
-                                if SessionState == kScheduled
+                                if SessionState == kScheduled && (Int(sessionId) == TeacherScheduleViewController.currentSessionId || Int(sessionId) == TeacherScheduleViewController.nextSessionId)
                                 {
+                                    
                                     openClassButton.isHidden = false
                                     openClassButton.isEnabled = true
                                     openClassButton.setTitleColor(standard_Button, for: UIControlState())
@@ -661,16 +680,25 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
                                     
                                     beginClassButton.isHidden = true
                                     
+                                    cancelClassButton.frame = CGRect(x: allocateSeatButton.frame.origin.x, y: allocateSeatButton.frame.origin.y , width: cancelClassButton.frame.size.width ,height: cancelClassButton.frame.size.height)
+                                    
                                 }
-                                else
+                                else if SessionState == kopened
                                 {
                                     openClassButton.isHidden = true
                                     beginClassButton.isHidden = false
                                     beginClassButton.isEnabled = true
                                     beginClassButton.setTitleColor(standard_Button, for: UIControlState())
                                     beginClassButton.layer.borderColor = standard_Button.cgColor
+                                    
+                                    cancelClassButton.frame = CGRect(x: allocateSeatButton.frame.origin.x, y: allocateSeatButton.frame.origin.y , width: cancelClassButton.frame.size.width ,height: cancelClassButton.frame.size.height)
+                                }
+                                else{
+                                    openClassButton.isHidden = true
+                                    beginClassButton.isHidden = true
                                 }
                             }
+                        }
 
                         }
                     }
@@ -767,6 +795,8 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
     
     
     
+    
+    
     // MARK: - current view updating functions
     func updateOverdueSession()
     {
@@ -797,6 +827,8 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
     // MARK: - buttons functions
     func onDoneButton()
     {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshTiles"), object: nil)
+        
         UIView.animate(withDuration: 0.5, animations: {
             self.frame = CGRect(x: self.frame.size.width + self.frame.size.width, y: self.frame.origin.y, width: self.frame.size.width, height: self.frame.size.height)
             }, completion: { finished in
@@ -903,6 +935,8 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
     
     func onViewTopicsButton()
     {
+        
+        //Point2
         if delegate().responds(to: #selector(ScheduleDetailViewDelegate.delegateViewLessonPlanPressed(_:)))
         {
             delegate().delegateViewLessonPlanPressed!(currentSessionDetails)

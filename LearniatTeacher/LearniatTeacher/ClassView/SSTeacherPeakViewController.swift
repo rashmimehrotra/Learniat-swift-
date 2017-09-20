@@ -33,11 +33,6 @@ class SSTeacherPeakViewController: UIViewController
         headerView.addSubview(seperatorView);
         
         
-        
-        
-        
-        
-        
         let headerlabel = UILabel(frame: CGRect(x: 20, y: 0, width: 200, height: 40))
         headerlabel.text = kOverlayScribble
         headerView.addSubview(headerlabel)

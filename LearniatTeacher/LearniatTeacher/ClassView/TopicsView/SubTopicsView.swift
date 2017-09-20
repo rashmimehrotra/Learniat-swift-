@@ -229,36 +229,31 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
     
     func didGetAllNodesWithDetails(_ details: AnyObject) {
         
+        var _mMaintopicsDetails = NSMutableArray()
         
-        if let statusString = details.object(forKey: "Status") as? String
-        {
-            if statusString == kSuccessString
-            {
-                var mMaintopicsDetails = NSMutableArray()
-               if let classCheckingVariable = (details.object(forKey: "SubTopics")! as AnyObject).object(forKey: "SubTopic") as? NSMutableArray
-               {
-                    mMaintopicsDetails = classCheckingVariable
+        if let statusString = details.object(forKey: "Status") as? String {
+            if statusString == kSuccessString {
+               if let classCheckingVariable = (details.object(forKey: "SubTopics")! as AnyObject).object(forKey: "SubTopic") as? NSMutableArray  {
+                    _mMaintopicsDetails = classCheckingVariable
+                } else {
+                    _mMaintopicsDetails.add((details.object(forKey: "SubTopics")! as AnyObject).object(forKey: "SubTopic")!)
                 }
-                else
-               {
-                    mMaintopicsDetails.add((details.object(forKey: "SubTopics")! as AnyObject).object(forKey: "SubTopic")!)
-                }
-                
-                SSTeacherDataSource.sharedDataSource.setSubTopicDictonaryWithDict(mMaintopicsDetails, withKey: currentMainTopicId)
-                
-                
-                
-                
-                addTopicsWithDetailsArray(mMaintopicsDetails)
+                SSTeacherDataSource.sharedDataSource.setSubTopicDictonaryWithDict(_mMaintopicsDetails, withKey: currentMainTopicId)
             }
+            
+            addTopicsWithDetailsArray(_mMaintopicsDetails)
+        }
+        else {
+            mActivityIndicator.isHidden = true
+            mActivityIndicator.stopAnimating()
+            mTopicName.text = "There are no sub-topics for this topic"
+             addTopicsWithDetailsArray(_mMaintopicsDetails)
         }
     }
     
     
     func addTopicsWithDetailsArray(_ mMaintopicsDetails:NSMutableArray)
     {
-        
-        
         
         if mMaintopicsDetails.count <= 0
         {
@@ -268,9 +263,6 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
         {
             mTopicsContainerView.isHidden = false
         }
-        
-        
-        
         
         let subViews = mTopicsContainerView.subviews.flatMap{ $0 as? SubTopicCell }
         
@@ -425,7 +417,72 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
             delegate().delegateDoneButtonPressed!()
         }
     }
-  
+    
+    // MARK: - TopicCompleted
+    //Pradip
+    func delegateTopicCompleted(_ TopicId: String) {
+        
+        if let sessionId = currentSessionDetails.object(forKey: "SessionId") as? String
+        {
+            
+            SSTeacherDataSource.sharedDataSource.TopicCompletedWithTopicID(TopicId, withSessionID: sessionId, withUserID: "499", withSuccessHandle: { (result) in
+                
+                print(result)
+                
+                
+                if let status = result.object(forKey: kStatus) as? String
+                {
+                    if status == kSuccessString
+                    {
+                        //Need to test
+                        if let subTopicView  = self.mTopicsContainerView.viewWithTag(Int(TopicId)!) as? SubTopicCell
+                        {
+                            subTopicView.m_SubTopicLabel.textColor = lightGrayColor
+                            
+                        }
+                        
+                    }
+                    else
+                    {
+                        if let error_message = result.object(forKey: kErrorMessage) as? String
+                        {
+                            self.makeToast(error_message, duration: 2.0, position: .bottom)
+                        }
+                        else
+                        {
+                            self.makeToast(status, duration: 2.0, position: .bottom)
+                        }
+                        
+                    }
+                }
+                else
+                {
+                    /*
+                    if let error_message = result.object(forKey: kErrorMessage) as? String
+                    {
+                        
+                    }
+                    else
+                    {
+                        
+                    }*/
+                    
+                    self.makeToast("update on lesson_plan table failed", duration: 2.0, position: .bottom)
+                    
+                }
+
+            }, withfailurehandler: { (error) in
+                
+                self.makeToast("Error\((error.code))-\((error.localizedDescription))", duration: 5.0, position: .bottom)
+            })
+            
+            
+        }
+ 
+       
+    }
+    
+    
     func delegateSubTopicCellStartedWithDetails(_ subTopicDetails: AnyObject, witStatedState isStarted: Bool) {
         
         
@@ -462,17 +519,8 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
                 
                 cumulativeTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(SubTopicsView.udpateCumulativeTime), userInfo: nil, repeats: true)
             }
-            else
-            {
-                if SSTeacherDataSource.sharedDataSource.isQuestionSent
-                {
-                    self.makeToast("A question is live with the previous topic. Please close the question before switching the topic", duration: 5.0, position: .bottom)
-                }
-                else
-                {
-                   self.makeToast("Please stop current topic to start new topic.", duration: 5.0, position: .bottom)
-                }
-                
+            else {
+                delegateShowAlert()
             }
             
             
@@ -481,21 +529,13 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
         {
             cumulativeTimer.invalidate()
             
-            if SSTeacherDataSource.sharedDataSource.startedSubTopicId != ""
-            {
-                
-                if let subTopicCellView  = mTopicsContainerView.viewWithTag(Int(SSTeacherDataSource.sharedDataSource.startedSubTopicId)!) as? SubTopicCell
-                {
+            if SSTeacherDataSource.sharedDataSource.startedSubTopicId != "" {
+                if let subTopicCellView  = mTopicsContainerView.viewWithTag(Int(SSTeacherDataSource.sharedDataSource.startedSubTopicId)!) as? SubTopicCell  {
                     subTopicCellView.startButton.setTitle("Resume", for: UIControlState())
                     subTopicCellView.startButton.setTitleColor(standard_Green, for: UIControlState())
                     
                 }
             }
-            
-            
-           
-            
-
         }
         
         if delegate().responds(to: #selector(SubTopicsViewDelegate.delegateSubtopicStateChanedWithSubTopicDetails(_:withState:withmainTopicName:)))
@@ -510,7 +550,7 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
     {
         if SSTeacherDataSource.sharedDataSource.isQuestionSent == true
         {
-             self.makeToast("A question is live with the previous topic. Please close the question before switching the topic", duration: 5.0, position: .bottom)
+             self.makeToast("A question is live. Please close the question.", duration: 3.0, position: .bottom)
         }
         else
         {

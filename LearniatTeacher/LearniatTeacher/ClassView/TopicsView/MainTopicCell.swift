@@ -153,11 +153,6 @@ class MainTopicCell: UIView{
             
         }
         
-        
-        
-        
-        
-        
         if let topicName = currentTopicDetails.object(forKey: "Name")as? String
         {
             if let CumulativeTime = currentTopicDetails.object(forKey: "CumulativeTime")as? String

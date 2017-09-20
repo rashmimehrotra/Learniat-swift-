@@ -59,6 +59,7 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
     
     var questionsDetailsDictonary:Dictionary<String, NSMutableArray> = Dictionary()
     
+    var  mScribbleButton = UIButton()
     var touchLocation :CGPoint!
     
     func setdelegate(_ delegate:AnyObject)
@@ -144,7 +145,7 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
         questionButtonsView.addSubview(seperatorView1)
         
         
-        let  mScribbleButton = UIButton(frame: CGRect(x: 0,  y: 0, width: questionButtonsView.frame.size.width ,height: mTopbarImageView.frame.size.height))
+        mScribbleButton = UIButton(frame: CGRect(x: 0,  y: 0, width: questionButtonsView.frame.size.width/2 ,height: mTopbarImageView.frame.size.height))
         questionButtonsView.addSubview(mScribbleButton)
         mScribbleButton.addTarget(self, action: #selector(QuestionsView.onScribbleButton), for: UIControlEvents.touchUpInside)
         mScribbleButton.setTitleColor(standard_Button, for: UIControlState())
@@ -163,7 +164,7 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
         
         
         let  mMRQ = UIButton(frame: CGRect(x: mScribbleButton.frame.origin.x + mScribbleButton.frame.size.width ,  y: 0, width: questionButtonsView.frame.size.width / 2  ,height: mTopbarImageView.frame.size.height))
-//        questionButtonsView.addSubview(mMRQ)
+        questionButtonsView.addSubview(mMRQ)
         mMRQ.addTarget(self, action: #selector(QuestionsView.onMRQButton), for: UIControlEvents.touchUpInside)
         mMRQ.setTitleColor(standard_Button, for: UIControlState())
         mMRQ.setTitle("MRQ", for: UIControlState())
@@ -298,8 +299,10 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
         
         if let statusString = details.object(forKey: "Status") as? String
         {
+            
             if statusString == kSuccessString
             {
+                 mScribbleButton.isEnabled = true
                 var mMaintopicsDetails = NSMutableArray()
                if let classCheckingVariable = (details.object(forKey: "Questions")! as AnyObject).object(forKey: "Question") as? NSMutableArray
                {
@@ -319,6 +322,25 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
                 addTopicsWithDetailsArray(mMaintopicsDetails)
             }
         }
+        else
+        {
+            mActivityIndicator.stopAnimating()
+
+            if isCurrentSubtopicStarted == true
+            {
+                mScribbleButton.isUserInteractionEnabled = true
+                mScribbleButton.setTitleColor(standard_Button, for: UIControlState())
+
+            }
+            else{
+                mScribbleButton.isUserInteractionEnabled = false
+                mScribbleButton.setTitleColor(lightGrayColor, for: UIControlState())
+
+            }
+            
+            addTopicsWithDetailsArray(NSMutableArray())
+            
+        }
     }
     
     
@@ -337,7 +359,7 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
         }
         
         
-        var height :CGFloat = 44
+        var height :CGFloat = 88
         
         var positionY :CGFloat = 0
         
@@ -353,19 +375,14 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
             topicCell.frame =   CGRect(x: 0  , y: positionY, width: mTopicsContainerView.frame.size.width, height: topicCell.getCurrentCellHeightWithDetails(currentTopicDetails as AnyObject, WIthCountValue: index + 1))
             
             
-            if isCurrentSubtopicStarted == true
-            {
+            if isCurrentSubtopicStarted == true {
                 topicCell.mSendButton.isHidden = false
-            }
-            else
-            {
+            } else {
                 topicCell.mSendButton.isHidden = true
             }
             
-            
             mTopicsContainerView.addSubview(topicCell)
             height = height + (topicCell.frame.size.height*2)
-            
             positionY = positionY + topicCell.frame.size.height
         }
         
@@ -532,12 +549,12 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
                 
                 questionInfoController.preferredContentSize = CGSize(width: 400,height: 317)
                 
-                let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
-                questionInfoController.setPopover(classViewPopOverController)
-                classViewPopOverController.contentSize = CGSize(width: 400,height: 317);
-                classViewPopOverController.delegate = self;
+                SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                questionInfoController.setPopover(SSTeacherDataSource.sharedDataSource.mPopOverController)
+                SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 400,height: 317);
+                SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
                 
-                classViewPopOverController.present(from: CGRect(
+                SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(
                     x:buttonPosition.x ,
                     y:buttonPosition.y + infoButton.frame.size.height / 2,
                     width: 1,
@@ -553,12 +570,12 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
                 
                 questionInfoController.preferredContentSize = CGSize(width: 400,height: 317)
                 
-                let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
-                questionInfoController.setPopover(classViewPopOverController)
-                classViewPopOverController.contentSize = CGSize(width: 400,height: 317);
-                classViewPopOverController.delegate = self;
+                SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                questionInfoController.setPopover(SSTeacherDataSource.sharedDataSource.mPopOverController)
+                SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 400,height: 317);
+                SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
                 
-                classViewPopOverController.present(from: CGRect(
+                SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(
                     x:buttonPosition.x ,
                     y:buttonPosition.y + infoButton.frame.size.height / 2,
                     width: 1,
@@ -574,12 +591,12 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
                 
                 questionInfoController.preferredContentSize = CGSize(width: 400,height: 317)
                 
-                let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
-                questionInfoController.setPopover(classViewPopOverController)
-                classViewPopOverController.contentSize = CGSize(width: 400,height: 317);
-                classViewPopOverController.delegate = self;
+                SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                questionInfoController.setPopover(SSTeacherDataSource.sharedDataSource.mPopOverController)
+                SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 400,height: 317);
+                SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
                 
-                classViewPopOverController.present(from: CGRect(
+                SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(
                     x:buttonPosition.x ,
                     y:buttonPosition.y + infoButton.frame.size.height / 2,
                     width: 1,

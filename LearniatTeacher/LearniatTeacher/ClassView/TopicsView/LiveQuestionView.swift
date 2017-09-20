@@ -414,16 +414,22 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
     func onFreezButton()
     {
         
-        var QuestonAvgScore = currentQuestionDetails.object(forKey: "QuestonAvgScore")as? NSString
+        var QuestonAvgScore:NSString = ""
         
-        QuestonAvgScore = String(format: "%02d", QuestonAvgScore!.floatValue) as NSString?
+        if let  Score = currentQuestionDetails.object(forKey: "QuestonAvgScore")as? NSString
+        {
+             QuestonAvgScore = (String(format: "%02d", Score.floatValue) as NSString?)!
+        }
+        
+        
+       
         
         let NumberOfResponses = currentQuestionDetails.object(forKey: "NumberOfResponses")as? String
         
         
         
         
-        SSTeacherMessageHandler.sharedMessageHandler.freezeQnAMessageToRoom("question_\(SSTeacherDataSource.sharedDataSource.currentLiveSessionId)", withAverageScore: QuestonAvgScore! as String, withTotalResponses: NumberOfResponses!)
+        SSTeacherMessageHandler.sharedMessageHandler.freezeQnAMessageToRoom(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, withAverageScore: QuestonAvgScore as String, withTotalResponses: NumberOfResponses!)
         
         mFreezbutton.isEnabled = false
         mFreezbutton.setTitleColor(UIColor.lightGray, for: UIControlState())
@@ -453,12 +459,12 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
                 
                 questionInfoController.preferredContentSize = CGSize(width: 400,height: 317)
                 
-                let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
-                questionInfoController.setPopover(classViewPopOverController)
-                classViewPopOverController.contentSize = CGSize(width: 400,height: 317);
-                classViewPopOverController.delegate = self;
+                SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                questionInfoController.setPopover(SSTeacherDataSource.sharedDataSource.mPopOverController)
+                SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 400,height: 317);
+                SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
                 
-                classViewPopOverController.present(from: CGRect(
+                SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(
                     x:mInfoButton.frame.origin.x ,
                     y:mInfoButton.frame.origin.y + mInfoButton.frame.size.height / 2,
                     width: 1,
@@ -474,12 +480,12 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
                 
                 questionInfoController.preferredContentSize = CGSize(width: 400,height: 317)
                 
-                let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
-                questionInfoController.setPopover(classViewPopOverController)
-                classViewPopOverController.contentSize = CGSize(width: 400,height: 317);
-                classViewPopOverController.delegate = self;
+                SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                questionInfoController.setPopover(SSTeacherDataSource.sharedDataSource.mPopOverController)
+                SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 400,height: 317);
+                SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
                 
-                classViewPopOverController.present(from: CGRect(
+                SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(
                     x:mInfoButton.frame.origin.x ,
                     y:mInfoButton.frame.origin.y + mInfoButton.frame.size.height / 2,
                     width: 1,
@@ -495,12 +501,12 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
                 
                 questionInfoController.preferredContentSize = CGSize(width: 400,height: 317)
                 
-                let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
-                questionInfoController.setPopover(classViewPopOverController)
-                classViewPopOverController.contentSize = CGSize(width: 400,height: 317);
-                classViewPopOverController.delegate = self;
+                SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                questionInfoController.setPopover(SSTeacherDataSource.sharedDataSource.mPopOverController)
+                SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 400,height: 317);
+                SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
                 
-                classViewPopOverController.present(from: CGRect(
+                SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(
                     x:mInfoButton.frame.origin.x ,
                     y:mInfoButton.frame.origin.y + mInfoButton.frame.size.height / 2,
                     width: 1,

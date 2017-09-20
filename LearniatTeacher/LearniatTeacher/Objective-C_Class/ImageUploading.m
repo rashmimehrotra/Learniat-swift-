@@ -8,7 +8,7 @@
 
 #import "ImageUploading.h"
 
-#define kUplodingServer     @"http://54.251.104.13/Jupiter/upload_photos.php"
+#define kUplodingServer     @"http://54.251.104.13/jupiter_dev/upload.php"
 
 @implementation ImageUploading
 

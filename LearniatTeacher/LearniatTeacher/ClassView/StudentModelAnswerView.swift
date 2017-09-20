@@ -13,6 +13,7 @@ import Foundation
     
     
     @objc optional func delegateModelAnswerViewLoadedWithHeight(_ height:CGFloat , withCount modelCount:Int)
+    @objc optional func delegateModelAnswerViewLoadedWithHeight(_ height:CGFloat , withCount modelCount:Int, studentID: String)
     
 
 }
@@ -87,6 +88,7 @@ class StudentModelAnswerView: UIView,SSTeacherDataSourceDelegate,StudentModelAns
         mModelAnswerContainerView.backgroundColor = lightGrayTopBar
         
 
+        NotificationCenter.default.addObserver(self, selector: #selector(StudentModelAnswerView.setModelAnswers), name: NSNotification.Name(rawValue: "setModelAnswerList"), object: nil)
     }
     
     required init?(coder aDecoder: NSCoder)
@@ -101,6 +103,13 @@ class StudentModelAnswerView: UIView,SSTeacherDataSourceDelegate,StudentModelAns
         {
             if topicCell.isKind(of: StudentModelAnswerCell.self)
             {
+                if let AssessmentAnswerId = topicCell.currentCellDetails.object(forKey: "AssessmentAnswerId") as? String {
+                    SSTeacherDataSource.sharedDataSource.recordModelAnswerwithAssesmentAnswerId(AssessmentAnswerId, WithDelegate: self)
+                }
+                if let StudentId = topicCell.currentCellDetails.object(forKey: "StudentId") as? String {
+                    SSTeacherDataSource.sharedDataSource.mRecordedModelAnswersArray.add(StudentId)
+                }
+                
                 topicCell.removeFromSuperview()
             }
         }
@@ -185,10 +194,103 @@ class StudentModelAnswerView: UIView,SSTeacherDataSourceDelegate,StudentModelAns
         
     }
     
-    func delegateModelAnswerRemovedWithAssesmentAnswerId(_ assesmentAnswerID: String)
+    func setModelAnswers()
     {
-        var currentYPosition :CGFloat = 0
+        
+        mActivityIndicator.stopAnimating()
+        let mModelAnswerDetails = SSTeacherDataSource.sharedDataSource.mModelAnswersArray
+        
+        for index  in 0 ..< mModelAnswerDetails.count
+        {
+            let object = mModelAnswerDetails.object(at: index)
+            
+            if let  AssessmentAnswerId = (object as AnyObject).object(forKey: "AssessmentAnswerId") as? String
+            {
+                if currentModelAnswerArray.contains(AssessmentAnswerId) == false
+                {
+                    currentModelAnswerArray.add(AssessmentAnswerId)
+                    let modelAnswerCell = StudentModelAnswerCell(frame:CGRect(x: 0,y: currentPositionY,width: self.frame.size.width,height: (self.frame.size.width / 1.5) + 70 ))
+                    modelAnswerCell.setModelAnswerWithDetails(object as AnyObject)
+                    mModelAnswerContainerView.addSubview(modelAnswerCell)
+                    modelAnswerCell.setdelegate(self)
+                    currentPositionY = currentPositionY + modelAnswerCell.frame.size.height + 1
+                    modelAnswerCell.backgroundColor = whiteColor
+                    currentViewHeight = currentViewHeight + modelAnswerCell.frame.size.height + 1
+
+                }
+            }
+        }
+        
+        
+        
+        mModelAnswerContainerView.contentSize = CGSize(width: 0, height: CGFloat(currentModelAnswerArray.count) * ((self.frame.size.width / 1.5) + 70 ))
+        
+        
+        mModelAnswerContainerView.contentOffset = CGPoint(x: 0, y: 0)
+        
+        
+        var height :CGFloat = currentViewHeight
+        
+        
+        if height > UIScreen.main.bounds.height - 100
+        {
+            height = UIScreen.main.bounds.height - 100
+        }
+        
+        
+        
+        mModelAnswerContainerView.frame = CGRect(x: mModelAnswerContainerView.frame.origin.x,y: mModelAnswerContainerView.frame.origin.y ,width: mModelAnswerContainerView.frame.size.width,height: height - 44)
+        
+        let subViews =  mModelAnswerContainerView.subviews.flatMap{ $0 as? StudentModelAnswerCell }
+        
+        delegate().delegateModelAnswerViewLoadedWithHeight!(height, withCount :subViews.count)
+        
+    }
+    
+//    func delegateModelAnswerRemovedWithAssesmentAnswerId(_ assesmentAnswerID: String)
+//    {
+//        var currentYPosition :CGFloat = 0
+//        currentViewHeight = 44
+//        let subViews =  mModelAnswerContainerView.subviews.flatMap{ $0 as? StudentModelAnswerCell }
+//        for topicCell in subViews
+//        {
+//            if topicCell.isKind(of: StudentModelAnswerCell.self)
+//            {
+//                UIView.animate(withDuration: 0.2, animations:
+//                    {
+//                        topicCell.frame = CGRect(x: topicCell.frame.origin.x ,y: currentYPosition,width: topicCell.frame.size.width,height: topicCell.frame.size.height)
+//                        
+//                })
+//                
+//                currentYPosition = currentYPosition + topicCell.frame.size.height + 1
+//                currentViewHeight = currentViewHeight + topicCell.frame.size.height + 1
+//            }
+//        }
+//        
+//        mModelAnswerContainerView.contentSize = CGSize(width: 0, height: currentYPosition)
+//        
+//        var height :CGFloat = currentViewHeight
+//        
+//        
+//        if height > UIScreen.main.bounds.height - 140
+//        {
+//            height = UIScreen.main.bounds.height - 140
+//        }
+//        
+//        
+//        
+//        mModelAnswerContainerView.frame = CGRect(x: mModelAnswerContainerView.frame.origin.x,y: mModelAnswerContainerView.frame.origin.y ,width: mModelAnswerContainerView.frame.size.width,height: height - 44)
+//        
+////        delegate().delegateModelAnswerViewLoadedWithHeight!(height, withCount :subViews.count)
+//        delegate().delegateModelAnswerViewLoadedWithHeight!(height, withCount :subViews.count, assesmentAnswerID : assesmentAnswerID)
+//    }
+    
+    func delegateModelAnswerRemovedWithAssesmentAnswerId(_ assesmentAnswerID: String, studentID: String)
+    {
+        currentPositionY = 0
         currentViewHeight = 44
+        SSTeacherDataSource.sharedDataSource.mModelAnswersArray.removeObject(at: currentModelAnswerArray.index(of: assesmentAnswerID))
+        currentModelAnswerArray.remove(assesmentAnswerID)
         let subViews =  mModelAnswerContainerView.subviews.flatMap{ $0 as? StudentModelAnswerCell }
         for topicCell in subViews
         {
@@ -196,16 +298,18 @@ class StudentModelAnswerView: UIView,SSTeacherDataSourceDelegate,StudentModelAns
             {
                 UIView.animate(withDuration: 0.2, animations:
                     {
-                        topicCell.frame = CGRect(x: topicCell.frame.origin.x ,y: currentYPosition,width: topicCell.frame.size.width,height: topicCell.frame.size.height)
+                        topicCell.frame = CGRect(x: topicCell.frame.origin.x ,y: self.currentPositionY,width: topicCell.frame.size.width,height: topicCell.frame.size.height)
                         
                 })
                 
-                currentYPosition = currentYPosition + topicCell.frame.size.height + 1
+                currentPositionY = currentPositionY + topicCell.frame.size.height + 1
                 currentViewHeight = currentViewHeight + topicCell.frame.size.height + 1
+                
             }
         }
         
-        mModelAnswerContainerView.contentSize = CGSize(width: 0, height: currentYPosition)
+//        mModelAnswerContainerView.contentSize = CGSize(width: 0, height: currentPositionY)
+        mModelAnswerContainerView.contentSize = CGSize(width: 0, height: CGFloat(currentModelAnswerArray.count) * ((self.frame.size.width / 1.5) + 70 ))
         
         var height :CGFloat = currentViewHeight
         
@@ -219,9 +323,9 @@ class StudentModelAnswerView: UIView,SSTeacherDataSourceDelegate,StudentModelAns
         
         mModelAnswerContainerView.frame = CGRect(x: mModelAnswerContainerView.frame.origin.x,y: mModelAnswerContainerView.frame.origin.y ,width: mModelAnswerContainerView.frame.size.width,height: height - 44)
         
-        delegate().delegateModelAnswerViewLoadedWithHeight!(height, withCount :subViews.count)
+        //        delegate().delegateModelAnswerViewLoadedWithHeight!(height, withCount :subViews.count)
+        delegate().delegateModelAnswerViewLoadedWithHeight!(height, withCount :subViews.count, studentID : studentID)
     }
-    
     
     func questionClearedByTeacher()
     {

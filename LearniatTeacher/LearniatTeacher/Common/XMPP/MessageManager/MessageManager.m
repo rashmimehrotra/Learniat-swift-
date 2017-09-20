@@ -80,11 +80,11 @@ static MessageManager *sharedMessageHandler = nil;
     
     
     
-    xmppReconnect = [[XMPPReconnect alloc] init];
-    [xmppReconnect activate:self.xmppStream];
-    [xmppReconnect addDelegate:self delegateQueue:dispatch_get_main_queue()];
-    xmppReconnect.reconnectTimerInterval = 20 ;
-    xmppReconnect.reconnectDelay = 20 ;
+//    xmppReconnect = [[XMPPReconnect alloc] init];
+//    [xmppReconnect activate:self.xmppStream];
+//    [xmppReconnect addDelegate:self delegateQueue:dispatch_get_main_queue()];
+//    xmppReconnect.reconnectTimerInterval = 20 ;
+//    xmppReconnect.reconnectDelay = 20 ;
     
 	
 }
@@ -109,7 +109,10 @@ static MessageManager *sharedMessageHandler = nil;
         return NO;
     }
     
-    [xmppStream setMyJID:[XMPPJID jidWithString:jabberID]];
+    UIDevice *device = [UIDevice currentDevice];
+
+    
+    [xmppStream setMyJID:[XMPPJID jidWithString:jabberID resource:[[device identifierForVendor]UUIDString]]];
     password = myPassword;
     
     NSError *error = nil;
@@ -228,10 +231,16 @@ static MessageManager *sharedMessageHandler = nil;
  */
 - (void)xmppStream:(XMPPStream *)sender didNotAuthenticate:(NSXMLElement *)error
 {
-    NSLog(@"Not Authenticated");
+    NSLog(@"Stream Not Authenticated %@", error.stringValue);
     
+    if([error.stringValue  isEqual: @"Replaced by new connection"]){
+        [self goOnline];
+    }
     if([[self delegate] respondsToSelector:@selector(didGetAuthenticationState:)])
     {
+        if([error.stringValue  isEqual: @"Replaced by new connection"]){
+            [[self delegate]didGetAuthenticationState:YES];
+        }
         [[self delegate]didGetAuthenticationState:NO];
     }
 }
@@ -267,10 +276,8 @@ static MessageManager *sharedMessageHandler = nil;
 {
     NSLog(@"shouldAttemptAutoReconnect:%u %f %f",reachabilityFlags,sender.reconnectTimerInterval,xmppReconnect.reconnectDelay);
     
-    xmppReconnect.reconnectDelay = 20;
-    xmppReconnect.reconnectTimerInterval = 20;
     
-    return YES;
+    return NO;
 }
 
 
@@ -297,6 +304,8 @@ static MessageManager *sharedMessageHandler = nil;
 {
 	XMPPPresence *presence = [XMPPPresence presence];
 	[xmppStream sendElement:presence];
+    [[self delegate]gotOnline];
+
 }
 
 /**
@@ -306,6 +315,25 @@ static MessageManager *sharedMessageHandler = nil;
 {
 	XMPPPresence *presence = [XMPPPresence presenceWithType:@"unavailable"];
 	[xmppStream sendElement:presence];
+}
+
+
+/**
+ This fuction is used change the presence to Active
+ */
+- (void)goActive
+{
+    XMPPPresence *presence = [XMPPPresence presenceWithType:@"active"];
+    [xmppStream sendElement:presence];
+}
+
+/**
+ This fuction is used change the presence to Retry Active
+ */
+- (void)goRetryActive
+{
+    XMPPPresence *presence = [XMPPPresence presenceWithType:@"retry-active"];
+    [xmppStream sendElement:presence];
 }
 
 
@@ -333,6 +361,7 @@ static MessageManager *sharedMessageHandler = nil;
     
     NSString *presenceType = [presence type];            // online/offline
     NSString *myUsername = [[sender myJID] user];
+    XMPPJID *jid = [presence from];
     NSString *presenceFromUser = [[presence from] user];
     NSString* presenceState= [presence status];
     
@@ -367,6 +396,14 @@ static MessageManager *sharedMessageHandler = nil;
         else if  ([presenceType isEqualToString:@"subscribed"])
         {
             [xmppRoster subscribePresenceToUser:[presence from]];
+        }
+        
+    }
+    else{
+        if([[self delegate] respondsToSelector:@selector(didRecievePresenceSelf:withUserName:WithSubState:WithSenderJid:)])
+        {
+            [[self delegate] didRecievePresenceSelf:presenceType withUserName:presenceFromUser WithSubState:presenceState WithSenderJid:jid];
+            
         }
         
     }
@@ -555,11 +592,11 @@ static MessageManager *sharedMessageHandler = nil;
     if ([message body])
     {
         NSString *body = [[message elementForName:@"body"] stringValue];
-        if([[self delegate] respondsToSelector:@selector(didReceiveMessageWithBody:)])
+        if([[self delegate] respondsToSelector:@selector(didReceiveMessageWithBody:WithSenderJid:)])
         {
-            [[self delegate] didReceiveMessageWithBody:body];
+            [[self delegate] didReceiveMessageWithBody:body WithSenderJid:message.from];
+            
         }
-        
     }
 }
 
@@ -609,6 +646,26 @@ static MessageManager *sharedMessageHandler = nil;
     
     [self performSelector:@selector(ConfigureNewRoom:) withObject:nil afterDelay:4];
     
+}
+
+
+- (void)destroyRoom:(NSString *)ChatRoomJID{
+    
+    if (![ChatRoomJID containsString:[NSString stringWithFormat:@"@conference.%@",kBaseXMPPURL]])
+    {
+        ChatRoomJID = [NSString stringWithFormat:@"%@@conference.%@",ChatRoomJID,kBaseXMPPURL];
+    }
+
+    XMPPRoomMemoryStorage *roomMemoryStorage = [[XMPPRoomMemoryStorage alloc] init];
+    
+    XMPPJID *roomJID = [XMPPJID jidWithString:ChatRoomJID];
+    
+    xmppRoom = [[XMPPRoom alloc] initWithRoomStorage:roomMemoryStorage jid:roomJID dispatchQueue:dispatch_get_main_queue()];
+    
+    [xmppRoom activate:xmppStream];
+    [xmppRoom addDelegate:self delegateQueue:dispatch_get_main_queue()];
+    [xmppRoom destroyRoom];
+
 }
 
 /**
@@ -830,6 +887,19 @@ static MessageManager *sharedMessageHandler = nil;
 //    [xmppRoom sendMessageWithBody:_body];
     return YES;
 }
+
+
+
+- (BOOL)sendGroupMessageWithSubject:(NSString*)_subject withRoomId:(NSString*)roomId{
+    NSXMLElement *subject = [NSXMLElement elementWithName:@"subject"];
+    [subject setStringValue:_subject];
+    NSXMLElement *message = [NSXMLElement elementWithName:@"message"];
+    [message addAttributeWithName:@"to" stringValue:roomId];
+    [message addAttributeWithName:@"type" stringValue:@"groupchat"];
+    [message addChild:subject];
+    [self.xmppStream sendElement:message];
+    return YES;
+  }
 
 
 @end

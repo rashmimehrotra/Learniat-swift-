@@ -67,8 +67,14 @@ class QuerySelectSubView: UIView
 
         
         
-      
-        mStudentName.frame = CGRect(x: mStudentImage.frame.origin.x + mStudentImage.frame.size.width + 10,y: mStudentImage.frame.origin.y,width: 400,height: mStudentImage.frame.size.height / 1.8)
+        // By Ujjval
+        // ==========================================
+        
+//        mStudentName.frame = CGRect(x: mStudentImage.frame.origin.x + mStudentImage.frame.size.width + 10,y: mStudentImage.frame.origin.y,width: 400,height: mStudentImage.frame.size.height / 1.8)
+        mStudentName.frame = CGRect(x: mStudentImage.frame.origin.x + mStudentImage.frame.size.width + 10,y: mStudentImage.frame.origin.y - 3,width: 400,height: mStudentImage.frame.size.height / 1.8)
+        
+        // ==========================================
+        
         mStudentName.textAlignment = .center;
         mStudentName.textColor = blackTextColor
         self.addSubview(mStudentName)
@@ -76,7 +82,7 @@ class QuerySelectSubView: UIView
         mStudentName.textAlignment = .left;
         mStudentName.font = UIFont(name: helveticaMedium, size: 18)
         mStudentName.contentMode = .top;
-
+        
         
         
         mQueryLabel.frame = CGRect(x: mStudentName.frame.origin.x,y: mStudentImage.frame.origin.y + mStudentImage.frame.size.height  ,width: self.frame.size.width - mStudentName.frame.origin.x ,height: mStudentImage.frame.size.height / 2)
@@ -145,26 +151,39 @@ class QuerySelectSubView: UIView
         }
         
         
+        let annonymus =  currentQueryDetails.object(forKey: "Anonymous") as! String
         
-        
-        if let StudentName = currentQueryDetails.object(forKey: "StudentName") as? String
-        {
-            mStudentName.text       = StudentName
-        }
-        
-        
-        if let StudentId = currentQueryDetails.object(forKey: "StudentId") as? String
-        {
-            let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
+        if annonymus == "1" {
+            mStudentName.text = "Anonymous"
             
-            if let checkedUrl = URL(string: "\(urlString)/\(StudentId)_79px.jpg")
+            // By Ujjval
+            // ==========================================
+            
+//            mStudentImage.image = UIImage(named: "Seat.png")
+            mStudentImage.image = UIImage(named: "Anonymus.png")
+            
+            // ==========================================
+        } else {
+            if let StudentName = currentQueryDetails.object(forKey: "StudentName") as? String
             {
-                mStudentImage.contentMode = .scaleAspectFit
-                mStudentImage.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
+                mStudentName.text       = StudentName
             }
+            
+            
+            if let StudentId = currentQueryDetails.object(forKey: "StudentId") as? String
+            {
+                let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
+                
+                if let checkedUrl = URL(string: "\(urlString)/\(StudentId)_79px.jpg")
+                {
+                    mStudentImage.contentMode = .scaleAspectFit
+                    mStudentImage.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
+                }
+            }
+            
+   
         }
-        
-        
+            
         if let QueryId = details.object(forKey: "QueryId") as? String
         {
             currentQueryDetails.setObject(QueryId, forKey: "QueryId" as NSCopying)

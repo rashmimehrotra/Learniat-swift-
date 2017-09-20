@@ -26,6 +26,11 @@ enum StudentAnswerState
     case answerCleared
 }
 
+enum AnswerMessageState {
+    case Recieved
+    case Cleared
+}
+
 
 @objc protocol StundentDeskViewDelegate
 {
@@ -90,6 +95,8 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     var answerContainerView = StudentAnswerOptionsView()
     
     var currentAnswerState :StudentAnswerState = .answerCleared
+    
+    var currentAnswerRecievedState: AnswerMessageState = .Cleared
     
     var mQueryTextLable              = UILabel()
     
@@ -292,7 +299,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         longGesture.numberOfTapsRequired = 2
         
       
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(StundentDeskView.setModelAnswer), name: NSNotification.Name(rawValue: "setModelAnswer"), object: nil)
         
     }
     
@@ -487,10 +494,9 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
          _currentQuestionDetials = questionDetails
     }
     
-    func studentSentAnswerWithAnswerString(_ answerString:String, withQuestionDetails details:AnyObject)
-    {
+    func studentSentAnswerWithAnswerString(_ answerString:String, withQuestionDetails details:AnyObject) {
+        currentAnswerRecievedState = .Recieved
         _currentQuestionDetials = details
-        
         SSTeacherDataSource.sharedDataSource.getStudentsAswerWithAnswerId(answerString, withDelegate: self)
     }
     
@@ -508,6 +514,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     {
         answerContainerView.addDontKnowImage()
         currentAnswerState = .answerDontKnow
+        currentAnswerRecievedState = .Recieved
         
         mQuestionStateImage.isHidden = true
 //        mMiddleStudentName.hidden = true
@@ -698,6 +705,7 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         }
         
         currentAnswerState = .answerCleared
+        currentAnswerRecievedState = .Cleared
         
         if isQueryPresent == true
         {
@@ -726,7 +734,13 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     
     func setQueryDetails(_ queryDetails:AnyObject)
     {
-         isQueryPresent = true
+        
+        let annonymus =  queryDetails.object(forKey: "Anonymous") as! String
+        
+        if annonymus == "1"{
+            return
+        }
+        isQueryPresent = true
         setStudentCurrentState(StudentLive)
         currentQueryDetails = queryDetails
         if currentAnswerState == .answerRecieved || currentAnswerState == .answerEvaluated || currentAnswerState == .answerDontKnow
@@ -805,6 +819,12 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         return (seatIdvalue , StudentIdValue)
     }
     
+    func setModelAnswer(_ notification : Notification) {
+        
+        if self.tag == Int(notification.object as! String) {
+            answerContainerView.addModelAnswerLabel()
+        }
+    }
 
 }
 

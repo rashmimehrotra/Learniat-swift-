@@ -21,7 +21,7 @@ import Foundation
 
 
 
-class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourceDelegate
+class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourceDelegate, KMZDrawViewDelegate
 {
     var _delgate: AnyObject!
     
@@ -35,7 +35,12 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
     
     let containerview = UIView()
     
-    var mScribbleView : SmoothLineView!
+    // By Ujjval
+    // ==========================================
+    
+//    var mScribbleView : SmoothLineView!
+    
+    // ==========================================
     
     var studentsAswerDictonary      :AnyObject!
 
@@ -66,8 +71,6 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
     
     var           givenTextReply        = ""
     
-    var PopoverControllerRatings:UIPopoverController!
-    
     var selectedtab    = ""
     
     var currentTeacherImageURl = ""
@@ -86,6 +89,17 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
     
     
     var sendButtonSpinner : UIActivityIndicatorView!
+    
+    // By Ujjval
+    // Create view for draw
+    // ==========================================
+    
+    var mScribbleView : KMZDrawView!
+    let colorSelectContoller = colorpopOverViewController()
+    
+    var currentQuestionDetials:AnyObject!
+    
+    // ==========================================
     
     
     func setdelegate(_ delegate:AnyObject)
@@ -245,20 +259,46 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         containerview.clipsToBounds = false;
         
 
-        mScribbleView = SmoothLineView(frame: containerview.frame)
-        mScribbleView.delegate = self
-        self.addSubview(mScribbleView);
+        // By Ujjval
+        // Assign frame and set other properties to draw view
+        // ==========================================
+        
+        //        mScribbleView = SmoothLineView(frame: containerview.frame)
+        //        mScribbleView.delegate = self
+        //        self.addSubview(mScribbleView);
+        //        mScribbleView.isUserInteractionEnabled = true
+        //        mScribbleView.setDrawing(standard_Red);
+        //        mScribbleView.setBrushWidth(5)
+        //        mScribbleView.setDrawing(kBrushTool)
+        //        var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
+        //        if brushSize < 5
+        //        {
+        //            brushSize = 5
+        //        }
+        //        mScribbleView.setBrushWidth(Int32(brushSize))
+        //        mScribbleView.isHidden = false
+        
+        
+        mScribbleView = KMZDrawView(frame: containerview.frame)
+        self.addSubview(mScribbleView)
         mScribbleView.isUserInteractionEnabled = true
-        mScribbleView.setDrawing(standard_Red);
-        mScribbleView.setBrushWidth(5)
-        mScribbleView.setDrawing(kBrushTool)
-        var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
-        if brushSize < 5
-        {
-            brushSize = 5
+        mScribbleView.delegate = self
+        if let colorIndex = UserDefaults.standard.value(forKey: "selectedBrushColor") as? Int {
+            mScribbleView.penColor = colorSelectContoller.colorArray.object(at: colorIndex - 1) as! UIColor
         }
-        mScribbleView.setBrushWidth(Int32(brushSize))
+        else {
+            mScribbleView.penColor = blackTextColor
+        }
+        mScribbleView.penMode = .pencil
+        let brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
+//        if brushSize < 5
+//        {
+//            brushSize = 5
+//        }
+        mScribbleView.penWidth = UInt(brushSize)
         mScribbleView.isHidden = false
+        
+        // ==========================================
         
 
         
@@ -326,6 +366,7 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         
         studentsAswerDictonary = answerDetails
         studentdict = studentDetails
+        currentQuestionDetials = _currentQuestionDetials
         
         let subViews = containerview.subviews
         
@@ -439,6 +480,28 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
     {
         
         
+        if self.isModelAnswerSelected {
+            
+            if let studentId = studentdict.object(forKey: "StudentId") as? String {
+                
+                if let AssessmentAnswerId = studentsAswerDictonary.object(forKey: "AssessmentAnswerId") as? String {
+                    
+                    if let type = (studentsAswerDictonary as AnyObject).object(forKey: "QuestionType") as? String {
+                        
+                        let dict : NSMutableDictionary = ["AssessmentAnswerId" : AssessmentAnswerId, "QuestionType" : (studentsAswerDictonary as AnyObject).object(forKey: "QuestionType")!, "StudentId" : studentId, "StudentName" : (studentdict as AnyObject).object(forKey: "Name")!]
+                        
+                        if type == kText {
+                            dict.addEntries(from: ["TextAnswer" : (studentsAswerDictonary as AnyObject).object(forKey: "TextAnswer")!])
+                        }
+                        else {
+                            dict.addEntries(from: ["TeacherScribble" : currentQuestionDetials.object(forKey: "Scribble")!, "Image" : (studentsAswerDictonary as AnyObject).object(forKey: "Scribble")!])
+                        }
+                        
+                        SSTeacherDataSource.sharedDataSource.mModelAnswersArray.add(dict)
+                    }
+                }
+            }
+        }
         
         let currentDate = Date()
         
@@ -458,9 +521,18 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         sendButtonSpinner.startAnimating()
         mSendButton.isHidden = true
         
-        if (mScribbleView.curImage != nil)
+        // By Ujjval
+        // Check image available or not to post on server
+        // ==========================================
+        
+//        if (mScribbleView.curImage != nil)
+        if (mScribbleView.image != nil)
         {
-            imageUploading.uploadImage(with: mScribbleView.curImage, withImageName: nameOfImage, withUserId: SSTeacherDataSource.sharedDataSource.currentUserId)
+//            imageUploading.uploadImage(with: mScribbleView.curImage, withImageName: nameOfImage, withUserId: SSTeacherDataSource.sharedDataSource.currentUserId)
+            
+            imageUploading.uploadImage(with: mScribbleView.image!, withImageName: nameOfImage, withUserId: SSTeacherDataSource.sharedDataSource.currentUserId)
+            
+            // ==========================================
         }
         else
         {
@@ -480,15 +552,15 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         
         
         
-        PopoverControllerRatings = UIPopoverController(contentViewController: navController)
-        PopoverControllerRatings.contentSize = CGSize(width: 200,height: 100);
-        PopoverControllerRatings.delegate = self;
+        SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: navController)
+        SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 200,height: 100);
+        SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
         navController.isNavigationBarHidden = true;
         
         
         let buttonPosition :CGPoint = m_textButton.convert(CGPoint.zero, to: self)
         
-        PopoverControllerRatings.present(from: CGRect(x: buttonPosition.x + m_textButton.frame.size.width / 2 , y: topImageView.frame.origin.y + topImageView.frame.size.height , width: 1, height: 1), in: self, permittedArrowDirections: .up, animated: true)
+        SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(x: buttonPosition.x + m_textButton.frame.size.width / 2 , y: topImageView.frame.origin.y + topImageView.frame.size.height , width: 1, height: 1), in: self, permittedArrowDirections: .up, animated: true)
     }
     
     func onBadgeButton()
@@ -500,12 +572,12 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         
         
         let buttonPosition :CGPoint = m_badgeButton.convert(CGPoint.zero, to: self)
-        PopoverControllerRatings = UIPopoverController(contentViewController: navController)
-        PopoverControllerRatings.contentSize = CGSize(width: 200,height: 150);
-        PopoverControllerRatings.delegate = self;
+        SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: navController)
+        SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 200,height: 150);
+        SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
         navController.isNavigationBarHidden = true;
         
-        PopoverControllerRatings.present(from: CGRect(x: buttonPosition.x + m_badgeButton.frame.size.width / 2 , y: topImageView.frame.origin.y + topImageView.frame.size.height , width: 1, height: 1), in: self, permittedArrowDirections: .up, animated: true)
+        SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(x: buttonPosition.x + m_badgeButton.frame.size.width / 2 , y: topImageView.frame.origin.y + topImageView.frame.size.height , width: 1, height: 1), in: self, permittedArrowDirections: .up, animated: true)
         
     }
     
@@ -528,7 +600,14 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
     
     func onUndoButton()
     {
-        mScribbleView.undoButtonClicked()
+        // By Ujjval
+        // Undo drawn image
+        // ==========================================
+        
+//        mScribbleView.undoButtonClicked()
+        mScribbleView.undo()
+        
+        // ==========================================
     }
     
     func onBrushButton()
@@ -564,13 +643,25 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         bottomtoolSelectedImageView.frame = m_BrushButton.frame
         m_BrushButton.setImage(UIImage(named:"Marker_Selected.png"), for:UIControlState())
         m_EraserButton.setImage(UIImage(named:"Eraser_Unselected.png"), for:UIControlState())
-        mScribbleView.setDrawing(kBrushTool)
-        var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
-        if brushSize < 5
-        {
-            brushSize = 5
-        }
-        mScribbleView.setBrushWidth(Int32(brushSize))
+        
+        
+        // By Ujjval
+        // Assign updated brush size
+        // ==========================================
+        
+//        mScribbleView.setDrawing(kBrushTool)
+        let brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
+//        if brushSize < 5
+//        {
+//            brushSize = 5
+//        }
+//        mScribbleView.setBrushWidth(Int32(brushSize))
+        
+        
+        mScribbleView.penMode = .pencil
+        mScribbleView.penWidth = UInt(brushSize)
+        
+        // ==========================================
         
         
         
@@ -615,10 +706,19 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         m_BrushButton.setImage(UIImage(named:"Marker_Unselected.png"), for:UIControlState())
         m_EraserButton.setImage(UIImage(named:"Eraser_Selected.png"), for:UIControlState())
         
-        mScribbleView.setDrawing(kEraserTool)
-        let eraserSize = UserDefaults.standard.float(forKey: "selectedEraserSize")
-        mScribbleView.setBrushWidth(Int32(eraserSize))
         
+        // By Ujjval
+        // Assign updated eraser size
+        // ==========================================
+        
+//        mScribbleView.setDrawing(kEraserTool)
+        let eraserSize = UserDefaults.standard.float(forKey: "selectedEraserSize")
+//        mScribbleView.setBrushWidth(Int32(eraserSize))
+        
+        mScribbleView.penMode = .eraser
+        mScribbleView.penWidth = UInt(eraserSize)
+        
+        // ==========================================
         
         
         
@@ -627,7 +727,14 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
     
     func onRedoButton()
     {
-        mScribbleView.redoButtonClicked()
+        // By Ujjval
+        // Redo drawn image
+        // ==========================================
+        
+//        mScribbleView.redoButtonClicked()
+        mScribbleView.redo()
+        
+        // ==========================================
     }
     
     
@@ -642,9 +749,9 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
     func popoverControllerDidDismissPopover(_ popoverController: UIPopoverController)
     {
         
-        if PopoverControllerRatings != nil
+        if SSTeacherDataSource.sharedDataSource.mPopOverController != nil
         {
-            if popoverController == PopoverControllerRatings
+            if popoverController == SSTeacherDataSource.sharedDataSource.mPopOverController
             {
                 if selectedtab == "Badge"
                 {
@@ -699,6 +806,36 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
     }
     
     
+    // By Ujjval
+    // Enable or disable Undo & Redo buttons
+    // ==========================================
+    
+    // MARK: - KMZDrawViewDelegate
+    
+    func drawView(_ drawView: KMZDrawView!, finishDraw line: KMZLine!) {
+        
+        if mScribbleView.isUndoable() {
+            m_UndoButton.setImage(UIImage(named:"Undo_Active.png"),for:UIControlState());
+            m_UndoButton.isEnabled = true
+            lineDrawnChanged()
+        }
+        else {
+            m_UndoButton.setImage(UIImage(named:"Undo_Disabled.png"),for:UIControlState());
+            m_UndoButton.isEnabled = false
+        }
+        
+        if mScribbleView.isRedoable() {
+            m_RedoButton.setImage(UIImage(named:"Redo_Active.png"),for:UIControlState());
+            m_RedoButton.isEnabled = true
+            lineDrawnChanged()
+        }
+        else {
+            m_RedoButton.setImage(UIImage(named:"Redo_Disabled.png"),for:UIControlState());
+            m_RedoButton.isEnabled = false
+        }
+    }
+    
+    // ==========================================
     
     
     // MARK: - Smooth line delegate
@@ -835,7 +972,16 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         sendButtonSpinner.isHidden = true
         sendButtonSpinner.stopAnimating()
         mSendButton.isHidden = false
-        mScribbleView.clearButtonClicked()
+        
+        // By Ujjval
+        // Clear image
+        // ==========================================
+        
+//        mScribbleView.clearButtonClicked()
+        self.mScribbleView.clear()
+        
+        // ==========================================
+        
         self.removeFromSuperview()
     }
     
@@ -845,8 +991,30 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
     
     func ImageUploadedWithName(_ name: String!)
     {
-        newImageUploadedWithName(name)
-        currentTeacherImageURl = name
+        SSTeacherDataSource.sharedDataSource.InsertScribbleFileName(Scribblename: name, withSuccessHandle: { (details) in
+            self.newImageUploadedWithName(name)
+             self.currentTeacherImageURl = name
+        }) { (error) in
+            
+            self.sendButtonSpinner.isHidden = true
+            self.sendButtonSpinner.stopAnimating()
+            self.mSendButton.isHidden = false
+            
+            // By Ujjval
+            // Clear image
+            // ==========================================
+            
+//            self.mScribbleView.clearButtonClicked()
+            self.mScribbleView.clear()
+            
+            // ==========================================
+            
+            self.currentTeacherImageURl = ""
+        }
+        
+        
+        
+       
     }
     
     func ErrorInUploadingWithName(_ name: String!)
@@ -854,7 +1022,16 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         sendButtonSpinner.isHidden = true
         sendButtonSpinner.stopAnimating()
         mSendButton.isHidden = false
-        mScribbleView.clearButtonClicked()
+        
+        // By Ujjval
+        // Clear image
+        // ==========================================
+        
+//        self.mScribbleView.clearButtonClicked()
+        self.mScribbleView.clear()
+        
+        // ==========================================
+        
         currentTeacherImageURl = ""
     }
 
@@ -867,7 +1044,14 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
         
         if let progressView = sender as? UISlider
         {
-            mScribbleView.setBrushWidth(Int32(progressView.value));
+            // By Ujjval
+            // Assign updated Brush size
+            // ==========================================
+            
+//            mScribbleView.setBrushWidth(Int32(progressView.value));
+            mScribbleView.penWidth = UInt(progressView.value)
+            
+            // ==========================================
         }
         
         
@@ -877,7 +1061,14 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
     {
         if let progressColor = sender as? UIColor
         {
-            mScribbleView.setDrawing(progressColor);
+            // By Ujjval
+            // Assign updated Brush color
+            // ==========================================
+            
+//            mScribbleView.setDrawing(progressColor);
+            mScribbleView.penColor = progressColor
+            
+            // ==========================================
         }
     }
 

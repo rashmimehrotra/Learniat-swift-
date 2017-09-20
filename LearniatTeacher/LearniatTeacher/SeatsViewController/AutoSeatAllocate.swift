@@ -258,6 +258,15 @@ class AutoSeatAllocate: UIViewController,SSTeacherDataSourceDelegate
                     
                     StudentsArray = _studentsArray
                 }
+                else if let students = details.object(forKey: "Students") as? AnyObject
+                {
+                    if let student = students.object(forKey: "Student") as? AnyObject
+                    {
+                        StudentsArray.removeAllObjects()
+                        
+                        StudentsArray.add(student)
+                    }
+                }
             }
         }
        

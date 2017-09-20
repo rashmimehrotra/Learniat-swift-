@@ -122,10 +122,10 @@ class SSTeacherLessonPlanView: UIView,SSTeacherDataSourceDelegate, UISearchBarDe
     
     func onCancelButton()
     {
-        if delegate().responds(to: #selector(SSTeacherLessonPlanViewDelegate.delegateDoneButtonPressed))
-        {
-            delegate().delegateDoneButtonPressed!()
-        }
+//        if delegate().responds(to: #selector(SSTeacherLessonPlanViewDelegate.delegateDoneButtonPressed))
+//        {
+//            delegate().delegateDoneButtonPressed!()
+//        }
         
         self.removeFromSuperview()
         

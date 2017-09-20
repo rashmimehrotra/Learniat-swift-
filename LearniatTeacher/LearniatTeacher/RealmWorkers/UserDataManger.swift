@@ -23,7 +23,7 @@ class UserDataManager: NSObject
         
         do {
             try RealmManager.shared.realm.write({
-                if let userModel = RealmManager.shared.realm.object(ofType: UserDataModel.self, forPrimaryKey: userValue[kUserId])
+                if let userModel = RealmManager.shared.realm.object(ofType: UserDataModel.self, forPrimaryKey: userValue.value(forKey: kUserId))
                 {
                     user = userModel
                 }

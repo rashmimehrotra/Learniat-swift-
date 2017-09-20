@@ -132,11 +132,21 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSou
         }
         
         
+        // By Ujjval
+        // ==========================================
         
-       let mAppVersionNumber = UILabel(frame: CGRect(x: appLogo.frame.origin.x + appLogo.frame.size.width , y: appLogo.frame.origin.y,width: 300,height: 60))
+//       let mAppVersionNumber = UILabel(frame: CGRect(x: appLogo.frame.origin.x + appLogo.frame.size.width , y: appLogo.frame.origin.y,width: 300,height: 60))
+//        
+//        self.view.addSubview(mAppVersionNumber)
+//        mAppVersionNumber.textAlignment = .right
+        
+        let mAppVersionNumber = UILabel(frame: CGRect(x: (self.view.frame.size.width - 80 )/2 , y: 170,width: 80,height: 30))
         
         self.view.addSubview(mAppVersionNumber)
-        mAppVersionNumber.textAlignment = .right
+        mAppVersionNumber.textAlignment = .center
+        
+        // ==========================================
+        
         mAppVersionNumber.textColor = UIColor.black
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         {
@@ -157,7 +167,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSou
     }
     
     
-    
+    //HP
     func onLoginButton(_ sender: UIButton)
     {
         if mUserName.text!.isEmpty || mPassword.text!.isEmpty
@@ -169,6 +179,9 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSou
            loginButtonPressed(true)
             
             SSTeacherDataSource.sharedDataSource.LoginWithUserId(mUserName.text!, andPassword: mPassword.text!, withSuccessHandle: { (details) in
+                
+                print(details)
+                
                 if let status = details.object(forKey: kStatus) as? String
                 {
                     if status == kSuccessString

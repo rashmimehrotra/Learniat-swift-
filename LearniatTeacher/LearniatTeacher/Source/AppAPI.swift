@@ -13,6 +13,11 @@ enum AppAPI {
 
     case Login(UserName:String,Password:String)
     case TodaysTimeTable(UserId:String)
+    case InsertScribbleFileName(userId:String,FileName:String)
+    case ChangeSessionState(userId: String, state:String,SessionID:String)
+    case RefresAppWithUserId(userId:String)
+    case GetJoinedStudentsWithUserId(UserId:String, sessionID:String)
+    case TopicCompleted(topicId:String, sessionid:String,UserId:String)
 }
 
 extension AppAPI {
@@ -39,12 +44,25 @@ extension AppAPI {
         switch self {
             
         case .Login(let username, let password):
-            return "\(self.base)/login?app_id=3&user_name=\(username)&pass=\(password)"
+            return "\(self.base)/Login?app_id=3&user_name=\(username)&pass=\(password)"
             
         case .TodaysTimeTable(let userID):
-            return "\(self.base)/getMyTodaysSessions?user_id=\(userID)"
+            return "\(self.base)/GetMyTodaysSessions?user_id=\(userID)"
             
-        
+        case .InsertScribbleFileName(let userId, let FileName):
+            return "\(self.base)/InsertScribbleFileName?user_id=\(userId)&filename=\(FileName)"
+            
+        case .ChangeSessionState(let userId, let state, let SessionID):
+            return  "\(self.base)/ChangeSessionState?userid=\(userId)&SessionId=\(SessionID)&NewState=\(state)"
+            
+        case .RefresAppWithUserId(let userId):
+            return "\(self.base)/RefreshMyApp?userid=\(userId)"
+        case .GetJoinedStudentsWithUserId(let userID, let sessionID):
+            return "\(self.base)/RefreshJoinedStudents?user=\(userID)&session=\(sessionID)"
+            
+        case .TopicCompleted(let topicId, let sessionid, let UserId):
+            return "\(self.base)/MarkTopicCompleted?userid=\(UserId)&sessionid=\(sessionid)&topicid=\(topicId)"
+            
         }
     }
     /*

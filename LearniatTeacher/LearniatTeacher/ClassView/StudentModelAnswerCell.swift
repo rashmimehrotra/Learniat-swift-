@@ -13,6 +13,7 @@ import Foundation
     
     
     @objc optional func delegateModelAnswerRemovedWithAssesmentAnswerId(_ assesmentAnswerID:String)
+    @objc optional func delegateModelAnswerRemovedWithAssesmentAnswerId(_ assesmentAnswerID:String, studentID : String)
     
     
 }
@@ -193,10 +194,27 @@ class StudentModelAnswerCell: UIView,SSTeacherDataSourceDelegate
         
         if let  AssessmentAnswerId = currentCellDetails.object(forKey: "AssessmentAnswerId") as? String
         {
-            delegate().delegateModelAnswerRemovedWithAssesmentAnswerId!(AssessmentAnswerId)
+//            delegate().delegateModelAnswerRemovedWithAssesmentAnswerId!(AssessmentAnswerId)
+            delegate().delegateModelAnswerRemovedWithAssesmentAnswerId!(AssessmentAnswerId, studentID: currentCellDetails.object(forKey: "StudentId") as! String)
             
-            SSTeacherDataSource.sharedDataSource.recordModelAnswerwithAssesmentAnswerId(AssessmentAnswerId, WithDelegate: self)
+//            if SSTeacherDataSource.sharedDataSource.mModelAnswersArray.contains(currentCellDetails) {
+            
+                for obj in SSTeacherDataSource.sharedDataSource.mModelAnswersArray {
+                    if let StudentId = (obj as AnyObject).object(forKey: "StudentId") as? String {
+                        if currentCellDetails.object(forKey: "StudentId") as! String == StudentId {
+                            SSTeacherDataSource.sharedDataSource.mModelAnswersArray.remove(obj)
+                            break
+                        }
+                    }
+                }
+//            }
+            
+//            SSTeacherDataSource.sharedDataSource.recordModelAnswerwithAssesmentAnswerId(AssessmentAnswerId, WithDelegate: self)
         }
+    }
+    
+    func didGetModelAnswerRecordedWithDetails(_ details: AnyObject) {
+        print("details == \(details)")
     }
     
 }

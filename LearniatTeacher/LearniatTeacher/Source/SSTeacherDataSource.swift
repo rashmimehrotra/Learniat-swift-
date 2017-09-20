@@ -64,6 +64,8 @@ let kServiceStartTopic              =   "SetCurrentTopic"
 
 let kServiceStopTopic               =   "StopTopic"
 
+let kServiceMarkTopicCompleted      =   "MarkTopicCompleted"
+
 let kServiceBroadcastQuestion		=   "BroadcastQuestion"
 
 let kServiceEndQuestionInstance     =   "EndQuestionInstance"
@@ -215,6 +217,7 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
      internal  static let sharedDataSource = SSTeacherDataSource()
     
     
+    var mAPICountValue = 0
     
     var _delgate            :AnyObject!
     
@@ -275,6 +278,12 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     var mOverlayImageName                       = ""
     
+    var mPopOverController  :UIPopoverController!
+    
+    var mModelAnswersArray                      = NSMutableArray()
+    
+    var mRecordedModelAnswersArray              = NSMutableArray()
+
     
     func setSubTopicDictonaryWithDict(_ details:NSMutableArray,withKey key:String)
     {
@@ -287,8 +296,136 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     }
     
     
+    // MARK: - JSON API Functions
     
-    // MARK: - API Functions
+    
+    
+    
+    /// This function is used to login teacher app with below given parameters
+    ///
+    /// - Parameters:
+    ///   - userId: User name of teacher
+    ///   - Password: password
+    ///   - success: API Success call
+    ///   - failure: API Failure call
+    func LoginWithUserId(_ userId :String , andPassword Password:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler) {
+        
+        WebServicesAPI().getRequest(fromUrl: AppAPI.Login(UserName: userId, Password: Password).path, details: nil, success: { (result) in
+            let JsonValue = result.parseJSONString
+            if(JsonValue.jsonData != nil) {
+                success(JsonValue.jsonData!)
+            } else {
+                failure(JsonValue.error!)
+            }
+            
+        }) { (error) in
+            failure(error as NSError)
+        }
+    }
+    
+    
+    /// This API method is use to get schedules of teacher and return all the schedules of teacher
+    ///
+    /// - Parameters:
+    ///   - success: Return schedules of teacher
+    ///   - failure: Return failure message
+    func getScheduleOfTeacher(success:@escaping (_ result: NSArray) -> (), withfailurehandler failure:@escaping ApiErrorHandler) {
+        WebServicesAPI().getRequest(fromUrl:  AppAPI.TodaysTimeTable(UserId: self.currentUserId).path, details: nil, success: { (result) in
+            let JsonValue = result.ParseForArrayOfJson
+            if(JsonValue.arrayObjects != nil) {
+                success(JsonValue.arrayObjects!)
+            } else {
+                failure(JsonValue.error!)
+            }
+            
+        }) { (error) in
+            failure(error as NSError)
+        }
+    }
+    
+    
+    
+    /// This method is used to insert a new row in uploaded_images table when new scribble added
+    ///
+    /// - Parameters:
+    ///   - Scribblename: send scribble name which teacher wants to save
+    ///   - success: This returns image_id which is used for question creation
+    ///   - failure: Returs error message
+    func InsertScribbleFileName(Scribblename:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler) {
+        WebServicesAPI().getRequest(fromUrl: AppAPI.InsertScribbleFileName(userId: currentUserId, FileName: Scribblename).path, details: nil, success: { (result) in
+            let JsonValue = result.parseJSONString
+            
+            if(JsonValue.jsonData != nil) {
+                success(JsonValue.jsonData!)
+            } else {
+                failure(JsonValue.error!)
+            }
+            
+        }) { (error) in
+            failure(error as NSError)
+        }
+    }
+    
+    
+    
+    /// This function is used to change the state of the Session
+    ///
+    /// - Parameters:
+    ///   - sessionID: Session Id
+    ///   - state: New state
+    ///   - success: success
+    ///   - failure: failure
+    func changeStateOfSessionWithSessionID(sessionID:String, withSessionState state:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler) {
+        WebServicesAPI().getRequest(fromUrl: AppAPI.ChangeSessionState(userId: currentUserId, state: state, SessionID: sessionID).path, details: nil, success: { (result) in
+            let JsonValue = result.parseJSONString
+            if(JsonValue.jsonData != nil) {
+                success(JsonValue.jsonData!)
+            } else {
+                failure(JsonValue.error!)
+            }
+            
+        }) { (error) in
+            failure(error as NSError)
+        }
+        
+    }
+    
+    
+    /// This API is used to get the refreshed detilas from the server
+    ///
+    /// - Parameters:
+    ///   - success: success description
+    ///   - failure: failure description
+    func refreshApp(success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler) {
+        WebServicesAPI().getRequest(fromUrl: AppAPI.RefresAppWithUserId(userId: currentUserId).path, details: nil, success: { (result) in
+            let JsonValue = result.parseJSONString
+            if(JsonValue.jsonData != nil) {
+                success(JsonValue.jsonData!)
+            } else {
+                failure(JsonValue.error!)
+            }
+            
+        }) { (error) in
+            failure(error as NSError)
+        }
+    }
+
+    
+    func getJoinedStudentsCount(sessionID:String,success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler) {
+        WebServicesAPI().getRequest(fromUrl: AppAPI.GetJoinedStudentsWithUserId(UserId: currentUserId, sessionID: sessionID).path, details: nil, success: { (result) in
+            let JsonValue = result.parseJSONString
+            if(JsonValue.jsonData != nil) {
+                success(JsonValue.jsonData!)
+            } else {
+                failure(JsonValue.error!)
+            }
+        }) { (error) in
+            failure(error as NSError)
+        }
+    }
+    
+    
+    // MARK: - XML API Functions
     
     
     func getUserState(_ userId :String, withDelegate delegate:SSTeacherDataSourceDelegate)
@@ -318,20 +455,16 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     }
     
     
-    
-    func LoginWithUserId(_ userId :String , andPassword Password:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler)
-    {
-        WebServicesAPI().getRequest(fromUrl: AppAPI.Login(UserName: userId, Password: Password).path, details: nil, success: { (result) in
-            
-            
+    //Topic MarkTopicCompleted using Json
+    //Pradip
+    func TopicCompletedWithTopicID(_ topicId:String,withSessionID sessionid:String, withUserID UserId:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler) {
+        
+        WebServicesAPI().getRequest(fromUrl: AppAPI.TopicCompleted(topicId: topicId, sessionid: sessionid, UserId: UserId) .path, details:
+            nil, success: { (result) in
             let JsonValue = result.parseJSONString
-            
-            if(JsonValue.jsonData != nil)
-            {
+            if(JsonValue.jsonData != nil) {
                 success(JsonValue.jsonData!)
-            }
-            else
-            {
+            } else {
                 failure(JsonValue.error!)
             }
             
@@ -339,33 +472,11 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
             failure(error as NSError)
         }
     }
- 
-
-    
-    /*
-    func LoginWithUserId(userId :String , andPassword Password:String, withDelegate Delegate:SSTeacherDataSourceDelegate)
-    {
-        setdelegate(Delegate)
-        
-        
-        let manager = APIManager()
-        let uuidString:String = UIDevice.current.identifierForVendor!.uuidString
-        
-        let urlString = String(format: "%@<Sunstone><Action><Service>Login</Service><UserName>%@</UserName><UserPassword>%@</UserPassword><AppVersion>%@</AppVersion><DeviceId>%@</DeviceId><IsTeacher>1</IsTeacher></Action></Sunstone>",URLPrefix,userId, Password,APP_VERSION,uuidString)
-        
-        manager.downloadDataURL(urlString, withServiceName:kServiceUserLogin, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: Delegate)
-    }
-    
- */
-    
-    
-    
-   
-    
     
     func getScheduleOfTeacher(_ delegate:SSTeacherDataSourceDelegate)
     {
 
+        mAPICountValue = mAPICountValue + 1
         
         let manager = APIManager()
         
@@ -374,32 +485,6 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         manager.downloadDataURL(urlString, withServiceName: kServiceGetSchedules, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
  
     }
-    
-    
-    
-    
-    func getScheduleOfTeacher(success:@escaping (_ result: NSArray) -> (), withfailurehandler failure:@escaping ApiErrorHandler)
-    {
-        WebServicesAPI().getRequest(fromUrl:  AppAPI.TodaysTimeTable(UserId: self.currentUserId).path, details: nil, success: { (result) in
-            
-            let JsonValue = result.ParseForArrayOfJson
-            
-            if(JsonValue.arrayObjects != nil)
-            {
-                success(JsonValue.arrayObjects!)
-            }
-            else
-            {
-                failure(JsonValue.error!)
-            }
-            
-        }) { (error) in
-            failure(error as NSError)
-        }
-        
-    }
-    
-    
     
     
     func getMyCurrentSessionOfTeacher(_ delegate:SSTeacherDataSourceDelegate)
@@ -577,6 +662,8 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         print("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kServiceStopTopic, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
+    
+    
     
     
     func getGraspIndexOfAllStudentsWithTopic(_ topicId:String,withSessionID sessionid:String, withDelegate delegate:SSTeacherDataSourceDelegate)

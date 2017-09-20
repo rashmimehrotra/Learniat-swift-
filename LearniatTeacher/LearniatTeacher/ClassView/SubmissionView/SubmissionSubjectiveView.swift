@@ -24,7 +24,7 @@ let kAspectRation:CGFloat = 1.5
 
 
 
-class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSideViewDelegate,SSStarRatingViewDelegate,UIPopoverControllerDelegate,SSTeacherDataSourceDelegate,ImageUploadingDelegate,colorpopOverViewControllerDelegate
+class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSideViewDelegate,SSStarRatingViewDelegate,UIPopoverControllerDelegate,SSTeacherDataSourceDelegate,ImageUploadingDelegate,colorpopOverViewControllerDelegate, KMZDrawViewDelegate
 {
     
 
@@ -64,7 +64,12 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     
     let overlayimageView = CustomProgressImageView()
     
-    var mScribbleView : SmoothLineView!
+    // By Ujjval
+    // ==========================================
+    
+//    var mScribbleView : SmoothLineView!
+    
+    // ==========================================
     
     let studentsAswerDictonary      = NSMutableDictionary()
     
@@ -107,7 +112,16 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     
     var currentTeacherImageURl = ""
 
+    // By Ujjval
+    // Create view for draw
+    // ==========================================
     
+    var mScribbleView : KMZDrawView!
+    let colorSelectContoller = colorpopOverViewController()
+    
+    let studentDetailDictonary      = NSMutableDictionary()
+    
+    // ==========================================
     
     override init(frame: CGRect)
     {
@@ -132,8 +146,12 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         heightRemaining = mainContainerView.frame.size.height - heightRemaining
         
         
+        overlayimageView.frame = CGRect(x: (mainContainerView.frame.size.width - (heightRemaining *  kAspectRation)) / 2 ,y: (mainContainerView.frame.size.height - heightRemaining) / 2 ,  width: heightRemaining *  kAspectRation ,height: heightRemaining)
+        mainContainerView.addSubview(overlayimageView);
+        
+        
         containerview.frame = CGRect(x: (mainContainerView.frame.size.width - (heightRemaining *  kAspectRation)) / 2 ,y: (mainContainerView.frame.size.height - heightRemaining) / 2 ,  width: heightRemaining *  kAspectRation ,height: heightRemaining)
-        containerview.backgroundColor = UIColor.white
+        containerview.backgroundColor = UIColor.clear
         mainContainerView.addSubview(containerview);
         containerview.layer.shadowColor = progressviewBackground.cgColor;
         containerview.layer.shadowOffset = CGSize(width: 0,height: 0);
@@ -143,6 +161,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
 
         
         
+       
         
         
         
@@ -255,23 +274,36 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         mMarkModelButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20);
         mMarkModelButton.addTarget(self, action: #selector(SubmissionSubjectiveView.onModelAnswerButton), for: UIControlEvents.touchUpInside)
         
-        overlayimageView.frame = containerview.frame
-        mainContainerView.addSubview(overlayimageView);
+      
 
-        mScribbleView = SmoothLineView(frame: containerview.frame)
-        mScribbleView.delegate = self
-        mainContainerView.addSubview(mScribbleView);
+        // By Ujjval
+        // Assign frame and set other properties to draw view
+        // ==========================================
+        
+//        mScribbleView = SmoothLineView(frame: containerview.frame)
+//        mScribbleView.delegate = self
+//        mainContainerView.addSubview(mScribbleView);
+//        mScribbleView.isUserInteractionEnabled = true
+//        mScribbleView.setDrawing(standard_Red);
+//        mScribbleView.setBrushWidth(5)
+//        mScribbleView.setDrawing(kBrushTool)
+//        var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
+//        if brushSize < 5
+//        {
+//            brushSize = 5
+//        }
+//        mScribbleView.setBrushWidth(Int32(brushSize))
+//        mScribbleView.isHidden = false
+        
+        mScribbleView = KMZDrawView(frame: containerview.frame)
+        mainContainerView.addSubview(mScribbleView)
         mScribbleView.isUserInteractionEnabled = true
-        mScribbleView.setDrawing(standard_Red);
-        mScribbleView.setBrushWidth(5)
-        mScribbleView.setDrawing(kBrushTool)
-        var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
-        if brushSize < 5
-        {
-            brushSize = 5
-        }
-        mScribbleView.setBrushWidth(Int32(brushSize))
+        mScribbleView.delegate = self
+        mScribbleView.penMode = .pencil
+        self.changeBrushValues()
         mScribbleView.isHidden = false
+        
+        // ==========================================
         
         bottomview.frame = CGRect(x: topImageView.frame.origin.x, y: containerview.frame.origin.y + containerview.frame.size.height , width: topImageView.frame.size.width,height: topImageView.frame.size.height)
         bottomview.backgroundColor = lightGrayTopBar
@@ -313,7 +345,14 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         m_RedoButton.addTarget(self, action: #selector(SubmissionSubjectiveView.onRedoButton), for: UIControlEvents.touchUpInside)
         m_RedoButton.isEnabled = false
         
+        // By Ujjval
+        // ==========================================
+        
         self.bringSubview(toFront: mScribbleView)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(SubmissionSubjectiveView.changeBrushValues), name: NSNotification.Name(rawValue: "ChangeBrushValues"), object: nil)
+        
+        // ==========================================
         
         
     }
@@ -326,10 +365,27 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         
     }
     
+    // By Ujjval
+    // ==========================================
     
-    
-    
+    func changeBrushValues() {
+        
+        if let colorIndex = UserDefaults.standard.value(forKey: "selectedBrushColor") as? Int {
+            mScribbleView.penColor = colorSelectContoller.colorArray.object(at: colorIndex - 1) as! UIColor
+        }
+        else {
+            mScribbleView.penColor = blackTextColor
+        }
+        
+        let brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
+//        if brushSize < 5
+//        {
+//            brushSize = 5
+//        }
+        mScribbleView.penWidth = UInt(brushSize)
+    }
    
+    // ==========================================
     
     
     func setStudentAnswerWithAnswer(_ studentAnswer:AnyObject, withStudentDict studentdict:AnyObject, withQuestionDict QuestionDetails:AnyObject )
@@ -338,18 +394,11 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         _currentQuestionDetials = QuestionDetails
         
         
-//        overlayimageView.image = nil
-//        let subViews = containerview.subviews
-//        
-//        for subview in subViews
-//        {
-//            subview.removeFromSuperview()
-//        }
         
         if let studentId = studentdict.object(forKey: "StudentId") as? String
         {
             studentsAswerDictonary.setObject(studentAnswer, forKey: studentId as NSCopying)
-        
+            studentDetailDictonary.setObject(studentdict, forKey: studentId as NSCopying)
         }
        
         
@@ -508,11 +557,28 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
             subview.removeFromSuperview()
         }
         
-        mScribbleView.clearButtonClicked()
+        // By Ujjval
+        // Clear image
+        // ==========================================
+        
+//        mScribbleView.clearButtonClicked()
+        mScribbleView.clear()
+        
+        // ==========================================
+        
         givenBadgeId = 0
         givenStarRatings = 0
         givenTextReply = ""
-        mScribbleView.clearButtonClicked()
+        
+        // By Ujjval
+        // Clear image
+        // ==========================================
+        
+//        mScribbleView.clearButtonClicked()
+        mScribbleView.clear()
+        
+        // ==========================================
+        
         mStarRatingView.setStarRating(0)
         m_badgeButton.setImage(UIImage(named:"Cb_Like_Disabled.png"), for:UIControlState());
         m_textButton.setImage(UIImage(named:"Text_Unselected.png"), for:UIControlState());
@@ -575,9 +641,50 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
             sendButtonSpinner.startAnimating()
             mSendButton.isHidden = true
             
-            if (mScribbleView.curImage != nil)
+            if self.isModelAnswerSelected {
+                
+                for index in 0 ..< selectedStudentsArray.count
+                {
+                    let studentdict = selectedStudentsArray.object(at: index)
+                    
+                    if let studentId = (studentdict as AnyObject).object(forKey: "StudentId") as? String {
+                        
+                        let studentDetail = studentDetailDictonary.object(forKey: studentId)
+                        
+                        if let studentAnswerDict = studentsAswerDictonary.object(forKey: studentId) {
+                            if let AssessmentAnswerId = (studentAnswerDict as AnyObject).object(forKey: "AssessmentAnswerId") as? String {
+                                
+                                if let type = (studentAnswerDict as AnyObject).object(forKey: "QuestionType") as? String {
+                                    
+                                    let dict : NSMutableDictionary = ["AssessmentAnswerId" : AssessmentAnswerId, "QuestionType" : (studentAnswerDict as AnyObject).object(forKey: "QuestionType")!, "StudentId" : (studentAnswerDict as AnyObject).object(forKey: "StudentId")!, "StudentName" : (studentDetail as AnyObject).object(forKey: "Name")!]
+                                    
+                                    if type == kText {
+                                        dict.addEntries(from: ["TextAnswer" : (studentAnswerDict as AnyObject).object(forKey: "TextAnswer")!])
+                                    }
+                                    else {
+                                        dict.addEntries(from: ["TeacherScribble" : _currentQuestionDetials.object(forKey: "Scribble")!, "Image" : (studentAnswerDict as AnyObject).object(forKey: "Scribble")!])
+                                    }
+                                    
+                                    SSTeacherDataSource.sharedDataSource.mModelAnswersArray.add(dict)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+            // By Ujjval
+            // Check image available or not to post on server
+            // ==========================================
+            
+//            if (mScribbleView.curImage != nil)
+            if (mScribbleView.image != nil)
             {
-                imageUploading.uploadImage(with: mScribbleView.curImage, withImageName: nameOfImage, withUserId: SSTeacherDataSource.sharedDataSource.currentUserId)
+//                imageUploading.uploadImage(with: mScribbleView.curImage, withImageName: nameOfImage, withUserId: SSTeacherDataSource.sharedDataSource.currentUserId)
+                
+                imageUploading.uploadImage(with: mScribbleView.image, withImageName: nameOfImage, withUserId: SSTeacherDataSource.sharedDataSource.currentUserId)
+                
+                // ==========================================
             }
             else
             {
@@ -652,7 +759,14 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     
     func onUndoButton()
     {
-        mScribbleView.undoButtonClicked()
+        // By Ujjval
+        // Undo drawn image
+        // ==========================================
+        
+//        mScribbleView.undoButtonClicked()
+        mScribbleView.undo()
+        
+        // ==========================================
     }
     
     func onBrushButton()
@@ -688,13 +802,25 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         bottomtoolSelectedImageView.frame = m_BrushButton.frame
          m_BrushButton.setImage(UIImage(named:"Marker_Selected.png"), for:UIControlState())
          m_EraserButton.setImage(UIImage(named:"Eraser_Unselected.png"), for:UIControlState())
-        mScribbleView.setDrawing(kBrushTool)
-        var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
-        if brushSize < 5
-        {
-            brushSize = 5
-        }
-        mScribbleView.setBrushWidth(Int32(brushSize))
+        
+        
+        // By Ujjval
+        // Assign updated brush size
+        // ==========================================
+        
+//        mScribbleView.setDrawing(kBrushTool)
+        let brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
+//        if brushSize < 5
+//        {
+//            brushSize = 5
+//        }
+//        mScribbleView.setBrushWidth(Int32(brushSize))
+        
+        
+        mScribbleView.penMode = .pencil
+        mScribbleView.penWidth = UInt(brushSize)
+        
+        // ==========================================
         
         
         
@@ -738,10 +864,21 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         m_BrushButton.setImage(UIImage(named:"Marker_Unselected.png"), for:UIControlState())
         m_EraserButton.setImage(UIImage(named:"Eraser_Selected.png"), for:UIControlState())
         
-        mScribbleView.setDrawing(kEraserTool)
+        
+        // By Ujjval
+        // Assign updated eraser size
+        // ==========================================
+        
+//        mScribbleView.setDrawing(kEraserTool)
         
         let eraserSize = UserDefaults.standard.float(forKey: "selectedEraserSize")
-        mScribbleView.setBrushWidth(Int32(eraserSize))
+//        mScribbleView.setBrushWidth(Int32(eraserSize))
+        
+        
+        mScribbleView.penMode = .eraser
+        mScribbleView.penWidth = UInt(eraserSize)
+        
+        // ==========================================
         
         
         
@@ -751,7 +888,14 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     
     func onRedoButton()
     {
-        mScribbleView.redoButtonClicked()
+        // By Ujjval
+        // Redo drawn image
+        // ==========================================
+        
+//        mScribbleView.redoButtonClicked()
+        mScribbleView.redo()
+        
+        // ==========================================
     }
     
 
@@ -823,6 +967,36 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     }
     
     
+    // By Ujjval
+    // Enable or disable Undo & Redo buttons
+    // ==========================================
+    
+    // MARK: - KMZDrawViewDelegate
+    
+    func drawView(_ drawView: KMZDrawView!, finishDraw line: KMZLine!) {
+        
+        if mScribbleView.isUndoable() {
+            m_UndoButton.setImage(UIImage(named:"Undo_Active.png"),for:UIControlState());
+            m_UndoButton.isEnabled = true
+            lineDrawnChanged()
+        }
+        else {
+            m_UndoButton.setImage(UIImage(named:"Undo_Disabled.png"),for:UIControlState());
+            m_UndoButton.isEnabled = false
+        }
+        
+        if mScribbleView.isRedoable() {
+            m_RedoButton.setImage(UIImage(named:"Redo_Active.png"),for:UIControlState());
+            m_RedoButton.isEnabled = true
+            lineDrawnChanged()
+        }
+        else {
+            m_RedoButton.setImage(UIImage(named:"Redo_Disabled.png"),for:UIControlState());
+            m_RedoButton.isEnabled = false
+        }
+    }
+    
+    // ==========================================
     
     
     // MARK: - Smooth line delegate
@@ -908,7 +1082,6 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
                         AssessmentAnswerIdArray.add(AssessmentAnswerId)
                         
                         
-                        
                     }
                     
                 }
@@ -939,80 +1112,38 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     
     func didGetFeedbackSentWithDetails(_ details: AnyObject)
     {
-        
-        
-        if details.object(forKey: "Status") as? String == "Success"
-        {
-            
-            if let _studentId = ((details.object(forKey: "Students")! as AnyObject).object(forKey: "Student")! as AnyObject).object(forKey: "StudentId") as? String
-            {
-                
-                
-               if let _AssessmentAnswerId = details.object(forKey: "AssessmentAnswerId") as? String
-               {
-
+        if details.object(forKey: "Status") as? String == "Success" {
+           
+            if let _studentId = ((details.object(forKey: "Students")! as AnyObject).object(forKey: "Student")! as AnyObject).object(forKey: "StudentId") as? String  {
+              
+                if let _AssessmentAnswerId = details.object(forKey: "AssessmentAnswerId") as? String {
                     var StudentIdArray = [String]()
-                    
                     var AssessmentAnswerIdArray = [String]()
-                    
-                    
                     StudentIdArray = _studentId.components(separatedBy: ",")
-                    
                     AssessmentAnswerIdArray = _AssessmentAnswerId.components(separatedBy: ",")
-                
-                
-                    for index in 0..<StudentIdArray.count
-                    {
+                    for index in 0..<StudentIdArray.count {
                         let studentIdValue = StudentIdArray[index]
                         let AssessmentAnswervalue = AssessmentAnswerIdArray[index]
-                        
-                        
                         SSTeacherMessageHandler.sharedMessageHandler.sendFeedbackToStudentWitId(studentIdValue, withassesmentAnswerId: AssessmentAnswervalue)
-                        
-                        
                         subjectiveCellContainer.removeStudentsWithStudentsId(studentIdValue)
-                        
-                        
-                        if let answerDetails = studentsAswerDictonary.object(forKey: studentIdValue)
-                        {
-                            if selectedStudentsArray.contains(answerDetails)
-                            {
-                                
-                                
-                                
+                        if let answerDetails = studentsAswerDictonary.object(forKey: studentIdValue) {
+                            if selectedStudentsArray.contains(answerDetails) {
                                 let feedBackDetails = NSMutableDictionary()
-                                
                                 feedBackDetails.setObject(studentIdValue, forKey: "StudentId" as NSCopying)
-                                
                                 feedBackDetails.setObject(AssessmentAnswervalue, forKey: "AssessmentAnswerId" as NSCopying)
-                                
                                 feedBackDetails.setObject("\(givenStarRatings)", forKey: "Rating" as NSCopying)
-                                
-                                feedBackDetails.setObject("upload/".appending(currentTeacherImageURl).appending(".png"), forKey: "imageUrl" as NSCopying)
-                                
+                                feedBackDetails.setObject("upload/".appending(currentTeacherImageURl).appending(".png"),  forKey: "imageUrl" as NSCopying)
                                 feedBackDetails.setObject("\(givenBadgeId)", forKey: "BadgeId" as NSCopying)
-                                
                                 feedBackDetails.setObject("\(givenTextReply)", forKey: "textRating" as NSCopying)
-                                
                                 feedBackDetails.setObject("\(isModelAnswerSelected)", forKey: "ModelAnswerFlag" as NSCopying)
-                                
-                                
-                                
                                 selectedStudentsArray.remove(answerDetails)
-                                
-                                if delegate().responds(to: #selector(SubmissionSubjectiveViewDelegate.delegateStudentSubmissionEvaluatedWithDetails(_:withStudentId:withSubmissionCount:)))
-                                {
+                               
+                                if delegate().responds(to: #selector(SubmissionSubjectiveViewDelegate.delegateStudentSubmissionEvaluatedWithDetails(_:withStudentId:withSubmissionCount:))) {
                                     delegate().delegateStudentSubmissionEvaluatedWithDetails!(feedBackDetails, withStudentId: studentIdValue, withSubmissionCount:subjectiveCellContainer.totlStudentsCount)
                                 }
-                                
-                                
-                                
                             }
                         }
-                        
-                        
-                        if let studentDeskView  = containerview.viewWithTag(Int(studentIdValue)!) as? UIImageView
-                        {
+                        if let studentDeskView  = containerview.viewWithTag(Int(studentIdValue)!) as? UIImageView {
                             studentDeskView.removeFromSuperview()
                         }
                     }
@@ -1020,13 +1151,18 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
             }
         }
         
-        
-        
-        
         sendButtonSpinner.isHidden = true
         sendButtonSpinner.stopAnimating()
         mSendButton.isHidden = false
-        mScribbleView.clearButtonClicked()
+        
+        // By Ujjval
+        // Clear image
+        // ==========================================
+        
+//        mScribbleView.clearButtonClicked()
+        mScribbleView.clear()
+        
+        // ==========================================
     }
     
     
@@ -1102,8 +1238,27 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     
     func imageUploaded(withName name: String!)
     {
-        newImageUploadedWithName(name)
-        currentTeacherImageURl = name
+        SSTeacherDataSource.sharedDataSource.InsertScribbleFileName(Scribblename: "upload/".appending(name).appending(".png"), withSuccessHandle: { (details) in
+            self.newImageUploadedWithName(name)
+            self.currentTeacherImageURl = name
+        }) { (error) in
+            self.sendButtonSpinner.isHidden = true
+            self.sendButtonSpinner.stopAnimating()
+            self.mSendButton.isHidden = false
+            
+            // By Ujjval
+            // Clear image
+            // ==========================================
+            
+//            self.mScribbleView.clearButtonClicked()
+            self.mScribbleView.clear()
+            
+            // ==========================================
+            
+            self.currentTeacherImageURl = ""
+        }
+        
+       
     }
     
     
@@ -1113,7 +1268,16 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         sendButtonSpinner.isHidden = true
         sendButtonSpinner.stopAnimating()
         mSendButton.isHidden = false
-        mScribbleView.clearButtonClicked()
+        
+        // By Ujjval
+        // Clear image
+        // ==========================================
+        
+//        mScribbleView.clearButtonClicked()
+        mScribbleView.clear()
+        
+        // ==========================================
+        
         currentTeacherImageURl = ""
     }
     
@@ -1125,7 +1289,14 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         
         if let progressView = sender as? UISlider
         {
-            mScribbleView.setBrushWidth(Int32(progressView.value));
+            // By Ujjval
+            // Assign updated Brush size
+            // ==========================================
+            
+//            mScribbleView.setBrushWidth(Int32(progressView.value));
+            mScribbleView.penWidth = UInt(progressView.value)
+            
+            // ==========================================
         }
         
         
@@ -1135,7 +1306,14 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     {
         if let progressColor = sender as? UIColor
         {
-             mScribbleView.setDrawing(progressColor);
+            // By Ujjval
+            // Assign updated Brush color
+            // ==========================================
+            
+//            mScribbleView.setDrawing(progressColor);
+            mScribbleView.penColor = progressColor
+            
+            // ==========================================
         }
     }
     
@@ -1143,11 +1321,27 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     func resetAllButtonState()
     {
         
-        mScribbleView.clearButtonClicked()
+        // By Ujjval
+        // Clear image
+        // ==========================================
+        
+//        mScribbleView.clearButtonClicked()
+        mScribbleView.clear()
+        
+        // ==========================================
+        
         givenBadgeId = 0
         givenStarRatings = 0
         givenTextReply = ""
-        mScribbleView.clearButtonClicked()
+        
+        // By Ujjval
+        // Clear image
+        // ==========================================
+        
+//        mScribbleView.clearButtonClicked()
+        mScribbleView.clear()
+        
+        // ==========================================
         mStarRatingView.setStarRating(0)
         m_badgeButton.setImage(UIImage(named:"Cb_Like_Disabled.png"), for:UIControlState());
         m_textButton.setImage(UIImage(named:"Text_Unselected.png"), for:UIControlState());

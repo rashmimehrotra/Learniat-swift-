@@ -265,12 +265,12 @@ class LessonPlanQuestionView: UIView,SSTeacherDataSourceDelegate,UIGestureRecogn
                 
                 questionInfoController.preferredContentSize = CGSize(width: 400,height: 317)
                 
-                let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
-                questionInfoController.setPopover(classViewPopOverController)
-                classViewPopOverController.contentSize = CGSize(width: 400,height: 317);
-                classViewPopOverController.delegate = self;
+                SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                questionInfoController.setPopover(SSTeacherDataSource.sharedDataSource.mPopOverController)
+                SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 400,height: 317);
+                SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
                 
-                classViewPopOverController.present(from: CGRect(
+                SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(
                     x:buttonPosition.x ,
                     y:buttonPosition.y + infoButton.frame.size.height / 2,
                     width: 1,
@@ -286,12 +286,12 @@ class LessonPlanQuestionView: UIView,SSTeacherDataSourceDelegate,UIGestureRecogn
                 
                 questionInfoController.preferredContentSize = CGSize(width: 400,height: 317)
                 
-                let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
-                questionInfoController.setPopover(classViewPopOverController)
-                classViewPopOverController.contentSize = CGSize(width: 400,height: 317);
-                classViewPopOverController.delegate = self;
+                SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                questionInfoController.setPopover(SSTeacherDataSource.sharedDataSource.mPopOverController)
+                SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 400,height: 317);
+                SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
                 
-                classViewPopOverController.present(from: CGRect(
+                SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(
                     x:buttonPosition.x ,
                     y:buttonPosition.y + infoButton.frame.size.height / 2,
                     width: 1,
@@ -307,12 +307,12 @@ class LessonPlanQuestionView: UIView,SSTeacherDataSourceDelegate,UIGestureRecogn
                 
                 questionInfoController.preferredContentSize = CGSize(width: 400,height: 317)
                 
-                let   classViewPopOverController = UIPopoverController(contentViewController: questionInfoController)
-                questionInfoController.setPopover(classViewPopOverController)
-                classViewPopOverController.contentSize = CGSize(width: 400,height: 317);
-                classViewPopOverController.delegate = self;
+                SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: questionInfoController)
+                questionInfoController.setPopover(SSTeacherDataSource.sharedDataSource.mPopOverController)
+                SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 400,height: 317);
+                SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
                 
-                classViewPopOverController.present(from: CGRect(
+                SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(
                     x:buttonPosition.x ,
                     y:buttonPosition.y + infoButton.frame.size.height / 2,
                     width: 1,

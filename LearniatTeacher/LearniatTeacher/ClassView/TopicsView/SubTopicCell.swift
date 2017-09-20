@@ -42,6 +42,8 @@ fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
     
     @objc optional func delegateSubTopicCellStartedWithDetails(_ subTopicDetails:AnyObject, witStatedState isStarted:Bool)
     
+    @objc optional func delegateTopicCompleted(_ TopicId: String)
+    
     @objc optional func delegateShowAlert()
     
 }
@@ -119,7 +121,16 @@ class SubTopicCell: UIView{
         startButton.setTitleColor(standard_Green, for: UIControlState())
         startButton.setTitle("Start", for: UIControlState())
         startButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
-        startButton.addTarget(self, action: #selector(SubTopicCell.onStartButton), for: UIControlEvents.touchUpInside)
+        
+        //Pradip
+        // ADD GestureRecognizer
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onStartButton_SingleTap(_:)))
+        let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(onStartButton_longTap(_:)))
+        tapGesture.numberOfTapsRequired = 1
+        startButton.addGestureRecognizer(tapGesture)
+        startButton.addGestureRecognizer(longGesture)
+        
+        
         
         
         
@@ -177,7 +188,6 @@ class SubTopicCell: UIView{
                          mDemoLabel.isHidden = true
                 }
                 
-                
                 }
                 else
                {
@@ -206,7 +216,45 @@ class SubTopicCell: UIView{
             {
                 m_SubTopicLabel.text = "\(topicName)".capitalized
             }
+            
+            
+            
+            if let Tagged = currentTopicDetails.object(forKey: "Tagged") as? String
+            {
+                if Int(Tagged) == 0
+                {
+                
+                }else if Int(Tagged) == 1{
+                    
+                    m_SubTopicLabel.textColor = blackTextColor
+                    
+                }else if Int(Tagged) == 2{
+                    
+                    m_SubTopicLabel.textColor = lightGrayColor
+                    
+                }else if Int(Tagged) == 3{
+                    
+                    m_SubTopicLabel.textColor = lightGrayColor
+                    
+                }
+
+
+            }
+            
         }
+        
+        //Pradip
+//        if let topicName = currentTopicDetails.object(forKey: "Name")as? String
+//        {
+//            if let CumulativeTime = currentTopicDetails.object(forKey: "CumulativeTime")as? String
+//            {
+//                m_SubTopicLabel.text = "\(topicName)(\(CumulativeTime)) \(mSubTopicId)".capitalized
+//            }
+//            else
+//            {
+//                m_SubTopicLabel.text = "\(topicName)".capitalized
+//            }
+//        }
         
         
         if let QuestionCount = currentTopicDetails.object(forKey: "QuestionCount") as? String
@@ -219,6 +267,8 @@ class SubTopicCell: UIView{
             if Int(QuestionCount) <= 0
             {
                 mQuestionsButton.setTitle("No questions", for: UIControlState())
+                mQuestionsButton.setTitleColor(standard_Button, for: UIControlState())
+                mQuestionsButton.isEnabled = true
             }
             else if Int(QuestionCount) == 1
             {
@@ -261,15 +311,17 @@ class SubTopicCell: UIView{
         }
         
         
-        if let PercentageStarted = currentTopicDetails.object(forKey: "PercentageStarted") as? NSString
-        {
+        if let PercentageStarted = currentTopicDetails.object(forKey: "PercentageStarted") as? NSString {
             var percentageValue :Float =  PercentageStarted.floatValue
-            
             percentageValue = percentageValue / 100
-            
             m_progressView.progress = percentageValue
         }
         
+        if SSTeacherDataSource.sharedDataSource.isQuestionSent == true {
+            startButton.isHidden = true
+        } else {
+            startButton.isHidden = false
+        }
     }
     
     func onQuestionsButton()
@@ -284,49 +336,72 @@ class SubTopicCell: UIView{
         }
     }
     
-    func onStartButton()
-    {
-        if delegate().responds(to: #selector(SubTopicCellDelegate.delegateSubTopicCellStartedWithDetails(_:witStatedState:)))
-        {
-            
-            if startButton.titleLabel?.text == "Start" || startButton.titleLabel?.text == "Resume"
-            {
-                
-                if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
-                {
-                    if let topicId = currentSubTopicDetails.object(forKey: "Id")as? String
-                    {
-                        SSTeacherDataSource.sharedDataSource.isSubtopicStarted = true
+    func onStartButton_SingleTap(_ sender: UIGestureRecognizer){
 
-                        SSTeacherDataSource.sharedDataSource.startedSubTopicId = topicId
-                        
-                        
-                        if let topicName = currentSubTopicDetails.object(forKey: "Name")as? String
+        print("Single tap")
+
+        if delegate().responds(to: #selector(SubTopicCellDelegate.delegateSubTopicCellStartedWithDetails(_:witStatedState:)))
+            {
+        
+                if startButton.titleLabel?.text == "Start" || startButton.titleLabel?.text == "Resume"
+                    {
+        
+                        if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
                         {
-                             SSTeacherDataSource.sharedDataSource.startedSubTopicName = topicName
+                            if let topicId = currentSubTopicDetails.object(forKey: "Id")as? String
+                            {
+                                SSTeacherDataSource.sharedDataSource.isSubtopicStarted = true
+        
+                                SSTeacherDataSource.sharedDataSource.startedSubTopicId = topicId
+        
+        
+                                if let topicName = currentSubTopicDetails.object(forKey: "Name")as? String
+                                {
+                                     SSTeacherDataSource.sharedDataSource.startedSubTopicName = topicName
+                                }
+        
+                                 delegate().delegateSubTopicCellStartedWithDetails!(currentSubTopicDetails, witStatedState: true)
+                            }
+                        }
+                        else
+                        {
+                            delegate().delegateShowAlert!()
+                        }
+        
+                    }
+                    else
+                    {
+                        if SSTeacherDataSource.sharedDataSource.isQuestionSent == false
+                        {
+                            delegate().delegateSubTopicCellStartedWithDetails!(currentSubTopicDetails, witStatedState: false)
+                            SSTeacherDataSource.sharedDataSource.isSubtopicStarted = false
+                        }
+                        else {
+                            
+                            delegate().delegateShowAlert!()
                         }
                         
-                         delegate().delegateSubTopicCellStartedWithDetails!(currentSubTopicDetails, witStatedState: true)
                     }
-                }
-                else
-                {
-                    delegate().delegateShowAlert!()
-                }
-                
-            }
-            else
-            {
-                if SSTeacherDataSource.sharedDataSource.isQuestionSent == false
-                {
-                    delegate().delegateSubTopicCellStartedWithDetails!(currentSubTopicDetails, witStatedState: false)
                     
+            }
+    }
+    
+    func onStartButton_longTap(_ sender: UIGestureRecognizer){
+        
+        //Pradip
+        if startButton.titleLabel?.text == "Resume"{
+            
+            if sender.state == .ended {
+                
+                if let topicId = currentSubTopicDetails.object(forKey: "Id")as? String
+                {
+                    delegate().delegateTopicCompleted!(topicId)
                     SSTeacherDataSource.sharedDataSource.isSubtopicStarted = false
                 }
                 
             }
-            
+
         }
+        
     }
-    
 }

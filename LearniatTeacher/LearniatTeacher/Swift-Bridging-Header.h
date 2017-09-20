@@ -35,4 +35,5 @@
 #import "DynamicFontSize.h"
 #import "YIInnerShadowView.h"
 #import  "UIView+InnerShadow.h"
+#import "KMZDrawView.h"
 #endif /* Swift_Bridging_Header_h */

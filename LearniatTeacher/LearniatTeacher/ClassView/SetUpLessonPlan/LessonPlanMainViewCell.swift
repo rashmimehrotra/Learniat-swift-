@@ -201,6 +201,9 @@ class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
         
         
         
+        
+        
+        
         if let giValue = currentTopicDetails.object(forKey: "GraspIndex") as? NSString
         {
             var graspIndexValue = giValue.integerValue
