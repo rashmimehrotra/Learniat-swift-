@@ -367,10 +367,10 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
         
         
         
-        mJoinedPercentageLabel.frame = CGRect(x: 0, y: (mJoinStudentProgressBar.frame.size.height-((mJoinStudentProgressBar.frame.size.height / 5) + 30) )/2, width: mJoinStudentProgressBar.frame.size.width , height: mJoinStudentProgressBar.frame.size.height / 5)
+        mJoinedPercentageLabel.frame = CGRect(x: 0, y: (mJoinStudentProgressBar.frame.size.height-((mJoinStudentProgressBar.frame.size.height / 4) + 30) )/2, width: mJoinStudentProgressBar.frame.size.width , height: mJoinStudentProgressBar.frame.size.height / 4)
         mJoinStudentProgressBar.addSubview(mJoinedPercentageLabel)
         mJoinedPercentageLabel.textAlignment = .center
-        mJoinedPercentageLabel.font = UIFont(name: HelveticaNeueThin, size: 80)
+        mJoinedPercentageLabel.font = UIFont(name: HelveticaNeueThin, size: 90)
         mJoinedPercentageLabel.lineBreakMode = .byTruncatingMiddle
         mJoinedPercentageLabel.textColor = blackTextColor
         mJoinedPercentageLabel.backgroundColor = UIColor.clear
@@ -523,8 +523,8 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
             SSTeacherDataSource.sharedDataSource.getJoinedStudentsCount(sessionID: sessionId, success: { (result) in
                 if let registered = result.object(forKey: kRegistered) as? Int {
                     if let joined = result.object(forKey: kJoined) as? Int {
-                        let percenatgeValue = (CGFloat(joined) /  CGFloat(registered)) * 100   
-                        self.mJoinedPercentageLabel.text =  NSString(format:"%.1f%%",percenatgeValue) as String;
+                        let percenatgeValue = (CGFloat(joined) /  CGFloat(registered)) * 100
+                        self.mJoinedPercentageLabel.text =  NSString(format:"%.0f%%",percenatgeValue.rounded()) as String;
                         self.mJoinStudentProgressBar.progress = CGFloat(percenatgeValue) / 100;
                         self.joinedLabelWithJoinedCount(OccupiedSeats: joined, StudentsRegistered: registered)
                     }
