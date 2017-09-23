@@ -44,6 +44,8 @@ fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
     
     @objc optional func delegateTopicCompleted(_ TopicId: String)
     
+    @objc optional func delegateTopicCompletedRemoveOption(_ TopicId: String)
+    
     @objc optional func delegateShowAlert()
     
 }
@@ -218,7 +220,7 @@ class SubTopicCell: UIView{
             }
             
             
-            
+            //Pradip
             if let Tagged = currentTopicDetails.object(forKey: "Tagged") as? String
             {
                 if Int(Tagged) == 0
@@ -243,18 +245,8 @@ class SubTopicCell: UIView{
             
         }
         
-        //Pradip
-//        if let topicName = currentTopicDetails.object(forKey: "Name")as? String
-//        {
-//            if let CumulativeTime = currentTopicDetails.object(forKey: "CumulativeTime")as? String
-//            {
-//                m_SubTopicLabel.text = "\(topicName)(\(CumulativeTime)) \(mSubTopicId)".capitalized
-//            }
-//            else
-//            {
-//                m_SubTopicLabel.text = "\(topicName)".capitalized
-//            }
-//        }
+        
+
         
         
         if let QuestionCount = currentTopicDetails.object(forKey: "QuestionCount") as? String
@@ -342,32 +334,37 @@ class SubTopicCell: UIView{
 
         if delegate().responds(to: #selector(SubTopicCellDelegate.delegateSubTopicCellStartedWithDetails(_:witStatedState:)))
             {
-        
-                if startButton.titleLabel?.text == "Start" || startButton.titleLabel?.text == "Resume"
+                
+                if startButton.titleLabel?.text == "Resume" || startButton.titleLabel?.text == "Completed" {
+                    
+                    
+                }else{
+                    
+                    if startButton.titleLabel?.text == "Start"
                     {
-        
+                        
                         if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
                         {
                             if let topicId = currentSubTopicDetails.object(forKey: "Id")as? String
                             {
                                 SSTeacherDataSource.sharedDataSource.isSubtopicStarted = true
-        
+                                
                                 SSTeacherDataSource.sharedDataSource.startedSubTopicId = topicId
-        
-        
+                                
+                                
                                 if let topicName = currentSubTopicDetails.object(forKey: "Name")as? String
                                 {
-                                     SSTeacherDataSource.sharedDataSource.startedSubTopicName = topicName
+                                    SSTeacherDataSource.sharedDataSource.startedSubTopicName = topicName
                                 }
-        
-                                 delegate().delegateSubTopicCellStartedWithDetails!(currentSubTopicDetails, witStatedState: true)
+                                
+                                delegate().delegateSubTopicCellStartedWithDetails!(currentSubTopicDetails, witStatedState: true)
                             }
                         }
                         else
                         {
                             delegate().delegateShowAlert!()
                         }
-        
+                        
                     }
                     else
                     {
@@ -383,6 +380,8 @@ class SubTopicCell: UIView{
                         
                     }
                     
+                }
+                
             }
     }
     
@@ -391,7 +390,7 @@ class SubTopicCell: UIView{
         //Pradip
         if startButton.titleLabel?.text == "Resume"{
             
-            if sender.state == .ended {
+            if sender.state == .began {
                 
                 if let topicId = currentSubTopicDetails.object(forKey: "Id")as? String
                 {
@@ -401,6 +400,18 @@ class SubTopicCell: UIView{
                 
             }
 
+        }else if startButton.titleLabel?.text == "Completed"{
+        
+            if sender.state == .began {
+                
+                if let topicId = currentSubTopicDetails.object(forKey: "Id")as? String
+                {
+                    delegate().delegateTopicCompletedRemoveOption!(topicId)
+                    SSTeacherDataSource.sharedDataSource.isSubtopicStarted = false
+                }
+            
+            }
+            
         }
         
     }

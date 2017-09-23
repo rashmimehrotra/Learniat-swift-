@@ -131,15 +131,69 @@ class SSTeacherLessonPlanView: UIView,SSTeacherDataSourceDelegate, UISearchBarDe
         
     }
     
+    //Hina
     func onSendButton()
     {
         
         if let ClassId = _currentSessionDetails.object(forKey: "ClassId") as? String
         {
-             SSTeacherDataSource.sharedDataSource.saveLessonPlan(ClassId, withTopicIdList: MainTopicsView.getAllSelectedtopicId(), withDelegate: self)
+            SSTeacherDataSource.sharedDataSource.saveLessonPlan(ClassId, withTopicIdList: MainTopicsView.getAllSelectedtopicId(), withDelegate: self)
             sendButtonSpinner.isHidden = false
             sendButtonSpinner.startAnimating()
             mSendButton.isHidden = true
+            
+//            let  dictaglist = NSDictionary()
+//            
+//            SSTeacherDataSource.sharedDataSource.RecordLessonTagginglist(tagglist: dictaglist, withSuccessHandle: { (result) in
+//                
+//                print(result)
+//                
+//                
+//                if let status = result.object(forKey: kStatus) as? String
+//                {
+//                    if status == kSuccessString
+//                    {
+//                        //Need to test
+//                        if let subTopicView  = self.mTopicsContainerView.viewWithTag(Int(TopicId)!) as? SubTopicCell
+//                        {
+//                            subTopicView.m_SubTopicLabel.textColor = lightGrayColor
+//                            subTopicView.startButton .setTitle("Completed", for: .normal)
+//                            subTopicView.mQuestionsButton.setTitleColor(lightGrayColor, for: UIControlState())
+//                            subTopicView.mQuestionsButton.isEnabled = true
+//                            subTopicView.backgroundColor = lightGrayTopBar
+//                            
+//                            
+//                        }
+//                        
+//                    }
+//                    else
+//                    {
+//                        if let error_message = result.object(forKey: kErrorMessage) as? String
+//                        {
+//                            self.makeToast(error_message, duration: 2.0, position: .bottom)
+//                        }
+//                        else
+//                        {
+//                            self.makeToast(status, duration: 2.0, position: .bottom)
+//                        }
+//                        
+//                    }
+//                }
+//                else
+//                {
+//                    
+//                    let error_message = result.object(forKey: kErrorMessage) as? String
+//                    self.makeToast(error_message!, duration: 2.0, position: .bottom)
+//                    
+//                }
+//                
+//            }, withfailurehandler: { (error) in
+//                
+//                self.makeToast("Error\((error.code))-\((error.localizedDescription))", duration: 5.0, position: .bottom)
+//            })
+
+            
+            
             
         }
         

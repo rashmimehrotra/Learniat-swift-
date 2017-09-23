@@ -28,6 +28,8 @@ class  LessonPlanSubTopicCell: UIView{
     
     var mSubTopicButton     = UIButton()
     
+    var mSubTopicTagStatus     = UILabel()
+    
     var mMainTopicId          = "0"
     
     let checkBoxImage       = UIImageView()
@@ -60,13 +62,8 @@ class  LessonPlanSubTopicCell: UIView{
         super.init(frame:frame)
         
         
-        
-        
-        
         dateFormatter.dateFormat = "HH:mm:ss"
         
-        
-       
         self.backgroundColor = whiteBackgroundColor
         
         
@@ -104,6 +101,15 @@ class  LessonPlanSubTopicCell: UIView{
         mSubTopicButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 18)
         mSubTopicButton.addTarget(self, action: #selector(LessonPlanSubTopicCell.onSubtopicButton), for: UIControlEvents.touchUpInside)
         mSubTopicButton.layer.cornerRadius = (mSubTopicButton.frame.size.height)/3
+        
+        
+        mSubTopicTagStatus.frame = CGRect(x: mSubTopicButton.frame.origin.x - 90 , y: 10 ,width: 150 ,height: self.frame.size.height - 20)
+        self.addSubview(mSubTopicTagStatus)
+        mSubTopicTagStatus.textColor = lightGrayColor
+        mSubTopicTagStatus.textAlignment = .left
+        mSubTopicTagStatus.lineBreakMode = .byTruncatingMiddle
+        
+        
         
         
         var remainingWidth = m_graspImageView.frame.size.width + m_graspImageView.frame.origin.x + mSubTopicButton.frame.size.width + 30
@@ -210,6 +216,7 @@ class  LessonPlanSubTopicCell: UIView{
             
             if let Tagged = currentTopicDetails.object(forKey: "Tagged") as? String
             {
+                /*
                 if Tagged == "1"
                 {
                     checkBoxImage.image = UIImage(named:"Checked.png");
@@ -232,7 +239,34 @@ class  LessonPlanSubTopicCell: UIView{
                         SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.remove(topicId)
                     }
 
+                }*/
+                
+                
+                if Tagged == "0"
+                {
+                    checkBoxImage.image = UIImage(named:"Unchecked.png");
+                    isSelected = false
+                    mSubTopicTagStatus.text = ""
+                    
+                } else if Tagged == "1"{
+                    
+                    checkBoxImage.image = UIImage(named:"Checked.png");
+                    isSelected = true
+                    mSubTopicTagStatus.text = ""
+                
+                }else if Tagged == "2"{
+                    
+                    checkBoxImage.image = UIImage(named:"Checked.png");
+                    isSelected = true
+                    mSubTopicTagStatus.text = "Complete"
                 }
+                else if Tagged == "3"{
+                    
+                    checkBoxImage.image = UIImage(named:"Unchecked.png");
+                    isSelected = false
+                    mSubTopicTagStatus.text = "Complete"
+                }
+                
             }
             
 //            if selectedState == true
@@ -303,6 +337,8 @@ class  LessonPlanSubTopicCell: UIView{
         {
             mSubTopicButton.setTitle("\(subTopicsDetails.count) Questions", for: UIControlState())
         }
+        
+        
         
         
         

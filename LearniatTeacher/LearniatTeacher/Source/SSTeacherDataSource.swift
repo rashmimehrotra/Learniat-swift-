@@ -58,7 +58,10 @@ let kServiceSeatAssignment          =   "StudentSeatAssignment"
 
 let kServiceGetAllNodes				=   "GetAllNodes"
 
-let kServiceSaveLessonPlan			=   "RecordLessonPlan"
+//Pradip
+let kServiceRecordLessonTagging     =   "RecordLessonTagging" // change instaed of let kServiceSaveLessonPlan =  "RecordLessonPlan"
+
+let kServiceSaveLessonPlan =  "RecordLessonPlan"
 
 let kServiceStartTopic              =   "SetCurrentTopic"
 
@@ -457,9 +460,9 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     //Topic MarkTopicCompleted using Json
     //Pradip
-    func TopicCompletedWithTopicID(_ topicId:String,withSessionID sessionid:String, withUserID UserId:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler) {
+    func TopicCompletedWithTopicID(_ topicId:String,withSessionID sessionid:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler) {
         
-        WebServicesAPI().getRequest(fromUrl: AppAPI.TopicCompleted(topicId: topicId, sessionid: sessionid, UserId: UserId) .path, details:
+        WebServicesAPI().getRequest(fromUrl: AppAPI.TopicCompleted(topicId: topicId, sessionid: sessionid, UserId: SSTeacherDataSource.sharedDataSource.currentUserId) .path, details:
             nil, success: { (result) in
             let JsonValue = result.parseJSONString
             if(JsonValue.jsonData != nil) {
@@ -472,6 +475,57 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
             failure(error as NSError)
         }
     }
+    
+    
+    func TopicCompletedRemoveOption(_ topicId:String,withSessionID sessionid:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler) {
+        
+        WebServicesAPI().getRequest(fromUrl: AppAPI.TopicCompletedRemoveOptions(topicId: topicId, sessionid: sessionid, UserId: SSTeacherDataSource.sharedDataSource.currentUserId) .path, details:
+            nil, success: { (result) in
+                let JsonValue = result.parseJSONString
+                if(JsonValue.jsonData != nil) {
+                    success(JsonValue.jsonData!)
+                } else {
+                    failure(JsonValue.error!)
+                }
+                
+        }) { (error) in
+            failure(error as NSError)
+        }
+    }
+
+    
+    
+    
+    func RecordLessonTagginglist(tagglist:NSDictionary , withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler) {
+        
+        
+        WebServicesAPI().postRequest(toUrl: "http://54.251.104.13:8100/RecordLessonTagging", details: tagglist, isWritingToWebSocket: true, success: { (result) in
+                            let JsonValue = result.parseJSONString
+                            if(JsonValue.jsonData != nil) {
+                                success(JsonValue.jsonData!)
+                            } else {
+                                failure(JsonValue.error!)
+                            }
+            
+                    }) { (error) in
+                        failure(error as NSError)
+                    }
+    }
+
+        
+    func saveLessonPlan(_ classId:String,  withTopicIdList topicIdList:String, withDelegate delegate:SSTeacherDataSourceDelegate)
+    {
+        
+        let manager = APIManager()
+        
+        let urlString = String(format: "%@<Sunstone><Action><Service>RecordLessonPlan</Service><TeacherId>%@</TeacherId><ClassId>%@</ClassId><TopicIdList>%@</TopicIdList></Action></Sunstone>",URLPrefix,currentUserId,classId,topicIdList)
+        print("ApiValue - \(urlString)")
+        manager.downloadDataURL(urlString, withServiceName: kServiceSaveLessonPlan, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
+    }
+
+    
+    
+    
     
     func getScheduleOfTeacher(_ delegate:SSTeacherDataSourceDelegate)
     {
@@ -628,18 +682,6 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         print("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kServiceGetAllNodes, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
-    
-    func saveLessonPlan(_ classId:String,  withTopicIdList topicIdList:String, withDelegate delegate:SSTeacherDataSourceDelegate)
-    {
-
-        
-        let manager = APIManager()
-        
-        let urlString = String(format: "%@<Sunstone><Action><Service>RecordLessonPlan</Service><TeacherId>%@</TeacherId><ClassId>%@</ClassId><TopicIdList>%@</TopicIdList></Action></Sunstone>",URLPrefix,currentUserId,classId,topicIdList)
-        print("ApiValue - \(urlString)")
-        manager.downloadDataURL(urlString, withServiceName: kServiceSaveLessonPlan, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
-    }
-    
    
     func startSubTopicWithTopicID(_ topicId:String,withStudentId studentId:String,withSessionID sessionid:String, withDelegate delegate:SSTeacherDataSourceDelegate)
     {
