@@ -22,7 +22,7 @@ import Foundation
 }
 
 
-class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
+class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate,SSTeacherDataSourceDelegate
 {
     
         let dateFormatter = DateFormatter()
@@ -199,11 +199,6 @@ class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
             }
         }
         
-        
-        
-        
-        
-        
         if let giValue = currentTopicDetails.object(forKey: "GraspIndex") as? NSString
         {
             var graspIndexValue = giValue.integerValue
@@ -238,10 +233,7 @@ class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
         }
        
         
-         getSubtopicsCountWithMainTopicsDetails(currentTopicDetails)
-        
-        
-        
+        getSubtopicsCountWithMainTopicsDetails(currentTopicDetails)
         
         let subTopicHeight:CGFloat = CGFloat(currentSubtopicsArray.count) * 55
         
@@ -342,11 +334,6 @@ class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
         
         getQuestionsCountWithSubTopicDetails(subTopicsDetails)
         
-        
-        
-        
-        
-        
         if Int(subTopicsDetails.count) <= 0
         {
             mSubTopicButton.setTitle("No Sub topics", for: UIControlState())
@@ -420,9 +407,7 @@ class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
     // MARK: - Buttons functions
     func onSubtopicButton()
     {
-        
-        
-        
+    
         
         var subTopicHeight:CGFloat = CGFloat(currentSubtopicsArray.count) * 55
         
@@ -431,7 +416,6 @@ class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
             SubTopicsView.isHidden = true
             
             subTopicHeight = mMainTopicView.frame.size.height
-            
          }
         else
         {
@@ -440,12 +424,6 @@ class LessonPlanMainViewCell: UIView , LessonPlanSubTopicsViewDelegate
             
         }
         
-        
-        
-        
-        
-        
-
         if delegate().responds(to: #selector(LessonPlanMainViewDelegate.delegateSubTopicCellPressedWithMainTopicDetails(_:withCell:withHeight:)))
         {
             delegate().delegateSubTopicCellPressedWithMainTopicDetails!(currentTopicDetails, withCell: self, withHeight: subTopicHeight)

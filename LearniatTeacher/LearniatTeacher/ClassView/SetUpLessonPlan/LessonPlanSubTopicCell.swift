@@ -151,6 +151,10 @@ class  LessonPlanSubTopicCell: UIView{
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    
+    
+    
     func setSubTopicTopicDetails(_ topicDetails:AnyObject , withSelectedState selectedState:Bool)
     {
         

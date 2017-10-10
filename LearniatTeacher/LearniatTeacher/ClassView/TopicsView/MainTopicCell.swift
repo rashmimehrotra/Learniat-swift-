@@ -165,7 +165,7 @@ class MainTopicCell: UIView{
             }
         }
         
-        
+        //Help
         if let SubTopicCount = currentTopicDetails.object(forKey: "TaggedSubTopicCount") as? String
         {
             if Int(SubTopicCount) <= 0

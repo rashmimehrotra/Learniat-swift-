@@ -109,8 +109,6 @@ class LessonPlanMainView: UIView,SSTeacherDataSourceDelegate,LessonPlanMainViewD
             
         }
         
-        
-        
         addTopicsForheight()
         
     }
@@ -129,10 +127,6 @@ class LessonPlanMainView: UIView,SSTeacherDataSourceDelegate,LessonPlanMainViewD
              mTopicName.isHidden = true
             mTopicsContainerView.isHidden = false
         }
-        
-        
-        
-        
         
         var positionY :CGFloat = 10
         
@@ -160,10 +154,6 @@ class LessonPlanMainView: UIView,SSTeacherDataSourceDelegate,LessonPlanMainViewD
     
     func delegateQuestionButtonPressedWithDetails(_ topicDetails: AnyObject)
     {
-        
-        
-        
-        
                 let SubTopicsView = LessonPlanQuestionView(frame: CGRect(x: 0,y: 0,width: self.frame.size.width,height: self.frame.size.height ))
                 SubTopicsView.setCurrentMainTopicDetails(topicDetails)
         
@@ -304,8 +294,6 @@ class LessonPlanMainView: UIView,SSTeacherDataSourceDelegate,LessonPlanMainViewD
     
     func rearrangeScrollView()
     {
-        
-       
         
         var currentYPosition :CGFloat = 10
         

@@ -10,18 +10,10 @@ import Foundation
 
 @objc protocol  LessonPlanSubTopicsViewDelegate
 {
-    
-    
-    
-    
-    
-    
     @objc optional func delegateCellStatewithChecMarkState(_ checkMark:Int)
     
     @objc optional func delegateSubTopicViewQuestionButtonPressedwithDetails(_ subTopicDetails:AnyObject)
-
-    
-    
+   
 }
 
 
@@ -69,9 +61,62 @@ class LessonPlanSubTopicsView: UIView,SSTeacherDataSourceDelegate,UIGestureRecog
         
     }
     
+    
+    func GetSubTopicDetailbyMainTopicwise(_ ClassID:String, withSubjectID SubjectID:String, withMainTopicID  TopicID:String){
+        
+        SSTeacherDataSource.sharedDataSource.getAllNodesWithClassId(ClassID, withSubjectId: SubjectID, withTopicId: TopicID, withType: onlySubTopics, withDelegate: self)
+
+    }
+    
+    
+    // MARK: - datasource delegate functions subtopicDetails
+    func didGetAllNodesWithDetails(_ details: AnyObject)
+    {
+        
+        print(details)
+        
+//        sendButtonSpinner.isHidden = true
+//        sendButtonSpinner.stopAnimating()
+//        mSendButton.isHidden = false
+//        
+//        fullLessonPlanDetails = details
+//        SSTeacherDataSource.sharedDataSource.taggedTopicIdArray.removeAllObjects()
+//        MainTopicsView.setCurrentSessionDetails(_currentSessionDetails, withFullLessonPlanDetails: details)
+//
+        if let statusString = details.object(forKey: "Status") as? String{
+            
+            
+            if statusString == kSuccessString
+            {
+                if let classCheckingVariable = (details.object(forKey: "SubTopics")! as AnyObject).object(forKey: "SubTopic") as? NSMutableArray
+                {
+                    setSubtopicsArray(classCheckingVariable, withSelectedState: true)
+                    
+                }
+                else
+                {
+                    
+                    
+                }
+             
+            }
+            
+
+        }
+        
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+    
     func setSubtopicsArray(_ subTopicArray:NSMutableArray, withSelectedState selectedState:Bool)
     {
-         mSubtopicsDetails.removeAllObjects()
+        mSubtopicsDetails.removeAllObjects()
         mSubtopicsDetails = subTopicArray
         addTopicsForheight(selectedState)
     }
@@ -91,12 +136,6 @@ class LessonPlanSubTopicsView: UIView,SSTeacherDataSourceDelegate,UIGestureRecog
         {
             mTopicsContainerView.isHidden = false
         }
-        
-        
-        
-      
-        
-        
         
         var positionY :CGFloat = 0
         

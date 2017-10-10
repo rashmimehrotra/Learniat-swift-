@@ -442,6 +442,7 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
                             subTopicView.mQuestionsButton.setTitleColor(lightGrayColor, for: UIControlState())
                             subTopicView.mQuestionsButton.isEnabled = false
                             subTopicView.backgroundColor = lightGrayTopBar
+
                         }
                         
                     }
@@ -496,8 +497,8 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
                         {
                             subTopicView.removeFromSuperview()
                         }
-                       //self.mTopicsContainerView.frame = CGRect(x: 0, y: 44, width: self.mTopicsContainerView.frame.size.width, height:44)
-                    
+                        //Need to test
+                        //self.mTopicsContainerView.frame = CGRect(x: 0, y: 44, width: self.mTopicsContainerView.frame.size.width, height: self.mTopicsContainerView.frame.size.height - 44)
                     }
                     else
                     {
@@ -531,7 +532,28 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
         
     }
     
-    
+    func rearrangeScrollView()
+    {
+        
+        var currentYPosition :CGFloat = 10
+        
+        let subViews =  mTopicsContainerView.subviews.flatMap{ $0 as? SubTopicCell }
+        for topicCell in subViews
+        {
+            if topicCell.isKind(of: SubTopicCell.self)
+            {
+                UIView.animate(withDuration: 0.2, animations:
+                    {
+                        topicCell.frame = CGRect(x: topicCell.frame.origin.x ,y: currentYPosition,width: topicCell.frame.size.width,height: topicCell.frame.size.height)
+                })
+                
+                currentYPosition = currentYPosition + topicCell.frame.size.height + 10
+            }
+        }
+        
+        mTopicsContainerView.contentSize = CGSize(width: 0, height: currentYPosition)
+    }
+
     
     func delegateSubTopicCellStartedWithDetails(_ subTopicDetails: AnyObject, witStatedState isStarted: Bool) {
         

@@ -225,7 +225,8 @@ class SubTopicCell: UIView{
             {
                 if Int(Tagged) == 0
                 {
-                
+                     m_SubTopicLabel.textColor = blackTextColor
+                    
                 }else if Int(Tagged) == 1{
                     
                     m_SubTopicLabel.textColor = blackTextColor
