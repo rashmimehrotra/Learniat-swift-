@@ -482,23 +482,34 @@ final private class AESCipher {
     fileprivate func expandKeyInv(_ key: Key, variant: Variant) -> Array<Array<UInt32>> {
         let rounds = variant.Nr
         var rk2: Array<Array<UInt32>> = expandKey(key, variant: variant)
-
+        
         for r in 1..<rounds {
             var w: UInt32
-
+            
             w = rk2[r][0]
-            rk2[r][0] = U1[Int(B0(w))] ^ U2[Int(B1(w))] ^ U3[Int(B2(w))] ^ U4[Int(B3(w))]
-
+            var term1 = U1[Int(B0(w))] ^ U2[Int(B1(w))]
+            var term2 = term1 ^ U3[Int(B2(w))]
+            var term3 = term2 ^ U4[Int(B3(w))]
+            rk2[r][0] = term3
+            
             w = rk2[r][1]
-            rk2[r][1] = U1[Int(B0(w))] ^ U2[Int(B1(w))] ^ U3[Int(B2(w))] ^ U4[Int(B3(w))]
-
+            term1 = U1[Int(B0(w))] ^ U2[Int(B1(w))]
+            term2 = term1 ^ U3[Int(B2(w))]
+            term3 = term2 ^ U4[Int(B3(w))]
+            rk2[r][1] = term3
+            
             w = rk2[r][2]
-            rk2[r][2] = U1[Int(B0(w))] ^ U2[Int(B1(w))] ^ U3[Int(B2(w))] ^ U4[Int(B3(w))]
-
+            term1 = U1[Int(B0(w))] ^ U2[Int(B1(w))]
+            term2 = term1 ^ U3[Int(B2(w))]
+            term3 = term2 ^ U4[Int(B3(w))]
+            rk2[r][2] = term3
+            
             w = rk2[r][3]
-            rk2[r][3] = U1[Int(B0(w))] ^ U2[Int(B1(w))] ^ U3[Int(B2(w))] ^ U4[Int(B3(w))]
+            term1 = U1[Int(B0(w))] ^ U2[Int(B1(w))]
+            term2 = term1 ^ U3[Int(B2(w))]
+            term3 = term2 ^ U4[Int(B3(w))]
+            rk2[r][3] = term3
         }
-
         return rk2
     }
 
