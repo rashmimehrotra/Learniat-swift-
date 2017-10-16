@@ -16,5 +16,5 @@ struct GetAllNodesAPIHelper {
     var classId = ""
     var subjectId   = ""
     var topicId     = ""
-    var topicType   = TopicType()
+    var topicType  :TopicType  = .onlyMainTopics
 }

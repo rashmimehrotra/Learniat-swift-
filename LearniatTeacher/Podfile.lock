@@ -2,9 +2,6 @@ PODS:
   - Alamofire (4.4.0)
   - AlamofireActivityLogger (2.3.0):
     - Alamofire (~> 4.2)
-  - EVReflection (4.17.2):
-    - EVReflection/Core (= 4.17.2)
-  - EVReflection/Core (4.17.2)
   - Kingfisher (3.10.1)
   - ObjectMapper (2.2.7)
   - Realm (2.8.0):
@@ -12,6 +9,9 @@ PODS:
   - Realm/Headers (2.8.0)
   - RealmSwift (2.8.0):
     - Realm (= 2.8.0)
+  - RxCocoa (3.0.0):
+    - RxSwift (~> 3.0)
+  - RxSwift (3.0.0)
   - Signals (4.0.0)
   - SwiftyBeaver (1.2.2)
   - SwiftyJSON (3.1.4)
@@ -19,10 +19,11 @@ PODS:
 DEPENDENCIES:
   - Alamofire (= 4.4.0)
   - AlamofireActivityLogger (= 2.3.0)
-  - EVReflection
   - Kingfisher (= 3.10.1)
   - ObjectMapper (= 2.2.7)
   - RealmSwift (= 2.8.0)
+  - RxCocoa (= 3.0)
+  - RxSwift (= 3.0)
   - Signals (= 4.0.0)
   - SwiftyBeaver (= 1.2.2)
   - SwiftyJSON (= 3.1.4)
@@ -30,15 +31,16 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   AlamofireActivityLogger: a4a4b897a179c515e083a01f93b1a834f79d7091
-  EVReflection: e01af7fff66f12a4223595cf2f3cab393c3575a1
   Kingfisher: 33a1b82140fcb14a9fc13f78dfde2a03ff8de8cb
   ObjectMapper: 65abcfd9a61cf7396cbd14a4fb22fddfcc46577e
   Realm: 929243ad2b618b3232e70658bedc61110e7563f1
   RealmSwift: 5b7079b891f2833d1849294161ba3e092bbda3f6
+  RxCocoa: 0a2f3ae381cf16f4021a4cee7a4420f83058a965
+  RxSwift: a930cd662f5b4a7ca9dc3518585dba91dadf497c
   Signals: 6d818e1b7c39f2bf61cfef30bf314329990d1853
   SwiftyBeaver: 90a39e3dc5136b7285f2e4c870b107e3933b8b84
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: debe6a774f93a3f1d5270667601d6246c227f0aa
+PODFILE CHECKSUM: d43fdc62a99799e97b1e87ea8fb884d84aebb8ab
 
 COCOAPODS: 1.2.1

@@ -23,7 +23,9 @@ pod 'SwiftyJSON' , '3.1.4'
 
 pod 'RealmSwift', '2.8.0'
 
-pod "EVReflection"
+pod 'RxSwift',    '3.0'
+
+pod 'RxCocoa',    '3.0'
 
 end
 

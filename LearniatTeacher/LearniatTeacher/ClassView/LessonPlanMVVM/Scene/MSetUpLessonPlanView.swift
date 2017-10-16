@@ -13,7 +13,7 @@ import Foundation
 
 class MSetUpLessonPlanView: UIView,SSTeacherDataSourceDelegate, UISearchBarDelegate,UIPopoverControllerDelegate {
     
-    let mViewModel = MSetUpLessonPlanView()
+    let mViewModel = MSetUpLessonPlanViewModel()
     let mSendButton = UIButton()
     let mCancelButton = UIButton()
     var sendButtonSpinner : UIActivityIndicatorView!
@@ -68,6 +68,7 @@ class MSetUpLessonPlanView: UIView,SSTeacherDataSourceDelegate, UISearchBarDeleg
         
         MainTopicsView = MLessonPlanMainTopicsView(frame: CGRect(x: 0,y: mTopbarImageView.frame.size.height,width: self.frame.size.width,height: self.frame.size.height - mTopbarImageView.frame.size.height ))
         self.addSubview(MainTopicsView)
+        MainTopicsView.LoadMainTopicsForClassId(classId: "")
         
         lessonPlanSearchBar.frame = CGRect(x: (mTopbarImageView.frame.size.width - 400)/2 , y: 10, width: 400, height: 40)
         lessonPlanSearchBar.placeholder = "Search"
@@ -104,11 +105,11 @@ class MSetUpLessonPlanView: UIView,SSTeacherDataSourceDelegate, UISearchBarDeleg
     
     func setCurrentSessionDetails(_ details:AnyObject) {
         _currentSessionDetails = details
-        if let ClassId = details.object(forKey: "ClassId") as? String  {
-            if let SubjectId = details.object(forKey: "SubjectId") as? String {
-                SSTeacherDataSource.sharedDataSource.getAllNodesWithClassId(ClassId, withSubjectId: SubjectId, withTopicId: "", withType: onlyMainTopics, withDelegate: self)
-            }
-        }
+//        if let ClassId = details.object(forKey: "ClassId") as? String  {
+//            if let SubjectId = details.object(forKey: "SubjectId") as? String {
+//                SSTeacherDataSource.sharedDataSource.getAllNodesWithClassId(ClassId, withSubjectId: SubjectId, withTopicId: "", withType: onlyMainTopics, withDelegate: self)
+//            }
+//        }
     }
     
     // MARK: - datasource delegate functions

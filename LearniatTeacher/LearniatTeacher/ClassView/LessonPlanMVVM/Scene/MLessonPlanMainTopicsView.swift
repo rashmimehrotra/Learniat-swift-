@@ -22,6 +22,9 @@ class MLessonPlanMainTopicsView: UIView {
     }
     
     func LoadMainTopicsForClassId(classId:String) {
-        
+       _ = mViewModel.mMaintopicsArray.asObservable().subscribe(onNext: { mainTopics in
+          print(mainTopics)
+        })
+        mViewModel.LoadmainTopics()
     }
 }

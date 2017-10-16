@@ -15,6 +15,7 @@
 		001228591F08DBB9005E8286 /* UserDataManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001228531F08DBB9005E8286 /* UserDataManger.swift */; };
 		001B4A091F1266AA0021CFC2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001B4A081F1266AA0021CFC2 /* Constants.swift */; };
 		0030911E1F94FBC500BD2BB7 /* GetAllNodesAPIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0030911D1F94FBC500BD2BB7 /* GetAllNodesAPIHelper.swift */; };
+		003091201F95282500BD2BB7 /* MainTopics.json in Resources */ = {isa = PBXBuildFile; fileRef = 0030911F1F94FD6C00BD2BB7 /* MainTopics.json */; };
 		0087A3581F10CBD6008E6153 /* InternetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0087A3561F10CBD6008E6153 /* InternetConnection.swift */; };
 		0087A3591F10CBD6008E6153 /* InternetDisconnected.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0087A3571F10CBD6008E6153 /* InternetDisconnected.xib */; };
 		0087A35B1F10CC78008E6153 /* RNLoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0087A35A1F10CC78008E6153 /* RNLoadingButton.swift */; };
@@ -3228,6 +3229,7 @@
 				5373024F1CB6771200E76753 /* Rate_Type_Arrow_Icon.png in Resources */,
 				530720E71D027F08001C85F6 /* Icon-iPad-Spotlight-iOS7@2x.png in Resources */,
 				5373022D1CB6771200E76753 /* Star_Selected_AnnotateView@2x.png in Resources */,
+				003091201F95282500BD2BB7 /* MainTopics.json in Resources */,
 				5373021D1CB6771200E76753 /* Eraser_Selected_scribble.png in Resources */,
 				530441731D0962E70032D378 /* Roboto-BlackItalic.ttf in Resources */,
 				537302301CB6771200E76753 /* Tab_bar_Button_AnnotateView.png in Resources */,
