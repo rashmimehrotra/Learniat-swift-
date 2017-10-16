@@ -1,0 +1,117 @@
+{
+   "Status":"Success",
+   "MainTopics":[
+      {
+         "Tagged":"1",
+         "Id":"357",
+         "Name":"Absolute value or modulus",
+         "PercentageStarted":"100% ",
+         "PercentageTagged":"100%",
+         "GraspIndex":"72.272727272727",
+         "TaggedSubTopicCount":"1",
+         "SubTopicCount":"1",
+         "CumulativeTime":"13:26:02"
+      },
+      {
+         "Tagged":"3",
+         "Id":"378",
+         "Name":"Algebra-inequalities",
+         "PercentageStarted":"100% ",
+         "PercentageTagged":"100%",
+         "GraspIndex":"76.756756756757",
+         "TaggedSubTopicCount":"1",
+         "SubTopicCount":"1",
+         "CumulativeTime":"23:12:58"
+      },
+      {
+         "Tagged":"0",
+         "Id":"322",
+         "Name":"Algebraic expressions",
+         "PercentageStarted":"42.857142857143% ",
+         "PercentageTagged":"100%",
+         "GraspIndex":"77.692307692308",
+         "TaggedSubTopicCount":"14",
+         "SubTopicCount":"14",
+         "CumulativeTime":"12:05:59"
+      },
+      {
+         "Tagged":"1",
+         "Id":"1",
+         "Name":"Arithmetic",
+         "Info":"It consists in the study of numbers, especially the properties of the traditional.",
+         "PercentageStarted":"66.666666666667% ",
+         "PercentageTagged":"33.333333333333%",
+         "GraspIndex":"40.192583165244",
+         "TaggedSubTopicCount":"1",
+         "SubTopicCount":"3",
+         "CumulativeTime":"18:04:34"
+      },
+      {
+         "Tagged":"1",
+         "Id":"98",
+         "Name":"Basic Mathematics",
+         "PercentageStarted":"33.333333333333% ",
+         "PercentageTagged":"100%",
+         "GraspIndex":"71.515151515152",
+         "TaggedSubTopicCount":"3",
+         "SubTopicCount":"3",
+         "CumulativeTime":"20:32:21"
+      },
+      {
+         "Tagged":"1",
+         "Id":"3",
+         "Name":"Geometry",
+         "Info":"is a branch of mathematics concerned with questions of shape, size, relative position of figures, and the properties of space. A ",
+         "PercentageStarted":"0% ",
+         "PercentageTagged":"100%",
+         "GraspIndex":"63.5249",
+         "TaggedSubTopicCount":"8",
+         "SubTopicCount":"8",
+         "CumulativeTime":"13:30:00"
+      },
+      {
+         "Tagged":"0",
+         "Id":"2",
+         "Name":"Math",
+         "PercentageStarted":"12.5% ",
+         "PercentageTagged":"0",
+         "GraspIndex":"51.951217886179",
+         "TaggedSubTopicCount":"0",
+         "SubTopicCount":"8",
+         "CumulativeTime":"13:30:17"
+      },
+      {
+         "Tagged":"0",
+         "Id":"353",
+         "Name":"Money",
+         "PercentageStarted":"0% ",
+         "PercentageTagged":"0",
+         "GraspIndex":"0",
+         "TaggedSubTopicCount":"0",
+         "SubTopicCount":"1",
+         "CumulativeTime":"18:30:00"
+      },
+      {
+         "Tagged":"0",
+         "Id":"359",
+         "Name":"Scientific notation",
+         "PercentageStarted":"0% ",
+         "PercentageTagged":"0",
+         "GraspIndex":"0",
+         "TaggedSubTopicCount":"0",
+         "SubTopicCount":"3",
+         "CumulativeTime":"20:30:00"
+      },
+      {
+         "Tagged":"1",
+         "Id":"381",
+         "Name":"Statistic-probability",
+         "PercentageStarted":"100% ",
+         "PercentageTagged":"100%",
+         "GraspIndex":"66.666666666667",
+         "TaggedSubTopicCount":"2",
+         "SubTopicCount":"2",
+         "CumulativeTime":"07:32:15"
+      }
+   ]
+}
