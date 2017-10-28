@@ -274,7 +274,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     
     
-    func onTeacherImage() {
+    @objc func onTeacherImage() {
         let questionInfoController = SSSettingsViewController()
         questionInfoController.setDelegate(self)
         questionInfoController.classViewTopicsButtonSettingsButtonPressed();
@@ -345,7 +345,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         }
     }
     
-    func onClassButton() {
+    @objc func onClassButton() {
         let buttonPosition :CGPoint = mClassNameButton.convert(CGPoint.zero, to: self.view)
         let remainingHeight = self.view.frame.size.height - (buttonPosition.y  + mClassNameButton.frame.size.height + mClassNameButton.frame.size.height)
         let questionInfoController = SSStudentSchedulePopoverController()
@@ -366,7 +366,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     
     
-    func startTimeUpdating() {
+    @objc func startTimeUpdating() {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         var _string :String = ""
@@ -675,7 +675,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     // MARK: - student Message handler
     
     
-    func onQuestionButton()
+    @objc func onQuestionButton()
     {
         mQuestionView.isHidden = false
         mQueryView.isHidden = true
@@ -686,7 +686,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         
     }
     
-    func onQueryButton()
+    @objc func onQueryButton()
     {
         mQuestionView.isHidden = true
         mQueryView.isHidden = false
@@ -696,7 +696,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         mQuestionButton.buttonUnSelected()
     }
     
-    func onOTFButton()
+    @objc func onOTFButton()
     {
         mQuestionView.isHidden = true
         mQueryView.isHidden = true

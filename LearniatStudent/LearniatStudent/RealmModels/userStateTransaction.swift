@@ -11,11 +11,11 @@ import RealmSwift
 import ObjectMapper
 class userStateTransaction: Object,Mappable
 {
-    dynamic var primeryKey = 0
-    dynamic var userId = 0
-    dynamic var previousState:Int = 0
-    dynamic var currentState:Int = 0
-    dynamic var timeStamp:String?
+    @objc dynamic var primeryKey = 0
+    @objc dynamic var userId = 0
+    @objc dynamic var previousState:Int = 0
+    @objc dynamic var currentState:Int = 0
+    @objc dynamic var timeStamp:String?
     //Impl. of Mappable protocol
     required convenience init?(map: Map) {
         self.init()

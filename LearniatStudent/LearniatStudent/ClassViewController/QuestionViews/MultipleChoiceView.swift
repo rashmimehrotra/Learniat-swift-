@@ -251,7 +251,7 @@ class MultipleChoiceView: UIView,SSStudentDataSourceDelegate
     }
 
 
-    func onSendButton()
+    @objc func onSendButton()
     {
         
          mTopbarImageView.isHidden = true
@@ -275,7 +275,7 @@ class MultipleChoiceView: UIView,SSStudentDataSourceDelegate
         }
     }
     
-    func onDontKnowButton()
+    @objc func onDontKnowButton()
     {
         SSStudentMessageHandler.sharedMessageHandler.sendDontKnowMessageToTeacher()
        

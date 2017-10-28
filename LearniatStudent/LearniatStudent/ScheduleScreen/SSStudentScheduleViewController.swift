@@ -66,10 +66,13 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     
     var mAppVersionNumber               = UILabel();
     
+    //Pradip
+    var mClasses: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.view.backgroundColor = darkBackgroundColor
+        self.view.backgroundColor = whiteBackgroundColor
         self.view.setNeedsLayout()
         self.view.layoutIfNeeded()
         
@@ -82,11 +85,11 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         self.view.addSubview(mTopbarImageView)
         mTopbarImageView.isUserInteractionEnabled = true
         
-        mTeacherImageView = CustomProgressImageView(frame: CGRect(x: 15, y: 15, width: mTopbarImageView.frame.size.height - 20 ,height: mTopbarImageView.frame.size.height - 20))
+        mTeacherImageView = CustomProgressImageView(frame: CGRect(x: 15, y: 22, width: 35, height: 35))
         mTeacherImageView.backgroundColor = lightGrayColor
         mTopbarImageView.addSubview(mTeacherImageView)
         mTeacherImageView.layer.masksToBounds = true
-        mTeacherImageView.layer.cornerRadius = 2
+        mTeacherImageView.layer.cornerRadius = 5
         
         let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
         let userID = urlString.appending("/").appending(SSStudentDataSource.sharedDataSource.currentUserId)
@@ -95,36 +98,46 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
             mTeacherImageView.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
         }
         
-        mTeacherImageButton.frame = CGRect(x: 0, y: 0, width: mTopbarImageView.frame.size.height , height: mTopbarImageView.frame.size.height)
+        mTeacherImageButton.frame = CGRect(x: 0, y: 22, width: mTopbarImageView.frame.size.height - 19, height: mTopbarImageView.frame.size.height - 19)
         mTopbarImageView.addSubview(mTeacherImageButton)
         mTeacherImageButton.addTarget(self, action: #selector(SSStudentScheduleViewController.onTeacherImage), for: UIControlEvents.touchUpInside)
         
-        mTeacherName = UILabel(frame: CGRect(x: mTeacherImageView.frame.origin.x + mTeacherImageView.frame.size.width + 10, y: mTeacherImageView.frame.origin.y, width: 200, height: 20))
-        mTeacherName.font = UIFont(name:helveticaMedium, size: 20)
+        mTeacherName = UILabel(frame: CGRect(x: mTeacherImageView.frame.origin.x + mTeacherImageView.frame.size.width + 10, y: mTeacherImageView.frame.origin.y - 2, width: 200, height: 20))
+        mTeacherName.font = UIFont(name:helveticaMedium, size: 18)
         mTeacherName.text = SSStudentDataSource.sharedDataSource.currentUserName.capitalized
         mTopbarImageView.addSubview(mTeacherName)
         mTeacherName.textColor = UIColor.white
         
         let mTeacher = UILabel(frame: CGRect(x: mTeacherImageView.frame.origin.x + mTeacherImageView.frame.size.width + 10, y: 40, width: 200, height: 20))
-        mTeacher.font = UIFont(name:helveticaRegular, size: 16)
+        mTeacher.font = UIFont(name:helveticaRegular, size: 13)
         mTeacher.text = "Student"
         mTopbarImageView.addSubview(mTeacher)
         mTeacher.textColor = UIColor.white
         
-        let mTodaysSchedule = UILabel(frame: CGRect(x: (mTopbarImageView.frame.size.width - 200)/2, y: 15, width: 200, height: 20))
+        let mTodaysSchedule = UILabel(frame: CGRect(x: (mTopbarImageView.frame.size.width - 200)/2, y: mTeacherImageView.frame.origin.y - 2, width: 200, height: 22))
         mTodaysSchedule.font = UIFont(name:helveticaMedium, size: 20)
-        mTodaysSchedule.text = "Today's schedule"
+        mTodaysSchedule.text = "Today's schedule".capitalized
+        mTodaysSchedule.textAlignment = .center
         mTopbarImageView.addSubview(mTodaysSchedule)
         mTodaysSchedule.textColor = UIColor.white
         
-        mRefreshButton = UIButton(frame: CGRect(x: mTopbarImageView.frame.size.width - mTopbarImageView.frame.size.height, y: 0,width: mTopbarImageView.frame.size.height,height: mTopbarImageView.frame.size.height ))
+        mClasses = UILabel(frame: CGRect(x: (mTopbarImageView.frame.size.width - 200)/2, y: mTeacher.frame.origin.y, width: 200, height: 20))
+        mClasses.font = UIFont(name:helveticaRegular, size: 13)
+        mClasses.textAlignment = .center
+        mClasses.text = "0 Classes Today"
+        mTopbarImageView.addSubview(mClasses)
+        mClasses.textColor = UIColor.white
+        
+
+        
+        mRefreshButton = UIButton(frame: CGRect(x: mTopbarImageView.frame.size.width - mTopbarImageView.frame.size.height, y: 10, width: mTopbarImageView.frame.size.height - 5, height: mTopbarImageView.frame.size.height - 5))
         mRefreshButton.setImage(UIImage(named: "refresh.png"), for: UIControlState())
         mTopbarImageView.addSubview(mRefreshButton)
         mRefreshButton.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
         mRefreshButton.addTarget(self, action: #selector(SSStudentScheduleViewController.onRefreshButton(_:)), for: UIControlEvents.touchUpInside)
         mRefreshButton.isHidden = false
         
-        mAppVersionNumber = UILabel(frame: CGRect(x: mRefreshButton.frame.origin.x - (mRefreshButton.frame.size.width + mRefreshButton.frame.size.width + 10), y: 0,width: (mRefreshButton.frame.size.width*2),height: mTopbarImageView.frame.size.height ))
+        mAppVersionNumber = UILabel(frame: CGRect(x: mRefreshButton.frame.origin.x - (mRefreshButton.frame.size.width + mRefreshButton.frame.size.width + 10), y: 10, width: (mRefreshButton.frame.size.width*2), height: mTopbarImageView.frame.size.height - 5))
         mTopbarImageView.addSubview(mAppVersionNumber)
         mAppVersionNumber.textAlignment = .right
         mAppVersionNumber.textColor = UIColor.white
@@ -133,22 +146,22 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
             mAppVersionNumber.text = "V = \(version).".appending(buildNumber)
         }
         
-        activityIndicator.frame = CGRect(x: mRefreshButton.frame.origin.x - 60,  y: 0,width: mTopbarImageView.frame.size.height,height: mTopbarImageView.frame.size.height)
+        activityIndicator.frame = CGRect(x: mRefreshButton.frame.origin.x - 60,  y: 10, width: mTopbarImageView.frame.size.height - 10,height: mTopbarImageView.frame.size.height - 10)
         mTopbarImageView.addSubview(activityIndicator)
         activityIndicator.isHidden = true
        
         mNoSessionLabel = UILabel(frame: CGRect(x: 10, y: (self.view.frame.size.height - 40)/2, width: self.view.frame.size.width - 20,height: 40))
-        mNoSessionLabel.font = UIFont(name:helveticaMedium, size: 30)
+        mNoSessionLabel.font = UIFont(name:helveticaMedium, size: 32)
         mNoSessionLabel.text = "Please wait we are loading your sessions"
         self.view.addSubview(mNoSessionLabel)
-        mNoSessionLabel.textColor = UIColor.white
+        mNoSessionLabel.textColor = UIColor.black
         mNoSessionLabel.textAlignment = .center
         
         mNoSessionSubLabel = UILabel(frame: CGRect(x: 10, y: mNoSessionLabel.frame.origin.y + mNoSessionLabel.frame.size.height + 0, width: self.view.frame.size.width - 20,height: 40))
-        mNoSessionSubLabel.font = UIFont(name:helveticaRegular, size: 20)
+        mNoSessionSubLabel.font = UIFont(name:helveticaRegular, size: 22)
         mNoSessionSubLabel.text = "Enjoy your day :)"
         self.view.addSubview(mNoSessionSubLabel)
-        mNoSessionSubLabel.textColor = UIColor.white
+        mNoSessionSubLabel.textColor = UIColor.black
         mNoSessionSubLabel.alpha = 0.5
         mNoSessionSubLabel.textAlignment = .center
         
@@ -199,6 +212,10 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     
    
     deinit {
@@ -212,7 +229,7 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         for index in 0 ..< 25 {
             let hourlabel = UILabel(frame: CGRect(x: 10, y: positionY-15,width: 50,height: 30))
             mScrollView.addSubview(hourlabel)
-            hourlabel.textColor = standard_TextGrey
+            hourlabel.textColor = whiteColor
             if index == 0 {
                 hourlabel.text = "\(12) am"
             } else if index == 12 {
@@ -362,6 +379,8 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
             mNoSessionSubLabel.isHidden = false
         }
         
+        var cancelCount : Int = 0
+        
         for index in 0 ..< sessionDetailsArray.count {
             let dict = sessionDetailsArray.object(at: index)
             let startDate :String = ((dict as AnyObject).object(forKey: kStartTime) as! String)
@@ -373,11 +392,19 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
             scheduleTileView.setdelegate(self)
             
             let sessionid = (dict as AnyObject).object(forKey: kSessionId) as! String
+            let sessionState = (dict as AnyObject).object(forKey: kSessionState) as! String
+            
+            if sessionState == "6" {
+                cancelCount += 1
+            }
+
            sessionIdDictonary[sessionid] = dict as AnyObject?
             scheduleTileView.tag = Int(sessionid)!
             scheduleTileView.setCurrentSessionDetails(dict as AnyObject)
             
-                    }
+        }
+        
+        mClasses.text = "\(sessionDetailsArray.count - cancelCount) Classes Today"
         
         let currentDate = Date()
         let currentHour = (currentDate.hour())

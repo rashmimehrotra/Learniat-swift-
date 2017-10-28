@@ -66,7 +66,7 @@ class multipleResponseOptionView: UIView
     }
     
     
-    func optionTouchedTapped()
+    @objc func optionTouchedTapped()
     {
         if isSelected == false
         {

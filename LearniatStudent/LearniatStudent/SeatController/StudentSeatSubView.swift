@@ -87,21 +87,25 @@ class StudentSeatSubView: UIView,SSStudentDataSourceDelegate
         mStudentImage.backgroundColor = UIColor.clear
         
         
-        answerDeskImageView.frame = CGRect(x: (refrenceDeskImageView.frame.size.width-refrenceDeskImageView.frame.size.width/1.1)/2, y: (mStudentImage.frame.size.height+cellHeight/8),width: refrenceDeskImageView.frame.size.width/1.1, height: refrenceDeskImageView.frame.size.width/1.65)
+        
+        answerDeskImageView.frame = CGRect(x: (refrenceDeskImageView.frame.size.width-refrenceDeskImageView.frame.size.width/1.1)/1.6, y: (mStudentImage.frame.size.height+cellHeight/6),width: refrenceDeskImageView.frame.size.width/1.1, height: refrenceDeskImageView.frame.size.width/1.82)
         refrenceDeskImageView.addSubview(answerDeskImageView)
         answerDeskImageView.borderType = BorderTypeSolid;
        
+       
         answerDeskImageView.borderWidth = 1;
-        answerDeskImageView.borderColor = LineGrayColor;
-
+        answerDeskImageView.borderColor = DummyGray;
+        answerDeskImageView.cornerRadius = 3.0
         
-        mMiddleStudentName.frame = CGRect(x: (refrenceDeskImageView.frame.size.width-refrenceDeskImageView.frame.size.width/1.1)/2, y: (mStudentImage.frame.size.height+cellHeight/8),width: refrenceDeskImageView.frame.size.width/1.1, height: refrenceDeskImageView.frame.size.width/1.65)
+        mMiddleStudentName.frame = CGRect(x: (refrenceDeskImageView.frame.size.width-refrenceDeskImageView.frame.size.width/1.1)/1.6, y: (mStudentImage.frame.size.height+cellHeight/8),width: refrenceDeskImageView.frame.size.width/1.1, height: refrenceDeskImageView.frame.size.width/1.82)
         refrenceDeskImageView.addSubview(mMiddleStudentName)
         mMiddleStudentName.backgroundColor = UIColor.clear;
         mMiddleStudentName.textAlignment = .center;
         mMiddleStudentName.numberOfLines=10;
         mMiddleStudentName.lineBreakMode = .byTruncatingMiddle
-        mMiddleStudentName.textColor = UIColor.white
+        //Need TO SET COLOUR
+        mMiddleStudentName.textColor = DummyGray
+        mMiddleStudentName .font = UIFont(name: helveticaMedium, size: 12)
 
         
         
@@ -138,11 +142,11 @@ class StudentSeatSubView: UIView,SSStudentDataSourceDelegate
                 answerDeskImageView.borderColor = standard_Green;
                 
                 
-                let  mBackButton = UIButton(frame: CGRect(x: 10, y: 10, width: answerDeskImageView.frame.size.width - 20 ,height: answerDeskImageView.frame.size.height - 20  ))
+                let  mBackButton = UIButton(frame: CGRect(x: 15, y: 15, width: answerDeskImageView.frame.size.width - 30 ,height: answerDeskImageView.frame.size.height - 30  ))
                 answerDeskImageView.addSubview(mBackButton)
                 mBackButton.setTitle("Join", for: UIControlState())
                 mBackButton.setTitleColor(UIColor.white, for: UIControlState())
-                mBackButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
+                mBackButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 16)
                 mBackButton.addTarget(self, action: #selector(StudentSeatViewController.onBack), for: UIControlEvents.touchUpInside)
                 mBackButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.center
                 mBackButton.layer.borderColor = UIColor.white.cgColor
@@ -171,7 +175,7 @@ class StudentSeatSubView: UIView,SSStudentDataSourceDelegate
     }
     
     
-    func onDeskPressed()
+    @objc func onDeskPressed()
     {
         if delegate().responds(to: #selector(StudentSeatSubViewDelegate.delegateStudentTileTouched))
         {
@@ -182,3 +186,4 @@ class StudentSeatSubView: UIView,SSStudentDataSourceDelegate
     }
     
 }
+ 

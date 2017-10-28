@@ -61,7 +61,8 @@ class MainTopicsView: UIView, SSTeacherDataSourceDelegate,MainTopicCellDelegate
         super.init(frame:frame)
         
         let mTopbarImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 44))
-        mTopbarImageView.backgroundColor = lightGrayTopBar
+        
+        mTopbarImageView.backgroundColor = UIColor.white
         self.addSubview(mTopbarImageView)
         mTopbarImageView.isUserInteractionEnabled = true
         

@@ -51,13 +51,13 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
         mTopbarImageView.isUserInteractionEnabled = true
         mTopbarImageView.isUserInteractionEnabled = true
         
+     
         
-        
-        mTeacherImageView = CustomProgressImageView(frame: CGRect(x: 15, y: 15, width: mTopbarImageView.frame.size.height - 20 ,height: mTopbarImageView.frame.size.height - 20))
+        mTeacherImageView = CustomProgressImageView(frame: CGRect(x: 15, y: 22, width: 35, height: 35))
         mTeacherImageView.backgroundColor = lightGrayColor
         mTopbarImageView.addSubview(mTeacherImageView)
         mTeacherImageView.layer.masksToBounds = true
-        mTeacherImageView.layer.cornerRadius = 2
+        mTeacherImageView.layer.cornerRadius = 5
         
         
         let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
@@ -73,11 +73,8 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
         }
         
         
-        
-        
-        
-        mTeacherName = UILabel(frame: CGRect(x: mTeacherImageView.frame.origin.x + mTeacherImageView.frame.size.width + 10, y: mTeacherImageView.frame.origin.y, width: 200, height: 20))
-        mTeacherName.font = UIFont(name:helveticaMedium, size: 20)
+        mTeacherName = UILabel(frame: CGRect(x: mTeacherImageView.frame.origin.x + mTeacherImageView.frame.size.width + 10, y: mTeacherImageView.frame.origin.y - 2, width: 200, height: 20))
+        mTeacherName.font = UIFont(name:helveticaMedium, size: 18)
         mTeacherName.text = SSStudentDataSource.sharedDataSource.currentUserName.capitalized
         mTopbarImageView.addSubview(mTeacherName)
         mTeacherName.textColor = UIColor.white
@@ -116,9 +113,10 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
         mNoStudentLabel.isHidden = true
         
         
-        mGridContainerView.frame = CGRect(x: 10, y: mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + 10  , width: self.view.frame.size.width - 20, height: self.view.frame.size.height - remainingHeight )
+        mGridContainerView.frame = CGRect(x: 10, y: mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + 10  , width: self.view.frame.size.width - 20, height: self.view.frame.size.height - remainingHeight)
         self.view.addSubview(mGridContainerView)
         mGridContainerView.backgroundColor = darkBackgroundColor
+        
         //        mGridContainerView.hidden = true
         
         
@@ -144,8 +142,12 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
         
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+
     
-    func onClassButton()
+    @objc func onClassButton()
     {
         
         
@@ -375,7 +377,7 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
     }
     
     
-    func onBack()
+    @objc func onBack()
     {
         self.dismiss(animated: true, completion: nil)
     }

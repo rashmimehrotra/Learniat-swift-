@@ -3231,7 +3231,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.LearniatStudent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8f3bde3b-5092-40d5-99e1-b1dbb6d31195";
+				PROVISIONING_PROFILE = "a4b13184-1ecf-46d9-9978-755f37456f61";
 				PROVISIONING_PROFILE_SPECIFIER = "Learniat Student Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatStudent/LearniatStudent-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";

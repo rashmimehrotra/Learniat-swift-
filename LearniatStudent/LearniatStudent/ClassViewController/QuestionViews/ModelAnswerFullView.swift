@@ -51,7 +51,7 @@ class ModelAnswerFullView: UIView{
         fatalError("init(coder:) has not been implemented")
     }
     
-    func onCloseButton()
+    @objc func onCloseButton()
     {
         self.removeFromSuperview()
     }

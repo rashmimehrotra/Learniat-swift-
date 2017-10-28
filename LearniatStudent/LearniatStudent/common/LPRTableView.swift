@@ -84,7 +84,7 @@ extension LPRTableView {
 		longPressGestureRecognizer.isEnabled = true
 	}
 	
-	internal func _longPress(_ gesture: UILongPressGestureRecognizer) {
+    @objc internal func _longPress(_ gesture: UILongPressGestureRecognizer) {
 		
 		let location = gesture.location(in: self)
 		let indexPath = indexPathForRow(at: location)

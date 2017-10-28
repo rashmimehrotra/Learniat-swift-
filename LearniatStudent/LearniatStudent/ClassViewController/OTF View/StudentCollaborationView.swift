@@ -105,7 +105,7 @@ class StudentCollaborationView: UIView,SSStudentDataSourceDelegate
     }
     
     
-    func onSendButton()
+    @objc func onSendButton()
     {
         mSendButton.loadingIndicator(show: true)
         

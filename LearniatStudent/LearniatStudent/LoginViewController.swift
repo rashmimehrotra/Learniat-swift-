@@ -152,7 +152,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSStudentDataSou
     
     
     
-    func onLoginButton(_ sender: UIButton)
+    @objc func onLoginButton(_ sender: UIButton)
     {
         if mUserName.text!.isEmpty || mPassword.text!.isEmpty
         {
@@ -210,7 +210,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSStudentDataSou
     }
     
     
-    func onSignUpButton(_ sender: UIButton)
+    @objc func onSignUpButton(_ sender: UIButton)
     {
         
     }

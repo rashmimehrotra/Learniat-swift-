@@ -510,7 +510,7 @@ class StudentAnswerGraphView: UIView
     }
     
     
-    func onBarButtonPressed(_ sender:AnyObject)
+    @objc func onBarButtonPressed(_ sender:AnyObject)
     {
         if let currentButton = sender as? BarView
         {
@@ -521,7 +521,7 @@ class StudentAnswerGraphView: UIView
         }
     }
     
-    func onShareGraph()
+    @objc func onShareGraph()
     {
         
         

@@ -121,7 +121,7 @@ class MatchColumnView: UIView,SSStudentDataSourceDelegate
     }
 
     
-    func onSendButton()
+    @objc func onSendButton()
     {
         
         SSStudentDataSource.sharedDataSource.sendMTCAnswer( mMatchColumnTableView.onSendButton(), withQuestionType: currentQuestionType, withQuestionLogId: questionLogId, withsessionId: (sessionDetails.object(forKey: "SessionId") as! String), withDelegate: self)
@@ -129,7 +129,7 @@ class MatchColumnView: UIView,SSStudentDataSourceDelegate
        
     }
     
-    func onDontKnowButton()
+    @objc func onDontKnowButton()
     {
         mMatchColumnTableView.onDontKnowButton()
     }

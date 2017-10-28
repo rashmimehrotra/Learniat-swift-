@@ -199,7 +199,7 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
     }
     
     
-    func onVolunteerButton()
+    @objc func onVolunteerButton()
     {
         UIView.animate(withDuration: 0.5, animations:
             {
@@ -213,7 +213,7 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
         
     }
     
-    func onMeeTooButton()
+    @objc func onMeeTooButton()
     {
         
         currentSelectionState = "Me-Too Selected"
@@ -243,7 +243,7 @@ class QRVSubView: UIView,SSStudentDataSourceDelegate
         
     }
     
-    func onUnderStoodButton(_ sender:UIButton)
+    @objc func onUnderStoodButton(_ sender:UIButton)
     {
         
         

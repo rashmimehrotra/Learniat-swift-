@@ -20,7 +20,7 @@
         _thickness = 1.0f;
         _color = [UIColor whiteColor];
         _dashedGap = 1.0f;
-        _dashedLength = 5.0f;
+        _dashedLength = 2.0f;
     }
     
     return self;
@@ -99,7 +99,7 @@
     UIColor *fill = color;
     shapelayer.strokeStart = 0.0;
     shapelayer.strokeColor = fill.CGColor;
-    shapelayer.lineWidth = 1.0;
+    shapelayer.lineWidth = 0.50;
     shapelayer.lineJoin = kCALineJoinRound;
     shapelayer.lineDashPattern = [NSArray arrayWithObjects:[NSNumber numberWithInt:3],[NSNumber numberWithInt:3 ], nil];
     shapelayer.lineDashPhase = 3.0f;

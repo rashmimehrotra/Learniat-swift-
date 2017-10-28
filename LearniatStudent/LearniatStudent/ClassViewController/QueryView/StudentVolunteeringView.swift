@@ -105,7 +105,7 @@ class StudentVolunteeringView: UIView,SSStudentDataSourceDelegate
     }
     
     
-    func onLikeButton()
+    @objc func onLikeButton()
     {
         newVote = "1"
         
@@ -116,7 +116,7 @@ class StudentVolunteeringView: UIView,SSStudentDataSourceDelegate
          mLikeButton.setImage(UIImage(named: "Like_Disabled.png"), for: UIControlState())
     }
     
-    func onDislikeButton()
+    @objc func onDislikeButton()
     {
         newVote = "-1"
         SSStudentMessageHandler.sharedMessageHandler.sendQueryLikedAndDislikeMessagetoTeacherwithNewVote(newVote)

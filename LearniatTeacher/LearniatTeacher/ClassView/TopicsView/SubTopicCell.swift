@@ -42,6 +42,10 @@ fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
     
     @objc optional func delegateSubTopicCellStartedWithDetails(_ subTopicDetails:AnyObject, witStatedState isStarted:Bool)
     
+    @objc optional func delegateTopicCompleted(_ TopicId: String)
+    
+    @objc optional func delegateTopicCompletedRemoveOption(_ TopicId: String)
+    
     @objc optional func delegateShowAlert()
     
 }
@@ -119,7 +123,14 @@ class SubTopicCell: UIView{
         startButton.setTitleColor(standard_Green, for: UIControlState())
         startButton.setTitle("Start", for: UIControlState())
         startButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
-        startButton.addTarget(self, action: #selector(SubTopicCell.onStartButton), for: UIControlEvents.touchUpInside)
+        
+        //Pradip
+        // ADD GestureRecognizer
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onStartButton_SingleTap(_:)))
+        let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(onStartButton_longTap(_:)))
+        tapGesture.numberOfTapsRequired = 1
+        startButton.addGestureRecognizer(tapGesture)
+        startButton.addGestureRecognizer(longGesture)
         
         
         
@@ -206,6 +217,31 @@ class SubTopicCell: UIView{
             {
                 m_SubTopicLabel.text = "\(topicName)".capitalized
             }
+            
+            //Pradip
+            if let Tagged = currentTopicDetails.object(forKey: "Tagged") as? String
+            {
+                if Int(Tagged) == 0
+                {
+                    m_SubTopicLabel.textColor = blackTextColor
+                    
+                }else if Int(Tagged) == 1{
+                    
+                    m_SubTopicLabel.textColor = blackTextColor
+                    
+                }else if Int(Tagged) == 2{
+                    
+                    m_SubTopicLabel.textColor = lightGrayColor
+                    
+                }else if Int(Tagged) == 3{
+                    
+                    m_SubTopicLabel.textColor = lightGrayColor
+                    
+                }
+                
+                
+            }
+
         }
         
         
@@ -288,47 +324,56 @@ class SubTopicCell: UIView{
         }
     }
     
-    func onStartButton()
-    {
+    func onStartButton_SingleTap(_ sender: UIGestureRecognizer){
+        
+        print("Single tap")
+        
         if delegate().responds(to: #selector(SubTopicCellDelegate.delegateSubTopicCellStartedWithDetails(_:witStatedState:)))
         {
             
-            if startButton.titleLabel?.text == "Start" || startButton.titleLabel?.text == "Resume"
-            {
+            if startButton.titleLabel?.text == "Resume" || startButton.titleLabel?.text == "Completed" {
                 
-                if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
+                
+            }else{
+                
+                if startButton.titleLabel?.text == "Start"
                 {
-                    if let topicId = currentSubTopicDetails.object(forKey: "Id")as? String
+                    
+                    if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
                     {
-                        SSTeacherDataSource.sharedDataSource.isSubtopicStarted = true
-
-                        SSTeacherDataSource.sharedDataSource.startedSubTopicId = topicId
-                        
-                        
-                        if let topicName = currentSubTopicDetails.object(forKey: "Name")as? String
+                        if let topicId = currentSubTopicDetails.object(forKey: "Id")as? String
                         {
-                             SSTeacherDataSource.sharedDataSource.startedSubTopicName = topicName
+                            SSTeacherDataSource.sharedDataSource.isSubtopicStarted = true
+                            
+                            SSTeacherDataSource.sharedDataSource.startedSubTopicId = topicId
+                            
+                            
+                            if let topicName = currentSubTopicDetails.object(forKey: "Name")as? String
+                            {
+                                SSTeacherDataSource.sharedDataSource.startedSubTopicName = topicName
+                            }
+                            
+                            delegate().delegateSubTopicCellStartedWithDetails!(currentSubTopicDetails, witStatedState: true)
                         }
-                        
-                         delegate().delegateSubTopicCellStartedWithDetails!(currentSubTopicDetails, witStatedState: true)
                     }
+                    else
+                    {
+                        delegate().delegateShowAlert!()
+                    }
+                    
                 }
                 else
                 {
-                    delegate().delegateShowAlert!()
-                }
-                
-            }
-            else
-            {
-                if SSTeacherDataSource.sharedDataSource.isQuestionSent == false
-                {
-                    delegate().delegateSubTopicCellStartedWithDetails!(currentSubTopicDetails, witStatedState: false)
+                    if SSTeacherDataSource.sharedDataSource.isQuestionSent == false
+                    {
+                        delegate().delegateSubTopicCellStartedWithDetails!(currentSubTopicDetails, witStatedState: false)
+                        SSTeacherDataSource.sharedDataSource.isSubtopicStarted = false
+                    }
+                    else {
+                        
+                        delegate().delegateShowAlert!()
+                    }
                     
-                    SSTeacherDataSource.sharedDataSource.isSubtopicStarted = false
-                }
-                else {
-                    delegate().delegateShowAlert!()
                 }
                 
             }
@@ -336,4 +381,34 @@ class SubTopicCell: UIView{
         }
     }
     
+    func onStartButton_longTap(_ sender: UIGestureRecognizer){
+        
+        //Pradip
+        if startButton.titleLabel?.text == "Resume"{
+            
+            if sender.state == .began {
+                
+                if let topicId = currentSubTopicDetails.object(forKey: "Id")as? String
+                {
+                    delegate().delegateTopicCompleted!(topicId)
+                    SSTeacherDataSource.sharedDataSource.isSubtopicStarted = false
+                }
+                
+            }
+            
+        }else if startButton.titleLabel?.text == "Completed"{
+            
+            if sender.state == .began {
+                
+                if let topicId = currentSubTopicDetails.object(forKey: "Id")as? String
+                {
+                    delegate().delegateTopicCompletedRemoveOption!(topicId)
+                    SSTeacherDataSource.sharedDataSource.isSubtopicStarted = false
+                }
+                
+            }
+            
+        }
+        
+    }
 }

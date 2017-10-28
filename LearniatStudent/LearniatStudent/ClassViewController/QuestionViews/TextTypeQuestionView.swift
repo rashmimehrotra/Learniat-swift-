@@ -211,7 +211,7 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
     }
     
     
-    func onSendButton()
+    @objc func onSendButton()
     {
        if  mAnswerTextView.getTextOfCurrentTextView() != ""
        {
@@ -232,7 +232,7 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
         
     }
     
-    func onDontKnowButton()
+    @objc func onDontKnowButton()
     {
         SSStudentMessageHandler.sharedMessageHandler.sendDontKnowMessageToTeacher()
         
@@ -254,7 +254,7 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
     }
     
     
-    func onWithDrawButton()
+    @objc func onWithDrawButton()
     {
         mContainerView.isHidden = true
         mAnswerTextView.isHidden = false

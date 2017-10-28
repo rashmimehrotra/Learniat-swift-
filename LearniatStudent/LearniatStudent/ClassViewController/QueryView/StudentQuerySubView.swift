@@ -460,7 +460,7 @@ class StudentQuerySubView: UIView {
     }
     
     
-    func onWithDrawButton()
+    @objc func onWithDrawButton()
     {
         delegate().delegateQueryWithDrawnwithQueryId!(self.tag)
         self.removeFromSuperview()

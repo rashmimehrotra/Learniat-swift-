@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Romilson Nunes. All rights reserved.
 //
 import UIKit
-public enum RNActivityIndicatorAlignment: Int {
+@objc public enum RNActivityIndicatorAlignment: Int {
     case left
     case center
     case right

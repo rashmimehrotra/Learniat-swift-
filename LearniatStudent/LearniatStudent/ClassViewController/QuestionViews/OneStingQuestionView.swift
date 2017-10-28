@@ -162,7 +162,7 @@ class OneStingQuestionView: UIView,SSStudentDataSourceDelegate
     }
     
     
-    func onSendButton()
+    @objc func onSendButton()
     {
         if  mAnswerTextView.getTextOfCurrentTextView() != ""
         {
@@ -258,7 +258,7 @@ class OneStingQuestionView: UIView,SSStudentDataSourceDelegate
         
     }
     
-    func onDontKnowButton()
+    @objc func onDontKnowButton()
     {
         SSStudentMessageHandler.sharedMessageHandler.sendDontKnowMessageToTeacher()
         

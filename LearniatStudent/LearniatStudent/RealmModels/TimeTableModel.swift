@@ -16,21 +16,21 @@ class TimeTableModel: Object,Mappable
 {
     
     
-    dynamic var SessionId: Int = 0
-    dynamic var TeacherName:String?
-    dynamic var TeacherId:Int = 0
-    dynamic var ClassId:Int = 0
-    dynamic var ClassName :String?
-    dynamic var RoomName :String?
-    dynamic var RoomId:String?
-    dynamic var SubjectName:String?
-    dynamic var SubjectId:Int = 0
-    dynamic var StartTime:String?
-    dynamic var EndTime :String?
-    dynamic var SessionState:Int = 0
-    dynamic var SeatsConfigured:Int = 0
-    dynamic var StudentsRegistered:Int = 0
-    dynamic var PreallocatedSeats:Int = 0
+    @objc dynamic var SessionId: Int = 0
+    @objc dynamic var TeacherName:String?
+    @objc dynamic var TeacherId:Int = 0
+    @objc dynamic var ClassId:Int = 0
+    @objc dynamic var ClassName :String?
+    @objc dynamic var RoomName :String?
+    @objc dynamic var RoomId:String?
+    @objc dynamic var SubjectName:String?
+    @objc dynamic var SubjectId:Int = 0
+    @objc dynamic var StartTime:String?
+    @objc dynamic var EndTime :String?
+    @objc dynamic var SessionState:Int = 0
+    @objc dynamic var SeatsConfigured:Int = 0
+    @objc dynamic var StudentsRegistered:Int = 0
+    @objc dynamic var PreallocatedSeats:Int = 0
     
     //Impl. of Mappable protocol
     required convenience init?(map: Map)

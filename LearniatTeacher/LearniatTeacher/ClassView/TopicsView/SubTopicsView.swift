@@ -422,6 +422,122 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
             delegate().delegateDoneButtonPressed!()
         }
     }
+    
+    // MARK: - TopicCompleted
+    //Pradip
+    func delegateTopicCompleted(_ TopicId: String) {
+        
+        if let sessionId = currentSessionDetails.object(forKey: "SessionId") as? String
+        {
+            
+            SSTeacherDataSource.sharedDataSource.TopicCompletedWithTopicID(TopicId, withSessionID: sessionId, withSuccessHandle: { (result) in
+                
+                print(result)
+                
+                
+                if let status = result.object(forKey: kStatus) as? String
+                {
+                    if status == kSuccessString
+                    {
+                        // After MarkTopicComplated chnage status
+                        if let subTopicView  = self.mTopicsContainerView.viewWithTag(Int(TopicId)!) as? SubTopicCell
+                        {
+                            subTopicView.m_SubTopicLabel.textColor = lightGrayColor
+                            subTopicView.startButton .setTitle("Completed", for: .normal)
+                            subTopicView.mQuestionsButton.setTitleColor(lightGrayColor, for: UIControlState())
+                            subTopicView.mQuestionsButton.isEnabled = false
+                            subTopicView.backgroundColor = lightGrayTopBar
+                            
+                        }
+                        
+                    }
+                    else
+                    {
+                        if let error_message = result.object(forKey: kErrorMessage) as? String
+                        {
+                            self.makeToast(error_message, duration: 2.0, position: .bottom)
+                        }
+                        else
+                        {
+                            self.makeToast(status, duration: 2.0, position: .bottom)
+                        }
+                        
+                    }
+                }
+                else
+                {
+                    
+                    let error_message = result.object(forKey: kErrorMessage) as? String
+                    self.makeToast(error_message!, duration: 2.0, position: .bottom)
+                    
+                }
+                
+            }, withfailurehandler: { (error) in
+                
+                self.makeToast("Error\((error.code))-\((error.localizedDescription))", duration: 5.0, position: .bottom)
+            })
+            
+            
+        }
+        
+        
+    }
+    
+    func delegateTopicCompletedRemoveOption(_ TopicId: String) {
+        
+        if let sessionId = currentSessionDetails.object(forKey: "SessionId") as? String
+        {
+            
+            SSTeacherDataSource.sharedDataSource.TopicCompletedRemoveOption(TopicId, withSessionID: sessionId, withSuccessHandle: { (result) in
+                
+                print(result)
+                
+                
+                if let status = result.object(forKey: kStatus) as? String
+                {
+                    if status == kSuccessString
+                    {
+                        // After MarkTopicComplated Remove Row
+                        if let subTopicView  = self.mTopicsContainerView.viewWithTag(Int(TopicId)!) as? SubTopicCell
+                        {
+                            subTopicView.removeFromSuperview()
+                        }
+                        //Need to test
+                        //self.mTopicsContainerView.frame = CGRect(x: 0, y: 44, width: self.mTopicsContainerView.frame.size.width, height: self.mTopicsContainerView.frame.size.height - 44)
+                    }
+                    else
+                    {
+                        if let error_message = result.object(forKey: kErrorMessage) as? String
+                        {
+                            self.makeToast(error_message, duration: 2.0, position: .bottom)
+                        }
+                        else
+                        {
+                            self.makeToast(status, duration: 2.0, position: .bottom)
+                        }
+                        
+                    }
+                }
+                else
+                {
+                    
+                    let error_message = result.object(forKey: kErrorMessage) as? String
+                    self.makeToast(error_message!, duration: 2.0, position: .bottom)
+                    
+                }
+                
+            }, withfailurehandler: { (error) in
+                
+                self.makeToast("Error\((error.code))-\((error.localizedDescription))", duration: 5.0, position: .bottom)
+            })
+            
+            
+        }
+        
+        
+    }
+    
+    
   
     func delegateSubTopicCellStartedWithDetails(_ subTopicDetails: AnyObject, witStatedState isStarted: Bool) {
         

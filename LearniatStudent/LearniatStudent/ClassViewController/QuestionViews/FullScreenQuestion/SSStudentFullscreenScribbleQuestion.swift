@@ -297,14 +297,14 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
     
      // MARK: - Buttons Function
     
-    func onCancelButton()
+    @objc func onCancelButton()
     {
        
         self.isHidden = true
         
     }
     
-    func onSendButton()
+    @objc func onSendButton()
     {
         
         
@@ -324,7 +324,7 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
     }
     
     
-    func onUndoButton()
+    @objc func onUndoButton()
     {
         // By Ujjval
         // Undo drawn image
@@ -336,7 +336,7 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
         // ==========================================
     }
     
-    func onBrushButton()
+    @objc func onBrushButton()
     {
         
         
@@ -386,9 +386,6 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
         mScribbleView.penWidth = UInt(brushSize)
         
         // ==========================================
-        
-        
-        
         
         
         
@@ -443,11 +440,6 @@ class SSStudentFullscreenScribbleQuestion: UIView,UIPopoverControllerDelegate, I
         mScribbleView.penWidth = UInt(eraserSize)
         
         // ==========================================
-        
-        
-        
-        
-        
         
         
         

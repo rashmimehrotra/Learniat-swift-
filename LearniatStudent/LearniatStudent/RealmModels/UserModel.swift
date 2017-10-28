@@ -13,11 +13,11 @@ class UserDataModel: Object,Mappable
 {
     
     
-    dynamic var userId: Int = 0
-    dynamic var userName:String?
-    dynamic var SchoolId:Int = 0
-    dynamic var userState:Int = 0
-    dynamic var screenState:Int = 0
+    @objc dynamic var userId: Int = 0
+    @objc dynamic var userName:String?
+    @objc dynamic var SchoolId:Int = 0
+    @objc dynamic var userState:Int = 0
+    @objc dynamic var screenState:Int = 0
     
     //Impl. of Mappable protocol
     required convenience init?(map: Map) {

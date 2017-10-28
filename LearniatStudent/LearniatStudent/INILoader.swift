@@ -198,6 +198,9 @@ let LiveColor                          = UIColor(red: 8.0/255.0, green:198.0/255
 let EndedColor                         = UIColor(red:152.0/255.0, green:180.0/255.0, blue:207.0/255.0, alpha: 1)
 
 
+let DummyGray                         = UIColor(red:146.0/255.0, green:162.0/255.0, blue:177.0/255.0, alpha: 1)//#92A2B1
+
+
 
 
 class INILoader: NSObject

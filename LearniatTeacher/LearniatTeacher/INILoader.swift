@@ -157,33 +157,25 @@ class INILoader: NSObject
         }
         
         
-        for i in 1 ..< 11
-        {
+        for i in 1 ..< 11 {
             
-            
-            
-            let urlString = UserDefaults.standard.object(forKey: k_INI_Badges) as! String
-            
-            let str = String("\(urlString)/\(i).png")
-            
-            
-            
-            
-            
-            
-            
-            if let checkedUrl = URL(string: str!)
-            {
-                
-                let data = try? Data(contentsOf: checkedUrl) //make sure your image in this url does exist, otherwise unwrap in a if let
-                
-                if let imageData = data as Data? {
+            if let urlString = UserDefaults.standard.object(forKey: k_INI_Badges) as? String{
+                let str = String("\(urlString)/\(i).png")
+                if let checkedUrl = URL(string: str!)
+                {
                     
-                    let imagePathString = String("/badges/\(i).png");
-                    let imagePath =  NSTemporaryDirectory() + imagePathString!
-                    try? imageData.write(to: URL(fileURLWithPath: imagePath), options: [.atomic])
+                    let data = try? Data(contentsOf: checkedUrl) //make sure your image in this url does exist, otherwise unwrap in a if let
+                    
+                    if let imageData = data as Data? {
+                        
+                        let imagePathString = String("/badges/\(i).png");
+                        let imagePath =  NSTemporaryDirectory() + imagePathString!
+                        try? imageData.write(to: URL(fileURLWithPath: imagePath), options: [.atomic])
+                    }
                 }
             }
+            
+            
         }
     }
     

@@ -105,7 +105,7 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
     }
     
     
-    func switchValueDidChange(sender:UISwitch!) {
+    @objc func switchValueDidChange(sender:UISwitch!) {
 
     }
     

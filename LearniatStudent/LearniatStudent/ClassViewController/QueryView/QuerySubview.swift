@@ -239,7 +239,7 @@ class QuerySubview: UIView
     }
 
     
-    func onDismissButton()
+    @objc func onDismissButton()
     {
         
         delegate().delegateWithDrawButtonPressed!()

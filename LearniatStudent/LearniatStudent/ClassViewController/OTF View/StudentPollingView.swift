@@ -77,7 +77,7 @@ class StudentPollingView: UIView,PollingSubViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func onSendButton()
+    @objc func onSendButton()
     {
         if selectedOPtionText != ""
         {

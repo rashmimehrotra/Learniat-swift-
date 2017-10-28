@@ -174,6 +174,10 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     var pollingDemoView                     = StudentPollingView()
     
+    
+    var mScheduleDetailView          : ScheduleDetailView!
+    var mTeacherLessonPlanView      : SSTeacherLessonPlanView!
+    
     var plistLoader = PlistDownloder()
     
     var schedulePopOverController : SSTeacherSchedulePopoverController!
@@ -699,89 +703,104 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     func onTeacherImage()
     {
-        mShowTopicsView.isHidden = true
-        if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
+        //Topic 2
+        //Pradip
+        
+        mTeacherLessonPlanView =  SSTeacherLessonPlanView(frame: CGRect(x: 0, y: mTopbarImageView.frame.size.height - mTopbarImageView.frame.size.height, width: self.view.frame.size.width, height: self.view.frame.size.height))
+        mTeacherLessonPlanView.layer.shadowColor = UIColor.black.cgColor
+        mTeacherLessonPlanView.layer.shadowOpacity = 0.3
+        mTeacherLessonPlanView.layer.shadowOffset = CGSize.zero
+        mTeacherLessonPlanView.layer.shadowRadius = 10
+        self.view.addSubview(mTeacherLessonPlanView)
+        mTeacherLessonPlanView.setdelegate(self)
+        
+        
+        mTeacherLessonPlanView.isHidden = false
+        self.view.bringSubview(toFront: mTeacherLessonPlanView)
+        
+        
+        if (currentSessionDetails.object(forKey: "RoomId") as? String) != nil
         {
-            mSubTopicsNamelabel.text = "No topic selected"
-        }
-        
-        let questionInfoController = SSSettingsViewController()
-        questionInfoController.setDelegate(self)
-        
-        questionInfoController.classViewTopicsButtonSettingsButtonPressed();
-
-        SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: questionInfoController)
-        
-        SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 310, height: 444);
-        SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
-        questionInfoController.setPopOver(SSTeacherDataSource.sharedDataSource.mPopOverController)
-        
-        
-        if (newSubmissionRecieved.count <= 0 && newQueryRecieved.count <= 0 && SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false)
-        {
-            questionInfoController.setupTopicsButton.isEnabled = true;
-            questionInfoController.setupTopicsButton.setTitleColor(standard_Button,for:UIControlState());
-            
-            questionInfoController.manualResignButton.isEnabled = true
-            questionInfoController.manualResignButton.setTitleColor(standard_Button, for:UIControlState());
-            
-            
-            
-            questionInfoController.randomReassignButton.isEnabled = true
-            questionInfoController.randomReassignButton.setTitleColor(standard_Button, for:UIControlState());
-            
-           
-            questionInfoController.alphabeticalReassignButton.isEnabled = true
-            questionInfoController.alphabeticalReassignButton.setTitleColor(standard_Button, for:UIControlState());
-
-            questionInfoController.pullNewProfilePics.isEnabled = true
-            questionInfoController.pullNewProfilePics.setTitleColor(standard_Button, for:UIControlState());
-            
-            
-        }
-        else
-        {
-            
-            
-            questionInfoController.setupTopicsButton.isEnabled = false;
-            questionInfoController.setupTopicsButton.setTitleColor(lightGrayColor,for:UIControlState());
-            
-            
-            questionInfoController.manualResignButton.isEnabled = false;
-            questionInfoController.manualResignButton.setTitleColor(lightGrayColor,for:UIControlState());
-
-
-            questionInfoController.randomReassignButton.isEnabled = false;
-            questionInfoController.randomReassignButton.setTitleColor(lightGrayColor,for:UIControlState());
-            
-            questionInfoController.alphabeticalReassignButton.isEnabled = false;
-            questionInfoController.alphabeticalReassignButton.setTitleColor(lightGrayColor,for:UIControlState());
-            
-            questionInfoController.pullNewProfilePics.isEnabled = false;
-            questionInfoController.pullNewProfilePics.setTitleColor(lightGrayColor,for:UIControlState());
-            
+            mTeacherLessonPlanView.setCurrentSessionDetails(currentSessionDetails)
         }
         
         
         
+        // Existing Code.
         
-        SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(
-            x:mTeacherImageButton.frame.origin.x ,
-            y:mTeacherImageButton.frame.origin.y + mTeacherImageButton.frame.size.height,
-            width: 1,
-            height: 1), in: self.view, permittedArrowDirections: .up, animated: true)
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-
+        /*
+         mShowTopicsView.isHidden = true
+         if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
+         {
+         mSubTopicsNamelabel.text = "No topic selected"
+         }
+         
+         let questionInfoController = SSSettingsViewController()
+         questionInfoController.setDelegate(self)
+         
+         questionInfoController.classViewTopicsButtonSettingsButtonPressed();
+         
+         SSTeacherDataSource.sharedDataSource.mPopOverController = UIPopoverController(contentViewController: questionInfoController)
+         
+         SSTeacherDataSource.sharedDataSource.mPopOverController.contentSize = CGSize(width: 310, height: 444);
+         SSTeacherDataSource.sharedDataSource.mPopOverController.delegate = self;
+         questionInfoController.setPopOver(SSTeacherDataSource.sharedDataSource.mPopOverController)
+         
+         
+         if (newSubmissionRecieved.count <= 0 && newQueryRecieved.count <= 0 && SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false)
+         {
+         questionInfoController.setupTopicsButton.isEnabled = true;
+         questionInfoController.setupTopicsButton.setTitleColor(standard_Button,for:UIControlState());
+         
+         questionInfoController.manualResignButton.isEnabled = true
+         questionInfoController.manualResignButton.setTitleColor(standard_Button, for:UIControlState());
+         
+         
+         
+         questionInfoController.randomReassignButton.isEnabled = true
+         questionInfoController.randomReassignButton.setTitleColor(standard_Button, for:UIControlState());
+         
+         
+         questionInfoController.alphabeticalReassignButton.isEnabled = true
+         questionInfoController.alphabeticalReassignButton.setTitleColor(standard_Button, for:UIControlState());
+         
+         questionInfoController.pullNewProfilePics.isEnabled = true
+         questionInfoController.pullNewProfilePics.setTitleColor(standard_Button, for:UIControlState());
+         
+         
+         }
+         else
+         {
+         
+         
+         questionInfoController.setupTopicsButton.isEnabled = false;
+         questionInfoController.setupTopicsButton.setTitleColor(lightGrayColor,for:UIControlState());
+         
+         
+         questionInfoController.manualResignButton.isEnabled = false;
+         questionInfoController.manualResignButton.setTitleColor(lightGrayColor,for:UIControlState());
+         
+         
+         questionInfoController.randomReassignButton.isEnabled = false;
+         questionInfoController.randomReassignButton.setTitleColor(lightGrayColor,for:UIControlState());
+         
+         questionInfoController.alphabeticalReassignButton.isEnabled = false;
+         questionInfoController.alphabeticalReassignButton.setTitleColor(lightGrayColor,for:UIControlState());
+         
+         questionInfoController.pullNewProfilePics.isEnabled = false;
+         questionInfoController.pullNewProfilePics.setTitleColor(lightGrayColor,for:UIControlState());
+         
+         }
+         
+         
+         
+         
+         SSTeacherDataSource.sharedDataSource.mPopOverController.present(from: CGRect(
+         x:mTeacherImageButton.frame.origin.x ,
+         y:mTeacherImageButton.frame.origin.y + mTeacherImageButton.frame.size.height,
+         width: 1,
+         height: 1), in: self.view, permittedArrowDirections: .up, animated: true)
+         */
     }
     
     func onClassView()
@@ -1664,6 +1683,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
             {
                 
+    
                 
                 mainTopicsView.getTopicsDetailswithStartedMaintopicId("")
                 mShowTopicsView.frame = CGRect(x: self.view.frame.size.width - 610, y: mShowTopicsView.frame.origin.y , width: 600  , height: mainTopicsView.currentMainTopicsViewHeight)
@@ -1671,7 +1691,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 hideAllViewInTopicsView()
                 mainTopicsView.isHidden = false
                 mShowTopicsView.bringSubview(toFront: mainTopicsView)
-                
                 
                 
                 
@@ -1699,12 +1718,10 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 subTopicsView.isHidden = false
                 mShowTopicsView.bringSubview(toFront: subTopicsView)
                 
-                
-                
-                
-                
                 mShowTopicsView.frame = CGRect(x: self.view.frame.size.width - 610, y: mShowTopicsView.frame.origin.y , width: 600 , height: subTopicsView.currentMainTopicsViewHeight)
             }
+            
+            
 
         }
         else
@@ -1714,7 +1731,13 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             {
                 mSubTopicsNamelabel.text = "No topic selected"
             }
+            
+            
         }
+        
+        
+        
+
     }
 
     
@@ -1728,9 +1751,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             {
                 self.mShowTopicsView.frame = CGRect(x: self.view.frame.size.width - 610, y: self.mShowTopicsView.frame.origin.y , width: 600 , height: height)
         })
-        
-        
-        
         
     }
     

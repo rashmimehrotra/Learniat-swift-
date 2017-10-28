@@ -201,7 +201,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         
     }
     
-    func Long()
+   @objc func Long()
     {
         
         let modelAnswerFullView = ModelAnswerFullView(frame:CGRect(x: 10,y: 10,width: self.frame.size.width - 20, height: self.frame.size.height - 20 ))
@@ -239,7 +239,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
     }
     
     
-    func onEditButton()
+    @objc func onEditButton()
     {
         if mOverlayImageView.image != nil
         {
@@ -251,7 +251,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         }
     }
     
-    func onWithDrawButton()
+    @objc func onWithDrawButton()
     {
         mContainerView.isHidden = false
         mEditButton.isHidden = false
@@ -266,7 +266,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         SSStudentMessageHandler.sharedMessageHandler.sendWithDrawMessageToTeacher()
     }
     
-    func onSendButton()
+    @objc func onSendButton()
     {
         if mAnswerImage.image != nil
         {
@@ -293,7 +293,7 @@ class ScribbleQuestionView: UIView,SSStudentDataSourceDelegate,ImageUploadingDel
         
     }
     
-    func onDontKnowButton()
+    @objc func onDontKnowButton()
     {
         SSStudentMessageHandler.sharedMessageHandler.sendDontKnowMessageToTeacher()
         

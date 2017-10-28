@@ -17,6 +17,9 @@ enum AppAPI {
     case ChangeSessionState(userId: String, state:String,SessionID:String)
     case RefresAppWithUserId(userId:String)
     case GetJoinedStudentsWithUserId(UserId:String, sessionID:String)
+    case TopicCompleted(topicId:String, sessionid:String,UserId:String)
+    case TopicCompletedRemoveOptions(topicId:String, sessionid:String,UserId:String)
+
 }
 
 extension AppAPI {
@@ -58,6 +61,12 @@ extension AppAPI {
             return "\(self.base)/RefreshMyApp?userid=\(userId)"
         case .GetJoinedStudentsWithUserId(let userID, let sessionID):
             return "\(self.base)/RefreshJoinedStudents?user=\(userID)&session=\(sessionID)"
+            
+        case .TopicCompleted(let topicId, let sessionid, let UserId):
+            return "\(self.base)/MarkTopicCompleted?userid=\(UserId)&sessionid=\(sessionid)&topicid=\(topicId)"
+            
+        case .TopicCompletedRemoveOptions(let topicId, let sessionid, let UserId):
+            return "\(self.base)/MarkTopicCompleted?userid=\(UserId)&sessionid=\(sessionid)&topicid=\(topicId)&remove=T"
             
         }
     }

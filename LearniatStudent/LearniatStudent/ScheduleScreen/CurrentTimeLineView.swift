@@ -39,12 +39,12 @@ class CurrentTimeLineView: UIView
         circleView.frame = CGRect(x: timeLabel.frame.origin.x + timeLabel.frame.size.width + 5,y: 0,width: 10,height: 10)
         self.addSubview(circleView)
         circleView.layer.cornerRadius =  circleView.frame.size.width/2
-        circleView.backgroundColor = standard_Green
+        circleView.backgroundColor = standard_Yellow
         
         let lineview =  UIImageView()
         lineview.frame = CGRect(x: circleView.frame.origin.x + (circleView.frame.size.width/2), y: 4, width: self.frame.size.width - (timeLabel.frame.origin.x + (timeLabel.frame.size.width/2)),height: 2)
         self.addSubview(lineview)
-        lineview.backgroundColor = standard_Green
+        lineview.backgroundColor = standard_Yellow
         
         // ==========================================
         

@@ -60,7 +60,7 @@ class PollingSubView: UIView
     }
     
     
-    func optionTouchedTapped()
+    @objc func optionTouchedTapped()
     {
         if isSelected == false
         {

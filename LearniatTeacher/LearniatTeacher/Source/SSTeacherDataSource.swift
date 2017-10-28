@@ -58,6 +58,9 @@ let kServiceSeatAssignment          =   "StudentSeatAssignment"
 
 let kServiceGetAllNodes				=   "GetAllNodes"
 
+//Pradip
+let kServiceRecordLessonTagging     =   "RecordLessonTagging" // change instaed of let kServiceSaveLessonPlan =  "Record
+
 let kServiceSaveLessonPlan			=   "RecordLessonPlan"
 
 let kServiceStartTopic              =   "SetCurrentTopic"
@@ -453,7 +456,42 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     
     
+    //Topic MarkTopicCompleted using Json
+    //Pradip
+    func TopicCompletedWithTopicID(_ topicId:String,withSessionID sessionid:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler) {
+        
+        WebServicesAPI().getRequest(fromUrl: AppAPI.TopicCompleted(topicId: topicId, sessionid: sessionid, UserId: SSTeacherDataSource.sharedDataSource.currentUserId) .path, details:
+            nil, success: { (result) in
+                let JsonValue = result.parseJSONString
+                if(JsonValue.jsonData != nil) {
+                    success(JsonValue.jsonData!)
+                } else {
+                    failure(JsonValue.error!)
+                }
+                
+        }) { (error) in
+            failure(error as NSError)
+        }
+    }
     
+    
+    func TopicCompletedRemoveOption(_ topicId:String,withSessionID sessionid:String, withSuccessHandle success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler) {
+        
+        WebServicesAPI().getRequest(fromUrl: AppAPI.TopicCompletedRemoveOptions(topicId: topicId, sessionid: sessionid, UserId: SSTeacherDataSource.sharedDataSource.currentUserId) .path, details:
+            nil, success: { (result) in
+                let JsonValue = result.parseJSONString
+                if(JsonValue.jsonData != nil) {
+                    success(JsonValue.jsonData!)
+                } else {
+                    failure(JsonValue.error!)
+                }
+                
+        }) { (error) in
+            failure(error as NSError)
+        }
+    }
+    
+
  
 
     
