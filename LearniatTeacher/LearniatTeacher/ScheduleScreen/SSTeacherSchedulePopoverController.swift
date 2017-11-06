@@ -305,8 +305,8 @@ class SSTeacherSchedulePopoverController: UIViewController,SSTeacherDataSourceDe
         
             activityIndicator.isHidden = true
             activityIndicator.stopAnimating()
-        SSTeacherMessageHandler.sharedMessageHandler.refreshApp()
-
+        //TODO: @sourab Please verify why we calling refreshApp in popover controller
+//        SSTeacherMessageHandler.sharedMessageHandler.refreshApp()
         
     }
     

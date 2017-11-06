@@ -1281,138 +1281,66 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
     }
     
-    func didGetMycurrentSessionWithDetials(_ details: AnyObject)
-    {
-        print(details)
-        
-        
-        if details.object(forKey: "Status") != nil
-        {
-            if let Status = details.object(forKey: "Status") as? String
-            {
-                if Status == "There are no active sessions."
-                {
+    func didGetMycurrentSessionWithDetials(_ details: AnyObject) {
+        if details.object(forKey: "Status") != nil {
+            if let Status = details.object(forKey: "Status") as? String {
+                if Status == "There are no active sessions." {
                     delegateSessionEnded()
-                }
-                else
-                {
-                    if let SessionId = details.object(forKey: "SessionId") as? String
-                    {
-                        if SessionId != SSTeacherDataSource.sharedDataSource.currentLiveSessionId
-                        {
+                } else  {
+                    if let SessionId = details.object(forKey: "SessionId") as? String  {
+                        if SessionId != SSTeacherDataSource.sharedDataSource.currentLiveSessionId {
                             delegateSessionEnded()
-                        }
-                        else
-                        {
-                            
-                            
-                            
-                            if let StartTime = currentSessionDetails.object(forKey: "StartTime") as? String
-                            {
-                                
+                        } else {
+                            if let StartTime = currentSessionDetails.object(forKey: "StartTime") as? String {
                                 var _string :String = ""
                                 let currentDate = Date()
-                                
                                 _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: StartTime)!)).fullString
                                 mStartTimeLabel.text = "Started: \(_string)"
-                                
-                                
-                                
-                                if let  EndTime = currentSessionDetails.object(forKey: "EndTime") as? String
-                                {
-                                    
+                                if let  EndTime = currentSessionDetails.object(forKey: "EndTime") as? String {
                                     var totalminutesRemaining = currentDate.minutesDiffernceBetweenDates(dateFormatter.date(from: StartTime)!, endDate: dateFormatter.date(from: EndTime )!)
-                                    
                                     totalminutesRemaining = totalminutesRemaining * 60
-                                    
-                                    
-                                    
                                     var minutesRemaining = currentDate.minutesDiffernceBetweenDates(dateFormatter.date(from: StartTime )!, endDate:currentDate )
-                                    
-                                    
                                     minutesRemaining = minutesRemaining * 60
-                                    
-                                    
                                     let progressValue :CGFloat = CGFloat(minutesRemaining) / CGFloat(totalminutesRemaining)
                                     mRemainingTimeProgressBar.progress = Float(progressValue)
-                                    
-                                    
                                     let classEndingRemainingTime = currentDate.minutesDiffernceBetweenDates(currentDate, endDate:dateFormatter.date(from: EndTime )! )
-                                    
-                                    if classEndingRemainingTime <= 0
-                                    {
+                                    if classEndingRemainingTime <= 0 {
                                         mStartLabelUpdater.invalidate()
                                         delegateSessionEnded()
-                                    }
-                                    else if classEndingRemainingTime < 6
-                                    {
+                                    } else if classEndingRemainingTime < 6 {
                                          sessionEndingAlertView = UIAlertController(title: "Session ending", message: "Your class is about to end in 6 mins. Do you want to continue?", preferredStyle: UIAlertControllerStyle.alert)
-                                        
                                         sessionEndingAlertView.addAction(UIAlertAction(title: "End now", style: .default, handler: { action in
-                                            
                                             self.sessionEndingAlertView.dismiss(animated: true, completion: nil)
-                                            
                                                 self.updateSessionStateToEnded()
-                                            
-                                            
                                         }))
-                                        
                                         sessionEndingAlertView.addAction(UIAlertAction(title: "Continue", style: .default, handler: { action in
-                                            
                                         }))
-                                        
                                         self.present(sessionEndingAlertView, animated: true, completion: nil)
-                                        
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         checkingClassEndTime = false
                                     }
                                 }
-                                
                             }
-                            
                         }
-                        
                     }
-                    
                 }
-            }
-            else
-            {
-                if details.object(forKey: "SessionId") != nil
-                {
-                    if let SessionId = details.object(forKey: "SessionId") as? String
-                    {
-                        if SessionId != SSTeacherDataSource.sharedDataSource.currentLiveSessionId
-                        {
+            } else {
+                if details.object(forKey: "SessionId") != nil {
+                    if let SessionId = details.object(forKey: "SessionId") as? String {
+                        if SessionId != SSTeacherDataSource.sharedDataSource.currentLiveSessionId {
                             delegateSessionEnded()
-                        }
-                        else
-                        {
-                            
-                               sessionEndingAlertView = UIAlertController(title: "Session ending", message: "", preferredStyle: UIAlertControllerStyle.alert)
-                            
+                        } else {
+                            sessionEndingAlertView = UIAlertController(title: "Session ending", message: "", preferredStyle: UIAlertControllerStyle.alert)
                             sessionEndingAlertView.addAction(UIAlertAction(title: "End session", style: .default, handler: { action in
-                                
                                 self.updateSessionStateToEnded()
-                                
                             }))
-                            
                             sessionEndingAlertView.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: { action in
-                                
                             }))
-
-
                         }
-                        
                     }
-                    
                 }
-                
             }
         }
-        
     }
     
     
@@ -2505,6 +2433,9 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             
             if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView
             {
+                
+                studentDeskView.didGetPeakView()
+                
                 let buttonPosition :CGPoint = studentDeskView.convert(CGPoint.zero, to: self.view)
 
                 let questionInfoController = SSTeacherPeakViewController()

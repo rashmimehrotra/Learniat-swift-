@@ -58,7 +58,8 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     
     
     
-   
+    var mActivityIndicator : UIActivityIndicatorView!
+    
     var cellWith : CGFloat = 0
     
     var cellHeight : CGFloat = 0
@@ -122,29 +123,18 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
     
     
     
-    override init(frame: CGRect)
-    {
+    override init(frame: CGRect) {
         super.init(frame:frame)
-        
         
         var deskSize:CGFloat = self.frame.size.width
         
-        
-        
-        if (self.frame.size.height > self.frame.size.width)
-        {
+        if (self.frame.size.height > self.frame.size.width) {
             deskSize = self.frame.size.width;
-        }
-        else if (self.frame.size.width>self.frame.size.height)
-        {
+        } else if (self.frame.size.width>self.frame.size.height) {
             deskSize=self.frame.size.height;
-        }
-        else if(self.frame.size.width==self.frame.size.height)
-        {
+        } else if(self.frame.size.width==self.frame.size.height) {
             deskSize=self.frame.size.width;
         }
-
-    
         
         refrenceDeskImageView.frame = CGRect(x: (self.frame.size.width-(deskSize))/2, y: (self.frame.size.height-deskSize)/2,width: deskSize,height: deskSize )
         self.addSubview(refrenceDeskImageView)
@@ -153,22 +143,16 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         cellHeight = cellWith / 2
         refrenceDeskImageView.isUserInteractionEnabled = true
         
-        
-        
-        
         mStudentImage.frame = CGRect(x: (refrenceDeskImageView.frame.size.width - refrenceDeskImageView.frame.size.width / 1.2 )/2, y: (refrenceDeskImageView.frame.size.height / 4) / 8, width: refrenceDeskImageView.frame.size.width / 4, height: refrenceDeskImageView.frame.size.width / 4)
         refrenceDeskImageView.addSubview(mStudentImage)
         mStudentImage.backgroundColor = UIColor.clear
         mStudentImage.layer.cornerRadius = mStudentImage.frame.size.width/16;
         mStudentImage.layer.masksToBounds = true
-
-        
         
         mParticipationLessImageView.frame = CGRect(x: (mStudentImage.frame.origin.x + mStudentImage.frame.size.width)-((mStudentImage.frame.size.width / 3) / 2),y: 0, width: (mStudentImage.frame.size.width / 3), height: (mStudentImage.frame.size.width / 3))
         refrenceDeskImageView.addSubview(mParticipationLessImageView)
         mParticipationLessImageView.image = UIImage(named: "lowParticipartion.png")
         mParticipationLessImageView.isHidden = true
-        
         
         answerDeskImageView.frame = CGRect(x: (refrenceDeskImageView.frame.size.width-refrenceDeskImageView.frame.size.width/1.2)/2, y: (mStudentImage.frame.size.height + cellHeight/6),width: refrenceDeskImageView.frame.size.width/1.2, height: refrenceDeskImageView.frame.size.width/1.8)
         refrenceDeskImageView.addSubview(answerDeskImageView)
@@ -183,23 +167,20 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         
         
         
+        mActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        mActivityIndicator.frame = CGRect(x: 0, y: 0, width: answerDeskImageView.frame.size.width, height: answerDeskImageView.frame.size.height)
+        answerDeskImageView.addSubview(mActivityIndicator)
+        mActivityIndicator.isHidden = true
         
         answerContainerView.frame = mDeskFrame
         refrenceDeskImageView.addSubview(answerContainerView)
         answerContainerView.backgroundColor = UIColor.clear
         
-        
-        
-        
-        
-        
         mQueryTextLable = UILabel(frame: mDeskFrame)
         refrenceDeskImageView.addSubview(mQueryTextLable)
         
         var fontHeight = mQueryTextLable.frame.size.height/3;
-        
-        if (fontHeight > 14)
-        {
+        if (fontHeight > 14) {
             fontHeight = 14;
         }
         
@@ -210,21 +191,17 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         mQueryTextLable.textAlignment = .center
         mQueryTextLable.isHidden = true
         
-        
-        
         mStudentName.frame = CGRect(x: answerDeskImageView.frame.origin.x,y: answerDeskImageView.frame.size.height+answerDeskImageView.frame.origin.y, width: answerDeskImageView.frame.size.width, height: refrenceDeskImageView.frame.size.height-(answerDeskImageView.frame.origin.y+answerDeskImageView.frame.size.height));
         mStudentName.textAlignment = .center;
         mStudentName.textColor = blackTextColor
         refrenceDeskImageView.addSubview(mStudentName)
         mStudentName.backgroundColor = UIColor.clear
-//        mStudentName.allowOrphans = true;
         mStudentName.textAlignment = .center;
         mStudentName.contentMode = .center;
         mStudentName.isHidden = false
         
         fontHeight = mStudentName.frame.size.height/1.3;
-        if (fontHeight>14)
-        {
+        if (fontHeight>14) {
             fontHeight = 14;
         }
         
@@ -240,55 +217,34 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         mMiddleStudentName.lineBreakMode = .byTruncatingMiddle
         mMiddleStudentName.textColor = blackTextColor
         
-        
-        
-        
-        
-        
-        
-        
         let questionStateView = UIView(frame:CGRect(x: answerDeskImageView.frame.size.width-(mStudentImage.frame.size.height/2), y: mStudentImage.frame.origin.y, width: mStudentImage.frame.size.height/2,height: mStudentImage.frame.size.height/2));
         refrenceDeskImageView.addSubview(questionStateView)
         questionStateView.backgroundColor = UIColor.clear
-        
         
         mQuestionStateImage.frame = CGRect(x: 0, y: 0, width: questionStateView.frame.size.height,height: questionStateView.frame.size.height)
         questionStateView.addSubview(mQuestionStateImage);
         mQuestionStateImage.backgroundColor = UIColor.white
         mQuestionStateImage.isHidden = true
         
-        
         mDoubtImageview.frame =  CGRect(x: 0, y: 0, width: questionStateView.frame.size.height,height: questionStateView.frame.size.height);
         questionStateView.addSubview(mDoubtImageview)
         mDoubtImageview.backgroundColor = UIColor.clear
-       mDoubtImageview.isHidden = true
+        mDoubtImageview.isHidden = true
         mDoubtImageview.image  = UIImage(named:"Query.png");
-        
-        
         
         mProgressView.frame = CGRect(x: (mStudentImage.frame.size.width + mStudentImage.frame.origin.x + 5),
                                          y: mStudentImage.frame.size.height - mStudentImage.frame.size.height/8,
                                          width: answerDeskImageView.frame.size.width - (mStudentImage.frame.size.width + mStudentImage.frame.origin.x),
                                          height: mStudentImage.frame.size.width/8);
-        
         refrenceDeskImageView.addSubview(mProgressView);
         mProgressView.progressTintColor  = standard_Red
         mProgressView.trackTintColor = UIColor(red: 213/255.0, green:213/255.0, blue:213/255.0, alpha: 1)
         mProgressView.isHidden = true
         let transform = CGAffineTransform(scaleX: 1.0, y: 3.2);
         mProgressView.transform = transform;
-        
-//        mProgressView.frame = CGRect(x: mProgressView.frame.origin.x,
-//                                     y: mProgressView.frame.origin.y,
-//                                     width: mProgressView.frame.size.width,
-//                                     height: mProgressView.frame.size.height);
-        
         mProgressView.layer.cornerRadius = mProgressView.frame.size.height/2;
         mProgressView.layer.masksToBounds = true;
-
-        
-        
-        
+ 
         let  mDoneButton = UIButton()
         mDoneButton.frame = mDeskFrame
         refrenceDeskImageView.addSubview(mDoneButton)
@@ -298,33 +254,34 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
         mDoneButton.addGestureRecognizer(longGesture)
         longGesture.numberOfTapsRequired = 2
         
-      
-        NotificationCenter.default.addObserver(self, selector: #selector(StundentDeskView.setModelAnswer), name: NSNotification.Name(rawValue: "setModelAnswer"), object: nil)
+       NotificationCenter.default.addObserver(self, selector: #selector(StundentDeskView.setModelAnswer), name: NSNotification.Name(rawValue: "setModelAnswer"), object: nil)
+        
+        answerDeskImageView.bringSubview(toFront: mActivityIndicator)
         
     }
     
    
     
-    func Long()
-    {
-        
-        if mQuestionStateImage.isHidden == false
-        {
-            if let questionType = _currentQuestionDetials.object(forKey: kQuestionType) as? String
-            {
-                
-                if (questionType  == kOverlayScribble  || questionType == kFreshScribble || questionType == kText)
-                {
-                    
-                    if let StudentId = currentStudentsDict.object(forKey: "StudentId") as? String
-                    {
-                        SSTeacherMessageHandler.sharedMessageHandler.sendPeakViewMessageToStudentWithId(StudentId)
+    func Long(){
+        if mQuestionStateImage.isHidden == false {
+            if let questionType = _currentQuestionDetials.object(forKey: kQuestionType) as? String {
+                if (questionType  == kOverlayScribble  || questionType == kFreshScribble || questionType == kText) {
+                    if let StudentId = currentStudentsDict.object(forKey: "StudentId") as? String {
+                       SSTeacherMessageHandler.sharedMessageHandler.sendPeakViewMessageToStudentWithId(StudentId)
+                        mActivityIndicator.isHidden = false
+                        mActivityIndicator.startAnimating()
+                        answerDeskImageView.bringSubview(toFront: mActivityIndicator)
                     }
                 }
             }
         }
     }
     
+    
+    func didGetPeakView() {
+        mActivityIndicator.isHidden = true
+        mActivityIndicator.stopAnimating()
+    }
     
     
     required init?(coder aDecoder: NSCoder)

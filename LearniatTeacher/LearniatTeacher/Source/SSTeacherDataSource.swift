@@ -426,29 +426,17 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     
     // MARK: - XML API Functions
-    
-    
-    func getUserState(_ userId :String, withDelegate delegate:SSTeacherDataSourceDelegate)
-    {
-        
+    func getUserState(_ userId :String, withDelegate delegate:SSTeacherDataSourceDelegate) {
         let manager = APIManager()
-        
-        
         let urlString = String(format: "%@<Sunstone><Action><Service>GetMyState</Service><UserId>%@</UserId></Action></Sunstone>",URLPrefix,userId)
-        
         print("ApiValue - \(urlString)")
-        
         manager.downloadDataURL(urlString, withServiceName:kServiceGetMyState, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
     
-    func getStudentsState(_ SessionID :String, withDelegate delegate:SSTeacherDataSourceDelegate)
-    {
-        
+    func getStudentsState(_ SessionID :String, withDelegate delegate:SSTeacherDataSourceDelegate) {
         let manager = APIManager()
         let uuidString:String = UIDevice.current.identifierForVendor!.uuidString
-
-        
         let urlString = String(format: "%@<Sunstone><Action><Service>GetStudentsState</Service><SessionId>%@</SessionId><UserId>%@</UserId><UUID>%@</UUID></Action></Sunstone>",URLPrefix,SessionID,SSTeacherDataSource.sharedDataSource.currentUserId,uuidString)
         print("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName:kGetStudentsState, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)

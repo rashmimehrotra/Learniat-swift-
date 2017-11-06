@@ -127,33 +127,20 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     fileprivate var foregroundNotification: NSObjectProtocol!
     
     
-    override func viewDidAppear(_ animated: Bool)
-    {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
-        
-        
     }
     
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
         self.view.backgroundColor = whiteBackgroundColor
-        
-        
         self.view.setNeedsLayout()
         self.view.layoutIfNeeded()
-        
-        
-
         SSTeacherMessageHandler.sharedMessageHandler.setdelegate(self)
-        
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
         mTopbarImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: (self.view.frame.size.height)/12))
         mTopbarImageView.backgroundColor = topbarColor
         self.view.addSubview(mTopbarImageView)
@@ -277,8 +264,6 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         mNoSessionSubLabel.textAlignment = .center
         
         
-        
-        
         mScrollView = UIScrollView(frame: CGRect(x: 0,y: mTopbarImageView.frame.size.height,width: self.view.frame.size.width,height: self.view.frame.size.height - mTopbarImageView.frame.size.height))
         mScrollView.backgroundColor = whiteBackgroundColor
         self.view.addSubview(mScrollView)
@@ -397,8 +382,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         // Dispose of any resources that can be recreated.
     }
     
-    func onRefreshButton(_ sender: AnyObject)
-    {
+    func onRefreshButton(_ sender: AnyObject) {
         SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
         mNoSessionLabel.text = "Please wait we are loading your sessions "
         activityIndicator.isHidden = false
@@ -608,22 +592,18 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         })
         
         
-        if sessionDetailsArray.count > 0
-        {
+        if sessionDetailsArray.count > 0 {
             SSTeacherDataSource.sharedDataSource.getMyCurrentSessionOfTeacher(self)
         }
-        else
-        {
-            activityIndicator.isHidden = true
-            activityIndicator.stopAnimating()
-        }
         
-        SSTeacherMessageHandler.sharedMessageHandler.refreshApp()
+        activityIndicator.isHidden = true
+        activityIndicator.stopAnimating()
         TeacherScheduleViewController.destroyUnusedRooms();
     }
     
     static func destroyUnusedRooms(){
         SSTeacherDataSource.sharedDataSource.refreshApp(success: { (response) in
+            SSTeacherMessageHandler.sharedMessageHandler.refreshAppWithDetails(response: response)
             if let unusedRooms = response.object(forKey: "DestroyRooms") as? NSArray{
                 for unusedRoom in unusedRooms{
                     if let sessionId:Int = (unusedRoom as AnyObject).object(forKey: "class_session_id") as? Int{
@@ -632,7 +612,6 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
                     }
                 }
             }
-            
         })
         { (error) in
             NSLog("Refresh API failed, unable to join xmpp rooms")
@@ -762,37 +741,17 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
     }
     
-    func didGetSessionUpdatedWithDetials(_ details: AnyObject)
-    {
-        
-        if sessionUpdatedLive == false
-        {
+    func didGetSessionUpdatedWithDetials(_ details: AnyObject) {
+        if sessionUpdatedLive == false {
             SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
-        }
-        else
-        {
+        } else {
             let currentDate = Date()
-            
-            
             let startTime = dateFormatter.string(from: currentDate)
             liveSessionDetails.setValue(startTime, forKey: "StartTime" )
-            
-            //                liveSessionDetails.set(startTime, forKey: "StartTime")
-            //                liveSessionDetails.set(dateFormatter.string(from: currentDate), forKey: "StartTime")
-            
             beginClassWithDetails(liveSessionDetails)
-            
-            
         }
-        
         activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
-        
-        
-        
-        
-        
-        
     }
     
     func didGetSessionExtendedDetials(_ details: AnyObject) {
@@ -1000,13 +959,11 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         
     }
     
-    func delegateRefreshSchedule()
-    {
+    func delegateRefreshSchedule()  {
         SSTeacherDataSource.sharedDataSource.getScheduleOfTeacher(self)
          mNoSessionLabel.text = "Please wait we are loading your sessions "
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
-        
     }
     
     

@@ -330,7 +330,7 @@ class SubTopicCell: UIView{
         
         if delegate().responds(to: #selector(SubTopicCellDelegate.delegateSubTopicCellStartedWithDetails(_:witStatedState:)))
         {
-            
+            //TODO:@Pradeep Why is this if condidation added? why is it blank?
             if startButton.titleLabel?.text == "Resume" || startButton.titleLabel?.text == "Completed" {
                 
                 

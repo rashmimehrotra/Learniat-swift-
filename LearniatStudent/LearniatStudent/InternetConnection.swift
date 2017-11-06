@@ -7,14 +7,12 @@
 //
 
 import Foundation
-class InternetConnection: UIView
-{
+class InternetConnection: UIView {
     @IBOutlet weak var mRetryButton: RNLoadingButton!
     class func instanceFromNib() -> UIView {
         return UINib(nibName: "InternetDisconnected", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! UIView
     }
-    @IBAction func onRetryButtin(_ sender: Any)
-    {
+    @IBAction func onRetryButtin(_ sender: Any) {
         mRetryButton.isUserInteractionEnabled = false
         SSStudentMessageHandler.sharedMessageHandler.performReconnet(connectType: "Retry")
         mRetryButton.activityIndicatorAlignment = RNActivityIndicatorAlignment.right
@@ -23,12 +21,10 @@ class InternetConnection: UIView
         mRetryButton.setTitleColor(lightGrayColor, for: .normal)
     }
     
-    func stopLoading()
-    {
+    func stopLoading() {
         mRetryButton.isUserInteractionEnabled = true
         mRetryButton.isLoading = false
         mRetryButton.setTitle("Retry", for: .normal)
         mRetryButton.setTitleColor(whiteColor, for: .normal)
-    }
-    
+    }    
 }

@@ -309,8 +309,9 @@ open class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Mess
     }
     
     
+    ///TODO: This is removed to avoid refresh API multiple time calling (Sourab Please verify this)
     open func gotOnline() {
-        refreshApp()
+       // refreshApp()
     }
     
     open func didRecievePresenceSelf(_ state: String!, withUserName userName: String!, withSubState subState: String!, withSenderJid senderJid: XMPPJID!) {
@@ -1567,40 +1568,55 @@ open class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Mess
             
         }
     }
-    
+    ///TODO: Sourab Please verify this. We are doing the same thing in scheduleScreen also i think
+    /*
     func refreshApp(){
         SSTeacherDataSource.sharedDataSource.refreshApp(success: { (response) in
-            
-            if let summary = response.object(forKey: "Summary") as? NSArray
-            {
-                if summary.count > 0
-                {
+            if let summary = response.object(forKey: "Summary") as? NSArray {
+                if summary.count > 0 {
                     let details = summary.firstObject as AnyObject
-                    if let currentState = details.object(forKey: "CurrentSessionState") as? Int{
-                        
+                    if let currentState = details.object(forKey: "CurrentSessionState") as? Int {
                         let currentSessionId:Int = (summary.value(forKey: "CurrentSessionId") as! NSArray)[0] as! Int
                         let currentSessionState:Int = (summary.value(forKey: "CurrentSessionState") as! NSArray)[0] as! Int
                         TeacherScheduleViewController.currentSessionId = currentSessionId
                         self.joinOrLeaveXMPPSessionRoom(sessionState:String(describing:currentSessionState), roomName:String(describing:currentSessionId))
-                        
-                        
                     }
-                    if let nextState = details.object(forKey: "NextClassSessionState") as? Int{
+                    
+                    if let nextState = details.object(forKey: "NextClassSessionState") as? Int {
                         let nextSessionState:Int = (summary.value(forKey: "NextClassSessionState") as! NSArray)[0] as! Int
                         let nextSessionId:Int = (summary.value(forKey: "NextClassSessionId") as! NSArray)[0] as! Int
                         TeacherScheduleViewController.nextSessionId = nextSessionId
                         self.joinOrLeaveXMPPSessionRoom(sessionState:String(describing:nextSessionState), roomName:String(describing:nextSessionId))
                     }
-                    
                 }
             }
-            
-            
         }) { (error) in
             NSLog("Refresh API failed, unable to join xmpp rooms")
         }
     }
     
+     */
+    
+    func refreshAppWithDetails(response:AnyObject) {
+        if let summary = response.object(forKey: "Summary") as? NSArray {
+            if summary.count > 0 {
+                let details = summary.firstObject as AnyObject
+                if let currentState = details.object(forKey: "CurrentSessionState") as? Int {
+                    let currentSessionId:Int = (summary.value(forKey: "CurrentSessionId") as! NSArray)[0] as! Int
+                    let currentSessionState:Int = (summary.value(forKey: "CurrentSessionState") as! NSArray)[0] as! Int
+                    TeacherScheduleViewController.currentSessionId = currentSessionId
+                    self.joinOrLeaveXMPPSessionRoom(sessionState:String(describing:currentSessionState), roomName:String(describing:currentSessionId))
+                }
+                
+                if let nextState = details.object(forKey: "NextClassSessionState") as? Int {
+                    let nextSessionState:Int = (summary.value(forKey: "NextClassSessionState") as! NSArray)[0] as! Int
+                    let nextSessionId:Int = (summary.value(forKey: "NextClassSessionId") as! NSArray)[0] as! Int
+                    TeacherScheduleViewController.nextSessionId = nextSessionId
+                    self.joinOrLeaveXMPPSessionRoom(sessionState:String(describing:nextSessionState), roomName:String(describing:nextSessionId))
+                }
+            }
+        }
+    }
     
      func joinOrLeaveXMPPSessionRoom(sessionState: String, roomName: String){
         if sessionState == kLive || sessionState == kopened || sessionState == kScheduled
