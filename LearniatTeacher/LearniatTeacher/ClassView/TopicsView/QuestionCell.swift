@@ -115,12 +115,7 @@ class QuestionCell: UIView
         
         var height :CGFloat = 100
         
-        
-        
-        
         currentQuestionDetails = details
-        
-        
         
         if let topicId = currentQuestionDetails.object(forKey: "Id")as? String
         {
@@ -182,9 +177,7 @@ class QuestionCell: UIView
         
         if let QuestonAvgScore = details.object(forKey: "QuestonAvgScore")as? NSString
         {
-           
-            
-            let questionAverage = QuestonAvgScore.floatValue * 100.0
+           let questionAverage = QuestonAvgScore.floatValue * 100.0
             
             if let NumberOfResponses = details.object(forKey: "NumberOfResponses")as? NSString
             {
@@ -234,54 +227,23 @@ class QuestionCell: UIView
         
         if let questionType = details.object(forKey: kQuestionType)as? NSString
         {
-            if(questionType.isEqual(to: kText))
+            if( questionType.isEqual(to: kText) || questionType.isEqual(to: kFreshScribble))
             {
                 
                 mQuestionTypeLabel.text = questionType as String ;
                 mInfoButtonButton.isHidden = true
                 
             }
-            else if(questionType.isEqual(to: kOverlayScribble))
-            {
-            
-                mQuestionTypeLabel.text = questionType as String;
-                mInfoButtonButton.isHidden = false
-            
-            
-            }
-            else if(questionType.isEqual(to: kFreshScribble))
-            {
-            
-                mQuestionTypeLabel.text = questionType as String;
-                mInfoButtonButton.isHidden = true
-            
-            
-            }
-           
-            else if(questionType.isEqual(to: kMRQ))
-            {
-            
-                mQuestionTypeLabel.text = questionType as String;
-                mInfoButtonButton.isHidden = false
-            
-            
-            }
-            else if(questionType.isEqual(to: kMCQ))
-            {
-            
-                mQuestionTypeLabel.text = questionType as String;
-                 mInfoButtonButton.isHidden = false
-            
-            
-            }
-            else
-            {
-            
-                mQuestionTypeLabel.text = questionType as String;
-                 mInfoButtonButton.isHidden = false
-            
+            else if(questionType.isEqual(to: kOverlayScribble) || questionType.isEqual(to: kMRQ) || questionType.isEqual(to: kMCQ)||questionType.isEqual(to: kMatchColumn) ) {
+             mQuestionTypeLabel.text = questionType as String;
+            mInfoButtonButton.isHidden = false
             }
             
+            if(questionType.isEqual(to: kMatchColumn))  {
+                mQuestionNameLabel.textColor = UIColor.lightGray
+            } else {
+                mQuestionNameLabel.textColor = blackTextColor
+            }
         }
        
         

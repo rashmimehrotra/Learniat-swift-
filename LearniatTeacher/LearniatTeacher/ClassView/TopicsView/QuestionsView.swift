@@ -376,7 +376,12 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
             
             
             if isCurrentSubtopicStarted == true {
-                topicCell.mSendButton.isHidden = false
+                let questionType = (currentTopicDetails as AnyObject).object(forKey: kQuestionType)as? String
+                if questionType != kMatchColumn {
+                   topicCell.mSendButton.isHidden = false
+                } else {
+                    topicCell.mSendButton.isHidden = true
+                }
             } else {
                 topicCell.mSendButton.isHidden = true
             }
