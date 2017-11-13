@@ -59,14 +59,11 @@ let kSubmissionView         = "Submission"
 let kQueryView              = "Query"
 let kPollView               = "Polling"
 
-
+let EndClassTimmerMinutes   = 6
 
 import Foundation
-class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopicsViewDelegate,SubTopicsViewDelegate,SSTeacherDataSourceDelegate,QuestionsViewDelegate,SSTeacherMessagehandlerDelegate,LiveQuestionViewDelegate,StundentDeskViewDelegate,SSTeacherSubmissionViewDelegate,SSTeacherQueryViewDelegate,StudentSubjectivePopoverDelegate,SSSettingsViewControllerDelegate,SSTeacherSchedulePopoverControllerDelegate,SSTeacherPollViewDelegate,StudentModelAnswerViewDelegate
-{
+class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopicsViewDelegate,SubTopicsViewDelegate,SSTeacherDataSourceDelegate,QuestionsViewDelegate,SSTeacherMessagehandlerDelegate,LiveQuestionViewDelegate,StundentDeskViewDelegate,SSTeacherSubmissionViewDelegate,SSTeacherQueryViewDelegate,StudentSubjectivePopoverDelegate,SSSettingsViewControllerDelegate,SSTeacherSchedulePopoverControllerDelegate,SSTeacherPollViewDelegate,StudentModelAnswerViewDelegate {
    
-    
-    
     var mTeacherImageView: CustomProgressImageView!
     
     var mTopbarImageView: UIImageView!
@@ -186,10 +183,9 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     var sessionEndingAlertView:UIAlertController!
     
-    
+    var mCurrentSessionModel :CurrentSessionViewModel!
       var mExtTimelabel: UILabel = UILabel();
     
-    fileprivate var foregroundNotification: NSObjectProtocol!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -200,12 +196,10 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         self.view.setNeedsLayout()
         self.view.layoutIfNeeded()
         
+  
+        NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name: .UIApplicationWillResignActive, object: nil)
         
-        foregroundNotification = NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillEnterForeground, object: nil, queue: OperationQueue.main) {
-            [unowned self] notification in
-            SSTeacherDataSource.sharedDataSource.getMyCurrentSessionOfTeacher(self)
-        }
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(appBecameActive), name: .UIApplicationDidBecomeActive, object: nil)
         
         
         
@@ -230,11 +224,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mBottombarImageView.backgroundColor = topbarColor
         self.view.addSubview(mBottombarImageView)
         mBottombarImageView.isUserInteractionEnabled = true
-        
-        
-       
-        
-        
         
         mRemainingTimeProgressBar.isUserInteractionEnabled = false;
         mBottombarImageView.addSubview(mRemainingTimeProgressBar)
@@ -506,63 +495,36 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mActivityIndicatore.frame = CGRect(x: (self.view.frame.size.width - 60)/2, y: (self.view.frame.size.height - 60)/2, width: 60, height: 60)
         self.view.addSubview(mActivityIndicatore)
         
-        
-       
         addAllDetailsOfSession()
         
         downloladDemoMasterFileDetails()
-        
-        
-        
     }
 
+    
+    deinit {
+        print("deinit called")
+        NotificationCenter.default.removeObserver(self)
+    }
     
  
   
     
     func setSessionDetails(_ details:AnyObject) {
         currentSessionDetails = details
+        mCurrentSessionModel =  CurrentSessionViewModel(sessionDetails: currentSessionDetails)
     }
     
     
     func addAllDetailsOfSession() {
-        if let sessionId = (currentSessionDetails.object(forKey: kSessionId)) as? String {
-            currentSessionId = sessionId
-            SSTeacherDataSource.sharedDataSource.currentLiveSessionId = sessionId
-        }
-
-        if let className = currentSessionDetails.object(forKey: "ClassName") as? String {
-            if var roomName = currentSessionDetails.object(forKey: "RoomName") as? String {
-                roomName = roomName.replacingOccurrences(of: "Room ", with: "")
-                mClassName.text = "\(className)(R:\(roomName))"
-            } else {
-                mClassName.text = className
-            }
-        }
         
-        if let  StartTime = currentSessionDetails.object(forKey: "StartTime") as? String {
-            var _string :String = ""
-            let currentDate = Date()
-            _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: StartTime)!)).fullString
-            mStartTimeLabel.text = "Started: \(_string)"
-        }
-        
-        
-        
-        if let  StartTime = currentSessionDetails.object(forKey: "StartTime") as? String {
-          if let  EndTime = currentSessionDetails.object(forKey: "EndTime") as? String {
-            let currentDate = Date()
+        currentSessionId = mCurrentSessionModel._sessionModel.SessionID
+        SSTeacherDataSource.sharedDataSource.currentLiveSessionId = currentSessionId
+       
+        mClassName.text = mCurrentSessionModel.getClassName()
+        mStartTimeLabel.text = mCurrentSessionModel.getStartTimeLabelText()
+        mRemainingTimeProgressBar.progress = Float(mCurrentSessionModel.getClassProgressTime())
             
-            var totalminutesRemaining = currentDate.minutesDiffernceBetweenDates(dateFormatter.date(from: StartTime)!, endDate: dateFormatter.date(from: EndTime )!)
-                totalminutesRemaining = totalminutesRemaining * 60
-            
-            var minutesRemaining = currentDate.minutesDiffernceBetweenDates(dateFormatter.date(from: StartTime )!, endDate:currentDate )
-                minutesRemaining = minutesRemaining * 60
-            
-            let progressValue :CGFloat = CGFloat(minutesRemaining) / CGFloat(totalminutesRemaining)
-                mRemainingTimeProgressBar.progress = Float(progressValue)
-            }
-        }
+        
         
         mainTopicsView  = MainTopicsView(frame: CGRect(x: 0,y: 0, width: 600   ,height: 44))
         mainTopicsView.setSessionDetails(currentSessionDetails)
@@ -588,13 +550,20 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mShowTopicsView.addSubview(liveQuestionView)
         liveQuestionView.isHidden = true
         
-        if let roomId = currentSessionDetails.object(forKey: "RoomId") as? String {
-            SSTeacherDataSource.sharedDataSource.getGridDesignDetails(roomId, WithDelegate: self)
+        if mCurrentSessionModel._sessionModel.RoomID.isEmpty == false {
+            SSTeacherDataSource.sharedDataSource.getGridDesignDetails(mCurrentSessionModel._sessionModel.RoomID, WithDelegate: self)
             mActivityIndicatore.startAnimating()
             mActivityIndicatore.isHidden = false
         }
-        
         SSTeacherMessageHandler.sharedMessageHandler.createRoomWithRoomName("question_\(currentSessionId)", withHistory: "0")
+    }
+    
+    func willResignActive(_ notification: Notification) {
+        mStartLabelUpdater.invalidate()
+    }
+    
+    func appBecameActive(_ notification: Notification) {
+       updateStartLabelTime()
     }
     
     
@@ -622,83 +591,24 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     
 // MARK: - StartTime updating
-    
     func updateStartLabelTime() {
-        if let StartTime = currentSessionDetails.object(forKey: "StartTime") as? String {
-            var _string :String = ""
-            let currentDate = Date()
-            
-            _string = _string.stringFromTimeInterval(currentDate.timeIntervalSince(dateFormatter.date(from: StartTime)!)).fullString
-            mStartTimeLabel.text = "Started: \(_string)"
-            
-            
-            
-            if let  EndTime = currentSessionDetails.object(forKey: "EndTime") as? String
-            {
-
-                var totalminutesRemaining = currentDate.minutesDiffernceBetweenDates(dateFormatter.date(from: StartTime)!, endDate: dateFormatter.date(from: EndTime )!)
-                
-                totalminutesRemaining = totalminutesRemaining * 60
-                
-                
-                
-                var minutesRemaining = currentDate.minutesDiffernceBetweenDates(dateFormatter.date(from: StartTime )!, endDate:currentDate )
-                
-                
-                minutesRemaining = minutesRemaining * 60
-                
-                
-                let progressValue :CGFloat = CGFloat(minutesRemaining) / CGFloat(totalminutesRemaining)
-                mRemainingTimeProgressBar.progress = Float(progressValue)
-                
-                
-                let classEndingRemainingTime = currentDate.secondsDiffernceBetweenDates(currentDate, endDate:dateFormatter.date(from: EndTime )! )
-                
-                if classEndingRemainingTime <= 0
-                {
-                    mStartLabelUpdater.invalidate()
-                    delegateSessionEnded()
-                }
-                else if classEndingRemainingTime < (6*60)
-                {
-                    if checkingClassEndTime == false
-                    {
-                        checkingClassEndTime = true
-                        SSTeacherDataSource.sharedDataSource.getMyCurrentSessionOfTeacher(self)
-                    }
-                    
-                    hmsFrom(seconds: currentDate.secondsDiffernceBetweenDates(currentDate, endDate:dateFormatter.date(from: EndTime )! )) { hours, minutes, seconds in
-                        
-                        let minutes = self.getStringFrom(seconds: minutes)
-                        let seconds = self.getStringFrom(seconds: seconds)
-                        self.mEndCounterlabel.text = "\(minutes):\(seconds)"
-                    }
-                    
-                    mEndCounterlabel.isHidden = false
-                }
-                else
-                {
-                    checkingClassEndTime = false
-                    
-                    mEndCounterlabel.isHidden = true
-                }
-            }
-            
+        mStartTimeLabel.text =  mCurrentSessionModel.getStartTimeLabelText()
+        mRemainingTimeProgressBar.progress = Float(mCurrentSessionModel.getClassProgressTime())
+       
+        let remainingMinutes = mCurrentSessionModel.getRemainClassTime()
+        if remainingMinutes <= 0 {
+            //TODO:- Need to validate end session functionality
+            mStartLabelUpdater.invalidate()
+            updateSessionStateToEnded()
+        } else if remainingMinutes < (EndClassTimmerMinutes*60) {
+            self.mEndCounterlabel.text = mCurrentSessionModel.getEndTimeLabelText()
+            mEndCounterlabel.isHidden = false
+        } else {
+            checkingClassEndTime = false
+            mEndCounterlabel.isHidden = true
         }
     }
     
-    
-    func hmsFrom(seconds: Int, completion: @escaping (_ hours: Int, _ minutes: Int, _ seconds: Int)->()) {
-        
-        completion(seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
-        
-    }
-    
-    func getStringFrom(seconds: Int) -> String {
-        
-        return seconds < 10 ? "0\(seconds)" : "\(seconds)"
-    }
-
     // MARK: - Buttons Functions
     
     func onTeacherImage()
@@ -950,6 +860,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 self.sessionEndingAlertView.dismiss(animated: true, completion: nil)
             }
         }, completion: { (finished: Bool) in
+            NotificationCenter.default.removeObserver(self)
             let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let preallotController : TeacherScheduleViewController = storyboard.instantiateViewController(withIdentifier: "TeacherScheduleViewController") as! TeacherScheduleViewController
             self.present(preallotController, animated: true, completion: nil)
@@ -2987,24 +2898,15 @@ func delegateAnnotateButtonPressedWithAnswerDetails(_ answerDetails:AnyObject, w
     }
     
     func settings_refreshPicsClicked() {
-        
-        
-        SSTeacherDataSource.sharedDataSource.refreshApp(success: { (response) in
-           
-            if let summary = response.object(forKey: "Summary") as? NSArray
-            {
-                if summary.count > 0
-                {
+       SSTeacherDataSource.sharedDataSource.refreshApp(success: { (response) in
+            if let summary = response.object(forKey: "Summary") as? NSArray {
+                if summary.count > 0 {
                     let summaryValue = summary.firstObject
                     self.evaluateStateWithSummary(details: summaryValue as AnyObject)
                 }
             }
-            
             SSTeacherDataSource.sharedDataSource.getStudentsState(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, withDelegate: self)
-            
-            
         }) { (error) in
-            
         }
         
     }

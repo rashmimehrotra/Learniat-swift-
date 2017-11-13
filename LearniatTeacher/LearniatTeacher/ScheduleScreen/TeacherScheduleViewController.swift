@@ -173,9 +173,6 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         }
         
         
-        
-        
-        
 //        mTeacherName = UILabel(frame: CGRect(x: mTeacherImageView.frame.origin.x + mTeacherImageView.frame.size.width + 10, y: mTeacherImageView.frame.origin.y, width: 200, height: 20))
 //        mTeacherName.font = UIFont(name:helveticaMedium, size: 20)
         mTeacherName = UILabel(frame: CGRect(x: mTeacherImageView.frame.origin.x + mTeacherImageView.frame.size.width + 10, y: mTeacherImageView.frame.origin.y - 2, width: 200, height: 20))

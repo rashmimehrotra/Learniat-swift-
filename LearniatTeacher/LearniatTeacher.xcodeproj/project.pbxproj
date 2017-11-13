@@ -28,6 +28,7 @@
 		182E93301F481A8400F5C911 /* KMZDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182E932B1F481A8400F5C911 /* KMZDrawView.m */; };
 		182E93311F481A8400F5C911 /* KMZFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 182E932D1F481A8400F5C911 /* KMZFrame.m */; };
 		182E93321F481A8400F5C911 /* KMZLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 182E932F1F481A8400F5C911 /* KMZLine.m */; };
+		1D92043F1FB831E700921C56 /* CurrentSessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D92043E1FB831E700921C56 /* CurrentSessionViewModel.swift */; };
 		4D0A7FC81CCF783B001AA119 /* StudentAnswerDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0A7FC71CCF783B001AA119 /* StudentAnswerDemo.swift */; };
 		4D0A7FCA1CCF79C6001AA119 /* StudentAnswerSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0A7FC91CCF79C6001AA119 /* StudentAnswerSelectionView.swift */; };
 		4D2A93201CC0C4A9007A1D41 /* SetupClassCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2A931D1CC0C4A9007A1D41 /* SetupClassCell.swift */; };
@@ -550,6 +551,7 @@
 		182E932D1F481A8400F5C911 /* KMZFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMZFrame.m; sourceTree = "<group>"; };
 		182E932E1F481A8400F5C911 /* KMZLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMZLine.h; sourceTree = "<group>"; };
 		182E932F1F481A8400F5C911 /* KMZLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMZLine.m; sourceTree = "<group>"; };
+		1D92043E1FB831E700921C56 /* CurrentSessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentSessionViewModel.swift; sourceTree = "<group>"; };
 		4D0A7FC71CCF783B001AA119 /* StudentAnswerDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerDemo.swift; sourceTree = "<group>"; };
 		4D0A7FC91CCF79C6001AA119 /* StudentAnswerSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentAnswerSelectionView.swift; sourceTree = "<group>"; };
 		4D2A931D1CC0C4A9007A1D41 /* SetupClassCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetupClassCell.swift; sourceTree = "<group>"; };
@@ -2752,6 +2754,7 @@
 				53460C2F1CD1D25A00076F85 /* Polling */,
 				4D0A7FC61CCF7822001AA119 /* Demo */,
 				53676D511CA63D7A00CADE4D /* SSTeacherClassView.swift */,
+				1D92043E1FB831E700921C56 /* CurrentSessionViewModel.swift */,
 				53BFD59B1CEFA59300B52B33 /* SSTeacherPeakViewController.swift */,
 				531044A91CA665E2007AE9D5 /* StundentDeskView.swift */,
 				53E5BBAD1CAE80F400358ED8 /* StudentAnswerOptionsView.swift */,
@@ -3417,6 +3420,7 @@
 				53676CFD1CA63B7F00CADE4D /* XMPPMessageArchiving.m in Sources */,
 				5377628F1E9036430004B99D /* YIInnerShadowLayer.m in Sources */,
 				53676CBD1CA63B7F00CADE4D /* XMPPRoster.xcdatamodel in Sources */,
+				1D92043F1FB831E700921C56 /* CurrentSessionViewModel.swift in Sources */,
 				53676CD61CA63B7F00CADE4D /* XMPPMessage+XEP0045.m in Sources */,
 				5360E6C81CBE53A900AFE9FF /* SSTeacherSchedulePopoverController.swift in Sources */,
 				53676CBF1CA63B7F00CADE4D /* XMPPUserCoreDataStorageObject.m in Sources */,
