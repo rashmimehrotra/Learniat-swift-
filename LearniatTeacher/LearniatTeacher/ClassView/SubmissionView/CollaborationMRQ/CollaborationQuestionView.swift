@@ -345,7 +345,12 @@ class CollaborationQuestionView: UIView,SSTeacherDataSourceDelegate
         
         
         
-        let questionDetails:NSMutableDictionary = details as! NSMutableDictionary
+        var questionDetails:NSMutableDictionary = details as! NSMutableDictionary
+        if let question = questionDetails.object(forKey: "Question") as? NSMutableDictionary {
+            questionDetails = question
+        }
+        print(questionDetails)
+        
         questionDetails.setObject(mCurrentQuestionID, forKey: "Id" as NSCopying)
         questionDetails.setObject(mQuestionTextView.text!, forKey: "Name" as NSCopying)
         getDelegate().delegateCollaborationQuestionSentWithDetails!(details: questionDetails)

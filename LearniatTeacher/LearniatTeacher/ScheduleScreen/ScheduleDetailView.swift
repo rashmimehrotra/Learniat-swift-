@@ -585,18 +585,8 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
           
             
             
-            if let PreAllocatedSeats = details.object(forKey: "PreAllocatedSeats") as? String
-            {
-                
-                
-                
-                
-                
-                
-                
-                
-                if Int(PreAllocatedSeats)! > 0
-                {
+            if let PreAllocatedSeats = details.object(forKey: "PreAllocatedSeats") as? String {
+                if Int(PreAllocatedSeats)! > 0 {
 //                    resetButton.isEnabled = true
 //                    resetButton.setTitleColor(standard_Button, for: UIControlState())
 

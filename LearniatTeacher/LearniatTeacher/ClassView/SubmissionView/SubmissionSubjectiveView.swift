@@ -654,9 +654,9 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
                         if let studentAnswerDict = studentsAswerDictonary.object(forKey: studentId) {
                             if let AssessmentAnswerId = (studentAnswerDict as AnyObject).object(forKey: "AssessmentAnswerId") as? String {
                                 
-                                if let type = (studentAnswerDict as AnyObject).object(forKey: "QuestionType") as? String {
+                                if let type = (studentAnswerDict as AnyObject).object(forKey: kQuestionType) as? String {
                                     
-                                    let dict : NSMutableDictionary = ["AssessmentAnswerId" : AssessmentAnswerId, "QuestionType" : (studentAnswerDict as AnyObject).object(forKey: "QuestionType")!, "StudentId" : (studentAnswerDict as AnyObject).object(forKey: "StudentId")!, "StudentName" : (studentDetail as AnyObject).object(forKey: "Name")!]
+                                    let dict : NSMutableDictionary = ["AssessmentAnswerId" : AssessmentAnswerId, kQuestionType : (studentAnswerDict as AnyObject).object(forKey: kQuestionType)!, "StudentId" : (studentAnswerDict as AnyObject).object(forKey: "StudentId")!, "StudentName" : (studentDetail as AnyObject).object(forKey: "Name")!]
                                     
                                     if type == kText {
                                         dict.addEntries(from: ["TextAnswer" : (studentAnswerDict as AnyObject).object(forKey: "TextAnswer")!])

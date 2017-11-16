@@ -996,7 +996,7 @@ open class SSTeacherMessageHandler:NSObject,SSTeacherMessagehandlerDelegate,Mess
         if(MessageManager.sharedMessageHandler().xmppStream.isConnected() == true)
         {
             
-            var questionRoomSubject:QuestionRoomSubject = questionRooms[_roomId]!
+            let questionRoomSubject:QuestionRoomSubject = questionRooms[_roomId]!
             questionRoomSubject.question.questionState = QuestionState.Ended
             sendRoomSubject(roomSubject:questionRoomSubject)
             questionRooms.removeValue(forKey: _roomId)

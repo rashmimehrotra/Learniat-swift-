@@ -91,7 +91,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     var mQuestionNamelabel                   = UILabel()
     
-    var currentQuestionDetails              :AnyObject!
+    var currentQuestionDetails               = NSMutableDictionary()
     
     var mainTopicsView              :  MainTopicsView!
     
@@ -600,7 +600,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             //TODO:- Need to validate end session functionality
             mStartLabelUpdater.invalidate()
             updateSessionStateToEnded()
-        } else if remainingMinutes < (EndClassTimmerMinutes*60) {
+        } else if remainingMinutes < (EndClassTimmerMinutes) {
             self.mEndCounterlabel.text = mCurrentSessionModel.getEndTimeLabelText()
             mEndCounterlabel.isHidden = false
         } else {
@@ -1002,10 +1002,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 }
             }
         }
-        
-        
-       
-        
     }
     
     func didGetQuestionSentWithDetails(_ details: AnyObject) {
@@ -1013,167 +1009,168 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
        
         print(currentQuestionDetails)
         
-        if let QuestionLogId = details.object(forKey: "QuestionLogId") as? String
-        {
-            
+        if let QuestionLogId = details.object(forKey: "QuestionLogId") as? String {
             SSTeacherDataSource.sharedDataSource.isQuestionSent = true
-            
-            
             SSTeacherDataSource.sharedDataSource.currentQuestionLogId = QuestionLogId
-            
-            if let Type = currentQuestionDetails.object(forKey: kQuestionType) as? String
-            {
+            if let Type = currentQuestionDetails.object(forKey: kQuestionType) as? String {
                 SSTeacherMessageHandler.sharedMessageHandler.sendQuestionWithRoomName(currentSessionId, withQuestionLogId: SSTeacherDataSource.sharedDataSource.currentQuestionLogId, withQuestionType: Type)
-                
-                
-                
-                
-                if let questionType = currentQuestionDetails.object(forKey: kQuestionType) as? String
-                {
+                if let questionType = currentQuestionDetails.object(forKey: kQuestionType) as? String {
                     
-//                    print(currentQuestionDetails)
-                    
-                    if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
-                    {
+                    if (questionType  == kOverlayScribble  || questionType == kFreshScribble) {
                         mSubmissionView.addScribbleQuestionWithDetails(currentQuestionDetails)
-                       
-                        
-                         if let Scribble = currentQuestionDetails.object(forKey: "Scribble") as? String
-                         {
+                       if let Scribble = currentQuestionDetails.object(forKey: "Scribble") as? String  {
                             SSTeacherDataSource.sharedDataSource.mOverlayImageName = Scribble
-                        }
-                        else
-                         {
+                        } else {
                             SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
                         }
                         
-                        
-                        
-                        
-                        if UserDefaults.standard.bool(forKey: "isSimulateMode") == true
-                        {
+                        if UserDefaults.standard.bool(forKey: "isSimulateMode") == true {
                             demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
                         }
-                    }
-                    else if (questionType == kText)
-                    {
+                    } else if (questionType == kText) {
                         mSubmissionView.addScribbleQuestionWithDetails(currentQuestionDetails)
-                        if UserDefaults.standard.bool(forKey: "isSimulateMode") == true
-                        {
+                        if UserDefaults.standard.bool(forKey: "isSimulateMode") == true {
                             demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
                         }
                         SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
-                    }
-                    else if (questionType == kMatchColumn)
-                    {
+                    } else if (questionType == kMatchColumn) {
                         mSubmissionView.addMTCQuestionWithDetails(currentQuestionDetails)
                         
-                        if UserDefaults.standard.bool(forKey: "isSimulateMode") == true
-                        {
+                        if UserDefaults.standard.bool(forKey: "isSimulateMode") == true {
                             demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
                         }
                         SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
-                        
-                    }
-                    else if (questionType  == kMCQ  || questionType == kMRQ)
-                    {
+                    } else if (questionType  == kMCQ  || questionType == kMRQ) {
                         mSubmissionView.addMRQQuestionWithDetails(currentQuestionDetails)
-                        if UserDefaults.standard.bool(forKey: "isSimulateMode") == true
-                        {
+                        if UserDefaults.standard.bool(forKey: "isSimulateMode") == true  {
                           demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
                         }
                         SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
-                        
-                        
-                    }
-                    else if (questionType  == OneString) || questionType  == TextAuto
-                    {
+                    } else if (questionType  == OneString) || questionType  == TextAuto {
                         mSubmissionView.addOneStringQuestionWithDetails(currentQuestionDetails)
                         SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
                     }
-//                    else if
-//                    {
-//                        mSubmissionView.addOneWordQuestionViewWithDetails(currentQuestionDetails)
-//                        SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
-//                    }
+                }
+            }  else if let Type = currentQuestionDetails.object(forKey: kQuestionType) as? String {
+                SSTeacherMessageHandler.sharedMessageHandler.sendQuestionWithRoomName(currentSessionId, withQuestionLogId: SSTeacherDataSource.sharedDataSource.currentQuestionLogId, withQuestionType: Type)
+                if let questionType = currentQuestionDetails.object(forKey: kQuestionType) as? String {
+                    
+                    if (questionType  == kOverlayScribble  || questionType == kFreshScribble) {
+                        mSubmissionView.addScribbleQuestionWithDetails(currentQuestionDetails)
+                        if let Scribble = currentQuestionDetails.object(forKey: "Scribble") as? String  {
+                            SSTeacherDataSource.sharedDataSource.mOverlayImageName = Scribble
+                        } else {
+                            SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
+                        }
+                        
+                        if UserDefaults.standard.bool(forKey: "isSimulateMode") == true {
+                            demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
+                        }
+                    } else if (questionType == kText) {
+                        mSubmissionView.addScribbleQuestionWithDetails(currentQuestionDetails)
+                        if UserDefaults.standard.bool(forKey: "isSimulateMode") == true {
+                            demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
+                        }
+                        SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
+                    } else if (questionType == kMatchColumn) {
+                        mSubmissionView.addMTCQuestionWithDetails(currentQuestionDetails)
+                        
+                        if UserDefaults.standard.bool(forKey: "isSimulateMode") == true {
+                            demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
+                        }
+                        SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
+                    } else if (questionType  == kMCQ  || questionType == kMRQ) {
+                        mSubmissionView.addMRQQuestionWithDetails(currentQuestionDetails)
+                        if UserDefaults.standard.bool(forKey: "isSimulateMode") == true  {
+                            demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
+                        }
+                        SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
+                    } else if (questionType  == OneString) || questionType  == TextAuto {
+                        mSubmissionView.addOneStringQuestionWithDetails(currentQuestionDetails)
+                        SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
+                    }
                 }
             }
-            else if let questionDetails = currentQuestionDetails.object(forKey: "Question") as? AnyObject
-            {
-                
-                if let questionType = questionDetails.object(forKey: kQuestionType) as? String
-                {
+            else if let questionDetails = currentQuestionDetails.object(forKey: "Question") as? AnyObject {
+                if let questionType = questionDetails.object(forKey: kQuestionType) as? String {
                     SSTeacherMessageHandler.sharedMessageHandler.sendQuestionWithRoomName(currentSessionId, withQuestionLogId: SSTeacherDataSource.sharedDataSource.currentQuestionLogId, withQuestionType: questionType)
                     
-                  
-                        //                    print(currentQuestionDetails)
+                    if (questionType  == kOverlayScribble  || questionType == kFreshScribble)  {
+                        mSubmissionView.addScribbleQuestionWithDetails(currentQuestionDetails)
+                        if let Scribble = currentQuestionDetails.object(forKey: "Scribble") as? String {
+                            SSTeacherDataSource.sharedDataSource.mOverlayImageName = Scribble
+                        } else {
+                            SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
+                        }
                         
-                        if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
-                        {
+                        if UserDefaults.standard.bool(forKey: "isSimulateMode") == true {
+                            demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
+                        }
+                    } else if (questionType == kText) {
+                        mSubmissionView.addScribbleQuestionWithDetails(currentQuestionDetails)
+                        if UserDefaults.standard.bool(forKey: "isSimulateMode") == true {
+                            demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
+                        }
+                        SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
+                    } else if (questionType == kMatchColumn)  {
+                        mSubmissionView.addMTCQuestionWithDetails(currentQuestionDetails)
+                        
+                        if UserDefaults.standard.bool(forKey: "isSimulateMode") == true {
+                            demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
+                        }
+                        SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
+                    } else if (questionType  == kMCQ  || questionType == kMRQ) {
+                        mSubmissionView.addMRQQuestionWithDetails(currentQuestionDetails)
+                        if UserDefaults.standard.bool(forKey: "isSimulateMode") == true {
+                            demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
+                        }
+                        SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
+                    } else if (questionType  == OneString) || questionType  == TextAuto {
+                        mSubmissionView.addOneStringQuestionWithDetails(currentQuestionDetails)
+                        SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
+                    }
+                } else if let Type = currentQuestionDetails.object(forKey: kQuestionType) as? String {
+                    SSTeacherMessageHandler.sharedMessageHandler.sendQuestionWithRoomName(currentSessionId, withQuestionLogId: SSTeacherDataSource.sharedDataSource.currentQuestionLogId, withQuestionType: Type)
+                    if let questionType = currentQuestionDetails.object(forKey: kQuestionType) as? String {
+                        
+                        if (questionType  == kOverlayScribble  || questionType == kFreshScribble) {
                             mSubmissionView.addScribbleQuestionWithDetails(currentQuestionDetails)
-                            
-                            
-                            if let Scribble = currentQuestionDetails.object(forKey: "Scribble") as? String
-                            {
+                            if let Scribble = currentQuestionDetails.object(forKey: "Scribble") as? String  {
                                 SSTeacherDataSource.sharedDataSource.mOverlayImageName = Scribble
-                            }
-                            else
-                            {
+                            } else {
                                 SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
                             }
                             
-                            
-                            
-                            
-                            if UserDefaults.standard.bool(forKey: "isSimulateMode") == true
-                            {
+                            if UserDefaults.standard.bool(forKey: "isSimulateMode") == true {
                                 demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
                             }
-                        }
-                        else if (questionType == kText)
-                        {
+                        } else if (questionType == kText) {
                             mSubmissionView.addScribbleQuestionWithDetails(currentQuestionDetails)
-                            if UserDefaults.standard.bool(forKey: "isSimulateMode") == true
-                            {
+                            if UserDefaults.standard.bool(forKey: "isSimulateMode") == true {
                                 demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
                             }
                             SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
-                        }
-                        else if (questionType == kMatchColumn)
-                        {
+                        } else if (questionType == kMatchColumn) {
                             mSubmissionView.addMTCQuestionWithDetails(currentQuestionDetails)
                             
-                            if UserDefaults.standard.bool(forKey: "isSimulateMode") == true
-                            {
+                            if UserDefaults.standard.bool(forKey: "isSimulateMode") == true {
                                 demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
                             }
                             SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
-                            
-                        }
-                        else if (questionType  == kMCQ  || questionType == kMRQ)
-                        {
+                        } else if (questionType  == kMCQ  || questionType == kMRQ) {
                             mSubmissionView.addMRQQuestionWithDetails(currentQuestionDetails)
-                            if UserDefaults.standard.bool(forKey: "isSimulateMode") == true
-                            {
+                            if UserDefaults.standard.bool(forKey: "isSimulateMode") == true  {
                                 demoQuestionAnswerView.sendDummyAnswerWithQuestionDetails(currentQuestionDetails, withStudentDetails: StudentsDetailsArray)
                             }
                             SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
-                            
-                            
-                        }
-                        else if (questionType  == OneString) || questionType  == TextAuto
-                        {
+                        } else if (questionType  == OneString) || questionType  == TextAuto {
                             mSubmissionView.addOneStringQuestionWithDetails(currentQuestionDetails)
                             SSTeacherDataSource.sharedDataSource.mOverlayImageName = ""
                         }
-                        
-                    
+                    }
                 }
-                
-                
             }
         }
-        
     }
     
     func didGetQuestionClearedWithDetails(_ details:AnyObject)
@@ -1774,7 +1771,11 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         {
             mShowTopicsView.isHidden = true
             
-            currentQuestionDetails = questionDetails
+            currentQuestionDetails = questionDetails as! NSMutableDictionary
+            print(questionDetails)
+            if let questionType = questionDetails.object(forKey: "QuestionType") as? String {
+                currentQuestionDetails[kQuestionType] = questionType
+            }
             
             if let QuestionID = (currentQuestionDetails.object(forKey: "Id")) as? String
             {
@@ -1785,11 +1786,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
                 {
                     mQuestionNamelabel.text = questionName
                 }
-                
-                
-                
-                
-                
             }
             
             let subViews = mClassView.subviews.flatMap{ $0 as? StundentDeskView }

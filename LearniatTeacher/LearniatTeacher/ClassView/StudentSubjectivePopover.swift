@@ -314,9 +314,9 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
 //            }
             if let _ = _studentAnswerDetails.object(forKey: "AssessmentAnswerId") as? String {
                 
-                if let type = _studentAnswerDetails.object(forKey: "QuestionType") as? String {
+                if let type = _studentAnswerDetails.object(forKey: kQuestionType) as? String {
                     
-                    let dict : NSMutableDictionary = ["AssessmentAnswerId" : _studentAnswerDetails.object(forKey: "AssessmentAnswerId")!, "QuestionType" : _studentAnswerDetails.object(forKey: "QuestionType")!, "StudentId" : _studentAnswerDetails.object(forKey: "StudentId")!, "StudentName" : _currentStudentDict.object(forKey: "Name")!]
+                    let dict : NSMutableDictionary = ["AssessmentAnswerId" : _studentAnswerDetails.object(forKey: "AssessmentAnswerId")!, kQuestionType : _studentAnswerDetails.object(forKey: kQuestionType)!, "StudentId" : _studentAnswerDetails.object(forKey: "StudentId")!, "StudentName" : _currentStudentDict.object(forKey: "Name")!]
                     
                     if type == kText {
                         dict.addEntries(from: ["TextAnswer" : _studentAnswerDetails.object(forKey: "TextAnswer")!])
@@ -385,9 +385,9 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         if isAfterEvaluated  {
             
             if self.isModelAnswer {
-                if let type = _studentAnswerDetails.object(forKey: "QuestionType") as? String {
+                if let type = _studentAnswerDetails.object(forKey: kQuestionType) as? String {
                     
-                    let dict : NSMutableDictionary = ["AssessmentAnswerId" : _studentAnswerDetails.object(forKey: "AssessmentAnswerId")!, "QuestionType" : _studentAnswerDetails.object(forKey: "QuestionType")!, "StudentId" : _studentAnswerDetails.object(forKey: "StudentId")!, "StudentName" : _currentStudentDict.object(forKey: "Name")!]
+                    let dict : NSMutableDictionary = ["AssessmentAnswerId" : _studentAnswerDetails.object(forKey: "AssessmentAnswerId")!, kQuestionType : _studentAnswerDetails.object(forKey: kQuestionType)!, "StudentId" : _studentAnswerDetails.object(forKey: "StudentId")!, "StudentName" : _currentStudentDict.object(forKey: "Name")!]
                     
                     if type == kText {
                         dict.addEntries(from: ["TextAnswer" : _studentAnswerDetails.object(forKey: "TextAnswer")!])
@@ -444,9 +444,9 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         
         if self.isModelAnswer {
             
-            if let type = _studentAnswerDetails.object(forKey: "QuestionType") as? String {
+            if let type = _studentAnswerDetails.object(forKey: kQuestionType) as? String {
                 
-                let dict : NSMutableDictionary = ["AssessmentAnswerId" : _studentAnswerDetails.object(forKey: "AssessmentAnswerId")!, "QuestionType" : _studentAnswerDetails.object(forKey: "QuestionType")!, "StudentId" : _studentAnswerDetails.object(forKey: "StudentId")!, "StudentName" : _currentStudentDict.object(forKey: "Name")!]
+                let dict : NSMutableDictionary = ["AssessmentAnswerId" : _studentAnswerDetails.object(forKey: "AssessmentAnswerId")!, kQuestionType : _studentAnswerDetails.object(forKey: kQuestionType)!, "StudentId" : _studentAnswerDetails.object(forKey: "StudentId")!, "StudentName" : _currentStudentDict.object(forKey: "Name")!]
                 
                 if type == kText {
                     dict.addEntries(from: ["TextAnswer" : _studentAnswerDetails.object(forKey: "TextAnswer")!])

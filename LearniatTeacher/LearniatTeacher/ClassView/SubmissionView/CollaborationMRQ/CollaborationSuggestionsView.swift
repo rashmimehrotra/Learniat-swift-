@@ -322,12 +322,13 @@ class CollaborationSuggestionsView: UIView,SSTeacherDataSourceDelegate
     
     func onAddQuestion()
     {
+        isSaveAndExit = false
+        SSTeacherDataSource.sharedDataSource.SaveSuggestionStateWithSuggestions(Sugguestion: getSelectedSuggestions().SuggestionIDList, withState: getSelectedSuggestions().mSugeestionStateLIst, WithDelegate: self)
         
-        if getSelectedSuggestions().selected.count >= 2
-        {
-            isSaveAndExit = false
-            SSTeacherDataSource.sharedDataSource.SaveSuggestionStateWithSuggestions(Sugguestion: getSelectedSuggestions().SuggestionIDList, withState: getSelectedSuggestions().mSugeestionStateLIst, WithDelegate: self)
-        }
+//        if getSelectedSuggestions().selected.count >= 2
+//        {
+//
+//        }
     }
     
    

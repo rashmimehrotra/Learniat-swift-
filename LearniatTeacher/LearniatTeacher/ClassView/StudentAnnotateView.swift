@@ -486,9 +486,9 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
                 
                 if let AssessmentAnswerId = studentsAswerDictonary.object(forKey: "AssessmentAnswerId") as? String {
                     
-                    if let type = (studentsAswerDictonary as AnyObject).object(forKey: "QuestionType") as? String {
+                    if let type = (studentsAswerDictonary as AnyObject).object(forKey: kQuestionType) as? String {
                         
-                        let dict : NSMutableDictionary = ["AssessmentAnswerId" : AssessmentAnswerId, "QuestionType" : (studentsAswerDictonary as AnyObject).object(forKey: "QuestionType")!, "StudentId" : studentId, "StudentName" : (studentdict as AnyObject).object(forKey: "Name")!]
+                        let dict : NSMutableDictionary = ["AssessmentAnswerId" : AssessmentAnswerId, kQuestionType : (studentsAswerDictonary as AnyObject).object(forKey: kQuestionType)!, "StudentId" : studentId, "StudentName" : (studentdict as AnyObject).object(forKey: "Name")!]
                         
                         if type == kText {
                             dict.addEntries(from: ["TextAnswer" : (studentsAswerDictonary as AnyObject).object(forKey: "TextAnswer")!])
