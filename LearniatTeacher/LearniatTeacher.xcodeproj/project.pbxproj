@@ -3785,7 +3785,7 @@
 					"-ObjC",
 					"-lstdc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mbrdi.learniatTeacher;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.learniatTeacher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "9be3ec3d-120d-426b-9397-a48eb471c4d4";
 				PROVISIONING_PROFILE_SPECIFIER = "com.mbrdi.*";
@@ -3824,7 +3824,7 @@
 					"-ObjC",
 					"-lstdc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mbrdi.learniatTeacher;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.learniatTeacher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "9be3ec3d-120d-426b-9397-a48eb471c4d4";
 				PROVISIONING_PROFILE_SPECIFIER = "com.mbrdi.*";
