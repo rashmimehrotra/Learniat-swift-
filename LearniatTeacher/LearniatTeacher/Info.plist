@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>Teacher_1106</string>
+	<string>Teach11-15</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>06</string>
+	<string>15</string>
 	<key>Config</key>
 	<string>$(CONFIGURATION)</string>
 	<key>LSRequiresIPhoneOS</key>
