@@ -138,7 +138,6 @@ class OneStringGraphView: UIView
          questionNamelabel.text = questionName
         
         
-        print(details)
         currentOptionsArray.removeAllObjects()
         
         if let options = details.object(forKey: kOptionTagMain)
@@ -182,7 +181,6 @@ class OneStringGraphView: UIView
 //            barView.addTarget(self, action: #selector(StudentAnswerGraphView.onBarButtonPressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             barView.tag = OptionIdValue
             
-            print(currentOptionsArray)
             
              barView.setBarColor( lightGrayColor)
             

@@ -7,6 +7,13 @@
 //
 
 import Foundation
+enum StudentQueryState {
+    case TopicStopped
+    case TopicStarted
+    case StudentMuted 
+}
+
+
 class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelegate,StudentQuerySubViewDelegate
 {
     var mTopbarImageView = UIImageView()
@@ -143,20 +150,17 @@ class StudentsQueryView: UIView,CustomTextViewDelegate,SSStudentDataSourceDelega
     }
     
     
-    func queryPresentState(_ state:Bool)
-    {
-        if state == true
-        {
-            if isQuerySent == false
-            {
+    func queryPresentState(_ state:StudentQueryState) {
+        if state == .TopicStarted {
+            if isQuerySent == false {
                 ShowHideQueryTextView(isHidden: false)
             }
-            
-        }
-        else
-        {
+        } else if state == .StudentMuted{
+            noQuestionslabel.text = "You are muted by teacher"
             ShowHideQueryTextView(isHidden: true)
-           
+        } else {
+            noQuestionslabel.text = "Topic not yet started"
+            ShowHideQueryTextView(isHidden: true)
         }
          refreshScrollView()
     }

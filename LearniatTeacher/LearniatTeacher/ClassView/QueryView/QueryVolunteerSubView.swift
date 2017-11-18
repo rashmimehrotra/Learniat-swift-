@@ -122,7 +122,6 @@ class QueryVolunteerSubView: UIView
     func setQueryWithDetails(_ details:AnyObject)
     {
         currentQueryDetails = details
-        print(details)
         
         
     }

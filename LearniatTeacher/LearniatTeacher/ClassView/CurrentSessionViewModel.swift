@@ -63,8 +63,8 @@ class CurrentSessionViewModel: NSObject {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let  EndTime = _sessionModel.sessionEndTime
-        let remainingMinutes = currentDate.minutesDiffernceBetweenDates(currentDate, endDate: dateFormatter.date(from: EndTime)!)
-        return remainingMinutes
+        let remainingSeconds = currentDate.secondsDiffernceBetweenDates(currentDate, endDate: dateFormatter.date(from: EndTime)!)
+        return remainingSeconds
     }
     
     

@@ -164,7 +164,6 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
         let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
         let userID = urlString.appending("/").appending(SSTeacherDataSource.sharedDataSource.currentUserId)
         
-        print("\(urlString)/\(userID)_79px.jpg")
         
         if let checkedUrl = URL(string:"\(userID)_79px.jpg")
         {
@@ -772,7 +771,6 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     
     func didGetLogOutWithDetails(_ details: AnyObject)
     {
-        print(details)
         
         if details.object(forKey: "Status") != nil
         {

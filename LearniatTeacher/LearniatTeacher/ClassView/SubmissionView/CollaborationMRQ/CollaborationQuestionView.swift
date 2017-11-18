@@ -323,7 +323,7 @@ class CollaborationQuestionView: UIView,SSTeacherDataSourceDelegate
    
     func didGetQuestionRecordedUpdatedWithDetaisl(_ details: AnyObject)
     {
-        print(details)
+       
         
         if isSaveAndSend == true
         {
@@ -349,7 +349,7 @@ class CollaborationQuestionView: UIView,SSTeacherDataSourceDelegate
         if let question = questionDetails.object(forKey: "Question") as? NSMutableDictionary {
             questionDetails = question
         }
-        print(questionDetails)
+        
         
         questionDetails.setObject(mCurrentQuestionID, forKey: "Id" as NSCopying)
         questionDetails.setObject(mQuestionTextView.text!, forKey: "Name" as NSCopying)

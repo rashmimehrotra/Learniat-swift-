@@ -261,10 +261,10 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                 let sessionRoomSubject:SessionRoomSubject = SSStudentMessageHandler.sharedMessageHandler.sessionSubjects[sessionId]!
                 if sessionRoomSubject.topic.topicId != "" && sessionRoomSubject.topic.topicState == QuestionState.Started{
                         mSubTopicNamelabel.text = sessionRoomSubject.topic.topicName
-                        mQueryView.queryPresentState(true)
+                        mQueryView.queryPresentState(.TopicStarted)
                         LearniatToast.showToast(view: self.view, duration:5.0, text: "Topic Started")
                 } else {
-                    mQueryView.queryPresentState(false)
+                    mQueryView.queryPresentState(.TopicStopped)
                 }
             }
         }
@@ -633,7 +633,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         mQueryView = StudentsQueryView(frame:mQuestionView.frame)
          classStartedView.addSubview(mQueryView)
         mQueryView.isHidden = true
-        mQueryView.queryPresentState(false)
+        mQueryView.queryPresentState(.TopicStopped)
         
         mSubmissionButton.frame = CGRect(x: 10 , y: mQueryButton.frame.origin.y + mQueryButton.frame.size.height + 20 , width: 100, height: 100)
          mSubmissionButton.setImage("poll_icon_selected.png",  _unselectedImageName: "poll_icon_unselected.png", withText: "POLL")
@@ -795,13 +795,13 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     func smhDidGetTopicStateChanged(topic:Topic){
         if topic.topicState == TopicState.Ended{
-            mQueryView.queryPresentState(false)
+            mQueryView.queryPresentState(.TopicStopped)
             mSubTopicNamelabel.text = "No subtopic"
             LearniatToast.showToast(view: self.view, duration:5.0, image:"wrongMatch.png", text: "Topic Stopped")
         }
         else{
             mSubTopicNamelabel.text = topic.topicName
-            mQueryView.queryPresentState(true)
+            mQueryView.queryPresentState(.TopicStarted)
             LearniatToast.showToast(view: self.view, duration:5.0, text: "Topic Started")
         }
         
@@ -810,12 +810,12 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     func smhDidGetTopicChanged(topic: Topic){
         if topic.topicState == TopicState.Started{
             mSubTopicNamelabel.text = topic.topicName
-            mQueryView.queryPresentState(true)
+            mQueryView.queryPresentState(.TopicStarted)
             LearniatToast.showToast(view: self.view, duration:5.0, text: "Topic Started")
         }
         else{
             mSubTopicNamelabel.text = "No subtopic"
-            mQueryView.queryPresentState(false)
+            mQueryView.queryPresentState(.TopicStopped)
         }
         SSStudentDataSource.sharedDataSource.currentSubtopicID = topic.topicId
         currentSubTopicId = topic.topicId
@@ -835,7 +835,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
 //            if VotingValue == "TRUE"
 //            {
 //                
-//                mQueryView.queryPresentState(true)
+//                mQueryView.queryPresentState(.TopicStarted)
 //                
 //                if (details.object(forKey: "SubTopicName") != nil)
 //                {
@@ -861,7 +861,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
 //            }
 //            else
 //            {
-//                 mQueryView.queryPresentState(false)
+//                 mQueryView.queryPresentState(.TopicStopped)
 //                mSubTopicNamelabel.text = "No subtopic"
 //
 //                LearniatToast.showToast(view: self.view, duration:5.0, image:"wrongMatch.png", text: "Topic Stopped")
@@ -1143,10 +1143,11 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                 if muteState == "1"
                 {
                     studentImage.image = UIImage(named: "StudentMuted.png")
+                    mQueryView.queryPresentState(.StudentMuted)
                 }
                 else
                 {
-                    
+                    mQueryView.queryPresentState(.TopicStarted)
                     let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
                     
                     let userID = urlString.appending("/").appending(SSStudentDataSource.sharedDataSource.currentUserId)

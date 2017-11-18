@@ -327,7 +327,7 @@ class ScheduleScreenTile: UIImageView, UIGestureRecognizerDelegate
         {
             
             
-            print(details)
+          
             
             switch sessionState
             {

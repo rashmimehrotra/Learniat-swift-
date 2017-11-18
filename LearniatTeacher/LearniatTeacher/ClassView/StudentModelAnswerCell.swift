@@ -91,7 +91,6 @@ class StudentModelAnswerCell: UIView,SSTeacherDataSourceDelegate
         currentCellDetails = details
         
         
-        print(details)
         
         if let StudentId = details.object(forKey: "StudentId") as? String
         {

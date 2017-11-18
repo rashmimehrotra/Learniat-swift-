@@ -551,7 +551,6 @@ class ScheduleDetailView: UIView,SSTeacherDataSourceDelegate
     // MARK: - Teacher datasource delegate functions
     func didGetSessionSummaryDetials(_ details: AnyObject)
     {
-       print(details)
         setcurrentViewDetails(details)
         refreshJoinedStateBar()
     }

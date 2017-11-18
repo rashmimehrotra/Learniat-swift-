@@ -309,8 +309,6 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSTeacherDataSou
     func didGetloginWithDetails(_ details: AnyObject, withError error:NSError?)
     {
         
-        print(details)
-        
         if error == nil
         {
             if let status = details.object(forKey: kStatus) as? String

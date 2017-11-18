@@ -225,7 +225,6 @@ class CollaborationCategoryView: UIView,SSTeacherDataSourceDelegate,UITextFieldD
     
     func didGetCategoryFetchedWithDetails(_ details: AnyObject)
     {
-        print(details)
         
         mActivityIndicatore.stopAnimating()
         
@@ -266,7 +265,7 @@ class CollaborationCategoryView: UIView,SSTeacherDataSourceDelegate,UITextFieldD
     
     func didGetCategoryCreatedWithDetails(_ details:AnyObject)
     {
-        print(details)
+     
         if let categroyId = details.object(forKey: "CategoryId") as? String
         {
             SSTeacherMessageHandler.sharedMessageHandler.sendCollaborationQuestionEnabledWithRoomId(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, withType: "MRQ", withCategory: mCategoryTextView.mQuestionTextView.text!, withCategoryID: categroyId)
@@ -281,7 +280,7 @@ class CollaborationCategoryView: UIView,SSTeacherDataSourceDelegate,UITextFieldD
     
     func delegateCategoryIdSelectedWithDetails(details:AnyObject)
     {
-        print(details)
+        
         
         mSelectedCategoryDetails = details
         
@@ -299,17 +298,10 @@ class CollaborationCategoryView: UIView,SSTeacherDataSourceDelegate,UITextFieldD
        
     }
     
-    func didGetCategorySelectedWithDetails(_ details: AnyObject)
-    {
-        
-        print(details)
-        
-        if let CategoryId = mSelectedCategoryDetails.object(forKey: "CategoryId") as? String
-        {
-            
-            if let CategoryTitle = mSelectedCategoryDetails.object(forKey: "CategoryTitle") as? String
-            {
-                 SSTeacherMessageHandler.sharedMessageHandler.sendCollaborationQuestionEnabledWithRoomId(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, withType: "MRQ", withCategory: CategoryTitle, withCategoryID: CategoryId)
+    func didGetCategorySelectedWithDetails(_ details: AnyObject) {
+        if let CategoryId = mSelectedCategoryDetails.object(forKey: "CategoryId") as? String {
+            if let CategoryTitle = mSelectedCategoryDetails.object(forKey: "CategoryTitle") as? String {
+                SSTeacherMessageHandler.sharedMessageHandler.sendCollaborationQuestionEnabledWithRoomId( SSTeacherDataSource.sharedDataSource.currentLiveSessionId,  withType: "MRQ", withCategory: CategoryTitle, withCategoryID: CategoryId)
             }
             
             

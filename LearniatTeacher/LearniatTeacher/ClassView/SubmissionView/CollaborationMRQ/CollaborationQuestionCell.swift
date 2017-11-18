@@ -56,7 +56,7 @@ class CollaborationQuestionCell: UIButton {
     func setOptionDetails(details:AnyObject)
     {
         optionDetails = details
-        
+        print(optionDetails)
         if let mSuggestion = details.object(forKey: "SuggestTxt") as? String
         {
             mSuggestiontext.text = mSuggestion

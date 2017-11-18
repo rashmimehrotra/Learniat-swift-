@@ -174,7 +174,6 @@ class LessonPlanQuestionView: UIView,SSTeacherDataSourceDelegate,UIGestureRecogn
         _currentMainTopicDetails = mainTopicDetails
         
         mQuestionsDetails.removeAllObjects()
-        print(mainTopicDetails)
         if let classCheckingVariable = (mainTopicDetails.object(forKey: "Questions")! as AnyObject).object(forKey: "Question") as? NSMutableArray
         {
             mQuestionsDetails = classCheckingVariable as! NSMutableArray

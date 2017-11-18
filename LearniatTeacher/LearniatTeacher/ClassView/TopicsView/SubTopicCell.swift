@@ -326,8 +326,6 @@ class SubTopicCell: UIView{
     
     func onStartButton_SingleTap(_ sender: UIGestureRecognizer){
         
-        print("Single tap")
-        
         if delegate().responds(to: #selector(SubTopicCellDelegate.delegateSubTopicCellStartedWithDetails(_:witStatedState:)))
         {
             //TODO:@Pradeep Why is this if condidation added? why is it blank?

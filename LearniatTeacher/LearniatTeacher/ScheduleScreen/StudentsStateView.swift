@@ -289,13 +289,11 @@ class StudentsStateView: UIView,  SSTeacherDataSourceDelegate
     
     func didGetStudentsStateWithDetails(_ details: AnyObject) {
         
-        print(details)
         
     }
     
     func didGetStudentsInfoWithDetails(_ details: AnyObject) {
         
-        print(details)
         arranageSeatsWithDetails(details)
         
         
@@ -322,8 +320,6 @@ class StudentsStateView: UIView,  SSTeacherDataSourceDelegate
                 }
             }
         }
-        
-        print(StudentsDetailsArray)
         
         
         for indexValue in 0  ..< StudentsDetailsArray.count

@@ -339,7 +339,6 @@ class SSTeacherVolunteerView: UIView,SSTeacherDataSourceDelegate,UIAlertViewDele
     
     func didGetQueryRespondedWithDetails(_ details: AnyObject)
     {
-        print(details)
     }
     
      // MARK: - Query Volunteer  functions

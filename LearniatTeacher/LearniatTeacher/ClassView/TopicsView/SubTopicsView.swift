@@ -432,8 +432,6 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
             
             SSTeacherDataSource.sharedDataSource.TopicCompletedWithTopicID(TopicId, withSessionID: sessionId, withSuccessHandle: { (result) in
                 
-                print(result)
-                
                 
                 if let status = result.object(forKey: kStatus) as? String
                 {
@@ -489,9 +487,6 @@ class SubTopicsView: UIView,SSTeacherDataSourceDelegate, SubTopicCellDelegate
         {
             
             SSTeacherDataSource.sharedDataSource.TopicCompletedRemoveOption(TopicId, withSessionID: sessionId, withSuccessHandle: { (result) in
-                
-                print(result)
-                
                 
                 if let status = result.object(forKey: kStatus) as? String
                 {

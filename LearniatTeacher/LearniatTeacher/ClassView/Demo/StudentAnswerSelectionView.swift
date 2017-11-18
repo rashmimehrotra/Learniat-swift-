@@ -92,7 +92,6 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
     func selectMulitipleChoiceOptionsWithQuestionDetails(_ questionDetails:AnyObject)
     {
         
-        print(questionDetails)
         var optionArray = NSMutableArray()
         
         if let options = questionDetails.object(forKey: kOptionTagMain)
@@ -152,7 +151,6 @@ class StudentAnswerSelectionView: UIView,APIManagerDelegate
     
     func selectMultipleResponseOptionsWithQuestionDetails(_ questionDetails:AnyObject)
     {
-        print(questionDetails)
         var optionArray = NSMutableArray()
         
         if let options = questionDetails.object(forKey: kOptionTagMain)

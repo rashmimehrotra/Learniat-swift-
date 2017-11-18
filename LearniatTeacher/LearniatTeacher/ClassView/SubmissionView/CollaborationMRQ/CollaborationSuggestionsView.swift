@@ -172,33 +172,17 @@ class CollaborationSuggestionsView: UIView,SSTeacherDataSourceDelegate
 
     }
     
-    func addElementsWithElementsArray(ElementsDetails:NSMutableArray)
-    {
-        for mElement in ElementsDetails
-        {
+    func addElementsWithElementsArray(ElementsDetails:NSMutableArray) {
+        for mElement in ElementsDetails {
             let msuggestionCell = CollaborationElementCell(frame: CGRect(x: 10, y: currentYPosition, width: 0, height: 50))
-            
-            
-            
-            if currentX + msuggestionCell.SetSuggestionDetails(mElement as AnyObject).width > self.frame.size.width
-            {
+            if currentX + msuggestionCell.SetSuggestionDetails(mElement as AnyObject).width > self.frame.size.width {
                 currentYPosition = currentYPosition + msuggestionCell.frame.height + 10
                 currentX = 10
             }
-
-          
-            
             msuggestionCell.frame = CGRect(x: currentX, y: currentYPosition, width: msuggestionCell.SetSuggestionDetails(mElement as AnyObject).width, height: 50)
-            
             mScrollView.addSubview(msuggestionCell)
             msuggestionCell.layer.cornerRadius = 5
-            
-            
-                currentX = currentX + msuggestionCell.frame.size.width + 10
-            
-
-            
-            
+            currentX = currentX + msuggestionCell.frame.size.width + 10
             mScrollView.contentSize = CGSize(width: 0, height: currentYPosition)
         }
     }
@@ -385,8 +369,8 @@ class CollaborationSuggestionsView: UIView,SSTeacherDataSourceDelegate
     {
         
         
-        print(mSavedSuggestionsDetails)
-        
+      
+        print(details)
         
         let mElementsList = NSMutableArray()
         

@@ -60,7 +60,6 @@ class RealmConfigManager: NSObject {
         if result == errSecSuccess {
             return keyData
         } else {
-            print("Problem generating random bytes")
             return nil
         }
     }

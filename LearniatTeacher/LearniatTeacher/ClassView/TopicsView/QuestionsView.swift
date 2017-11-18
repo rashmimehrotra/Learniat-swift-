@@ -367,8 +367,6 @@ class QuestionsView: UIView,QuestionCellDelegate,SSTeacherDataSourceDelegate,UIP
         {
             let currentTopicDetails = mMaintopicsDetails.object(at: index)
             
-            print(currentTopicDetails)
-            
             let topicCell = QuestionCell(frame: CGRect(x: 0  , y: positionY, width: mTopicsContainerView.frame.size.width, height: 60))
             topicCell.setdelegate(self)
             

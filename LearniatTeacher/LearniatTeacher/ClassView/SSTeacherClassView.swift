@@ -59,7 +59,7 @@ let kSubmissionView         = "Submission"
 let kQueryView              = "Query"
 let kPollView               = "Polling"
 
-let EndClassTimmerMinutes   = 6
+let EndClassTimmerSeconds   = 360
 
 import Foundation
 class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopicsViewDelegate,SubTopicsViewDelegate,SSTeacherDataSourceDelegate,QuestionsViewDelegate,SSTeacherMessagehandlerDelegate,LiveQuestionViewDelegate,StundentDeskViewDelegate,SSTeacherSubmissionViewDelegate,SSTeacherQueryViewDelegate,StudentSubjectivePopoverDelegate,SSSettingsViewControllerDelegate,SSTeacherSchedulePopoverControllerDelegate,SSTeacherPollViewDelegate,StudentModelAnswerViewDelegate {
@@ -392,8 +392,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
         let userID = urlString.appending("/").appending(SSTeacherDataSource.sharedDataSource.currentUserId)
         
-        print("\(urlString)/\(userID)_79px.jpg")
-        
         if let checkedUrl = URL(string:"\(userID)_79px.jpg")
         {
             mTeacherImageView.contentMode = .scaleAspectFit
@@ -502,7 +500,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
 
     
     deinit {
-        print("deinit called")
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -564,6 +561,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     func appBecameActive(_ notification: Notification) {
        updateStartLabelTime()
+        mStartLabelUpdater = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(SSTeacherClassView.updateStartLabelTime), userInfo: nil, repeats: true)
     }
     
     
@@ -600,7 +598,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             //TODO:- Need to validate end session functionality
             mStartLabelUpdater.invalidate()
             updateSessionStateToEnded()
-        } else if remainingMinutes < (EndClassTimmerMinutes) {
+        } else if remainingMinutes < (EndClassTimmerSeconds) {
             self.mEndCounterlabel.text = mCurrentSessionModel.getEndTimeLabelText()
             mEndCounterlabel.isHidden = false
         } else {
@@ -932,9 +930,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     func didGetAllGraspIndexWithDetails(_ details: AnyObject)
     {
         
-        print(details)
-        
-        
         if let studentsdetails = (details.object(forKey: "Students") as AnyObject).object(forKey: "Student") as? NSMutableArray
         {
             for index in studentsdetails
@@ -1005,10 +1000,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     }
     
     func didGetQuestionSentWithDetails(_ details: AnyObject) {
-        
-       
-        print(currentQuestionDetails)
-        
         if let QuestionLogId = details.object(forKey: "QuestionLogId") as? String {
             SSTeacherDataSource.sharedDataSource.isQuestionSent = true
             SSTeacherDataSource.sharedDataSource.currentQuestionLogId = QuestionLogId
@@ -1173,11 +1164,8 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         }
     }
     
-    func didGetQuestionClearedWithDetails(_ details:AnyObject)
-    {
-        print(details)
-        
-        SSTeacherDataSource.sharedDataSource.getGraspIndexOfAllStudentsWithTopic(SSTeacherDataSource.sharedDataSource.startedSubTopicId, withSessionID: currentSessionId, withDelegate: self)
+    func didGetQuestionClearedWithDetails(_ details:AnyObject){
+       SSTeacherDataSource.sharedDataSource.getGraspIndexOfAllStudentsWithTopic( SSTeacherDataSource.sharedDataSource.startedSubTopicId, withSessionID: currentSessionId, withDelegate: self)
         
     }
     
@@ -1254,8 +1242,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     
     func didGetStudentsStateWithDetails(_ details: AnyObject) {
-        
-        print(details)
         
         var mStudentsDetails = NSMutableArray()
         
@@ -1772,7 +1758,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             mShowTopicsView.isHidden = true
             
             currentQuestionDetails = questionDetails as! NSMutableDictionary
-            print(questionDetails)
             if let questionType = questionDetails.object(forKey: "QuestionType") as? String {
                 currentQuestionDetails[kQuestionType] = questionType
             }
@@ -2709,8 +2694,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     
     
     func delegateTeacherEvaluatedReplyWithDetails(_ details: AnyObject, withStudentId studentId: String) {
-        
-        print(details)
         
         if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView
         {
