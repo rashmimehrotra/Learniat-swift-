@@ -323,7 +323,6 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     func updateStudentState(state:UserState) {
         SSStudentDataSource.sharedDataSource.updatUserState(state: Int(state.rawValue)!, success: { (result) in
             let userStateParser = self.parseUpdateUserStateAPI(details: result)
-            
             if userStateParser.warning != "No Update happened" {
                SSStudentMessageHandler.sharedMessageHandler.sendStudentBenchStatus(UserState(rawValue:"\(userStateParser.userState)")!)
             }
@@ -1562,6 +1561,8 @@ extension StudentClassViewController {
     fileprivate func verifyUserState(userState:Int) {
         switch userState {
         case UserStateInt.Free.rawValue:
+            self.moveToScheduleScreen()
+        case UserStateInt.SignedOut.rawValue:
             self.moveToScheduleScreen()
         default: break
             

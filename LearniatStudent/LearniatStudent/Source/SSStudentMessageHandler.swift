@@ -942,6 +942,8 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
                     self.delegate().smhDidGetTopicChanged!(topic: topic)
                 }
             }
+            
+            //TODO: @Sourab pointer is not moving inside this below condition, So end class is not happening 
             sessionRoomSubject.sessionStateChanged.subscribeOnce(on: self){ (roomId, sessionState) in
                 NSLog("XMPP: Session State Changed " + subject)
 
