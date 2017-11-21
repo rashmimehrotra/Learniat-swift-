@@ -3046,7 +3046,7 @@
 				TargetAttributes = {
 					53676AE01CA63B2000CADE4D = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = 78WB3VXYN3;
+						DevelopmentTeam = C744MS63KY;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Manual;
 					};
@@ -3766,7 +3766,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: deepak mk (862RK2T33X)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 4;
-				DEVELOPMENT_TEAM = 78WB3VXYN3;
+				DEVELOPMENT_TEAM = C744MS63KY;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3787,8 +3787,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.learniatTeacher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9be3ec3d-120d-426b-9397-a48eb471c4d4";
-				PROVISIONING_PROFILE_SPECIFIER = "com.mbrdi.*";
+				PROVISIONING_PROFILE = "6dd539ba-021a-4e1d-8c8e-765b094db9f7";
+				PROVISIONING_PROFILE_SPECIFIER = "Learniat Teacher Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatTeacher/Swift-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
@@ -3805,7 +3805,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Mindshift Applications & Solutions Pvt. Ltd. (C744MS63KY)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 4;
-				DEVELOPMENT_TEAM = 78WB3VXYN3;
+				DEVELOPMENT_TEAM = C744MS63KY;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3826,8 +3826,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.learniatTeacher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9be3ec3d-120d-426b-9397-a48eb471c4d4";
-				PROVISIONING_PROFILE_SPECIFIER = "com.mbrdi.*";
+				PROVISIONING_PROFILE = "6dd539ba-021a-4e1d-8c8e-765b094db9f7";
+				PROVISIONING_PROFILE_SPECIFIER = "Learniat Teacher Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatTeacher/Swift-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				USER_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
