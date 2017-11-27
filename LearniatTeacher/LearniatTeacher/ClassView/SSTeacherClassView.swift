@@ -2584,9 +2584,9 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             // By Ujjval
             // ==========================================
             
-//            let questionInfoController = StudentEvaluationDetails()
-            let questionInfoController = StudentSubjectivePopover()
-            questionInfoController.isAfterEvaluated = true
+            let questionInfoController = StudentEvaluationDetails()
+//            let questionInfoController = StudentSubjectivePopover()
+//            questionInfoController.isAfterEvaluated = true
             
             // ==========================================
             

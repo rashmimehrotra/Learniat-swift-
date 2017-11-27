@@ -26,7 +26,7 @@ import Foundation
 class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeacherDataSourceDelegate,SmoothLineViewdelegate
 {
     var _delgate: AnyObject!
-
+    
     
     
     var _studentAnswerDetails:AnyObject!
@@ -46,26 +46,15 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
     
     var sendButtonSpinner : UIActivityIndicatorView!
     
-     var mScribbleView : SmoothLineView!
+    var mScribbleView : SmoothLineView!
     
     let feedBackDetails = NSMutableDictionary()
-    
-    // By Ujjval
-    // ==========================================
-    
-    var anotateButton = UIButton()
-    
-    var _currentEvaluationDetails:AnyObject!
-    
-    var isAfterEvaluated : Bool = false
-    
-    // ==========================================
     
     func setdelegate(_ delegate:AnyObject)
     {
         _delgate = delegate;
     }
-
+    
     func   delegate()->AnyObject
     {
         return _delgate;
@@ -84,15 +73,15 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
     {
         return _Popover
     }
-
+    
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
         
-//        self.view.setNeedsLayout()
-//        self.view.layoutIfNeeded()
+        //        self.view.setNeedsLayout()
+        //        self.view.layoutIfNeeded()
         
         imageUploading.setDelegate(self)
         
@@ -109,7 +98,7 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         let seperatorView = UIView(frame: CGRect(x: 0, y: headerView.frame.size.height-1, width: 320, height: 1))
         seperatorView.backgroundColor = LineGrayColor
         headerView.addSubview(seperatorView);
-
+        
         
         
         
@@ -125,26 +114,26 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         
         
         
-         mDoneButton.frame = CGRect(x: headerView.frame.size.width - 120, y: 0, width: 100, height: 40)
+        mDoneButton.frame = CGRect(x: headerView.frame.size.width - 120, y: 0, width: 100, height: 40)
         mDoneButton.addTarget(self, action: #selector(StudentSubjectivePopover.onDoneButton), for: UIControlEvents.touchUpInside)
         mDoneButton.setTitleColor(standard_Button, for: UIControlState())
         mDoneButton.setTitle("Done", for: UIControlState())
         mDoneButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         mDoneButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
         headerView.addSubview(mDoneButton)
-
+        
         
         
         sendButtonSpinner = UIActivityIndicatorView(activityIndicatorStyle:.gray);
         sendButtonSpinner.frame = mDoneButton.frame;
         headerView.addSubview(sendButtonSpinner);
         sendButtonSpinner.isHidden = true;
-
         
         
         
         
-       
+        
+        
         
         modelAnswerButton.isEnabled = true
         modelAnswerButton.setTitle("Mark Model", for:UIControlState())
@@ -154,7 +143,7 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         questionView.addSubview(modelAnswerButton);
         modelAnswerButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
         
-        anotateButton = UIButton(type:.custom)
+        let anotateButton = UIButton(type:.custom)
         anotateButton.isEnabled = true
         anotateButton.setTitle("Annotate", for:UIControlState())
         anotateButton.setTitleColor(standard_Button ,for:UIControlState());
@@ -162,9 +151,9 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         anotateButton.frame = CGRect(x: 170, y: 45, width: 130, height: 40);
         questionView.addSubview(anotateButton);
         anotateButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
-    
         
-       let lineView = UIImageView(frame:CGRect(x: 20, y: 85, width: 280, height: 1))
+        
+        let lineView = UIImageView(frame:CGRect(x: 20, y: 85, width: 280, height: 1))
         lineView.backgroundColor = topicsLineColor
         questionView.addSubview(lineView);
         
@@ -176,7 +165,7 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         }
         
         
-      
+        
         if let questionType = _currentQuestiondetails.object(forKey: kQuestionType) as? String
         {
             if (questionType  == kOverlayScribble  || questionType == kFreshScribble)
@@ -236,49 +225,27 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
                     studentAnswertext.text = TextAnswer
                 }
                 
-
-            }
-        }
-        
-        // By Ujjval
-        // ==========================================
-        
-        if isAfterEvaluated {
-            
-            if let teacherScribble = _currentEvaluationDetails.object(forKey: "imageUrl") as? String
-            {
-                let overLayImage = CustomProgressImageView(frame: CGRect(x: (questionView.frame.size.width - 270)/2,y: lineView.frame.origin.y + lineView.frame.size.height ,width: 270,height: 180))
-                questionView.addSubview(overLayImage)
-                
-                
-                let urlString = UserDefaults.standard.object(forKey: k_INI_QuestionsImageUrl) as! String
-                
-                if let checkedUrl = URL(string: "\(urlString)/\(teacherScribble)")
-                {
-                    overLayImage.contentMode = .scaleAspectFit
-                    overLayImage.downloadImage(checkedUrl, withFolderType: folderType.questionImage,withResizeValue: questionView.frame.size)
-                }
                 
             }
         }
         
-        // ==========================================
+        
         
         mScribbleView = SmoothLineView(frame: CGRect(x: (questionView.frame.size.width - 270)/2,y: lineView.frame.origin.y + lineView.frame.size.height ,width: 270,height: 180))
         mScribbleView.delegate = self
-//        self.view.addSubview(mScribbleView);
+        //        self.view.addSubview(mScribbleView);
         mScribbleView.isUserInteractionEnabled = true
         mScribbleView.setDrawing(standard_Red);
         mScribbleView.setBrushWidth(3)
         mScribbleView.setDrawing(kBrushTool)
-        let brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
-//        if brushSize < 5
-//        {
-//            brushSize = 5
-//        }
+        var brushSize = UserDefaults.standard.float(forKey: "selectedBrushsize")
+        if brushSize < 5
+        {
+            brushSize = 5
+        }
         mScribbleView.setBrushWidth(Int32(brushSize))
         mScribbleView.isHidden = false
-
+        
         
         
         let lineView1 = UIImageView(frame:CGRect(x: 20, y: 270, width: 280, height: 1))
@@ -292,58 +259,6 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         questionView.addSubview(mStarRatingView);
         mStarRatingView.setsize(ofStar: 25)
         
-        // By Ujjval
-        // ==========================================
-        
-        mStarRatingView.isHidden = isAfterEvaluated
-        anotateButton.isHidden = isAfterEvaluated
-        
-        if isAfterEvaluated {
-            
-            mDoneButton.isHidden = true
-            
-            if let Rating = _currentEvaluationDetails.object(forKey: "Rating") as? String
-            {
-                mStarRatingView.setStarRating(Int(Rating)!)
-            }
-//            if let isModelAns = _currentEvaluationDetails.value(forKey: "ModelAnswerFlag") as? String
-//            {
-//                isModelAnswer = isModelAns == "true" ? true : false
-////                modelAnswerButton.isHidden = isModelAnswer
-//                modelAnswerButton.isEnabled = !isModelAnswer
-//            }
-            if let _ = _studentAnswerDetails.object(forKey: "AssessmentAnswerId") as? String {
-                
-                if let type = _studentAnswerDetails.object(forKey: kQuestionType) as? String {
-                    
-                    let dict : NSMutableDictionary = ["AssessmentAnswerId" : _studentAnswerDetails.object(forKey: "AssessmentAnswerId")!, kQuestionType : _studentAnswerDetails.object(forKey: kQuestionType)!, "StudentId" : _studentAnswerDetails.object(forKey: "StudentId")!, "StudentName" : _currentStudentDict.object(forKey: "Name")!]
-                    
-                    if type == kText {
-                        dict.addEntries(from: ["TextAnswer" : _studentAnswerDetails.object(forKey: "TextAnswer")!])
-                    }
-                    else {
-                        dict.addEntries(from: ["TeacherScribble" : _currentQuestiondetails.object(forKey: "Scribble")!, "Image" : _studentAnswerDetails.object(forKey: "Scribble")!])
-                    }
-                    
-                    if SSTeacherDataSource.sharedDataSource.mModelAnswersArray.contains(dict) {
-                        
-                        isModelAnswer = true
-                        modelAnswerButton.setTitleColor(UIColor.lightGray ,for:UIControlState());
-                        modelAnswerButton.isEnabled = false
-                    }
-                }
-            }
-            
-            if let StudentId = _studentAnswerDetails.object(forKey: "StudentId") as? String {
-                if SSTeacherDataSource.sharedDataSource.mRecordedModelAnswersArray.contains(StudentId) {
-                    modelAnswerButton.isHidden = true                    
-                }
-            }
-            
-        }
-        
-        // ==========================================
-        
     }
     
     func setStudentAnswerDetails(_ details:AnyObject, withStudentDetials StudentDict:AnyObject, withCurrentQuestionDict questionDict:AnyObject)
@@ -353,19 +268,7 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         _currentQuestiondetails = questionDict
     }
     
-    // By Ujjval
-    // ==========================================
     
-    func setStudentAnswerDetails(_ details:AnyObject, withStudentDetials StudentDict:AnyObject, withCurrentQuestionDict questionDict:AnyObject, withEvaluationDetails evaluationDetails:AnyObject)
-    {
-        _studentAnswerDetails = details
-        _currentStudentDict = StudentDict
-        _currentQuestiondetails = questionDict
-        
-        _currentEvaluationDetails = evaluationDetails
-    }
-    
-    // ==========================================
     
     func starRatingDidChange()
     {
@@ -382,29 +285,6 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
         modelAnswerButton.setTitleColor(UIColor.lightGray ,for:UIControlState());
         modelAnswerButton.isEnabled = false
         
-        if isAfterEvaluated  {
-            
-            if self.isModelAnswer {
-                if let type = _studentAnswerDetails.object(forKey: kQuestionType) as? String {
-                    
-                    let dict : NSMutableDictionary = ["AssessmentAnswerId" : _studentAnswerDetails.object(forKey: "AssessmentAnswerId")!, kQuestionType : _studentAnswerDetails.object(forKey: kQuestionType)!, "StudentId" : _studentAnswerDetails.object(forKey: "StudentId")!, "StudentName" : _currentStudentDict.object(forKey: "Name")!]
-                    
-                    if type == kText {
-                        dict.addEntries(from: ["TextAnswer" : _studentAnswerDetails.object(forKey: "TextAnswer")!])
-                    }
-                    else {
-                        dict.addEntries(from: ["TeacherScribble" : _currentQuestiondetails.object(forKey: "Scribble")!, "Image" : _studentAnswerDetails.object(forKey: "Scribble")!])
-                    }
-                    
-                    SSTeacherDataSource.sharedDataSource.mModelAnswersArray.add(dict)
-                    
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "setModelAnswerList"), object: nil)
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "setModelAnswer"), object: _studentAnswerDetails.object(forKey: "StudentId")!)
-                }
-            }
-            popover().dismiss(animated: true)
-            return
-        }
     }
     
     
@@ -441,26 +321,6 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
     func onDoneButton()
     {
         
-        
-        if self.isModelAnswer {
-            
-            if let type = _studentAnswerDetails.object(forKey: kQuestionType) as? String {
-                
-                let dict : NSMutableDictionary = ["AssessmentAnswerId" : _studentAnswerDetails.object(forKey: "AssessmentAnswerId")!, kQuestionType : _studentAnswerDetails.object(forKey: kQuestionType)!, "StudentId" : _studentAnswerDetails.object(forKey: "StudentId")!, "StudentName" : _currentStudentDict.object(forKey: "Name")!]
-                
-                if type == kText {
-                    dict.addEntries(from: ["TextAnswer" : _studentAnswerDetails.object(forKey: "TextAnswer")!])
-                }
-                else {
-                    dict.addEntries(from: ["TeacherScribble" : _currentQuestiondetails.object(forKey: "Scribble")!, "Image" : _studentAnswerDetails.object(forKey: "Scribble")!])
-                }
-                
-                SSTeacherDataSource.sharedDataSource.mModelAnswersArray.add(dict)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "setModelAnswerList"), object: nil)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "setModelAnswer"), object: _studentAnswerDetails.object(forKey: "StudentId")!)
-            }
-        }
-        
         if isModelAnswer == true || mStarRatingView.rating() > 0 || mScribbleView.curImage != nil
         {
             sendButtonSpinner.isHidden = false
@@ -490,6 +350,9 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
             {
                 newImageUploadedWithName(nameOfImage)
             }
+            
+            
+            
         }
         else
         {
@@ -505,6 +368,8 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
     {
         if let AssessmentAnswerId = _studentAnswerDetails.object(forKey: "AssessmentAnswerId") as? String
         {
+            
+            
             feedBackDetails.setObject(_currentStudentDict.object(forKey: "StudentId")!, forKey: "StudentId" as NSCopying)
             
             feedBackDetails.setObject(AssessmentAnswerId, forKey: "AssessmentAnswerId" as NSCopying)
@@ -518,9 +383,9 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
             feedBackDetails.setObject("", forKey: "textRating" as NSCopying)
             
             feedBackDetails.setObject("\(isModelAnswer)", forKey: "ModelAnswerFlag" as NSCopying)
-           // feedBackDetails.setObject("0", forKey: "ModelAnswerFlag" as NSCopying)
             
             SSTeacherDataSource.sharedDataSource.sendFeedbackToStudentWithDetails(feedBackDetails, WithDelegate: self)
+            
         }
     }
     
@@ -579,3 +444,4 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
     
     
 }
+
