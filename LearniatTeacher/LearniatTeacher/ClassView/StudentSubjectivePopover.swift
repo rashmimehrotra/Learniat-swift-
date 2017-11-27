@@ -490,10 +490,6 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
             {
                 newImageUploadedWithName(nameOfImage)
             }
-            
-            
-            
-            
         }
         else
         {
@@ -509,8 +505,6 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
     {
         if let AssessmentAnswerId = _studentAnswerDetails.object(forKey: "AssessmentAnswerId") as? String
         {
-            
-            
             feedBackDetails.setObject(_currentStudentDict.object(forKey: "StudentId")!, forKey: "StudentId" as NSCopying)
             
             feedBackDetails.setObject(AssessmentAnswerId, forKey: "AssessmentAnswerId" as NSCopying)
@@ -523,11 +517,10 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
             
             feedBackDetails.setObject("", forKey: "textRating" as NSCopying)
             
-//            feedBackDetails.setObject("\(isModelAnswer)", forKey: "ModelAnswerFlag" as NSCopying)
-            feedBackDetails.setObject("0", forKey: "ModelAnswerFlag" as NSCopying)
+            feedBackDetails.setObject("\(isModelAnswer)", forKey: "ModelAnswerFlag" as NSCopying)
+           // feedBackDetails.setObject("0", forKey: "ModelAnswerFlag" as NSCopying)
             
             SSTeacherDataSource.sharedDataSource.sendFeedbackToStudentWithDetails(feedBackDetails, WithDelegate: self)
-            
         }
     }
     

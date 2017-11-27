@@ -1050,8 +1050,6 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
             mSendButton.isEnabled = true;
             mSendButton.setTitleColor(standard_Button, for:UIControlState());
         }
-       
-        
     }
     
 
@@ -1105,8 +1103,8 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         
         feedBackDetails.setObject("\(givenTextReply)", forKey: "textRating" as NSCopying)
         
-//        feedBackDetails.setObject("\(isModelAnswerSelected)", forKey: "ModelAnswerFlag" as NSCopying)
-        feedBackDetails.setObject("0", forKey: "ModelAnswerFlag" as NSCopying)
+       feedBackDetails.setObject("\(isModelAnswerSelected)", forKey: "ModelAnswerFlag" as NSCopying)
+//        feedBackDetails.setObject("0", forKey: "ModelAnswerFlag" as NSCopying)
         
         SSTeacherDataSource.sharedDataSource.sendFeedbackToStudentWithDetails(feedBackDetails, WithDelegate: self)
         
@@ -1138,8 +1136,8 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
                                 feedBackDetails.setObject("upload/".appending(currentTeacherImageURl).appending(".png"),  forKey: "imageUrl" as NSCopying)
                                 feedBackDetails.setObject("\(givenBadgeId)", forKey: "BadgeId" as NSCopying)
                                 feedBackDetails.setObject("\(givenTextReply)", forKey: "textRating" as NSCopying)
-//                                feedBackDetails.setObject("\(isModelAnswerSelected)", forKey: "ModelAnswerFlag" as NSCopying)
-                                feedBackDetails.setObject("0", forKey: "ModelAnswerFlag" as NSCopying)
+                                feedBackDetails.setObject("\(isModelAnswerSelected)", forKey: "ModelAnswerFlag" as NSCopying)
+//                                feedBackDetails.setObject("0", forKey: "ModelAnswerFlag" as NSCopying)
                                 selectedStudentsArray.remove(answerDetails)
                                
                                 if delegate().responds(to: #selector(SubmissionSubjectiveViewDelegate.delegateStudentSubmissionEvaluatedWithDetails(_:withStudentId:withSubmissionCount:))) {

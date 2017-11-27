@@ -326,6 +326,10 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             if userStateParser.warning != "No Update happened" {
                SSStudentMessageHandler.sharedMessageHandler.sendStudentBenchStatus(UserState(rawValue:"\(userStateParser.userState)")!)
             }
+            
+            if Int(state.rawValue) == UserStateInt.Free.rawValue {
+                self.moveToScheduleScreen()
+            }
             // This is commented to avoid the issues of student app moving out of the live session
 //            self.verifyUserState(userState: userStateParser.userState)
         }) { (error) in

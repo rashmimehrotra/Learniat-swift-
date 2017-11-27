@@ -917,8 +917,8 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
                 
                 feedBackDetails.setObject("\(givenTextReply)", forKey: "textRating" as NSCopying)
                 
-//                feedBackDetails.setObject("\(isModelAnswerSelected)", forKey: "ModelAnswerFlag" as NSCopying)
-                feedBackDetails.setObject("0", forKey: "ModelAnswerFlag" as NSCopying)
+                feedBackDetails.setObject("\(isModelAnswerSelected)", forKey: "ModelAnswerFlag" as NSCopying)
+//                feedBackDetails.setObject("0", forKey: "ModelAnswerFlag" as NSCopying)
                 
                 SSTeacherDataSource.sharedDataSource.sendFeedbackToStudentWithDetails(feedBackDetails, WithDelegate: self)
                 
@@ -956,8 +956,8 @@ class StudentAnnotateView: UIView,UIPopoverControllerDelegate,SSTeacherDataSourc
                 
                 feedBackDetails.setObject("\(givenTextReply)", forKey: "textRating" as NSCopying)
                 
-//                feedBackDetails.setObject("\(isModelAnswerSelected)", forKey: "ModelAnswerFlag" as NSCopying)
-                feedBackDetails.setObject("0", forKey: "ModelAnswerFlag" as NSCopying)
+                feedBackDetails.setObject("\(isModelAnswerSelected)", forKey: "ModelAnswerFlag" as NSCopying)
+//                feedBackDetails.setObject("0", forKey: "ModelAnswerFlag" as NSCopying)
 
                 
                 
