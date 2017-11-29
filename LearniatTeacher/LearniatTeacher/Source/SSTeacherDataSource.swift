@@ -1057,72 +1057,48 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     }
     
     
-    func sendApporoveVolunteerWithVolunteerId(_ VolunteerId:String,withstateFlag stateFlag:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
-    {
-        
+    func sendApporoveVolunteerWithVolunteerId(_ VolunteerId:String,withstateFlag stateFlag:String, WithDelegate delegate:SSTeacherDataSourceDelegate) {
         let manager = APIManager()
-        
         let urlString = String(format: "%@<Sunstone><Action><Service>ApproveVolunteer</Service><VolunteerId>%@</VolunteerId><StoppedFlag>%@</StoppedFlag></Action></Sunstone>",URLPrefix,VolunteerId,stateFlag)
         NSLog("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kServiceApproveVolunteer, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
-    func StopVolunteeringwithVolunteerId(_ VolunteerId:String,withthumbsUp ThumbsUpValue:String,withthumbsDown ThumbsDown:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
-    {
-        
+    func StopVolunteeringwithVolunteerId(_ VolunteerId:String,withthumbsUp ThumbsUpValue:String,withthumbsDown ThumbsDown:String, WithDelegate delegate:SSTeacherDataSourceDelegate) {
         let manager = APIManager()
-        
         let urlString = String(format: "%@<Sunstone><Action><Service>StopVolunteering</Service><VolunteerId>%@</VolunteerId><ThumbsUpVotes>%@</ThumbsUpVotes><ThumbsDownVotes>%@</ThumbsDownVotes></Action></Sunstone>",URLPrefix,VolunteerId,ThumbsUpValue,ThumbsDown)
         NSLog("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kServiceStopVolunteering, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
-    func FetchCategoryWithName(InputCategoryname :String, withTopicId topicId:String , WithDelegate delegate:SSTeacherDataSourceDelegate)
-    {
+    func FetchCategoryWithName(InputCategoryname :String, withTopicId topicId:String , WithDelegate delegate:SSTeacherDataSourceDelegate) {
         let uuidString:String = UIDevice.current.identifierForVendor!.uuidString
-        
         let manager = APIManager()
-        
         let urlString = String(format: "%@<Sunstone><Action><Service>FetchCategory</Service><InputCategory>%@</InputCategory><TopicId>%@</TopicId><UserId>%@</UserId><UUID>%@</UUID></Action></Sunstone>",URLPrefix,InputCategoryname,topicId,SSTeacherDataSource.sharedDataSource.currentUserId,uuidString)
         NSLog("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kFetchCategory, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
     }
     
-    func sendCategoryWithName(category:String,withDescrpition CategoryDescription:String, withTopicID topicId:String, WithDelegate delegate:SSTeacherDataSourceDelegate)
-    {
-        
+    func sendCategoryWithName(category:String,withDescrpition CategoryDescription:String, withTopicID topicId:String, WithDelegate delegate:SSTeacherDataSourceDelegate) {
         let uuidString:String = UIDevice.current.identifierForVendor!.uuidString
-        
         let manager = APIManager()
-        
         let urlString = String(format: "%@<Sunstone><Action><Service>CreateCategory</Service><CategoryTitle>%@</CategoryTitle><CategoryDescription>%@</CategoryDescription><TopicId>%@</TopicId><UserId>%@</UserId><UUID>%@</UUID></Action></Sunstone>",URLPrefix,category,CategoryDescription,topicId,SSTeacherDataSource.sharedDataSource.currentUserId,uuidString)
         NSLog("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kCreateCategory, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
-        
-        
     }
     
     
-    func selectCategoryWithCategoryID(categoryId:String,WithDelegate delegate:SSTeacherDataSourceDelegate)
-    {
-        
-        
+    func selectCategoryWithCategoryID(categoryId:String,WithDelegate delegate:SSTeacherDataSourceDelegate) {
         let uuidString:String = UIDevice.current.identifierForVendor!.uuidString
-        
         let manager = APIManager()
-        
         let urlString = String(format: "%@<Sunstone><Action><Service>SelectCategory</Service><CategoryId>%@</CategoryId><UserId>%@</UserId><DeviceId></DeviceId><UUID></UUID></Action></Sunstone>",URLPrefix,categoryId,SSTeacherDataSource.sharedDataSource.currentUserId,uuidString)
         NSLog("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kSelectCategory, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
-        
     }
     
-    func SaveSuggestionStateWithSuggestions(Sugguestion:String, withState State:String,WithDelegate delegate:SSTeacherDataSourceDelegate)
-    {
+    func SaveSuggestionStateWithSuggestions(Sugguestion:String, withState State:String,WithDelegate delegate:SSTeacherDataSourceDelegate) {
         let uuidString:String = UIDevice.current.identifierForVendor!.uuidString
-        
         let manager = APIManager()
-        
         let urlString = String(format: "%@<Sunstone><Action><Service>SaveSuggestionState</Service><SuggestionId>%@</SuggestionId><SuggestionState>%@</SuggestionState><UserId>%@</UserId><DeviceId>%@</DeviceId><UUID>%@</UUID></Action></Sunstone>",URLPrefix,Sugguestion,State,SSTeacherDataSource.sharedDataSource.currentUserId,uuidString,uuidString)
         NSLog("ApiValue - \(urlString)")
         manager.downloadDataURL(urlString, withServiceName: kSaveSuggestionState, withDelegate: self, with: eHTTPGetRequest, withReturningDelegate: delegate)
@@ -1130,36 +1106,21 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     
     
     // MARK: - API delegate Functions
-    func delegateDidGetServiceResponse(withDetails dict: NSMutableDictionary!, wIthServiceName serviceName: String!, withRetruningDelegate returningDelegate: Any!)
-    {
-        
+    func delegateDidGetServiceResponse(withDetails dict: NSMutableDictionary!, wIthServiceName serviceName: String!, withRetruningDelegate returningDelegate: Any!) {
         let refinedDetails = ((dict.object(forKey: kSunstone) ??  NSMutableDictionary()) as AnyObject).object(forKey: kSSAction) ?? NSMutableDictionary()
-        
         let mReturningDelegate = returningDelegate as AnyObject
         
-        
-        if serviceName == kServiceGetMyState
-        {
-            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetUserStateWithDetails(_:)))
-            {
+        if serviceName == kServiceGetMyState {
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetUserStateWithDetails(_:))) {
                 mReturningDelegate.didGetUserStateWithDetails!(refinedDetails as AnyObject)
             }
-            
-        }
-        else if serviceName == kGetStudentsState
-        {
-            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetStudentsStateWithDetails(_:)))
-            {
+        }  else if serviceName == kGetStudentsState  {
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetStudentsStateWithDetails(_:))) {
                 mReturningDelegate.didGetStudentsStateWithDetails!(refinedDetails as AnyObject)
             }
-            
-        }
-        else if serviceName == kServiceUserLogin
-        {
-            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetloginWithDetails(_:withError:)))
-            {
+        } else if serviceName == kServiceUserLogin {
+            if mReturningDelegate.responds(to: #selector(SSTeacherDataSourceDelegate.didGetloginWithDetails(_:withError:))) {
                 mReturningDelegate.didGetloginWithDetails!(refinedDetails as AnyObject,withError: nil)
-                
             }
         }
         else if serviceName == kServiceGetSchedules

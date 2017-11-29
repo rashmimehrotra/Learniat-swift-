@@ -366,24 +366,15 @@ class StudentSubjectivePopover: UIViewController,SSStarRatingViewDelegate,SSTeac
     
     func newImageUploadedWithName(_ imageName:String)
     {
-        if let AssessmentAnswerId = _studentAnswerDetails.object(forKey: "AssessmentAnswerId") as? String
-        {
-            
-            
+        if let AssessmentAnswerId = _studentAnswerDetails.object(forKey: "AssessmentAnswerId") as? String{
             feedBackDetails.setObject(_currentStudentDict.object(forKey: "StudentId")!, forKey: "StudentId" as NSCopying)
-            
             feedBackDetails.setObject(AssessmentAnswerId, forKey: "AssessmentAnswerId" as NSCopying)
-            
             feedBackDetails.setObject("\(mStarRatingView.rating())", forKey: "Rating" as NSCopying)
-            
             feedBackDetails.setObject("upload/".appending(imageName).appending(".png"), forKey: "imageUrl" as NSCopying)
-            
             feedBackDetails.setObject("0", forKey: "BadgeId" as NSCopying)
-            
             feedBackDetails.setObject("", forKey: "textRating" as NSCopying)
-            
             feedBackDetails.setObject("\(isModelAnswer)", forKey: "ModelAnswerFlag" as NSCopying)
-            
+            SSTeacherDataSource.sharedDataSource.mModelAnswersArray.add(feedBackDetails)
             SSTeacherDataSource.sharedDataSource.sendFeedbackToStudentWithDetails(feedBackDetails, WithDelegate: self)
             
         }

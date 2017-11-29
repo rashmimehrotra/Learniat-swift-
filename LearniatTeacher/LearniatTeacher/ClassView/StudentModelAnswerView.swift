@@ -103,13 +103,6 @@ class StudentModelAnswerView: UIView,SSTeacherDataSourceDelegate,StudentModelAns
         {
             if topicCell.isKind(of: StudentModelAnswerCell.self)
             {
-                if let AssessmentAnswerId = topicCell.currentCellDetails.object(forKey: "AssessmentAnswerId") as? String {
-                    SSTeacherDataSource.sharedDataSource.recordModelAnswerwithAssesmentAnswerId(AssessmentAnswerId, WithDelegate: self)
-                }
-                if let StudentId = topicCell.currentCellDetails.object(forKey: "StudentId") as? String {
-                    SSTeacherDataSource.sharedDataSource.mRecordedModelAnswersArray.add(StudentId)
-                }
-                
                 topicCell.removeFromSuperview()
             }
         }
@@ -131,9 +124,7 @@ class StudentModelAnswerView: UIView,SSTeacherDataSourceDelegate,StudentModelAns
         SSTeacherDataSource.sharedDataSource.getModelAnswerWithQuestionLogId(questionLogId, WithDelegate: self)
     }
     
-    func didGetModelAnswerWithDetails(_ details: AnyObject)
-    {
-
+    func didGetModelAnswerWithDetails(_ details: AnyObject) {
         mActivityIndicator.stopAnimating()
         var mModelAnswerDetails = NSMutableArray()
         
@@ -288,8 +279,7 @@ class StudentModelAnswerView: UIView,SSTeacherDataSourceDelegate,StudentModelAns
     func delegateModelAnswerRemovedWithAssesmentAnswerId(_ assesmentAnswerID: String, studentID: String) {
         currentPositionY = 0
         currentViewHeight = 44
-        SSTeacherDataSource.sharedDataSource.mModelAnswersArray.removeObject(at: currentModelAnswerArray.index(of: assesmentAnswerID))
-        currentModelAnswerArray.remove(assesmentAnswerID)
+        removeModelAnswerFromGloabalValue(assesmentAnswerID: assesmentAnswerID)
         let subViews =  mModelAnswerContainerView.subviews.flatMap{ $0 as? StudentModelAnswerCell }
         for topicCell in subViews {
             if topicCell.isKind(of: StudentModelAnswerCell.self) {
@@ -307,6 +297,21 @@ class StudentModelAnswerView: UIView,SSTeacherDataSourceDelegate,StudentModelAns
         }
         mModelAnswerContainerView.frame = CGRect(x: mModelAnswerContainerView.frame.origin.x,y: mModelAnswerContainerView.frame.origin.y ,width: mModelAnswerContainerView.frame.size.width,height: height - 44)
         delegate().delegateModelAnswerViewLoadedWithHeight!(height, withCount :subViews.count, studentID : studentID)
+    }
+    
+    
+    func removeModelAnswerFromGloabalValue(assesmentAnswerID: String) {
+        for modelDetailsIndex in  0 ..< SSTeacherDataSource.sharedDataSource.mModelAnswersArray.count {
+            let dictValue = SSTeacherDataSource.sharedDataSource.mModelAnswersArray.object(at: modelDetailsIndex)
+            if let _assesmentId = (dictValue as AnyObject).object(forKey: "AssessmentAnswerId") as? String {
+                if assesmentAnswerID == _assesmentId {
+                    SSTeacherDataSource.sharedDataSource.mModelAnswersArray.removeObject(at: modelDetailsIndex)
+                    break
+                }
+            }
+                
+        }
+        currentModelAnswerArray.remove(assesmentAnswerID)
     }
     
     func questionClearedByTeacher()

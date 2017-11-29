@@ -291,12 +291,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mEndCounterlabel.isHidden = true
         mEndCounterlabel.font = UIFont(name: helveticaBold, size: 18)
         
-        
-        
-        
-        
-        
-        
         mPollViewButton.frame  = CGRect(x: mQueryViewButton.frame.origin.x + (mQueryViewButton.frame.size.width + 10)  , y: 0, width: mQuestionViewButton.frame.size.width, height: mQuestionViewButton.frame.size.height)
         mBottombarImageView.addSubview(mPollViewButton)
         mPollViewButton.addTarget(self, action: #selector(SSTeacherClassView.onPollView), for: UIControlEvents.touchUpInside)
@@ -304,8 +298,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mPollViewButton.setTitleColor(UIColor.white, for: UIControlState())
         mPollViewButton.setTitle("Poll", for: UIControlState())
         mPollViewButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 18)
-        
-
         
         PollNotificationLabel.frame = CGRect(x: mPollViewButton.frame.origin.x + mPollViewButton.frame.size.width - 25 , y: mQuestionViewButton.frame.origin.y + 5 , width: 40, height: 30)
         PollNotificationLabel.backgroundColor = standard_Red
@@ -318,10 +310,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         PollNotificationLabel.textAlignment = .center
         PollNotificationLabel.isHidden = true
         
-
-        
-        
-        
         queryNotificationLabel.frame = CGRect(x: mQueryViewButton.frame.origin.x + mQueryViewButton.frame.size.width - 25 , y: mQueryViewButton.frame.origin.y + 5 , width: 40, height: 30)
         queryNotificationLabel.backgroundColor = standard_Red
         queryNotificationLabel.textColor = UIColor.white
@@ -333,18 +321,11 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         queryNotificationLabel.textAlignment = .center
         queryNotificationLabel.isHidden = true
         
-        
-        
-        
-        
-        mClassView.frame = CGRect(x: 0, y: mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , width: self.view.frame.size.width , height: self.view.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + mBottombarImageView.frame.size.height ))
+         mClassView.frame = CGRect(x: 0, y: mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , width: self.view.frame.size.width , height: self.view.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + mBottombarImageView.frame.size.height ))
         self.view.addSubview(mClassView)
         mClassView.backgroundColor = whiteBackgroundColor
         mClassView.isHidden = true
         mClassView.isUserInteractionEnabled = true
-        
-        
-        
         
         mSubmissionView.frame = CGRect(x: 0, y: mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , width: self.view.frame.size.width , height: self.view.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + mBottombarImageView.frame.size.height ))
         self.view.addSubview(mSubmissionView)
@@ -354,20 +335,12 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mSubmissionView.setdelegate(self)
         mSubmissionView.loadViewWithDetails()
         
-        
-        
-        
-        
-        
-        
-        
         mQueryView = SSTeacherQueryView(frame:CGRect(x: 0, y: mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , width: self.view.frame.size.width , height: self.view.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + mBottombarImageView.frame.size.height )))
         self.view.addSubview(mQueryView)
         mQueryView.backgroundColor = whiteBackgroundColor
         mQueryView.isHidden = true
         mQueryView.isUserInteractionEnabled = true
         mQueryView.setdelegate(self)
-        
         
         mPollingView = SSTeacherPollView(frame:CGRect(x: 0, y: mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , width: self.view.frame.size.width , height: self.view.frame.size.height - (mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height + mBottombarImageView.frame.size.height )))
         self.view.addSubview(mPollingView)
@@ -376,36 +349,25 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mPollingView.isUserInteractionEnabled = true
         mPollingView.setdelegate(self)
 
-        
-
-        
-        
-        
         mTeacherImageView = CustomProgressImageView(frame: CGRect(x: 15, y: 20, width: 40 ,height: 40))
         mTeacherImageView.backgroundColor = lightGrayColor
         mTopbarImageView.addSubview(mTeacherImageView)
         mTeacherImageView.layer.masksToBounds = true
         mTeacherImageView.layer.cornerRadius = 2
         
-        
-        
         let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
         let userID = urlString.appending("/").appending(SSTeacherDataSource.sharedDataSource.currentUserId)
         
-        if let checkedUrl = URL(string:"\(userID)_79px.jpg")
-        {
+        if let checkedUrl = URL(string:"\(userID)_79px.jpg") {
             mTeacherImageView.contentMode = .scaleAspectFit
             mTeacherImageView.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
         }
-        
         
         mTeacherImageButton.frame = CGRect(x: 0, y: 0, width: 40 , height: mTopbarImageView.frame.size.height)
         mTopbarImageView.addSubview(mTeacherImageButton)
         mTeacherImageButton.addTarget(self, action: #selector(SSTeacherClassView.onTeacherImage), for: UIControlEvents.touchUpInside)
 
-        
-        
-      let  mSchedulePopoverButton = UIButton(frame: CGRect(x: mTeacherImageView.frame.origin.x + mTeacherImageView.frame.size.width + 10,  y: mTeacherImageView.frame.origin.y, width: 250 , height: 50))
+       let  mSchedulePopoverButton = UIButton(frame: CGRect(x: mTeacherImageView.frame.origin.x + mTeacherImageView.frame.size.width + 10,  y: mTeacherImageView.frame.origin.y, width: 250 , height: 50))
         mTopbarImageView.addSubview(mSchedulePopoverButton)
         mSchedulePopoverButton.addTarget(self, action: #selector(SSTeacherClassView.onScheduleScreenPopupPressed(_:)), for: UIControlEvents.touchUpInside)
         mSchedulePopoverButton.backgroundColor = standard_Button
@@ -413,8 +375,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mSchedulePopoverButton.layer.masksToBounds = true
         
         mClassName = UILabel(frame: CGRect(x: mSchedulePopoverButton.frame.origin.x + 10, y: mSchedulePopoverButton.frame.origin.y + 5 , width: 230, height: 20))
-        
-        
         mClassName.font = UIFont(name:helveticaBold, size: 14)
         mTopbarImageView.addSubview(mClassName)
         mClassName.textColor = UIColor.white
@@ -424,15 +384,12 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mTopbarImageView.addSubview(mStartTimeLabel)
         mStartTimeLabel.textColor = UIColor.white
         
-        
-        
-         mTopicButton = UIButton(frame: CGRect(x: mTopbarImageView.frame.size.width - (mSchedulePopoverButton.frame.size.width + 10 ),  y: mSchedulePopoverButton.frame.origin.y, width: mSchedulePopoverButton.frame.size.width , height: mSchedulePopoverButton.frame.size.height))
+        mTopicButton = UIButton(frame: CGRect(x: mTopbarImageView.frame.size.width - (mSchedulePopoverButton.frame.size.width + 10 ),  y: mSchedulePopoverButton.frame.origin.y, width: mSchedulePopoverButton.frame.size.width , height: mSchedulePopoverButton.frame.size.height))
         mTopbarImageView.addSubview(mTopicButton)
         mTopicButton.addTarget(self, action: #selector(SSTeacherClassView.onTopicsButton(_:)), for: UIControlEvents.touchUpInside)
         mTopicButton.backgroundColor = standard_Button
         mTopicButton.layer.cornerRadius = 2
         mTopicButton.layer.masksToBounds = true
-        
         
         mModelAnswerButton = ModelAnswerButtonView(frame:CGRect(x: mTopicButton.frame.origin.x - (mTopicButton.frame.size.width + 10 ) , y: mTopicButton.frame.origin.y, width: mTopicButton.frame.size.width, height: mTopicButton.frame.size.height))
         mTopbarImageView.addSubview(mModelAnswerButton)
@@ -440,11 +397,7 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
          mModelAnswerButton.addTarget(self, action: #selector(SSTeacherClassView.onModelAnswerButton), for: UIControlEvents.touchUpInside)
         mModelAnswerButton.isHidden = true
         
-        
-        
-        
         mShowTopicsView.frame = CGRect(x: self.view.frame.size.width - 610, y: mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , width: 600, height: 680)
-        
         mShowTopicsView.backgroundColor = UIColor.white
         mShowTopicsView.layer.shadowColor = UIColor.black.cgColor
         mShowTopicsView.layer.shadowOpacity = 0.3
@@ -452,8 +405,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mShowTopicsView.layer.shadowRadius = 10
         mShowTopicsView.isHidden = true
         self.view.addSubview(mShowTopicsView)
-        
-        
         
         mModelAnswerView = StudentModelAnswerView(frame:CGRect(x: mModelAnswerButton.frame.origin.x - 30 , y: mTopbarImageView.frame.origin.y + mTopbarImageView.frame.size.height , width: mModelAnswerButton.frame.size.width + 60, height: 60))
         self.view.addSubview(mModelAnswerView)
@@ -465,15 +416,12 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mModelAnswerView.setdelegate(self)
         mModelAnswerView.isHidden = true
         
-        
         mSubTopicsNamelabel = UILabel(frame: CGRect(x: 10, y: 5 , width: mTopicButton.frame.size.width - 20, height: 20))
         mSubTopicsNamelabel.font = UIFont(name:helveticaBold, size: 14)
         mTopicButton.addSubview(mSubTopicsNamelabel)
         mSubTopicsNamelabel.textColor = UIColor.white
         mSubTopicsNamelabel.text = "No topic selected"
         mSubTopicsNamelabel.textAlignment = .right
-        
-        
         
         mQuestionNamelabel = UILabel(frame: CGRect(x: mSubTopicsNamelabel.frame.origin.x , y: mSubTopicsNamelabel.frame.origin.y + mSubTopicsNamelabel.frame.size.height , width: mSubTopicsNamelabel.frame.size.width, height: 20))
         mQuestionNamelabel.font = UIFont(name:helveticaRegular, size: 12)
@@ -482,12 +430,8 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mQuestionNamelabel.text = "No active question"
         mQuestionNamelabel.textAlignment = .right
         
-        
-      
-        
         mStartLabelUpdater.invalidate()
         mStartLabelUpdater = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(SSTeacherClassView.updateStartLabelTime), userInfo: nil, repeats: true)
-        
         
         mActivityIndicatore = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         mActivityIndicatore.frame = CGRect(x: (self.view.frame.size.width - 60)/2, y: (self.view.frame.size.height - 60)/2, width: 60, height: 60)
@@ -503,14 +447,10 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         NotificationCenter.default.removeObserver(self)
     }
     
- 
-  
-    
     func setSessionDetails(_ details:AnyObject) {
         currentSessionDetails = details
         mCurrentSessionModel =  CurrentSessionViewModel(sessionDetails: currentSessionDetails)
     }
-    
     
     func addAllDetailsOfSession() {
         
@@ -521,8 +461,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         mStartTimeLabel.text = mCurrentSessionModel.getStartTimeLabelText()
         mRemainingTimeProgressBar.progress = Float(mCurrentSessionModel.getClassProgressTime())
             
-        
-        
         mainTopicsView  = MainTopicsView(frame: CGRect(x: 0,y: 0, width: 600   ,height: 44))
         mainTopicsView.setSessionDetails(currentSessionDetails)
         mainTopicsView.setdelegate(self)
@@ -584,7 +522,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             y:sender.frame.origin.y + sender.frame.size.height,
             width: 1,
             height: 1), in: self.view, permittedArrowDirections: .up, animated: true)
-
     }
     
     
