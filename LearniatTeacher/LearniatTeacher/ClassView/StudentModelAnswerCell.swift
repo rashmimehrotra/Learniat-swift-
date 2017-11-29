@@ -187,27 +187,24 @@ class StudentModelAnswerCell: UIView,SSTeacherDataSourceDelegate
         }
     }
     
-    func onRemoveButton()
-    {
+    
+    func onRemoveButton() {
         self.removeFromSuperview()
-        
-        if let  AssessmentAnswerId = currentCellDetails.object(forKey: "AssessmentAnswerId") as? String
-        {
-            delegate().delegateModelAnswerRemovedWithAssesmentAnswerId!(AssessmentAnswerId, studentID: currentCellDetails.object(forKey: "StudentId") as! String)
-            
-//            if SSTeacherDataSource.sharedDataSource.mModelAnswersArray.contains(currentCellDetails) {
-            
-                for obj in SSTeacherDataSource.sharedDataSource.mModelAnswersArray {
-                    if let StudentId = (obj as AnyObject).object(forKey: "StudentId") as? String {
-                        if currentCellDetails.object(forKey: "StudentId") as! String == StudentId {
-                            SSTeacherDataSource.sharedDataSource.mModelAnswersArray.remove(obj)
-                            break
-                        }
+        if let  AssessmentAnswerId = currentCellDetails.object(forKey: "AssessmentAnswerId") as? String {
+            RemoveButton.isHidden = true
+            SSTeacherDataSource.sharedDataSource.removeModelAnswerWithAssesmentId(assmentId: AssessmentAnswerId, modelAnswerFlag: "0", success: { (result) in
+                 self.delegate().delegateModelAnswerRemovedWithAssesmentAnswerId!(AssessmentAnswerId, studentID: self.currentCellDetails.object(forKey: "StudentId") as! String)
+            }, withfailurehandler: { (error) in
+                self.RemoveButton.isHidden = false
+            })
+            for obj in SSTeacherDataSource.sharedDataSource.mModelAnswersArray {
+                if let StudentId = (obj as AnyObject).object(forKey: "StudentId") as? String {
+                    if currentCellDetails.object(forKey: "StudentId") as! String == StudentId {
+                        SSTeacherDataSource.sharedDataSource.mModelAnswersArray.remove(obj)
+                        break
                     }
                 }
-//            }
-            
-//            SSTeacherDataSource.sharedDataSource.recordModelAnswerwithAssesmentAnswerId(AssessmentAnswerId, WithDelegate: self)
+            }
         }
     }
     

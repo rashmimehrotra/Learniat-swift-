@@ -190,19 +190,15 @@ class CollaborationCategoryView: UIView,SSTeacherDataSourceDelegate,UITextFieldD
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool
     {
-       
-        NSObject.cancelPreviousPerformRequests(
-            withTarget: self,
-            selector: #selector(CollaborationCategoryView.getHintsFromTextField),
-            object: textField)
-        self.perform(
-            #selector(CollaborationCategoryView.getHintsFromTextField),
-            with: textField,
-            afterDelay: 0.5)
-        
-        
-        
-        
+            // This is removed because we were getting element ID issue
+//        NSObject.cancelPreviousPerformRequests(
+//            withTarget: self,
+//            selector: #selector(CollaborationCategoryView.getHintsFromTextField),
+//            object: textField)
+//        self.perform(
+//            #selector(CollaborationCategoryView.getHintsFromTextField),
+//            with: textField,
+//            afterDelay: 0.5)
         return true
     }
     

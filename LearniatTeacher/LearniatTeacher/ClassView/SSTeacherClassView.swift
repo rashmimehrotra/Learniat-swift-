@@ -1841,46 +1841,25 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         {
             SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.removeObject(forKey: mainTopicId)
         }
-        
-        
-        
-        
-        
-        
-        
         newSubmissionRecieved.removeAllObjects()
-        
         submissionNotificationLabel.isHidden = true
-        
-
-        
-        
         
         subTopicsView.frame = CGRect(x: 0,y: 0, width: 600   ,height: 44)
         subTopicsView.getSubtopicsDetailsWithMainTopicId(mainTopicId, withMainTopicName: mainTopicName,withStartedSubtopicID:SSTeacherDataSource.sharedDataSource.startedSubTopicId
         )
-        
         
         hideAllViewInTopicsView()
         subTopicsView.isHidden = false
         mShowTopicsView.bringSubview(toFront: subTopicsView)
          mShowTopicsView.frame = CGRect(x: self.view.frame.size.width - 610, y: mShowTopicsView.frame.origin.y , width: 600 , height: 44)
 
-        
-        
-        for indexValue in 0  ..< StudentsDetailsArray.count
-        {
+        for indexValue in 0  ..< StudentsDetailsArray.count {
             let studentsDict = StudentsDetailsArray.object(at: indexValue)
-           
-            if let StudentId = (studentsDict as AnyObject).object(forKey: "StudentId") as? String{
-                
-                if let studentDeskView  = mClassView.viewWithTag(Int(StudentId)!) as? StundentDeskView
-                {
+           if let StudentId = (studentsDict as AnyObject).object(forKey: "StudentId") as? String{
+                if let studentDeskView  = mClassView.viewWithTag(Int(StudentId)!) as? StundentDeskView  {
                     studentDeskView.teacherClearedQuestion()
                 }
             }
-            
-           
         }
         
         mQuestionNamelabel.text = "No active question"
@@ -1899,19 +1878,14 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
           SSTeacherDataSource.sharedDataSource.freezQuestionWithQuestionogId(SSTeacherDataSource.sharedDataSource.currentQuestionLogId,withTopicId: SSTeacherDataSource.sharedDataSource.startedSubTopicId,withSessionId: currentSessionId,withDelegate: self)
     }
     
-    func delegateDoneButtonPressed()
-    {
+    func delegateDoneButtonPressed() {
         mShowTopicsView.isHidden = true
-       
-        if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false
-        {
+        if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false {
             mSubTopicsNamelabel.text = "No topic selected"
         }
     }
     
-    func delegateTopicsButtonPressed()
-    {
-        
+    func delegateTopicsButtonPressed() {
         subTopicsView.frame = CGRect(x: 0,y: 0, width: 600   ,height: 44)
         subTopicsView.getSubtopicsDetailsWithMainTopicId(SSTeacherDataSource.sharedDataSource.startedMainTopicId, withMainTopicName: SSTeacherDataSource.sharedDataSource.startedMainTopicName,withStartedSubtopicID:SSTeacherDataSource.sharedDataSource.startedSubTopicId
         )
@@ -1919,11 +1893,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         subTopicsView.isHidden = false
        
         mShowTopicsView.bringSubview(toFront: subTopicsView)
-        
-        
-        
-        
-        
         mShowTopicsView.frame = CGRect(x: self.view.frame.size.width - 610, y: mShowTopicsView.frame.origin.y , width: 600 , height: subTopicsView.currentMainTopicsViewHeight)
         
     }
@@ -1941,11 +1910,8 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
     }
     
     func smhStreamReconnectingWithDelay(_ delay: Int32) {
-        
         self.view.makeToast("Reconnecting in \(delay) seconds", duration: 2, position: .bottom)
-        
         AppDelegate.sharedDataSource.showReconnecting()
-      
     }
     
     func smhDidcreateRoomWithRoomName(_ roomName: String)
