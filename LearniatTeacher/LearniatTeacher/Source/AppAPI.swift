@@ -19,7 +19,7 @@ enum AppAPI {
     case GetJoinedStudentsWithUserId(UserId:String, sessionID:String)
     case TopicCompleted(topicId:String, sessionid:String,UserId:String)
     case TopicCompletedRemoveOptions(topicId:String, sessionid:String,UserId:String)
-
+    case RemoveModelAnswer(UserId:String, assesmentId:String, modelAnswerFlag:String)
 }
 
 extension AppAPI {
@@ -67,6 +67,9 @@ extension AppAPI {
             
         case .TopicCompletedRemoveOptions(let topicId, let sessionid, let UserId):
             return "\(self.base)/MarkTopicCompleted?userid=\(UserId)&sessionid=\(sessionid)&topicid=\(topicId)&remove=T"
+            
+        case .RemoveModelAnswer(let UserId, let assesmentId, let modelAnswerFlag):
+            return "\(self.base)/SetModel?userid=\(UserId)&asses_id=\(assesmentId)&model_flag=\(modelAnswerFlag)"
             
         }
     }

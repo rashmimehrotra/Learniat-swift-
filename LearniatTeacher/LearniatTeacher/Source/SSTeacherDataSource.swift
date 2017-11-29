@@ -424,6 +424,19 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         }
     }
     
+    func removeModelAnswerWithAssesmentId(assmentId:String, modelAnswerFlag:String,success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler) {
+        WebServicesAPI().getRequest(fromUrl: AppAPI.RemoveModelAnswer(UserId: currentUserId, assesmentId: assmentId, modelAnswerFlag: modelAnswerFlag).path, details: nil, success: { (result) in
+            let JsonValue = result.parseJSONString
+            if(JsonValue.jsonData != nil) {
+                success(JsonValue.jsonData!)
+            } else {
+                failure(JsonValue.error!)
+            }
+        }) { (error) in
+            failure(error as NSError)
+        }
+    }
+    
     
     // MARK: - XML API Functions
     func getUserState(_ userId :String, withDelegate delegate:SSTeacherDataSourceDelegate) {

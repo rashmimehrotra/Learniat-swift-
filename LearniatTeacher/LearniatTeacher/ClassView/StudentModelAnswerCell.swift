@@ -193,7 +193,6 @@ class StudentModelAnswerCell: UIView,SSTeacherDataSourceDelegate
         
         if let  AssessmentAnswerId = currentCellDetails.object(forKey: "AssessmentAnswerId") as? String
         {
-//            delegate().delegateModelAnswerRemovedWithAssesmentAnswerId!(AssessmentAnswerId)
             delegate().delegateModelAnswerRemovedWithAssesmentAnswerId!(AssessmentAnswerId, studentID: currentCellDetails.object(forKey: "StudentId") as! String)
             
 //            if SSTeacherDataSource.sharedDataSource.mModelAnswersArray.contains(currentCellDetails) {

@@ -285,45 +285,27 @@ class StudentModelAnswerView: UIView,SSTeacherDataSourceDelegate,StudentModelAns
 //        delegate().delegateModelAnswerViewLoadedWithHeight!(height, withCount :subViews.count, assesmentAnswerID : assesmentAnswerID)
 //    }
     
-    func delegateModelAnswerRemovedWithAssesmentAnswerId(_ assesmentAnswerID: String, studentID: String)
-    {
+    func delegateModelAnswerRemovedWithAssesmentAnswerId(_ assesmentAnswerID: String, studentID: String) {
         currentPositionY = 0
         currentViewHeight = 44
         SSTeacherDataSource.sharedDataSource.mModelAnswersArray.removeObject(at: currentModelAnswerArray.index(of: assesmentAnswerID))
         currentModelAnswerArray.remove(assesmentAnswerID)
         let subViews =  mModelAnswerContainerView.subviews.flatMap{ $0 as? StudentModelAnswerCell }
-        for topicCell in subViews
-        {
-            if topicCell.isKind(of: StudentModelAnswerCell.self)
-            {
-                UIView.animate(withDuration: 0.2, animations:
-                    {
+        for topicCell in subViews {
+            if topicCell.isKind(of: StudentModelAnswerCell.self) {
+                UIView.animate(withDuration: 0.2, animations: {
                         topicCell.frame = CGRect(x: topicCell.frame.origin.x ,y: self.currentPositionY,width: topicCell.frame.size.width,height: topicCell.frame.size.height)
-                        
                 })
-                
                 currentPositionY = currentPositionY + topicCell.frame.size.height + 1
                 currentViewHeight = currentViewHeight + topicCell.frame.size.height + 1
-                
             }
         }
-        
-//        mModelAnswerContainerView.contentSize = CGSize(width: 0, height: currentPositionY)
         mModelAnswerContainerView.contentSize = CGSize(width: 0, height: CGFloat(currentModelAnswerArray.count) * ((self.frame.size.width / 1.5) + 70 ))
-        
         var height :CGFloat = currentViewHeight
-        
-        
-        if height > UIScreen.main.bounds.height - 140
-        {
+        if height > UIScreen.main.bounds.height - 140 {
             height = UIScreen.main.bounds.height - 140
         }
-        
-        
-        
         mModelAnswerContainerView.frame = CGRect(x: mModelAnswerContainerView.frame.origin.x,y: mModelAnswerContainerView.frame.origin.y ,width: mModelAnswerContainerView.frame.size.width,height: height - 44)
-        
-        //        delegate().delegateModelAnswerViewLoadedWithHeight!(height, withCount :subViews.count)
         delegate().delegateModelAnswerViewLoadedWithHeight!(height, withCount :subViews.count, studentID : studentID)
     }
     
