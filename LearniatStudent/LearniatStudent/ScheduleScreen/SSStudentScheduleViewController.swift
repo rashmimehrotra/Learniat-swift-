@@ -530,7 +530,7 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
        self.view.makeToast("Reconnecting in \(delay) seconds", duration: 0.5, position: .bottom)
        activityIndicator.startAnimating()
         activityIndicator.isHidden = false
-        AppDelegate.sharedDataSource.showReconnecting()
+//        AppDelegate.sharedDataSource.showReconnecting()
     }
     
     
