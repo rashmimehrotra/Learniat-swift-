@@ -108,7 +108,7 @@ class CollaborationSuggestionsView: UIView,SSTeacherDataSourceDelegate
         mSaveQuestionButton = UIButton(frame: CGRect(x: mBackButton.frame.origin.x + mBackButton.frame.size.width + 10,  y: 0, width: 200 ,height: mTopbarImageView.frame.size.height))
        mTopbarImageView.addSubview(mSaveQuestionButton)
         mSaveQuestionButton.addTarget(self, action: #selector(CollaborationSuggestionsView.onSaveAndExitQuestion), for: UIControlEvents.touchUpInside)
-        mSaveQuestionButton.setTitleColor(standard_Button, for: UIControlState())
+        mSaveQuestionButton.setTitleColor(standard_Button_Disabled, for: UIControlState())
         mSaveQuestionButton.setTitle("Save & Exit", for: UIControlState())
         mSaveQuestionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
         mSaveQuestionButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
@@ -316,54 +316,29 @@ class CollaborationSuggestionsView: UIView,SSTeacherDataSourceDelegate
     }
     
    
-    func onSaveAndExitQuestion()
-    {
-        if getSelectedSuggestions().selected.count >= 2
-        {
+    func onSaveAndExitQuestion() {
+        if getSelectedSuggestions().selected.count >= 2{
             isSaveAndExit = true
-            
             SSTeacherDataSource.sharedDataSource.SaveSuggestionStateWithSuggestions(Sugguestion: getSelectedSuggestions().SuggestionIDList, withState: getSelectedSuggestions().mSugeestionStateLIst, WithDelegate: self)
         }
     }
     
     
-    func didGetSaveSuggestionStateWithDetails(_ details: AnyObject)
-    {
-        
-        
+    func didGetSaveSuggestionStateWithDetails(_ details: AnyObject) {
         mSavedSuggestionsDetails = details
-        
-        
-        
-        
         let mSuggestionStateArray = getSelectedSuggestions().mSugeestionStateLIst.components(separatedBy: ";;;")
-        
         let mStudentsIdsArray = getSelectedSuggestions().studentsIdArrya
-        
-        
-        
-        for indexValue in 0 ..< mStudentsIdsArray.count
-        {
-            SSTeacherMessageHandler.sharedMessageHandler.sendCollaborationQuestionStatus(mStudentsIdsArray.object(at: indexValue) as! String , withStatus: mSuggestionStateArray[indexValue] )
-            
+        for indexValue in 0 ..< mStudentsIdsArray.count {
+         SSTeacherMessageHandler.sharedMessageHandler.sendCollaborationQuestionStatus(
+            mStudentsIdsArray.object(at: indexValue) as! String ,
+            withStatus: mSuggestionStateArray[indexValue] )
         }
-        
-        
-        
-        
-        
-        
-        if isSaveAndExit == true
-        {
+        if isSaveAndExit == true {
             onDismissQuestion()
-        }
-        else
-        {
+        } else {
             SSTeacherDataSource.sharedDataSource.recordQuestionWithScribbleId("", withQuestionName: "t", WithType: "2", withTopicId: SSTeacherDataSource.sharedDataSource.startedSubTopicId, WithDelegate: self)
         }
     }
-    
-    
     
     func didGetQuestionRecordedWithDetaisl(_ details: AnyObject)
     {
@@ -406,10 +381,12 @@ class CollaborationSuggestionsView: UIView,SSTeacherDataSourceDelegate
         if getSelectedSuggestions().selected.count >= 2
         {
             mAddQuestionButton.setTitleColor(standard_Button, for: UIControlState())
+            mSaveQuestionButton.setTitleColor(standard_Button, for: UIControlState())
         }
         else
         {
             mAddQuestionButton.setTitleColor(lightGrayColor, for: UIControlState())
+            mSaveQuestionButton.setTitleColor(lightGrayColor, for: UIControlState())
         }
     }
     

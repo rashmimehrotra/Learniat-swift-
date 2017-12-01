@@ -424,24 +424,20 @@ class LiveQuestionView: UIView,UIPopoverControllerDelegate
         
        
         
-        let NumberOfResponses = currentQuestionDetails.object(forKey: "NumberOfResponses")as? String
-        
-        
-        
-        
-        SSTeacherMessageHandler.sharedMessageHandler.freezeQnAMessageToRoom(SSTeacherDataSource.sharedDataSource.currentLiveSessionId, withAverageScore: QuestonAvgScore as String, withTotalResponses: NumberOfResponses!)
+        var NumberOfResponses =  "0"
+        if let _numberOfResponses = currentQuestionDetails.object(forKey: "NumberOfResponses")as? String {
+            NumberOfResponses = _numberOfResponses
+        }
+        SSTeacherMessageHandler.sharedMessageHandler.freezeQnAMessageToRoom(
+            SSTeacherDataSource.sharedDataSource.currentLiveSessionId,
+            withAverageScore: QuestonAvgScore as String,
+            withTotalResponses: NumberOfResponses)
         
         mFreezbutton.isEnabled = false
         mFreezbutton.setTitleColor(UIColor.lightGray, for: UIControlState())
-        
-        
-        if delegate().responds(to: #selector(LiveQuestionViewDelegate.delegateFreezQuestion))
-        {
+        if delegate().responds(to: #selector(LiveQuestionViewDelegate.delegateFreezQuestion)) {
             delegate().delegateFreezQuestion!()
         }
-
-        
-        
     }
     
     func onInfoButton()
