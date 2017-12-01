@@ -304,6 +304,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             updateStudentState(state: .BackGround)
             RealmDatasourceManager.checkForLiveAndupdateStateToLive(screenState: .LiveBackground, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
            RealmDatasourceManager.saveScreenStateOfUser(screenState: .LiveBackground, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
+            SSStudentMessageHandler.sharedMessageHandler.sendStudentBenchStatus(UserState.BackGround)
         }
     }
     
@@ -314,31 +315,29 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             if getCurrentSessionState() == "\(SessionState.Live.rawValue)" || getCurrentSessionState() == kLiveString  {
                 updateStudentState(state: .Live)
                 RealmDatasourceManager.saveScreenStateOfUser(screenState: .LiveScreen, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
-
             }
         }
     }
 
-    
     func updateStudentState(state:UserState) {
         SSStudentDataSource.sharedDataSource.updatUserState(state: Int(state.rawValue)!, success: { (result) in
             let userStateParser = self.parseUpdateUserStateAPI(details: result)
-            if userStateParser.warning != "No Update happened" {
-               SSStudentMessageHandler.sharedMessageHandler.sendStudentBenchStatus(UserState(rawValue:"\(userStateParser.userState)")!)
+            if userStateParser.isupdated == 1  && userStateParser.userState != 0 {
+                if Int(state.rawValue) != UserStateInt.BackGround.rawValue {
+                     SSStudentMessageHandler.sharedMessageHandler.sendStudentBenchStatus(UserState(rawValue:"\(userStateParser.userState)")!)
+                }
             }
             
             if Int(state.rawValue) == UserStateInt.Free.rawValue {
                 self.moveToScheduleScreen()
             }
+            
             // This is commented to avoid the issues of student app moving out of the live session
 //            self.verifyUserState(userState: userStateParser.userState)
         }) { (error) in
             self.view.makeToast("\(error.code)-\(error.description)", duration: 0.5, position: .bottom)
         }
     }
-    
-    
-    
     
     func classsBegin() {
         if let sessionId = sessionDetails.object(forKey: kSessionId) as? String {
@@ -720,10 +719,8 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     
     // MARK: - message handler functions
-    
     func smhDidRecieveStreamConnectionsState(_ state: Bool) {
-       
-         mstatusImage.backgroundColor = standard_Red
+       mstatusImage.backgroundColor = standard_Red
     }
     
 
@@ -731,16 +728,12 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     func smhStreamReconnectingWithDelay(_ delay: Int32) {
         self.view.makeToast("Reconnecting in \(delay) seconds", duration: 0.5, position: .bottom)
-        AppDelegate.sharedDataSource.showReconnecting()
-
     }
     
     func smhDidReciveAuthenticationState(_ state: Bool, WithName userName: String) {
         if state == false {
-            mstatusImage.backgroundColor = standard_Red
             self.view.makeToast("Not Able to Authenticate current user. Plese try again", duration: 0.5, position: .bottom)
         } else {
-            mstatusImage.backgroundColor = standard_Green
             updateStudentState(state: UserState.Live)
         }
         AppDelegate.sharedDataSource.hideReconnecting()
@@ -1525,16 +1518,16 @@ extension StudentClassViewController {
     }
     
     
-    fileprivate func parseUpdateUserStateAPI(details:AnyObject)->(userState:Int, warning:String) {
+    fileprivate func parseUpdateUserStateAPI(details:AnyObject)->(userState:Int, isupdated:Int) {
         
         if let user_state = details.object(forKey: "user_state") as? Int {
-            if let warningMessage = details.object(forKey: "warning") as? String {
-                return (user_state, warningMessage)
+            if let isupdated = details.object(forKey: "isupdated") as? Int {
+                return (user_state, isupdated)
             }
-            return (user_state, "")
+            return (user_state, 0)
         }
         
-         return (0, "")
+         return (0, 0)
     }
     
     

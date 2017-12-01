@@ -54,8 +54,6 @@ class StudentModelAnswerView: UIView,SSTeacherDataSourceDelegate,StudentModelAns
         self.addSubview(mTopbarImageView)
         mTopbarImageView.isUserInteractionEnabled = true
         
-        
-        
         let seperatorView = UIView(frame: CGRect(x: 0 ,y: mTopbarImageView.frame.size.height - 1 , width: mTopbarImageView.frame.size.width,height: 1))
         seperatorView.backgroundColor = LineGrayColor;
         mTopbarImageView.addSubview(seperatorView)
@@ -81,13 +79,9 @@ class StudentModelAnswerView: UIView,SSTeacherDataSourceDelegate,StudentModelAns
         mActivityIndicator.hidesWhenStopped = true
         mActivityIndicator.stopAnimating()
         
-        
-        
         mModelAnswerContainerView.frame = CGRect(x: 0,  y: mTopbarImageView.frame.size.height ,width: self.frame.size.width,height: self.frame.size.height -  mTopbarImageView.frame.size.height )
         self.addSubview(mModelAnswerContainerView)
         mModelAnswerContainerView.backgroundColor = lightGrayTopBar
-        
-
         NotificationCenter.default.addObserver(self, selector: #selector(StudentModelAnswerView.setModelAnswers), name: NSNotification.Name(rawValue: "setModelAnswerList"), object: nil)
     }
     
@@ -96,8 +90,7 @@ class StudentModelAnswerView: UIView,SSTeacherDataSourceDelegate,StudentModelAns
         fatalError("init(coder:) has not been implemented")
     }
     
-    func onSendAllButton()
-    {
+    func onSendAllButton() {
         let subViews =  mModelAnswerContainerView.subviews.flatMap{ $0 as? StudentModelAnswerCell }
         for topicCell in subViews
         {

@@ -3787,7 +3787,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.learniatTeacher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6dd539ba-021a-4e1d-8c8e-765b094db9f7";
+				PROVISIONING_PROFILE = "7e30f25b-ee94-4ae1-b0b6-1226baeae421";
 				PROVISIONING_PROFILE_SPECIFIER = "Learniat Teacher Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatTeacher/Swift-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
@@ -3826,7 +3826,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mindshiftapps.learniatTeacher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6dd539ba-021a-4e1d-8c8e-765b094db9f7";
+				PROVISIONING_PROFILE = "7e30f25b-ee94-4ae1-b0b6-1226baeae421";
 				PROVISIONING_PROFILE_SPECIFIER = "Learniat Teacher Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "LearniatTeacher/Swift-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

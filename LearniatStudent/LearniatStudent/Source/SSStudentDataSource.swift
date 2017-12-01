@@ -530,26 +530,15 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
     func delegateDidGetServiceResponse(withDetails dict: NSMutableDictionary!, wIthServiceName serviceName: String!, withRetruningDelegate returningDelegate: Any!) {
         
         let refinedDetails = (dict.object(forKey: kSunstone)! as AnyObject).object(forKey: kSSAction)!
-        
         let mReturningDelegate = returningDelegate as AnyObject
-        
-        
-        if serviceName == kServiceGetMyState
-        {
-            if mReturningDelegate.responds(to: #selector(SSStudentDataSourceDelegate.didGetUserStateWithDetails(_:)))
-            {
+        if serviceName == kServiceGetMyState {
+            if mReturningDelegate.responds(to: #selector(SSStudentDataSourceDelegate.didGetUserStateWithDetails(_:))) {
                 mReturningDelegate.didGetUserStateWithDetails!(refinedDetails as AnyObject)
             }
-            
-        }
-        else if serviceName == kServiceUserLogin
-        {
-            if mReturningDelegate.responds(to: #selector(SSStudentDataSourceDelegate.didGetloginWithDetails(_:withError:)))
-            {
+        } else if serviceName == kServiceUserLogin  {
+            if mReturningDelegate.responds(to: #selector(SSStudentDataSourceDelegate.didGetloginWithDetails(_:withError:))) {
                 mReturningDelegate.didGetloginWithDetails!(refinedDetails as AnyObject,withError: nil)
-                
             }
-
         }
         else if serviceName == kServiceGetThisStudentSessions
         {

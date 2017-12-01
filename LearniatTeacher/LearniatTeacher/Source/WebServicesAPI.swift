@@ -24,11 +24,12 @@ class WebServicesAPI: NSObject, WebServicesManager {
     
     func getRequest(fromUrl path: String, details: NSDictionary?, success: @escaping ApiSuccessStringHandler,
                     failure: @escaping ApiErrorHandler) {
+        print("API Value - \(path)")
         callAPI(forUrl: path, httpMethod: HTTPMethod.get, details: details, successHandler: success, failureHandler: failure)
     }
     
     func postRequest(toUrl path: String, details: NSDictionary, isWritingToWebSocket: Bool = false, success: @escaping ApiSuccessStringHandler, failure: @escaping ApiErrorHandler) {
-        
+        print("API Value - \(path)")
         callAPI(forUrl: path, httpMethod: HTTPMethod.post, details: details, successHandler: success, failureHandler: failure)
     }
     

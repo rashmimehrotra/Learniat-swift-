@@ -285,8 +285,10 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
         
         if let password  =  UserDefaults.standard.object(forKey: kPassword) as? String
         {
-            let connectionUrl = SSStudentDataSource.sharedDataSource.currentUserId.appending("@").appending(kBaseXMPPURL)
-            MessageManager.sharedMessageHandler().connect(withUserId: connectionUrl, withPassword: password)
+            if SSStudentDataSource.sharedDataSource.currentUserId != nil {
+                let connectionUrl = SSStudentDataSource.sharedDataSource.currentUserId.appending("@").appending(kBaseXMPPURL)
+                MessageManager.sharedMessageHandler().connect(withUserId: connectionUrl, withPassword: password)
+            }
         }
         
     }

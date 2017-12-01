@@ -7,15 +7,17 @@
 //
 
 import UIKit
-import HockeySDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    //Testing code
+    //declare this property where it won't go out of scope relative to your listener
+    let reachability = Reachability()!
+
     
+    //Testing code
     internal  static let sharedDataSource = AppDelegate()
     
     var interntDownImageView : InternetConnection!
@@ -24,46 +26,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+
+        addNotifiersForReachability()
         
-      
         DispatchQueue.main.async {
             UIApplication.shared.isIdleTimerDisabled = true
-            
-            
-            
-            BITHockeyManager.shared().configure(withIdentifier: "ce977544acdf4b57a1ae4cf70b06dd2c")
-            // Do some additional configuration if needed here
-            BITHockeyManager.shared().start()
-            BITHockeyManager.shared().authenticator.authenticateInstallation()
-            BITHockeyManager.shared().isCrashManagerDisabled = true
-            
-            
             let eraseWidth = UserDefaults.standard.float(forKey: "selectedEraserSize")
-            if eraseWidth < 25
-            {
+            if eraseWidth < 25 {
                 UserDefaults.standard.set(25, forKey: "selectedEraserSize")
             }
             
-            
             let brushWith = UserDefaults.standard.float(forKey: "selectedBrushsize")
-            if brushWith < 8
-            {
+            if brushWith < 8 {
                 UserDefaults.standard.set(8, forKey: "selectedBrushsize")
             }
         }
         
-        
-        SSStudentMessageHandler.sharedMessageHandler.Error_NotConnectedToInternetSignal.subscribe(on: self) { (isSuccess) in
-            if(isSuccess == true)
-            {
+        SSStudentMessageHandler.sharedMessageHandler.Error_NotConnectedToInternetSignal.subscribe(on: self)   { (isSuccess) in
+            if(isSuccess == true) {
                self.hideReconnecting()
-            }
-            else
-            {
-                if (UserDefaults.standard.object(forKey: kPassword) as? String) != nil
-                {
+            } else {
+                if (UserDefaults.standard.object(forKey: kPassword) as? String) != nil {
                     if AppDelegate.appState == "Active"{
-                        self.showReconnecting()
+//                        self.showReconnecting()
                     }
                     else if AppDelegate.appState == "TakenOver"{
                         let alertController = UIAlertController(title: "Disconnected", message: "Logged in from other device detected ", preferredStyle: UIAlertControllerStyle.alert)
@@ -75,14 +60,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         alertWindow.windowLevel = UIWindowLevelAlert + 1;
                         alertWindow.makeKeyAndVisible()
                         alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
-
                     }
                 }
             }
-            
         }
-      
-       
         URLPrefix = Config.sharedInstance.getPhpUrl()
         
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
@@ -91,6 +72,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    private func addNotifiersForReachability() {
+        reachability.whenReachable = { reachability in
+            self.hideReconnecting()
+            self.handleReconnect()
+        }
+        
+        reachability.whenUnreachable = { _ in
+            self.showReconnecting()
+        }
+        
+        do {
+            try reachability.startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
+    }
     func handleReconnect(){
         SSStudentMessageHandler.sharedMessageHandler.performReconnet(connectType: "Reconnect")
         AppDelegate.appState = "Active"
@@ -174,81 +171,50 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        
         if SSStudentDataSource.sharedDataSource.currentUserId != nil {
             RealmDatasourceManager.saveScreenStateOfUser(screenState: .LoginScreen, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
         }
-        
     }
-
-
-    
-    func showReconnecting()
-    {
+    func showReconnecting(){
         if  let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-            let window = appDelegate.window
-        {
-            
+            let window = appDelegate.window {
             if interntDownImageView == nil{
-                
-                interntDownImageView = InternetConnection.instanceFromNib() as! InternetConnection
+                interntDownImageView = InternetConnection.fromNib(nibName:"InternetDisconnected") as! InternetConnection
                 interntDownImageView.frame = CGRect(x: 0, y: 0, width: window.frame.size.width, height: window.frame.size.height)
                 window.addSubview(interntDownImageView)
-               
             }
             window.bringSubview(toFront: interntDownImageView)
         }
         
-        if interntDownImageView != nil
-        {
+        if interntDownImageView != nil {
             interntDownImageView.isHidden = false
             interntDownImageView.stopLoading()
-            
         }
-        
-        
     }
     
-    
-    func showTakenOver()
-    {
+    func showTakenOver() {
         if  let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-            let window = appDelegate.window
-        {
-            
+            let window = appDelegate.window {
             if interntDownImageView == nil{
-                interntDownImageView = InternetConnection.instanceFromNib() as! InternetConnection
+                interntDownImageView = InternetConnection.fromNib(nibName:"InternetDisconnected") as! InternetConnection
                 interntDownImageView.frame = CGRect(x: 0, y: 0, width: window.frame.size.width, height: window.frame.size.height)
-                
             }
             interntDownImageView.mRetryButton.setTitle("Reconnect", for : .normal)
             window.addSubview(interntDownImageView)
-
             window.bringSubview(toFront: interntDownImageView)
         }
         
-        if interntDownImageView != nil
-        {
+        if interntDownImageView != nil{
             interntDownImageView.isHidden = false
             interntDownImageView.stopLoading()
-            
         }
-        
-        
     }
     
-    
-    func hideReconnecting()
-    {
-        if interntDownImageView != nil
-        {
+    func hideReconnecting() {
+        if interntDownImageView != nil {
             interntDownImageView.stopLoading()
             interntDownImageView.isHidden = true
-            
         }
-        
-        
-        
     }
     
     

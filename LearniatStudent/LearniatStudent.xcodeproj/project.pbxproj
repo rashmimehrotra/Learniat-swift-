@@ -27,6 +27,7 @@
 		182E93241F481A4700F5C911 /* KMZDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182E931F1F481A4700F5C911 /* KMZDrawView.m */; };
 		182E93251F481A4700F5C911 /* KMZFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 182E93211F481A4700F5C911 /* KMZFrame.m */; };
 		182E93261F481A4700F5C911 /* KMZLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 182E93231F481A4700F5C911 /* KMZLine.m */; };
+		1D40D15A1FCFE3E9004BBEA8 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D40D1591FCFE3E9004BBEA8 /* Reachability.swift */; };
 		53015BBB1CE5D93C00BB366C /* Like_Disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 53015BB71CE5D93C00BB366C /* Like_Disabled.png */; };
 		53015BBC1CE5D93C00BB366C /* Like_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 53015BB81CE5D93C00BB366C /* Like_Selected.png */; };
 		53015BBD1CE5D93C00BB366C /* Unlike_Disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 53015BB91CE5D93C00BB366C /* Unlike_Disabled.png */; };
@@ -71,8 +72,6 @@
 		531FB4561CE5EB9B00DC0C6F /* Seat.png in Resources */ = {isa = PBXBuildFile; fileRef = 531FB4551CE5EB9B00DC0C6F /* Seat.png */; };
 		531FB4591CE5EBB900DC0C6F /* ic_thumb_down_red_48dp.png in Resources */ = {isa = PBXBuildFile; fileRef = 531FB4571CE5EBB900DC0C6F /* ic_thumb_down_red_48dp.png */; };
 		531FB45A1CE5EBB900DC0C6F /* ic_thumb_up_green_48dp.png in Resources */ = {isa = PBXBuildFile; fileRef = 531FB4581CE5EBB900DC0C6F /* ic_thumb_up_green_48dp.png */; };
-		532BEA081EE1E450008277C9 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 532BEA061EE1E450008277C9 /* HockeySDK.framework */; };
-		532BEA091EE1E450008277C9 /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 532BEA071EE1E450008277C9 /* HockeySDKResources.bundle */; };
 		532D27FA1CE9B2C7009FDF6A /* StudentOTFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532D27F81CE9B2C7009FDF6A /* StudentOTFView.swift */; };
 		532D27FB1CE9B2C7009FDF6A /* StudentPollingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532D27F91CE9B2C7009FDF6A /* StudentPollingView.swift */; };
 		532D27FD1CE9B581009FDF6A /* PollingSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532D27FC1CE9B580009FDF6A /* PollingSubView.swift */; };
@@ -446,6 +445,7 @@
 		182E93211F481A4700F5C911 /* KMZFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMZFrame.m; sourceTree = "<group>"; };
 		182E93221F481A4700F5C911 /* KMZLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMZLine.h; sourceTree = "<group>"; };
 		182E93231F481A4700F5C911 /* KMZLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMZLine.m; sourceTree = "<group>"; };
+		1D40D1591FCFE3E9004BBEA8 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		4603009CFA2404778386D823 /* Pods-LearniatStudent.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearniatStudent.release.xcconfig"; path = "Pods/Target Support Files/Pods-LearniatStudent/Pods-LearniatStudent.release.xcconfig"; sourceTree = "<group>"; };
 		4807AA5F0E5F952C2FC55D75 /* Pods-LearniatStudent.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearniatStudent.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LearniatStudent/Pods-LearniatStudent.debug.xcconfig"; sourceTree = "<group>"; };
 		53015BB71CE5D93C00BB366C /* Like_Disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Like_Disabled.png; sourceTree = "<group>"; };
@@ -492,8 +492,6 @@
 		531FB4551CE5EB9B00DC0C6F /* Seat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Seat.png; sourceTree = "<group>"; };
 		531FB4571CE5EBB900DC0C6F /* ic_thumb_down_red_48dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_thumb_down_red_48dp.png; sourceTree = "<group>"; };
 		531FB4581CE5EBB900DC0C6F /* ic_thumb_up_green_48dp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_thumb_up_green_48dp.png; sourceTree = "<group>"; };
-		532BEA061EE1E450008277C9 /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HockeySDK.framework; sourceTree = "<group>"; };
-		532BEA071EE1E450008277C9 /* HockeySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = HockeySDKResources.bundle; sourceTree = "<group>"; };
 		532D27F81CE9B2C7009FDF6A /* StudentOTFView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentOTFView.swift; sourceTree = "<group>"; };
 		532D27F91CE9B2C7009FDF6A /* StudentPollingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentPollingView.swift; sourceTree = "<group>"; };
 		532D27FC1CE9B580009FDF6A /* PollingSubView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PollingSubView.swift; sourceTree = "<group>"; };
@@ -1039,7 +1037,6 @@
 				533066CD1CC9E6340035CCDE /* CFNetwork.framework in Frameworks */,
 				533066CB1CC9E62A0035CCDE /* libxml2.tbd in Frameworks */,
 				533066C91CC9E6200035CCDE /* UIKit.framework in Frameworks */,
-				532BEA081EE1E450008277C9 /* HockeySDK.framework in Frameworks */,
 				533066C71CC9E6180035CCDE /* Foundation.framework in Frameworks */,
 				533066C51CC9E60D0035CCDE /* CoreGraphics.framework in Frameworks */,
 				533066C31CC9E5F40035CCDE /* libidn.a in Frameworks */,
@@ -1151,16 +1148,6 @@
 			path = RobotoTTF;
 			sourceTree = "<group>";
 		};
-		532BEA051EE1E450008277C9 /* HockeySDK.embeddedframework */ = {
-			isa = PBXGroup;
-			children = (
-				532BEA061EE1E450008277C9 /* HockeySDK.framework */,
-				532BEA071EE1E450008277C9 /* HockeySDKResources.bundle */,
-			);
-			name = HockeySDK.embeddedframework;
-			path = "HockeySDK-iOS/HockeySDK.embeddedframework";
-			sourceTree = "<group>";
-		};
 		532D27F71CE9B2C7009FDF6A /* OTF View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1175,7 +1162,6 @@
 		533064601CC9DAAE0035CCDE = {
 			isa = PBXGroup;
 			children = (
-				532BEA051EE1E450008277C9 /* HockeySDK.embeddedframework */,
 				533066D61CC9E6710035CCDE /* Security.framework */,
 				533066D41CC9E65D0035CCDE /* CoreLocation.framework */,
 				533066D21CC9E6540035CCDE /* SystemConfiguration.framework */,
@@ -2477,6 +2463,7 @@
 		53E658DE1F064C9100EAB2E4 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				1D40D1591FCFE3E9004BBEA8 /* Reachability.swift */,
 				53E658DF1F064CA700EAB2E4 /* Enumerations.swift */,
 			);
 			path = Helpers;
@@ -2782,7 +2769,6 @@
 				533255A31CEDC2A500653C00 /* Checked@2x.png in Resources */,
 				53A482DF1CE45FD000C90451 /* indicator8.png in Resources */,
 				533066EE1CC9F5210035CCDE /* refresh.png in Resources */,
-				532BEA091EE1E450008277C9 /* HockeySDKResources.bundle in Resources */,
 				5332558D1CEDC2A500653C00 /* Star_Selected_AnnotateView.png in Resources */,
 				533255B41CEDC2A500653C00 /* Redo_Active.png in Resources */,
 				533255C51CEDC2A500653C00 /* Undo_Active@2x.png in Resources */,
@@ -3074,6 +3060,7 @@
 				C83952A71F407A7000F1AF05 /* Topic.swift in Sources */,
 				53A482C01CE45FA000C90451 /* QuerySubview.swift in Sources */,
 				532D27FD1CE9B581009FDF6A /* PollingSubView.swift in Sources */,
+				1D40D15A1FCFE3E9004BBEA8 /* Reachability.swift in Sources */,
 				182E93261F481A4700F5C911 /* KMZLine.m in Sources */,
 				53FFD2BF1CE1FC3700A5AA28 /* MultipleChoiceView.swift in Sources */,
 				533066921CC9E5F40035CCDE /* XMPPMessageArchivingCoreDataStorage.m in Sources */,
@@ -3215,7 +3202,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/LearniatStudent",
-					"$(PROJECT_DIR)/HockeySDK-iOS/HockeySDK.embeddedframework",
 				);
 				INFOPLIST_FILE = LearniatStudent/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -3256,7 +3242,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/LearniatStudent",
-					"$(PROJECT_DIR)/HockeySDK-iOS/HockeySDK.embeddedframework",
 				);
 				INFOPLIST_FILE = LearniatStudent/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

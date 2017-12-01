@@ -83,7 +83,7 @@ class CollaborationCategoryView: UIView,SSTeacherDataSourceDelegate,UITextFieldD
         mAddQuestionButton = UIButton(frame: CGRect(x: mTopbarImageView.frame.size.width - 410,  y: 0, width: 400 ,height: mTopbarImageView.frame.size.height))
         mTopbarImageView.addSubview(mAddQuestionButton)
         mAddQuestionButton.addTarget(self, action: #selector(CollaborationCategoryView.onAddCollaboration), for: UIControlEvents.touchUpInside)
-        mAddQuestionButton.setTitleColor(standard_Button, for: UIControlState())
+        mAddQuestionButton.setTitleColor(standard_Button_Disabled, for: UIControlState())
         mAddQuestionButton.setTitle("Add Category", for: UIControlState())
         mAddQuestionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         mAddQuestionButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
@@ -187,22 +187,20 @@ class CollaborationCategoryView: UIView,SSTeacherDataSourceDelegate,UITextFieldD
     
     
     
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool
     {
-       
-        NSObject.cancelPreviousPerformRequests(
-            withTarget: self,
-            selector: #selector(CollaborationCategoryView.getHintsFromTextField),
-            object: textField)
-        self.perform(
-            #selector(CollaborationCategoryView.getHintsFromTextField),
-            with: textField,
-            afterDelay: 0.5)
         
         
         
-        
+            // This is removed because we were getting element ID issue
+        if (string.count.hashValue) > 0  {
+            mAddQuestionButton.setTitleColor(standard_Button, for: UIControlState())
+        } else {
+            mAddQuestionButton.setTitleColor(standard_Button_Disabled, for: UIControlState())
+
+        }
         return true
     }
     
