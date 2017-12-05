@@ -8,6 +8,10 @@
 
 import Foundation
 
+@objc protocol CollaborationQuestionCellDelegate {
+    @objc optional  func didOptionSelected() 
+}
+
 class CollaborationQuestionCell: UIButton {
 
    
@@ -18,6 +22,18 @@ class CollaborationQuestionCell: UIButton {
     var isCorrect = false
     
     var mSuggestiontext = DynamicFontSize()
+    
+    var _delgate: AnyObject!
+    
+    // MARK: - Delegate Functions
+    
+    func setdelegate(_ delegate:AnyObject) {
+        _delgate = delegate;
+    }
+    
+    func   delegate()->AnyObject {
+        return _delgate;
+    }
     
     override init(frame: CGRect)
     {
@@ -65,20 +81,15 @@ class CollaborationQuestionCell: UIButton {
         
     }
     
-    func onSelfButtonPressed()
-    {
-        if isCorrect == true
-        {
+    func onSelfButtonPressed() {
+        if isCorrect == true{
             isCorrect = false
-            
             mCorrectButton.image = UIImage(named: "wrongMatch.png")
-            
-        }
-        else
-        {
+        } else {
             isCorrect = true
             mCorrectButton.image = UIImage(named: "correctMatch.png")
         }
+        delegate().didOptionSelected!()
     }
 
 }

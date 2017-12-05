@@ -203,6 +203,7 @@ class CollaborationQuestionView: UIView,SSTeacherDataSourceDelegate
         {
              let frame = CGRect(x:currentXPosition,y:10,width:optionsSize,height:mScrollView.frame.size.height - 20)
             let mQuestionOption = CollaborationQuestionCell(frame:frame)
+            mQuestionOption.setdelegate( self)
             mQuestionOption.setOptionDetails(details: selectedOption as AnyObject)
             mScrollView.addSubview(mQuestionOption)
             currentXPosition = currentXPosition + mQuestionOption.frame.size.width + 10
@@ -285,31 +286,23 @@ class CollaborationQuestionView: UIView,SSTeacherDataSourceDelegate
     }
     
     
-    func onSendQuestion()
-    {
-        
-        if isQuestionCreationCreationCompleted() == true
-        {
+    func onSendQuestion() {
+        if isQuestionCreationCreationCompleted() == true {
             mSaveQuestionButton.isHidden = true
-            
             mAddQuestionButton.setTitleColor(standard_TextGrey, for: .normal)
             mAddQuestionButton.isEnabled = false
-            
-
-            
             mQuestionTextView.resignFirstResponder()
             isSaveAndSend = true
             SSTeacherDataSource.sharedDataSource.updateRecorededQuestionWithQuestionLogId(mCurrentQuestionID, withQuestionName: getQestionName().questionName, withQuestionOptions: getQestionName().optionsDetails, withAnswerStates: getQestionName().optionsState, WithDelegate: self)
-            
-            
+        } else {
+            self.hideToastActivity()
+           self.makeToast("Please select atleast one correct answer and type your question", duration: 5.0, position: .bottom)
         }
     }
     
     
-    func onSaveAndExitQuestion()
-    {
-        if isQuestionCreationCreationCompleted() == true
-        {
+    func onSaveAndExitQuestion(){
+        if isQuestionCreationCreationCompleted() == true {
              isSaveAndSend = false
             mAddQuestionButton.isHidden = true
             
@@ -318,6 +311,9 @@ class CollaborationQuestionView: UIView,SSTeacherDataSourceDelegate
             
             mQuestionTextView.resignFirstResponder()
             SSTeacherDataSource.sharedDataSource.updateRecorededQuestionWithQuestionLogId(mCurrentQuestionID, withQuestionName: getQestionName().questionName, withQuestionOptions: getQestionName().optionsDetails, withAnswerStates: getQestionName().optionsState, WithDelegate: self)
+        } else {
+            self.hideToastActivity()
+             self.makeToast("Please select atleast one correct answer and type your question", duration: 5.0, position: .bottom)
         }
     }
    
@@ -359,6 +355,20 @@ class CollaborationQuestionView: UIView,SSTeacherDataSourceDelegate
     func onDismissQuestion()
     {
         getDelegate().delegateCollaborationDismissed!()
+    }
+    
+    func didOptionSelected() {
+//        if isQuestionCreationCreationCompleted() == true {
+//            mSaveQuestionButton.setTitleColor(standard_Button, for: UIControlState())
+//            mSaveQuestionButton.isUserInteractionEnabled = false
+//            mAddQuestionButton.setTitleColor(standard_Button, for: UIControlState())
+//            mAddQuestionButton.isUserInteractionEnabled = false
+//        } else {
+//            mSaveQuestionButton.setTitleColor(standard_Button, for: UIControlState())
+//            mSaveQuestionButton.isUserInteractionEnabled = false
+//            mAddQuestionButton.setTitleColor(standard_Button, for: UIControlState())
+//            mAddQuestionButton.isUserInteractionEnabled = false
+//        }
     }
     
 }

@@ -39,7 +39,7 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
     {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+        SSStudentDataSource.sharedDataSource.currentScreen = .JoinClassScreen
         
         self.view.backgroundColor = darkBackgroundColor
         

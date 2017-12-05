@@ -71,6 +71,9 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        SSStudentDataSource.sharedDataSource.currentScreen = .ScheduleScreen
+        
         // Do any additional setup after loading the view, typically from a nib.
         self.view.backgroundColor = whiteBackgroundColor
         self.view.setNeedsLayout()
@@ -426,13 +429,12 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         })
        activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
+      
         refreshApp()
         SSStudentMessageHandler.sharedMessageHandler.refreshApp()
     }
     
-    
-    
-     func refreshApp() {
+    func refreshApp() {
          SSStudentDataSource.sharedDataSource.refreshApp(success: { (response) in
             if let summary = response.object(forKey: "Summary") as? NSArray {
                 if summary.count > 0 {
@@ -651,7 +653,9 @@ extension SSStudentScheduleViewController {
                 if let currentSessionID = details.object(forKey: "CurrentSessionId") as? Int {
                     SSStudentDataSource.sharedDataSource.currentLiveSessionId = "\(currentSessionID)"
                 }
-                self.updateUserState(state: UserStateInt.Free.rawValue)
+                if SSStudentDataSource.sharedDataSource.currentScreen == .ScheduleScreen {
+                  self.updateUserState(state: UserStateInt.Free.rawValue)
+                } 
             }
         }
     }

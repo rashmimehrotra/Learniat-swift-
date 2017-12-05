@@ -22,7 +22,12 @@ let kUserName                   = "UserName"
 let kPassword                   = "Password"
 let kErrorMessage               = "error_message"
 
-
+enum CurrentViewName:String {
+    case LoginScreen = "LoginScreen"
+    case ScheduleScreen = "ScheduleScreen"
+    case JoinClassScreen = "JoinClassScreen"
+    case ClassView = "ClassView"
+}
 var URLPrefix                       =   "http://54.251.104.13/Jupiter/sun.php?api="
 
 let APP_VERSION                     =   "1.6"
@@ -120,6 +125,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
      internal  static let sharedDataSource = SSStudentDataSource()
     
     
+    var currentScreen = CurrentViewName.LoginScreen
     
     var _delgate            :AnyObject!
     
