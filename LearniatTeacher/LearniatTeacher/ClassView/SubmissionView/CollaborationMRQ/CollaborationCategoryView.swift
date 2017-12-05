@@ -87,6 +87,7 @@ class CollaborationCategoryView: UIView,SSTeacherDataSourceDelegate,UITextFieldD
         mAddQuestionButton.setTitle("Add Category", for: UIControlState())
         mAddQuestionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         mAddQuestionButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
+        mAddQuestionButton.isUserInteractionEnabled = false
         
         
         let  mBackButton = UIButton(frame: CGRect(x: 10,  y: 0, width: 200 ,height: mTopbarImageView.frame.size.height))
@@ -172,19 +173,14 @@ class CollaborationCategoryView: UIView,SSTeacherDataSourceDelegate,UITextFieldD
     }
     
     
-    func onAddCollaboration()
-    {
-        if mCategoryTextView.mQuestionTextView.text?.isEmpty == false
-        {
+    func onAddCollaboration(){
+        if mCategoryTextView.mQuestionTextView.text?.isEmpty == false{
             mCategoryTextView.mQuestionTextView.resignFirstResponder()
-            
             SSTeacherDataSource.sharedDataSource.sendCategoryWithName(category: mCategoryTextView.mQuestionTextView.text!, withDescrpition: "", withTopicID: SSTeacherDataSource.sharedDataSource.startedSubTopicId,WithDelegate: self)
+            mAddQuestionButton.isUserInteractionEnabled = false
+             mAddQuestionButton.setTitleColor(standard_Button_Disabled, for: UIControlState())
         }
-        
-        
-        
     }
-    
     
     
     
@@ -192,15 +188,26 @@ class CollaborationCategoryView: UIView,SSTeacherDataSourceDelegate,UITextFieldD
                    replacementString string: String) -> Bool
     {
         
+        if string.count > 0  {
+             mAddQuestionButton.setTitleColor(standard_Button, for: UIControlState())
+            mAddQuestionButton.isUserInteractionEnabled = true
+        } else {
+             mAddQuestionButton.setTitleColor(standard_Button_Disabled, for: UIControlState())
+            mAddQuestionButton.isUserInteractionEnabled = false
+        }
         
+       
+
         
             // This is removed because we were getting element ID issue
-        if (string.count.hashValue) > 0  {
-            mAddQuestionButton.setTitleColor(standard_Button, for: UIControlState())
-        } else {
-            mAddQuestionButton.setTitleColor(standard_Button_Disabled, for: UIControlState())
-
-        }
+//        NSObject.cancelPreviousPerformRequests(
+//            withTarget: self,
+//            selector: #selector(CollaborationCategoryView.getHintsFromTextField),
+//            object: textField)
+//        self.perform(
+//            #selector(CollaborationCategoryView.getHintsFromTextField),
+//            with: textField,
+//            afterDelay: 0.5)
         return true
     }
     

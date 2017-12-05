@@ -94,7 +94,7 @@ class CollaborationSuggestionsView: UIView,SSTeacherDataSourceDelegate
         mAddQuestionButton.setTitle("Add Question", for: UIControlState())
         mAddQuestionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         mAddQuestionButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
-        
+        mAddQuestionButton.isUserInteractionEnabled = false
         
         let  mBackButton = UIButton(frame: CGRect(x: 10,  y: 0, width: 120 ,height: mTopbarImageView.frame.size.height))
         mTopbarImageView.addSubview(mBackButton)
@@ -112,6 +112,7 @@ class CollaborationSuggestionsView: UIView,SSTeacherDataSourceDelegate
         mSaveQuestionButton.setTitle("Save & Exit", for: UIControlState())
         mSaveQuestionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
         mSaveQuestionButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
+        mSaveQuestionButton.isUserInteractionEnabled = false
 
         
         
@@ -316,29 +317,53 @@ class CollaborationSuggestionsView: UIView,SSTeacherDataSourceDelegate
     }
     
    
-    func onSaveAndExitQuestion() {
-        if getSelectedSuggestions().selected.count >= 2{
+    func onSaveAndExitQuestion()
+    {
+        if getSelectedSuggestions().selected.count >= 2
+        {
             isSaveAndExit = true
             SSTeacherDataSource.sharedDataSource.SaveSuggestionStateWithSuggestions(Sugguestion: getSelectedSuggestions().SuggestionIDList, withState: getSelectedSuggestions().mSugeestionStateLIst, WithDelegate: self)
         }
     }
     
     
-    func didGetSaveSuggestionStateWithDetails(_ details: AnyObject) {
+    func didGetSaveSuggestionStateWithDetails(_ details: AnyObject)
+    {
+        
+        
         mSavedSuggestionsDetails = details
+        
+        
+        
+        
         let mSuggestionStateArray = getSelectedSuggestions().mSugeestionStateLIst.components(separatedBy: ";;;")
+        
         let mStudentsIdsArray = getSelectedSuggestions().studentsIdArrya
-        for indexValue in 0 ..< mStudentsIdsArray.count {
-         SSTeacherMessageHandler.sharedMessageHandler.sendCollaborationQuestionStatus(
-            mStudentsIdsArray.object(at: indexValue) as! String ,
-            withStatus: mSuggestionStateArray[indexValue] )
+        
+        
+        
+        for indexValue in 0 ..< mStudentsIdsArray.count
+        {
+            SSTeacherMessageHandler.sharedMessageHandler.sendCollaborationQuestionStatus(mStudentsIdsArray.object(at: indexValue) as! String , withStatus: mSuggestionStateArray[indexValue] )
+            
         }
-        if isSaveAndExit == true {
+        
+        
+        
+        
+        
+        
+        if isSaveAndExit == true
+        {
             onDismissQuestion()
-        } else {
-            SSTeacherDataSource.sharedDataSource.recordQuestionWithScribbleId("", withQuestionName: "t", WithType: "2", withTopicId: SSTeacherDataSource.sharedDataSource.startedSubTopicId, WithDelegate: self)
+        }
+        else
+        {
+            SSTeacherDataSource.sharedDataSource.recordQuestionWithScribbleId("", withQuestionName: "", WithType: "2", withTopicId: SSTeacherDataSource.sharedDataSource.startedSubTopicId, WithDelegate: self)
         }
     }
+    
+    
     
     func didGetQuestionRecordedWithDetaisl(_ details: AnyObject)
     {
@@ -376,18 +401,17 @@ class CollaborationSuggestionsView: UIView,SSTeacherDataSourceDelegate
         getDelegate().delegateCollaborationDismissed!()
     }
     
-    func delegateOptionTouched()
-    {
-        if getSelectedSuggestions().selected.count >= 2
-        {
+    func delegateOptionTouched(){
+        if getSelectedSuggestions().selected.count >= 2 {
             mAddQuestionButton.setTitleColor(standard_Button, for: UIControlState())
+            mAddQuestionButton.isUserInteractionEnabled = true
             mSaveQuestionButton.setTitleColor(standard_Button, for: UIControlState())
-        }
-        else
-        {
+            mSaveQuestionButton.isUserInteractionEnabled = true
+        } else {
             mAddQuestionButton.setTitleColor(lightGrayColor, for: UIControlState())
+            mAddQuestionButton.isUserInteractionEnabled = false
             mSaveQuestionButton.setTitleColor(lightGrayColor, for: UIControlState())
+            mSaveQuestionButton.isUserInteractionEnabled = false
         }
     }
-    
 }

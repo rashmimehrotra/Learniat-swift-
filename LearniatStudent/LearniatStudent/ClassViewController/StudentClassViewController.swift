@@ -74,7 +74,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+        SSStudentDataSource.sharedDataSource.currentScreen = .ClassView
         
         self.view.backgroundColor = darkBackgroundColor
         

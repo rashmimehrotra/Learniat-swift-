@@ -24,7 +24,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSStudentDataSou
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        
+        SSStudentDataSource.sharedDataSource.currentScreen = .LoginScreen
         self.view.backgroundColor = darkBackgroundColor
         
         let appLogo = UIImageView(frame: CGRect(x: (self.view.frame.size.width - 80 )/2, y: 80, width: 80, height: 80))

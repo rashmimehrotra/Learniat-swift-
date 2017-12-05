@@ -915,6 +915,16 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
     }
     
     open func didReceiveMessage(withSubject subject: String!, withSenderJid senderJid: XMPPJID!) {
+        
+        let message = SSMessage.init(xmlString: subject)
+        
+        if message?.messageType() == nil
+        {
+            return
+        }
+        
+        print("XMPP Message : \(String(describing: message?.messageType())):\n\(message?.messageBody() ?? "")")
+        
         if senderJid.user.contains("room_"){
             //Create Session Room
             let roomId = senderJid.user.replace("room_", replacement: "")
