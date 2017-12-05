@@ -87,6 +87,7 @@ class CollaborationCategoryView: UIView,SSTeacherDataSourceDelegate,UITextFieldD
         mAddQuestionButton.setTitle("Add Category", for: UIControlState())
         mAddQuestionButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.right
         mAddQuestionButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20)
+        mAddQuestionButton.isUserInteractionEnabled = false
         
         
         let  mBackButton = UIButton(frame: CGRect(x: 10,  y: 0, width: 200 ,height: mTopbarImageView.frame.size.height))
@@ -189,8 +190,10 @@ class CollaborationCategoryView: UIView,SSTeacherDataSourceDelegate,UITextFieldD
         
         if string.count > 0  {
              mAddQuestionButton.setTitleColor(standard_Button, for: UIControlState())
+            mAddQuestionButton.isUserInteractionEnabled = true
         } else {
              mAddQuestionButton.setTitleColor(standard_Button_Disabled, for: UIControlState())
+            mAddQuestionButton.isUserInteractionEnabled = false
         }
         
        
