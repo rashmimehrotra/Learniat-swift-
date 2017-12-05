@@ -77,10 +77,6 @@ class CollaborationSuggestionsView: UIView,SSTeacherDataSourceDelegate
     
     func loadAllsubViewWithCategoryName(categoryName:String)
     {
-        
-        
-        
-        
         let mTopbarImageView = UIImageView(frame: CGRect(x: 0, y: 0,width: self.frame.size.width, height: 44))
         mTopbarImageView.backgroundColor = UIColor.white
         self.addSubview(mTopbarImageView)

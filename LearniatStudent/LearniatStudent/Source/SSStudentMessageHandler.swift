@@ -916,14 +916,6 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
     
     open func didReceiveMessage(withSubject subject: String!, withSenderJid senderJid: XMPPJID!) {
         
-        let message = SSMessage.init(xmlString: subject)
-        
-        if message?.messageType() == nil
-        {
-            return
-        }
-        
-        print("XMPP Message : \(String(describing: message?.messageType())):\n\(message?.messageBody() ?? "")")
         
         if senderJid.user.contains("room_"){
             //Create Session Room
@@ -1302,7 +1294,8 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
                         if SSStudentDataSource.sharedDataSource.currentLiveSessionId != String(describing:currentSessionId){
                             if self.delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhEndSession))
                             {
-                                self.delegate().smhEndSession!()
+                                //TODO:@Sourab Please verify this function 
+//                                self.delegate().smhEndSession!()
                             }
                         }
                     }
