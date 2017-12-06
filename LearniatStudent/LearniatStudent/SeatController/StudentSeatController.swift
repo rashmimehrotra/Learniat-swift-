@@ -383,8 +383,7 @@ class StudentSeatViewController: UIViewController,SSStudentDataSourceDelegate,SS
     }
     
     
-    func smhDidGetSessionEndMessageWithDetails(_ details: AnyObject)
-    {
+    func smhDidGetSessionEndMessageWithDetails(_ details: AnyObject) {
         let storyboard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let preallotController : SSStudentScheduleViewController = storyboard.instantiateViewController(withIdentifier: "TeacherScheduleViewController") as! SSStudentScheduleViewController
         self.present(preallotController, animated: true, completion: nil)
