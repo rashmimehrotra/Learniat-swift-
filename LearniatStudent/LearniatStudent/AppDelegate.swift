@@ -175,9 +175,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             RealmDatasourceManager.saveScreenStateOfUser(screenState: .LoginScreen, withUserId: SSStudentDataSource.sharedDataSource.currentUserId)
         }
     }
+    
+    var blueScreenStatus = 0
+
+    
     func showReconnecting(){
+        if blueScreenStatus == 2{
+            hideReconnecting()
+            blueScreenStatus = 0
+        }
+
         if  let appDelegate = UIApplication.shared.delegate as? AppDelegate,
             let window = appDelegate.window {
+            blueScreenStatus = 1
+
             if interntDownImageView == nil{
                 interntDownImageView = InternetConnection.fromNib(nibName:"InternetDisconnected") as! InternetConnection
                 interntDownImageView.frame = CGRect(x: 0, y: 0, width: window.frame.size.width, height: window.frame.size.height)
@@ -190,6 +201,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             interntDownImageView.isHidden = false
             interntDownImageView.stopLoading()
         }
+    }
+    
+    func showReconnectingStream(){
+        if blueScreenStatus == 0{
+
+        if  let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+            let window = appDelegate.window {
+            blueScreenStatus = 2
+
+            if interntDownImageView == nil{
+                interntDownImageView = InternetConnection.fromNib(nibName:"InternetDisconnected") as! InternetConnection
+                interntDownImageView.frame = CGRect(x: 0, y: 0, width: window.frame.size.width/2, height: window.frame.size.height/2)
+                window.addSubview(interntDownImageView)
+            }
+            window.bringSubview(toFront: interntDownImageView)
+        }
+        
+        if interntDownImageView != nil {
+            interntDownImageView.isHidden = false
+            interntDownImageView.stopLoading()
+        }
+    }
     }
     
     func showTakenOver() {
@@ -215,6 +248,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             interntDownImageView.stopLoading()
             interntDownImageView.isHidden = true
         }
+        blueScreenStatus = 0
+
     }
     
     

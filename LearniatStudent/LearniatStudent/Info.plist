@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>05</string>
+	<string>06</string>
 	<key>Config</key>
 	<string>$(CONFIGURATION)</string>
 	<key>Fabric</key>

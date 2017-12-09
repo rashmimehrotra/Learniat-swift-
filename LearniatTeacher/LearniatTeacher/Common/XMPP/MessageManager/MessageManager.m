@@ -1,5 +1,5 @@
 #import "MessageManager.h"
-
+#import "Learniat_Teacher-Swift.h"
 #import "DDLog.h"
 #import "DDTTYLogger.h"
 #import <CFNetwork/CFNetwork.h>
@@ -80,11 +80,11 @@ static MessageManager *sharedMessageHandler = nil;
     
     
     
-//    xmppReconnect = [[XMPPReconnect alloc] init];
-//    [xmppReconnect activate:self.xmppStream];
-//    [xmppReconnect addDelegate:self delegateQueue:dispatch_get_main_queue()];
-//    xmppReconnect.reconnectTimerInterval = 20 ;
-//    xmppReconnect.reconnectDelay = 20 ;
+    xmppReconnect = [[XMPPReconnect alloc] init];
+    [xmppReconnect activate:self.xmppStream];
+    [xmppReconnect addDelegate:self delegateQueue:dispatch_get_main_queue()];
+    xmppReconnect.reconnectTimerInterval = 20 ;
+    xmppReconnect.reconnectDelay = 20 ;
     
 	
 }
@@ -189,7 +189,10 @@ static MessageManager *sharedMessageHandler = nil;
     {
         [[self delegate]didGetAuthenticationState:YES];
     }
+    AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication]delegate];
     
+    [appDelegate hideReconnecting];
+
     
     
     for (int i = 0 ; i< joinedRoomsArray.count; i++)
@@ -264,6 +267,12 @@ static MessageManager *sharedMessageHandler = nil;
 
 - (void)xmppReconnect:(XMPPReconnect *)sender didDetectAccidentalDisconnect:(SCNetworkReachabilityFlags)connectionFlags
 {
+    
+    AppDelegate* appDelegate = (AppDelegate*)[[UIApplication sharedApplication]delegate];
+    
+    [appDelegate showReconnectingStream];
+    
+    
     NSLog(@"didDetectAccidentalDisconnect:%u",connectionFlags);
     
     if([[self delegate] respondsToSelector:@selector(didReconnectingWithDelaytime:)])
