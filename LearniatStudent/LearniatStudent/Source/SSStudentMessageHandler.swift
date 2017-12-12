@@ -1302,7 +1302,7 @@ open class SSStudentMessageHandler:NSObject,SSStudentMessageHandlerDelegate,Mess
                     else{
                         if self.delegate().responds(to: #selector(SSStudentMessageHandlerDelegate.smhEndSession))
                         {
-                            self.delegate().smhEndSession!()
+                            //self.delegate().smhEndSession!()
                         }
 
                     }
