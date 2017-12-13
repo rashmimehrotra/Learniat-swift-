@@ -154,7 +154,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         containerview.backgroundColor = UIColor.clear
         mainContainerView.addSubview(containerview);
         containerview.layer.shadowColor = progressviewBackground.cgColor;
-        containerview.layer.shadowOffset = CGSize(width: 0,height: 0);
+        containerview.layer.shadowOffset = CGSize(width: 1,height: 0); // width: 0
         containerview.layer.shadowOpacity = 1;
         containerview.layer.shadowRadius = 1.0;
         containerview.clipsToBounds = false;
@@ -179,13 +179,13 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         
         mSelectionCountLabel.frame = CGRect(x: containerview.frame.origin.x, y: topImageView.frame.origin.y + topImageView.frame.size.height, width: topImageView.frame.size.width, height: topImageView.frame.size.height/2)
         mainContainerView.addSubview(mSelectionCountLabel)
-        mSelectionCountLabel.text = "No submission selected"
+        mSelectionCountLabel.text = "No submission selected".uppercased()
         mSelectionCountLabel.textColor = blackTextColor
         mSelectionCountLabel.isHidden = true
         mSelectionCountLabel.textAlignment = .center
         mSelectionCountLabel.font =  UIFont(name: helveticaMedium, size: 14);
         mSelectionCountLabel.backgroundColor = standard_Green
-        mSelectionCountLabel.alpha = 1
+        mSelectionCountLabel.alpha = 0.9
         
         
         
@@ -220,7 +220,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         
         
         
-        let lineImage = UIImageView(frame:CGRect(x: mSendButton.frame.origin.x, y: 5, width: 1, height: topImageView.frame.size.height - 10));
+        let lineImage = UIImageView(frame:CGRect(x: mSendButton.frame.origin.x, y: 7, width: 1, height: topImageView.frame.size.height - 20));
         lineImage.backgroundColor = progressviewBackground
         topImageView.addSubview(lineImage);
         
@@ -236,42 +236,54 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         
         
         
-        let lineImage1 = UIImageView(frame:CGRect(x: m_textButton.frame.origin.x - 10 , y: 5, width: 1, height: topImageView.frame.size.height - 10));
+//        let lineImage1 = UIImageView(frame:(x: m_textButton.frame.origin.x - 10 , y: 5, width: 1, height: topImageView.frame.size.height - 20));
+        let lineImage1 = UIImageView(frame:CGRect(x: m_textButton.frame.origin.x - 10, y: 15, width: 1, height: 25));
         lineImage1.backgroundColor = progressviewBackground
         topImageView.addSubview(lineImage1);
         
         
-        m_badgeButton.frame = CGRect(x: lineImage1.frame.origin.x - 50, y: 10, width: 40, height: topImageView.frame.size.height - 20);
+//        m_badgeButton.frame = CGRect(x: lineImage1.frame.origin.x - 50, y: 10, width: 40, height: topImageView.frame.size.height - 20);
+        m_badgeButton.frame = CGRect(x: lineImage1.frame.origin.x - 40, y: 15, width: 25, height: 25);
         topImageView.addSubview(m_badgeButton);
         m_badgeButton.imageView?.contentMode = .scaleAspectFit
         m_badgeButton.setImage(UIImage(named:"Cb_Like_Disabled.png"), for:UIControlState());
         m_badgeButton.addTarget(self, action: #selector(SubmissionSubjectiveView.onBadgeButton), for: UIControlEvents.touchUpInside)
         
         
-        let lineImage2 = UIImageView(frame:CGRect(x: m_badgeButton.frame.origin.x - 10, y: 5, width: 1, height: topImageView.frame.size.height - 10));
+//        let lineImage2 = UIImageView(frame:CGRect(x: m_badgeButton.frame.origin.x - 10, y: 5, width: 1, height: topImageView.frame.size.height - 20));
+        let lineImage2 = UIImageView(frame:CGRect(x: m_badgeButton.frame.origin.x - 13, y: 15, width: 1, height: 25));
         lineImage2.backgroundColor = progressviewBackground
         topImageView.addSubview(lineImage2);
         
-        
+//        let RateLabel = UILabel()
+//        RateLabel.frame = CGRect(x: mStarRatingView.frame.origin.x, y: 10, width: 50, height: 30)
+//        RateLabel.center = CGPoint(x: 0, y: 0)
+//        RateLabel.font = UIFont(name: helveticaMedium, size: 14)
+//        RateLabel.textAlignment = .center
+//        RateLabel.text = "Rate:"
+//        topImageView.addSubview(RateLabel)
         mStarRatingView.backgroundColor = UIColor.clear;
-        mStarRatingView.frame = CGRect(x: lineImage2.frame.origin.x - 190, y: 10, width: 180, height: topImageView.frame.size.height - 20);
+        mStarRatingView.frame = CGRect(x: lineImage2.frame.origin.x - 195, y: 10, width: 180, height: topImageView.frame.size.height - 20);
         mStarRatingView.setDelegate(self);
         topImageView.addSubview(mStarRatingView);
         mStarRatingView.setsize(ofStar: 30);
 
         
-        let  mMarkModelButtonlineImage = UIImageView(frame: CGRect(x: mStarRatingView.frame.origin.x - 10, y: 5, width: 1, height: topImageView.frame.size.height - 10));
+        let  mMarkModelButtonlineImage = UIImageView(frame: CGRect(x: mStarRatingView.frame.origin.x - 25, y: 7, width: 1, height: topImageView.frame.size.height - 20));
         mMarkModelButtonlineImage.backgroundColor = progressviewBackground
         topImageView.addSubview(mMarkModelButtonlineImage);
 
         
        
-        mMarkModelButton.frame = CGRect(x: mMarkModelButtonlineImage.frame.origin.x - 160, y: 0, width: 150, height: topImageView.frame.size.height);
+//        mMarkModelButton.frame = CGRect(x: mMarkModelButtonlineImage.frame.origin.x - 160, y: 0, width: 150, height: topImageView.frame.size.height);
+         mMarkModelButton.frame = CGRect(x: mMarkModelButtonlineImage.frame.origin.x - 160, y: 0, width: 150, height: topImageView.frame.size.height);
         topImageView.addSubview(mMarkModelButton);
         mMarkModelButton.setImage(UIImage(named:"Mark_Model_Not_Selected.png"), for:UIControlState());
-        mMarkModelButton.setTitle("  Mark Model", for:UIControlState());
+        mMarkModelButton.imageEdgeInsets = UIEdgeInsetsMake(0, 100, 0, 0) // Set image to the right edge
+        mMarkModelButton.setTitle("Mark Model:                   ", for:UIControlState());
         mMarkModelButton.setTitleColor(blackTextColor, for:UIControlState())
-        mMarkModelButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20);
+//        mMarkModelButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20);
+        mMarkModelButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 14);
         mMarkModelButton.addTarget(self, action: #selector(SubmissionSubjectiveView.onModelAnswerButton), for: UIControlEvents.touchUpInside)
         
       
@@ -307,6 +319,10 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         
         bottomview.frame = CGRect(x: topImageView.frame.origin.x, y: containerview.frame.origin.y + containerview.frame.size.height , width: topImageView.frame.size.width,height: topImageView.frame.size.height)
         bottomview.backgroundColor = lightGrayTopBar
+        bottomview.layer.shadowOffset = CGSize(width: 0, height: 2);
+        bottomview.layer.shadowOpacity = 0.5;
+        bottomview.layer.shadowRadius = 1.0;
+        bottomview.clipsToBounds = false;
         mainContainerView.addSubview(bottomview);
         
          m_UndoButton.frame = CGRect(x: 0, y: 0, width: bottomview.frame.size.height, height: bottomview.frame.size.height)
@@ -430,18 +446,18 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         
         if selectedStudentsArray.count == 1
         {
-            mSelectionCountLabel.text = "1 submission selected"
+            mSelectionCountLabel.text = "1 submission selected".uppercased()
             mSelectionCountLabel.isHidden = false
         }
         else if selectedStudentsArray.count > 1
         {
-            mSelectionCountLabel.text = "\(selectedStudentsArray.count) submissions selected "
+            mSelectionCountLabel.text = "\(selectedStudentsArray.count) submissions selected ".uppercased()
             
             mSelectionCountLabel.isHidden = false
         }
         else
         {
-            mSelectionCountLabel.text = "No submission selected"
+            mSelectionCountLabel.text = "No submission selected".uppercased()
             mSelectionCountLabel.isHidden = true
         }
         
@@ -524,18 +540,18 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         
         if selectedStudentsArray.count == 1
         {
-            mSelectionCountLabel.text = "1 submission selected"
+            mSelectionCountLabel.text = "1 submission selected".uppercased()
             mSelectionCountLabel.isHidden = false
         }
         else if selectedStudentsArray.count > 1
         {
-            mSelectionCountLabel.text = "\(selectedStudentsArray.count) submissions selected "
+            mSelectionCountLabel.text = "\(selectedStudentsArray.count) submissions selected ".uppercased()
             
             mSelectionCountLabel.isHidden = false
         }
         else
         {
-            mSelectionCountLabel.text = "No submission selected"
+            mSelectionCountLabel.text = "No submission selected".uppercased()
             mSelectionCountLabel.isHidden = true
         }
         
@@ -589,18 +605,18 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         
         if selectedStudentsArray.count == 1
         {
-            mSelectionCountLabel.text = "1 submission selected"
+            mSelectionCountLabel.text = "1 submission selected".uppercased()
             mSelectionCountLabel.isHidden = false
         }
         else if selectedStudentsArray.count > 1
         {
-            mSelectionCountLabel.text = "\(selectedStudentsArray.count) submissions selected "
+            mSelectionCountLabel.text = "\(selectedStudentsArray.count) submissions selected ".uppercased()
             
             mSelectionCountLabel.isHidden = false
         }
         else
         {
-            mSelectionCountLabel.text = "No submission selected"
+            mSelectionCountLabel.text = "No submission selected".uppercased()
             mSelectionCountLabel.isHidden = true
         }
         

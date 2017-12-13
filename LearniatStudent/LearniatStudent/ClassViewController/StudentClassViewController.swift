@@ -108,9 +108,10 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
 
         
         
-        
-        mTeacherImageButton.frame = CGRect(x: 0, y: 0, width: mTopbarImageView.frame.size.height , height: mTopbarImageView.frame.size.height)
+        // MARK: Student Image Button
+        mTeacherImageButton.frame = CGRect(x: 0, y: 0, width: mTopbarImageView.frame.size.height + 64 , height: mTopbarImageView.frame.size.height)
         mTopbarImageView.addSubview(mTeacherImageButton)
+        mTopbarImageView.bringSubview(toFront: mTeacherImageButton)
         mTeacherImageButton.addTarget(self, action: #selector(StudentClassViewController.onTeacherImage), for: UIControlEvents.touchUpInside)
         
 

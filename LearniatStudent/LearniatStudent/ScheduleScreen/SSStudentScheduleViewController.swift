@@ -101,8 +101,10 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
             mTeacherImageView.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
         }
         
-        mTeacherImageButton.frame = CGRect(x: 0, y: 22, width: mTopbarImageView.frame.size.height - 19, height: mTopbarImageView.frame.size.height - 19)
+        // MARK: Student Image Button
+        mTeacherImageButton.frame = CGRect(x: 0, y: 22, width: mTopbarImageView.frame.size.height + 64, height: mTopbarImageView.frame.size.height - 19)
         mTopbarImageView.addSubview(mTeacherImageButton)
+        mTopbarImageView.bringSubview(toFront: mTeacherImageButton)
         mTeacherImageButton.addTarget(self, action: #selector(SSStudentScheduleViewController.onTeacherImage), for: UIControlEvents.touchUpInside)
         
         mTeacherName = UILabel(frame: CGRect(x: mTeacherImageView.frame.origin.x + mTeacherImageView.frame.size.width + 10, y: mTeacherImageView.frame.origin.y - 2, width: 200, height: 20))
