@@ -54,44 +54,44 @@ class CollaborationElementCell: UIView
         mSuggestiontext.lineBreakMode = .byTruncatingMiddle
         
         
-        
-        
-        mWrongButton.frame = CGRect(x: mSuggestiontext.frame.origin.x + mSuggestiontext.frame.size.width + 5, y: 5, width: 40, height: 40)
+        setButtonsFrames() // Set the frames of: mWrongButton, mCorrectButton and mIgnoreButton.
         mWrongButton.setImage(UIImage(named: "wrongMatch.png"), for: UIControlState())
         self.addSubview(mWrongButton)
         mWrongButton.addTarget(self, action: #selector(CollaborationSuggestionCell.onWrongButtonPressed), for: UIControlEvents.touchUpInside)
         
-        mCorrectButton.frame = CGRect(x: mWrongButton.frame.origin.x + mWrongButton.frame.size.width + 5, y: 5, width: 40, height: 40)
         mCorrectButton.setImage(UIImage(named: "correctMatch.png"), for: UIControlState())
         //        mCorrectButton.imageView?.contentMode = .ScaleAspectFit
         self.addSubview(mCorrectButton)
         mCorrectButton.addTarget(self, action: #selector(CollaborationSuggestionCell.onCorrectButtonPressed), for: UIControlEvents.touchUpInside)
         
-        
-        
-        
-        mIgnoreButton.frame = CGRect(x:mWrongButton.frame.origin.x + mWrongButton.frame.size.width + 5, y: 5, width: 40, height: 40)
         mIgnoreButton.setImage(UIImage(named: "IgnoreCollaboration.png"), for: UIControlState())
         //        mCorrectButton.imageView?.contentMode = .ScaleAspectFit
         self.addSubview(mIgnoreButton)
         mIgnoreButton.isHidden = true
         mIgnoreButton.addTarget(self, action: #selector(CollaborationSuggestionCell.onIgnoreButtonPressed), for: UIControlEvents.touchUpInside)
-        
-        
-        
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setButtonsFrames() {
+        mWrongButton.frame = CGRect(x: mSuggestiontext.frame.origin.x + mSuggestiontext.frame.size.width + 5, y: 5, width: 40, height: 40)
+        mCorrectButton.frame = CGRect(x: mWrongButton.frame.origin.x + mWrongButton.frame.size.width + 5, y: 5, width: 40, height: 40)
+        mIgnoreButton.frame = CGRect(x:mWrongButton.frame.origin.x + mWrongButton.frame.size.width + 5, y: 5, width: 40, height: 40)
+    }
     
+    func reSetSuggestionFrame(width: CGFloat) {
+        mSuggestiontext.frame = CGRect(x: StudentName.frame.origin.x + StudentName.frame.size.width + 5, y: 5,width: width, height: 40)
+    }
     
     func SetSuggestionDetails(_ details:AnyObject)->(width:CGFloat, height:CGFloat)
     {
         
         let ContainerSizeheight:CGFloat = 50
+        var containerSizeWidth = CGFloat()
+        let elementsWidth = StudentName.frame.size.width + mWrongButton.frame.size.width + mCorrectButton.frame.size.width + 70
+        let mSuggestionTextMaxWidth = UIScreen.main.bounds.width - elementsWidth - 15
         
         mSuggestionDetails = details
         if let StudentId = details.object(forKey: "studentID") as? String
@@ -116,19 +116,29 @@ class CollaborationElementCell: UIView
             StudentName.text = "\(_StudentName):"
         }
         
-        StudentName.text = "DB:"
+        StudentName.text = ""
         
         
         if let mSuggestion = details.object(forKey: "ElementText") as? String
         {
             mSuggestiontext.text = mSuggestion
             
+            let mSuggestionTextSize = (mSuggestiontext.text! as NSString).size(attributes: [NSFontAttributeName: mSuggestiontext.font]) // Size of the suggestion text in px
+            
+            if mSuggestionTextSize.width > mSuggestionTextMaxWidth {
+                reSetSuggestionFrame(width: mSuggestionTextMaxWidth)
+                mSuggestiontext.adjustWidth()
+            } else {
+                reSetSuggestionFrame(width: mSuggestionTextSize.width)
+            }
+            
+            containerSizeWidth = elementsWidth + mSuggestiontext.frame.size.width
+            setButtonsFrames() // Re-set the buttons frames
         }
         
         onCorrectButtonPressed()
         
-        return (320,ContainerSizeheight)
-        
+        return (containerSizeWidth, ContainerSizeheight)
     }
     
     
@@ -165,3 +175,4 @@ class CollaborationElementCell: UIView
     
     
 }
+
