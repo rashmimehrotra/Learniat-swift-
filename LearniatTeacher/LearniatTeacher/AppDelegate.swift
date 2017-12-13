@@ -190,13 +190,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
+    // This is only for testing. can be removed while testing
+    // 0 - No blue screen
+    // 1 - Internet disconnect blue screen
+    // 2 - Stream disconnect blue screen
+    var blueScreenStatus = 0
     
     func showReconnecting()
     {
+        if blueScreenStatus == 2{
+            hideReconnecting()
+            blueScreenStatus = 0
+        }
+        
         if  let appDelegate = UIApplication.shared.delegate as? AppDelegate,
             let window = appDelegate.window
         {
-            
+            blueScreenStatus = 1
             if interntDownImageView == nil{
                 
                 interntDownImageView = InternetConnection.instanceFromNib() as! InternetConnection
@@ -218,6 +228,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     
+    func showReconnectingStream()
+    {
+        if blueScreenStatus == 0{
+        if  let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+            let window = appDelegate.window
+        {
+            blueScreenStatus = 2
+
+            
+            if interntDownImageView == nil{
+                
+                interntDownImageView = InternetConnection.instanceFromNib() as! InternetConnection
+                interntDownImageView.frame = CGRect(x: 0, y: 0, width: window.frame.size.width/2, height: window.frame.size.height/2)
+                window.addSubview(interntDownImageView)
+                
+            }
+            window.bringSubview(toFront: interntDownImageView)
+        }
+        
+        if interntDownImageView != nil
+        {
+            interntDownImageView.isHidden = false
+            interntDownImageView.stopLoading()
+            
+        }
+        
+        }
+    }
+    
+    
     func hideReconnecting()
     {
         if interntDownImageView != nil
@@ -226,7 +266,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             interntDownImageView.isHidden = true
             
         }
-        
+        blueScreenStatus = 0
+
         
         
     }

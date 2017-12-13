@@ -252,7 +252,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
     
     func refreshApp(success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler)
     {
-        
+        if MessageManager.sharedMessageHandler().xmppStream.isAuthenticated(){
         WebServicesAPI().getRequest(fromUrl: AppAPI.RefresAppWithUserId(userId: currentUserId).path, details: nil, success: { (result) in
             
             
@@ -269,6 +269,7 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
             
         }) { (error) in
             failure(error as NSError)
+        }
         }
         
     }

@@ -188,7 +188,7 @@ class CollaborationCategoryView: UIView,SSTeacherDataSourceDelegate,UITextFieldD
                    replacementString string: String) -> Bool
     {
         
-        if string.count > 0  {
+        if string.characters.count > 0  {
              mAddQuestionButton.setTitleColor(standard_Button, for: UIControlState())
             mAddQuestionButton.isUserInteractionEnabled = true
         } else {

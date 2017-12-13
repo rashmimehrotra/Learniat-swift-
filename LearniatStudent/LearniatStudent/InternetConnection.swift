@@ -11,7 +11,7 @@ class InternetConnection: UIView {
     @IBOutlet weak var mRetryButton: UIButton!
     @IBAction func onRetryButtin(_ sender: Any) {
         mRetryButton.isUserInteractionEnabled = false
-       SSStudentMessageHandler.sharedMessageHandler.performReconnet(connectType: "Retry")
+      // SSStudentMessageHandler.sharedMessageHandler.performReconnet(connectType: "Retry")
         mRetryButton.setTitle("Retrying", for: .normal)
         mRetryButton.setTitleColor(lightGrayColor, for: .normal)
     }

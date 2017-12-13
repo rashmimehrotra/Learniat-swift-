@@ -397,16 +397,18 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
     ///   - success: success description
     ///   - failure: failure description
     func refreshApp(success:@escaping ApiSuccessHandler, withfailurehandler failure:@escaping ApiErrorHandler) {
-        WebServicesAPI().getRequest(fromUrl: AppAPI.RefresAppWithUserId(userId: currentUserId).path, details: nil, success: { (result) in
-            let JsonValue = result.parseJSONString
-            if(JsonValue.jsonData != nil) {
-                success(JsonValue.jsonData!)
-            } else {
-                failure(JsonValue.error!)
-            }
+        if MessageManager.sharedMessageHandler().xmppStream.isAuthenticated(){
+            WebServicesAPI().getRequest(fromUrl: AppAPI.RefresAppWithUserId(userId: currentUserId).path, details: nil, success: { (result) in
+                let JsonValue = result.parseJSONString
+                if(JsonValue.jsonData != nil) {
+                    success(JsonValue.jsonData!)
+                } else {
+                    failure(JsonValue.error!)
+                }
             
-        }) { (error) in
+            }) { (error) in
             failure(error as NSError)
+            }
         }
     }
 

@@ -262,7 +262,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                 if sessionRoomSubject.topic.topicId != "" && sessionRoomSubject.topic.topicState == QuestionState.Started{
                         mSubTopicNamelabel.text = sessionRoomSubject.topic.topicName
                         mQueryView.queryPresentState(.TopicStarted)
-                        LearniatToast.showToast(view: self.view, duration:5.0, text: "Topic Started")
+                        LearniatToast.showToast(view: self.view, duration:1.0, text: "Topic Started")
                 } else {
                     mQueryView.queryPresentState(.TopicStopped)
                 }
@@ -794,12 +794,12 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         if topic.topicState == TopicState.Ended{
             mQueryView.queryPresentState(.TopicStopped)
             mSubTopicNamelabel.text = "No subtopic"
-            LearniatToast.showToast(view: self.view, duration:5.0, image:"wrongMatch.png", text: "Topic Stopped")
+            LearniatToast.showToast(view: self.view, duration:1.0, image:"wrongMatch.png", text: "Topic Stopped")
         }
         else{
             mSubTopicNamelabel.text = topic.topicName
             mQueryView.queryPresentState(.TopicStarted)
-            LearniatToast.showToast(view: self.view, duration:5.0, text: "Topic Started")
+            LearniatToast.showToast(view: self.view, duration:1.0, text: "Topic Started")
         }
         
     }
@@ -808,7 +808,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         if topic.topicState == TopicState.Started{
             mSubTopicNamelabel.text = topic.topicName
             mQueryView.queryPresentState(.TopicStarted)
-            LearniatToast.showToast(view: self.view, duration:5.0, text: "Topic Started")
+            LearniatToast.showToast(view: self.view, duration:1.0, text: "Topic Started")
         }
         else{
             mSubTopicNamelabel.text = "No subtopic"
