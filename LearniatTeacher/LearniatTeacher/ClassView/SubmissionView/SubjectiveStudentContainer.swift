@@ -89,7 +89,7 @@ class SubjectiveStudentContainer: UIView
         
         
         // y: ... height: 5
-        let overlayBackground = LBorderView(frame:CGRect(x: 0, y: mStudentImageView.frame.size.height + 20 , width: mRoundedContainerView.frame.size.width, height: mRoundedContainerView.frame.size.width / kAspectRation))
+        let overlayBackground = LBorderView(frame:CGRect(x: 0, y: mStudentImageView.frame.size.height + 25 , width: mRoundedContainerView.frame.size.width, height: mRoundedContainerView.frame.size.width / kAspectRation))
         
         overlayBackground.borderType = BorderTypeDashed;
         overlayBackground.dashPattern = 4;
@@ -128,7 +128,7 @@ class SubjectiveStudentContainer: UIView
         // -->
 //         mProgressView.frame = CGRect(x: 0 ,y: mStudentImageView.frame.size.height, width: mRoundedContainerView.frame.size.width - (mStudentImageView.frame.origin.x  + mStudentImageView.frame.size.width + 10) ,height: 4)
           mProgressView.frame = CGRect(x: mStudentImageView.frame.origin.x - 27, y: mStudentImageView.frame.size.height - 22, width: mStudentImageView.frame.size.height, height: 4)
-        mProgressView.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 2)
+        mProgressView.transform = CGAffineTransform(rotationAngle: -(CGFloat.pi / 2))
 //        mProgressView.frame = CGRect(x: mRoundedContainerView.frame.size.width - mStudentImageView.frame.size.width - 50,y: mStudentImageView.frame.origin.y, width: 30 ,height: mStudentImageView.frame.size.height)
         mRoundedContainerView.addSubview(mProgressView);
         mProgressView.progressTintColor = standard_Red
@@ -145,7 +145,7 @@ class SubjectiveStudentContainer: UIView
         
         // MARK: Student Name Label
 //        mStudentNameLabel.frame = CGRect(x: mProgressView.frame.origin.x, y: mProgressView.frame.origin.y - 22 ,width: mProgressView.frame.size.width - 20 ,height: 20)
-        mStudentNameLabel.frame = CGRect(x: mStudentImageView.frame.origin.x, y: mStudentImageView.frame.size.height, width: mRoundedContainerView.frame.size.width - (mProgressView.frame.size.width + mStudentImageView.frame.size.width), height: 20)
+        mStudentNameLabel.frame = CGRect(x: mProgressView.frame.origin.x, y: mStudentImageView.frame.size.height, width: mRoundedContainerView.frame.size.width - (mProgressView.frame.size.width + mStudentImageView.frame.size.width), height: 20)
         mStudentNameLabel.text = ""
         mStudentNameLabel.font = UIFont(name: helveticaMedium, size: 14);
         mStudentNameLabel.textAlignment = .left;

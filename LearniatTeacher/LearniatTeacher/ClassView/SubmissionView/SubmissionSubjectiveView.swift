@@ -62,6 +62,8 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     
     let containerview = UIView()
     
+//    let shadowContainer = UIView()
+    
     let overlayimageView = CustomProgressImageView()
     
     // By Ujjval
@@ -152,13 +154,25 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         
         containerview.frame = CGRect(x: (mainContainerView.frame.size.width - (heightRemaining *  kAspectRation)) / 2 ,y: (mainContainerView.frame.size.height - heightRemaining) / 2 ,  width: heightRemaining *  kAspectRation ,height: heightRemaining)
         containerview.backgroundColor = UIColor.clear
+//        containerview.backgroundColor = UIColor.white
         mainContainerView.addSubview(containerview);
         containerview.layer.shadowColor = progressviewBackground.cgColor;
-        containerview.layer.shadowOffset = CGSize(width: 1,height: 0); // width: 0
+        containerview.layer.shadowOffset = CGSize(width: 0, height: 0);
         containerview.layer.shadowOpacity = 1;
         containerview.layer.shadowRadius = 1.0;
         containerview.clipsToBounds = false;
+        
 
+//        shadowContainer.frame = CGRect(x: (mainContainerView.frame.size.width - (heightRemaining *  kAspectRation)) / 2 ,y: (mainContainerView.frame.size.height - heightRemaining) / 2 ,  width: heightRemaining *  kAspectRation ,height: heightRemaining)
+//        sendSubview(toBack: shadowContainer)
+//        shadowContainer.backgroundColor = UIColor.white
+//        mainContainerView.addSubview(shadowContainer);
+//        shadowContainer.layer.shadowColor = progressviewBackground.cgColor;
+//        shadowContainer.layer.shadowOffset = CGSize(width: 0, height: 0);
+//        shadowContainer.layer.shadowOpacity = 1;
+//        shadowContainer.layer.shadowRadius = 1.0;
+//        shadowContainer.clipsToBounds = false;
+        
         
         
        
@@ -169,7 +183,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         topImageView.backgroundColor = UIColor.white
         mainContainerView.addSubview (topImageView);
         topImageView.layer.shadowColor = progressviewBackground.cgColor;
-        topImageView.layer.shadowOffset = CGSize(width: 1, height: 1);
+        topImageView.layer.shadowOffset = CGSize(width: 2, height: 0);
         topImageView.layer.shadowOpacity = 1;
         topImageView.layer.shadowRadius = 1.0;
         topImageView.clipsToBounds = false;
@@ -255,32 +269,35 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         lineImage2.backgroundColor = progressviewBackground
         topImageView.addSubview(lineImage2);
         
-//        let RateLabel = UILabel()
-//        RateLabel.frame = CGRect(x: mStarRatingView.frame.origin.x, y: 10, width: 50, height: 30)
-//        RateLabel.center = CGPoint(x: 0, y: 0)
-//        RateLabel.font = UIFont(name: helveticaMedium, size: 14)
-//        RateLabel.textAlignment = .center
-//        RateLabel.text = "Rate:"
-//        topImageView.addSubview(RateLabel)
+        // MARK: Rate Label
+        let RateLabel = UILabel()
+        RateLabel.frame = CGRect(x: topImageView.frame.size.width / 2 - 40, y: topImageView.frame.size.height / 2 - 15, width: 50, height: 30)
+        RateLabel.font = UIFont(name: helveticaMedium, size: 14)
+        RateLabel.textAlignment = .center
+        RateLabel.text = "Rate:"
+        topImageView.addSubview(RateLabel)
+        
         mStarRatingView.backgroundColor = UIColor.clear;
-        mStarRatingView.frame = CGRect(x: lineImage2.frame.origin.x - 195, y: 10, width: 180, height: topImageView.frame.size.height - 20);
+        mStarRatingView.frame = CGRect(x: lineImage2.frame.origin.x - 195, y: 12, width: 180, height: topImageView.frame.size.height - 20);
         mStarRatingView.setDelegate(self);
         topImageView.addSubview(mStarRatingView);
         mStarRatingView.setsize(ofStar: 30);
 
         
-        let  mMarkModelButtonlineImage = UIImageView(frame: CGRect(x: mStarRatingView.frame.origin.x - 25, y: 7, width: 1, height: topImageView.frame.size.height - 20));
+//        let  mMarkModelButtonlineImage = UIImageView(frame: CGRect(x: mStarRatingView.frame.origin.x - 25, y: 7, width: 1, height: topImageView.frame.size.height - 20));
+        let  mMarkModelButtonlineImage = UIImageView(frame: CGRect(x: mStarRatingView.frame.origin.x - 80, y: 7, width: 1, height: topImageView.frame.size.height - 20));
         mMarkModelButtonlineImage.backgroundColor = progressviewBackground
         topImageView.addSubview(mMarkModelButtonlineImage);
 
         
        
 //        mMarkModelButton.frame = CGRect(x: mMarkModelButtonlineImage.frame.origin.x - 160, y: 0, width: 150, height: topImageView.frame.size.height);
-         mMarkModelButton.frame = CGRect(x: mMarkModelButtonlineImage.frame.origin.x - 160, y: 0, width: 150, height: topImageView.frame.size.height);
+         mMarkModelButton.frame = CGRect(x: mMarkModelButtonlineImage.frame.origin.x - 165, y: 0, width: 200, height: topImageView.frame.size.height);
         topImageView.addSubview(mMarkModelButton);
         mMarkModelButton.setImage(UIImage(named:"Mark_Model_Not_Selected.png"), for:UIControlState());
         mMarkModelButton.imageEdgeInsets = UIEdgeInsetsMake(0, 100, 0, 0) // Set image to the right edge
-        mMarkModelButton.setTitle("Mark Model:                   ", for:UIControlState());
+        mMarkModelButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 90)
+        mMarkModelButton.setTitle("Mark Model:          ", for:UIControlState());
         mMarkModelButton.setTitleColor(blackTextColor, for:UIControlState())
 //        mMarkModelButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20);
         mMarkModelButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 14);
@@ -344,8 +361,9 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         m_BrushButton.addTarget(self, action: #selector(SubmissionSubjectiveView.onBrushButton), for: UIControlEvents.touchUpInside)
         bottomtoolSelectedImageView.frame = m_BrushButton.frame
         
-        
-        
+        let bottomLineImage = UIImageView(frame:CGRect(x: m_BrushButton.frame.origin.x + 70, y: 20, width: 1, height: 25));
+        bottomLineImage.backgroundColor = UIColor(red: 194/255.0, green: 194/255.0, blue: 194/255.0, alpha: 1)
+        bottomview.addSubview(bottomLineImage)
        
         m_EraserButton.frame = CGRect(x: (bottomview.frame.size.width/2) + 10  ,y: 5, width: bottomview.frame.size.height ,height: bottomview.frame.size.height - 10)
         m_EraserButton.setImage(UIImage(named:"Eraser_Unselected.png"), for:UIControlState());
@@ -499,7 +517,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
                         
                         let studentAnswertext = UILabel(frame: CGRect(x: 0,y: 0,width: containerview.frame.size.width,height: containerview.frame.size.height))
                         containerview.addSubview(studentAnswertext)
-                        studentAnswertext.font = UIFont(name: helveticaRegular, size: 18)
+                        studentAnswertext.font = UIFont(name: helveticaRegular, size: 25) // 18
                         studentAnswertext.textColor = blackTextColor
                         studentAnswertext.lineBreakMode = .byTruncatingMiddle
                         studentAnswertext.numberOfLines = 10
