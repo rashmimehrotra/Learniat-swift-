@@ -205,24 +205,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func showReconnectingStream(){
         if blueScreenStatus == 0{
-
-        if  let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-            let window = appDelegate.window {
-            blueScreenStatus = 2
-
-            if interntDownImageView == nil{
-                interntDownImageView = InternetConnection.fromNib(nibName:"InternetDisconnected") as! InternetConnection
-                interntDownImageView.frame = CGRect(x: 0, y: 0, width: window.frame.size.width/2, height: window.frame.size.height/2)
-                window.addSubview(interntDownImageView)
+            if  let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+                let window = appDelegate.window {
+                blueScreenStatus = 2
+                SSStudentDataSource.sharedDataSource.xmppStoppedSignal.fire(true)
             }
-            window.bringSubview(toFront: interntDownImageView)
         }
-        
-        if interntDownImageView != nil {
-            interntDownImageView.isHidden = false
-            interntDownImageView.stopLoading()
-        }
-    }
     }
     
     func showTakenOver() {
@@ -249,6 +237,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             interntDownImageView.isHidden = true
         }
         blueScreenStatus = 0
+        SSStudentDataSource.sharedDataSource.xmppStoppedSignal.fire(false)
 
     }
     

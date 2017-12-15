@@ -297,6 +297,13 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             } else {
                self.appMovedToForeground()
             }
+        } 
+        SSStudentDataSource.sharedDataSource.xmppStoppedSignal.subscribe(on: self) { [unowned self] (isStopped) in
+            if  isStopped == true {
+                self.mstatusImage.backgroundColor = standard_Red
+            } else {
+                self.mstatusImage.backgroundColor = standard_Green
+            }
         }
     }
   
@@ -336,7 +343,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             // This is commented to avoid the issues of student app moving out of the live session
 //            self.verifyUserState(userState: userStateParser.userState)
         }) { (error) in
-            self.view.makeToast("\(error.code)-\(error.description)", duration: 0.5, position: .bottom)
+            self.view.makeToast("\(error.code)-\(error.description)", duration: 2, position: .bottom)
         }
     }
     
@@ -728,12 +735,12 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     
     func smhStreamReconnectingWithDelay(_ delay: Int32) {
-        self.view.makeToast("Reconnecting in \(delay) seconds", duration: 0.5, position: .bottom)
+        self.view.makeToast("Reconnecting in \(delay) seconds", duration: 2, position: .bottom)
     }
     
     func smhDidReciveAuthenticationState(_ state: Bool, WithName userName: String) {
         if state == false {
-            self.view.makeToast("Not Able to Authenticate current user. Plese try again", duration: 0.5, position: .bottom)
+            self.view.makeToast("Not Able to Authenticate current user. Plese try again", duration: 2, position: .bottom)
         } else {
             updateStudentState(state: UserState.Live)
         }
