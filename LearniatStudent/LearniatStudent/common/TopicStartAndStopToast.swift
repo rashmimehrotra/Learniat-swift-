@@ -7,7 +7,7 @@
 //
 
 import Foundation
-class LearniatToast {
+class TopicStartAndStopToast {
     static func showToast(view: UIView, duration: TimeInterval, image: String, text: String){
         let toastView = UIView(frame: CGRect(x: 0, y: 0, width: 140, height: 140))
         toastView.layer.cornerRadius = 20
@@ -22,7 +22,7 @@ class LearniatToast {
         
         let toastImage : UIImage = UIImage(named:image)!
         let toastImageView = UIImageView(image: toastImage)
-        toastImageView.frame = CGRect(x: 30, y: 10, width: 80, height: 80)
+        toastImageView.frame = CGRect(x: 50, y: 30, width: 40, height:40)
         toastView.addSubview(toastImageView)
         
         for subview in view.subviews as [UIView] {

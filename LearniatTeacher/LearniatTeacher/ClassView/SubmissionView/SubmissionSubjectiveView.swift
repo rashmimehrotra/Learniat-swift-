@@ -1182,6 +1182,9 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
                         if let studentDeskView  = containerview.viewWithTag(Int(studentIdValue)!) as? UIImageView {
                             studentDeskView.removeFromSuperview()
                         }
+                        if let studentDeskView  = containerview.viewWithTag(Int(studentIdValue)!) as? UILabel {
+                            studentDeskView.removeFromSuperview()
+                        }
                     }
                 }
             }

@@ -98,10 +98,10 @@ class StudentStateViewCell: UIImageView {
             
             if let checkedUrl = URL(string: "\(urlString)/\(StudentId)_79px.jpg")
             {
-                mStudentImage.contentMode = .scaleAspectFit
                 mStudentImage.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
                 mStudentImage.layer.cornerRadius = mStudentImage.frame.size.width/16;
                 mStudentImage.layer.masksToBounds = true
+                mStudentImage.contentMode = .scaleAspectFit
                 
             }
         }
