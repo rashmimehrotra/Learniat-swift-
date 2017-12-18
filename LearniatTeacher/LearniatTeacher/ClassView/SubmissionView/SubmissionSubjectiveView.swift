@@ -62,7 +62,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
     
     let containerview = UIView()
     
-//    let shadowContainer = UIView()
+    let shadowContainer = UIView()
     
     let overlayimageView = CustomProgressImageView()
     
@@ -140,7 +140,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         
         
         mainContainerView.frame = CGRect(x: subjectiveCellContainer.frame.size.width , y: 0, width: self.frame.size.width - subjectiveCellContainer.frame.size.width, height: self.frame.size.height)
-        mainContainerView.backgroundColor = whiteBackgroundColor
+        mainContainerView.backgroundColor = UIColor(red: 246/255.0, green: 246/255.0, blue: 246/255.0, alpha: 1)
         self.addSubview(mainContainerView)
         
         var heightRemaining:CGFloat = 130
@@ -163,15 +163,15 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         containerview.clipsToBounds = false;
         
 
-//        shadowContainer.frame = CGRect(x: (mainContainerView.frame.size.width - (heightRemaining *  kAspectRation)) / 2 ,y: (mainContainerView.frame.size.height - heightRemaining) / 2 ,  width: heightRemaining *  kAspectRation ,height: heightRemaining)
+        shadowContainer.frame = CGRect(x: (mainContainerView.frame.size.width - (heightRemaining *  kAspectRation)) / 2 ,y: (mainContainerView.frame.size.height - heightRemaining) / 2 ,  width: heightRemaining *  kAspectRation ,height: heightRemaining)
 //        sendSubview(toBack: shadowContainer)
-//        shadowContainer.backgroundColor = UIColor.white
-//        mainContainerView.addSubview(shadowContainer);
-//        shadowContainer.layer.shadowColor = progressviewBackground.cgColor;
-//        shadowContainer.layer.shadowOffset = CGSize(width: 0, height: 0);
-//        shadowContainer.layer.shadowOpacity = 1;
-//        shadowContainer.layer.shadowRadius = 1.0;
-//        shadowContainer.clipsToBounds = false;
+        shadowContainer.backgroundColor = UIColor.white
+        mainContainerView.insertSubview(shadowContainer, belowSubview: overlayimageView)
+        shadowContainer.layer.shadowColor = progressviewBackground.cgColor;
+        shadowContainer.layer.shadowOffset = CGSize(width: 0, height: 0);
+        shadowContainer.layer.shadowOpacity = 1;
+        shadowContainer.layer.shadowRadius = 2.0;
+        shadowContainer.clipsToBounds = false;
         
         
         
@@ -183,7 +183,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         topImageView.backgroundColor = UIColor.white
         mainContainerView.addSubview (topImageView);
         topImageView.layer.shadowColor = progressviewBackground.cgColor;
-        topImageView.layer.shadowOffset = CGSize(width: 2, height: 0);
+        topImageView.layer.shadowOffset = CGSize(width: 0, height: 1);
         topImageView.layer.shadowOpacity = 1;
         topImageView.layer.shadowRadius = 1.0;
         topImageView.clipsToBounds = false;
@@ -193,11 +193,11 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         
         mSelectionCountLabel.frame = CGRect(x: containerview.frame.origin.x, y: topImageView.frame.origin.y + topImageView.frame.size.height, width: topImageView.frame.size.width, height: topImageView.frame.size.height/2)
         mainContainerView.addSubview(mSelectionCountLabel)
-        mSelectionCountLabel.text = "No submission selected".uppercased()
+        mSelectionCountLabel.text = "No students selected".uppercased()
         mSelectionCountLabel.textColor = blackTextColor
         mSelectionCountLabel.isHidden = true
         mSelectionCountLabel.textAlignment = .center
-        mSelectionCountLabel.font =  UIFont(name: helveticaMedium, size: 14);
+        mSelectionCountLabel.font =  UIFont(name: "Futura-Medium", size: 14);
         mSelectionCountLabel.backgroundColor = standard_Green
         mSelectionCountLabel.alpha = 0.9
         
@@ -208,7 +208,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         topImageView.addSubview(mCancelButton);
         mCancelButton.setTitle("Cancel", for:UIControlState());
         mCancelButton.setTitleColor(standard_Button, for:UIControlState());
-        mCancelButton.titleLabel?.font = UIFont(name: helveticaMedium, size: 20);
+        mCancelButton.titleLabel?.font = UIFont(name: helveticaRegular, size: 20);
         mCancelButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
         mCancelButton.addTarget(self, action: #selector(SubmissionSubjectiveView.onCancelButton), for: UIControlEvents.touchUpInside)
         
@@ -269,19 +269,21 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         lineImage2.backgroundColor = progressviewBackground
         topImageView.addSubview(lineImage2);
         
-        // MARK: Rate Label
-        let RateLabel = UILabel()
-        RateLabel.frame = CGRect(x: topImageView.frame.size.width / 2 - 40, y: topImageView.frame.size.height / 2 - 15, width: 50, height: 30)
-        RateLabel.font = UIFont(name: helveticaMedium, size: 14)
-        RateLabel.textAlignment = .center
-        RateLabel.text = "Rate:"
-        topImageView.addSubview(RateLabel)
         
         mStarRatingView.backgroundColor = UIColor.clear;
         mStarRatingView.frame = CGRect(x: lineImage2.frame.origin.x - 195, y: 12, width: 180, height: topImageView.frame.size.height - 20);
         mStarRatingView.setDelegate(self);
         topImageView.addSubview(mStarRatingView);
         mStarRatingView.setsize(ofStar: 30);
+        
+        
+        // MARK: Rate Label
+        let RateLabel = UILabel()
+        RateLabel.frame = CGRect(x: mStarRatingView.frame.origin.x - 65, y: topImageView.frame.size.height / 2 - 15, width: 50, height: 30)
+        RateLabel.font = UIFont(name: helveticaMedium, size: 14)
+        RateLabel.textAlignment = .center
+        RateLabel.text = "Rate:"
+        topImageView.addSubview(RateLabel)
 
         
 //        let  mMarkModelButtonlineImage = UIImageView(frame: CGRect(x: mStarRatingView.frame.origin.x - 25, y: 7, width: 1, height: topImageView.frame.size.height - 20));
@@ -336,7 +338,7 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         
         bottomview.frame = CGRect(x: topImageView.frame.origin.x, y: containerview.frame.origin.y + containerview.frame.size.height , width: topImageView.frame.size.width,height: topImageView.frame.size.height)
         bottomview.backgroundColor = lightGrayTopBar
-        bottomview.layer.shadowOffset = CGSize(width: 0, height: 2);
+        bottomview.layer.shadowOffset = CGSize(width: 0, height: 1);
         bottomview.layer.shadowOpacity = 0.5;
         bottomview.layer.shadowRadius = 1.0;
         bottomview.clipsToBounds = false;
@@ -464,18 +466,18 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         
         if selectedStudentsArray.count == 1
         {
-            mSelectionCountLabel.text = "1 submission selected".uppercased()
+            mSelectionCountLabel.text = "1 student selected".uppercased()
             mSelectionCountLabel.isHidden = false
         }
         else if selectedStudentsArray.count > 1
         {
-            mSelectionCountLabel.text = "\(selectedStudentsArray.count) submissions selected ".uppercased()
+            mSelectionCountLabel.text = "\(selectedStudentsArray.count) students selected ".uppercased()
             
             mSelectionCountLabel.isHidden = false
         }
         else
         {
-            mSelectionCountLabel.text = "No submission selected".uppercased()
+            mSelectionCountLabel.text = "No students selected".uppercased()
             mSelectionCountLabel.isHidden = true
         }
         
@@ -558,18 +560,18 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         
         if selectedStudentsArray.count == 1
         {
-            mSelectionCountLabel.text = "1 submission selected".uppercased()
+            mSelectionCountLabel.text = "1 student selected".uppercased()
             mSelectionCountLabel.isHidden = false
         }
         else if selectedStudentsArray.count > 1
         {
-            mSelectionCountLabel.text = "\(selectedStudentsArray.count) submissions selected ".uppercased()
+            mSelectionCountLabel.text = "\(selectedStudentsArray.count) students selected ".uppercased()
             
             mSelectionCountLabel.isHidden = false
         }
         else
         {
-            mSelectionCountLabel.text = "No submission selected".uppercased()
+            mSelectionCountLabel.text = "No students selected".uppercased()
             mSelectionCountLabel.isHidden = true
         }
         
@@ -623,18 +625,18 @@ class SubmissionSubjectiveView: UIView,SmoothLineViewdelegate, SubjectiveLeftSid
         
         if selectedStudentsArray.count == 1
         {
-            mSelectionCountLabel.text = "1 submission selected".uppercased()
+            mSelectionCountLabel.text = "1 student selected".uppercased()
             mSelectionCountLabel.isHidden = false
         }
         else if selectedStudentsArray.count > 1
         {
-            mSelectionCountLabel.text = "\(selectedStudentsArray.count) submissions selected ".uppercased()
+            mSelectionCountLabel.text = "\(selectedStudentsArray.count) students selected ".uppercased()
             
             mSelectionCountLabel.isHidden = false
         }
         else
         {
-            mSelectionCountLabel.text = "No submission selected".uppercased()
+            mSelectionCountLabel.text = "No students selected".uppercased()
             mSelectionCountLabel.isHidden = true
         }
         
