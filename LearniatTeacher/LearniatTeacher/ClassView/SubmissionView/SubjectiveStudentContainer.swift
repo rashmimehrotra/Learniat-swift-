@@ -127,7 +127,7 @@ class SubjectiveStudentContainer: UIView
 //         mProgressView.frame = CGRect(x: mStudentImageView.frame.origin.x  + mStudentImageView.frame.size.width + 10 ,y: mStudentImageView.frame.origin.y  + mStudentImageView.frame.size.height - 4 , width: mRoundedContainerView.frame.size.width - (mStudentImageView.frame.origin.x  + mStudentImageView.frame.size.width + 10) ,height: 4)
         // -->
 //         mProgressView.frame = CGRect(x: 0 ,y: mStudentImageView.frame.size.height, width: mRoundedContainerView.frame.size.width - (mStudentImageView.frame.origin.x  + mStudentImageView.frame.size.width + 10) ,height: 4)
-          mProgressView.frame = CGRect(x: mStudentImageView.frame.origin.x - 27, y: mStudentImageView.frame.size.height - 22, width: mStudentImageView.frame.size.height, height: 4)
+          mProgressView.frame = CGRect(x: mStudentImageView.frame.origin.x - 30, y: mStudentImageView.frame.size.height - 22, width: mStudentImageView.frame.size.height, height: 3.5)
         mProgressView.transform = CGAffineTransform(rotationAngle: -(CGFloat.pi / 2))
 //        mProgressView.frame = CGRect(x: mRoundedContainerView.frame.size.width - mStudentImageView.frame.size.width - 50,y: mStudentImageView.frame.origin.y, width: 30 ,height: mStudentImageView.frame.size.height)
         mRoundedContainerView.addSubview(mProgressView);
