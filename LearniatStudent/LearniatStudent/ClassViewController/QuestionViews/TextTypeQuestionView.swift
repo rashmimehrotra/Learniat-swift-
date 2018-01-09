@@ -224,9 +224,13 @@ class TextTypeQuestionView: UIView,SSStudentDataSourceDelegate, CustomTextViewDe
             mContainerView.isHidden = false
         
             mAnswerLabel.text = mAnswerTextView.getTextOfCurrentTextView()
+            mAnswerLabel.font = UIFont(name: helveticaMedium, size: 20)
             let height =  heightForView(mAnswerLabel.text!, font: mAnswerLabel.font, width: mAnswerLabel.frame.size.width)
-            mAnswerLabel.frame = CGRect(x: 5, y: 5, width: mAnswerLabel.frame.size.width - 10 , height: height )
+            mAnswerLabel.frame = CGRect(x: 6, y: mContainerView.frame.height / 2 - 35, width: mAnswerLabel.frame.size.width - 8, height: height )
         
+            mAnswerLabel.textAlignment = .center
+            mAnswerLabel.lineBreakMode = .byTruncatingMiddle
+            mAnswerLabel.numberOfLines = 10
         }
         
         

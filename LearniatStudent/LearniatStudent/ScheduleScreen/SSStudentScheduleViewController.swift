@@ -66,6 +66,8 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     
     var mAppVersionNumber               = UILabel();
     
+    var mstatusImage        = UIImageView()
+    
     //Pradip
     var mClasses: UILabel!
     
@@ -101,8 +103,10 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
             mTeacherImageView.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
         }
         
-        mTeacherImageButton.frame = CGRect(x: 0, y: 22, width: mTopbarImageView.frame.size.height - 19, height: mTopbarImageView.frame.size.height - 19)
+        // MARK: Student Image Button
+        mTeacherImageButton.frame = CGRect(x: 0, y: 22, width: mTopbarImageView.frame.size.height + 64, height: mTopbarImageView.frame.size.height - 19)
         mTopbarImageView.addSubview(mTeacherImageButton)
+        mTopbarImageView.bringSubview(toFront: mTeacherImageButton)
         mTeacherImageButton.addTarget(self, action: #selector(SSStudentScheduleViewController.onTeacherImage), for: UIControlEvents.touchUpInside)
         
         mTeacherName = UILabel(frame: CGRect(x: mTeacherImageView.frame.origin.x + mTeacherImageView.frame.size.width + 10, y: mTeacherImageView.frame.origin.y - 2, width: 200, height: 20))
@@ -132,6 +136,11 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         mClasses.textColor = UIColor.white
         
 
+        mstatusImage .frame = CGRect(x: mTodaysSchedule.frame.origin.x  - (mTodaysSchedule.frame.size.height + 5),y: mTodaysSchedule.frame.origin.y  ,width: mTodaysSchedule.frame.size.height,height: mTodaysSchedule.frame.size.height)
+        mstatusImage.backgroundColor = standard_Green
+        mTopbarImageView.addSubview(mstatusImage)
+        mstatusImage.layer.cornerRadius = mstatusImage.frame.size.width/2
+        
         
         mRefreshButton = UIButton(frame: CGRect(x: mTopbarImageView.frame.size.width - mTopbarImageView.frame.size.height, y: 10, width: mTopbarImageView.frame.size.height - 5, height: mTopbarImageView.frame.size.height - 5))
         mRefreshButton.setImage(UIImage(named: "refresh.png"), for: UIControlState())
@@ -212,7 +221,19 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
         RunLoop.main.add(timer, forMode: RunLoopMode.commonModes)
         
         // ==========================================
+        subscribeForSignal()
+    }
+    
+    
+    func subscribeForSignal() {
         
+        SSStudentDataSource.sharedDataSource.xmppStoppedSignal.subscribe(on: self) { [unowned self] (isStopped) in
+            if  isStopped == true {
+                self.mstatusImage.backgroundColor = standard_Red
+            } else {
+                self.mstatusImage.backgroundColor = standard_Green
+            }
+        }
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -529,7 +550,7 @@ class SSStudentScheduleViewController: UIViewController,SSStudentDataSourceDeleg
     }
     
     func smhStreamReconnectingWithDelay(_ delay: Int32) {
-       self.view.makeToast("Reconnecting in \(delay) seconds", duration: 0.5, position: .bottom)
+       self.view.makeToast("Reconnecting in \(delay) seconds", duration: 2, position: .bottom)
        activityIndicator.startAnimating()
         activityIndicator.isHidden = false
 //        AppDelegate.sharedDataSource.showReconnecting()
@@ -643,7 +664,7 @@ extension SSStudentScheduleViewController {
             
             self.activityIndicator.isHidden = true
             self.activityIndicator.stopAnimating()
-            self.view.makeToast(error.description, duration: 0.5, position: .bottom)
+            self.view.makeToast(error.description, duration: 2, position: .bottom)
         }
     }
     
