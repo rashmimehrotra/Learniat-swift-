@@ -296,7 +296,7 @@ class CollaborationQuestionView: UIView,SSTeacherDataSourceDelegate
             SSTeacherDataSource.sharedDataSource.updateRecorededQuestionWithQuestionLogId(mCurrentQuestionID, withQuestionName: getQestionName().questionName, withQuestionOptions: getQestionName().optionsDetails, withAnswerStates: getQestionName().optionsState, WithDelegate: self)
         } else {
             self.hideToastActivity()
-           self.makeToast("Please select atleast one correct answer and type your question", duration: 5.0, position: .bottom)
+           self.makeToast("Please select atleast one correct answer and type your question", duration: 5.0, position: .top)
         }
     }
     
@@ -313,7 +313,7 @@ class CollaborationQuestionView: UIView,SSTeacherDataSourceDelegate
             SSTeacherDataSource.sharedDataSource.updateRecorededQuestionWithQuestionLogId(mCurrentQuestionID, withQuestionName: getQestionName().questionName, withQuestionOptions: getQestionName().optionsDetails, withAnswerStates: getQestionName().optionsState, WithDelegate: self)
         } else {
             self.hideToastActivity()
-             self.makeToast("Please select atleast one correct answer and type your question", duration: 5.0, position: .bottom)
+             self.makeToast("Please select atleast one correct answer and type your question", duration: 5.0, position: .top)
         }
     }
    

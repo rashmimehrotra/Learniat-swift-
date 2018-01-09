@@ -28,6 +28,7 @@
 		182E93251F481A4700F5C911 /* KMZFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 182E93211F481A4700F5C911 /* KMZFrame.m */; };
 		182E93261F481A4700F5C911 /* KMZLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 182E93231F481A4700F5C911 /* KMZLine.m */; };
 		1D40D15A1FCFE3E9004BBEA8 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D40D1591FCFE3E9004BBEA8 /* Reachability.swift */; };
+		1DE06FE41FE44BE200463E9E /* TopicStartAndStopToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE06FE31FE44BE100463E9E /* TopicStartAndStopToast.swift */; };
 		53015BBB1CE5D93C00BB366C /* Like_Disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 53015BB71CE5D93C00BB366C /* Like_Disabled.png */; };
 		53015BBC1CE5D93C00BB366C /* Like_Selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 53015BB81CE5D93C00BB366C /* Like_Selected.png */; };
 		53015BBD1CE5D93C00BB366C /* Unlike_Disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 53015BB91CE5D93C00BB366C /* Unlike_Disabled.png */; };
@@ -418,7 +419,6 @@
 		C83952A51F407A6300F1AF05 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83952A41F407A6300F1AF05 /* Question.swift */; };
 		C83952A71F407A7000F1AF05 /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83952A61F407A7000F1AF05 /* Topic.swift */; };
 		C842BCF51F4C147900151A30 /* XMPPModelConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C842BCF41F4C147900151A30 /* XMPPModelConstants.swift */; };
-		C8B4CF351F2325FD00F7EC4C /* LearniatToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B4CF341F2325FD00F7EC4C /* LearniatToast.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -446,6 +446,7 @@
 		182E93221F481A4700F5C911 /* KMZLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMZLine.h; sourceTree = "<group>"; };
 		182E93231F481A4700F5C911 /* KMZLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMZLine.m; sourceTree = "<group>"; };
 		1D40D1591FCFE3E9004BBEA8 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		1DE06FE31FE44BE100463E9E /* TopicStartAndStopToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicStartAndStopToast.swift; sourceTree = "<group>"; };
 		4603009CFA2404778386D823 /* Pods-LearniatStudent.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearniatStudent.release.xcconfig"; path = "Pods/Target Support Files/Pods-LearniatStudent/Pods-LearniatStudent.release.xcconfig"; sourceTree = "<group>"; };
 		4807AA5F0E5F952C2FC55D75 /* Pods-LearniatStudent.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LearniatStudent.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LearniatStudent/Pods-LearniatStudent.debug.xcconfig"; sourceTree = "<group>"; };
 		53015BB71CE5D93C00BB366C /* Like_Disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Like_Disabled.png; sourceTree = "<group>"; };
@@ -1021,7 +1022,6 @@
 		C83952A41F407A6300F1AF05 /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		C83952A61F407A7000F1AF05 /* Topic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
 		C842BCF41F4C147900151A30 /* XMPPModelConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMPPModelConstants.swift; sourceTree = "<group>"; };
-		C8B4CF341F2325FD00F7EC4C /* LearniatToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LearniatToast.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1232,8 +1232,8 @@
 		533064A71CC9E52E0035CCDE /* common */ = {
 			isa = PBXGroup;
 			children = (
+				1DE06FE31FE44BE100463E9E /* TopicStartAndStopToast.swift */,
 				182E931D1F481A4700F5C911 /* KMZDrawView */,
-				C8B4CF341F2325FD00F7EC4C /* LearniatToast.swift */,
 				003343A31F09369F00B69625 /* RNLoadingButton.swift */,
 				533A8FCA1E97A16A00A38019 /* SpinnerButtonView.swift */,
 				53A552201CF9A8B70093634A /* PlistDownloder.h */,
@@ -2862,6 +2862,7 @@
 				530929E31CF2FEE1002CB6B5 /* TextTypeQuestionView.swift in Sources */,
 				533066A71CC9E5F40035CCDE /* NSXMLElement+XEP_0297.m in Sources */,
 				533066441CC9E5F40035CCDE /* XMPPElement.m in Sources */,
+				1DE06FE41FE44BE200463E9E /* TopicStartAndStopToast.swift in Sources */,
 				5330668D1CC9E5F40035CCDE /* XMPPCapsResourceCoreDataStorageObject.m in Sources */,
 				5330664B1CC9E5F40035CCDE /* XMPPStream.m in Sources */,
 				5330668A1CC9E5F40035CCDE /* XMPPCapabilities.xcdatamodel in Sources */,
@@ -2981,7 +2982,6 @@
 				533066A01CC9E5F40035CCDE /* XMPPTime.m in Sources */,
 				53D414A41CF780210085C38E /* ModelAnswerFullViewSubView.swift in Sources */,
 				182E93241F481A4700F5C911 /* KMZDrawView.m in Sources */,
-				C8B4CF351F2325FD00F7EC4C /* LearniatToast.swift in Sources */,
 				533066971CC9E5F40035CCDE /* XMPPMessage+XEP_0184.m in Sources */,
 				53A482B31CE31B1A00C90451 /* matchColoumnTableViewCell.m in Sources */,
 				53A482E21CE45FD000C90451 /* ICDMaterialActivityIndicatorView.m in Sources */,

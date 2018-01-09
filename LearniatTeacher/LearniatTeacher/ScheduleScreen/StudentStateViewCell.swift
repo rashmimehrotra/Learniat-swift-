@@ -98,10 +98,10 @@ class StudentStateViewCell: UIImageView {
             
             if let checkedUrl = URL(string: "\(urlString)/\(StudentId)_79px.jpg")
             {
-                mStudentImage.contentMode = .scaleAspectFit
                 mStudentImage.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
                 mStudentImage.layer.cornerRadius = mStudentImage.frame.size.width/16;
                 mStudentImage.layer.masksToBounds = true
+                mStudentImage.contentMode = .scaleAspectFit
                 
             }
         }
@@ -126,7 +126,7 @@ class StudentStateViewCell: UIImageView {
                 {
                     self.mStateLabel.text = StudentSignedout
                     self.mStateLabel.backgroundColor = standard_Red
-                    self.alpha = 0.5
+                    self.mStudentImage.alpha = 0.5
                 }
                 else if _StudentState ==  StudentFree || _StudentState ==  StudentPreAllocated || _StudentState == "7" || _StudentState == "9"
                 {

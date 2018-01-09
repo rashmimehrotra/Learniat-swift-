@@ -83,8 +83,9 @@ class AutoSeatSubView: UIView{
         let urlString = UserDefaults.standard.object(forKey: k_INI_UserProfileImageURL) as! String
         if let checkedUrl = URL(string: "\(urlString)/\(studentId)_79px.jpg")
         {
-            StudentImageView.contentMode = .scaleAspectFit
+            
             StudentImageView.downloadImage(checkedUrl, withFolderType: folderType.proFilePics)
+            StudentImageView.contentMode = .scaleAspectFit
         }
         StudentImageView.layer.cornerRadius = 2
         StudentImageView.layer.masksToBounds = true

@@ -53,18 +53,18 @@ class SubjectiveLeftSideView: UIView,SubjectiveStudentContainerDelegate
     {
         super.init(frame:frame)
         
-        self.backgroundColor =  UIColor.black;
+        self.backgroundColor = UIColor(red: 28/255.0, green: 28/255.0, blue: 28/255.0, alpha: 1)
         
-        let headerLabel = UILabel(frame: CGRect(x: 30, y: 0, width: 80, height: 50));
+        let headerLabel = UILabel(frame: CGRect(x: 60, y: 0, width: 80, height: 50)); // x: 30
         headerLabel.textAlignment = .center;
         headerLabel.text = "SelectAll";
         headerLabel.textColor = standard_TextGrey
-        headerLabel.backgroundColor = UIColor.black;
+        headerLabel.backgroundColor = UIColor(red: 28/255.0, green: 28/255.0, blue: 28/255.0, alpha: 1)
         self.addSubview(headerLabel)
         
         
         
-        selectAllImageview = UIImageView(frame: CGRect(x: 7.0, y: 15, width: 20,height: 20))
+        selectAllImageview = UIImageView(frame: CGRect(x: 30, y: 15, width: 20,height: 20)) // x: 7.0
         self.addSubview(selectAllImageview)
         selectAllImageview.image = UIImage(named: "Unchecked.png")
         

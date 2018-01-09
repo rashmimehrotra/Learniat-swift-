@@ -44,6 +44,8 @@ class SubjectiveStudentContainer: UIView
     
     let mStudentImageView = CustomProgressImageView()
     
+    let mRoundedContainerView = UIImageView() // Container
+    
     let mStudentNameLabel = UILabel()
     
     let studentSubmissionLabel = UILabel()
@@ -69,20 +71,25 @@ class SubjectiveStudentContainer: UIView
         
                 
                 
-       let mRoundedContainerView = UIImageView(frame:CGRect(x: 5,y: 5, width: self.frame.size.width - 10 , height: self.frame.size.height - 10 ));
+//       let mRoundedContainerView = UIImageView(frame:CGRect(x: 5,y: 5, width: self.frame.size.width - 10 , height: self.frame.size.height - 10 ));
+        mRoundedContainerView.frame = CGRect(x: 5,y: 5, width: self.frame.size.width - 10,
+                                             height: self.frame.size.height - 10)
         mRoundedContainerView.backgroundColor = UIColor.clear
         self.addSubview(mRoundedContainerView);
         mRoundedContainerView.isUserInteractionEnabled = true
+        mRoundedContainerView.alpha = 0.5
        
         
-        
-        mStudentImageView.frame = CGRect(x: 0 , y: 0, width: 40, height: 40)
+        // MARK: Student Image
+        mStudentImageView.frame = CGRect(x: mRoundedContainerView.frame.size.width - 60, y: 0, width: 40, height: 40)
+        bringSubview(toFront: mStudentImageView)
+        mStudentImageView.layer.cornerRadius = 5
         mRoundedContainerView.addSubview(mStudentImageView);
 
         
         
-        
-        let overlayBackground = LBorderView(frame:CGRect(x: 0, y: mStudentImageView.frame.size.height + 5 , width: mRoundedContainerView.frame.size.width, height: mRoundedContainerView.frame.size.width / kAspectRation))
+        // y: ... height: 5
+        let overlayBackground = LBorderView(frame:CGRect(x: 0, y: mStudentImageView.frame.size.height + 25 , width: mRoundedContainerView.frame.size.width, height: mRoundedContainerView.frame.size.width / kAspectRation))
         
         overlayBackground.borderType = BorderTypeDashed;
         overlayBackground.dashPattern = 4;
@@ -116,8 +123,13 @@ class SubjectiveStudentContainer: UIView
         
 
         
-        
-         mProgressView.frame = CGRect(x: mStudentImageView.frame.origin.x  + mStudentImageView.frame.size.width + 10 ,y: mStudentImageView.frame.origin.y  + mStudentImageView.frame.size.height - 4 , width: mRoundedContainerView.frame.size.width - (mStudentImageView.frame.origin.x  + mStudentImageView.frame.size.width + 10) ,height: 4)
+        // MARK: Grasp Index Progress Bar
+//         mProgressView.frame = CGRect(x: mStudentImageView.frame.origin.x  + mStudentImageView.frame.size.width + 10 ,y: mStudentImageView.frame.origin.y  + mStudentImageView.frame.size.height - 4 , width: mRoundedContainerView.frame.size.width - (mStudentImageView.frame.origin.x  + mStudentImageView.frame.size.width + 10) ,height: 4)
+        // -->
+//         mProgressView.frame = CGRect(x: 0 ,y: mStudentImageView.frame.size.height, width: mRoundedContainerView.frame.size.width - (mStudentImageView.frame.origin.x  + mStudentImageView.frame.size.width + 10) ,height: 4)
+          mProgressView.frame = CGRect(x: mStudentImageView.frame.origin.x - 30, y: mStudentImageView.frame.size.height - 22, width: mStudentImageView.frame.size.height, height: 3.5)
+        mProgressView.transform = CGAffineTransform(rotationAngle: -(CGFloat.pi / 2))
+//        mProgressView.frame = CGRect(x: mRoundedContainerView.frame.size.width - mStudentImageView.frame.size.width - 50,y: mStudentImageView.frame.origin.y, width: 30 ,height: mStudentImageView.frame.size.height)
         mRoundedContainerView.addSubview(mProgressView);
         mProgressView.progressTintColor = standard_Red
         mProgressView.isHidden            = false
@@ -131,8 +143,9 @@ class SubjectiveStudentContainer: UIView
         
         
         
-        
-        mStudentNameLabel.frame = CGRect(x: mProgressView.frame.origin.x ,y: mProgressView.frame.origin.y - 22 ,width: mProgressView.frame.size.width - 20 ,height: 20)
+        // MARK: Student Name Label
+//        mStudentNameLabel.frame = CGRect(x: mProgressView.frame.origin.x, y: mProgressView.frame.origin.y - 22 ,width: mProgressView.frame.size.width - 20 ,height: 20)
+        mStudentNameLabel.frame = CGRect(x: mProgressView.frame.origin.x, y: mStudentImageView.frame.size.height, width: mRoundedContainerView.frame.size.width - (mProgressView.frame.size.width + mStudentImageView.frame.size.width), height: 20)
         mStudentNameLabel.text = ""
         mStudentNameLabel.font = UIFont(name: helveticaMedium, size: 14);
         mStudentNameLabel.textAlignment = .left;
@@ -153,8 +166,8 @@ class SubjectiveStudentContainer: UIView
         let m_checkBoxButton = UIButton(frame:CGRect(x: 0, y: 0, width: mRoundedContainerView.frame.size.width,height: mRoundedContainerView.frame.size.height));
         mRoundedContainerView.addSubview(m_checkBoxButton);
         
-        checkBoxImage.frame = CGRect(x: mRoundedContainerView.frame.size .width - 20 , y: 0,width: 20,height: 20)
-        
+//        checkBoxImage.frame = CGRect(x: mRoundedContainerView.frame.size .width - 20 , y: 0,width: 20,height: 20)
+        checkBoxImage.frame = CGRect(x: 15 , y: 10, width: 30,height: 30) // width: 20
         checkBoxImage.image = UIImage(named:"Unchecked.png");
         
         mRoundedContainerView.addSubview(checkBoxImage);
@@ -283,8 +296,7 @@ class SubjectiveStudentContainer: UIView
             currentSelectionState = kSelected
             
             checkBoxImage.image = UIImage(named:"Checked.png");
-            
-            
+            mRoundedContainerView.alpha = 1
             
             if delegate().responds(to: #selector(SubjectiveStudentContainerDelegate.delegateCheckmarkPressedWithState(_:withStudentDetails:withAnswerDetails:)))
             {
@@ -299,6 +311,7 @@ class SubjectiveStudentContainer: UIView
         {
             currentSelectionState = kUnSelected
             checkBoxImage.image = UIImage(named:"Unchecked.png");
+            mRoundedContainerView.alpha = 0.5
             
             if delegate().responds(to: #selector(SubjectiveStudentContainerDelegate.delegateCheckmarkPressedWithState(_:withStudentDetails:withAnswerDetails:)))
             {

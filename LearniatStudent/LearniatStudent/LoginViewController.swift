@@ -203,7 +203,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate,SSStudentDataSou
                 
             }, withfailurehandler: { (error) in
                 
-                self.view.makeToast("Error\((error.code))-\((error.localizedDescription))", duration: 5.0, position: .bottom)
+                self.view.makeToast("Error\((error.code))-\((error.localizedDescription))", duration: 2.0, position: .bottom)
                 self.loginButtonPressed(false)
             })
         }

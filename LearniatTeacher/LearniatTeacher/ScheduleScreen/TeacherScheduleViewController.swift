@@ -931,12 +931,12 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
             }
             else  if SessionState == kCanClled
             {
-                self.view.makeToast("This class was cancelled.", duration: 0.5, position: .bottom)
+                self.view.makeToast("This class was cancelled.", duration: 2, position: .bottom)
                 
             }
             else  if SessionState == kEnded
             {
-                self.view.makeToast("This class has already ended.", duration: 0.5, position: .bottom)
+                self.view.makeToast("This class has already ended.", duration: 2, position: .bottom)
             }
             else if SessionState == kLive
             {

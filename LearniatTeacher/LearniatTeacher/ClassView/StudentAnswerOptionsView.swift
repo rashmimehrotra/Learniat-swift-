@@ -439,7 +439,7 @@ class StudentAnswerOptionsView: UIView
                     
                     if containerView.frame.size.width > containerView.frame.size.height
                     {
-                        optionsValueImage.frame = CGRect(x: (containerView.frame.size.width - containerView.frame.size.height)/2 , y: (containerView.frame.size.width - containerView.frame.size.height)/2, width: containerView.frame.size.height, height: containerView.frame.size.height)
+                        optionsValueImage.frame = CGRect(x: (containerView.frame.size.width - containerView.frame.size.height)/2 , y: (containerView.frame.size.width - containerView.frame.size.height)/8, width: containerView.frame.size.height, height: containerView.frame.size.height)
                     }
                     else
                     {

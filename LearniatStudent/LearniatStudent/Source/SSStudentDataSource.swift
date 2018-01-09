@@ -159,6 +159,8 @@ class SSStudentDataSource: NSObject, APIManagerDelegate
     
     
     let isBackgroundSignal = Signal<(Bool)>()
+    
+    let xmppStoppedSignal  = Signal<(Bool)>()
 
     
     

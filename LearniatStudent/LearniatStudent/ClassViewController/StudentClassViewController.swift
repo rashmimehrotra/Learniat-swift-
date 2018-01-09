@@ -108,9 +108,10 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
 
         
         
-        
-        mTeacherImageButton.frame = CGRect(x: 0, y: 0, width: mTopbarImageView.frame.size.height , height: mTopbarImageView.frame.size.height)
+        // MARK: Student Image Button
+        mTeacherImageButton.frame = CGRect(x: 0, y: 0, width: mTopbarImageView.frame.size.height + 64 , height: mTopbarImageView.frame.size.height)
         mTopbarImageView.addSubview(mTeacherImageButton)
+        mTopbarImageView.bringSubview(toFront: mTeacherImageButton)
         mTeacherImageButton.addTarget(self, action: #selector(StudentClassViewController.onTeacherImage), for: UIControlEvents.touchUpInside)
         
 
@@ -262,7 +263,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                 if sessionRoomSubject.topic.topicId != "" && sessionRoomSubject.topic.topicState == QuestionState.Started{
                         mSubTopicNamelabel.text = sessionRoomSubject.topic.topicName
                         mQueryView.queryPresentState(.TopicStarted)
-                        LearniatToast.showToast(view: self.view, duration:1.0, text: "Topic Started")
+                        TopicStartAndStopToast.showToast(view: self.view, duration:1.0, text: "Topic Started")
                 } else {
                     mQueryView.queryPresentState(.TopicStopped)
                 }
@@ -295,6 +296,13 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
                self.appMovedToBackground()
             } else {
                self.appMovedToForeground()
+            }
+        } 
+        SSStudentDataSource.sharedDataSource.xmppStoppedSignal.subscribe(on: self) { [unowned self] (isStopped) in
+            if  isStopped == true {
+                self.mstatusImage.backgroundColor = standard_Red
+            } else {
+                self.mstatusImage.backgroundColor = standard_Green
             }
         }
     }
@@ -335,7 +343,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
             // This is commented to avoid the issues of student app moving out of the live session
 //            self.verifyUserState(userState: userStateParser.userState)
         }) { (error) in
-            self.view.makeToast("\(error.code)-\(error.description)", duration: 0.5, position: .bottom)
+            self.view.makeToast("\(error.code)-\(error.description)", duration: 2, position: .bottom)
         }
     }
     
@@ -727,12 +735,12 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
     
     
     func smhStreamReconnectingWithDelay(_ delay: Int32) {
-        self.view.makeToast("Reconnecting in \(delay) seconds", duration: 0.5, position: .bottom)
+        self.view.makeToast("Reconnecting in \(delay) seconds", duration: 2, position: .bottom)
     }
     
     func smhDidReciveAuthenticationState(_ state: Bool, WithName userName: String) {
         if state == false {
-            self.view.makeToast("Not Able to Authenticate current user. Plese try again", duration: 0.5, position: .bottom)
+            self.view.makeToast("Not Able to Authenticate current user. Plese try again", duration: 2, position: .bottom)
         } else {
             updateStudentState(state: UserState.Live)
         }
@@ -794,12 +802,12 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         if topic.topicState == TopicState.Ended{
             mQueryView.queryPresentState(.TopicStopped)
             mSubTopicNamelabel.text = "No subtopic"
-            LearniatToast.showToast(view: self.view, duration:1.0, image:"wrongMatch.png", text: "Topic Stopped")
+            TopicStartAndStopToast.showToast(view: self.view, duration:1.0, image:"wrongMatch.png", text: "Topic Stopped")
         }
         else{
             mSubTopicNamelabel.text = topic.topicName
             mQueryView.queryPresentState(.TopicStarted)
-            LearniatToast.showToast(view: self.view, duration:1.0, text: "Topic Started")
+            TopicStartAndStopToast.showToast(view: self.view, duration:1.0, text: "Topic Started")
         }
         
     }
@@ -808,7 +816,7 @@ class StudentClassViewController: UIViewController,SSStudentDataSourceDelegate,S
         if topic.topicState == TopicState.Started{
             mSubTopicNamelabel.text = topic.topicName
             mQueryView.queryPresentState(.TopicStarted)
-            LearniatToast.showToast(view: self.view, duration:1.0, text: "Topic Started")
+            TopicStartAndStopToast.showToast(view: self.view, duration:1.0, text: "Topic Started")
         }
         else{
             mSubTopicNamelabel.text = "No subtopic"
