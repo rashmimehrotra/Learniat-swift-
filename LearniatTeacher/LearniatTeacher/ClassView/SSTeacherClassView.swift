@@ -2693,7 +2693,7 @@ func delegateAnnotateButtonPressedWithAnswerDetails(_ answerDetails:AnyObject, w
             mSubTopicsNamelabel.text = "No topic selected"
         }
         
-        let mSetupLessonPlan  = SSTeacherLessonPlanView(frame: CGRect(x: 0, y: 0 ,width: self.view.frame.size.width, height: self.view.frame.size.height))
+        let mSetupLessonPlan  = MSetUpLessonPlanView(frame: CGRect(x: 0, y: 0 ,width: self.view.frame.size.width, height: self.view.frame.size.height))
         mSetupLessonPlan.setCurrentSessionDetails(currentSessionDetails)
         self.view.addSubview(mSetupLessonPlan)
         SSTeacherDataSource.sharedDataSource.subTopicDetailsDictonary.removeAllObjects()

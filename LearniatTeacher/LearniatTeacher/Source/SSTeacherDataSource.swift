@@ -215,8 +215,9 @@ let kSaveSuggestionState            =   "SaveSuggestionState"
 
 class SSTeacherDataSource: NSObject, APIManagerDelegate
 {
-     internal  static let sharedDataSource = SSTeacherDataSource()
+    internal  static let sharedDataSource = SSTeacherDataSource()
     
+     var mWebServicesAPI = WebServicesAPI()
     
     var mAPICountValue = 0
     
@@ -1412,6 +1413,38 @@ class SSTeacherDataSource: NSObject, APIManagerDelegate
         
     }
     
+    //MARK: - New Meth ods of Generaic class
+    func getAllNodesWithClassId(helperValue:GetAllNodesAPIHelper,completion: @escaping (_ success: Bool, _ details:AnyObject?, _ error: NSError?) -> ()) {
+       let jsonData = readJson(jsonName: "MainTopics")
+        if jsonData != nil {
+            completion(true,jsonData, nil)
+        }
+    }
+    
+    
+    
+    private func readJson(jsonName:String)->AnyObject? {
+        do {
+            if let file = Bundle.main.url(forResource: jsonName, withExtension: "json") {
+                let data = try Data(contentsOf: file)
+                let json = try JSONSerialization.jsonObject(with: data, options: [])
+                if let object = json as? [String: Any] {
+                    // json is a dictionary
+                    return object as AnyObject
+                    
+                } else if let object = json as? [Any] {
+                    // json is an array
+                    return object as AnyObject
+                }
+            }
+            
+        } catch {
+            print(error.localizedDescription)
+        }
+         return nil
+    }
+    
+    
 }
 
 
@@ -1485,4 +1518,10 @@ extension String
             return (nil,customErrors.jsonParsingError as NSError)
         }
     }
+    
+    
+    
 }
+
+
+

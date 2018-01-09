@@ -23,7 +23,7 @@ QuestionsView
 LiveQuestionView
 
 
-SSTeacherLessonPlanView
+MSetUpLessonPlanView
 LessonPlanMainView
 LessonPlanSubTopicsView
 LessonPlanQuestionView

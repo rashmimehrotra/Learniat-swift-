@@ -114,7 +114,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     
     var mStudentsStateView      : StudentsStateView!
     
-    var mStudentsLessonPlanView      : SSTeacherLessonPlanView!
+    var mStudentsLessonPlanView      : MSetUpLessonPlanView!
     
     static var currentSessionId : Int = 0
     
@@ -1489,7 +1489,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
     {
         if mStudentsLessonPlanView == nil
         {
-            mStudentsLessonPlanView =  SSTeacherLessonPlanView(frame: CGRect(x: 0, y: mTopbarImageView.frame.size.height + 10, width: self.view.frame.size.width, height: self.view.frame.size.height - (mTopbarImageView.frame.size.height + 20)))
+            mStudentsLessonPlanView =  MSetUpLessonPlanView(frame: CGRect(x: 0, y: mTopbarImageView.frame.size.height + 10, width: self.view.frame.size.width, height: self.view.frame.size.height - (mTopbarImageView.frame.size.height + 20)))
             mStudentsLessonPlanView.layer.shadowColor = UIColor.black.cgColor
             mStudentsLessonPlanView.layer.shadowOpacity = 0.3
             mStudentsLessonPlanView.layer.shadowOffset = CGSize.zero
@@ -1506,7 +1506,7 @@ class TeacherScheduleViewController: UIViewController,SSTeacherDataSourceDelegat
                 
                 if self.view.subviews.contains(mStudentsLessonPlanView) == false
                 {
-                    mStudentsLessonPlanView =  SSTeacherLessonPlanView(frame: CGRect(x: 0, y: mTopbarImageView.frame.size.height + 10, width: self.view.frame.size.width, height: self.view.frame.size.height - (mTopbarImageView.frame.size.height + 20)))
+                    mStudentsLessonPlanView =  MSetUpLessonPlanView(frame: CGRect(x: 0, y: mTopbarImageView.frame.size.height + 10, width: self.view.frame.size.width, height: self.view.frame.size.height - (mTopbarImageView.frame.size.height + 20)))
                     mStudentsLessonPlanView.layer.shadowColor = UIColor.black.cgColor
                     mStudentsLessonPlanView.layer.shadowOpacity = 0.3
                     mStudentsLessonPlanView.layer.shadowOffset = CGSize.zero

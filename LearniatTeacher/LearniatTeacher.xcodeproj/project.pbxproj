@@ -14,10 +14,18 @@
 		001228581F08DBB9005E8286 /* TimeTableDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001228521F08DBB9005E8286 /* TimeTableDataManager.swift */; };
 		001228591F08DBB9005E8286 /* UserDataManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001228531F08DBB9005E8286 /* UserDataManger.swift */; };
 		001B4A091F1266AA0021CFC2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001B4A081F1266AA0021CFC2 /* Constants.swift */; };
+		0030911E1F94FBC500BD2BB7 /* GetAllNodesAPIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0030911D1F94FBC500BD2BB7 /* GetAllNodesAPIHelper.swift */; };
+		003091201F95282500BD2BB7 /* MainTopics.json in Resources */ = {isa = PBXBuildFile; fileRef = 0030911F1F94FD6C00BD2BB7 /* MainTopics.json */; };
 		0087A3581F10CBD6008E6153 /* InternetConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0087A3561F10CBD6008E6153 /* InternetConnection.swift */; };
 		0087A3591F10CBD6008E6153 /* InternetDisconnected.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0087A3571F10CBD6008E6153 /* InternetDisconnected.xib */; };
 		0087A35B1F10CC78008E6153 /* RNLoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0087A35A1F10CC78008E6153 /* RNLoadingButton.swift */; };
 		0087A35D1F10CD21008E6153 /* InternetDisconnected.png in Resources */ = {isa = PBXBuildFile; fileRef = 0087A35C1F10CD21008E6153 /* InternetDisconnected.png */; };
+		00A6E4071F94F41400A46B19 /* APIKeyValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A6E4061F94F41400A46B19 /* APIKeyValues.swift */; };
+		00A6E4101F94F82300A46B19 /* MSetUpLessonPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A6E40D1F94F79C00A46B19 /* MSetUpLessonPlanView.swift */; };
+		00A6E4111F94F84600A46B19 /* MLessonPlanMainTopicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A6E40C1F94F79C00A46B19 /* MLessonPlanMainTopicsView.swift */; };
+		00A6E4121F94F85100A46B19 /* MMaintopicsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A6E40A1F94F79C00A46B19 /* MMaintopicsModel.swift */; };
+		00A6E4131F94F85400A46B19 /* MLessonPlanMainTopicsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A6E40F1F94F79C00A46B19 /* MLessonPlanMainTopicsViewModel.swift */; };
+		00A6E4151F94F90400A46B19 /* MSetUpLessonPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A6E4141F94F90400A46B19 /* MSetUpLessonPlanViewModel.swift */; };
 		00E18E991F082BA900D9705C /* AppAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E18E981F082BA900D9705C /* AppAPI.swift */; };
 		00E18E9F1F082D7200D9705C /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 00E18E9D1F082D7200D9705C /* Config.plist */; };
 		00E18EA01F082D7200D9705C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E18E9E1F082D7200D9705C /* Config.swift */; };
@@ -45,7 +53,6 @@
 		4DC246501CC1F6B500E01CA4 /* ImageUploading.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC2464B1CC1F6B500E01CA4 /* ImageUploading.m */; };
 		4DC246511CC1F6B500E01CA4 /* RatingsPopOverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC2464D1CC1F6B500E01CA4 /* RatingsPopOverViewController.m */; };
 		4DC246521CC1F6B500E01CA4 /* SSSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC2464F1CC1F6B500E01CA4 /* SSSettingsViewController.m */; };
-		4DC246551CC20FA200E01CA4 /* SSTeacherLessonPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC246541CC20FA200E01CA4 /* SSTeacherLessonPlanView.swift */; };
 		4DC246571CC217C200E01CA4 /* LessonPlanMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC246561CC217C200E01CA4 /* LessonPlanMainView.swift */; };
 		4DC246591CC21DC800E01CA4 /* LessonPlanMainViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC246581CC21DC800E01CA4 /* LessonPlanMainViewCell.swift */; };
 		4DC2465B1CC2353200E01CA4 /* LessonPlanSubTopicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC2465A1CC2353200E01CA4 /* LessonPlanSubTopicsView.swift */; };
@@ -533,10 +540,18 @@
 		001228521F08DBB9005E8286 /* TimeTableDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeTableDataManager.swift; sourceTree = "<group>"; };
 		001228531F08DBB9005E8286 /* UserDataManger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDataManger.swift; sourceTree = "<group>"; };
 		001B4A081F1266AA0021CFC2 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		0030911D1F94FBC500BD2BB7 /* GetAllNodesAPIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllNodesAPIHelper.swift; sourceTree = "<group>"; };
+		0030911F1F94FD6C00BD2BB7 /* MainTopics.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MainTopics.json; sourceTree = "<group>"; };
 		0087A3561F10CBD6008E6153 /* InternetConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InternetConnection.swift; sourceTree = "<group>"; };
 		0087A3571F10CBD6008E6153 /* InternetDisconnected.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InternetDisconnected.xib; sourceTree = "<group>"; };
 		0087A35A1F10CC78008E6153 /* RNLoadingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNLoadingButton.swift; sourceTree = "<group>"; };
 		0087A35C1F10CD21008E6153 /* InternetDisconnected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = InternetDisconnected.png; sourceTree = "<group>"; };
+		00A6E4061F94F41400A46B19 /* APIKeyValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeyValues.swift; sourceTree = "<group>"; };
+		00A6E40A1F94F79C00A46B19 /* MMaintopicsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMaintopicsModel.swift; sourceTree = "<group>"; };
+		00A6E40C1F94F79C00A46B19 /* MLessonPlanMainTopicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLessonPlanMainTopicsView.swift; sourceTree = "<group>"; };
+		00A6E40D1F94F79C00A46B19 /* MSetUpLessonPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSetUpLessonPlanView.swift; sourceTree = "<group>"; };
+		00A6E40F1F94F79C00A46B19 /* MLessonPlanMainTopicsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MLessonPlanMainTopicsViewModel.swift; sourceTree = "<group>"; };
+		00A6E4141F94F90400A46B19 /* MSetUpLessonPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MSetUpLessonPlanViewModel.swift; path = LearniatTeacher/ClassView/LessonPlanMVVM/ViewModels/MSetUpLessonPlanViewModel.swift; sourceTree = SOURCE_ROOT; };
 		00E18E981F082BA900D9705C /* AppAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAPI.swift; sourceTree = "<group>"; };
 		00E18E9D1F082D7200D9705C /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		00E18E9E1F082D7200D9705C /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
@@ -571,7 +586,6 @@
 		4DC2464D1CC1F6B500E01CA4 /* RatingsPopOverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RatingsPopOverViewController.m; sourceTree = "<group>"; };
 		4DC2464E1CC1F6B500E01CA4 /* SSSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSSettingsViewController.h; sourceTree = "<group>"; };
 		4DC2464F1CC1F6B500E01CA4 /* SSSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSSettingsViewController.m; sourceTree = "<group>"; };
-		4DC246541CC20FA200E01CA4 /* SSTeacherLessonPlanView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSTeacherLessonPlanView.swift; sourceTree = "<group>"; };
 		4DC246561CC217C200E01CA4 /* LessonPlanMainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonPlanMainView.swift; sourceTree = "<group>"; };
 		4DC246581CC21DC800E01CA4 /* LessonPlanMainViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonPlanMainViewCell.swift; sourceTree = "<group>"; };
 		4DC2465A1CC2353200E01CA4 /* LessonPlanSubTopicsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LessonPlanSubTopicsView.swift; sourceTree = "<group>"; };
@@ -1301,6 +1315,50 @@
 			path = RealmWorkers;
 			sourceTree = "<group>";
 		};
+		0030911C1F94FBB400BD2BB7 /* API Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				0030911D1F94FBC500BD2BB7 /* GetAllNodesAPIHelper.swift */,
+			);
+			path = "API Helpers";
+			sourceTree = "<group>";
+		};
+		00A6E4081F94F79C00A46B19 /* LessonPlanMVVM */ = {
+			isa = PBXGroup;
+			children = (
+				00A6E40B1F94F79C00A46B19 /* Scene */,
+				00A6E40E1F94F79C00A46B19 /* ViewModels */,
+				00A6E4091F94F79C00A46B19 /* Models */,
+			);
+			path = LessonPlanMVVM;
+			sourceTree = "<group>";
+		};
+		00A6E4091F94F79C00A46B19 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				00A6E40A1F94F79C00A46B19 /* MMaintopicsModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		00A6E40B1F94F79C00A46B19 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				00A6E40D1F94F79C00A46B19 /* MSetUpLessonPlanView.swift */,
+				00A6E40C1F94F79C00A46B19 /* MLessonPlanMainTopicsView.swift */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		00A6E40E1F94F79C00A46B19 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				00A6E4141F94F90400A46B19 /* MSetUpLessonPlanViewModel.swift */,
+				00A6E40F1F94F79C00A46B19 /* MLessonPlanMainTopicsViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		00E18E9C1F082D7200D9705C /* Config */ = {
 			isa = PBXGroup;
 			children = (
@@ -1368,7 +1426,6 @@
 		4DC246531CC20F8500E01CA4 /* SetUpLessonPlan */ = {
 			isa = PBXGroup;
 			children = (
-				4DC246541CC20FA200E01CA4 /* SSTeacherLessonPlanView.swift */,
 				4DC246561CC217C200E01CA4 /* LessonPlanMainView.swift */,
 				4DC246581CC21DC800E01CA4 /* LessonPlanMainViewCell.swift */,
 				4DC2465A1CC2353200E01CA4 /* LessonPlanSubTopicsView.swift */,
@@ -1721,8 +1778,9 @@
 				53676C8D1CA63B7F00CADE4D /* SeatsViewController */,
 				53676C921CA63B7F00CADE4D /* Main Source */,
 				531044831CA64296007AE9D5 /* Resource */,
-				53676AE81CA63B2100CADE4D /* Main.storyboard */,
+				0030911C1F94FBB400BD2BB7 /* API Helpers */,
 				53676AEB1CA63B2100CADE4D /* Assets.xcassets */,
+				53676AE81CA63B2100CADE4D /* Main.storyboard */,
 				53676AED1CA63B2200CADE4D /* LaunchScreen.storyboard */,
 				53676AF01CA63B2300CADE4D /* Info.plist */,
 				53676D4F1CA63D4000CADE4D /* Swift-Bridging-Header.h */,
@@ -1764,6 +1822,7 @@
 				53676B151CA63B7F00CADE4D /* XMPP */,
 				53460C371CD1F12000076F85 /* CustomTextView.swift */,
 				001B4A081F1266AA0021CFC2 /* Constants.swift */,
+				00A6E4061F94F41400A46B19 /* APIKeyValues.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2737,6 +2796,7 @@
 		53676C921CA63B7F00CADE4D /* Main Source */ = {
 			isa = PBXGroup;
 			children = (
+				0030911F1F94FD6C00BD2BB7 /* MainTopics.json */,
 				00E18E981F082BA900D9705C /* AppAPI.swift */,
 				53E658E31F066E7C00EAB2E4 /* ApiResponseLogging.swift */,
 				53E658E41F066E7C00EAB2E4 /* WebServiceManager.swift */,
@@ -2751,6 +2811,7 @@
 		53676D501CA63D7A00CADE4D /* ClassView */ = {
 			isa = PBXGroup;
 			children = (
+				00A6E4081F94F79C00A46B19 /* LessonPlanMVVM */,
 				53460C2F1CD1D25A00076F85 /* Polling */,
 				4D0A7FC61CCF7822001AA119 /* Demo */,
 				53676D511CA63D7A00CADE4D /* SSTeacherClassView.swift */,
@@ -3171,6 +3232,7 @@
 				5373024F1CB6771200E76753 /* Rate_Type_Arrow_Icon.png in Resources */,
 				530720E71D027F08001C85F6 /* Icon-iPad-Spotlight-iOS7@2x.png in Resources */,
 				5373022D1CB6771200E76753 /* Star_Selected_AnnotateView@2x.png in Resources */,
+				003091201F95282500BD2BB7 /* MainTopics.json in Resources */,
 				5373021D1CB6771200E76753 /* Eraser_Selected_scribble.png in Resources */,
 				530441731D0962E70032D378 /* Roboto-BlackItalic.ttf in Resources */,
 				537302301CB6771200E76753 /* Tab_bar_Button_AnnotateView.png in Resources */,
@@ -3346,6 +3408,7 @@
 				537AC0281E3A44BF00109060 /* CollaborationMRQCategoryView.swift in Sources */,
 				53676D3A1CA63B7F00CADE4D /* SSTeacherMessageHandler.swift in Sources */,
 				53015BA71CE5A53300BB366C /* PNColor.m in Sources */,
+				00A6E4131F94F85400A46B19 /* MLessonPlanMainTopicsViewModel.swift in Sources */,
 				53676CDD1CA63B7F00CADE4D /* XMPPvCardTempCoreDataStorageObject.m in Sources */,
 				53BFD59C1CEFA59300B52B33 /* SSTeacherPeakViewController.swift in Sources */,
 				53676CE01CA63B7F00CADE4D /* XMPPvCardTempAdrTypes.m in Sources */,
@@ -3428,6 +3491,7 @@
 				5309C7DD1CDA1B9500481E0C /* StudentModelAnswerCell.swift in Sources */,
 				5395672A1CB5281E009B0100 /* SSStarRatingView.m in Sources */,
 				53676CFA1CA63B7F00CADE4D /* XMPPMessageArchiving_Contact_CoreDataObject.m in Sources */,
+				00A6E4071F94F41400A46B19 /* APIKeyValues.swift in Sources */,
 				C81519C71F41903C00DE4EB5 /* Topic.swift in Sources */,
 				53676D021CA63B7F00CADE4D /* XMPPMessageDeliveryReceipts.m in Sources */,
 				53676D391CA63B7F00CADE4D /* SSTeacherDataSource.swift in Sources */,
@@ -3436,10 +3500,10 @@
 				533233331CAFD2CE00971EC7 /* SubmissionMRQView.swift in Sources */,
 				53676CF41CA63B7F00CADE4D /* XMPPCapabilities.xcdatamodel in Sources */,
 				53676CAC1CA63B7F00CADE4D /* NSNumber+XMPP.m in Sources */,
-				4DC246551CC20FA200E01CA4 /* SSTeacherLessonPlanView.swift in Sources */,
 				53676CA41CA63B7F00CADE4D /* XMPPDeprecatedDigestAuthentication.m in Sources */,
 				53460C331CD1E9AE00076F85 /* PollingCreationView.swift in Sources */,
 				53676CEE1CA63B7F00CADE4D /* NSDate+XMPPDateTimeProfiles.m in Sources */,
+				00A6E4151F94F90400A46B19 /* MSetUpLessonPlanViewModel.swift in Sources */,
 				53676CF31CA63B7F00CADE4D /* NSString+XEP_0106.m in Sources */,
 				53676D091CA63B7F00CADE4D /* XMPPAutoTime.m in Sources */,
 				53676CA01CA63B7F00CADE4D /* DottedLine.m in Sources */,
@@ -3554,6 +3618,7 @@
 				53D8CCAD1CCE1A1200BA838C /* MainTopicsView.swift in Sources */,
 				53460C3F1CD22C3F00076F85 /* PollCompletedView.swift in Sources */,
 				5309C75E1CD9D9D600481E0C /* ModelAnswerButtonView.swift in Sources */,
+				00A6E4101F94F82300A46B19 /* MSetUpLessonPlanView.swift in Sources */,
 				53676CF21CA63B7F00CADE4D /* XMPPTransports.m in Sources */,
 				533100681E4E1F0C001B6055 /* CollaborationSuggestionCell.swift in Sources */,
 				001228551F08DBB9005E8286 /* UserModel.swift in Sources */,
@@ -3576,6 +3641,7 @@
 				53015BB11CE5A53300BB366C /* PNScatterChartData.m in Sources */,
 				53676CAA1CA63B7F00CADE4D /* XMPPXOAuth2Google.m in Sources */,
 				53676CC51CA63B7F00CADE4D /* XMPPIQ+JabberRPC.m in Sources */,
+				00A6E4111F94F84600A46B19 /* MLessonPlanMainTopicsView.swift in Sources */,
 				53015BAD1CE5A53300BB366C /* PNPieChartDataItem.m in Sources */,
 				53676CCB1CA63B7F00CADE4D /* XMPPRoom.xcdatamodeld in Sources */,
 				537C3D8D1E4FBD520036FEE7 /* DynamicFontSize.m in Sources */,
@@ -3619,12 +3685,14 @@
 				53676D0A1CA63B7F00CADE4D /* XMPPTime.m in Sources */,
 				001228591F08DBB9005E8286 /* UserDataManger.swift in Sources */,
 				4DC246611CC24E9100E01CA4 /* LessonPlanQuestionViewCell.swift in Sources */,
+				00A6E4121F94F85100A46B19 /* MMaintopicsModel.swift in Sources */,
 				53676D1F1CA63B7F00CADE4D /* DDAbstractDatabaseLogger.m in Sources */,
 				53676C971CA63B7F00CADE4D /* InternetTesting.m in Sources */,
 				53676CD41CA63B7F00CADE4D /* XMPPRoomMessageMemoryStorageObject.m in Sources */,
 				53362BFB1E41A69100413262 /* CollaborationMRQView.swift in Sources */,
 				53015BA41CE5A53300BB366C /* PNBarChart.m in Sources */,
 				53676CB21CA63B7F00CADE4D /* XMPPModule.m in Sources */,
+				0030911E1F94FBC500BD2BB7 /* GetAllNodesAPIHelper.swift in Sources */,
 				53676CA11CA63B7F00CADE4D /* LBorderView.m in Sources */,
 				53778B661CBCBB1C004E6480 /* SSTeacherQuerySelectView.swift in Sources */,
 				53676CCE1CA63B7F00CADE4D /* XMPPRoomOccupantCoreDataStorageObject.m in Sources */,
