@@ -2488,11 +2488,6 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
             // ==========================================
             
             let questionInfoController = StudentEvaluationDetails()
-//            let questionInfoController = StudentSubjectivePopover()
-//            questionInfoController.isAfterEvaluated = true
-            
-            // ==========================================
-            
             questionInfoController.setdelegate(self)
             
             questionInfoController.setStudentAnswerDetails(studentDeskView._currentAnswerDetails, withStudentDetials: studentDeskView.currentStudentsDict, withCurrentQuestionDict: currentQuestionDetails, withEvaluationDetails: details)
@@ -2614,6 +2609,14 @@ class SSTeacherClassView: UIViewController,UIPopoverControllerDelegate,MainTopic
         
     }
     
+    
+    func delegateModelAnswerAdded(studentId:String) {
+        if let studentDeskView  = mClassView.viewWithTag(Int(studentId)!) as? StundentDeskView {
+            mModelAnswerView.newModelAnswerAddedWithQuestionLogId(SSTeacherDataSource.sharedDataSource.currentQuestionLogId)
+            studentDeskView.addModelAnswerView()
+
+        }
+    }
     
     
     // MARK: - Query view delegate  functions

@@ -262,6 +262,8 @@ open class BaseDestination: Hashable, Equatable {
     func jsonStringValue(_ jsonString: String?, key: String) -> String {
         guard let str = jsonString else {
             return ""
+   
+        
         }
 
         // remove the leading {"key":" from the json string and the final }

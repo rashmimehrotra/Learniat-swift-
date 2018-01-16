@@ -31,7 +31,14 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
-class StudentEvaluationDetails: UIViewController,SSStarRatingViewDelegate
+
+
+
+@objc protocol StudentEvaluationDetailsDelegate {
+    @objc optional func delegateModelAnswerAdded(studentId:String)
+}
+
+class StudentEvaluationDetails: UIViewController,SSStarRatingViewDelegate,SSTeacherDataSourceDelegate
 {
     var _delgate: AnyObject!
     
@@ -42,7 +49,7 @@ class StudentEvaluationDetails: UIViewController,SSStarRatingViewDelegate
     
     var _currentQuestiondetails:AnyObject!
     
-    var _currentEvaluationDetails:AnyObject!
+    var _currentEvaluationDetails = NSMutableDictionary()
     
     
     
@@ -88,11 +95,6 @@ class StudentEvaluationDetails: UIViewController,SSStarRatingViewDelegate
         headerView.addSubview(seperatorView);
         
         
-        
-        
-        
-        
-        
         let headerlabel = UILabel(frame: CGRect(x: 20, y: 0, width: 200, height: 40))
         headerlabel.text = kOverlayScribble
         headerView.addSubview(headerlabel)
@@ -101,7 +103,7 @@ class StudentEvaluationDetails: UIViewController,SSStarRatingViewDelegate
         headerlabel.textColor  = blackTextColor
         
         
-        
+        print(_currentEvaluationDetails)
         let  mDoneButton = UIButton(frame: CGRect(x: headerView.frame.size.width - 120, y: 0, width: 100, height: 40))
         mDoneButton.addTarget(self, action: #selector(StudentEvaluationDetails.onDoneButton), for: UIControlEvents.touchUpInside)
         mDoneButton.setTitleColor(standard_Button, for: UIControlState())
@@ -111,22 +113,27 @@ class StudentEvaluationDetails: UIViewController,SSStarRatingViewDelegate
         headerView.addSubview(mDoneButton)
         
         
-        
-        
-       
-        let mStarRatingView = StudentStarView(frame: CGRect(x: 20, y: headerView.frame.origin.y + headerView.frame.size.height + 5, width: headerView.frame.size.width - 90 , height: 34.0))
-        mStarRatingView.backgroundColor = UIColor.clear;
-        
-        if let Rating = _currentEvaluationDetails.object(forKey: "Rating") as? String
-        {
-            if Int(Rating) > 0
-            {
+        let modelAnswerButton = UIButton()
+        if let ModelAnswerFlag = _currentEvaluationDetails.object(forKey: "ModelAnswerFlag") as? String {
+            if ModelAnswerFlag == "false" {
                 
+                modelAnswerButton.isEnabled = true
+                modelAnswerButton.setTitle("Mark Model", for:UIControlState())
+                modelAnswerButton.setTitleColor(standard_Button ,for:UIControlState());
+                modelAnswerButton.addTarget(self, action: #selector(onModelAnswer(sender:)), for: UIControlEvents.touchUpInside)
+                modelAnswerButton.frame = CGRect(x: 20, y: 45, width: 130, height: 40);
+                questionView.addSubview(modelAnswerButton);
+                modelAnswerButton.contentHorizontalAlignment = UIControlContentHorizontalAlignment.left
+            }
+        }
+       
+        let mStarRatingView = StudentStarView(frame: CGRect(x: modelAnswerButton.frame.origin.x + modelAnswerButton.frame.size.width + 10, y: headerView.frame.origin.y + headerView.frame.size.height + 5, width: headerView.frame.size.width - (modelAnswerButton.frame.origin.x + modelAnswerButton.frame.size.width + 10) , height: 34.0))
+        mStarRatingView.backgroundColor = UIColor.clear;
+        if let Rating = _currentEvaluationDetails.object(forKey: "Rating") as? String {
+            if Int(Rating) > 0 {
                 questionView.addSubview(mStarRatingView);
                 mStarRatingView.addStars(withRatings: Int32(Rating)!, withSize: Float(mStarRatingView.frame.size.height))
-
             }
-            
         }
         
   
@@ -279,7 +286,7 @@ class StudentEvaluationDetails: UIViewController,SSStarRatingViewDelegate
         _currentStudentDict = StudentDict
         _currentQuestiondetails = questionDict
         
-        _currentEvaluationDetails = evaluationDetails
+        _currentEvaluationDetails = evaluationDetails as! NSMutableDictionary
     }
     
     
@@ -303,9 +310,23 @@ class StudentEvaluationDetails: UIViewController,SSStarRatingViewDelegate
         
     }
     
-    func starRatingDidChange()
-    {
+    func starRatingDidChange(){
         
     }
     
+    func onModelAnswer(sender:UIButton) {
+        if let AssessmentAnswerId = _currentEvaluationDetails.object(forKey: "AssessmentAnswerId") as? String {
+            SSTeacherDataSource.sharedDataSource.recordModelAnswerwithAssesmentAnswerId(AssessmentAnswerId, WithDelegate: self)
+            sender.removeFromSuperview()
+            onDoneButton()
+        }
+    }
+    
+    func didGetModelAnswerRecordedWithDetails(_ details: AnyObject) {
+        if let StudentId = _currentEvaluationDetails.object(forKey: "StudentId") as? String {
+            delegate().delegateModelAnswerAdded!(studentId: StudentId)
+             _currentEvaluationDetails.setObject("True", forKey: "ModelAnswerFlag" as NSCopying)
+        }
+       
+    }
 }

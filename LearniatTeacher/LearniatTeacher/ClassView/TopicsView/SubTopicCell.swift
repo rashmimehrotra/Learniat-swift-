@@ -329,12 +329,12 @@ class SubTopicCell: UIView{
         if delegate().responds(to: #selector(SubTopicCellDelegate.delegateSubTopicCellStartedWithDetails(_:witStatedState:)))
         {
             //TODO:@Pradeep Why is this if condidation added? why is it blank?
-            if startButton.titleLabel?.text == "Resume" || startButton.titleLabel?.text == "Completed" {
+            if startButton.titleLabel?.text == "Completed" {
                 
                 
             }else{
                 
-                if startButton.titleLabel?.text == "Start"
+                if startButton.titleLabel?.text == "Start" || startButton.titleLabel?.text == "Resume"
                 {
                     
                     if SSTeacherDataSource.sharedDataSource.isSubtopicStarted == false

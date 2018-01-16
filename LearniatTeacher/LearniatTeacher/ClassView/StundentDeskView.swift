@@ -782,6 +782,10 @@ class StundentDeskView: UIView,SSTeacherDataSourceDelegate
             answerContainerView.addModelAnswerLabel()
         }
     }
+    
+    func addModelAnswerView() {
+        answerContainerView.addModelAnswerLabel()
+    }
 
 }
 
