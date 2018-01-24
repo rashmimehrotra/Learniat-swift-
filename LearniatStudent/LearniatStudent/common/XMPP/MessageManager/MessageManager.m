@@ -80,9 +80,9 @@ static MessageManager *sharedMessageHandler = nil;
     
     
     
-    xmppReconnect = [[XMPPReconnect alloc] init];
-    [xmppReconnect activate:self.xmppStream];
-    [xmppReconnect addDelegate:self delegateQueue:dispatch_get_main_queue()];
+//    xmppReconnect = [[XMPPReconnect alloc] init];
+//    [xmppReconnect activate:self.xmppStream];
+//    [xmppReconnect addDelegate:self delegateQueue:dispatch_get_main_queue()];
 //    xmppReconnect.reconnectTimerInterval = 0;
 //    xmppReconnect.reconnectDelay = 10 ;
     
